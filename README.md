@@ -63,6 +63,7 @@ The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
 - [Golden image deployment](docs/DEPLOYMENT.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)
+- [Maataa UI package](packages/maataa-ui/README.md)
 
 ## Desktop Preview
 
