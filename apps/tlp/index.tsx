@@ -17,4 +17,5 @@ export function TlpApp() {
 export * from "./accounting/AccountingLedger";
 export * from "./dashboard/ProductionDashboard";
 export * from "./scheduling/ScheduleBoard";
+export * from "./types";
 export * from "./vendors/VendorRegistry";

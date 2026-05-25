@@ -3,10 +3,18 @@ import { createMessageBus } from "./ipc/index.js";
 import { getSystemSnapshot } from "./system/index.js";
 
 export function createNodeBridge() {
+  const fs = createVirtualFileSystem();
+  const ipc = createMessageBus();
+  const system = getSystemSnapshot();
+  const metricsFrame = Buffer.from(JSON.stringify(system.metrics));
+
+  fs.writeBinary("/runtime/metrics.frame", metricsFrame);
+  ipc.writeFrame("runtime.metrics", metricsFrame);
+
   return {
-    fs: createVirtualFileSystem(),
-    ipc: createMessageBus(),
-    system: getSystemSnapshot(),
+    fs,
+    ipc,
+    system,
   };
 }
 

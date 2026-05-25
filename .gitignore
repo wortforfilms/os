@@ -4,6 +4,8 @@
 /dist/
 /dist-golden/
 /src-tauri/gen/
+__pycache__/
+*.py[cod]
 /maataa-os.bin
 /examples/demo_capsule/
 /ॐ
