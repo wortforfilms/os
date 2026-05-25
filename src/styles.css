@@ -525,6 +525,184 @@ textarea {
   border-color: rgba(69, 162, 158, 0.4);
 }
 
+.ecosystem-schematic {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(214, 165, 92, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(11, 18, 36, 0.9), rgba(5, 8, 22, 0.72)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 88px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2);
+}
+
+.schematic-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 16px;
+  align-items: end;
+}
+
+.schematic-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(22px, 3vw, 38px);
+  line-height: 1;
+}
+
+.schematic-verdict {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid rgba(69, 162, 158, 0.34);
+  border-radius: 8px;
+  background: rgba(5, 8, 22, 0.84);
+}
+
+.schematic-verdict span,
+.schematic-root span,
+.schematic-column p,
+.schematic-layer p,
+.offline-core span,
+.quadrant span {
+  color: #8ba09b;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.schematic-verdict strong {
+  color: #66fcf1;
+  font-size: 16px;
+}
+
+.schematic-root {
+  display: grid;
+  gap: 6px;
+  place-items: center;
+  min-height: 78px;
+  border: 1px solid rgba(0, 194, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(7, 20, 20, 0.8);
+  text-align: center;
+}
+
+.schematic-root strong {
+  color: #e8eeeb;
+  font-size: 14px;
+}
+
+.schematic-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.schematic-column,
+.schematic-layer {
+  min-width: 0;
+  border: 1px solid rgba(197, 198, 199, 0.14);
+  border-radius: 8px;
+  background: rgba(5, 8, 22, 0.72);
+  padding: 14px;
+}
+
+.schematic-column h3,
+.schematic-layer h3 {
+  margin: 0;
+  color: #d6a55c;
+  font-size: 16px;
+}
+
+.schematic-column p,
+.schematic-layer p {
+  margin: 5px 0 12px;
+  line-height: 1.35;
+}
+
+.schematic-column ul,
+.archive-layer ol {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.schematic-column li,
+.archive-layer li {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 9px;
+  border-radius: 6px;
+  background: rgba(197, 198, 199, 0.06);
+  color: #d6dfdc;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.schematic-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(260px, 0.7fr);
+  gap: 12px;
+}
+
+.offline-core-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.offline-core,
+.quadrant {
+  min-height: 70px;
+  display: grid;
+  align-content: space-between;
+  gap: 5px;
+  padding: 10px;
+  border: 1px solid rgba(69, 162, 158, 0.18);
+  border-radius: 8px;
+  background: rgba(11, 18, 36, 0.78);
+}
+
+.offline-core strong,
+.quadrant strong {
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.offline-core em {
+  color: #fbbf24;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.quadrant-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.archive-layer ol {
+  counter-reset: archive-step;
+}
+
+.archive-layer li {
+  counter-increment: archive-step;
+  gap: 8px;
+}
+
+.archive-layer li::before {
+  content: counter(archive-step, decimal-leading-zero);
+  color: #66fcf1;
+  font-size: 10px;
+  font-weight: 900;
+}
+
 .dashboard-band {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -598,6 +776,15 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .schematic-header,
+  .schematic-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .schematic-columns {
+    grid-template-columns: 1fr;
+  }
+
   .dashboard-band,
   .status-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -623,7 +810,9 @@ textarea {
   }
 
   .dashboard-band,
-  .status-strip {
+  .status-strip,
+  .offline-core-grid,
+  .quadrant-grid {
     grid-template-columns: 1fr;
   }
 

@@ -18,7 +18,7 @@ import {
   TlpEvolution,
 } from "./widgets";
 
-const navItems = ["Runtime", "Observatory", "Lipi", "Radio", "TLP", "Governance"] as const;
+const navItems = ["Runtime", "Schematic", "Observatory", "Lipi", "Radio", "Governance"] as const;
 
 const statusMetrics = [
   { label: "System Word", value: "0x001B004F", tone: "gold" },
@@ -26,6 +26,41 @@ const statusMetrics = [
   { label: "Release Gate", value: "PREVIEW", tone: "amber" },
   { label: "Assets HTML", value: "ISOLATED", tone: "green" },
 ] as const;
+
+const ecosystemColumns = [
+  {
+    title: "apps/",
+    subtitle: "Presentation Layers",
+    items: ["desktop / Tauri wrapper", "web-console / localhost 1420", "device-lab / driver bench", "tlp-studios / production OS", "mobile / preview shell"],
+  },
+  {
+    title: "crates/",
+    subtitle: "Bare-Metal Engines",
+    items: ["hemant-core / clocks + HSTS", "hemant-ephemeris / de440 + gaia", "hemant-panchanga / lunisolar", "hemant-evidence / signers", "hemant-topology / closed rings"],
+  },
+  {
+    title: "packages/",
+    subtitle: "Shared Runtimes & UI",
+    items: ["maataa-ui / dashboard canvas", "evidence-runtime / binary decoders", "universal-runtime / central types", "cinematic-runtime / local drivers", "live-space-runtime / CV staging"],
+  },
+] as const;
+
+const offlineCores = [
+  ["Intelligence Core", "Ollama + DeepSeek", "STAGED"],
+  ["Media Core", "FLUX + SDXL + ComfyUI", "STAGED"],
+  ["Spatial 3D Core", "TripoSR + Hunyuan3D + R3F", "STAGED"],
+  ["Computer Vision", "MediaPipe Holistic", "STAGED"],
+  ["Acoustic Transform", "MusicGen strike engine", "STAGED"],
+] as const;
+
+const viewportQuadrants = [
+  ["01 Systems Observatory", "Monotonic chrono + script metrics"],
+  ["02 Deployment Topology", "SQLite/local loopback constraints"],
+  ["03 Lipi Civilization", "Heritage alphabets + phonetic strike"],
+  ["04 PHKD Gates", "Safety shields + release boundaries"],
+] as const;
+
+const archiveSteps = ["Integrity Check", "Cache Evacuation", "Hermetic Compact", "Local Mirror", "Sandbox Hygiene"] as const;
 
 export function SovereignDashboard() {
   return (
@@ -70,6 +105,8 @@ export function SovereignDashboard() {
             </div>
           ))}
         </section>
+
+        <EcosystemSchematic />
 
         <section className="dashboard-band primary-band" id="runtime" aria-label="Core runtime">
           <DashboardPanel span="wide" title="Core Runtime">
@@ -139,6 +176,79 @@ export function SovereignDashboard() {
         </section>
       </main>
     </div>
+  );
+}
+
+function EcosystemSchematic() {
+  return (
+    <section className="ecosystem-schematic" id="schematic" aria-label="Full ecosystem schematic visualization matrix">
+      <header className="schematic-header">
+        <div>
+          <p className="dashboard-kicker">Full Ecosystem Schematic</p>
+          <h2>Relational skeleton tree mapped to local execution boundaries.</h2>
+        </div>
+        <div className="schematic-verdict">
+          <span>Operational Truth</span>
+          <strong>PREVIEW VERIFIED</strong>
+        </div>
+      </header>
+
+      <div className="schematic-root">
+        <span>hemant-samwat/</span>
+        <strong>Monorepo root / pnpm workspace / turbo orchestration target</strong>
+      </div>
+
+      <div className="schematic-columns">
+        {ecosystemColumns.map((column) => (
+          <article className="schematic-column" key={column.title}>
+            <h3>{column.title}</h3>
+            <p>{column.subtitle}</p>
+            <ul>
+              {column.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <div className="schematic-flow">
+        <section className="schematic-layer">
+          <h3>Local Isolation & Offline Infrastructure</h3>
+          <p>All current proofs are loopback/local-first. Real model inference remains staged until weights and execution adapters are connected.</p>
+          <div className="offline-core-grid">
+            {offlineCores.map(([label, stack, state]) => (
+              <div className="offline-core" key={label}>
+                <span>{label}</span>
+                <strong>{stack}</strong>
+                <em>{state}</em>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="schematic-layer viewport-layer">
+          <h3>SovereignDashboard Viewport Engine</h3>
+          <div className="quadrant-grid">
+            {viewportQuadrants.map(([title, detail]) => (
+              <div className="quadrant" key={title}>
+                <strong>{title}</strong>
+                <span>{detail}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="schematic-layer archive-layer">
+          <h3>Production Archive Pipeline</h3>
+          <ol>
+            {archiveSteps.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+        </section>
+      </div>
+    </section>
   );
 }
 
