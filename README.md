@@ -60,6 +60,7 @@ The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
 - [Planned repository structure](docs/STRUCTURE.md)
 - [Full scaffold](docs/SCAFFOLD.md)
 - [Promoted UI modules](docs/MAATAA_OS_UI_MODULES.md)
+- [Golden image deployment](docs/DEPLOYMENT.md)
 
 ## Desktop Preview
 

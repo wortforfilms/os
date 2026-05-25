@@ -2,6 +2,7 @@
 /src-tauri/target/
 /node_modules/
 /dist/
+/dist-golden/
 /src-tauri/gen/
 /maataa-os.bin
 /examples/demo_capsule/

@@ -1,0 +1,10 @@
+MAATAA_GOLDEN_VERSION=0.1.0-alpha.1
+MAATAA_STAGE=qemu-alpha
+MAATAA_FLASH_BYTES=524288
+MAATAA_RAM_BYTES=131072
+MAATAA_CAPSULE_BYTES=65536
+MAATAA_BLOCK_SIZE=4096
+MAATAA_BOOT_CONTRACT="Driver Registry>Flash Manifest>Static Capsules>Scheduler Demo>Health Console"
+MAATAA_PACKAGE_NAME=maataa-os-0.1.0-alpha.1
+MAATAA_RECOVERY_CONSOLE=RecoveryConsole
+MAATAA_LOCAL_ONLY_EXCLUDES="assets/html node_modules dist target src-tauri/target src-tauri/gen"
