@@ -57,3 +57,4 @@ The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
 - [System manifest](doc/SYSTEM_MANIFEST.md)
 - [Roadmap](doc/ROADMAP.md)
 - [Release notes](doc/RELEASE_NOTES.md)
+- [Planned repository structure](docs/STRUCTURE.md)

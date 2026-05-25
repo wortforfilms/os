@@ -2,6 +2,16 @@
 /maataa-os.bin
 /examples/demo_capsule/
 /ॐ
+/offline-models/**/*.bin
+/offline-models/**/*.gguf
+/offline-models/**/*.onnx
+/offline-models/**/*.safetensors
+/offline-models/**/*.pt
+/offline-models/**/*.pth
+/resources/audio/*
+!/resources/audio/README.md
+/resources/chakra-images/*
+!/resources/chakra-images/README.md
 
 .DS_Store
 ._*

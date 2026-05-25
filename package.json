@@ -1,0 +1,12 @@
+{
+  "name": "maataa-os",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "scripts": {
+    "build:kernel": "bash scripts/build_kernel.sh",
+    "build:blink": "bash scripts/build_blink.sh",
+    "build:models": "bash scripts/build_models.sh",
+    "run:all": "bash scripts/run_all.sh",
+    "smoke": "bash scripts/smoke-alpha.sh"
+  }
+}
