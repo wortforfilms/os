@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build:web": "tsc && vite build",
+    "electron:dev": "node scripts/electron-dev.mjs",
+    "electron:build": "node scripts/electron-build.mjs",
     "tauri:dev": "CARGO_TARGET_DIR=/private/tmp/maataa-os-tauri-target tauri dev",
     "tauri:build": "CARGO_TARGET_DIR=/private/tmp/maataa-os-tauri-target tauri build",
     "build:kernel": "bash scripts/build_kernel.sh",
@@ -25,6 +27,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "electron": "^33.4.11",
     "@tauri-apps/cli": "^2.5.0",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
