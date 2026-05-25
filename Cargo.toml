@@ -3,6 +3,10 @@ name = "maataa-os"
 version = "0.1.0-alpha.1"
 edition = "2021"
 
+[workspace]
+members = [".", "crates/hemant-core"]
+resolver = "2"
+
 [dependencies]
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.3"

@@ -1,0 +1,10 @@
+[package]
+name = "hemant-core"
+version = "1.0.0-gold"
+edition = "2021"
+description = "No-std Hemant Samwat monotonic epoch and HSTS state primitives"
+license = "UNLICENSED"
+publish = false
+
+[lib]
+path = "src/lib.rs"
