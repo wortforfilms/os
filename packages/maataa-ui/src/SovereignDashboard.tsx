@@ -18,125 +18,144 @@ import {
   TlpEvolution,
 } from "./widgets";
 
-const panelStyle = {
-  border: "1px solid #1f2833",
-  background: "#0b1224",
-  padding: 12,
-  borderRadius: 8,
-  minWidth: 0,
-} as const;
+const navItems = ["Runtime", "Observatory", "Lipi", "Radio", "TLP", "Governance"] as const;
+
+const statusMetrics = [
+  { label: "System Word", value: "0x001B004F", tone: "gold" },
+  { label: "Loopback", value: "127.0.0.1:1420", tone: "cyan" },
+  { label: "Release Gate", value: "PREVIEW", tone: "amber" },
+  { label: "Assets HTML", value: "ISOLATED", tone: "green" },
+] as const;
 
 export function SovereignDashboard() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "grid",
-        gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-        gap: 16,
-        padding: 16,
-        background: "#050816",
-        color: "#c5c6c7",
-        fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-      }}
-    >
-      <header
-        style={{
-          gridColumn: "1 / -1",
-          textAlign: "center",
-          borderBottom: "1px solid #1f2833",
-          paddingBottom: 16,
-          marginBottom: 4,
-        }}
-      >
-        <h1 style={{ margin: 0, color: "#d6a55c", fontSize: 30, letterSpacing: 4 }}>MAATAA-OS</h1>
-        <p style={{ margin: "6px 0 0", color: "#00c2ff", fontSize: 12, textTransform: "uppercase" }}>
-          Sovereign Operating Ecosystem - A Living Civilizational Runtime
-        </p>
-        <div style={{ color: "#45a29e", fontSize: 10, marginTop: 4 }}>PHKD - PURE HONEST KABIR DRIVEN</div>
-      </header>
-
-      <Panel span={3}>
-        <GenesisModule />
-      </Panel>
-      <Panel span={3}>
-        <OrchestrationLayer />
-      </Panel>
-      <Panel span={3}>
-        <MonorepoSovereignty />
-      </Panel>
-      <Panel span={3}>
-        <MaataaUiPanel />
-      </Panel>
-
-      <Panel span={3}>
-        <CompletionRuntime />
-      </Panel>
-      <Panel span={3}>
-        <RuntimeObservatory />
-      </Panel>
-      <Panel span={2}>
-        <OfflineSovereignty />
-      </Panel>
-      <Panel span={2}>
-        <AyodhyaStudio />
-      </Panel>
-      <Panel span={2}>
-        <RadioRuntime />
-      </Panel>
-
-      <Panel span={3}>
-        <CommunicationCore />
-      </Panel>
-      <Panel span={3}>
-        <LipiCivilization />
-      </Panel>
-      <Panel span={2}>
-        <ChakraConsciousness />
-      </Panel>
-      <Panel span={2}>
-        <BrahminiChain />
-      </Panel>
-      <Panel span={2}>
-        <TlpEvolution />
-      </Panel>
-
-      <Panel span={4} danger>
-        <ScientificGovernance />
-      </Panel>
-      <Panel span={5}>
-        <RemainingGaps />
-      </Panel>
-      <div
-        style={{
-          ...panelStyle,
-          gridColumn: "span 3",
-          display: "grid",
-          placeItems: "center",
-          textAlign: "center",
-          background: "#050816",
-        }}
-      >
-        <div>
-          <strong style={{ display: "block", color: "#d6a55c", fontSize: 18 }}>TATHAASTU</strong>
-          <span style={{ color: "#45a29e", fontSize: 10, textTransform: "uppercase" }}>Built with Devotion - Driven by Dharma</span>
+    <div className="sovereign-dashboard">
+      <aside className="sovereign-rail" aria-label="Maataa OS navigation">
+        <div className="brand-mark">M</div>
+        <nav className="rail-nav">
+          {navItems.map((item) => (
+            <a key={item} href={`#${item.toLowerCase()}`}>
+              {item}
+            </a>
+          ))}
+        </nav>
+        <div className="rail-footer">
+          <span>PHKD</span>
+          <strong>LOCAL</strong>
         </div>
-      </div>
+      </aside>
+
+      <main className="sovereign-main">
+        <header className="sovereign-header">
+          <div>
+            <p className="dashboard-kicker">Maataa OS Cockpit</p>
+            <h1>Design tomorrow's realities.</h1>
+            <p className="dashboard-lede">
+              Sovereign runtime, observatory evidence, cultural knowledge systems, local media operations, and controlled release gates in one
+              desktop-grade cockpit.
+            </p>
+          </div>
+          <div className="release-stamp" aria-label="Current release posture">
+            <span>PRODUCT STATE</span>
+            <strong>QEMU ALPHA</strong>
+            <small>Production claims blocked until gates pass.</small>
+          </div>
+        </header>
+
+        <section className="status-strip" aria-label="Runtime status summary">
+          {statusMetrics.map((metric) => (
+            <div className={`status-tile ${metric.tone}`} key={metric.label}>
+              <span>{metric.label}</span>
+              <strong>{metric.value}</strong>
+            </div>
+          ))}
+        </section>
+
+        <section className="dashboard-band primary-band" id="runtime" aria-label="Core runtime">
+          <DashboardPanel span="wide" title="Core Runtime">
+            <GenesisModule />
+          </DashboardPanel>
+          <DashboardPanel title="Orchestration">
+            <OrchestrationLayer />
+          </DashboardPanel>
+          <DashboardPanel title="Monorepo">
+            <MonorepoSovereignty />
+          </DashboardPanel>
+        </section>
+
+        <section className="dashboard-band" id="observatory" aria-label="Observatory and completion systems">
+          <DashboardPanel title="Completion">
+            <CompletionRuntime />
+          </DashboardPanel>
+          <DashboardPanel span="wide" title="Observatory">
+            <RuntimeObservatory />
+          </DashboardPanel>
+          <DashboardPanel title="UI Runtime">
+            <MaataaUiPanel />
+          </DashboardPanel>
+        </section>
+
+        <section className="dashboard-band operations-band" aria-label="Operations systems">
+          <DashboardPanel title="Offline Boundary">
+            <OfflineSovereignty />
+          </DashboardPanel>
+          <DashboardPanel title="Ayodhya Studio">
+            <AyodhyaStudio />
+          </DashboardPanel>
+          <DashboardPanel span="tall" title="Radio Vaigyaaniq">
+            <RadioRuntime />
+          </DashboardPanel>
+          <DashboardPanel title="Communication">
+            <CommunicationCore />
+          </DashboardPanel>
+          <DashboardPanel title="TLP Evolution">
+            <TlpEvolution />
+          </DashboardPanel>
+        </section>
+
+        <section className="dashboard-band knowledge-band" id="lipi" aria-label="Knowledge and ledger systems">
+          <DashboardPanel span="wide" title="Lipi Civilization">
+            <LipiCivilization />
+          </DashboardPanel>
+          <DashboardPanel title="Chakra">
+            <ChakraConsciousness />
+          </DashboardPanel>
+          <DashboardPanel title="Brahmini">
+            <BrahminiChain />
+          </DashboardPanel>
+        </section>
+
+        <section className="dashboard-band governance-band" id="governance" aria-label="Governance systems">
+          <DashboardPanel span="wide" danger title="Scientific Governance">
+            <ScientificGovernance />
+          </DashboardPanel>
+          <DashboardPanel title="Remaining Gaps">
+            <RemainingGaps />
+          </DashboardPanel>
+          <div className="closing-panel">
+            <span>TATHAASTU</span>
+            <strong>Pure. Honest. Kabir. Driven.</strong>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
 
-function Panel({ span, danger, children }: { span: number; danger?: boolean; children: ReactNode }) {
+function DashboardPanel({
+  title,
+  span = "normal",
+  danger = false,
+  children,
+}: {
+  title: string;
+  span?: "normal" | "wide" | "tall";
+  danger?: boolean;
+  children: ReactNode;
+}) {
   return (
-    <div
-      style={{
-        ...panelStyle,
-        gridColumn: `span ${span}`,
-        borderColor: danger ? "#7f1d1d" : "#1f2833",
-        background: danger ? "#030712" : panelStyle.background,
-      }}
-    >
+    <article className={`dashboard-panel ${span} ${danger ? "danger" : ""}`} aria-label={title}>
       {children}
-    </div>
+    </article>
   );
 }
