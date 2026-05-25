@@ -1,0 +1,91 @@
+{
+  "script": "kharosthi",
+  "summary": {
+    "known": 9,
+    "unknown": 0,
+    "weight": 23
+  },
+  "tokens": [
+    {
+      "script": "kharosthi",
+      "glyph": "𐨀",
+      "codepoint": "U+10A00",
+      "transliteration": "a",
+      "phoneme": "vowel-open",
+      "class_name": "vowel",
+      "weight": 1
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨐",
+      "codepoint": "U+10A10",
+      "transliteration": "ka",
+      "phoneme": "velar-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨨",
+      "codepoint": "U+10A28",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨟",
+      "codepoint": "U+10A1F",
+      "transliteration": "ta",
+      "phoneme": "dental-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨯",
+      "codepoint": "U+10A2F",
+      "transliteration": "sa",
+      "phoneme": "sibilant",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨀",
+      "codepoint": "U+10A00",
+      "transliteration": "a",
+      "phoneme": "vowel-open",
+      "class_name": "vowel",
+      "weight": 1
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨐",
+      "codepoint": "U+10A10",
+      "transliteration": "ka",
+      "phoneme": "velar-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨟",
+      "codepoint": "U+10A1F",
+      "transliteration": "ta",
+      "phoneme": "dental-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "kharosthi",
+      "glyph": "𐨨",
+      "codepoint": "U+10A28",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    }
+  ]
+}

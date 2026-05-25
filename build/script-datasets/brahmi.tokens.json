@@ -1,0 +1,91 @@
+{
+  "script": "brahmi",
+  "summary": {
+    "known": 9,
+    "unknown": 0,
+    "weight": 24
+  },
+  "tokens": [
+    {
+      "script": "brahmi",
+      "glyph": "𑀅",
+      "codepoint": "U+11005",
+      "transliteration": "a",
+      "phoneme": "vowel-open",
+      "class_name": "vowel",
+      "weight": 1
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀓",
+      "codepoint": "U+11013",
+      "transliteration": "ka",
+      "phoneme": "velar-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀫",
+      "codepoint": "U+1102B",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀢",
+      "codepoint": "U+11022",
+      "transliteration": "ta",
+      "phoneme": "dental-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀆",
+      "codepoint": "U+11006",
+      "transliteration": "aa",
+      "phoneme": "vowel-long",
+      "class_name": "vowel",
+      "weight": 2
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀫",
+      "codepoint": "U+1102B",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀓",
+      "codepoint": "U+11013",
+      "transliteration": "ka",
+      "phoneme": "velar-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀢",
+      "codepoint": "U+11022",
+      "transliteration": "ta",
+      "phoneme": "dental-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "brahmi",
+      "glyph": "𑀫",
+      "codepoint": "U+1102B",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    }
+  ]
+}

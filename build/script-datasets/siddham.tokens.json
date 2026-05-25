@@ -1,0 +1,91 @@
+{
+  "script": "siddham",
+  "summary": {
+    "known": 9,
+    "unknown": 0,
+    "weight": 24
+  },
+  "tokens": [
+    {
+      "script": "siddham",
+      "glyph": "𑖀",
+      "codepoint": "U+11580",
+      "transliteration": "a",
+      "phoneme": "vowel-open",
+      "class_name": "vowel",
+      "weight": 1
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖎",
+      "codepoint": "U+1158E",
+      "transliteration": "ka",
+      "phoneme": "velar-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖦",
+      "codepoint": "U+115A6",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖝",
+      "codepoint": "U+1159D",
+      "transliteration": "ta",
+      "phoneme": "dental-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖁",
+      "codepoint": "U+11581",
+      "transliteration": "aa",
+      "phoneme": "vowel-long",
+      "class_name": "vowel",
+      "weight": 2
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖦",
+      "codepoint": "U+115A6",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖎",
+      "codepoint": "U+1158E",
+      "transliteration": "ka",
+      "phoneme": "velar-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖝",
+      "codepoint": "U+1159D",
+      "transliteration": "ta",
+      "phoneme": "dental-stop",
+      "class_name": "consonant",
+      "weight": 3
+    },
+    {
+      "script": "siddham",
+      "glyph": "𑖦",
+      "codepoint": "U+115A6",
+      "transliteration": "ma",
+      "phoneme": "bilabial-nasal",
+      "class_name": "consonant",
+      "weight": 3
+    }
+  ]
+}
