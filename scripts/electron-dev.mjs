@@ -6,6 +6,15 @@ import { once } from "node:events";
 const DEV_URL = "http://127.0.0.1:1420/";
 const VITE_READY_TIMEOUT_MS = 30_000;
 
+function electronEnv(extra = {}) {
+  const env = {
+    ...process.env,
+    ...extra,
+  };
+  delete env.ELECTRON_RUN_AS_NODE;
+  return env;
+}
+
 function waitForHttp(url, timeoutMs) {
   const started = Date.now();
 
@@ -63,10 +72,9 @@ try {
   }
   await waitForHttp(DEV_URL, VITE_READY_TIMEOUT_MS);
   const electron = spawnManaged("npx", ["electron", "apps/electron/main.cjs"], {
-    env: {
-      ...process.env,
+    env: electronEnv({
       MAATAA_ELECTRON_URL: DEV_URL,
-    },
+    }),
   });
   const [code] = await once(electron, "exit");
   shutdown(typeof code === "number" ? code : 0);

@@ -19,10 +19,18 @@ function run(command, args, options = {}) {
   });
 }
 
+function electronEnv(extra = {}) {
+  const env = {
+    ...process.env,
+    ...extra,
+  };
+  delete env.ELECTRON_RUN_AS_NODE;
+  return env;
+}
+
 await run("npm", ["run", "build:web"]);
 await run("npx", ["electron", "apps/electron/main.cjs"], {
-  env: {
-    ...process.env,
+  env: electronEnv({
     MAATAA_ELECTRON_MODE: "production",
-  },
+  }),
 });
