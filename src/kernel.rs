@@ -1,10 +1,14 @@
 use cortex_m_semihosting::{hprintln, debug};
 use crate::capsule::CapsuleManager;
 use crate::drivers::{DriverRegistry, HealthState};
+use crate::ipc::{AsciiScreenBuffer, MosfTelemetryFrame, RadioAutomationState, SecludedCommFrame};
 use crate::ipc::frame::{
-    write_frame_or_recovery, write_rescue_frame, MosfTelemetryFrame, MosrRescueFrame,
+    write_frame_or_recovery, write_rescue_frame, MosrRescueFrame,
     SchedulerTelemetrySnapshot, MOSF_FRAME_BYTES, MOSR_FRAME_BYTES,
 };
+use crate::ipc::comm::COMM_FRAME_BYTES;
+use crate::ipc::radio::RADIO_STATE_BYTES;
+use crate::ipc::terminal::{ASCII_SCREEN_BUFFER_BYTES, TerminalMode};
 use crate::storage::StorageManager;
 
 pub fn run() -> ! {
@@ -36,6 +40,34 @@ pub fn run() -> ! {
     );
     hprintln!("telemetry capsule id: {:?}", telemetry_capsule);
     hprintln!("control capsule id: {:?}", control_capsule);
+
+    let mut screen = AsciiScreenBuffer::new();
+    screen.write_str("Maataa OS local terminal\n");
+    screen.parse_shell_input(b"boot-contract: locked");
+    screen.set_mode(TerminalMode::RecoveryConsole);
+    screen.clear();
+    screen.set_mode(TerminalMode::NominalWorkspace);
+    screen.write_str("workspace: nominal");
+    let mut screen_bytes = [0u8; ASCII_SCREEN_BUFFER_BYTES];
+    let _ = screen.serialize_into(&mut screen_bytes);
+
+    let comm_frame = SecludedCommFrame::new(*b"MSAR0001", 1, b"offline-local-message-01");
+    let mut comm_bytes = [0u8; COMM_FRAME_BYTES];
+    let _ = comm_frame.serialize_into(&mut comm_bytes);
+    let comm_valid = SecludedCommFrame::from_bytes(&comm_bytes).is_ok();
+
+    let mut radio = RadioAutomationState::new();
+    radio.trigger_next_slot([0x52; 16], 1);
+    let mut radio_bytes = [0u8; RADIO_STATE_BYTES];
+    let _ = radio.serialize_into(&mut radio_bytes);
+    radio.stop();
+
+    hprintln!("");
+    hprintln!("Native local engines");
+    hprintln!("--------------------");
+    hprintln!("terminal grid: {}x{}", 80, 40);
+    hprintln!("comm frame signed: {}", comm_valid);
+    hprintln!("radio channel lock: {}", radio_bytes[25]);
 
     hprintln!("");
     hprintln!("Scheduler simulation");

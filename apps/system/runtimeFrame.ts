@@ -17,6 +17,17 @@ export type NativeMetricFrame = {
   checksum: number;
 };
 
+export interface ExtendedApplianceData {
+  uptime: number;
+  allocatedMemory: bigint;
+  activeTasks: number;
+  hardwareCores: number;
+  capsuleCount: number;
+  aiBatchStatus: number;
+  terminalMode: number;
+  radioStreaming: boolean;
+}
+
 export class RecoveryFrameError extends Error {
   readonly recovery = true;
 
@@ -96,6 +107,23 @@ export function parseNativeMetricFrame(input: Uint8Array | ArrayBufferLike): Nat
   };
 }
 
+export function parseExtendedFrame(input: Uint8Array | ArrayBufferLike): ExtendedApplianceData {
+  const bytes = input instanceof Uint8Array ? input : new Uint8Array(input);
+  const frame = parseNativeMetricFrame(bytes);
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+
+  return {
+    uptime: frame.uptimeTicks,
+    allocatedMemory: view.getBigUint64(8, true),
+    activeTasks: frame.activeTasks,
+    hardwareCores: frame.hardwareCores,
+    capsuleCount: frame.capsuleCount,
+    aiBatchStatus: frame.aiBatchStatus,
+    terminalMode: bytes[28],
+    radioStreaming: bytes[29] === 1,
+  };
+}
+
 export function createNativeMetricFrame(input: {
   uptimeTicks: number;
   allocatedMemoryBytes: number;
@@ -103,6 +131,8 @@ export function createNativeMetricFrame(input: {
   hardwareCores: number;
   capsuleCount: number;
   aiBatchStatus: number;
+  terminalMode?: number;
+  radioStreaming?: boolean;
 }): Uint8Array {
   assertU32("uptimeTicks", input.uptimeTicks);
   assertU32("activeTasks", input.activeTasks);
@@ -124,6 +154,8 @@ export function createNativeMetricFrame(input: {
   view.setUint16(20, input.hardwareCores, true);
   view.setUint16(22, input.capsuleCount, true);
   view.setUint32(24, input.aiBatchStatus, true);
+  bytes[28] = input.terminalMode ?? 0;
+  bytes[29] = input.radioStreaming ? 1 : 0;
   view.setUint32(CHECKSUM_OFFSET, fnv1a32(bytes.slice(0, NATIVE_METRIC_FRAME_SIGNED_BYTES)), true);
   return bytes;
 }
