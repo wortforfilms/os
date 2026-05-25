@@ -38,6 +38,7 @@ pub struct SchedulerTelemetrySnapshot {
     pub hardware_cores: u16,
     pub capsule_count: u16,
     pub ai_batch_status: u32,
+    pub verification_status: u8,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -85,27 +86,46 @@ impl TelemetryError {
 }
 
 impl SchedulerTelemetrySnapshot {
+    #[allow(dead_code)]
     pub fn from_scheduler(
         capsules: &CapsuleManager,
         uptime_ticks: u32,
         hardware_cores: u16,
         ai_batch_status: u32,
     ) -> Result<Self, TelemetryError> {
+        Self::from_scheduler_with_verification(
+            capsules,
+            uptime_ticks,
+            hardware_cores,
+            ai_batch_status,
+            0,
+        )
+    }
+
+    pub fn from_scheduler_with_verification(
+        capsules: &CapsuleManager,
+        uptime_ticks: u32,
+        hardware_cores: u16,
+        ai_batch_status: u32,
+        verification_status: u8,
+    ) -> Result<Self, TelemetryError> {
         let capsule_count = capsules.count();
         let active_tasks = KERNEL_TASK_COUNT
             .saturating_add(DRIVER_POLL_TASK_COUNT)
             .saturating_add(capsule_count as u32);
 
-        Self::new(
+        Self::new_with_verification(
             uptime_ticks,
             capsules.used_bytes() as u64,
             active_tasks,
             hardware_cores,
             capsule_count,
             ai_batch_status,
+            verification_status,
         )
     }
 
+    #[allow(dead_code)]
     pub const fn new(
         uptime_ticks: u32,
         allocated_memory_bytes: u64,
@@ -113,6 +133,26 @@ impl SchedulerTelemetrySnapshot {
         hardware_cores: u16,
         capsule_count: usize,
         ai_batch_status: u32,
+    ) -> Result<Self, TelemetryError> {
+        Self::new_with_verification(
+            uptime_ticks,
+            allocated_memory_bytes,
+            active_tasks,
+            hardware_cores,
+            capsule_count,
+            ai_batch_status,
+            0,
+        )
+    }
+
+    pub const fn new_with_verification(
+        uptime_ticks: u32,
+        allocated_memory_bytes: u64,
+        active_tasks: u32,
+        hardware_cores: u16,
+        capsule_count: usize,
+        ai_batch_status: u32,
+        verification_status: u8,
     ) -> Result<Self, TelemetryError> {
         if allocated_memory_bytes > MAX_ALLOCATED_MEMORY_BYTES {
             return Err(TelemetryError::AllocatedMemoryOutOfBounds);
@@ -137,6 +177,7 @@ impl SchedulerTelemetrySnapshot {
             hardware_cores,
             capsule_count: capsule_count as u16,
             ai_batch_status,
+            verification_status,
         })
     }
 }
@@ -231,7 +272,7 @@ impl MosfTelemetryFrame {
             hardware_cores: snapshot.hardware_cores,
             capsule_count: snapshot.capsule_count,
             ai_batch_status: snapshot.ai_batch_status,
-            reserved: [0; 8],
+            reserved: [0, 0, snapshot.verification_status, 0, 0, 0, 0, 0],
             checksum: 0,
         };
         frame.checksum = fnv1a32(&frame.bytes_without_checksum());
@@ -329,8 +370,7 @@ pub fn write_recovery_frame(out: &mut [u8]) {
 pub fn write_rescue_frame(error: TelemetryError, last_valid_uptime: u32, out: &mut [u8]) {
     clear_buffer(out);
 
-    let _ =
-        MosrRescueFrame::new(error.rescue_fault_code(), last_valid_uptime).serialize_into(out);
+    let _ = MosrRescueFrame::new(error.rescue_fault_code(), last_valid_uptime).serialize_into(out);
 }
 
 #[inline(always)]
@@ -486,7 +526,10 @@ mod tests {
 
         assert_eq!(bytes.len(), MOSR_FRAME_BYTES);
         assert_eq!(&bytes[0..4], &MOSR_MAGIC);
-        assert_eq!(&bytes[4..8], &(RescueFaultCode::ChecksumMismatch as u32).to_le_bytes());
+        assert_eq!(
+            &bytes[4..8],
+            &(RescueFaultCode::ChecksumMismatch as u32).to_le_bytes()
+        );
         assert_eq!(&bytes[8..12], &42u32.to_le_bytes());
         assert_eq!(read_u32_le(&bytes[12..16]), crc32(&bytes[..12]));
         assert_eq!(MosrRescueFrame::validate_bytes(&bytes), Ok(()));
@@ -498,7 +541,10 @@ mod tests {
         write_rescue_frame(TelemetryError::ChecksumMismatch, 9, &mut out);
 
         assert_eq!(&out[0..4], &MOSR_MAGIC);
-        assert_eq!(&out[4..8], &(RescueFaultCode::ChecksumMismatch as u32).to_le_bytes());
+        assert_eq!(
+            &out[4..8],
+            &(RescueFaultCode::ChecksumMismatch as u32).to_le_bytes()
+        );
         assert_eq!(&out[8..12], &9u32.to_le_bytes());
         assert_eq!(MosrRescueFrame::validate_bytes(&out), Ok(()));
     }

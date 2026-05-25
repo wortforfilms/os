@@ -2,8 +2,14 @@ export const NATIVE_METRIC_FRAME_BYTES = 40;
 export const NATIVE_METRIC_FRAME_MAGIC = 0x46534f4d;
 export const NATIVE_METRIC_FRAME_SIGNED_BYTES = 36;
 export const NATIVE_METRIC_RECOVERY_AI_STATUS = 0x8000_0001;
+export const VERIFICATION_REPRODUCIBLE_BIT = 0x01;
+export const VERIFICATION_STRUCTURAL_TOLERANCE_BIT = 0x02;
+export const VERIFICATION_MANIFEST_SIGNATURE_BIT = 0x04;
+export const VERIFICATION_CERTIFIED_BIT = 0x08;
+export const VERIFICATION_GOVERNANCE_APPROVAL_BIT = 0x10;
 
 const CHECKSUM_OFFSET = 36;
+const VERIFICATION_STATUS_OFFSET = 30;
 
 export type NativeMetricFrame = {
   magic: typeof NATIVE_METRIC_FRAME_MAGIC;
@@ -13,6 +19,8 @@ export type NativeMetricFrame = {
   hardwareCores: number;
   capsuleCount: number;
   aiBatchStatus: number;
+  verificationStatus: number;
+  scientificallyCertified: boolean;
   reserved: readonly number[];
   checksum: number;
 };
@@ -24,6 +32,8 @@ export interface ExtendedApplianceData {
   hardwareCores: number;
   capsuleCount: number;
   aiBatchStatus: number;
+  verificationStatus: number;
+  scientificallyCertified: boolean;
   terminalMode: number;
   radioStreaming: boolean;
 }
@@ -85,6 +95,7 @@ export function parseNativeMetricFrame(input: Uint8Array | ArrayBufferLike): Nat
   const hardwareCores = view.getUint16(20, true);
   const capsuleCount = view.getUint16(22, true);
   const aiBatchStatus = view.getUint32(24, true);
+  const verificationStatus = bytes[VERIFICATION_STATUS_OFFSET];
 
   if (activeTasks < 1 || hardwareCores < 1) {
     throw new RecoveryFrameError("native metric frame invalid scheduler bounds");
@@ -102,6 +113,8 @@ export function parseNativeMetricFrame(input: Uint8Array | ArrayBufferLike): Nat
     hardwareCores,
     capsuleCount,
     aiBatchStatus,
+    verificationStatus,
+    scientificallyCertified: (verificationStatus & VERIFICATION_CERTIFIED_BIT) === VERIFICATION_CERTIFIED_BIT,
     reserved: Array.from(bytes.slice(28, 36)),
     checksum,
   };
@@ -119,6 +132,8 @@ export function parseExtendedFrame(input: Uint8Array | ArrayBufferLike): Extende
     hardwareCores: frame.hardwareCores,
     capsuleCount: frame.capsuleCount,
     aiBatchStatus: frame.aiBatchStatus,
+    verificationStatus: frame.verificationStatus,
+    scientificallyCertified: frame.scientificallyCertified,
     terminalMode: bytes[28],
     radioStreaming: bytes[29] === 1,
   };
@@ -131,6 +146,7 @@ export function createNativeMetricFrame(input: {
   hardwareCores: number;
   capsuleCount: number;
   aiBatchStatus: number;
+  verificationStatus?: number;
   terminalMode?: number;
   radioStreaming?: boolean;
 }): Uint8Array {
@@ -156,6 +172,7 @@ export function createNativeMetricFrame(input: {
   view.setUint32(24, input.aiBatchStatus, true);
   bytes[28] = input.terminalMode ?? 0;
   bytes[29] = input.radioStreaming ? 1 : 0;
+  bytes[VERIFICATION_STATUS_OFFSET] = input.verificationStatus ?? 0;
   view.setUint32(CHECKSUM_OFFSET, fnv1a32(bytes.slice(0, NATIVE_METRIC_FRAME_SIGNED_BYTES)), true);
   return bytes;
 }

@@ -1,15 +1,21 @@
-use cortex_m_semihosting::{hprintln, debug};
 use crate::capsule::CapsuleManager;
 use crate::drivers::{DriverRegistry, HealthState};
-use crate::ipc::{AsciiScreenBuffer, MosfTelemetryFrame, RadioAutomationState, SecludedCommFrame};
-use crate::ipc::frame::{
-    write_frame_or_recovery, write_rescue_frame, MosrRescueFrame,
-    SchedulerTelemetrySnapshot, MOSF_FRAME_BYTES, MOSR_FRAME_BYTES,
-};
 use crate::ipc::comm::COMM_FRAME_BYTES;
+use crate::ipc::frame::{
+    write_frame_or_recovery, write_rescue_frame, MosrRescueFrame, SchedulerTelemetrySnapshot,
+    MOSF_FRAME_BYTES, MOSR_FRAME_BYTES,
+};
 use crate::ipc::radio::RADIO_STATE_BYTES;
-use crate::ipc::terminal::{ASCII_SCREEN_BUFFER_BYTES, TerminalMode};
+use crate::ipc::terminal::{TerminalMode, ASCII_SCREEN_BUFFER_BYTES};
+use crate::ipc::verification::{run_embedded_reference_verification, VERIFY_CERTIFIED_MASK};
+use crate::ipc::{
+    AsciiScreenBuffer, MosfTelemetryFrame, RadioAutomationState, SecludedCommFrame,
+    VerificationReport,
+};
 use crate::storage::StorageManager;
+use cortex_m_semihosting::{debug, hprintln};
+
+const SCRIPT_AI_BATCH_STATUS: u32 = 0x001b_0047;
 
 pub fn run() -> ! {
     hprintln!("Starting Maataa OS kernel...");
@@ -29,9 +35,17 @@ pub fn run() -> ! {
     hprintln!("");
     hprintln!("Boot report");
     hprintln!("-----------");
-    hprintln!("drivers: {}/{} ready", drivers.ready_count(), drivers.total_count());
+    hprintln!(
+        "drivers: {}/{} ready",
+        drivers.ready_count(),
+        drivers.total_count()
+    );
     hprintln!("storage mounted: {}", storage.is_mounted());
-    hprintln!("manifest: {} {}", storage.manifest().name, storage.manifest().version);
+    hprintln!(
+        "manifest: {} {}",
+        storage.manifest().name,
+        storage.manifest().version
+    );
     hprintln!("capsules loaded: {}", capsules.count());
     hprintln!(
         "capsule memory: {}/{} bytes",
@@ -69,6 +83,15 @@ pub fn run() -> ! {
     hprintln!("comm frame signed: {}", comm_valid);
     hprintln!("radio channel lock: {}", radio_bytes[25]);
 
+    let verification_report: VerificationReport = run_embedded_reference_verification();
+    let verification_status = verification_report.status_word();
+    hprintln!("verification status: {}", verification_status);
+    hprintln!(
+        "verification certified: {}",
+        verification_report.is_scientifically_certified()
+            && (verification_status & VERIFY_CERTIFIED_MASK) == VERIFY_CERTIFIED_MASK
+    );
+
     hprintln!("");
     hprintln!("Scheduler simulation");
     hprintln!("--------------------");
@@ -78,7 +101,13 @@ pub fn run() -> ! {
         hprintln!("tick {}", tick);
         drivers.poll(tick);
         capsules.run_cycle(tick);
-        let snapshot = SchedulerTelemetrySnapshot::from_scheduler(&capsules, tick, 1, 0);
+        let snapshot = SchedulerTelemetrySnapshot::from_scheduler_with_verification(
+            &capsules,
+            tick,
+            1,
+            SCRIPT_AI_BATCH_STATUS,
+            verification_status,
+        );
         let telemetry_result = write_frame_or_recovery(snapshot, &mut telemetry_frame);
 
         match drivers.health() {
