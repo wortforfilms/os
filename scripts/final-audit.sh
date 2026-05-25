@@ -59,6 +59,10 @@ verify_required_scaffold() {
     "migrations/sqlite/006_certification.sql"
     "scripts/verify.sh"
     "scripts/check-phkd-status.sh"
+    "scripts/telemetry/simulate-hardware-pressure.mjs"
+    "release/reports/TELEMETRY_PRESSURE_REPORT.json"
+    "release/reports/PANIC_ROLLBACK_REPORT.json"
+    "release/reports/LOCAL_LOOPBACK_INTEGRITY_REPORT.json"
   )
 
   for path in "${paths[@]}"; do
@@ -66,11 +70,26 @@ verify_required_scaffold() {
   done
 }
 
+verify_telemetry_pressure_reports() {
+  grep -q '"TELEMETRY_HYDRATION": "PASS"' "${ROOT_DIR}/release/reports/TELEMETRY_PRESSURE_REPORT.json"
+  grep -q '"DASHBOARD_LOOPBACK": "PASS"' "${ROOT_DIR}/release/reports/TELEMETRY_PRESSURE_REPORT.json"
+  grep -q '"PANIC_ROLLBACK": "PASS"' "${ROOT_DIR}/release/reports/TELEMETRY_PRESSURE_REPORT.json"
+  grep -q '"PACKET_LEAKAGE": "ZERO_OBSERVED"' "${ROOT_DIR}/release/reports/TELEMETRY_PRESSURE_REPORT.json"
+  grep -q '"AI_STACK": "STILL_STAGED"' "${ROOT_DIR}/release/reports/TELEMETRY_PRESSURE_REPORT.json"
+  grep -q '"PRODUCT_MATURITY": "NOT_FINAL"' "${ROOT_DIR}/release/reports/TELEMETRY_PRESSURE_REPORT.json"
+  grep -q '"PANIC_ROLLBACK": "PASS"' "${ROOT_DIR}/release/reports/PANIC_ROLLBACK_REPORT.json"
+  grep -q '"DASHBOARD_LOOPBACK": "PASS"' "${ROOT_DIR}/release/reports/LOCAL_LOOPBACK_INTEGRITY_REPORT.json"
+}
+
 cd "${ROOT_DIR}"
 
 section "Scaffold coverage"
 verify_required_scaffold
 echo "required scaffold paths present"
+
+section "Telemetry pressure evidence"
+verify_telemetry_pressure_reports
+echo "phase 2 telemetry reports verified"
 
 section "PHKD hygiene"
 bash scripts/check-phkd-status.sh

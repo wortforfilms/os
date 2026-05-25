@@ -1,0 +1,13 @@
+{
+  "schema": "maataa.telemetry.loopback.integrity.report.v1",
+  "generatedAt": "2026-05-25T22:05:24.900Z",
+  "target": "http://127.0.0.1:1420/__maataa/telemetry-pressure",
+  "hostname": "127.0.0.1",
+  "port": "1420",
+  "attemptedPosts": 243,
+  "observedResponses": 243,
+  "localOnly": true,
+  "externalTargets": [],
+  "DASHBOARD_LOOPBACK": "PASS",
+  "PACKET_LEAKAGE": "ZERO_OBSERVED"
+}

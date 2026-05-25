@@ -1,0 +1,36 @@
+{
+  "schema": "maataa.telemetry.panic.rollback.report.v1",
+  "generatedAt": "2026-05-25T22:05:24.900Z",
+  "recoveryConsole": "PANIC",
+  "rollbackPolicy": "drop-to-recovery-console",
+  "rollbackEvents": [
+    {
+      "mode": "checksum-failure",
+      "index": 5,
+      "recoveryReason": "hardware telemetry checksum mismatch",
+      "frameHash": "ed790cf7a150a60e4a7e9bc9ecf20ba0aa08b55f876703ac628c5f1ccd51ff90"
+    },
+    {
+      "mode": "timestamp-drift",
+      "index": 9,
+      "recoveryReason": "hardware telemetry timestamp drift: 7 <= 9",
+      "frameHash": "147daf2b0162a80a87ff808ff9a89040048c25d681b123418a42a8f167a0cbf1"
+    },
+    {
+      "mode": "sensor-overflow",
+      "index": 8,
+      "recoveryReason": "hardware telemetry memory overflow",
+      "frameHash": "8edeb5e98367d68c0c2716e465a337f26a2238e664d27948e40e17842e5c4601"
+    },
+    {
+      "mode": "panic-trigger",
+      "index": 6,
+      "recoveryReason": "hardware telemetry scheduler bounds invalid",
+      "frameHash": "2e9f87209419445e5c5cb89c2c3784872e54e80594985aa852ae3610c12282fb"
+    }
+  ],
+  "PANIC_ROLLBACK": "PASS",
+  "checksumRollback": "PASS",
+  "driftRollback": "PASS",
+  "overflowRollback": "PASS"
+}

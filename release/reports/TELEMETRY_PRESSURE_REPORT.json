@@ -1,0 +1,95 @@
+{
+  "schema": "maataa.telemetry.pressure.report.v1",
+  "generatedAt": "2026-05-25T22:05:24.899Z",
+  "target": "http://127.0.0.1:1420/__maataa/telemetry-pressure",
+  "systemStateWord": "0x001B004F",
+  "modes": [
+    {
+      "mode": "normal",
+      "generatedFrames": 18,
+      "acceptedFrames": 18,
+      "recoveryFrames": 0,
+      "droppedFrames": 0,
+      "loopbackResponses": 18,
+      "modePass": true
+    },
+    {
+      "mode": "high-frequency",
+      "generatedFrames": 120,
+      "acceptedFrames": 120,
+      "recoveryFrames": 0,
+      "droppedFrames": 0,
+      "loopbackResponses": 120,
+      "modePass": true
+    },
+    {
+      "mode": "checksum-failure",
+      "generatedFrames": 18,
+      "acceptedFrames": 17,
+      "recoveryFrames": 1,
+      "droppedFrames": 0,
+      "loopbackResponses": 18,
+      "modePass": true
+    },
+    {
+      "mode": "timestamp-drift",
+      "generatedFrames": 18,
+      "acceptedFrames": 17,
+      "recoveryFrames": 1,
+      "droppedFrames": 0,
+      "loopbackResponses": 18,
+      "modePass": true
+    },
+    {
+      "mode": "packet-loss",
+      "generatedFrames": 24,
+      "acceptedFrames": 21,
+      "recoveryFrames": 0,
+      "droppedFrames": 3,
+      "loopbackResponses": 21,
+      "modePass": true
+    },
+    {
+      "mode": "sensor-overflow",
+      "generatedFrames": 18,
+      "acceptedFrames": 17,
+      "recoveryFrames": 1,
+      "droppedFrames": 0,
+      "loopbackResponses": 18,
+      "modePass": true
+    },
+    {
+      "mode": "panic-trigger",
+      "generatedFrames": 18,
+      "acceptedFrames": 17,
+      "recoveryFrames": 1,
+      "droppedFrames": 0,
+      "loopbackResponses": 18,
+      "modePass": true
+    },
+    {
+      "mode": "replay",
+      "generatedFrames": 12,
+      "acceptedFrames": 12,
+      "recoveryFrames": 0,
+      "droppedFrames": 0,
+      "loopbackResponses": 12,
+      "modePass": true
+    }
+  ],
+  "totals": {
+    "generatedFrames": 246,
+    "acceptedFrames": 239,
+    "recoveryFrames": 4,
+    "droppedFrames": 3,
+    "loopbackResponses": 243
+  },
+  "phase2": {
+    "TELEMETRY_HYDRATION": "PASS",
+    "DASHBOARD_LOOPBACK": "PASS",
+    "PANIC_ROLLBACK": "PASS",
+    "PACKET_LEAKAGE": "ZERO_OBSERVED",
+    "AI_STACK": "STILL_STAGED",
+    "PRODUCT_MATURITY": "NOT_FINAL"
+  }
+}
