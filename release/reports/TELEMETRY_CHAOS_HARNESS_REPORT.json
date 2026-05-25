@@ -1,0 +1,44 @@
+{
+  "schema": "maataa.telemetry.chaos.harness.v1",
+  "generatedAt": "2026-05-25T22:21:49.967Z",
+  "target": "http://127.0.0.1:1420/api/telemetry-stream",
+  "profile": {
+    "frequencyHz": 60,
+    "intervalMs": 16.67,
+    "frameBytes": 40,
+    "sensorStructBytes": 20,
+    "totalFrames": 90
+  },
+  "totals": {
+    "generatedFrames": 30,
+    "acceptedFrames": 29,
+    "rejectedFrames": 1,
+    "postedFrames": 30,
+    "loopbackResponses": 30,
+    "externalAttempts": 0
+  },
+  "dashboard": {
+    "initialTheme": "SCIENTIFIC_CERTIFIED",
+    "finalTheme": "CONTROLLED_NO_GO",
+    "listenerTerminated": true,
+    "panicTransitions": [
+      {
+        "tick": 30,
+        "reason": "status word drift: 0xdeadbeef",
+        "latencyFrames": 0,
+        "previousTheme": "SCIENTIFIC_CERTIFIED",
+        "nextTheme": "CONTROLLED_NO_GO"
+      }
+    ]
+  },
+  "verdict": {
+    "TELEMETRY_HYDRATION": "PASS",
+    "DASHBOARD_LOOPBACK": "PASS",
+    "PANIC_ROLLBACK": "PASS",
+    "VIEWPORT_REFLEX_UNDER_ONE_FRAME": "PASS",
+    "PACKET_LEAKAGE": "ZERO_OBSERVED",
+    "ASSETS_HTML_HYGIENE": "PASS",
+    "AI_STACK": "STILL_STAGED",
+    "PRODUCT_MATURITY": "NOT_FINAL"
+  }
+}

@@ -60,7 +60,9 @@ verify_required_scaffold() {
     "scripts/verify.sh"
     "scripts/check-phkd-status.sh"
     "scripts/telemetry/simulate-hardware-pressure.mjs"
+    "scripts/verification/simulate-hardware-pressure.mjs"
     "release/reports/TELEMETRY_PRESSURE_REPORT.json"
+    "release/reports/TELEMETRY_CHAOS_HARNESS_REPORT.json"
     "release/reports/PANIC_ROLLBACK_REPORT.json"
     "release/reports/LOCAL_LOOPBACK_INTEGRITY_REPORT.json"
   )
@@ -79,6 +81,9 @@ verify_telemetry_pressure_reports() {
   grep -q '"PRODUCT_MATURITY": "NOT_FINAL"' "${ROOT_DIR}/release/reports/TELEMETRY_PRESSURE_REPORT.json"
   grep -q '"PANIC_ROLLBACK": "PASS"' "${ROOT_DIR}/release/reports/PANIC_ROLLBACK_REPORT.json"
   grep -q '"DASHBOARD_LOOPBACK": "PASS"' "${ROOT_DIR}/release/reports/LOCAL_LOOPBACK_INTEGRITY_REPORT.json"
+  grep -q '"VIEWPORT_REFLEX_UNDER_ONE_FRAME": "PASS"' "${ROOT_DIR}/release/reports/TELEMETRY_CHAOS_HARNESS_REPORT.json"
+  grep -q '"PACKET_LEAKAGE": "ZERO_OBSERVED"' "${ROOT_DIR}/release/reports/TELEMETRY_CHAOS_HARNESS_REPORT.json"
+  grep -q '"ASSETS_HTML_HYGIENE": "PASS"' "${ROOT_DIR}/release/reports/TELEMETRY_CHAOS_HARNESS_REPORT.json"
 }
 
 cd "${ROOT_DIR}"
