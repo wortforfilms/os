@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { createNativeMetricFrame, parseNativeMetricFrame, RecoveryFrameError } from "./runtimeFrame";
 import {
   BootTimeline,
   CapsuleRegistry,
@@ -177,6 +178,9 @@ function hostThreadCount(): number {
 function buildRuntimeState(): RuntimeState | RecoveryState {
   const bridge = loadBridgeSnapshot();
   const manifest = buildManifest();
+  const capsuleBytes = STATIC_CAPSULES.reduce((total, capsule) => total + capsule.bytes, 0);
+  const totalTicks = SCHEDULER_PROCESSES.reduce((total, process) => total + process.ticks, 0);
+  let nativeMetrics;
 
   if (!verifyBridge(bridge)) {
     return buildRecoveryState("native bridge verification failed");
@@ -186,9 +190,25 @@ function buildRuntimeState(): RuntimeState | RecoveryState {
     return buildRecoveryState("flash manifest signature check failed");
   }
 
-  const capsuleBytes = STATIC_CAPSULES.reduce((total, capsule) => total + capsule.bytes, 0);
-  const totalTicks = SCHEDULER_PROCESSES.reduce((total, process) => total + process.ticks, 0);
-  const threads = hostThreadCount();
+  try {
+    nativeMetrics = parseNativeMetricFrame(
+      createNativeMetricFrame({
+        hostThreads: hostThreadCount(),
+        health: bridge.health,
+        scriptKnown: 9,
+        scriptUnknown: 0,
+        scriptWeight: 21,
+        ipcFrames: 1,
+        capsuleBytes,
+        schedulerTicks: 6,
+      }),
+    );
+  } catch (error) {
+    if (error instanceof RecoveryFrameError) {
+      return buildRecoveryState(error.message);
+    }
+    return buildRecoveryState("native metric frame parser failure");
+  }
 
   if (STATIC_CAPSULES.length === 0 || SCHEDULER_PROCESSES.length === 0 || totalTicks <= 0) {
     return buildRecoveryState("invalid deterministic runtime schedule");
@@ -240,13 +260,14 @@ function buildRuntimeState(): RuntimeState | RecoveryState {
     metrics: [
       { label: "Drivers", value: `${bridge.drivers.length}/5 ready`, status: bridge.health },
       { label: "Capsules", value: `${STATIC_CAPSULES.length} loaded`, status: "nominal" },
-      { label: "Memory", value: `${capsuleBytes} / 65536 bytes`, status: "nominal" },
-      { label: "Scheduler", value: "6 ticks", status: "nominal" },
+      { label: "Memory", value: `${nativeMetrics.capsuleBytes} / 65536 bytes`, status: "nominal" },
+      { label: "Scheduler", value: `${nativeMetrics.schedulerTicks} ticks`, status: "nominal" },
     ],
     monitorMetrics: [
       { label: "Runtime", value: "QEMU semihosting", status: "nominal" },
-      { label: "Host threads", value: String(threads), status: "nominal" },
+      { label: "Host threads", value: String(nativeMetrics.hostThreads), status: "nominal" },
       { label: "QEMU engine", value: "netduinoplus2/cortex-m4", status: "nominal" },
+      { label: "Script matrix", value: `${nativeMetrics.scriptKnown}/${nativeMetrics.scriptUnknown}`, status: "nominal" },
     ],
     capsules: STATIC_CAPSULES,
     processes: SCHEDULER_PROCESSES,
@@ -259,6 +280,7 @@ function buildRuntimeState(): RuntimeState | RecoveryState {
       { ts: "boot", level: "info", text: "driver registry loaded through core/node-bridge" },
       { ts: "boot", level: "info", text: `manifest signature verified: ${manifest.signature}` },
       { ts: "boot", level: "info", text: `capsules mounted: ${STATIC_CAPSULES.map((capsule) => capsule.name).join(", ")}` },
+      { ts: "ipc", level: "debug", text: `native metric frame verified: ${nativeMetrics.signature.toString(16)}` },
       { ts: "tick 6", level: "info", text: `scheduler complete: ${totalTicks} accumulated process ticks` },
       { ts: "health", level: "info", text: `runtime health: ${bridge.health}` },
     ],
@@ -288,7 +310,7 @@ function buildRuntimeState(): RuntimeState | RecoveryState {
         name: "IPC Ring",
         origin: "shared-local",
         size: "4K",
-        used: "5 console lines",
+        used: `${nativeMetrics.ipcFrames} native frame`,
         role: "stdin/stdout recovery-safe buffer",
       },
     ],
