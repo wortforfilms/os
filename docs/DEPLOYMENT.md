@@ -36,6 +36,12 @@ Dry-run:
 bash scripts/flash-golden-image.sh dist-golden/maataa-os-0.1.0-alpha.1 /dev/rdiskN
 ```
 
+The package argument is optional when using the default alpha bundle:
+
+```bash
+bash scripts/flash-golden-image.sh /dev/rdiskN
+```
+
 Apply:
 
 ```bash

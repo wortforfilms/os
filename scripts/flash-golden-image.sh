@@ -1,16 +1,22 @@
 #!/bin/bash
 set -euo pipefail
 
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DEFAULT_PACKAGE_DIR="${ROOT_DIR}/dist-golden/maataa-os-0.1.0-alpha.1"
 PACKAGE_DIR="${1:-}"
-shift || true
 
-if [ -z "${PACKAGE_DIR}" ] || [ "$#" -lt 1 ]; then
-  echo "usage: $0 <dist-golden/package-dir> <block-device> [block-device...]" >&2
+if [ -n "${PACKAGE_DIR}" ] && [ -d "${PACKAGE_DIR}" ]; then
+  shift
+else
+  PACKAGE_DIR="${DEFAULT_PACKAGE_DIR}"
+fi
+
+if [ "$#" -lt 1 ]; then
+  echo "usage: $0 [dist-golden/package-dir] <block-device> [block-device...]" >&2
   echo "set MAATAA_FLASH_APPLY=1 to actually write devices; default is dry-run" >&2
   exit 1
 fi
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERIFY_SCRIPT="${ROOT_DIR}/scripts/verify-golden-image.sh"
 IMAGE="${PACKAGE_DIR}/kernel/maataa-os.bin"
 BLOCK_SIZE="${MAATAA_BLOCK_SIZE:-4096}"
