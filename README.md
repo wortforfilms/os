@@ -59,3 +59,12 @@ The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
 - [Release notes](doc/RELEASE_NOTES.md)
 - [Planned repository structure](docs/STRUCTURE.md)
 - [Promoted UI modules](docs/MAATAA_OS_UI_MODULES.md)
+
+## Desktop Preview
+
+```bash
+npm install
+npm run tauri:dev
+```
+
+The Tauri shell renders the promoted Maataa OS modules from `apps/system/modules`.

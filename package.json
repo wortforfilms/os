@@ -3,10 +3,27 @@
   "version": "0.1.0-alpha.1",
   "private": true,
   "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build:web": "tsc && vite build",
+    "tauri:dev": "CARGO_TARGET_DIR=/private/tmp/maataa-os-tauri-target tauri dev",
+    "tauri:build": "CARGO_TARGET_DIR=/private/tmp/maataa-os-tauri-target tauri build",
     "build:kernel": "bash scripts/build_kernel.sh",
     "build:blink": "bash scripts/build_blink.sh",
     "build:models": "bash scripts/build_models.sh",
     "run:all": "bash scripts/run_all.sh",
     "smoke": "bash scripts/smoke-alpha.sh"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.5.0",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.5.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
   }
 }

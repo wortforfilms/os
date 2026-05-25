@@ -1,4 +1,8 @@
 /target/
+/src-tauri/target/
+/node_modules/
+/dist/
+/src-tauri/gen/
 /maataa-os.bin
 /examples/demo_capsule/
 /ॐ
