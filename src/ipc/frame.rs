@@ -3,6 +3,9 @@ use crate::capsule::CapsuleManager;
 pub const MOSF_FRAME_BYTES: usize = 40;
 pub const MOSF_SIGNED_BYTES: usize = 36;
 pub const MOSF_MAGIC: [u8; 4] = [0x4d, 0x4f, 0x53, 0x46];
+pub const MOSR_FRAME_BYTES: usize = 16;
+pub const MOSR_SIGNED_BYTES: usize = 12;
+pub const MOSR_MAGIC: [u8; 4] = [0x4d, 0x4f, 0x53, 0x52];
 pub const FNV1A32_OFFSET: u32 = 0x811c_9dc5;
 pub const FNV1A32_PRIME: u32 = 0x0100_0193;
 pub const MAX_ALLOCATED_MEMORY_BYTES: u64 = 128 * 1024;
@@ -46,6 +49,39 @@ pub enum TelemetryError {
     CapsuleCountOutOfBounds,
     ChecksumMismatch,
     MagicMismatch,
+}
+
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum RescueFaultCode {
+    VfsCorruption = 0x01,
+    ChecksumMismatch = 0x02,
+    PeripheralDriverTimeout = 0x03,
+    BufferConstraintViolation = 0x04,
+    MemoryConstraintViolation = 0x05,
+}
+
+#[repr(C, packed)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct MosrRescueFrame {
+    pub magic: [u8; 4],
+    pub fault_code: u32,
+    pub last_valid_uptime: u32,
+    pub crc32: u32,
+}
+
+impl TelemetryError {
+    pub const fn rescue_fault_code(self) -> RescueFaultCode {
+        match self {
+            Self::BufferTooSmall => RescueFaultCode::BufferConstraintViolation,
+            Self::AllocatedMemoryOutOfBounds => RescueFaultCode::MemoryConstraintViolation,
+            Self::ActiveTasksOutOfBounds
+            | Self::HardwareCoresOutOfBounds
+            | Self::CapsuleCountOutOfBounds => RescueFaultCode::PeripheralDriverTimeout,
+            Self::ChecksumMismatch => RescueFaultCode::ChecksumMismatch,
+            Self::MagicMismatch => RescueFaultCode::VfsCorruption,
+        }
+    }
 }
 
 impl SchedulerTelemetrySnapshot {
@@ -102,6 +138,70 @@ impl SchedulerTelemetrySnapshot {
             capsule_count: capsule_count as u16,
             ai_batch_status,
         })
+    }
+}
+
+impl MosrRescueFrame {
+    pub fn new(fault_code: RescueFaultCode, last_valid_uptime: u32) -> Self {
+        let mut frame = Self {
+            magic: MOSR_MAGIC,
+            fault_code: fault_code as u32,
+            last_valid_uptime,
+            crc32: 0,
+        };
+        frame.crc32 = crc32(&frame.bytes_without_crc());
+        frame
+    }
+
+    #[allow(dead_code)]
+    pub fn serialize(self) -> [u8; MOSR_FRAME_BYTES] {
+        let mut out = [0; MOSR_FRAME_BYTES];
+        self.write_unchecked(&mut out);
+        out
+    }
+
+    pub fn serialize_into(self, out: &mut [u8]) -> Result<(), TelemetryError> {
+        if out.len() < MOSR_FRAME_BYTES {
+            clear_buffer(out);
+            return Err(TelemetryError::BufferTooSmall);
+        }
+
+        self.write_unchecked(&mut out[..MOSR_FRAME_BYTES]);
+        Ok(())
+    }
+
+    pub fn validate_bytes(bytes: &[u8]) -> Result<(), TelemetryError> {
+        if bytes.len() < MOSR_FRAME_BYTES {
+            return Err(TelemetryError::BufferTooSmall);
+        }
+
+        if bytes[0..4] != MOSR_MAGIC {
+            return Err(TelemetryError::MagicMismatch);
+        }
+
+        let actual = read_u32_le(&bytes[12..16]);
+        let expected = crc32(&bytes[..MOSR_SIGNED_BYTES]);
+        if actual != expected {
+            return Err(TelemetryError::ChecksumMismatch);
+        }
+
+        Ok(())
+    }
+
+    const fn bytes_without_crc(&self) -> [u8; MOSR_SIGNED_BYTES] {
+        let mut out = [0; MOSR_SIGNED_BYTES];
+        out[0] = self.magic[0];
+        out[1] = self.magic[1];
+        out[2] = self.magic[2];
+        out[3] = self.magic[3];
+        put_u32_le_const(&mut out, 4, self.fault_code);
+        put_u32_le_const(&mut out, 8, self.last_valid_uptime);
+        out
+    }
+
+    fn write_unchecked(self, out: &mut [u8]) {
+        out[..MOSR_SIGNED_BYTES].copy_from_slice(&self.bytes_without_crc());
+        put_u32_le(out, 12, self.crc32);
     }
 }
 
@@ -226,6 +326,13 @@ pub fn write_recovery_frame(out: &mut [u8]) {
     }
 }
 
+pub fn write_rescue_frame(error: TelemetryError, last_valid_uptime: u32, out: &mut [u8]) {
+    clear_buffer(out);
+
+    let _ =
+        MosrRescueFrame::new(error.rescue_fault_code(), last_valid_uptime).serialize_into(out);
+}
+
 #[inline(always)]
 pub const fn fnv1a32(bytes: &[u8]) -> u32 {
     let mut hash = FNV1A32_OFFSET;
@@ -238,6 +345,25 @@ pub const fn fnv1a32(bytes: &[u8]) -> u32 {
     }
 
     hash
+}
+
+#[inline(always)]
+pub const fn crc32(bytes: &[u8]) -> u32 {
+    let mut crc = 0xffff_ffff;
+    let mut index = 0;
+
+    while index < bytes.len() {
+        crc ^= bytes[index] as u32;
+        let mut bit = 0;
+        while bit < 8 {
+            let mask = 0u32.wrapping_sub(crc & 1);
+            crc = (crc >> 1) ^ (0xedb8_8320 & mask);
+            bit += 1;
+        }
+        index += 1;
+    }
+
+    !crc
 }
 
 #[inline(always)]
@@ -351,5 +477,29 @@ mod tests {
             Err(TelemetryError::BufferTooSmall)
         );
         assert_eq!(out, [0; 8]);
+    }
+
+    #[test]
+    fn serializes_exact_mosr_layout() {
+        let frame = MosrRescueFrame::new(RescueFaultCode::ChecksumMismatch, 42);
+        let bytes = frame.serialize();
+
+        assert_eq!(bytes.len(), MOSR_FRAME_BYTES);
+        assert_eq!(&bytes[0..4], &MOSR_MAGIC);
+        assert_eq!(&bytes[4..8], &(RescueFaultCode::ChecksumMismatch as u32).to_le_bytes());
+        assert_eq!(&bytes[8..12], &42u32.to_le_bytes());
+        assert_eq!(read_u32_le(&bytes[12..16]), crc32(&bytes[..12]));
+        assert_eq!(MosrRescueFrame::validate_bytes(&bytes), Ok(()));
+    }
+
+    #[test]
+    fn writes_mosr_rescue_frame() {
+        let mut out = [0xaa; MOSR_FRAME_BYTES];
+        write_rescue_frame(TelemetryError::ChecksumMismatch, 9, &mut out);
+
+        assert_eq!(&out[0..4], &MOSR_MAGIC);
+        assert_eq!(&out[4..8], &(RescueFaultCode::ChecksumMismatch as u32).to_le_bytes());
+        assert_eq!(&out[8..12], &9u32.to_le_bytes());
+        assert_eq!(MosrRescueFrame::validate_bytes(&out), Ok(()));
     }
 }

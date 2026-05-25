@@ -2,7 +2,8 @@ use cortex_m_semihosting::{hprintln, debug};
 use crate::capsule::CapsuleManager;
 use crate::drivers::{DriverRegistry, HealthState};
 use crate::ipc::frame::{
-    write_frame_or_recovery, MosfTelemetryFrame, SchedulerTelemetrySnapshot, MOSF_FRAME_BYTES,
+    write_frame_or_recovery, write_rescue_frame, MosfTelemetryFrame, MosrRescueFrame,
+    SchedulerTelemetrySnapshot, MOSF_FRAME_BYTES, MOSR_FRAME_BYTES,
 };
 use crate::storage::StorageManager;
 
@@ -40,6 +41,7 @@ pub fn run() -> ! {
     hprintln!("Scheduler simulation");
     hprintln!("--------------------");
     let mut telemetry_frame = [0u8; MOSF_FRAME_BYTES];
+    let mut rescue_frame = [0u8; MOSR_FRAME_BYTES];
     for tick in 1..=6 {
         hprintln!("tick {}", tick);
         drivers.poll(tick);
@@ -52,7 +54,13 @@ pub fn run() -> ! {
             HealthState::Degraded => hprintln!("health: degraded"),
         }
 
-        if telemetry_result.is_err() || MosfTelemetryFrame::validate_bytes(&telemetry_frame).is_err() {
+        if let Err(error) = telemetry_result {
+            write_rescue_frame(error, tick, &mut rescue_frame);
+            let _ = MosrRescueFrame::validate_bytes(&rescue_frame);
+            hprintln!("telemetry: rescue frame emitted");
+        } else if let Err(error) = MosfTelemetryFrame::validate_bytes(&telemetry_frame) {
+            write_rescue_frame(error, tick, &mut rescue_frame);
+            let _ = MosrRescueFrame::validate_bytes(&rescue_frame);
             hprintln!("telemetry: recovery frame emitted");
         }
 
