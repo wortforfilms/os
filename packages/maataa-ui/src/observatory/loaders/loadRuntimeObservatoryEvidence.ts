@@ -63,6 +63,7 @@ export type RuntimeObservatoryEvidence =
 const DATASET_NAMES: readonly ScriptDatasetName[] = ["brahmi", "kharosthi", "siddham"];
 const SCRIPT_KEYS: Record<number, ScriptDatasetName> = { 1: "brahmi", 2: "kharosthi", 3: "siddham" };
 const MAGV_FRAME_BYTES = 32;
+const AI_BATCH_CERTIFICATION_BIT = 0x08;
 
 export function loadRuntimeObservatoryEvidence(
   files: RuntimeEvidenceFiles,
@@ -113,7 +114,9 @@ function loadRuntimeObservatoryEvidenceUnsafe(
   const totalWeight = datasets.reduce((sum, dataset) => sum + dataset.summary.weight, 0);
   const expectedAiBatchStatus = encodeAiBatchStatus(totalGlyphs, totalWeight);
 
-  if (aiBatchStatus !== expectedAiBatchStatus) {
+  const canonicalAiBatchStatus = aiBatchStatus & ~AI_BATCH_CERTIFICATION_BIT;
+
+  if (canonicalAiBatchStatus !== expectedAiBatchStatus) {
     return blocked("MOSF aiBatchStatus mismatch", aiBatchStatus, expectedAiBatchStatus);
   }
 
@@ -131,6 +134,7 @@ function loadRuntimeObservatoryEvidenceUnsafe(
       { label: "Glyphs", value: totalGlyphs, tone: "nominal" },
       { label: "Weight", value: totalWeight, tone: "nominal" },
       { label: "MOSF", value: `0x${aiBatchStatus.toString(16).padStart(8, "0")}`, tone: "nominal" },
+      { label: "Canonical", value: `0x${canonicalAiBatchStatus.toString(16).padStart(8, "0")}`, tone: "nominal" },
     ],
   };
 }

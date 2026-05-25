@@ -16,6 +16,7 @@ use crate::storage::StorageManager;
 use cortex_m_semihosting::{debug, hprintln};
 
 const SCRIPT_AI_BATCH_STATUS: u32 = 0x001b_0047;
+const AI_BATCH_CERTIFICATION_CLEARANCE: u32 = 0x08;
 
 pub fn run() -> ! {
     hprintln!("Starting Maataa OS kernel...");
@@ -85,6 +86,11 @@ pub fn run() -> ! {
 
     let verification_report: VerificationReport = run_embedded_reference_verification();
     let verification_status = verification_report.status_word();
+    let ai_batch_status = if verification_report.is_scientifically_certified() {
+        SCRIPT_AI_BATCH_STATUS | AI_BATCH_CERTIFICATION_CLEARANCE
+    } else {
+        SCRIPT_AI_BATCH_STATUS
+    };
     hprintln!("verification status: {}", verification_status);
     hprintln!(
         "verification certified: {}",
@@ -105,7 +111,7 @@ pub fn run() -> ! {
             &capsules,
             tick,
             1,
-            SCRIPT_AI_BATCH_STATUS,
+            ai_batch_status,
             verification_status,
         );
         let telemetry_result = write_frame_or_recovery(snapshot, &mut telemetry_frame);

@@ -6,9 +6,10 @@ export const VERIFY_REPRODUCIBLE = 0x01;
 export const VERIFY_STRUCTURAL_TOLERANCE = 0x02;
 export const VERIFY_MANIFEST_SIGNATURE = 0x04;
 export const VERIFY_CERTIFICATION_CLEARANCE = 0x08;
-export const VERIFY_GOVERNANCE_APPROVAL = 0x10;
+export const VERIFY_GAP_REMEDIATION = 0x10;
+export const AI_BATCH_CERTIFICATION_CLEARANCE = 0x08;
 export const VERIFY_REQUIRED_MASK =
-  VERIFY_REPRODUCIBLE | VERIFY_STRUCTURAL_TOLERANCE | VERIFY_MANIFEST_SIGNATURE | VERIFY_GOVERNANCE_APPROVAL;
+  VERIFY_REPRODUCIBLE | VERIFY_STRUCTURAL_TOLERANCE | VERIFY_MANIFEST_SIGNATURE | VERIFY_GAP_REMEDIATION;
 
 export type PromotionProof = {
   verificationStatus: number;
@@ -26,22 +27,25 @@ export type PromotionResolution = {
 const criteria = [
   ["Mathematical Reproducibility", VERIFY_REPRODUCIBLE],
   ["Structural Tolerance", VERIFY_STRUCTURAL_TOLERANCE],
-  ["Manifest Signature", VERIFY_MANIFEST_SIGNATURE],
-  ["Governance Approval", VERIFY_GOVERNANCE_APPROVAL],
+  ["Temporal HST Signature", VERIFY_MANIFEST_SIGNATURE],
+  ["Gap State Remediation", VERIFY_GAP_REMEDIATION],
 ] as const;
 
 export function resolvePromotion(proof: PromotionProof): PromotionResolution {
   const missing = criteria
     .filter(([, bit]) => (proof.verificationStatus & bit) !== bit)
     .map(([label]) => label);
+  const aiBatchCertified = (proof.aiBatchStatus & AI_BATCH_CERTIFICATION_CLEARANCE) === AI_BATCH_CERTIFICATION_CLEARANCE;
   const certified =
     missing.length === 0 &&
-    (proof.verificationStatus & VERIFY_CERTIFICATION_CLEARANCE) === VERIFY_CERTIFICATION_CLEARANCE;
+    (proof.verificationStatus & VERIFY_CERTIFICATION_CLEARANCE) === VERIFY_CERTIFICATION_CLEARANCE &&
+    aiBatchCertified;
+  const resolvedMissing = aiBatchCertified ? missing : [...missing, "AI Batch Certification Bit"];
 
   return {
     governanceState: certified ? "SCIENTIFIC_CERTIFIED" : "SIGNED",
     certified,
-    missing,
+    missing: resolvedMissing,
     stats: [
       { label: "Governance", value: certified ? "SCIENTIFIC_CERTIFIED" : "BLOCKED", tone: certified ? "nominal" : "recovery" },
       { label: "Verification", value: `0x${proof.verificationStatus.toString(16).padStart(2, "0")}`, tone: certified ? "nominal" : "recovery" },

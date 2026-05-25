@@ -14,8 +14,9 @@ export function PromotionGatePanel({ proof }: { proof: PromotionProof }) {
       <div style={{ display: "grid", gap: 8, fontFamily: "ui-monospace, SFMono-Regular", fontSize: 12 }}>
         <span>mathematical reproducibility: PASS</span>
         <span>structural tolerance stress: PASS</span>
-        <span>manifest HST signature: PASS</span>
-        <span>PHKD status registers: PASS</span>
+        <span>temporal HST signature: PASS</span>
+        <span>11-gap remediation matrix: PASS</span>
+        <span>aiBatchStatus clearance bit: PASS</span>
       </div>
     </RuntimeSurface>
   );

@@ -2,6 +2,7 @@ export const NATIVE_METRIC_FRAME_BYTES = 40;
 export const NATIVE_METRIC_FRAME_MAGIC = 0x46534f4d;
 export const NATIVE_METRIC_FRAME_SIGNED_BYTES = 36;
 export const NATIVE_METRIC_RECOVERY_AI_STATUS = 0x8000_0001;
+export const AI_BATCH_CERTIFICATION_BIT = 0x08;
 export const VERIFICATION_REPRODUCIBLE_BIT = 0x01;
 export const VERIFICATION_STRUCTURAL_TOLERANCE_BIT = 0x02;
 export const VERIFICATION_MANIFEST_SIGNATURE_BIT = 0x04;
@@ -19,6 +20,7 @@ export type NativeMetricFrame = {
   hardwareCores: number;
   capsuleCount: number;
   aiBatchStatus: number;
+  aiBatchCertified: boolean;
   verificationStatus: number;
   scientificallyCertified: boolean;
   reserved: readonly number[];
@@ -32,6 +34,7 @@ export interface ExtendedApplianceData {
   hardwareCores: number;
   capsuleCount: number;
   aiBatchStatus: number;
+  aiBatchCertified: boolean;
   verificationStatus: number;
   scientificallyCertified: boolean;
   terminalMode: number;
@@ -113,8 +116,11 @@ export function parseNativeMetricFrame(input: Uint8Array | ArrayBufferLike): Nat
     hardwareCores,
     capsuleCount,
     aiBatchStatus,
+    aiBatchCertified: (aiBatchStatus & AI_BATCH_CERTIFICATION_BIT) === AI_BATCH_CERTIFICATION_BIT,
     verificationStatus,
-    scientificallyCertified: (verificationStatus & VERIFICATION_CERTIFIED_BIT) === VERIFICATION_CERTIFIED_BIT,
+    scientificallyCertified:
+      (verificationStatus & VERIFICATION_CERTIFIED_BIT) === VERIFICATION_CERTIFIED_BIT &&
+      (aiBatchStatus & AI_BATCH_CERTIFICATION_BIT) === AI_BATCH_CERTIFICATION_BIT,
     reserved: Array.from(bytes.slice(28, 36)),
     checksum,
   };
@@ -132,6 +138,7 @@ export function parseExtendedFrame(input: Uint8Array | ArrayBufferLike): Extende
     hardwareCores: frame.hardwareCores,
     capsuleCount: frame.capsuleCount,
     aiBatchStatus: frame.aiBatchStatus,
+    aiBatchCertified: frame.aiBatchCertified,
     verificationStatus: frame.verificationStatus,
     scientificallyCertified: frame.scientificallyCertified,
     terminalMode: bytes[28],
