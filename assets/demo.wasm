@@ -1,0 +1,13 @@
+{
+  "kernel": "Maataa-OS 0.1.0",
+  "capsules": [
+    {
+      "name": "demo",
+      "path": "assets/demo.wasm",
+      "entry": "main"
+    }
+  ],
+  "drivers": ["uart", "spi", "gpio", "i2c"],
+  "storage": "littlefs2",
+  "arch": "thumbv7em-none-eabihf"
+}

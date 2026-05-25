@@ -1,0 +1,22 @@
+{
+    "name": "demo-capsule",
+    "version": "0.1.0",
+    "description": "A demonstration WebAssembly capsule for Maataa OS",
+    "author": "Maataa Team",
+    "license": "Apache-2.0 OR MIT",
+    "entry_point": "main",
+    "memory": {
+      "min_pages": 1,
+      "max_pages": 8
+    },
+    "capabilities": {
+      "gpio": ["read", "write"],
+      "time": ["delay", "get_time"],
+      "log": ["info"]
+    },
+    "build_date": "2024-01-01",
+    "signature": "placeholder-signature"
+  }
+
+
+  
