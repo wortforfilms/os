@@ -1,6 +1,9 @@
 use cortex_m_semihosting::{hprintln, debug};
 use crate::capsule::CapsuleManager;
 use crate::drivers::{DriverRegistry, HealthState};
+use crate::ipc::frame::{
+    write_frame_or_recovery, MosfTelemetryFrame, SchedulerTelemetrySnapshot, MOSF_FRAME_BYTES,
+};
 use crate::storage::StorageManager;
 
 pub fn run() -> ! {
@@ -36,14 +39,21 @@ pub fn run() -> ! {
     hprintln!("");
     hprintln!("Scheduler simulation");
     hprintln!("--------------------");
+    let mut telemetry_frame = [0u8; MOSF_FRAME_BYTES];
     for tick in 1..=6 {
         hprintln!("tick {}", tick);
         drivers.poll(tick);
         capsules.run_cycle(tick);
+        let snapshot = SchedulerTelemetrySnapshot::from_scheduler(&capsules, tick, 1, 0);
+        let telemetry_result = write_frame_or_recovery(snapshot, &mut telemetry_frame);
 
         match drivers.health() {
             HealthState::Nominal => hprintln!("health: nominal"),
             HealthState::Degraded => hprintln!("health: degraded"),
+        }
+
+        if telemetry_result.is_err() || MosfTelemetryFrame::validate_bytes(&telemetry_frame).is_err() {
+            hprintln!("telemetry: recovery frame emitted");
         }
 
         cortex_m::asm::delay(1_000_000);

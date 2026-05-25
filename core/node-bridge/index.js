@@ -8,14 +8,12 @@ export function createNodeBridge() {
   const ipc = createMessageBus();
   const system = getSystemSnapshot();
   const metricsFrame = encodeNativeMetricFrame({
-    hostThreads: system.metrics.threads,
-    health: system.health,
-    scriptKnown: 9,
-    scriptUnknown: 0,
-    scriptWeight: 21,
-    ipcFrames: 1,
-    capsuleBytes: 274,
-    schedulerTicks: 6,
+    uptimeTicks: 6,
+    allocatedMemoryBytes: 274,
+    activeTasks: 4,
+    hardwareCores: system.metrics.threads,
+    capsuleCount: 2,
+    aiBatchStatus: 0x0009_0015,
   });
 
   fs.writeBinary("/runtime/metrics.frame", metricsFrame);

@@ -8,6 +8,7 @@ use cortex_m_semihosting::hprintln;
 #[path = "capsule/mod.rs"]
 mod capsule;
 mod drivers;
+mod ipc;
 mod kernel;
 mod log;
 #[path = "storage/mod.rs"]

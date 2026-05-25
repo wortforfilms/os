@@ -1,21 +1,14 @@
 const FRAME_BYTES = 40;
-const MAGIC = 0x4d4f5346;
-const VERSION = 1;
-const SIGNATURE_OFFSET = 12;
+const SIGNED_BYTES = 36;
+const MAGIC = 0x46534f4d;
 
 function fnv1a32(buffer) {
   let hash = 0x811c9dc5;
-  for (const byte of buffer) {
+  for (const byte of buffer.subarray(0, SIGNED_BYTES)) {
     hash ^= byte;
     hash = Math.imul(hash, 0x01000193);
   }
   return hash >>> 0;
-}
-
-function signatureBuffer(buffer) {
-  const copy = Buffer.from(buffer.subarray(0, FRAME_BYTES));
-  copy.writeUInt32LE(0, SIGNATURE_OFFSET);
-  return copy;
 }
 
 function assertU16(name, value) {
@@ -24,52 +17,37 @@ function assertU16(name, value) {
   }
 }
 
-function healthCode(status) {
-  switch (status) {
-    case "nominal":
-      return 0;
-    case "warning":
-      return 1;
-    case "critical":
-      return 2;
-    case "offline":
-      return 3;
-    default:
-      throw new RangeError(`native metric frame invalid health: ${status}`);
+function assertU32(name, value) {
+  if (!Number.isInteger(value) || value < 0 || value > 0xffff_ffff) {
+    throw new RangeError(`native metric frame invalid ${name}`);
   }
 }
 
 export function encodeNativeMetricFrame(input) {
-  assertU16("hostThreads", input.hostThreads);
-  assertU16("scriptKnown", input.scriptKnown);
-  assertU16("scriptUnknown", input.scriptUnknown);
-  assertU16("scriptWeight", input.scriptWeight);
-  assertU16("ipcFrames", input.ipcFrames);
-  assertU16("schedulerTicks", input.schedulerTicks);
+  assertU32("uptimeTicks", input.uptimeTicks);
+  assertU32("activeTasks", input.activeTasks);
+  assertU16("hardwareCores", input.hardwareCores);
+  assertU16("capsuleCount", input.capsuleCount);
+  assertU32("aiBatchStatus", input.aiBatchStatus);
+
+  if (!Number.isSafeInteger(input.allocatedMemoryBytes) || input.allocatedMemoryBytes < 0) {
+    throw new RangeError("native metric frame invalid allocatedMemoryBytes");
+  }
 
   const buffer = Buffer.alloc(FRAME_BYTES);
   buffer.writeUInt32LE(MAGIC, 0);
-  buffer.writeUInt16LE(VERSION, 4);
-  buffer.writeUInt16LE(1, 6);
-  buffer.writeUInt16LE(FRAME_BYTES, 8);
-  buffer.writeUInt16LE(0, 10);
-  buffer.writeUInt32LE(input.sequence ?? 1, 16);
-  buffer.writeUInt16LE(input.hostThreads, 20);
-  buffer.writeUInt16LE(1, 22);
-  buffer.writeUInt8(healthCode(input.health), 24);
-  buffer.writeUInt8(0, 25);
-  buffer.writeUInt16LE(input.scriptKnown, 26);
-  buffer.writeUInt16LE(input.scriptUnknown, 28);
-  buffer.writeUInt16LE(input.scriptWeight, 30);
-  buffer.writeUInt16LE(input.ipcFrames, 32);
-  buffer.writeUInt32LE(input.capsuleBytes, 34);
-  buffer.writeUInt16LE(input.schedulerTicks, 38);
-  buffer.writeUInt32LE(fnv1a32(signatureBuffer(buffer)), SIGNATURE_OFFSET);
+  buffer.writeUInt32LE(input.uptimeTicks, 4);
+  buffer.writeBigUInt64LE(BigInt(input.allocatedMemoryBytes), 8);
+  buffer.writeUInt32LE(input.activeTasks, 16);
+  buffer.writeUInt16LE(input.hardwareCores, 20);
+  buffer.writeUInt16LE(input.capsuleCount, 22);
+  buffer.writeUInt32LE(input.aiBatchStatus, 24);
+  buffer.writeUInt32LE(fnv1a32(buffer), 36);
   return buffer;
 }
 
 export const NATIVE_METRIC_FRAME = {
   bytes: FRAME_BYTES,
+  signedBytes: SIGNED_BYTES,
   magic: MAGIC,
-  version: VERSION,
 };
