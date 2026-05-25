@@ -58,3 +58,4 @@ The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
 - [Roadmap](doc/ROADMAP.md)
 - [Release notes](doc/RELEASE_NOTES.md)
 - [Planned repository structure](docs/STRUCTURE.md)
+- [Promoted UI modules](docs/MAATAA_OS_UI_MODULES.md)
