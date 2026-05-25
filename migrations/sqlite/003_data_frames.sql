@@ -2,7 +2,18 @@
 -- Local-only SQLite schema; no remote telemetry or external sync hooks.
 
 CREATE TABLE IF NOT EXISTS monorepo_stack_registry (
-    stack_layer TEXT PRIMARY KEY,
+    stack_layer TEXT PRIMARY KEY CHECK(stack_layer IN (
+        'Web',
+        'Desktop',
+        'Runtime',
+        'Database',
+        'ORM',
+        'Streaming',
+        'Media',
+        'Infra',
+        'Observability',
+        'UI'
+    )),
     technology TEXT NOT NULL,
     telemetry_hook TEXT NOT NULL
 );
@@ -28,3 +39,14 @@ CREATE INDEX IF NOT EXISTS idx_communication_queue_state
 
 CREATE INDEX IF NOT EXISTS idx_brahmini_asset_ledger_type
     ON brahmini_asset_ledger(token_type);
+
+INSERT OR REPLACE INTO monorepo_stack_registry VALUES
+    ('Web', 'Vite React cockpit on local port 1420', 'Loopback binary telemetry stream'),
+    ('Desktop', 'Tauri and Electron local shells', 'Native IPC command channel'),
+    ('Runtime', 'TypeScript and Rust core', 'C-packed shared memory'),
+    ('Database', 'SQLite embedded file engine', 'Local write-ahead logging'),
+    ('Streaming', 'Loopback Server-Sent Events', '127.0.0.1 telemetry source'),
+    ('Media', 'Local generation toolchain staging', 'Offline asset validation receipts'),
+    ('Infra', 'QEMU alpha and golden-image scripts', 'Local release reports'),
+    ('Observability', 'Evidence runtime pressure harness', 'MOSF and HST verification frames'),
+    ('UI', 'Maataa UI sovereign dashboard', 'Runtime recovery state boundary');

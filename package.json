@@ -19,7 +19,8 @@
     "smoke": "bash scripts/smoke-alpha.sh",
     "telemetry:chaos": "node --experimental-strip-types tests/integration/telemetry-chaos-harness.ts",
     "telemetry:pressure": "node scripts/telemetry/simulate-hardware-pressure.mjs",
-    "typecheck:maataa-ui": "tsc -p packages/maataa-ui/tsconfig.json --noEmit"
+    "typecheck:maataa-ui": "tsc -p packages/maataa-ui/tsconfig.json --noEmit",
+    "typecheck:evidence-runtime": "tsc -p packages/evidence-runtime/tsconfig.json --noEmit"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.5.0",
