@@ -1,0 +1,10 @@
+{
+  "version": "0.1.0-alpha.1",
+  "resources": [
+    { "id": "audio", "path": "resources/audio", "tracked": false },
+    { "id": "fonts", "path": "resources/fonts", "tracked": true },
+    { "id": "icons", "path": "resources/icons", "tracked": true },
+    { "id": "chakra-images", "path": "resources/chakra-images", "tracked": false },
+    { "id": "geometry", "path": "resources/geometry", "tracked": true }
+  ]
+}

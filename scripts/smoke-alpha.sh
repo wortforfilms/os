@@ -5,6 +5,10 @@ echo "Maataa OS alpha smoke test"
 echo "=========================="
 
 echo ""
+echo "0/5 clean embedded target"
+rm -rf target/thumbv7em-none-eabihf
+
+echo ""
 echo "1/5 cargo check"
 cargo check --target thumbv7em-none-eabihf
 

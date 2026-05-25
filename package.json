@@ -11,6 +11,7 @@
     "build:blink": "bash scripts/build_blink.sh",
     "build:models": "bash scripts/build_models.sh",
     "run:all": "bash scripts/run_all.sh",
+    "scaffold:check": "bash scripts/scaffold-check.sh",
     "smoke": "bash scripts/smoke-alpha.sh"
   },
   "dependencies": {

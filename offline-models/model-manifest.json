@@ -1,0 +1,12 @@
+{
+  "version": "0.1.0-alpha.1",
+  "policy": "models are local-only and not committed as binary weights",
+  "families": [
+    { "id": "llm", "path": "offline-models/llm", "status": "placeholder" },
+    { "id": "vision", "path": "offline-models/vision", "status": "placeholder" },
+    { "id": "audio", "path": "offline-models/audio", "status": "placeholder" },
+    { "id": "ocr", "path": "offline-models/ocr", "status": "placeholder" },
+    { "id": "imagegen", "path": "offline-models/imagegen", "status": "placeholder" },
+    { "id": "embeddings", "path": "offline-models/embeddings", "status": "placeholder" }
+  ]
+}

@@ -1,0 +1,26 @@
+maataa-os-runtime-init v0.1.0-alpha.1
+
+stage: qemu-alpha
+kernel: root-crate
+desktop: tauri-vite
+ui-entry: apps/system/index.tsx
+modules:
+  - KernelDashboard
+  - SystemMonitor
+  - CapsuleRegistry
+  - ProcessTable
+  - BootTimeline
+  - RuntimeConsole
+  - MemoryMap
+
+boot-contract:
+  - load virtual driver registry
+  - mount virtual flash manifest
+  - load static capsules
+  - run deterministic scheduler demo
+  - emit runtime health to console
+
+asset-policy:
+  raw-html-prototypes: local-only
+  generated-build-output: ignored
+  runtime-manifests: tracked

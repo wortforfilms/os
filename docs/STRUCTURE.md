@@ -37,6 +37,7 @@ maataa-os/
   placeholders until their build contracts are defined.
 - Root `scripts/` contains both working alpha scripts and placeholder orchestration
   scripts for the future monorepo.
+- `docs/SCAFFOLD.md` tracks the concrete entrypoints added for the full scaffold.
 
 ## Migration Rule
 
