@@ -1,6 +1,7 @@
 export * from "./types";
 export * from "./constants";
 export * from "./config";
+export * from "./SovereignDashboard";
 export * from "./core";
 export * from "./themes";
 export * from "./runtime";
