@@ -19,6 +19,22 @@ import {
 } from "./widgets";
 import { ProductionReadinessMatrix } from "./governance/ProductionReadinessMatrix";
 
+type RuntimeStatusSnapshot = {
+  state: "LIVE" | "DEGRADED" | "OFFLINE" | "BLOCKED";
+  cursor: number;
+  lastHeartbeatAt: number | null;
+  recentEvents: Array<{
+    id: number;
+    type: string;
+    at: number;
+    title: string;
+    detail: string;
+    status: "LIVE" | "DEGRADED" | "OFFLINE" | "BLOCKED";
+  }>;
+  blockedSystemsCount: number;
+  transport: "electron-ipc" | "browser-fallback" | "none";
+};
+
 const navItems = ["Runtime", "Schematic", "Observatory", "Lipi", "Radio", "Governance"] as const;
 
 const statusMetrics = [
@@ -63,7 +79,7 @@ const viewportQuadrants = [
 
 const archiveSteps = ["Integrity Check", "Cache Evacuation", "Hermetic Compact", "Local Mirror", "Sandbox Hygiene"] as const;
 
-export function SovereignDashboard() {
+export function SovereignDashboard({ runtimeStatus }: { runtimeStatus?: RuntimeStatusSnapshot }) {
   return (
     <div className="sovereign-dashboard">
       <aside className="sovereign-rail" aria-label="Maataa OS navigation">
@@ -106,6 +122,8 @@ export function SovereignDashboard() {
             </div>
           ))}
         </section>
+
+        {runtimeStatus ? <LiveRuntimeStatus snapshot={runtimeStatus} /> : null}
 
         <EcosystemSchematic />
 
@@ -181,6 +199,47 @@ export function SovereignDashboard() {
         </section>
       </main>
     </div>
+  );
+}
+
+function LiveRuntimeStatus({ snapshot }: { snapshot: RuntimeStatusSnapshot }) {
+  return (
+    <section className={`live-runtime-status ${snapshot.state.toLowerCase()}`} aria-label="Live runtime status">
+      <header>
+        <div>
+          <p className="dashboard-kicker">Live Runtime Status</p>
+          <h2>{snapshot.state}</h2>
+        </div>
+        <div className="live-runtime-meta">
+          <span>transport: {snapshot.transport}</span>
+          <span>cursor: {snapshot.cursor}</span>
+          <span>blocked: {snapshot.blockedSystemsCount}</span>
+        </div>
+      </header>
+      <div className="live-runtime-grid">
+        <div>
+          <span>Last heartbeat</span>
+          <strong>{snapshot.lastHeartbeatAt ? new Date(snapshot.lastHeartbeatAt).toLocaleTimeString() : "OFFLINE"}</strong>
+        </div>
+        <div>
+          <span>Reconnect posture</span>
+          <strong>{snapshot.state === "LIVE" ? "armed" : snapshot.state === "DEGRADED" ? "fallback" : "blocked"}</strong>
+        </div>
+        <div>
+          <span>Recent events</span>
+          <strong>{snapshot.recentEvents.length}</strong>
+        </div>
+      </div>
+      <ol className="live-event-list">
+        {snapshot.recentEvents.slice(0, 4).map((event) => (
+          <li key={event.id}>
+            <time>{new Date(event.at).toLocaleTimeString()}</time>
+            <span>{event.title}</span>
+            <em>{event.status}</em>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 

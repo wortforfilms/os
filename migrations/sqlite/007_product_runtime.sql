@@ -2,14 +2,19 @@ CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
     role TEXT NOT NULL CHECK(role IN ('Admin', 'Producer', 'Viewer')),
-    state TEXT NOT NULL CHECK(state IN ('EXPERIMENTAL', 'STAGED', 'PREVIEW_VERIFIED', 'CONTROLLED_GO', 'CONTROLLED_NO_GO', 'BLOCKED', 'DEPRECATED'))
+    state TEXT NOT NULL CHECK(state IN ('EXPERIMENTAL', 'STAGED', 'PREVIEW_VERIFIED', 'CONTROLLED_GO', 'CONTROLLED_NO_GO', 'BLOCKED', 'DEPRECATED')),
+    password_salt TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    created_at INTEGER NOT NULL,
+    disabled_at INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS sessions (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL REFERENCES users(id),
     created_at INTEGER NOT NULL,
-    expires_at INTEGER NOT NULL
+    expires_at INTEGER NOT NULL,
+    revoked_at INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS runtime_events (
@@ -78,5 +83,6 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     id TEXT PRIMARY KEY,
     action TEXT NOT NULL,
     result TEXT NOT NULL,
+    actor TEXT NOT NULL DEFAULT 'system',
     created_at INTEGER NOT NULL
 );

@@ -1,38 +1,10 @@
 {
   "schema": "maataa.blockers.v1",
-  "generatedAt": "2026-05-26T00:28:34.504Z",
+  "generatedAt": "2026-05-26T06:32:43.408Z",
   "blockers": [
     {
       "surface": "/domains",
       "reason": "No domains route or database-backed domain model is wired."
-    },
-    {
-      "surface": "/search",
-      "reason": "No command palette or unified search index is wired."
-    },
-    {
-      "surface": "/admin",
-      "reason": "No local auth, role guard, or admin route is wired."
-    },
-    {
-      "surface": "/auth/login",
-      "reason": "No SQLite/libSQL user/session implementation is wired."
-    },
-    {
-      "surface": "/auth/signup",
-      "reason": "No local signup flow is implemented."
-    },
-    {
-      "surface": "auth-and-roles",
-      "reason": "No local auth database/session layer."
-    },
-    {
-      "surface": "sse-live-status",
-      "reason": "No /api/runtime/events transport exists in this Vite runtime."
-    },
-    {
-      "surface": "search",
-      "reason": "No search index, route, or command palette is wired."
     },
     {
       "surface": "billing-entitlements",

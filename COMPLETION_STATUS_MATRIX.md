@@ -1,7 +1,7 @@
 # Completion Status Matrix
 
-Generated: 2026-05-26T00:28:34.504Z
-Commit: 46e0885
+Generated: 2026-05-26T06:32:43.408Z
+Commit: 56bc827
 Final status: CONTROLLED_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
@@ -14,10 +14,10 @@ PHKD verdict: BLOCKED
 | /dashboard | STAGED | Dashboard component exists but router route is not implemented. |
 | /runtime-observatory | STAGED | Observatory panels exist inside maataa-ui; route is not implemented. |
 | /domains | BLOCKED | No domains route or database-backed domain model is wired. |
-| /search | BLOCKED | No command palette or unified search index is wired. |
-| /admin | BLOCKED | No local auth, role guard, or admin route is wired. |
-| /auth/login | BLOCKED | No SQLite/libSQL user/session implementation is wired. |
-| /auth/signup | BLOCKED | No local signup flow is implemented. |
+| /search | PREVIEW_VERIFIED | Unified local search route is wired with type/status filters, empty state, and blocked route badges. |
+| /admin | PREVIEW_VERIFIED | Protected admin shell is wired with Admin-only role guard and fail-closed access. |
+| /auth/login | PREVIEW_VERIFIED | Login route authenticates seed users through the local auth bridge and persists sessions. |
+| /auth/signup | PREVIEW_VERIFIED | Signup route creates local Viewer accounts and opens a persisted session. |
 | /settings | STAGED | Theme/runtime packages exist; route is not implemented. |
 | /docs | PREVIEW_VERIFIED | Docs exist in repository; in-app docs route is not implemented. |
 
@@ -29,11 +29,11 @@ PHKD verdict: BLOCKED
 | sovereign-dashboard | PREVIEW_VERIFIED | Active Vite/Electron entrypoint renders SovereignDashboard. |
 | ecosystem-schematic | PREVIEW_VERIFIED | Dashboard includes apps/crates/packages, offline cores, quadrants, archive flow. |
 | runtime-observatory | STAGED | Panels exist, but route/live orchestration is not complete. |
-| auth-and-roles | BLOCKED | No local auth database/session layer. |
-| offline-local-db | STAGED | SQLite migrations exist; no application database adapter is active. |
+| auth-and-roles | PREVIEW_VERIFIED | Electron auth bridge stores users, sessions, and audit logs in local SQLite; browser fallback is preview-only. |
+| offline-local-db | PREVIEW_VERIFIED | SQLite product runtime migration and Electron auth store are active for the auth slice. |
 | telemetry | PREVIEW_VERIFIED | Telemetry pressure and chaos reports exist for loopback frames. |
-| sse-live-status | BLOCKED | No /api/runtime/events transport exists in this Vite runtime. |
-| search | BLOCKED | No search index, route, or command palette is wired. |
+| sse-live-status | PREVIEW_VERIFIED | Electron-safe runtime event cursor emits local heartbeat events; browser fallback reports DEGRADED instead of fake live. |
+| search | PREVIEW_VERIFIED | Unified search index and Ctrl/Cmd+K command palette are wired to local product matrix, docs, states, blockers, and repo surfaces. |
 | billing-entitlements | BLOCKED | No local billing simulator or entitlement checks are implemented. |
 | admin-analytics | BLOCKED | No admin analytics route or persisted analytics events exist. |
 | evidence-matrix | PREVIEW_VERIFIED | Production hardening matrix and evidence reports are generated locally. |
@@ -44,13 +44,6 @@ PHKD verdict: BLOCKED
 ## Blockers
 
 - /domains: No domains route or database-backed domain model is wired.
-- /search: No command palette or unified search index is wired.
-- /admin: No local auth, role guard, or admin route is wired.
-- /auth/login: No SQLite/libSQL user/session implementation is wired.
-- /auth/signup: No local signup flow is implemented.
-- auth-and-roles: No local auth database/session layer.
-- sse-live-status: No /api/runtime/events transport exists in this Vite runtime.
-- search: No search index, route, or command palette is wired.
 - billing-entitlements: No local billing simulator or entitlement checks are implemented.
 - admin-analytics: No admin analytics route or persisted analytics events exist.
 - MSAR: Hardware root of trust: Synthetic identity exists; HSM/TPM secure boot loop is not integrated.

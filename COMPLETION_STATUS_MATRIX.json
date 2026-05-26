@@ -1,7 +1,7 @@
 {
   "schema": "maataa.completion.status.matrix.v1",
-  "generatedAt": "2026-05-26T00:28:34.504Z",
-  "commit": "46e0885",
+  "generatedAt": "2026-05-26T06:32:43.408Z",
+  "commit": "56bc827",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
@@ -28,23 +28,23 @@
     },
     {
       "path": "/search",
-      "state": "BLOCKED",
-      "evidence": "No command palette or unified search index is wired."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Unified local search route is wired with type/status filters, empty state, and blocked route badges."
     },
     {
       "path": "/admin",
-      "state": "BLOCKED",
-      "evidence": "No local auth, role guard, or admin route is wired."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Protected admin shell is wired with Admin-only role guard and fail-closed access."
     },
     {
       "path": "/auth/login",
-      "state": "BLOCKED",
-      "evidence": "No SQLite/libSQL user/session implementation is wired."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Login route authenticates seed users through the local auth bridge and persists sessions."
     },
     {
       "path": "/auth/signup",
-      "state": "BLOCKED",
-      "evidence": "No local signup flow is implemented."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Signup route creates local Viewer accounts and opens a persisted session."
     },
     {
       "path": "/settings",
@@ -80,13 +80,13 @@
     },
     {
       "id": "auth-and-roles",
-      "state": "BLOCKED",
-      "evidence": "No local auth database/session layer."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Electron auth bridge stores users, sessions, and audit logs in local SQLite; browser fallback is preview-only."
     },
     {
       "id": "offline-local-db",
-      "state": "STAGED",
-      "evidence": "SQLite migrations exist; no application database adapter is active."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "SQLite product runtime migration and Electron auth store are active for the auth slice."
     },
     {
       "id": "telemetry",
@@ -95,13 +95,13 @@
     },
     {
       "id": "sse-live-status",
-      "state": "BLOCKED",
-      "evidence": "No /api/runtime/events transport exists in this Vite runtime."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Electron-safe runtime event cursor emits local heartbeat events; browser fallback reports DEGRADED instead of fake live."
     },
     {
       "id": "search",
-      "state": "BLOCKED",
-      "evidence": "No search index, route, or command palette is wired."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Unified search index and Ctrl/Cmd+K command palette are wired to local product matrix, docs, states, blockers, and repo surfaces."
     },
     {
       "id": "billing-entitlements",
@@ -211,34 +211,6 @@
     {
       "surface": "/domains",
       "reason": "No domains route or database-backed domain model is wired."
-    },
-    {
-      "surface": "/search",
-      "reason": "No command palette or unified search index is wired."
-    },
-    {
-      "surface": "/admin",
-      "reason": "No local auth, role guard, or admin route is wired."
-    },
-    {
-      "surface": "/auth/login",
-      "reason": "No SQLite/libSQL user/session implementation is wired."
-    },
-    {
-      "surface": "/auth/signup",
-      "reason": "No local signup flow is implemented."
-    },
-    {
-      "surface": "auth-and-roles",
-      "reason": "No local auth database/session layer."
-    },
-    {
-      "surface": "sse-live-status",
-      "reason": "No /api/runtime/events transport exists in this Vite runtime."
-    },
-    {
-      "surface": "search",
-      "reason": "No search index, route, or command palette is wired."
     },
     {
       "surface": "billing-entitlements",
