@@ -1,4 +1,4 @@
-export const MSAR_FRAME_MATRIX = {
+export const MSAR_FRAME_MATRIX = Object.freeze({
   MOSF: { magic: "MOSF", bytes: 40, source: "Rust Kernel Scheduler Loop", destination: "KernelDashboard" },
   MOSR: { magic: "MOSR", bytes: 16, source: "Fail-Safe Hardware Interrupter", destination: "RecoveryConsole" },
   MAGV: { magic: "MAGV", bytes: 32, source: "Python Glyph Matrix Parser", destination: "Local Memory Asset Registers" },
@@ -6,7 +6,7 @@ export const MSAR_FRAME_MATRIX = {
   TLPS: { magic: "TLPS", bytes: 64, source: "Studio Operations Board", destination: "Local Database Persistence Layer" },
   TLPA: { magic: "TLPA", bytes: 48, source: "Local Accounting Ledger", destination: "MCA Regulatory Audit Archives" },
   PEDG: { magic: "PEDG", bytes: 32, source: "Digital Gurukul SPA Interface", destination: "Signed Assessment Exporter" },
-} as const;
+} as const);
 
 export type MsarFrameToken = keyof typeof MSAR_FRAME_MATRIX;
 

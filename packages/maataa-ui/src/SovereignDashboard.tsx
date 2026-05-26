@@ -17,6 +17,7 @@ import {
   ScientificGovernance,
   TlpEvolution,
 } from "./widgets";
+import { ProductionReadinessMatrix } from "./governance/ProductionReadinessMatrix";
 
 const navItems = ["Runtime", "Schematic", "Observatory", "Lipi", "Radio", "Governance"] as const;
 
@@ -173,6 +174,10 @@ export function SovereignDashboard() {
             <span>TATHAASTU</span>
             <strong>Pure. Honest. Kabir. Driven.</strong>
           </div>
+        </section>
+
+        <section aria-label="Production hardening matrix">
+          <ProductionReadinessMatrix />
         </section>
       </main>
     </div>

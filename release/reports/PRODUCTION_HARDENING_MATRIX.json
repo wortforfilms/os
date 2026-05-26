@@ -1,0 +1,73 @@
+{
+  "schema": "maataa.production.hardening.matrix.v1",
+  "productionReady": false,
+  "phkdVerdict": "PREVIEW_BLOCKED",
+  "domains": {
+    "MSAR": [
+      {
+        "gate": "Static sector enforcement",
+        "state": "STAGED",
+        "evidence": "Requires src/storage/flash.rs plus hardware WP validation."
+      },
+      {
+        "gate": "Hardware root of trust",
+        "state": "BLOCKED",
+        "evidence": "Synthetic identity exists; HSM/TPM secure boot loop is not integrated."
+      },
+      {
+        "gate": "Zero-allocation scheduler",
+        "state": "PREVIEW",
+        "evidence": "QEMU alpha is deterministic; heap-free kernel audit remains open."
+      },
+      {
+        "gate": "Offline model inference",
+        "state": "STAGED",
+        "evidence": "Script matrices are active; Whisper/Piper/SDXL/ONNX weights are placeholders."
+      },
+      {
+        "gate": "Loopback pressure recovery",
+        "state": "PASS",
+        "evidence": "TELEMETRY_PRESSURE_REPORT.json shows rollback and zero packet leakage."
+      }
+    ],
+    "DigitalGurukul": [
+      {
+        "gate": "Immutable frame matrix",
+        "state": "PASS",
+        "evidence": "PEDG and MSAR frame registries are frozen at module load."
+      },
+      {
+        "gate": "Bundled educational assets",
+        "state": "STAGED",
+        "evidence": "Storyboard, style, and audio bundles are not yet committed."
+      },
+      {
+        "gate": "Accessibility providers",
+        "state": "PREVIEW",
+        "evidence": "Provider skeletons exist; latency evidence is not recorded."
+      },
+      {
+        "gate": "Learning analytics ledger",
+        "state": "BLOCKED",
+        "evidence": "SQLite storage and cryptographic milestone ledger are not wired."
+      }
+    ],
+    "RadioVaigyaaniq": [
+      {
+        "gate": "Zero-drop audio IPC",
+        "state": "STAGED",
+        "evidence": "Radio state is represented; audio packet IPC path is not verified."
+      },
+      {
+        "gate": "NCR appliance cluster config",
+        "state": "BLOCKED",
+        "evidence": "No Delhi/Noida/Gurugram autonomous deployment matrix is present."
+      },
+      {
+        "gate": "Signed flashing gate",
+        "state": "PREVIEW",
+        "evidence": "Golden-image signing exists; stronger per-device flashing admission remains open."
+      }
+    ]
+  }
+}

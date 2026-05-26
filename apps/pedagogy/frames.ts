@@ -1,4 +1,5 @@
 export const PEDG_FRAME_BYTES = 32;
+export const PEDG_FRAME_MAGIC = Object.freeze([0x50, 0x45, 0x44, 0x47] as const);
 
 export type PedgFrameInput = {
   profileHash: Uint8Array;
@@ -18,7 +19,7 @@ export function encodePedgFrame(input: PedgFrameInput): Uint8Array {
 
   const frame = new Uint8Array(PEDG_FRAME_BYTES);
   const view = new DataView(frame.buffer);
-  frame.set([0x50, 0x45, 0x44, 0x47], 0);
+  frame.set(PEDG_FRAME_MAGIC, 0);
   frame.set(input.profileHash, 4);
   view.setBigUint64(12, input.milestoneMask, true);
   view.setUint32(20, input.assessmentScore, true);
