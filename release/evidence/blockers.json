@@ -1,6 +1,6 @@
 {
   "schema": "maataa.blockers.v1",
-  "generatedAt": "2026-05-26T06:32:43.408Z",
+  "generatedAt": "2026-05-26T08:04:07.703Z",
   "blockers": [
     {
       "surface": "/domains",
