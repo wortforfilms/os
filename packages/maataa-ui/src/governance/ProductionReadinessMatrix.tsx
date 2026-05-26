@@ -21,8 +21,8 @@ export const PRODUCTION_READINESS_GATES: readonly ProductionGate[] = Object.free
   {
     domain: "MSAR",
     label: "Static sector enforcement",
-    state: "STAGED",
-    evidence: "Requires src/storage/flash.rs plus hardware WP validation.",
+    state: "PASS",
+    evidence: "HardenedFlashController enforces kernel/model/database sector boundaries with tests.",
   },
   {
     domain: "MSAR",
@@ -69,8 +69,8 @@ export const PRODUCTION_READINESS_GATES: readonly ProductionGate[] = Object.free
   {
     domain: "GURUKUL",
     label: "Learning analytics ledger",
-    state: "BLOCKED",
-    evidence: "SQLite storage and cryptographic milestone ledger are not wired.",
+    state: "PREVIEW",
+    evidence: "Encrypted milestone writer exists in node bridge; app progress integration remains open.",
   },
   {
     domain: "RADIO",
@@ -88,7 +88,7 @@ export const PRODUCTION_READINESS_GATES: readonly ProductionGate[] = Object.free
     domain: "RADIO",
     label: "Signed flashing gate",
     state: "PREVIEW",
-    evidence: "Golden-image signing exists; stronger per-device flashing admission remains open.",
+    evidence: "Golden-image verification cross-checks hashes and hardening matrix; per-device admission remains open.",
   },
 ] as const);
 

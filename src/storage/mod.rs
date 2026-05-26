@@ -1,5 +1,8 @@
 use crate::boot_log;
 
+pub mod flash;
+use flash::{HardenedFlashController, ROLLING_DATABASE_SECTOR_START, SYSTEM_KERNEL_SECTOR_START};
+
 #[derive(Clone, Copy)]
 pub struct SystemManifest {
     pub name: &'static str,
@@ -9,6 +12,7 @@ pub struct SystemManifest {
 pub struct StorageManager {
     mounted: bool,
     manifest: SystemManifest,
+    flash_controller: HardenedFlashController,
 }
 
 impl StorageManager {
@@ -19,10 +23,20 @@ impl StorageManager {
                 name: "uninitialized",
                 version: "0.0.0",
             },
+            flash_controller: HardenedFlashController::new(true),
         }
     }
 
     pub fn mount(&mut self) {
+        if self
+            .flash_controller
+            .validate_boundary_transition(SYSTEM_KERNEL_SECTOR_START, ROLLING_DATABASE_SECTOR_START)
+            .is_err()
+        {
+            boot_log!("storage sector boundary validation failed");
+            return;
+        }
+
         self.mounted = true;
         boot_log!("storage mounted: virtual flash");
     }
