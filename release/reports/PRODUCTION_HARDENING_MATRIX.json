@@ -12,7 +12,7 @@
       {
         "gate": "Hardware root of trust",
         "state": "BLOCKED",
-        "evidence": "Synthetic identity exists; HSM/TPM secure boot loop is not integrated."
+        "evidence": "HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace."
       },
       {
         "gate": "Zero-allocation scheduler",
@@ -60,8 +60,8 @@
       },
       {
         "gate": "NCR appliance cluster config",
-        "state": "BLOCKED",
-        "evidence": "No Delhi/Noida/Gurugram autonomous deployment matrix is present."
+        "state": "PASS",
+        "evidence": "apps/tlp/production-os/data/appliances.json declares Delhi 8401, Noida 8402, and Gurugram 8403 loopback nodes with fixed MAC masks and airgap locks."
       },
       {
         "gate": "Signed flashing gate",

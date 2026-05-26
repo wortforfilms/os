@@ -1,7 +1,7 @@
 {
   "schema": "maataa.completion.status.matrix.v1",
-  "generatedAt": "2026-05-26T08:04:07.703Z",
-  "commit": "eaac30d",
+  "generatedAt": "2026-05-26T15:01:38.285Z",
+  "commit": "d591b41",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
@@ -23,8 +23,8 @@
     },
     {
       "path": "/domains",
-      "state": "BLOCKED",
-      "evidence": "No domains route or database-backed domain model is wired."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Local domain registry route reads SQLite/Electron domain records with browser preview fallback."
     },
     {
       "path": "/search",
@@ -105,13 +105,13 @@
     },
     {
       "id": "billing-entitlements",
-      "state": "BLOCKED",
-      "evidence": "No local billing simulator or entitlement checks are implemented."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Local dev billing simulator stores products, entitlements, and invoices in SQLite and exposes role-gated summaries."
     },
     {
       "id": "admin-analytics",
-      "state": "BLOCKED",
-      "evidence": "No admin analytics route or persisted analytics events exist."
+      "state": "PREVIEW_VERIFIED",
+      "evidence": "Admin analytics reads persisted audit, runtime, telemetry, invoice, and entitlement counts from the local store."
     },
     {
       "id": "evidence-matrix",
@@ -148,7 +148,7 @@
         {
           "gate": "Hardware root of trust",
           "state": "BLOCKED",
-          "evidence": "Synthetic identity exists; HSM/TPM secure boot loop is not integrated."
+          "evidence": "HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace."
         },
         {
           "gate": "Zero-allocation scheduler",
@@ -196,8 +196,8 @@
         },
         {
           "gate": "NCR appliance cluster config",
-          "state": "BLOCKED",
-          "evidence": "No Delhi/Noida/Gurugram autonomous deployment matrix is present."
+          "state": "PASS",
+          "evidence": "apps/tlp/production-os/data/appliances.json declares Delhi 8401, Noida 8402, and Gurugram 8403 loopback nodes with fixed MAC masks and airgap locks."
         },
         {
           "gate": "Signed flashing gate",
@@ -209,24 +209,8 @@
   },
   "blockers": [
     {
-      "surface": "/domains",
-      "reason": "No domains route or database-backed domain model is wired."
-    },
-    {
-      "surface": "billing-entitlements",
-      "reason": "No local billing simulator or entitlement checks are implemented."
-    },
-    {
-      "surface": "admin-analytics",
-      "reason": "No admin analytics route or persisted analytics events exist."
-    },
-    {
       "surface": "MSAR",
-      "reason": "Hardware root of trust: Synthetic identity exists; HSM/TPM secure boot loop is not integrated."
-    },
-    {
-      "surface": "RadioVaigyaaniq",
-      "reason": "NCR appliance cluster config: No Delhi/Noida/Gurugram autonomous deployment matrix is present."
+      "reason": "Hardware root of trust: HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace."
     }
   ],
   "evidenceFiles": [

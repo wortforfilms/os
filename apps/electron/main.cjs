@@ -97,6 +97,9 @@ app.whenReady().then(() => {
   ipcMain.handle("maataa:auth-current", (_event, sessionId) => authStore.currentSession(sessionId));
   ipcMain.handle("maataa:auth-logout", (_event, sessionId) => authStore.logout(sessionId));
   ipcMain.handle("maataa:admin-summary", (_event, sessionId) => authStore.adminSummary(sessionId));
+  ipcMain.handle("maataa:domain-registry", () => authStore.domainRegistry());
+  ipcMain.handle("maataa:billing-summary", (_event, sessionId) => authStore.billingSummary(sessionId));
+  ipcMain.handle("maataa:admin-analytics", (_event, sessionId) => authStore.adminAnalytics(sessionId));
   ipcMain.handle("maataa:runtime-events-since", (_event, cursor) => runtimeEventsSince(Number(cursor) || 0));
 
   createWindow();

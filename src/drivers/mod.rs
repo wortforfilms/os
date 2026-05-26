@@ -1,6 +1,20 @@
 use crate::boot_log;
 
+pub mod spi;
+
 const DRIVER_COUNT: usize = 5;
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DriverError {
+    NotSupported,
+    SiliconSignatureMismatch,
+}
+
+pub trait Driver {
+    fn init(&mut self) -> Result<(), DriverError>;
+    fn deinit(&mut self) -> Result<(), DriverError>;
+    fn is_ready(&self) -> bool;
+}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum HealthState {

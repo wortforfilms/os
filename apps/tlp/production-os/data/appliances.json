@@ -1,5 +1,45 @@
 {
-  "schema": "maataa.appliance.registry.v1",
-  "updatedAt": null,
-  "appliances": []
+  "schema": "maataa.appliance.registry.v2",
+  "updatedAt": "2026-05-26T00:00:00.000Z",
+  "airgap_integrity_lock": true,
+  "networkPolicy": {
+    "mode": "standalone-loopback",
+    "externalTelemetry": false,
+    "remoteControl": false
+  },
+  "appliances": [
+    {
+      "id": "rv-delhi-corporate-node",
+      "label": "Delhi Corporate Node",
+      "zone": "Delhi",
+      "interface": "127.0.0.1",
+      "port": 8401,
+      "mac_mask": "00:1A:2B:3C:4D:5E",
+      "airgap_integrity_lock": true,
+      "role": "corporate-control",
+      "state": "CONTROLLED_GO"
+    },
+    {
+      "id": "rv-noida-distribution-node",
+      "label": "Noida Distribution Node",
+      "zone": "Noida",
+      "interface": "127.0.0.1",
+      "port": 8402,
+      "mac_mask": "00:1A:2B:3C:4D:5F",
+      "airgap_integrity_lock": true,
+      "role": "distribution",
+      "state": "CONTROLLED_GO"
+    },
+    {
+      "id": "rv-gurugram-broadcast-hub",
+      "label": "Gurugram Broadcast Hub",
+      "zone": "Gurugram",
+      "interface": "127.0.0.1",
+      "port": 8403,
+      "mac_mask": "00:1A:2B:3C:4D:60",
+      "airgap_integrity_lock": true,
+      "role": "broadcast-hub",
+      "state": "CONTROLLED_GO"
+    }
+  ]
 }

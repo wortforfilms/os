@@ -7,5 +7,8 @@ contextBridge.exposeInMainWorld("maataaDesktop", {
   authCurrentSession: (sessionId) => ipcRenderer.invoke("maataa:auth-current", sessionId),
   authLogout: (sessionId) => ipcRenderer.invoke("maataa:auth-logout", sessionId),
   adminSummary: (sessionId) => ipcRenderer.invoke("maataa:admin-summary", sessionId),
+  domainRegistry: () => ipcRenderer.invoke("maataa:domain-registry"),
+  billingSummary: (sessionId) => ipcRenderer.invoke("maataa:billing-summary", sessionId),
+  adminAnalytics: (sessionId) => ipcRenderer.invoke("maataa:admin-analytics", sessionId),
   runtimeEventsSince: (cursor) => ipcRenderer.invoke("maataa:runtime-events-since", cursor),
 });

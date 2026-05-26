@@ -68,3 +68,28 @@ test("invalid credentials do not create a session", () => {
     assert.equal(login.error, "INVALID_CREDENTIALS");
   });
 });
+
+test("domain, billing, and admin analytics registries are local and role gated", () => {
+  withStore((store) => {
+    const adminLogin = store.login("brahmini", "brahmini-admin-local");
+    assert.equal(adminLogin.ok, true);
+
+    const domains = store.domainRegistry();
+    assert.equal(domains.ok, true);
+    assert.equal(domains.domains.some((domain) => domain.name === "runtime.maataa.local"), true);
+
+    const billing = store.billingSummary(adminLogin.session.id);
+    assert.equal(billing.ok, true);
+    assert.equal(billing.summary.adapter, "local-dev-simulator");
+    assert.equal(billing.summary.entitlements.length >= 2, true);
+
+    const analytics = store.adminAnalytics(adminLogin.session.id);
+    assert.equal(analytics.ok, true);
+    assert.equal(analytics.summary.counts.runtimeEvents >= 2, true);
+
+    const producerLogin = store.login("vishNu", "vishnu-producer-local");
+    assert.equal(producerLogin.ok, true);
+    assert.equal(store.adminAnalytics(producerLogin.session.id).ok, false);
+    assert.equal(store.billingSummary(producerLogin.session.id).ok, true);
+  });
+});

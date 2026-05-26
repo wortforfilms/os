@@ -1,12 +1,22 @@
 import { FormEvent, ReactNode, useEffect, useMemo, useState } from "react";
 import { SovereignDashboard } from "../packages/maataa-ui/src/SovereignDashboard";
 import { createAuthClient, type AuthClient } from "./auth/client";
-import type { AdminSummary, AuthSession } from "./auth/types";
+import type { AdminAnalyticsResult, AdminSummary, AuthSession, BillingSummaryResult, DomainRegistryResult } from "./auth/types";
 import { CommandPalette } from "./search/CommandPalette";
 import { SearchPage } from "./search/SearchPage";
 import { useRuntimeStatus } from "./runtime/useRuntimeStatus";
 
-type RouteId = "/" | "/dashboard" | "/auth/login" | "/auth/signup" | "/admin" | "/docs" | "/settings" | "/runtime-observatory" | "/search";
+type RouteId =
+  | "/"
+  | "/dashboard"
+  | "/auth/login"
+  | "/auth/signup"
+  | "/admin"
+  | "/domains"
+  | "/docs"
+  | "/settings"
+  | "/runtime-observatory"
+  | "/search";
 type AuthStatus = "checking" | "anonymous" | "authenticated";
 
 const protectedRoutes = new Set<RouteId>(["/admin"]);
@@ -19,6 +29,7 @@ function currentPath(): RouteId {
     path === "/auth/login" ||
     path === "/auth/signup" ||
     path === "/admin" ||
+    path === "/domains" ||
     path === "/docs" ||
     path === "/search" ||
     path === "/settings" ||
@@ -129,6 +140,14 @@ export function App() {
     );
   }
 
+  if (route === "/domains") {
+    return (
+      <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
+        <DomainsShell auth={auth} />
+      </AuthShell>
+    );
+  }
+
   if (route === "/docs") {
     return (
       <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
@@ -170,7 +189,7 @@ function AuthShell({
     <div className="auth-product-shell">
       <aside className="auth-nav" aria-label="Product navigation">
         <div className="brand-mark">M</div>
-        {(["/", "/dashboard", "/admin", "/search", "/docs", "/settings"] as const).map((item) => (
+        {(["/", "/dashboard", "/admin", "/domains", "/search", "/docs", "/settings"] as const).map((item) => (
           <button className={route === item ? "active" : ""} key={item} onClick={() => navigate(item)}>
             {item === "/" ? "Home" : item.replace("/", "")}
           </button>
@@ -203,6 +222,7 @@ function normalizeRoute(path: string): RouteId | null {
     path === "/auth/login" ||
     path === "/auth/signup" ||
     path === "/admin" ||
+    path === "/domains" ||
     path === "/docs" ||
     path === "/search" ||
     path === "/settings" ||
@@ -273,6 +293,8 @@ function AuthForm({
 
 function AdminShell({ auth, session }: { auth: AuthClient; session: AuthSession | null }) {
   const [summary, setSummary] = useState<AdminSummary | null>(null);
+  const [billing, setBilling] = useState<BillingSummaryResult | null>(null);
+  const [analytics, setAnalytics] = useState<AdminAnalyticsResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -287,6 +309,16 @@ function AdminShell({ auth, session }: { auth: AuthClient; session: AuthSession 
       } else {
         setSummary(null);
         setError(result.error);
+      }
+    });
+    auth.billingSummary().then((result) => {
+      if (mounted) {
+        setBilling(result);
+      }
+    });
+    auth.adminAnalytics().then((result) => {
+      if (mounted) {
+        setAnalytics(result);
       }
     });
     return () => {
@@ -338,6 +370,79 @@ function AdminShell({ auth, session }: { auth: AuthClient; session: AuthSession 
           </tbody>
         </table>
       </div>
+      <div className="auth-card">
+        <h2>Local Billing Simulator</h2>
+        {billing?.ok ? (
+          <div className="admin-stat-grid">
+            <Stat label="Entitlements" value={billing.summary.entitlements.length} />
+            <Stat label="Invoices" value={billing.summary.invoices.length} />
+            <Stat label="Adapter" value={billing.summary.adapter === "local-dev-simulator" ? 1 : 0} />
+          </div>
+        ) : (
+          <p className="auth-message">BLOCKED: {billing?.error ?? "LOADING"}</p>
+        )}
+      </div>
+      <div className="auth-card">
+        <h2>Admin Analytics</h2>
+        {analytics?.ok ? (
+          <div className="admin-stat-grid">
+            <Stat label="Audit Logs" value={analytics.summary.counts.auditLogs ?? 0} />
+            <Stat label="Runtime Events" value={analytics.summary.counts.runtimeEvents ?? 0} />
+            <Stat label="Telemetry Events" value={analytics.summary.counts.telemetryEvents ?? 0} />
+          </div>
+        ) : (
+          <p className="auth-message">BLOCKED: {analytics?.error ?? "LOADING"}</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function DomainsShell({ auth }: { auth: AuthClient }) {
+  const [registry, setRegistry] = useState<DomainRegistryResult | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    auth.domainRegistry().then((result) => {
+      if (mounted) {
+        setRegistry(result);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [auth]);
+
+  if (!registry) {
+    return <AuthFrame title="Domain Registry" detail="Loading local domain registry." backend={auth.backend} />;
+  }
+
+  if (!registry.ok) {
+    return <AccessBlocked reason={registry.error} detail="Domain registry failed closed." />;
+  }
+
+  return (
+    <section className="auth-card">
+      <p className="dashboard-kicker">Domains</p>
+      <h2>Local sovereign domain registry.</h2>
+      <table className="auth-table">
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th>State</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          {registry.domains.map((domain) => (
+            <tr key={domain.id}>
+              <td>{domain.name}</td>
+              <td>{domain.state}</td>
+              <td>{domain.owner}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 }

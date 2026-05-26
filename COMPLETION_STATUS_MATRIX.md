@@ -1,7 +1,7 @@
 # Completion Status Matrix
 
-Generated: 2026-05-26T08:04:07.703Z
-Commit: eaac30d
+Generated: 2026-05-26T15:01:38.285Z
+Commit: d591b41
 Final status: CONTROLLED_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
@@ -13,7 +13,7 @@ PHKD verdict: BLOCKED
 | / | PREVIEW_VERIFIED | Vite root renders SovereignDashboard in Electron/Tauri-compatible shell. |
 | /dashboard | STAGED | Dashboard component exists but router route is not implemented. |
 | /runtime-observatory | STAGED | Observatory panels exist inside maataa-ui; route is not implemented. |
-| /domains | BLOCKED | No domains route or database-backed domain model is wired. |
+| /domains | PREVIEW_VERIFIED | Local domain registry route reads SQLite/Electron domain records with browser preview fallback. |
 | /search | PREVIEW_VERIFIED | Unified local search route is wired with type/status filters, empty state, and blocked route badges. |
 | /admin | PREVIEW_VERIFIED | Protected admin shell is wired with Admin-only role guard and fail-closed access. |
 | /auth/login | PREVIEW_VERIFIED | Login route authenticates seed users through the local auth bridge and persists sessions. |
@@ -34,8 +34,8 @@ PHKD verdict: BLOCKED
 | telemetry | PREVIEW_VERIFIED | Telemetry pressure and chaos reports exist for loopback frames. |
 | sse-live-status | PREVIEW_VERIFIED | Electron-safe runtime event cursor emits local heartbeat events; browser fallback reports DEGRADED instead of fake live. |
 | search | PREVIEW_VERIFIED | Unified search index and Ctrl/Cmd+K command palette are wired to local product matrix, docs, states, blockers, and repo surfaces. |
-| billing-entitlements | BLOCKED | No local billing simulator or entitlement checks are implemented. |
-| admin-analytics | BLOCKED | No admin analytics route or persisted analytics events exist. |
+| billing-entitlements | PREVIEW_VERIFIED | Local dev billing simulator stores products, entitlements, and invoices in SQLite and exposes role-gated summaries. |
+| admin-analytics | PREVIEW_VERIFIED | Admin analytics reads persisted audit, runtime, telemetry, invoice, and entitlement counts from the local store. |
 | evidence-matrix | PREVIEW_VERIFIED | Production hardening matrix and evidence reports are generated locally. |
 | release-governance | PREVIEW_VERIFIED | Golden image verification reads hardening matrix and refuses false PASS. |
 | desktop-electron | PREVIEW_VERIFIED | Electron shell launches local Vite UI with loopback-only request gate. |
@@ -43,9 +43,5 @@ PHKD verdict: BLOCKED
 
 ## Blockers
 
-- /domains: No domains route or database-backed domain model is wired.
-- billing-entitlements: No local billing simulator or entitlement checks are implemented.
-- admin-analytics: No admin analytics route or persisted analytics events exist.
-- MSAR: Hardware root of trust: Synthetic identity exists; HSM/TPM secure boot loop is not integrated.
-- RadioVaigyaaniq: NCR appliance cluster config: No Delhi/Noida/Gurugram autonomous deployment matrix is present.
+- MSAR: Hardware root of trust: HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace.
 

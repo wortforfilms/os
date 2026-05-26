@@ -15,6 +15,15 @@ const SEED_USERS = [
 ];
 
 const VALID_ROLES = new Set(["Admin", "Producer", "Viewer"]);
+const SEED_DOMAINS = [
+  { id: "dom_runtime", name: "runtime.maataa.local", state: "CONTROLLED_GO", owner: "brahmini" },
+  { id: "dom_lipi", name: "lipi.maataa.local", state: "PREVIEW_VERIFIED", owner: "vishNu" },
+  { id: "dom_radio", name: "radio.vaigyaaniq.local", state: "STAGED", owner: "vishNu" },
+];
+const SEED_PRODUCTS = [
+  { id: "prd_msr_dashboard", sku: "MSAR-DASHBOARD-LOCAL", label: "MSAR Dashboard Local Seat", amount: 0 },
+  { id: "prd_radio_preview", sku: "RADIO-VGQ-PREVIEW", label: "Radio Vaigyaaniq Preview Entitlement", amount: 1000 },
+];
 
 function createAuthStore(databasePath) {
   mkdirSync(dirname(databasePath), { recursive: true });
@@ -23,6 +32,9 @@ function createAuthStore(databasePath) {
   sqliteExec(db, "PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;");
   sqliteExec(db, schemaSql());
   seedUsers(db);
+  seedDomains(db);
+  seedProducts(db);
+  seedRuntimeRows(db);
 
   return {
     databasePath,
@@ -148,6 +160,65 @@ function createAuthStore(databasePath) {
       return { ok: true, summary: { counts, users } };
     },
 
+    domainRegistry() {
+      return {
+        ok: true,
+        domains: sqliteAll(db, "SELECT id, name, state, owner, created_at FROM domains ORDER BY name;"),
+      };
+    },
+
+    billingSummary(sessionId) {
+      const current = this.currentSession(sessionId);
+      if (!current.ok) {
+        audit(db, "billing.access", "BLOCKED", "NO_SESSION");
+        return current;
+      }
+      const entitlements = sqliteAll(
+        db,
+        [
+          "SELECT entitlements.id, entitlements.state, products.sku, products.label, users.username",
+          "FROM entitlements",
+          "JOIN products ON products.id = entitlements.product_id",
+          "JOIN users ON users.id = entitlements.user_id",
+          "ORDER BY products.sku;",
+        ].join(" "),
+      );
+      const invoices = sqliteAll(
+        db,
+        [
+          "SELECT invoices.id, invoices.amount_minor, invoices.state, products.sku, users.username",
+          "FROM invoices",
+          "JOIN products ON products.id = invoices.product_id",
+          "JOIN users ON users.id = invoices.user_id",
+          "ORDER BY invoices.id;",
+        ].join(" "),
+      );
+      audit(db, "billing.access", "PASS", current.session.username);
+      return { ok: true, summary: { adapter: "local-dev-simulator", entitlements, invoices } };
+    },
+
+    adminAnalytics(sessionId) {
+      const current = this.currentSession(sessionId);
+      if (!current.ok) {
+        audit(db, "analytics.access", "BLOCKED", "NO_SESSION");
+        return current;
+      }
+      if (current.session.role !== "Admin") {
+        audit(db, "analytics.access", "BLOCKED", current.session.username);
+        return { ok: false, error: "ROLE_DENIED" };
+      }
+      const summary = {
+        auditLogs: sqliteScalar(db, "SELECT COUNT(*) AS value FROM audit_logs;"),
+        runtimeEvents: sqliteScalar(db, "SELECT COUNT(*) AS value FROM runtime_events;"),
+        telemetryEvents: sqliteScalar(db, "SELECT COUNT(*) AS value FROM telemetry_events;"),
+        invoices: sqliteScalar(db, "SELECT COUNT(*) AS value FROM invoices;"),
+        entitlements: sqliteScalar(db, "SELECT COUNT(*) AS value FROM entitlements;"),
+      };
+      const recentAudit = sqliteAll(db, "SELECT action, result, actor, created_at FROM audit_logs ORDER BY created_at DESC LIMIT 8;");
+      audit(db, "analytics.access", "PASS", current.session.username);
+      return { ok: true, summary: { counts: summary, recentAudit } };
+    },
+
     close() {
       // sqlite3 CLI opens per command, so there is no long-lived handle to close.
     },
@@ -180,6 +251,51 @@ CREATE TABLE IF NOT EXISTS audit_logs (
   actor TEXT NOT NULL,
   created_at INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS domains (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE,
+  state TEXT NOT NULL,
+  owner TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS products (
+  id TEXT PRIMARY KEY,
+  sku TEXT NOT NULL UNIQUE,
+  label TEXT NOT NULL,
+  amount_minor INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS entitlements (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id),
+  product_id TEXT NOT NULL REFERENCES products(id),
+  state TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS invoices (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id),
+  product_id TEXT NOT NULL REFERENCES products(id),
+  amount_minor INTEGER NOT NULL,
+  state TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS runtime_events (
+  id TEXT PRIMARY KEY,
+  route TEXT NOT NULL,
+  state TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS telemetry_events (
+  id TEXT PRIMARY KEY,
+  event_type TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS system_admin_analytics_log (
+  id TEXT PRIMARY KEY,
+  indicator TEXT NOT NULL,
+  state TEXT NOT NULL,
+  evidence TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
 `;
 }
 
@@ -196,6 +312,79 @@ function seedUsers(db) {
       [
         "INSERT INTO users (id, username, role, state, password_salt, password_hash, created_at, disabled_at) VALUES",
         `(${sqlQuote(user.id)}, ${sqlQuote(user.username)}, ${sqlQuote(user.role)}, 'CONTROLLED_GO', ${sqlQuote(salt)}, ${sqlQuote(hashPassword(user.password, salt))}, ${now}, NULL);`,
+      ].join(" "),
+    );
+  }
+}
+
+function seedDomains(db) {
+  const now = Date.now();
+  for (const domain of SEED_DOMAINS) {
+    const existing = sqliteGet(db, `SELECT id FROM domains WHERE id = ${sqlQuote(domain.id)} LIMIT 1;`);
+    if (existing) {
+      continue;
+    }
+    sqliteExec(
+      db,
+      `INSERT INTO domains (id, name, state, owner, created_at) VALUES (${sqlQuote(domain.id)}, ${sqlQuote(domain.name)}, ${sqlQuote(domain.state)}, ${sqlQuote(domain.owner)}, ${now});`,
+    );
+  }
+}
+
+function seedProducts(db) {
+  for (const product of SEED_PRODUCTS) {
+    const existing = sqliteGet(db, `SELECT id FROM products WHERE id = ${sqlQuote(product.id)} LIMIT 1;`);
+    if (!existing) {
+      sqliteExec(
+        db,
+        `INSERT INTO products (id, sku, label, amount_minor) VALUES (${sqlQuote(product.id)}, ${sqlQuote(product.sku)}, ${sqlQuote(product.label)}, ${product.amount});`,
+      );
+    }
+  }
+  const adminEntitlement = sqliteGet(db, "SELECT id FROM entitlements WHERE id = 'ent_admin_dashboard' LIMIT 1;");
+  if (!adminEntitlement) {
+    sqliteExec(
+      db,
+      "INSERT INTO entitlements (id, user_id, product_id, state) VALUES ('ent_admin_dashboard', 'usr_brahmini', 'prd_msr_dashboard', 'ACTIVE');",
+    );
+  }
+  const radioEntitlement = sqliteGet(db, "SELECT id FROM entitlements WHERE id = 'ent_producer_radio' LIMIT 1;");
+  if (!radioEntitlement) {
+    sqliteExec(
+      db,
+      "INSERT INTO entitlements (id, user_id, product_id, state) VALUES ('ent_producer_radio', 'usr_vishnu', 'prd_radio_preview', 'PREVIEW_ONLY');",
+    );
+  }
+  const invoice = sqliteGet(db, "SELECT id FROM invoices WHERE id = 'inv_radio_preview_001' LIMIT 1;");
+  if (!invoice) {
+    sqliteExec(
+      db,
+      "INSERT INTO invoices (id, user_id, product_id, amount_minor, state) VALUES ('inv_radio_preview_001', 'usr_vishnu', 'prd_radio_preview', 1000, 'LOCAL_SIMULATED');",
+    );
+  }
+}
+
+function seedRuntimeRows(db) {
+  const now = Date.now();
+  if (sqliteScalar(db, "SELECT COUNT(*) AS value FROM runtime_events;") === 0) {
+    sqliteExec(
+      db,
+      `INSERT INTO runtime_events (id, route, state, created_at) VALUES ('rte_boot', '/', 'PREVIEW_VERIFIED', ${now}), ('rte_search', '/search', 'PREVIEW_VERIFIED', ${now + 1});`,
+    );
+  }
+  if (sqliteScalar(db, "SELECT COUNT(*) AS value FROM telemetry_events;") === 0) {
+    sqliteExec(
+      db,
+      `INSERT INTO telemetry_events (id, event_type, payload_json, created_at) VALUES ('tel_local_heartbeat', 'heartbeat', '{"transport":"electron-ipc"}', ${now});`,
+    );
+  }
+  if (sqliteScalar(db, "SELECT COUNT(*) AS value FROM system_admin_analytics_log;") === 0) {
+    sqliteExec(
+      db,
+      [
+        "INSERT INTO system_admin_analytics_log (id, indicator, state, evidence, created_at) VALUES",
+        `('silicon_attestation_mmio', 'Hardware root of trust', 'BLOCKED', 'MMIO binding at 0xFE001000 implemented; target fused-register read not captured.', ${now}),`,
+        `('radio_ncr_cluster', 'NCR appliance cluster', 'CONTROLLED_GO', 'Delhi/Noida/Gurugram loopback ports and MAC masks registered with airgap lock.', ${now + 1});`,
       ].join(" "),
     );
   }

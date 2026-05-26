@@ -7,17 +7,17 @@ import { parseRuntimeEventBatch, transportStateFromBatch } from "../src/runtime/
 test("search index includes local matrix routes and blocked routes", () => {
   const index = buildUnifiedSearchIndex();
   const searchRoute = index.find((result) => result.id === "route:/search");
-  const domainsRoute = index.find((result) => result.id === "route:/domains");
+  const rootTrustBlocker = index.find((result) => result.id === "blocker:MSAR");
 
   assert.equal(searchRoute?.status, "PREVIEW_VERIFIED");
   assert.equal(isNavigableSearchResult(searchRoute!), true);
-  assert.equal(domainsRoute?.status, "BLOCKED");
-  assert.equal(isNavigableSearchResult(domainsRoute!), false);
+  assert.equal(rootTrustBlocker?.status, "BLOCKED");
+  assert.equal(isNavigableSearchResult(rootTrustBlocker!), false);
 });
 
 test("unified search returns blocker records without inventing routes", () => {
-  const results = searchUnifiedIndex("domains blocked");
-  assert.equal(results.some((result) => result.type === "route" && result.path === "/domains" && result.status === "BLOCKED"), true);
+  const results = searchUnifiedIndex("hardware root trust blocked");
+  assert.equal(results.some((result) => result.type === "blocker" && result.id === "blocker:MSAR"), true);
 });
 
 test("command palette keyboard gate opens only on ctrl/cmd k", () => {

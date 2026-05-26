@@ -86,3 +86,11 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     actor TEXT NOT NULL DEFAULT 'system',
     created_at INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS system_admin_analytics_log (
+    id TEXT PRIMARY KEY,
+    indicator TEXT NOT NULL,
+    state TEXT NOT NULL,
+    evidence TEXT NOT NULL,
+    created_at INTEGER NOT NULL
+);

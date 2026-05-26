@@ -1,26 +1,10 @@
 {
   "schema": "maataa.blockers.v1",
-  "generatedAt": "2026-05-26T08:04:07.703Z",
+  "generatedAt": "2026-05-26T15:01:38.285Z",
   "blockers": [
     {
-      "surface": "/domains",
-      "reason": "No domains route or database-backed domain model is wired."
-    },
-    {
-      "surface": "billing-entitlements",
-      "reason": "No local billing simulator or entitlement checks are implemented."
-    },
-    {
-      "surface": "admin-analytics",
-      "reason": "No admin analytics route or persisted analytics events exist."
-    },
-    {
       "surface": "MSAR",
-      "reason": "Hardware root of trust: Synthetic identity exists; HSM/TPM secure boot loop is not integrated."
-    },
-    {
-      "surface": "RadioVaigyaaniq",
-      "reason": "NCR appliance cluster config: No Delhi/Noida/Gurugram autonomous deployment matrix is present."
+      "reason": "Hardware root of trust: HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace."
     }
   ]
 }
