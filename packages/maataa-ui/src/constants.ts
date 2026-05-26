@@ -50,3 +50,13 @@ export const GOVERNANCE_STATES: readonly GovernanceState[] = [
 
 export const PHKD_RUNTIME_RULE =
   "UI Runtime is not Scientific Certification. Certification requires evidence gates.";
+
+export const CANONICAL_RUNTIME_STATES = [
+  "EXPERIMENTAL",
+  "STAGED",
+  "PREVIEW_VERIFIED",
+  "CONTROLLED_GO",
+  "CONTROLLED_NO_GO",
+  "BLOCKED",
+  "DEPRECATED",
+] as const;

@@ -22,6 +22,8 @@ Working in this alpha:
 - Six-tick scheduler simulation
 - Release size check
 - Host unit tests for virtual kernel subsystems
+- Vite/Electron sovereign runtime dashboard preview
+- Local evidence generation and blocker reporting
 
 Not yet included:
 
@@ -30,7 +32,11 @@ Not yet included:
 - LittleFS flash persistence
 - Executing WebAssembly capsules
 - Capability enforcement and capsule signing
-- CI and hardware validation matrix
+- Next.js App Router production routes
+- Prisma/libSQL application adapter
+- Auth, billing, entitlement, and SSE API services
+- Real local AI inference over model weights
+- Hardware root of trust
 
 ## Quick Start
 
@@ -69,7 +75,27 @@ The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
 
 ```bash
 npm install
-npm run tauri:dev
+npm run evidence:generate
+npm run electron:dev
 ```
 
-The Tauri shell renders the promoted Maataa OS modules from `apps/system/modules`.
+The Electron shell renders the active SovereignDashboard from
+`packages/maataa-ui`. Tauri remains available through `npm run tauri:dev`.
+
+## Product Evidence
+
+```bash
+npm run typecheck
+npm run test
+npm run build
+npm run evidence:generate
+npm run status:matrix
+```
+
+Generated evidence:
+
+- `COMPLETION_STATUS_MATRIX.json`
+- `COMPLETION_STATUS_MATRIX.md`
+- `release/evidence/latest.json`
+- `release/evidence/blockers.json`
+- `release/evidence/commands-run.md`

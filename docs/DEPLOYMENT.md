@@ -1,11 +1,18 @@
 # Golden Image Deployment
 
+Current product deployment posture: `CONTROLLED_NO_GO`.
+
+Preview packaging can be verified locally, but production deployment remains
+blocked until hardware root of trust, per-device flashing admission, and the
+remaining hardening blockers are resolved.
+
 The production packaging flow is local-only and excludes raw prototypes such as
 `assets/html/`.
 
 ## Build
 
 ```bash
+npm run build
 npm run golden:build
 ```
 
@@ -26,7 +33,9 @@ npm run golden:verify
 ```
 
 Verification checks required artifacts, boot-contract markers, recovery fallback
-markers, forbidden path exclusions, and `SHA256SUMS`.
+markers, forbidden path exclusions, `SHA256SUMS`, package kernel hash, and the
+production hardening matrix. It reports unresolved blockers rather than
+mutating a false pass state.
 
 ## Flash
 

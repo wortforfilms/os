@@ -46,6 +46,15 @@ export type GovernanceState =
 
 export type RuntimeHealthState = "nominal" | "degraded" | "recovery";
 
+export type CanonicalRuntimeState =
+  | "EXPERIMENTAL"
+  | "STAGED"
+  | "PREVIEW_VERIFIED"
+  | "CONTROLLED_GO"
+  | "CONTROLLED_NO_GO"
+  | "BLOCKED"
+  | "DEPRECATED";
+
 export type RuntimeStat = {
   label: string;
   value: string | number;

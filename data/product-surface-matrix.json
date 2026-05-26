@@ -1,0 +1,42 @@
+{
+  "schema": "maataa.product.surface.matrix.v1",
+  "states": [
+    "EXPERIMENTAL",
+    "STAGED",
+    "PREVIEW_VERIFIED",
+    "CONTROLLED_GO",
+    "CONTROLLED_NO_GO",
+    "BLOCKED",
+    "DEPRECATED"
+  ],
+  "routes": [
+    { "path": "/", "state": "PREVIEW_VERIFIED", "evidence": "Vite root renders SovereignDashboard in Electron/Tauri-compatible shell." },
+    { "path": "/dashboard", "state": "STAGED", "evidence": "Dashboard component exists but router route is not implemented." },
+    { "path": "/runtime-observatory", "state": "STAGED", "evidence": "Observatory panels exist inside maataa-ui; route is not implemented." },
+    { "path": "/domains", "state": "BLOCKED", "evidence": "No domains route or database-backed domain model is wired." },
+    { "path": "/search", "state": "BLOCKED", "evidence": "No command palette or unified search index is wired." },
+    { "path": "/admin", "state": "BLOCKED", "evidence": "No local auth, role guard, or admin route is wired." },
+    { "path": "/auth/login", "state": "BLOCKED", "evidence": "No SQLite/libSQL user/session implementation is wired." },
+    { "path": "/auth/signup", "state": "BLOCKED", "evidence": "No local signup flow is implemented." },
+    { "path": "/settings", "state": "STAGED", "evidence": "Theme/runtime packages exist; route is not implemented." },
+    { "path": "/docs", "state": "PREVIEW_VERIFIED", "evidence": "Docs exist in repository; in-app docs route is not implemented." }
+  ],
+  "features": [
+    { "id": "cinematic-homepage", "state": "PREVIEW_VERIFIED", "evidence": "SovereignDashboard now has cinematic header and ecosystem schematic." },
+    { "id": "sovereign-dashboard", "state": "PREVIEW_VERIFIED", "evidence": "Active Vite/Electron entrypoint renders SovereignDashboard." },
+    { "id": "ecosystem-schematic", "state": "PREVIEW_VERIFIED", "evidence": "Dashboard includes apps/crates/packages, offline cores, quadrants, archive flow." },
+    { "id": "runtime-observatory", "state": "STAGED", "evidence": "Panels exist, but route/live orchestration is not complete." },
+    { "id": "auth-and-roles", "state": "BLOCKED", "evidence": "No local auth database/session layer." },
+    { "id": "offline-local-db", "state": "STAGED", "evidence": "SQLite migrations exist; no application database adapter is active." },
+    { "id": "telemetry", "state": "PREVIEW_VERIFIED", "evidence": "Telemetry pressure and chaos reports exist for loopback frames." },
+    { "id": "sse-live-status", "state": "BLOCKED", "evidence": "No /api/runtime/events transport exists in this Vite runtime." },
+    { "id": "search", "state": "BLOCKED", "evidence": "No search index, route, or command palette is wired." },
+    { "id": "billing-entitlements", "state": "BLOCKED", "evidence": "No local billing simulator or entitlement checks are implemented." },
+    { "id": "admin-analytics", "state": "BLOCKED", "evidence": "No admin analytics route or persisted analytics events exist." },
+    { "id": "evidence-matrix", "state": "PREVIEW_VERIFIED", "evidence": "Production hardening matrix and evidence reports are generated locally." },
+    { "id": "release-governance", "state": "PREVIEW_VERIFIED", "evidence": "Golden image verification reads hardening matrix and refuses false PASS." },
+    { "id": "desktop-electron", "state": "PREVIEW_VERIFIED", "evidence": "Electron shell launches local Vite UI with loopback-only request gate." },
+    { "id": "ci", "state": "PREVIEW_VERIFIED", "evidence": "GitHub Actions verify workflow added for local gates." }
+  ],
+  "finalStatus": "CONTROLLED_NO_GO"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "maataa.db.migration.report.v1",
+  "state": "STAGED",
+  "migrations": [
+    "._007_product_runtime.sql",
+    "003_data_frames.sql",
+    "004_hsts.sql",
+    "005_evidence.sql",
+    "006_certification.sql",
+    "007_product_runtime.sql"
+  ]
+}
