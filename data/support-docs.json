@@ -1,0 +1,64 @@
+{
+  "schema": "maataa.support.docs.v1",
+  "productionReady": false,
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "supportMode": "PREVIEW_AND_LOCAL_VALIDATION",
+  "documents": [
+    {
+      "id": "user-guide",
+      "title": "User Guide",
+      "path": "docs/user-guide.md",
+      "status": "READY",
+      "audience": "users",
+      "summary": "Start here for local preview usage, honest badges, and governed status."
+    },
+    {
+      "id": "support",
+      "title": "Support",
+      "path": "docs/support.md",
+      "status": "READY",
+      "audience": "users",
+      "summary": "Support channels, severity levels, and what evidence to collect."
+    },
+    {
+      "id": "troubleshooting",
+      "title": "Troubleshooting",
+      "path": "docs/troubleshooting.md",
+      "status": "READY",
+      "audience": "operators",
+      "summary": "Common Electron, Tauri, package build, hardware evidence, and smoke-test fixes."
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "path": "docs/faq.md",
+      "status": "READY",
+      "audience": "users",
+      "summary": "Plain answers about production readiness, Lipi, language modes, and flashing."
+    },
+    {
+      "id": "support-request-template",
+      "title": "Support Request Template",
+      "path": "docs/support/support-request-template.md",
+      "status": "READY",
+      "audience": "users",
+      "summary": "Offline template for support requests when GitHub is unavailable."
+    },
+    {
+      "id": "operator-escalation",
+      "title": "Operator Escalation",
+      "path": "docs/support/operator-escalation.md",
+      "status": "READY",
+      "audience": "operators",
+      "summary": "Fail-closed escalation path for release, hardware, quorum, rollback, or flash risk."
+    },
+    {
+      "id": "release-support-checklist",
+      "title": "Release Support Checklist",
+      "path": "docs/support/release-support-checklist.md",
+      "status": "READY",
+      "audience": "operators",
+      "summary": "Pre-release support review checklist that preserves governed no-go status."
+    }
+  ]
+}

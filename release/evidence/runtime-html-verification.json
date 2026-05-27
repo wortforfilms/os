@@ -1,0 +1,11 @@
+{
+  "schema": "maataa.runtime-html.verification.v1",
+  "generatedAt": "2026-05-27T13:13:41.060Z",
+  "manifest": "release/runtime-html/manifest.json",
+  "pageCount": 16,
+  "expectedPageCount": 16,
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "failures": []
+}

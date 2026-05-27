@@ -1,0 +1,28 @@
+{
+  "schema": "maataa.full-demo.release.v1",
+  "artifact": "release/FULL_DEMO.html",
+  "status": "RELEASED_STATIC_PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "demoScope": "STATIC_PREVIEW",
+  "includedSurfaces": [
+    "Aam Jantaa Interface",
+    "Runtime Health",
+    "Lipi Runtime",
+    "Support Center",
+    "Maataa Ecosystem Wall",
+    "Maataa Ecosystem Merkle Tree",
+    "ThemeLab",
+    "Runtime HTML"
+  ],
+  "activeBlockers": [
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "verifiedAt": "2026-05-27T16:44:23.687Z",
+  "verificationStatus": "PASS",
+  "failures": []
+}

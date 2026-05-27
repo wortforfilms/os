@@ -1,0 +1,11 @@
+{
+  "module": "lipi-runtime",
+  "anchors": [
+    { "id": "brahmi-a", "scriptId": "brahmi", "token": "a", "status": "SEEDED" },
+    { "id": "brahmi-ka", "scriptId": "brahmi", "token": "ka", "status": "SEEDED" },
+    { "id": "kharosthi-a", "scriptId": "kharosthi", "token": "a", "status": "SEEDED" },
+    { "id": "siddham-a", "scriptId": "siddham", "token": "a", "status": "SEEDED" }
+  ],
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED"
+}

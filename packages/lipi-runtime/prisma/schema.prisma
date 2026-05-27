@@ -1,0 +1,58 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model LipiScript {
+  id               String   @id
+  isoCode          String   @unique
+  name             String
+  nativeName       String?
+  direction        String
+  family           String?
+  wave             String?
+  status           String
+  unicodeRange     String?
+  oldestProof      String?
+  extinctionReason String?
+  creatorType      String?
+  creatorName      String?
+  region           String?
+  purpose          String?
+  createdAt        DateTime @default(now())
+
+  characters      LipiCharacter[]
+  lineageParents  LipiLineageEdge[] @relation("ChildScript")
+  lineageChildren LipiLineageEdge[] @relation("ParentScript")
+}
+
+model LipiCharacter {
+  id              String @id
+  scriptId        String
+  token           String
+  glyph           String
+  unicode         String?
+  phoneticValue   String?
+  ipa             String?
+  transliteration String?
+  category        String
+  anchorStatus    String
+
+  script LipiScript @relation(fields: [scriptId], references: [id])
+}
+
+model LipiLineageEdge {
+  id             String @id
+  parentScriptId String
+  childScriptId  String
+  relationType   String
+  confidence     Float
+  evidenceNote   String?
+
+  parentScript LipiScript @relation("ParentScript", fields: [parentScriptId], references: [id])
+  childScript  LipiScript @relation("ChildScript", fields: [childScriptId], references: [id])
+}

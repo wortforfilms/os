@@ -1,0 +1,10 @@
+{
+  "module": "lipi-runtime",
+  "cluster": "PHASE_0_AMIRPUR_TEST_CLUSTER",
+  "languages": ["hi", "hr", "pa"],
+  "contentReadiness": "PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "blockedReason": "Field test content exists as a deterministic scaffold; real classroom validation and release governance are not complete."
+}

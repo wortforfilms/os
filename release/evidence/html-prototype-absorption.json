@@ -1,0 +1,33 @@
+{
+  "schema": "maataa.html-prototype-absorption.evidence.v1",
+  "artifact": "data/html-prototype-inventory.json",
+  "generatedAt": "2026-05-27T10:48:23.764Z",
+  "sourcePolicy": "LOCAL_EXTRACTION_ONLY",
+  "rawHtmlTrackedInRepo": false,
+  "assetsHtmlTouched": false,
+  "prototypeCount": 13,
+  "sourceLineCount": 9549,
+  "absorbedCategories": [
+    "frames",
+    "types",
+    "schemas",
+    "data_frames",
+    "runtimes",
+    "workflows",
+    "ui",
+    "widgets"
+  ],
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "activeBlockers": [
+    "raw_html_prototypes_are_not_release_sources",
+    "external_cdn_scripts_detected_in_source_prototypes",
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "noFakeClaims": true,
+  "failures": []
+}

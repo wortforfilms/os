@@ -1,0 +1,20 @@
+{
+  "schema": "maataa.support-center.release.v1",
+  "artifact": "release/MATA_OS_SUPPORT_CENTER.html",
+  "sourceManifest": "data/support-docs.json",
+  "status": "RELEASED_STATIC_PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "supportMode": "PREVIEW_AND_LOCAL_VALIDATION",
+  "documentsEmbedded": 7,
+  "activeBlockers": [
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "verifiedAt": "2026-05-27T09:53:02.788Z",
+  "verificationStatus": "PASS",
+  "failures": []
+}

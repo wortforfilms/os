@@ -1,0 +1,100 @@
+{
+  "schema": "maataa.ecosystem.merkle-tree.v1",
+  "title": "Maataa Ecosystem",
+  "subtitle": "Merkle data tree for all frames with relations",
+  "source": {
+    "type": "image_extraction",
+    "rootHashVerified": false,
+    "note": "Root hash and frame hashes are extracted display labels, not cryptographic evidence."
+  },
+  "root": {
+    "hash": "0x7A3F...91BC",
+    "label": "MAATAA - COMPLETE ECOSYSTEM STATE",
+    "caption": "All Frames - All Relations - All Evidence"
+  },
+  "metadata": {
+    "generated": "28 May 2025, 10:28:45 IST",
+    "runtime": "Sovereign - Offline-First",
+    "version": "Genesis - v1.0.0",
+    "totalFrames": 97,
+    "totalRelations": 1248,
+    "totalDataLeavesLabel": "15,632+",
+    "merkleDepth": 4
+  },
+  "relationTypes": [
+    { "id": "data", "label": "Data Relation", "description": "content uses/depends on" },
+    { "id": "operational", "label": "Operational Relation", "description": "used in workflows" },
+    { "id": "semantic", "label": "Semantic Relation", "description": "meaning/ontology link" },
+    { "id": "governance", "label": "Governance Relation", "description": "review/approval link" },
+    { "id": "evidence", "label": "Evidence Relation", "description": "proof/verification link" }
+  ],
+  "domains": [
+    { "id": "runtime", "index": "01", "title": "Runtime", "hash": "0xA11B...3C9E", "description": "Core Operational Engine", "caption": "Runtime, Evolution, Replay", "frames": [["01.1", "Status Matrix", "0x111...a1"], ["01.2", "Topology", "0x112...b2"], ["01.3", "Evolution", "0x113...c3"], ["01.4", "Replay", "0x114...d4"], ["01.5", "Diagnostics", "0x115...e5"], ["01.6", "Completion", "0x116...f6"], ["01.7", "Timeline", "0x117...g7"], ["01.8", "Capture Review", "0x118...h8"], ["01.9", "Runtime Shell", "0x119...i9"]] },
+    { "id": "production-tlp", "index": "02", "title": "Production (TLP)", "hash": "0xB21C...7D4F", "description": "Production OS", "caption": "Create - Plan - Execute", "frames": [["02.1", "CreatorBoard", "0x211...a1"], ["02.2", "Timeline", "0x212...b2"], ["02.3", "Call Sheet", "0x213...c3"], ["02.4", "Assets", "0x214...d4"], ["02.5", "Budget/Logistics", "0x215...e5"], ["02.6", "Collaboration", "0x216...f6"], ["02.7", "Evidence", "0x217...g7"], ["02.8", "Studio Link", "0x218...h8"]] },
+    { "id": "distribution-radio", "index": "03", "title": "Distribution (Radio)", "hash": "0xC31D...8E5A", "description": "Independent Distribution", "caption": "Audio - Releases - Rights", "frames": [["03.1", "Releases", "0x311...a1"], ["03.2", "Lyrics Runtime", "0x312...b2"], ["03.3", "Playback", "0x313...c3"], ["03.4", "Entitlements", "0x314...d4"], ["03.5", "Artist/Meta", "0x315...e5"], ["03.6", "Analytics", "0x316...f6"], ["03.7", "Social/Share", "0x317...g7"], ["03.8", "Radio Studio", "0x318...h8"]] },
+    { "id": "knowledge-kbm", "index": "04", "title": "Knowledge (KBM)", "hash": "0xD41E...9F6B", "description": "Knowledge Memory Graph", "caption": "Ingest - Graph - Provenance", "frames": [["04.1", "Ingestion", "0x411...a1"], ["04.2", "Graph View", "0x412...b2"], ["04.3", "Provenance", "0x413...c3"], ["04.4", "Entities", "0x414...d4"], ["04.5", "Timeline", "0x415...e5"], ["04.6", "Semantics", "0x416...f6"], ["04.7", "Relations", "0x417...g7"], ["04.8", "Review Hub", "0x418...h8"]] },
+    { "id": "lipi-publishing", "index": "05", "title": "Lipi (Publishing)", "hash": "0xE51F...A07C", "description": "Scripts & Languages", "caption": "Civilizational Memory", "frames": [["05.1", "Script Explorer", "0x511...a1"], ["05.2", "Script Timeline", "0x512...b2"], ["05.3", "Transliteration", "0x513...c3"], ["05.4", "Manuscripts", "0x514...d4"], ["05.5", "IPA / Pronounce", "0x515...e5"], ["05.6", "Learning", "0x516...f6"], ["05.7", "Civ. Graph", "0x517...g7"], ["05.8", "Publishing", "0x518...h8"]] },
+    { "id": "community", "index": "06", "title": "Community", "hash": "0xF620...B10D", "description": "People & Purpose", "caption": "Collaboration - Growth", "frames": [["06.1", "Community Home", "0x611...a1"], ["06.2", "Missions", "0x612...b2"], ["06.3", "Live Sessions", "0x613...c3"], ["06.4", "Discussions", "0x614...d4"], ["06.5", "Knowledge Cr.", "0x615...e5"], ["06.6", "Mentorship", "0x616...f6"], ["06.7", "Groups", "0x617...g7"], ["06.8", "Events", "0x618...h8"]] },
+    { "id": "documentation", "index": "07", "title": "Documentation", "hash": "0x0711...C29E", "description": "Guides & References", "caption": "Always Up To Date", "frames": [["07.1", "Docs", "0x711...a1"], ["07.2", "Guides", "0x712...b2"], ["07.3", "API", "0x713...c3"], ["07.4", "References", "0x714...d4"], ["07.5", "Changelog", "0x715...e5"], ["07.6", "Tutorials", "0x716...f6"], ["07.7", "Standards", "0x717...g7"], ["07.8", "Glossary", "0x718...h8"]] },
+    { "id": "allb-ecosystem", "index": "08", "title": "ALLB Ecosystem", "hash": "0x1822...D3AF", "description": "Commerce - Media - Infra", "caption": "Multiple Platforms", "frames": [["08.1", "ALLB Shop", "0x811...a1"], ["08.2", "B2A Exchange", "0x812...b2"], ["08.3", "Krishi", "0x813...c3"], ["08.4", "CIC", "0x814...d4"], ["08.5", "KAA", "0x815...e5"], ["08.6", "Games", "0x816...f6"], ["08.7", "ALLB News", "0x817...g7"], ["08.8", "AdSpace", "0x818...h8"]] }
+  ],
+  "frameTypes": [
+    { "id": "entry", "title": "Entry Frames", "caption": "Onboarding & Setup", "items": ["00.01 Choose Script", "00.02 Language", "00.03 Choose Path", "00.04 Principles"] },
+    { "id": "overview", "title": "Overview Frames", "caption": "Ecosystem View", "items": ["01.01 Landing Board", "01.02 Ecosystem Flow", "01.03 Domain Nav", "01.08 Runtime Hierarchy"] },
+    { "id": "operational", "title": "Operational Frames", "caption": "Core Operations", "items": ["03.01 Mission Desk", "03.02 Operator Session", "03.03 Evidence Review", "03.04 Governance Review"] },
+    { "id": "creation", "title": "Creation Frames", "caption": "Make & Build", "items": ["04.01 Ideation", "04.02 Workspace", "04.03 Studio/Editor", "04.04 Export/Deliver"] },
+    { "id": "knowledge", "title": "Knowledge Frames", "caption": "Learn & Preserve", "items": ["07.01 Ingestion", "07.02 Knowledge Graph", "07.03 Provenance", "07.04 Semantic Overlay"] },
+    { "id": "review", "title": "Review Frames", "caption": "Trust & Verify", "items": ["10.01 Review Hub", "10.02 Vocab Review", "10.03 Contract Review", "10.04 Replay Review"] },
+    { "id": "community", "title": "Community Frames", "caption": "Connect & Collaborate", "items": ["09.01 Community Home", "09.02 Shared Missions", "09.03 Live Sessions", "09.04 Support/Mentorship"] },
+    { "id": "continuity", "title": "Continuity Frames", "caption": "History & Evolution", "items": ["14.01 History", "14.02 Decision Replay", "14.03 Evolution Archive", "14.04 Preservation Vault"] },
+    { "id": "accessibility", "title": "Accessibility Frames", "caption": "Inclusive Experience", "items": ["12.01 Low Cognition", "12.02 Advanced Mode", "12.03 Multilingual", "12.04 Low Bandwidth"] },
+    { "id": "mobile-field", "title": "Mobile / Field Frames", "caption": "On The Go", "items": ["11.01 Mobile Shell", "11.02 Field Mission", "11.03 Offline Sync", "11.04 Field Capture"] }
+  ],
+  "dataCategories": [
+    { "id": "content", "title": "Content Data", "caption": "Primary Content", "items": ["Text, Media, Audio", "Video, Documents", "Manuscripts, Scripts", "Lyrics, Metadata"], "leafExamples": ["song.wav", "video.mp4", "script.txt", "manuscript.jpg", "document.pdf"], "leafCountLabel": "3,245 more" },
+    { "id": "metadata", "title": "Metadata", "caption": "Descriptive Data", "items": ["Title, Author, Tags", "Language, Script", "Date, Location", "Format, Rights"], "leafExamples": ["title: Nava Geet", "artist: Maataa", "script: Devanagari", "language: Hindi", "year: 2025"], "leafCountLabel": "2,110 more" },
+    { "id": "relation", "title": "Relation Data", "caption": "Connections", "items": ["Entity Links", "Semantic Links", "Workflow Links", "Dependency Links"], "leafExamples": ["entity: song -> artist", "semantic: word -> meaning", "workflow: task -> mission", "dependency: asset -> project"], "leafCountLabel": "3,876 more" },
+    { "id": "operation", "title": "Operation Data", "caption": "Actions & Events", "items": ["Missions, Tasks", "Status, Progress", "Decisions, Reviews", "Approvals, Logs"], "leafExamples": ["mission_created", "review_submitted", "task_completed", "status_changed", "decision_approved"], "leafCountLabel": "6,542 more" },
+    { "id": "evidence", "title": "Evidence Data", "caption": "Proof & Verification", "items": ["Captures, Screenshots", "Checksums, Hashes", "Signatures, Attestations", "Replay Logs"], "leafExamples": ["capture_2025_05_28.png", "hash: a3f7...91bc", "signature: ed25519...", "replay_log.json", "attestation.pdf"], "leafCountLabel": "9,001 more" },
+    { "id": "user", "title": "User Data", "caption": "People & Roles", "items": ["Profiles, Identities", "Roles, Permissions", "Preferences", "Activity History"], "leafExamples": ["user: seva@maataa", "role: Producer", "permissions: ...", "joined: 2024-11-12", "last_active: now"], "leafCountLabel": "4,210 more" },
+    { "id": "system", "title": "System Data", "caption": "Runtime State", "items": ["Configs, Rules", "Ontologies, Vocab", "System Metrics", "Health, Diagnostics"], "leafExamples": ["runtime_version: 1.0.0", "vocab_rev: 2025.05.28", "sync_status: idle", "storage_used: 68%", "node_health: good"], "leafCountLabel": "1,204 more" },
+    { "id": "financial", "title": "Financial Data", "caption": "Value & Assets", "items": ["Budgets, Costs", "Transactions", "Revenue, Royalties", "Entitlements, Splits"], "leafExamples": ["budget: 120,000", "spent: 78,450", "royalty: 12.5%", "txn_id: 0x9af...bc12", "currency: INR"], "leafCountLabel": "2,330 more" },
+    { "id": "governance", "title": "Governance Data", "caption": "Trust & Control", "items": ["Policies, Rules", "Standards, Contracts", "Governance Logs", "Violation Reports"], "leafExamples": ["policy: content_integrity", "rule: vocab_enforcement", "standard: maataa_v1", "violation: 0", "review_cycle: weekly"], "leafCountLabel": "1,005 more" },
+    { "id": "analytics", "title": "Analytics Data", "caption": "Insights", "items": ["Usage, Trends", "Performance", "Effectiveness", "Impact Metrics"], "leafExamples": ["plays: 12,430", "listeners: 3,210", "completion: 68%", "engagement: high", "impact_score: 0.87"], "leafCountLabel": "2,987 more" }
+  ],
+  "verificationFlow": [
+    { "step": 1, "label": "Data Leaf", "description": "Hash exact data item" },
+    { "step": 2, "label": "Data Chunk", "description": "Group & hash leaves" },
+    { "step": 3, "label": "Frame Node", "description": "Hash frame & relations" },
+    { "step": 4, "label": "Domain Node", "description": "Hash sub-domain tree" },
+    { "step": 5, "label": "Root Hash", "description": "Complete state hash" }
+  ],
+  "merkleProofExample": [
+    ["Root", "0x7A3F...91BC"],
+    ["Domain 02 Production (TLP)", "0xB21C...7D4F"],
+    ["Sub-Domain 02.1 CreatorBoard", "0x211...a1"],
+    ["Frame 02.1.3 Call Sheet", "0x213...c3"],
+    ["Data Chunk", "0x88ab...ee01"],
+    ["Data Leaf call_sheet_day1.pdf", "0x9f7c...a1b2"]
+  ],
+  "principles": [
+    "Everything is connected",
+    "Nothing is hidden",
+    "All changes are verifiable",
+    "Humans remain in control",
+    "Knowledge is preserved",
+    "The system evolves with trust"
+  ],
+  "footer": "For Humans. By Humans. Forever.",
+  "governance": {
+    "productionReady": false,
+    "phkdVerdict": "BLOCKED",
+    "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+    "activeBlockers": [
+      "root_hash_image_label_not_cryptographically_verified",
+      "data_leaves_are_examples_not_attached_artifacts",
+      "relations_not_yet_materialized_as_signed_edges",
+      "hardware_root_attestation_missing"
+    ]
+  }
+}

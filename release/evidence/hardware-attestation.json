@@ -1,0 +1,72 @@
+{
+  "schema": "maataa.hardware.attestation.report.v1",
+  "captured_at": "2026-05-26T16:19:45.216Z",
+  "host_platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "os_type": "Darwin",
+    "os_release": "23.6.0"
+  },
+  "challenge": {
+    "schema": "maataa.hardware.attestation.contract.v1",
+    "nonce": "c5af9b8d53ceaf5b3020ad32c8573c852499c4eac934e75ec451cb9b6da4a1c8",
+    "issued_at": "2026-05-26T16:19:45.216Z",
+    "host_platform": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "os_type": "Darwin",
+      "os_release": "23.6.0"
+    },
+    "evidence_binding_seed": "1e6b29fe07164b9c5703ec267dfc1a50727accec0106451eb2555931485fb0b7",
+    "replay_window": "single-use",
+    "challenge_hash": "c1789577cddeb38079a431c11aa7dadf709fcfbbe6e6a50f12d3968cdf45bf74"
+  },
+  "status": "PARTIAL",
+  "verified_provider_count": 0,
+  "providers": [
+    {
+      "provider_id": "linux-tpm2-quote",
+      "provider_type": "tpm2-quote",
+      "status": "UNAVAILABLE",
+      "reason": "TPM2 quote adapter is Linux-only",
+      "raw_summary": {
+        "platform": "darwin"
+      },
+      "verification": {
+        "ok": false,
+        "failures": [
+          "TPM2 quote adapter is Linux-only"
+        ]
+      }
+    },
+    {
+      "provider_id": "macos-secure-enclave-signed-key",
+      "provider_type": "secure-enclave-signed-key",
+      "status": "UNAVAILABLE",
+      "reason": "No macOS Secure Enclave or keychain presence signal was visible",
+      "raw_summary": {},
+      "verification": {
+        "ok": false,
+        "failures": [
+          "No macOS Secure Enclave or keychain presence signal was visible"
+        ]
+      }
+    },
+    {
+      "provider_id": "external-hsm-signature",
+      "provider_type": "external-hsm",
+      "status": "UNAVAILABLE",
+      "reason": "External HSM/YubiHSM attestation material is not configured in MAATAA_HSM_PUBLIC_KEY_PEM and MAATAA_HSM_SIGNATURE_B64",
+      "raw_summary": {},
+      "verification": {
+        "ok": false,
+        "failures": [
+          "External HSM/YubiHSM attestation material is not configured in MAATAA_HSM_PUBLIC_KEY_PEM and MAATAA_HSM_SIGNATURE_B64"
+        ]
+      }
+    }
+  ],
+  "phkd_verdict": "BLOCKED",
+  "no_fake_claims": true,
+  "evidence_hash": "9f2c9fc5d5a5e8c1c1424f7f8f778896629964227f20f1fd983d93d97a2d17ba"
+}

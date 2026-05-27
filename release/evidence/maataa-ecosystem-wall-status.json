@@ -1,0 +1,23 @@
+{
+  "schema": "maataa.ecosystem-wall.evidence.v1",
+  "artifact": "data/maataa-ecosystem-wall.json",
+  "generatedAt": "2026-05-27T03:18:51.703Z",
+  "wallModel": "STRUCTURED",
+  "topDomainCount": 5,
+  "bottomDomainCount": 4,
+  "foundationLayerCount": 7,
+  "technologyFoundationCount": 12,
+  "previewOnly": true,
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "activeBlockers": [
+    "visual_capabilities_not_all_implemented",
+    "ai_media_health_law_claims_are_preview_only",
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "failures": []
+}

@@ -70,6 +70,10 @@ The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)
 - [Maataa UI package](packages/maataa-ui/README.md)
+- [User guide](docs/user-guide.md)
+- [Support](docs/support.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [FAQ](docs/faq.md)
 
 ## Desktop Preview
 

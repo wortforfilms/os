@@ -1,0 +1,369 @@
+{
+  "schema": "maataa.html-prototype-inventory.v1",
+  "sourceRoot": "/Volumes/LaCie/pprm/revenue/live/maataa/code/html",
+  "sourcePolicy": "LOCAL_EXTRACTION_ONLY",
+  "rawPrototypePolicy": {
+    "rawHtmlTrackedInRepo": false,
+    "assetsHtmlTouched": false,
+    "productionBuildInput": false,
+    "reason": "External HTML prototypes are absorbed as typed product frames, not copied as runtime source."
+  },
+  "counts": {
+    "files": 13,
+    "sourceLines": 9549,
+    "frameFamilies": 13,
+    "extractedSurfaces": 13
+  },
+  "governance": {
+    "productionReady": false,
+    "phkdVerdict": "BLOCKED",
+    "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+    "activeBlockers": [
+      "raw_html_prototypes_are_not_release_sources",
+      "external_cdn_scripts_detected_in_source_prototypes",
+      "hardware_root_attestation_missing",
+      "operator_quorum_unverified",
+      "signed_release_authority_unverified",
+      "rollback_drill_not_verified"
+    ],
+    "allowedBadges": ["READY", "PREVIEW", "BLOCKED", "OFFLINE", "VERIFYING", "DEGRADED"],
+    "noFakeClaims": true
+  },
+  "sharedTypes": [
+    {
+      "name": "PrototypeSurfaceId",
+      "signature": "boot_ritual | dashboard | desktop | features | landing_page | avatar_engine | monitor | holy_screen | quick_start | sales | services | system_processes | usp"
+    },
+    {
+      "name": "PrototypeFrameStatus",
+      "signature": "READY | PREVIEW | BLOCKED | OFFLINE | VERIFYING | DEGRADED"
+    },
+    {
+      "name": "PrototypeFrameRecord",
+      "signature": "{ id, sourceFile, title, surface, frames, types, schemas, dataFrames, runtimes, workflows, ui, widgets, status, blockedReason? }"
+    },
+    {
+      "name": "PrototypeWorkflowRecord",
+      "signature": "{ id, label, orderedSteps, runtimeDependencies, evidenceState }"
+    }
+  ],
+  "sharedSchemas": [
+    {
+      "name": "BootStageFrame",
+      "fields": ["id", "label", "ritualName", "stageIndex", "status", "completionEvent"]
+    },
+    {
+      "name": "RuntimeMetricFrame",
+      "fields": ["id", "label", "value", "unit", "sourceRuntime", "status"]
+    },
+    {
+      "name": "DesktopWindowFrame",
+      "fields": ["id", "app", "title", "windowState", "taskbarState", "actionSurface"]
+    },
+    {
+      "name": "CommercePlanFrame",
+      "fields": ["id", "name", "priceLabel", "features", "status", "entitlementBoundary"]
+    },
+    {
+      "name": "SupportServiceFrame",
+      "fields": ["id", "serviceName", "tier", "responseBoundary", "offlineAvailability"]
+    },
+    {
+      "name": "AvatarControlFrame",
+      "fields": ["id", "emotion", "phoneme", "eyeTracking", "breathingRate", "status"]
+    }
+  ],
+  "dataFrames": [
+    {
+      "id": "maataa_boot_sequence",
+      "source": "boot_ritual.html",
+      "boundary": "UI ritual stages extracted as deterministic boot flow metadata"
+    },
+    {
+      "id": "system_dashboard_metrics",
+      "source": "dashboard.html",
+      "boundary": "System component and chakra tower metrics for dashboard panels"
+    },
+    {
+      "id": "desktop_workspace_registry",
+      "source": "desktop.html",
+      "boundary": "Desktop apps, windows, taskbar entries, and context actions"
+    },
+    {
+      "id": "market_surface_catalog",
+      "source": "features.html, landing_page.html, sales.html, services.html, usp.html",
+      "boundary": "Marketing and service cards remain preview content until backed by evidence"
+    },
+    {
+      "id": "avatar_engine_controls",
+      "source": "maataa_avataar_v2.html",
+      "boundary": "Emotion, phoneme, eye tracking, and breathing controls"
+    },
+    {
+      "id": "operator_monitor_grid",
+      "source": "monitor.html, os_holy_screen.html, systemprocesses.html",
+      "boundary": "Kernel, process, transport, and log monitoring surfaces"
+    }
+  ],
+  "runtimes": [
+    "BootRitualRuntime",
+    "KernelDashboardRuntime",
+    "DesktopWorkspaceRuntime",
+    "CinematicMarketingRuntime",
+    "AvatarExpressionRuntime",
+    "OperatorMonitorRuntime",
+    "QuickStartOnboardingRuntime",
+    "CommerceEntitlementRuntime",
+    "ServiceSupportRuntime",
+    "ProcessSupervisorRuntime"
+  ],
+  "workflows": [
+    {
+      "id": "boot_to_ready",
+      "label": "Boot ritual to system ready",
+      "orderedSteps": ["shruti", "spandan", "prakat", "udghatan", "samvad", "system_ready"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "operator_observes_runtime",
+      "label": "Operator checks runtime health",
+      "orderedSteps": ["dashboard", "monitor", "holy_screen", "system_processes"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "visitor_understands_product",
+      "label": "Visitor learns value, features, services, and proof boundaries",
+      "orderedSteps": ["landing_page", "features", "usp", "services", "sales"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "user_enters_desktop",
+      "label": "User moves from quick start into desktop workspace",
+      "orderedSteps": ["quick_start", "desktop", "dashboard"],
+      "status": "PREVIEW"
+    }
+  ],
+  "prototypes": [
+    {
+      "id": "boot_ritual",
+      "sourceFile": "boot_ritual.html",
+      "title": "Maataa OS - Boot Ritual",
+      "surface": "boot",
+      "lineCount": 543,
+      "status": "PREVIEW",
+      "frames": ["shruti", "spandan", "prakat", "udghatan", "samvad", "boot_complete"],
+      "types": ["BootStageFrame", "ChakraActivationFrame", "AvatarManifestFrame", "SystemReadyEvent"],
+      "schemas": ["bootStage{id,label,stageIndex,status}", "bootCompletion{systemReady,message}"],
+      "dataFrames": ["maataa_boot_sequence", "chakra_tower_activation"],
+      "runtimes": ["BootRitualRuntime", "KernelHandshakeRuntime"],
+      "workflows": ["boot_to_ready"],
+      "ui": ["central core", "stage cards", "progress arcs", "success message"],
+      "widgets": ["BootStageCard", "ChakraTowerPulse", "AvatarCore", "SystemReadyBanner"],
+      "blockedReason": "Prototype stage timings and visual effects are not release runtime evidence."
+    },
+    {
+      "id": "dashboard",
+      "sourceFile": "dashboard.html",
+      "title": "Maataa OS System Dashboard",
+      "surface": "dashboard",
+      "lineCount": 657,
+      "status": "PREVIEW",
+      "frames": ["system_components", "chakra_towers", "system_metrics"],
+      "types": ["SystemComponentStatus", "ChakraTowerStatus", "RuntimeMetricFrame"],
+      "schemas": ["component{id,label,status}", "metric{id,label,value,unit,status}"],
+      "dataFrames": ["system_dashboard_metrics"],
+      "runtimes": ["KernelDashboardRuntime"],
+      "workflows": ["operator_observes_runtime"],
+      "ui": ["component cards", "metric labels", "chakra grid"],
+      "widgets": ["SystemComponentGrid", "MetricStrip", "ChakraTowerGrid"],
+      "blockedReason": "Metrics are prototype labels until connected to persisted telemetry evidence."
+    },
+    {
+      "id": "desktop",
+      "sourceFile": "desktop.html",
+      "title": "Maataa OS Desktop",
+      "surface": "desktop",
+      "lineCount": 848,
+      "status": "PREVIEW",
+      "frames": ["desktop_icons", "windows_container", "taskbar", "context_menu", "app_launcher", "notifications"],
+      "types": ["DesktopAppId", "DesktopWindowFrame", "TaskbarEntry", "ContextAction"],
+      "schemas": ["window{id,app,title,state}", "contextAction{id,label,targetApp}"],
+      "dataFrames": ["desktop_workspace_registry"],
+      "runtimes": ["DesktopWorkspaceRuntime"],
+      "workflows": ["user_enters_desktop"],
+      "ui": ["desktop icons", "window chrome", "taskbar", "clock", "notification tray"],
+      "widgets": ["DesktopIcon", "WindowFrame", "TaskbarApp", "ContextMenu", "NotificationStack"],
+      "blockedReason": "Desktop interaction model is extracted but not certified as production shell."
+    },
+    {
+      "id": "features",
+      "sourceFile": "features.html",
+      "title": "Maataa OS Features - Quantum Computing Platform",
+      "surface": "features",
+      "lineCount": 833,
+      "status": "BLOCKED",
+      "frames": ["feature_hero", "k7_kernel", "qtf_phase", "quantum_superposition", "entanglement_protocol", "transport_protocols", "power_features"],
+      "types": ["FeatureCard", "TransportProtocolCard", "CapabilityClaim"],
+      "schemas": ["feature{id,title,description,status,blockedReason}"],
+      "dataFrames": ["market_surface_catalog"],
+      "runtimes": ["CinematicMarketingRuntime"],
+      "workflows": ["visitor_understands_product"],
+      "ui": ["feature cards", "protocol cards", "cta button"],
+      "widgets": ["FeatureTile", "ProtocolSelector", "CapabilityGrid"],
+      "blockedReason": "Quantum and enterprise performance claims require measurable evidence before READY."
+    },
+    {
+      "id": "landing_page",
+      "sourceFile": "landing_page.html",
+      "title": "Maataa OS - The Future of Quantum Computing",
+      "surface": "homepage",
+      "lineCount": 859,
+      "status": "BLOCKED",
+      "frames": ["hero", "value_features", "comparison", "technology", "industries", "testimonials", "pricing", "faq", "final_cta"],
+      "types": ["HeroFrame", "ComparisonFrame", "PricingPlanFrame", "FaqEntry"],
+      "schemas": ["pricingPlan{id,name,price,features,status}", "faq{id,question,answer}"],
+      "dataFrames": ["market_surface_catalog"],
+      "runtimes": ["CinematicMarketingRuntime", "CommerceEntitlementRuntime"],
+      "workflows": ["visitor_understands_product"],
+      "ui": ["hero", "feature cards", "comparison columns", "pricing cards", "faq list"],
+      "widgets": ["CinematicHero", "ComparisonTable", "PricingCard", "FaqAccordion"],
+      "blockedReason": "Customer proof, uptime, and pricing claims need release evidence and entitlement wiring."
+    },
+    {
+      "id": "avatar_engine",
+      "sourceFile": "maataa_avataar_v2.html",
+      "title": "Maataa Avatar Engine V2",
+      "surface": "avatar",
+      "lineCount": 572,
+      "status": "PREVIEW",
+      "frames": ["emotional_modulation", "mouth_phonemes", "eye_tracking", "qtf_synced_breathing"],
+      "types": ["AvatarEmotion", "AvatarPhoneme", "EyeTrackingState", "BreathingState"],
+      "schemas": ["avatarState{emotion,phoneme,eyeTracking,breathingRate,status}"],
+      "dataFrames": ["avatar_engine_controls"],
+      "runtimes": ["AvatarExpressionRuntime"],
+      "workflows": ["user_enters_desktop"],
+      "ui": ["avatar face", "emotion controls", "phoneme controls", "eye tracking toggle", "breathing slider"],
+      "widgets": ["AvatarFace", "EmotionPicker", "PhonemePicker", "EyeTrackingToggle", "BreathingControl"],
+      "blockedReason": "Expression controls are local UI preview until backed by real input/animation runtime tests."
+    },
+    {
+      "id": "monitor",
+      "sourceFile": "monitor.html",
+      "title": "Maataa OS - System Monitor",
+      "surface": "monitor",
+      "lineCount": 675,
+      "status": "PREVIEW",
+      "frames": ["chakra_towers_volumetric", "gpu_pipeline", "qtf_integration", "avatar_engine", "boot_ritual", "hkd_ingestion", "kernel_sync", "tauri_runtime"],
+      "types": ["MonitorPanel", "RuntimeSubsystemStatus", "VolumetricTowerStatus"],
+      "schemas": ["subsystem{id,label,status,metrics}"],
+      "dataFrames": ["operator_monitor_grid"],
+      "runtimes": ["OperatorMonitorRuntime"],
+      "workflows": ["operator_observes_runtime"],
+      "ui": ["monitor panels", "tower labels", "runtime cards"],
+      "widgets": ["MonitorPanel", "RuntimeSubsystemCard", "TowerStatusCard"],
+      "blockedReason": "Subsystem names are extracted; live metrics still require runtime evidence."
+    },
+    {
+      "id": "holy_screen",
+      "sourceFile": "os_holy_screen.html",
+      "title": "Maataa OS Holy Screen",
+      "surface": "operator_console",
+      "lineCount": 784,
+      "status": "PREVIEW",
+      "frames": ["kernel_status", "live_logs", "transport_controls", "session_list", "chakra_gradient"],
+      "types": ["KernelStatusFrame", "RuntimeLogEntry", "TransportMode", "SessionFrame"],
+      "schemas": ["logEntry{level,source,message,timestamp}", "transport{mode,status}"],
+      "dataFrames": ["operator_monitor_grid"],
+      "runtimes": ["OperatorMonitorRuntime", "TransportControlRuntime"],
+      "workflows": ["operator_observes_runtime"],
+      "ui": ["particle field", "avatar", "kernel bars", "log console", "transport mode buttons"],
+      "widgets": ["KernelStatusPanel", "LiveLogConsole", "TransportModeSelector", "SessionList"],
+      "blockedReason": "Transport controls are preview-only until connected to governed SSE/IPC state."
+    },
+    {
+      "id": "quick_start",
+      "sourceFile": "quick_start.html",
+      "title": "Maataa OS - Quick Start",
+      "surface": "onboarding",
+      "lineCount": 610,
+      "status": "PREVIEW",
+      "frames": ["welcome", "boot_ritual_step", "avatar_config_step", "desktop_step", "chakra_network_step", "key_features", "quick_actions"],
+      "types": ["OnboardingStep", "QuickAction", "FeatureIntro"],
+      "schemas": ["step{id,index,title,description,status}", "quickAction{id,label,route,status}"],
+      "dataFrames": ["quick_start_onboarding"],
+      "runtimes": ["QuickStartOnboardingRuntime"],
+      "workflows": ["user_enters_desktop"],
+      "ui": ["step cards", "progress bar", "feature grid", "action buttons"],
+      "widgets": ["OnboardingProgress", "StepCard", "FeatureIntroGrid", "QuickActionBar"],
+      "blockedReason": "Onboarding content is usable preview; completion persistence is not release-verified."
+    },
+    {
+      "id": "sales",
+      "sourceFile": "sales.html",
+      "title": "Maataa OS - Quantum Computing Reimagined",
+      "surface": "sales",
+      "lineCount": 659,
+      "status": "BLOCKED",
+      "frames": ["sales_hero", "revolutionary_features", "pricing", "final_cta"],
+      "types": ["SalesHeroFrame", "CommercePlanFrame", "SalesClaim"],
+      "schemas": ["salesClaim{id,claim,status,blockedReason}"],
+      "dataFrames": ["market_surface_catalog"],
+      "runtimes": ["CommerceEntitlementRuntime"],
+      "workflows": ["visitor_understands_product"],
+      "ui": ["sales hero", "feature cards", "pricing cards", "cta"],
+      "widgets": ["SalesHero", "SalesFeatureCard", "PricingPlanCard"],
+      "blockedReason": "Commercial plans require entitlement, invoice, and release authority verification."
+    },
+    {
+      "id": "services",
+      "sourceFile": "services.html",
+      "title": "Maataa OS Services - Professional Solutions & Support",
+      "surface": "services",
+      "lineCount": 809,
+      "status": "PREVIEW",
+      "frames": ["core_services", "service_tiers", "support_response_times", "engagement_process", "success_metrics", "service_cta"],
+      "types": ["ServiceCard", "ServiceTier", "EngagementStep", "SupportResponseBoundary"],
+      "schemas": ["service{id,title,description,tier,status}", "engagementStep{id,index,label}"],
+      "dataFrames": ["market_surface_catalog"],
+      "runtimes": ["ServiceSupportRuntime"],
+      "workflows": ["visitor_understands_product"],
+      "ui": ["service cards", "tier cards", "response table", "process timeline"],
+      "widgets": ["ServiceCard", "ServiceTierCard", "ResponseTimeTable", "EngagementTimeline"],
+      "blockedReason": "Service response commitments remain preview until support operations are staffed and measured."
+    },
+    {
+      "id": "system_processes",
+      "sourceFile": "systemprocesses.html",
+      "title": "Maataa OS - Processes",
+      "surface": "processes",
+      "lineCount": 770,
+      "status": "PREVIEW",
+      "frames": ["process_summary", "running_processes", "process_table"],
+      "types": ["ProcessMetric", "ProcessRow", "ProcessPriority", "ProcessStatus"],
+      "schemas": ["process{id,pid,name,cpu,memory,status,priority}"],
+      "dataFrames": ["operator_monitor_grid"],
+      "runtimes": ["ProcessSupervisorRuntime"],
+      "workflows": ["operator_observes_runtime"],
+      "ui": ["summary metrics", "process table", "status chips"],
+      "widgets": ["ProcessSummaryStrip", "ProcessTable", "ProcessStatusBadge"],
+      "blockedReason": "Process rows are absorbed as UI schema; real process telemetry must come from local runtime."
+    },
+    {
+      "id": "usp",
+      "sourceFile": "usp.html",
+      "title": "Why Maataa OS - Unique Selling Propositions",
+      "surface": "usp",
+      "lineCount": 930,
+      "status": "BLOCKED",
+      "frames": ["usp_hero", "performance_comparison", "onboarding_time", "uptime_guarantee", "future_proof_architecture", "integrations", "team_reasons", "cta"],
+      "types": ["UspClaim", "ProofMetric", "IntegrationClaim", "TimelineClaim"],
+      "schemas": ["proofMetric{id,label,value,status,blockedReason}"],
+      "dataFrames": ["market_surface_catalog"],
+      "runtimes": ["CinematicMarketingRuntime"],
+      "workflows": ["visitor_understands_product"],
+      "ui": ["usp cards", "comparison chart", "timeline", "integration grid", "cta"],
+      "widgets": ["UspCard", "ProofMetricCard", "EvolutionTimeline", "IntegrationGrid"],
+      "blockedReason": "Performance, uptime, and productivity claims are blocked until evidence artifacts prove them."
+    }
+  ]
+}

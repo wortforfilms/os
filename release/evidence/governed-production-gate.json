@@ -1,0 +1,166 @@
+{
+  "schema": "maataa.governed.production.gate.v1",
+  "generatedAt": "2026-05-26T16:52:16.314Z",
+  "status": "GOVERNED_PRODUCTION_NO_GO",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "inputs": {
+    "completionMatrix": "2b6ddfd7179d345c25fb9375be37d3c012f4b799bfdee195c443d1cc1fce913b",
+    "hardeningMatrix": "f7e75faabfac1ad6ac55d04a260b0cd6fed11550eb4b804b330495f04394318b",
+    "hardwareRootOfTrust": "8115ea340870eb52caf672099562aa278dd39742678cd7ca65cca9fa115626b1",
+    "releaseAuthority": "5f716e30b5a52d1851f68a35031a7c292cc5f4e545db6124c67d024a6544c5a2"
+  },
+  "releaseAuthority": {
+    "schema": "maataa.release.verify.v1",
+    "status": "BLOCKED",
+    "release_candidate": "BLOCKED",
+    "failures": [
+      "release manifest signer is not verified",
+      "operator approval quorum is not verified",
+      "signed release manifest status must be VERIFIED",
+      "release authority status is not VERIFIED"
+    ]
+  },
+  "hardwareEvidence": {
+    "schema": "maataa.hardware.root-of-trust.capture.v1",
+    "status": "PARTIAL",
+    "productionReady": false,
+    "capturedAt": "2026-05-26T16:19:53.568Z",
+    "hostPlatform": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "os_type": "Darwin",
+      "os_release": "23.6.0"
+    },
+    "trustSources": [
+      {
+        "id": "macos-system-profiler-hardware",
+        "type": "host-identity",
+        "status": "CAPTURED_HASHED",
+        "summary": "macOS hardware profile captured as a local SHA-256 digest",
+        "evidence_sha256": "89af1f62d17e0dad2f987e2adf296dc12aee8f6d13086e04f37944876390f6a5"
+      },
+      {
+        "id": "macos-ioreg-platform",
+        "type": "machine-uuid-signal",
+        "status": "CAPTURED_HASHED",
+        "summary": "IOPlatformExpertDevice identity material captured as a local SHA-256 digest",
+        "evidence_sha256": "22b4dd01cfdfd9e066f06c3db201bd5b4be6a4819ee4910c717c45a2ae3d8af8"
+      },
+      {
+        "id": "macos-boot-security-mode",
+        "type": "boot-security-signal",
+        "status": "CAPTURED_HASHED",
+        "summary": "macOS SIP status captured as a local SHA-256 digest",
+        "evidence_sha256": "83fb612043aa785d573f4d9ad5bae8ed63dc175f4c39f984d66c367f996f0d36"
+      }
+    ],
+    "missingSources": [
+      "macOS Secure Enclave attestation is not exposed to this process",
+      "macos-cpu-identity: unavailable",
+      "linux-tpm2-quote: TPM2 quote adapter is Linux-only",
+      "macos-secure-enclave-signed-key: No macOS Secure Enclave or keychain presence signal was visible",
+      "external-hsm-signature: External HSM/YubiHSM attestation material is not configured in MAATAA_HSM_PUBLIC_KEY_PEM and MAATAA_HSM_SIGNATURE_B64",
+      "direct MMIO window 0xFE001000 is not safely accessible from this host process",
+      "hardware-fused attestation quote is not available to this local Node.js capture process"
+    ],
+    "evidenceHash": "e1cbd36cc3d1fd45f3c9f52487c5ca34f1f7ec368d202b13472ab769b0ce03e1",
+    "phkdVerdict": "BLOCKED",
+    "blockers": [
+      {
+        "id": "HARDWARE_ATTESTATION_QUOTE_MISSING",
+        "reason": "No TPM, Secure Enclave, HSM, or factory-fused attestation quote was exposed to this process."
+      }
+    ],
+    "rawCommandSummary": [
+      {
+        "command": "system_profiler SPHardwareDataType",
+        "ok": true,
+        "exit_code": 0,
+        "signal": null,
+        "duration_ms": 123,
+        "stdout_sha256": "89af1f62d17e0dad2f987e2adf296dc12aee8f6d13086e04f37944876390f6a5",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 470,
+        "stderr_bytes": 0,
+        "error": null
+      },
+      {
+        "command": "system_profiler SPiBridgeDataType",
+        "ok": true,
+        "exit_code": 0,
+        "signal": null,
+        "duration_ms": 56,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "error": null
+      },
+      {
+        "command": "ioreg -rd1 -c IOPlatformExpertDevice",
+        "ok": true,
+        "exit_code": 0,
+        "signal": null,
+        "duration_ms": 14,
+        "stdout_sha256": "22b4dd01cfdfd9e066f06c3db201bd5b4be6a4819ee4910c717c45a2ae3d8af8",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 1840,
+        "stderr_bytes": 0,
+        "error": null
+      },
+      {
+        "command": "csrutil status",
+        "ok": true,
+        "exit_code": 0,
+        "signal": null,
+        "duration_ms": 10,
+        "stdout_sha256": "83fb612043aa785d573f4d9ad5bae8ed63dc175f4c39f984d66c367f996f0d36",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_bytes": 45,
+        "stderr_bytes": 0,
+        "error": null
+      },
+      {
+        "command": "sysctl -n machdep.cpu.brand_string",
+        "ok": false,
+        "exit_code": 1,
+        "signal": null,
+        "duration_ms": 3,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "4b48e95fc2c708e90935b4eb0c7fdbef56360fded00e57f1b083e052354d3774",
+        "stdout_bytes": 0,
+        "stderr_bytes": 54,
+        "error": null
+      }
+    ],
+    "noFakeClaims": true
+  },
+  "blockers": [
+    {
+      "surface": "completion",
+      "reason": "completion matrix is CONTROLLED_NO_GO; productionReady=false"
+    },
+    {
+      "surface": "hardening",
+      "reason": "hardening matrix is PREVIEW_BLOCKED; productionReady=false"
+    },
+    {
+      "surface": "hardware-root-of-trust",
+      "reason": "hardware root evidence status must be CAPTURED; found PARTIAL"
+    },
+    {
+      "surface": "hardware-root-of-trust",
+      "reason": "hardware root evidence production_ready must be true"
+    },
+    {
+      "surface": "hardware-root-of-trust",
+      "reason": "hardware root blockers must be empty before GO"
+    },
+    {
+      "surface": "hardware-root-of-trust",
+      "reason": "hardware root phkd_verdict must be PASS"
+    }
+  ],
+  "signature": "78317edc15af175e01b7886dd9982f84f85d5d7f0ec92db488098d5ace52a043"
+}

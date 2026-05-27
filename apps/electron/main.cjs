@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, session } = require("electron");
-const { existsSync } = require("node:fs");
+const { existsSync, readFileSync } = require("node:fs");
 const { join, resolve } = require("node:path");
 const { pathToFileURL } = require("node:url");
 const { createAuthStore } = require("./auth-store.cjs");
@@ -9,6 +9,7 @@ const DEV_URL = process.env.MAATAA_ELECTRON_URL || "http://127.0.0.1:1420";
 const IS_PRODUCTION = process.env.MAATAA_ELECTRON_MODE === "production";
 const PRELOAD = join(__dirname, "preload.cjs");
 const ALLOWED_HOSTS = new Set(["127.0.0.1", "localhost", "::1"]);
+const SUPPORT_DOCS_PATH = join(ROOT_DIR, "data", "support-docs.json");
 
 let mainWindow;
 let authStore;
@@ -101,6 +102,7 @@ app.whenReady().then(() => {
   ipcMain.handle("maataa:billing-summary", (_event, sessionId) => authStore.billingSummary(sessionId));
   ipcMain.handle("maataa:admin-analytics", (_event, sessionId) => authStore.adminAnalytics(sessionId));
   ipcMain.handle("maataa:runtime-events-since", (_event, cursor) => runtimeEventsSince(Number(cursor) || 0));
+  ipcMain.handle("maataa:support-docs", () => readSupportDocsManifest());
 
   createWindow();
 
@@ -150,5 +152,14 @@ function runtimeEventsSince(cursor) {
     events,
     blockedSystemsCount: 6,
     transport: "electron-ipc",
+  };
+}
+
+function readSupportDocsManifest() {
+  const manifest = JSON.parse(readFileSync(SUPPORT_DOCS_PATH, "utf8"));
+  return {
+    ok: true,
+    shell: "electron",
+    manifest,
   };
 }

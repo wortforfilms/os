@@ -1,0 +1,162 @@
+{
+  "schema": "maataa.ecosystem.wall.v1",
+  "title": "Maataa Ecosystem Wall",
+  "brand": {
+    "name": "maataa",
+    "tagline": "adaptive cognition",
+    "motto": "One Ecosystem. Infinite Workflows. Human Potential. Amplified.",
+    "principles": ["Sovereign", "Adaptive", "Multimodal", "Local-First", "Human-Centered"]
+  },
+  "source": {
+    "type": "image_extraction",
+    "verifiedImplementation": false,
+    "note": "This is a structured extraction of a visual ecosystem wall, not production or capability evidence."
+  },
+  "topDomains": [
+    {
+      "id": "lipi",
+      "title": "Lipi",
+      "subtitle": "Language & Knowledge Interface",
+      "description": "Multilingual, voice, text, gesture, real-time translation and understanding.",
+      "features": ["Real-time Speech-to-Text", "Multilingual Translation", "Voice Synthesis", "Script Adaptation", "Context Awareness"],
+      "actions": ["Listen", "Translate", "Script", "Understand"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "krishi",
+      "title": "Krishi",
+      "subtitle": "Smart Agriculture OS",
+      "description": "Empowering farmers. Enhancing livelihoods.",
+      "features": ["Soil & Crop Advisory", "Weather Intelligence", "Market Prices", "Pest Detection", "Voice Assistant", "Offline First"],
+      "actions": ["Monitor", "Advise", "Alert", "Market"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "subtitle": "Learning Without Limits",
+      "description": "Personalized. Multilingual. Accessible for all.",
+      "features": ["Adaptive Learning", "Multilingual Content", "Voice & Text Interaction", "Offline Access", "Progress Tracking", "Inclusive Design"],
+      "actions": ["Learn", "Practice", "Ask", "Track"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "health",
+      "title": "Health",
+      "subtitle": "Accessible Health Intelligence",
+      "description": "Prevent. Guide. Support. For Everyone.",
+      "features": ["Symptom Checker", "Health Guidance", "Local Language", "Wellness Tips", "Offline Support", "Telehealth Ready"],
+      "actions": ["Check", "Guide", "Track", "Connect"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "allb",
+      "title": "ALLB",
+      "subtitle": "Accessible Law & Legal Bridge",
+      "description": "Justice. Awareness. In Your Language.",
+      "features": ["Legal Information", "Rights Awareness", "Case Guidance", "Document Help", "Language Access", "Offline First"],
+      "actions": ["Learn", "Ask", "Guide", "Support"],
+      "status": "PREVIEW"
+    }
+  ],
+  "center": {
+    "tlp": {
+      "title": "TLP",
+      "subtitle": "Time-Line Protocol",
+      "features": ["Universal Time Standard", "Multi-Calendar Support", "Event Alignment", "Timeline Intelligence", "Project Synchronization"]
+    },
+    "kbm": {
+      "title": "KBM",
+      "subtitle": "Knowledge Backbone Matrix",
+      "features": ["Graph Memory", "Entity Relationships", "Context Intelligence", "Retrieval", "Reasoning"],
+      "caption": "The Cognitive Core of Maataa"
+    },
+    "maataa": {
+      "title": "Maataa",
+      "subtitle": "Adaptive Cognition OS",
+      "features": ["Multimodal Interaction", "Adaptive Intelligence", "Workflow Orchestration", "Local-First Sovereignty", "Human-Centered Design"]
+    }
+  },
+  "sideCapabilities": [
+    { "id": "multimodal-interaction", "title": "Multimodal Interaction", "description": "Voice, text, gesture, vision" },
+    { "id": "adaptive-intelligence", "title": "Adaptive Intelligence", "description": "Context, role, behavior" },
+    { "id": "offline-first", "title": "Offline First", "description": "Local processing, data sovereignty" },
+    { "id": "accessibility-by-design", "title": "Accessibility By Design", "description": "Inclusive, ethical, human" },
+    { "id": "workflow-orchestration", "title": "Workflow Orchestration", "description": "Smart, modular, contextual" },
+    { "id": "evidence-explainability", "title": "Evidence & Explainability", "description": "Transparent, verifiable, trusted" }
+  ],
+  "crossCuttingIntelligence": [
+    { "id": "graph-memory", "title": "Graph Memory", "description": "Entities, relations, context" },
+    { "id": "rag-retrieval", "title": "RAG + Retrieval", "description": "Evidence, sources, ranking" },
+    { "id": "ontology-alignment", "title": "Ontology Alignment", "description": "Domain, universal, adaptive" },
+    { "id": "workflow-engine", "title": "Workflow Engine", "description": "Dynamic, contextual, scalable" },
+    { "id": "identity-roles", "title": "Identity & Roles", "description": "User, org, project, device" },
+    { "id": "security-privacy", "title": "Security & Privacy", "description": "Local-first, encrypted, trust" }
+  ],
+  "bottomDomains": [
+    {
+      "id": "radio",
+      "title": "Radio",
+      "subtitle": "Community Voice Network",
+      "description": "Inform. Educate. Empower. Every Voice Matters.",
+      "features": ["Live Streaming", "Community Content", "Local Language", "Interactive Programs", "Offline Sync"],
+      "actions": ["Broadcast", "Listen", "Participate", "Record"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "proof",
+      "title": "Proof",
+      "subtitle": "Evidence & Trust Layer",
+      "description": "Truth. Transparency. Verifiable Everything.",
+      "features": ["Evidence Capture", "Operator Logs", "Workflow Videos", "Decision Trails", "Verifiable Exports"],
+      "actions": ["Capture", "Verify", "Export", "Trust"],
+      "status": "BLOCKED",
+      "blockedReason": "Real signatures, release authority, and hardware-root evidence are not complete."
+    },
+    {
+      "id": "production-workflows",
+      "title": "Production Workflows",
+      "subtitle": "TLP Powered",
+      "phases": [
+        { "id": "pre-production", "title": "Pre-Production", "items": ["Script Breakdowns", "Scheduling", "Budgeting", "Location Scouting"] },
+        { "id": "production", "title": "Production", "items": ["Call Sheets", "Shoot Days", "On-Set Logs", "Asset Tracking"] },
+        { "id": "post-production", "title": "Post-Production", "items": ["Editing", "Review", "Delivery", "Distribution"] }
+      ],
+      "flow": ["Plan", "Shoot", "Edit", "Deliver"],
+      "status": "PREVIEW"
+    },
+    {
+      "id": "media-intelligence",
+      "title": "Media Intelligence",
+      "subtitle": "Unified Media Map",
+      "description": "Visualize. Organize. Discover. All Media. One Map.",
+      "types": ["Videos", "Images", "Audio", "Documents", "Scripts", "Projects"],
+      "actions": ["Map", "Search", "Filter", "Insights"],
+      "status": "PREVIEW"
+    }
+  ],
+  "foundationLayers": [
+    { "id": "identity-runtime", "title": "Identity Runtime", "description": "User, org, role, device" },
+    { "id": "interaction-runtime", "title": "Interaction Runtime", "description": "Multimodal, adaptive, contextual" },
+    { "id": "session-runtime", "title": "Session Runtime", "description": "Projects, sessions, context" },
+    { "id": "knowledge-runtime", "title": "Knowledge Runtime", "description": "Graph, retrieval, memory" },
+    { "id": "artifact-runtime", "title": "Artifact Runtime", "description": "Files, media, documents" },
+    { "id": "adaptive-runtime", "title": "Adaptive Runtime", "description": "Behavior, preferences, learning" },
+    { "id": "security-layer", "title": "Security Layer", "description": "Encryption, local-first, control" }
+  ],
+  "technologyFoundation": ["TypeScript", "Electron", "React", "MediaPipe", "Whisper", "Ollama", "Vector DB", "Graph DB", "Local AI", "WASM", "PWA Ready", "Offline First"],
+  "footer": "Sovereign by Design. Adaptive by Nature. Human by Purpose. Built for India. Designed for the World.",
+  "governance": {
+    "productionReady": false,
+    "phkdVerdict": "BLOCKED",
+    "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+    "activeBlockers": [
+      "visual_capabilities_not_all_implemented",
+      "ai_media_health_law_claims_are_preview_only",
+      "hardware_root_attestation_missing",
+      "operator_quorum_unverified",
+      "signed_release_authority_unverified",
+      "rollback_drill_not_verified"
+    ]
+  }
+}

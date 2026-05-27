@@ -1,0 +1,22 @@
+{
+  "schema": "maataa.ecosystem-tree.evidence.v1",
+  "artifact": "data/maataa-ecosystem-merkle-tree.json",
+  "generatedAt": "2026-05-27T01:11:37.201Z",
+  "treeModel": "STRUCTURED",
+  "frameCountCheck": "PASS",
+  "domainCount": 8,
+  "subdomainFrameCount": 65,
+  "frameTypeCount": 10,
+  "dataCategoryCount": 10,
+  "rootHashVerification": "BLOCKED_IMAGE_PLACEHOLDER_HASH",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "activeBlockers": [
+    "root_hash_image_label_not_cryptographically_verified",
+    "data_leaves_are_examples_not_attached_artifacts",
+    "relations_not_yet_materialized_as_signed_edges",
+    "hardware_root_attestation_missing"
+  ],
+  "failures": []
+}

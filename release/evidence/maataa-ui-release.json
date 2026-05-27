@@ -1,0 +1,31 @@
+{
+  "package": "@maataa/maataa-ui",
+  "phase": "MAATAA_UI_RELEASE_CANDIDATE",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "activeBlockers": [
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "publicInterface": {
+    "aamJantaaInterface": true,
+    "languages": ["hi", "hr", "pa"],
+    "honestBadges": true,
+    "offlineMode": true
+  },
+  "commandResults": {
+    "pnpm --filter @maataa/maataa-ui typecheck": "PASS",
+    "pnpm --filter @maataa/maataa-ui build": "BLOCKED: tsup command not found in current workspace",
+    "pnpm --filter @maataa/maataa-ui pack": "PASS",
+    "node scripts/release/verify-maataa-ui-release.mjs": "PASS",
+    "pnpm test": "PASS"
+  },
+  "tarballPath": "/Volumes/LaCie/pprm/tlps.in/maataa-os/maataa-maataa-ui-0.1.0-alpha.1.tgz",
+  "noFakeHardwareAttestation": true,
+  "noFakeOperatorQuorum": true,
+  "noFakeReleaseAuthority": true,
+  "noFakeRollbackDrill": true
+}

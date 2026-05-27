@@ -1,0 +1,10 @@
+{
+  "schema": "maataa.lipi-runtime.release-verification.v1",
+  "package": "@maataa/lipi-runtime",
+  "generatedAt": "2026-05-26T18:28:00.886Z",
+  "status": "PASS",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "failures": []
+}

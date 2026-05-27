@@ -1,0 +1,178 @@
+{
+  "schema": "maataa.aam-jantaa.language-interface-matrix.v0_5",
+  "phase": "0.5",
+  "status": "PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "allowedBadges": ["READY", "PREVIEW", "BLOCKED", "OFFLINE", "VERIFYING", "DEGRADED"],
+  "languages": [
+    {
+      "id": "hindi",
+      "label": "Hindi",
+      "nativeLabel": "हिंदी",
+      "direction": "ltr",
+      "status": "PREVIEW",
+      "readinessReason": "Primary public interface copy is staged for local runtime review."
+    },
+    {
+      "id": "haryanvi",
+      "label": "Haryanvi",
+      "nativeLabel": "हरियाणवी",
+      "direction": "ltr",
+      "status": "PREVIEW",
+      "readinessReason": "Regional language labels are staged; community validation remains open."
+    },
+    {
+      "id": "punjabi",
+      "label": "Punjabi",
+      "nativeLabel": "ਪੰਜਾਬੀ",
+      "direction": "ltr",
+      "status": "PREVIEW",
+      "readinessReason": "Gurmukhi labels are staged; speaker review remains open."
+    }
+  ],
+  "frames": [
+    {
+      "id": "home",
+      "title": "Home Frame",
+      "order": 1,
+      "status": "PREVIEW",
+      "description": "A clear entry surface for Aam Jantaa without production claims."
+    },
+    {
+      "id": "language-select",
+      "title": "Language Select",
+      "order": 2,
+      "status": "PREVIEW",
+      "description": "Select Hindi, Haryanvi, or Punjabi mode before entering the dashboard."
+    },
+    {
+      "id": "aam-jantaa-dashboard",
+      "title": "Aam Jantaa Dashboard",
+      "order": 3,
+      "status": "PREVIEW",
+      "description": "Public dashboard with feature cards, status badges, and offline labels."
+    },
+    {
+      "id": "feature-entry-cards",
+      "title": "Feature Entry Cards",
+      "order": 4,
+      "status": "PREVIEW",
+      "description": "Module cards for education, radio, search, health, lipi, and broadcast surfaces."
+    },
+    {
+      "id": "runtime-health",
+      "title": "Runtime Health",
+      "order": 5,
+      "status": "DEGRADED",
+      "description": "Shows local runtime health while hardware attestation and release authority remain blocked."
+    },
+    {
+      "id": "evidence-blocked-reason",
+      "title": "Evidence / Blocked Reason View",
+      "order": 6,
+      "status": "BLOCKED",
+      "description": "Explains missing hardware-root attestation, release signer verification, rollback drill, and operator quorum."
+    },
+    {
+      "id": "rollback-offline-fallback",
+      "title": "Rollback / Offline Fallback View",
+      "order": 7,
+      "status": "VERIFYING",
+      "description": "Fallback mode remains staged until rollback drill evidence is captured."
+    }
+  ],
+  "features": [
+    {
+      "id": "digital-gurukul",
+      "title": "Digital Gurukul",
+      "languageLabels": {
+        "hindi": "डिजिटल गुरुकुल",
+        "haryanvi": "डिजिटल गुरुकुल",
+        "punjabi": "ਡਿਜਿਟਲ ਗੁਰੁਕੁਲ"
+      },
+      "description": "Local-first learning entry for stories, values, and student progress surfaces.",
+      "route": "/pedagogy",
+      "statusBadge": "PREVIEW",
+      "readinessReason": "Pedagogy frames exist; real content mapping and learning ledger evidence remain open.",
+      "offlineAvailability": true,
+      "blockedReason": null
+    },
+    {
+      "id": "radio-vaigyaaniq",
+      "title": "Radio Vaigyaaniq",
+      "languageLabels": {
+        "hindi": "रेडियो वैज्ञानिक",
+        "haryanvi": "रेडियो वैज्ञानिक",
+        "punjabi": "ਰੇਡੀਓ ਵਿਗਿਆਨਿਕ"
+      },
+      "description": "Local radio launch surface for regional audio and broadcast planning.",
+      "route": "/radio",
+      "statusBadge": "BLOCKED",
+      "readinessReason": "Radio UI exists, but live audio IPC, edge device admission, and launch broadcast proof are not complete.",
+      "offlineAvailability": true,
+      "blockedReason": "Zero-drop audio IPC and verified edge broadcast hardware are not yet proven."
+    },
+    {
+      "id": "local-search",
+      "title": "Local Search",
+      "languageLabels": {
+        "hindi": "स्थानीय खोज",
+        "haryanvi": "लोकल खोज",
+        "punjabi": "ਸਥਾਨਕ ਖੋਜ"
+      },
+      "description": "Search local routes, packages, docs, blockers, and runtime evidence without cloud calls.",
+      "route": "/search",
+      "statusBadge": "READY",
+      "readinessReason": "Unified local search route and command palette tests pass for staged product scope.",
+      "offlineAvailability": true,
+      "blockedReason": null
+    },
+    {
+      "id": "runtime-health",
+      "title": "Runtime Health",
+      "languageLabels": {
+        "hindi": "रनटाइम स्वास्थ्य",
+        "haryanvi": "रनटाइम हाल",
+        "punjabi": "ਰਨਟਾਈਮ ਸਿਹਤ"
+      },
+      "description": "Shows local heartbeat, degraded state, and current blocked governance status.",
+      "route": "/dashboard",
+      "statusBadge": "DEGRADED",
+      "readinessReason": "Local runtime status is visible; production hardware trust remains blocked.",
+      "offlineAvailability": true,
+      "blockedReason": null
+    },
+    {
+      "id": "lipi-learning",
+      "title": "Lipi Learning",
+      "languageLabels": {
+        "hindi": "लिपि अध्ययन",
+        "haryanvi": "लिपि सीखण",
+        "punjabi": "ਲਿਪੀ ਸਿੱਖਿਆ"
+      },
+      "description": "Ancient script learning entry for Brahmi, Kharosthi, and Siddham datasets.",
+      "route": "/lipi",
+      "statusBadge": "PREVIEW",
+      "readinessReason": "Script batch assets exist; public learning UI and speaker-reviewed labels remain staged.",
+      "offlineAvailability": true,
+      "blockedReason": null
+    },
+    {
+      "id": "community-broadcast",
+      "title": "Community Broadcast",
+      "languageLabels": {
+        "hindi": "सामुदायिक प्रसारण",
+        "haryanvi": "गाम प्रसारण",
+        "punjabi": "ਕਮਿਊਨਿਟੀ ਪ੍ਰਸਾਰਣ"
+      },
+      "description": "Community message and public information broadcast entry.",
+      "route": "/broadcast",
+      "statusBadge": "BLOCKED",
+      "readinessReason": "Broadcast concept is staged; physical node certification and operator approvals are missing.",
+      "offlineAvailability": false,
+      "blockedReason": "Release signer verification and operator quorum are not captured."
+    }
+  ]
+}

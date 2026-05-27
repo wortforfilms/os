@@ -1,0 +1,52 @@
+{
+  "schema": "maataa.release.signed-manifest.v1",
+  "generated_at": "2026-05-26T16:52:07.894Z",
+  "status": "BLOCKED",
+  "release_candidate": "BLOCKED",
+  "payload": {
+    "schema": "maataa.release.manifest.payload.v1",
+    "version": "0.1.0-alpha.1",
+    "commit": "unknown",
+    "generated_at": "2026-05-26T16:52:07.894Z",
+    "inputs": {
+      "completion_matrix": "2b6ddfd7179d345c25fb9375be37d3c012f4b799bfdee195c443d1cc1fce913b",
+      "hardening_matrix": "f7e75faabfac1ad6ac55d04a260b0cd6fed11550eb4b804b330495f04394318b",
+      "hardware_root_of_trust": "8115ea340870eb52caf672099562aa278dd39742678cd7ca65cca9fa115626b1",
+      "governed_gate": "1e053d2200f24a1d35ee02809ec192838b555472d42df78fcc988fd6435bb480"
+    },
+    "no_unsigned_production_release": true,
+    "no_fake_signatures": true,
+    "manifest_hash": "208956df3ebc7272a2177110adead09ae85d6876b6da1fe7e0d054172ca429c8"
+  },
+  "signer": null,
+  "signer_results": [
+    {
+      "provider_id": "release-tpm2-signer",
+      "provider_type": "tpm2-release-signer",
+      "status": "BLOCKED",
+      "reason": "tpm2-release-signer public key and signature environment variables are not configured"
+    },
+    {
+      "provider_id": "release-hsm-signer",
+      "provider_type": "external-hsm-release-signer",
+      "status": "BLOCKED",
+      "reason": "external-hsm-release-signer public key and signature environment variables are not configured"
+    }
+  ],
+  "operator_approval": {
+    "status": "BLOCKED",
+    "quorum": 2,
+    "verified_count": 0,
+    "approvals": [],
+    "registry": {
+      "schema": "maataa.release.operator-registry.v1",
+      "updated_at": null,
+      "operators": [],
+      "revoked_operators": []
+    },
+    "blockers": [
+      "approval quorum not met: 0/2"
+    ]
+  },
+  "no_fake_signatures": true
+}

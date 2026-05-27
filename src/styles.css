@@ -542,6 +542,61 @@ textarea {
   color: #e8eeeb;
 }
 
+.docs-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.docs-grid h2 {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #fff;
+}
+
+.doc-card {
+  min-height: 170px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  border: 1px solid rgba(197, 198, 199, 0.14);
+  border-radius: 8px;
+  background: rgba(11, 18, 36, 0.78);
+  padding: 16px;
+}
+
+.doc-card header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.doc-card strong {
+  color: #fff;
+}
+
+.doc-card span {
+  color: #66fcf1;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.doc-card p {
+  margin: 0;
+  color: #b7c5c1;
+  line-height: 1.45;
+}
+
+.doc-card code {
+  color: #d6a55c;
+  white-space: normal;
+}
+
 .search-page {
   display: grid;
   gap: 16px;

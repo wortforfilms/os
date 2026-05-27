@@ -1,0 +1,10 @@
+{
+  "module": "lipi-runtime",
+  "edges": [
+    { "id": "brahmi-to-siddham", "parentScriptId": "brahmi", "childScriptId": "siddham", "relationType": "DERIVED", "confidence": 0.82 },
+    { "id": "brahmi-to-sharada", "parentScriptId": "brahmi", "childScriptId": "sharada", "relationType": "REGIONAL_BRANCH", "confidence": 0.74 },
+    { "id": "sharada-to-landa", "parentScriptId": "sharada", "childScriptId": "landa", "relationType": "COMMERCIAL_BRANCH", "confidence": 0.58 }
+  ],
+  "certificationNote": "Edges are governed as scaffolded lineage hypotheses until evidence bundles are attached.",
+  "productionReady": false
+}

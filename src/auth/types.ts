@@ -69,10 +69,32 @@ export type AuthBridge = {
   adminAnalytics(sessionId: string | null): Promise<AdminAnalyticsResult>;
 };
 
+export type SupportDocsBridgeResult =
+  | {
+      ok: true;
+      shell: "electron";
+      manifest: {
+        schema: "maataa.support.docs.v1";
+        productionReady: false;
+        finalStatus: "GOVERNED_PRODUCTION_NO_GO";
+        supportMode: "PREVIEW_AND_LOCAL_VALIDATION";
+        documents: Array<{
+          id: string;
+          title: string;
+          path: string;
+          status: "READY" | "PREVIEW" | "BLOCKED";
+          audience: "users" | "operators";
+          summary: string;
+        }>;
+      };
+    }
+  | { ok: false; error: string };
+
 declare global {
   interface Window {
     maataaDesktop?: {
       runtimeInfo?: () => Promise<unknown>;
+      supportDocs?: () => Promise<SupportDocsBridgeResult>;
     } & Partial<AuthBridge>;
   }
 }

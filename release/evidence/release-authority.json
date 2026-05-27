@@ -1,0 +1,61 @@
+{
+  "schema": "maataa.release.authority.v1",
+  "generated_at": "2026-05-26T16:52:07.894Z",
+  "status": "BLOCKED",
+  "release_candidate": "BLOCKED",
+  "signed_release_manifest_hash": "d40cd8817657e5f3c610b1388cbb9b5542dad3bc1704f796c92abe38c77584af",
+  "signer": {
+    "verified": [],
+    "blocked": [
+      {
+        "provider_id": "release-tpm2-signer",
+        "provider_type": "tpm2-release-signer",
+        "status": "BLOCKED",
+        "reason": "tpm2-release-signer public key and signature environment variables are not configured"
+      },
+      {
+        "provider_id": "release-hsm-signer",
+        "provider_type": "external-hsm-release-signer",
+        "status": "BLOCKED",
+        "reason": "external-hsm-release-signer public key and signature environment variables are not configured"
+      }
+    ],
+    "signer_results": [
+      {
+        "provider_id": "release-tpm2-signer",
+        "provider_type": "tpm2-release-signer",
+        "status": "BLOCKED",
+        "reason": "tpm2-release-signer public key and signature environment variables are not configured"
+      },
+      {
+        "provider_id": "release-hsm-signer",
+        "provider_type": "external-hsm-release-signer",
+        "status": "BLOCKED",
+        "reason": "external-hsm-release-signer public key and signature environment variables are not configured"
+      }
+    ]
+  },
+  "operator_approval": {
+    "status": "BLOCKED",
+    "quorum": 2,
+    "verified_count": 0,
+    "approvals": [],
+    "registry": {
+      "schema": "maataa.release.operator-registry.v1",
+      "updated_at": null,
+      "operators": [],
+      "revoked_operators": []
+    },
+    "blockers": [
+      "approval quorum not met: 0/2"
+    ]
+  },
+  "blockers": [
+    "release-tpm2-signer: tpm2-release-signer public key and signature environment variables are not configured",
+    "release-hsm-signer: external-hsm-release-signer public key and signature environment variables are not configured",
+    "operator-approval: approval quorum not met: 0/2"
+  ],
+  "phkd_verdict": "BLOCKED",
+  "no_unsigned_production_release": true,
+  "no_fake_signatures": true
+}

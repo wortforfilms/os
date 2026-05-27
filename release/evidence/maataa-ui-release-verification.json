@@ -1,0 +1,8 @@
+{
+  "schema": "maataa.maataa-ui.release-verification.v1",
+  "package": "@maataa/maataa-ui",
+  "status": "PASS",
+  "productionReady": false,
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "failures": []
+}

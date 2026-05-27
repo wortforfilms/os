@@ -1,0 +1,22 @@
+{
+  "schema": "maataa.runtime-html.evidence.v1",
+  "generatedAt": "2026-05-27T13:13:30.551Z",
+  "artifact": "release/runtime-html/manifest.json",
+  "pageCount": 16,
+  "prototypePageCount": 13,
+  "themeLabPage": "release/runtime-html/theme_lab.html",
+  "indexPage": "release/runtime-html/index.html",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "rawHtmlCopied": false,
+  "noFakeClaims": true,
+  "activeBlockers": [
+    "raw_html_prototypes_are_not_release_sources",
+    "external_cdn_scripts_detected_in_source_prototypes",
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ]
+}

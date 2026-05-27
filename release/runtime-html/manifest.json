@@ -1,0 +1,123 @@
+{
+  "schema": "maataa.runtime-html.manifest.v1",
+  "generatedAt": "2026-05-27T13:13:30.551Z",
+  "source": "data/html-prototype-inventory.json",
+  "outputDir": "release/runtime-html",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "rawHtmlCopied": false,
+  "pages": [
+    {
+      "id": "index",
+      "path": "release/runtime-html/index.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "theme_lab",
+      "path": "release/runtime-html/theme_lab.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "services_and_features",
+      "path": "release/runtime-html/services_and_features.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "boot_ritual",
+      "sourceFile": "boot_ritual.html",
+      "path": "release/runtime-html/boot_ritual.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "dashboard",
+      "sourceFile": "dashboard.html",
+      "path": "release/runtime-html/dashboard.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "desktop",
+      "sourceFile": "desktop.html",
+      "path": "release/runtime-html/desktop.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "features",
+      "sourceFile": "features.html",
+      "path": "release/runtime-html/features.html",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "landing_page",
+      "sourceFile": "landing_page.html",
+      "path": "release/runtime-html/landing_page.html",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "avatar_engine",
+      "sourceFile": "maataa_avataar_v2.html",
+      "path": "release/runtime-html/avatar_engine.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "monitor",
+      "sourceFile": "monitor.html",
+      "path": "release/runtime-html/monitor.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "holy_screen",
+      "sourceFile": "os_holy_screen.html",
+      "path": "release/runtime-html/holy_screen.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "quick_start",
+      "sourceFile": "quick_start.html",
+      "path": "release/runtime-html/quick_start.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "sales",
+      "sourceFile": "sales.html",
+      "path": "release/runtime-html/sales.html",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "services",
+      "sourceFile": "services.html",
+      "path": "release/runtime-html/services.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "system_processes",
+      "sourceFile": "systemprocesses.html",
+      "path": "release/runtime-html/system_processes.html",
+      "status": "PREVIEW"
+    },
+    {
+      "id": "usp",
+      "sourceFile": "usp.html",
+      "path": "release/runtime-html/usp.html",
+      "status": "BLOCKED"
+    }
+  ],
+  "activeBlockers": [
+    "raw_html_prototypes_are_not_release_sources",
+    "external_cdn_scripts_detected_in_source_prototypes",
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "themeLabBlockers": [
+    "real_adaptive_mutation_engine_not_implemented",
+    "real_emotion_sensing_not_implemented",
+    "real_chakra_detection_not_implemented",
+    "real_cognitive_adaptation_not_implemented",
+    "real_consciousness_progression_not_implemented",
+    "real_environmental_adaptation_not_implemented",
+    "real_runtime_governance_signatures_missing"
+  ],
+  "noFakeClaims": true
+}

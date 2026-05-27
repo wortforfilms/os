@@ -5,6 +5,7 @@ import type { AdminAnalyticsResult, AdminSummary, AuthSession, BillingSummaryRes
 import { CommandPalette } from "./search/CommandPalette";
 import { SearchPage } from "./search/SearchPage";
 import { useRuntimeStatus } from "./runtime/useRuntimeStatus";
+import { supportDocs, type SupportDoc, type SupportDocsManifest } from "./support/docs";
 
 type RouteId =
   | "/"
@@ -470,12 +471,56 @@ function AuthFrame({ title, detail, backend }: { title: string; detail: string; 
 }
 
 function DocsShell() {
+  const [desktopManifest, setDesktopManifest] = useState<SupportDocsManifest | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    window.maataaDesktop?.supportDocs?.().then((result) => {
+      if (!mounted || !result.ok) {
+        return;
+      }
+      setDesktopManifest(result.manifest);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const manifest = desktopManifest ?? supportDocs;
+  const userDocs = manifest.documents.filter((doc) => doc.audience === "users");
+  const operatorDocs = manifest.documents.filter((doc) => doc.audience === "operators");
+
   return (
-    <section className="auth-card">
-      <p className="dashboard-kicker">Docs</p>
-      <h2>Documentation route is available for this shell.</h2>
-      <p>Primary documentation remains in repository markdown. In-app document indexing stays outside this auth slice.</p>
+    <section className="docs-shell">
+      <div className="auth-card">
+        <p className="dashboard-kicker">Docs & Support</p>
+        <h2>Desktop support center for Electron and Tauri.</h2>
+        <p>
+          Source: {desktopManifest ? "Electron IPC manifest" : "bundled local manifest"}. Production remains{" "}
+          <strong>{manifest.productionReady ? "READY" : "BLOCKED"}</strong> with final status <strong>{manifest.finalStatus}</strong>.
+        </p>
+      </div>
+      <DocGroup title="User Documentation" docs={userDocs} />
+      <DocGroup title="Operator Support" docs={operatorDocs} />
     </section>
+  );
+}
+
+function DocGroup({ title, docs }: { title: string; docs: SupportDoc[] }) {
+  return (
+    <div className="docs-grid" aria-label={title}>
+      <h2>{title}</h2>
+      {docs.map((doc) => (
+        <article className="doc-card" key={doc.id}>
+          <header>
+            <strong>{doc.title}</strong>
+            <span>{doc.status}</span>
+          </header>
+          <p>{doc.summary}</p>
+          <code>{doc.path}</code>
+        </article>
+      ))}
+    </div>
   );
 }
 

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Maataa Runtime HTML - Maataa OS System Dashboard</title>
+    <style>
+  :root {
+    color-scheme: dark;
+    --bg: #050816;
+    --panel: rgba(11, 18, 36, 0.86);
+    --panel-2: rgba(4, 12, 24, 0.94);
+    --line: rgba(197, 198, 199, 0.16);
+    --text: #edf5f2;
+    --muted: #aebbb8;
+    --gold: #d6a55c;
+    --cyan: #66fcf1;
+    --red: #ff9d9d;
+    --green: #8df0b1;
+    --purple: #c084fc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(102, 252, 241, 0.14), transparent 30rem),
+      radial-gradient(circle at 82% 8%, rgba(214, 165, 92, 0.14), transparent 32rem),
+      radial-gradient(circle at 50% 52%, rgba(192, 132, 252, 0.1), transparent 34rem),
+      var(--bg);
+    color: var(--text);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  main { width: min(1320px, calc(100vw - 32px)); margin: 0 auto; padding: 28px 0 44px; }
+  a { color: inherit; }
+  .hero, .panel, .card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.26);
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    gap: 24px;
+    align-items: end;
+    padding: 28px;
+    min-height: 320px;
+  }
+  .kicker { margin: 0 0 8px; color: var(--gold); font-size: 12px; font-weight: 950; text-transform: uppercase; letter-spacing: .12em; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { margin-bottom: 12px; color: white; font-size: clamp(38px, 7vw, 78px); line-height: .92; letter-spacing: 0; }
+  h2, h3 { color: white; }
+  p { color: var(--muted); line-height: 1.58; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 14px; margin-top: 18px; }
+  .matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 18px; }
+  .card, .panel { padding: 18px; }
+  .card h3 { margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .pill, .badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.04);
+    font-size: 11px;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+  .badge.blocked { color: var(--red); border-color: rgba(255, 157, 157, .42); background: rgba(82, 11, 18, .34); }
+  .badge.preview { color: var(--cyan); border-color: rgba(102, 252, 241, .32); background: rgba(0, 194, 255, .08); }
+  .badge.ready { color: var(--green); border-color: rgba(141, 240, 177, .35); background: rgba(10, 80, 46, .24); }
+  .no-go { color: var(--red); border-color: rgba(255, 157, 157, .42); background: rgba(82, 11, 18, .32); }
+  .index-link { text-decoration: none; }
+  .index-link:hover .card { border-color: rgba(102,252,241,.45); transform: translateY(-1px); }
+  .contract-title { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); }
+  li { margin: 5px 0; }
+  code { color: #9de8ff; }
+  footer { margin-top: 24px; color: var(--muted); font-size: 12px; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    main { width: min(100vw - 20px, 1320px); padding-top: 16px; }
+  }
+</style>
+  </head>
+  <body>
+    <main>
+    <section class="hero">
+      <div>
+        <p class="kicker">Maataa OS Runtime HTML</p>
+        <h1>Maataa OS System Dashboard</h1>
+        <p>
+          Governed runtime page generated from the absorbed prototype contract.
+          This is a structured preview, not copied raw source HTML and not production proof.
+        </p>
+        <div class="meta">
+          <span class="badge preview">PREVIEW</span>
+          <span class="pill">dashboard</span>
+          <span class="pill">657 source lines mapped</span>
+          <span class="pill no-go">GOVERNED_PRODUCTION_NO_GO</span>
+        </div>
+      </div>
+      <aside class="panel">
+        <h2>Source Boundary</h2>
+        <p><code>dashboard.html</code></p>
+        <p>Raw prototype files stay outside release runtime source. This page is generated from inventory metadata.</p>
+      </aside>
+    </section>
+    <section class="matrix">
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>Frames</h3>
+            <span class="pill">3</span>
+          </div>
+          <ul><li>system_components</li><li>chakra_towers</li><li>system_metrics</li></ul>
+        </article>
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>Types</h3>
+            <span class="pill">3</span>
+          </div>
+          <ul><li>SystemComponentStatus</li><li>ChakraTowerStatus</li><li>RuntimeMetricFrame</li></ul>
+        </article>
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>Schemas</h3>
+            <span class="pill">2</span>
+          </div>
+          <ul><li>component{id,label,status}</li><li>metric{id,label,value,unit,status}</li></ul>
+        </article>
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>Data Frames</h3>
+            <span class="pill">1</span>
+          </div>
+          <ul><li>system_dashboard_metrics</li></ul>
+        </article>
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>Runtimes</h3>
+            <span class="pill">1</span>
+          </div>
+          <ul><li>KernelDashboardRuntime</li></ul>
+        </article>
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>Workflows</h3>
+            <span class="pill">1</span>
+          </div>
+          <ul><li>operator_observes_runtime</li></ul>
+        </article>
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>UI</h3>
+            <span class="pill">3</span>
+          </div>
+          <ul><li>component cards</li><li>metric labels</li><li>chakra grid</li></ul>
+        </article>
+      
+        <article class="card">
+          <div class="contract-title">
+            <h3>Widgets</h3>
+            <span class="pill">3</span>
+          </div>
+          <ul><li>SystemComponentGrid</li><li>MetricStrip</li><li>ChakraTowerGrid</li></ul>
+        </article>
+      
+    </section>
+    <section class="panel" style="margin-top:18px">
+      <h2>Governance</h2>
+      <p>Metrics are prototype labels until connected to persisted telemetry evidence.</p>
+      <div class="meta">
+        <span class="pill no-go">PRODUCTION_READY=false</span>
+        <span class="pill no-go">PHKD_VERDICT=BLOCKED</span>
+      </div>
+    </section>
+    <footer><a href="./index.html">Back to runtime HTML index</a></footer>
+  </main>
+  </body>
+</html>

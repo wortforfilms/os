@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Maataa Runtime HTML Index</title>
+    <style>
+  :root {
+    color-scheme: dark;
+    --bg: #050816;
+    --panel: rgba(11, 18, 36, 0.86);
+    --panel-2: rgba(4, 12, 24, 0.94);
+    --line: rgba(197, 198, 199, 0.16);
+    --text: #edf5f2;
+    --muted: #aebbb8;
+    --gold: #d6a55c;
+    --cyan: #66fcf1;
+    --red: #ff9d9d;
+    --green: #8df0b1;
+    --purple: #c084fc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(102, 252, 241, 0.14), transparent 30rem),
+      radial-gradient(circle at 82% 8%, rgba(214, 165, 92, 0.14), transparent 32rem),
+      radial-gradient(circle at 50% 52%, rgba(192, 132, 252, 0.1), transparent 34rem),
+      var(--bg);
+    color: var(--text);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  main { width: min(1320px, calc(100vw - 32px)); margin: 0 auto; padding: 28px 0 44px; }
+  a { color: inherit; }
+  .hero, .panel, .card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.26);
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    gap: 24px;
+    align-items: end;
+    padding: 28px;
+    min-height: 320px;
+  }
+  .kicker { margin: 0 0 8px; color: var(--gold); font-size: 12px; font-weight: 950; text-transform: uppercase; letter-spacing: .12em; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { margin-bottom: 12px; color: white; font-size: clamp(38px, 7vw, 78px); line-height: .92; letter-spacing: 0; }
+  h2, h3 { color: white; }
+  p { color: var(--muted); line-height: 1.58; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 14px; margin-top: 18px; }
+  .matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 18px; }
+  .card, .panel { padding: 18px; }
+  .card h3 { margin-bottom: 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .pill, .badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.04);
+    font-size: 11px;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+  .badge.blocked { color: var(--red); border-color: rgba(255, 157, 157, .42); background: rgba(82, 11, 18, .34); }
+  .badge.preview { color: var(--cyan); border-color: rgba(102, 252, 241, .32); background: rgba(0, 194, 255, .08); }
+  .badge.ready { color: var(--green); border-color: rgba(141, 240, 177, .35); background: rgba(10, 80, 46, .24); }
+  .no-go { color: var(--red); border-color: rgba(255, 157, 157, .42); background: rgba(82, 11, 18, .32); }
+  .index-link { text-decoration: none; }
+  .index-link:hover .card { border-color: rgba(102,252,241,.45); transform: translateY(-1px); }
+  .contract-title { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); }
+  li { margin: 5px 0; }
+  code { color: #9de8ff; }
+  footer { margin-top: 24px; color: var(--muted); font-size: 12px; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    main { width: min(100vw - 20px, 1320px); padding-top: 16px; }
+  }
+</style>
+  </head>
+  <body>
+    <main>
+  <section class="hero">
+    <div>
+      <p class="kicker">Maataa OS Runtime HTML</p>
+      <h1>Absorbed Prototype Runtime Index</h1>
+      <p>
+        Thirteen local HTML prototypes have been converted into governed runtime HTML pages.
+        These pages expose frames, types, schemas, data frames, runtimes, workflows, UI, and widgets without promoting raw prototypes to production.
+      </p>
+      <div class="meta">
+        <span class="pill">13 files</span>
+        <span class="pill">9549 source lines mapped</span>
+        <span class="pill no-go">PRODUCTION_READY=false</span>
+        <span class="pill no-go">GOVERNED_PRODUCTION_NO_GO</span>
+      </div>
+    </div>
+    <aside class="panel">
+      <h2>PHKD Boundary</h2>
+      <p>Generated from <code>data/html-prototype-inventory.json</code>. Raw HTML remains local-only. Evidence remains blocked until hardware, release signing, quorum, and rollback gates pass.</p>
+    </aside>
+  </section>
+  <section class="grid">
+    <a class="index-link" href="./theme_lab.html">
+      <article class="card">
+        <div class="contract-title">
+          <h3>ThemeLab</h3>
+          <span class="badge preview">PREVIEW</span>
+        </div>
+        <p>Digital Gurukul theme runtime with stack builder, CSS variables, live preview, tokens, and PHKD blockers.</p>
+        <div class="meta">
+          <span class="pill">67 themes</span>
+          <span class="pill">11 families</span>
+        </div>
+      </article>
+    </a>
+  </section>
+  <section class="grid">
+    
+      <a class="index-link" href="./boot_ritual.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Boot Ritual</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS - Boot Ritual</p>
+          <div class="meta">
+            <span class="pill">boot</span>
+            <span class="pill">543 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./dashboard.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Dashboard</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS System Dashboard</p>
+          <div class="meta">
+            <span class="pill">dashboard</span>
+            <span class="pill">657 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./desktop.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Desktop</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS Desktop</p>
+          <div class="meta">
+            <span class="pill">desktop</span>
+            <span class="pill">848 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./features.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Features</h3>
+            <span class="badge blocked">BLOCKED</span>
+          </div>
+          <p>Maataa OS Features - Quantum Computing Platform</p>
+          <div class="meta">
+            <span class="pill">features</span>
+            <span class="pill">833 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./landing_page.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Landing Page</h3>
+            <span class="badge blocked">BLOCKED</span>
+          </div>
+          <p>Maataa OS - The Future of Quantum Computing</p>
+          <div class="meta">
+            <span class="pill">homepage</span>
+            <span class="pill">859 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./avatar_engine.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Avatar Engine</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa Avatar Engine V2</p>
+          <div class="meta">
+            <span class="pill">avatar</span>
+            <span class="pill">572 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./monitor.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Monitor</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS - System Monitor</p>
+          <div class="meta">
+            <span class="pill">monitor</span>
+            <span class="pill">675 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./holy_screen.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Holy Screen</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS Holy Screen</p>
+          <div class="meta">
+            <span class="pill">operator_console</span>
+            <span class="pill">784 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./quick_start.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Quick Start</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS - Quick Start</p>
+          <div class="meta">
+            <span class="pill">onboarding</span>
+            <span class="pill">610 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./sales.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Sales</h3>
+            <span class="badge blocked">BLOCKED</span>
+          </div>
+          <p>Maataa OS - Quantum Computing Reimagined</p>
+          <div class="meta">
+            <span class="pill">sales</span>
+            <span class="pill">659 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./services.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Services</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS Services - Professional Solutions &amp; Support</p>
+          <div class="meta">
+            <span class="pill">services</span>
+            <span class="pill">809 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./system_processes.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>System Processes</h3>
+            <span class="badge preview">PREVIEW</span>
+          </div>
+          <p>Maataa OS - Processes</p>
+          <div class="meta">
+            <span class="pill">processes</span>
+            <span class="pill">770 lines</span>
+          </div>
+        </article>
+      </a>
+    
+      <a class="index-link" href="./usp.html">
+        <article class="card">
+          <div class="contract-title">
+            <h3>Usp</h3>
+            <span class="badge blocked">BLOCKED</span>
+          </div>
+          <p>Why Maataa OS - Unique Selling Propositions</p>
+          <div class="meta">
+            <span class="pill">usp</span>
+            <span class="pill">930 lines</span>
+          </div>
+        </article>
+      </a>
+    
+  </section>
+</main>
+  </body>
+</html>

@@ -1,0 +1,252 @@
+{
+  "schema": "maataa.theme-lab-runtime.v1",
+  "identity": {
+    "product": "Digital Gurukul",
+    "module": "Theme Lab",
+    "tagline": "Learn. Create. Serve. Evolve.",
+    "subtitle": "Explore. Preview. Personalize."
+  },
+  "governance": {
+    "runtimeStatus": "ADVANCED_DESIGN_PREVIEW",
+    "repoFoundationStatus": "VALIDATED_PREVIEW",
+    "fullAdaptiveConsciousnessRuntime": "NOT_YET_IMPLEMENTED",
+    "productionReady": false,
+    "phkdVerdict": "BLOCKED",
+    "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+    "noFakeClaims": true,
+    "activeBlockers": [
+      "real_adaptive_mutation_engine_not_implemented",
+      "real_emotion_sensing_not_implemented",
+      "real_chakra_detection_not_implemented",
+      "real_cognitive_adaptation_not_implemented",
+      "real_consciousness_progression_not_implemented",
+      "real_environmental_adaptation_not_implemented",
+      "real_runtime_governance_signatures_missing"
+    ]
+  },
+  "topNavigation": {
+    "main": ["Home", "Learning", "Sadhana", "Community", "AI Guru", "About Us"],
+    "searchPlaceholder": "Search themes, tokens, variables...",
+    "controls": ["Live SSE", "Notifications", "Theme Toggle", "Language Switcher", "Profile Menu"],
+    "activeUser": {
+      "name": "Rishi",
+      "role": "Guru"
+    }
+  },
+  "themeFamilies": [
+    { "id": "all", "label": "All Themes Overview", "count": 67 },
+    { "id": "age", "label": "Age Themes", "count": 7 },
+    { "id": "accessibility", "label": "Accessibility Themes", "count": 7 },
+    { "id": "runtime", "label": "Runtime Themes", "count": 6 },
+    { "id": "ai", "label": "AI Themes", "count": 4 },
+    { "id": "device", "label": "Device Themes", "count": 6 },
+    { "id": "emotion", "label": "Emotion Themes", "count": 6 },
+    { "id": "language", "label": "Language Themes", "count": 6 },
+    { "id": "network", "label": "Network Themes", "count": 5 },
+    { "id": "chakra", "label": "Chakra Themes", "count": 7 },
+    { "id": "operator", "label": "Operator Themes", "count": 6 },
+    { "id": "cinematic", "label": "Cinematic Themes", "count": 7 }
+  ],
+  "quickStackBuilder": {
+    "formula": "Age + Accessibility + Device + Network + Chakra + AI + Emotion",
+    "inputs": [
+      { "runtime": "Age", "value": "Nexus (31-50 yrs)" },
+      { "runtime": "Accessibility", "value": "Focus Pulse" },
+      { "runtime": "Device", "value": "Desktop Runtime" },
+      { "runtime": "Network", "value": "WiFi Cinematic" },
+      { "runtime": "Chakra", "value": "Third Eye Intelligence" },
+      { "runtime": "AI Theme", "value": "Mentor" },
+      { "runtime": "Emotion", "value": "Focused" }
+    ],
+    "action": "Apply Stack"
+  },
+  "filters": ["All", "Age", "Accessibility", "Runtime", "AI", "Device", "Emotion", "Language", "Network", "Chakra", "Operator", "Cinematic"],
+  "themeCards": {
+    "age": [
+      { "name": "Bloom", "detail": "Age: 0-5 yrs", "type": "AGE" },
+      { "name": "Spark", "detail": "Age: 5-9 yrs", "type": "AGE" },
+      { "name": "Pulse Junior", "detail": "Age: 10-13 yrs", "type": "AGE" },
+      { "name": "Pulse", "detail": "Age: 13-18 yrs", "type": "AGE" },
+      { "name": "Runtime", "detail": "Age: 19-30 yrs", "type": "AGE" },
+      { "name": "Nexus", "detail": "Age: 31-50 yrs", "type": "AGE" },
+      { "name": "Sattva", "detail": "Age: 50+ yrs", "type": "AGE" }
+    ],
+    "accessibility": [
+      { "name": "Vision+", "detail": "High Contrast" },
+      { "name": "Calm Space", "detail": "Low Stimulus" },
+      { "name": "Focus Pulse", "detail": "Distraction Free" },
+      { "name": "Structured Harmony", "detail": "Predictable UI" },
+      { "name": "Sattva Assist", "detail": "Senior Friendly" },
+      { "name": "Lite Runtime", "detail": "Minimal Load" },
+      { "name": "Visual Signal", "detail": "Clear Indicators" }
+    ],
+    "runtime": [
+      { "name": "Minimal Simple", "detail": "Simple shell" },
+      { "name": "Standard Runtime", "detail": "Default shell" },
+      { "name": "Runtime Matrix", "detail": "Power User" },
+      { "name": "Offline Runtime", "detail": "No Internet" },
+      { "name": "Topology Runtime", "detail": "Network View" },
+      { "name": "Sovereign Runtime", "detail": "Full Control" }
+    ],
+    "ai": [
+      { "name": "Friendly", "detail": "Warm & approachable" },
+      { "name": "Mentor", "detail": "Guides You" },
+      { "name": "Operator", "detail": "Task Focused" },
+      { "name": "Sage", "detail": "Deep Wisdom" }
+    ],
+    "device": [
+      { "name": "Mobile Runtime", "detail": "On-the-go" },
+      { "name": "Tablet Runtime", "detail": "Touch Optimized" },
+      { "name": "Desktop Runtime", "detail": "Primary cockpit" },
+      { "name": "Shared Runtime", "detail": "Cross-device" },
+      { "name": "Low Bandwidth", "detail": "Constrained network" },
+      { "name": "Kiosk Runtime", "detail": "Fixed display" }
+    ]
+  },
+  "livePreview": {
+    "section": "Live Theme Preview",
+    "controls": ["Fullscreen", "Shell Preview Toggles", "Device Preview Icons", "Layout Controls"],
+    "activeRuntime": "Digital Gurukul",
+    "greeting": "Namaste, Rishi",
+    "heroCopy": ["Keep Learning.", "Keep Evolving."],
+    "description": "Access your personalized learning path, insights, and tools to accelerate your growth.",
+    "navigation": ["Dashboard", "Learning", "Sadhana", "AI Guru", "Community", "Library", "Messages", "Settings"],
+    "stats": [
+      { "label": "Courses", "value": "24", "caption": "In Progress" },
+      { "label": "Sadhana", "value": "108", "caption": "Minutes Today" },
+      { "label": "Points", "value": "2480", "caption": "Earned" },
+      { "label": "Streak", "value": "12", "caption": "Days" }
+    ],
+    "assistant": {
+      "title": "AI Guru Panel",
+      "message": "I'm here to guide your journey.",
+      "inputPlaceholder": "Ask me anything..."
+    },
+    "learningJourney": {
+      "title": "Advanced Vedanta",
+      "action": "Continue Lesson 5",
+      "progress": 65
+    },
+    "sadhanaTasks": ["Meditation", "Scripture Reading", "Gratitude Journal", "Seva Activity"]
+  },
+  "activeThemeStack": [
+    "Nexus (31-50 yrs)",
+    "Focus Pulse",
+    "Desktop Runtime",
+    "WiFi Cinematic",
+    "Third Eye Intelligence",
+    "Mentor",
+    "Focused"
+  ],
+  "themeDetails": {
+    "activeTheme": "Nexus (31-50 yrs)",
+    "classification": "AGE THEME",
+    "description": "Professional, balanced and growth-oriented theme for individuals in their prime years.",
+    "bestFor": ["Professionals", "Creators", "Leaders"],
+    "avoidFor": ["Children", "Low-vision users"],
+    "accessibility": "Standard",
+    "motion": "Medium",
+    "density": "Comfortable",
+    "deviceCompatibility": ["Desktop", "Mobile", "Tablet", "Shared"]
+  },
+  "cssVariables": [
+    "--dg-primary",
+    "--dg-primary-light",
+    "--dg-primary-dark",
+    "--dg-secondary",
+    "--dg-accent",
+    "--dg-background",
+    "--dg-surface",
+    "--dg-text-primary",
+    "--dg-text-secondary",
+    "--dg-border",
+    "--dg-radius",
+    "--dg-shadow",
+    "--dg-font"
+  ],
+  "themeTokens": {
+    "colors": ["Primary", "Secondary", "Accent", "Background", "Surface"],
+    "typography": ["Heading", "Title", "Body"],
+    "font": "Inter",
+    "metrics": ["Radius", "Shadow", "Border", "Spacing"]
+  },
+  "recommendedCombinations": [
+    { "name": "Nexus + Focus Pulse + Third Eye", "purpose": "Deep Work & Clarity" },
+    { "name": "Runtime + Calm Space + Heart", "purpose": "Balanced Productivity" },
+    { "name": "Sattva + Sattva Assist + Root", "purpose": "Peace & Stability" },
+    { "name": "Pulse + Creative + Sacral", "purpose": "Creativity Boost" }
+  ],
+  "importExport": [
+    { "label": "Export Current Stack", "description": "Download your theme stack as JSON" },
+    { "label": "Import Stack", "description": "Upload a previously saved stack" },
+    { "label": "Share Stack", "description": "Generate a shareable link" }
+  ],
+  "footerPrinciples": [
+    { "label": "Adaptive Intelligence", "description": "Themes that adapt to you." },
+    { "label": "Accessible by Design", "description": "Inclusive for everyone." },
+    { "label": "Blazing Fast", "description": "Optimized for performance." },
+    { "label": "Privacy First", "description": "Your data, your control." },
+    { "label": "Open & Extensible", "description": "Built for the community." },
+    { "label": "Sovereign Ready", "description": "Deploy anywhere." }
+  ],
+  "runtimeFamilies": [
+    "Age Runtime",
+    "Accessibility Runtime",
+    "Runtime Runtime",
+    "AI Runtime",
+    "Device Runtime",
+    "Emotion Runtime",
+    "Language Runtime",
+    "Network Runtime",
+    "Chakra Runtime",
+    "Operator Runtime",
+    "Cinematic Runtime"
+  ],
+  "architecture": [
+    "Token Registry",
+    "CSS Variable Runtime",
+    "Theme Stack Builder",
+    "Shell Preview Runtime",
+    "Import/Export Runtime",
+    "Live SSE Runtime",
+    "Adaptive Intelligence",
+    "Governance Runtime",
+    "Accessibility Audit",
+    "Theme Mutation Engine",
+    "Runtime Observatory"
+  ],
+  "mutationInputs": [
+    "Age",
+    "Device",
+    "Network quality",
+    "Cognitive load",
+    "Accessibility",
+    "Emotional state",
+    "AI guidance mode",
+    "Chakra/energy mode"
+  ],
+  "impliedMissingLayers": [
+    "Cognitive Runtime",
+    "Consciousness Runtime",
+    "Attention Runtime",
+    "Ritual Runtime",
+    "Narrative Runtime",
+    "Offline Sync Runtime",
+    "Voice Runtime",
+    "Gesture Runtime",
+    "Environmental Runtime",
+    "Ambient Runtime"
+  ],
+  "designLanguage": [
+    "Sovereign dark runtime",
+    "Gold sacred accents",
+    "Cinematic gradients",
+    "Modular runtime cards",
+    "Adaptive dashboard density",
+    "Observatory-style layout",
+    "Runtime shell navigation",
+    "HUD-inspired metrics",
+    "Neural/knowledge visuals",
+    "Spiritual + technical fusion"
+  ]
+}

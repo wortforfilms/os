@@ -1,0 +1,25 @@
+{
+  "package": "@maataa/maataa-ui",
+  "version": "0.1.0-alpha.1",
+  "entry": "packages/maataa-ui/src/index.ts",
+  "requiredExports": [
+    "SovereignHeader",
+    "SovereignFooter",
+    "CinematicHomepage",
+    "MobileRuntimeShell",
+    "MobileCommandOverlay",
+    "MobileRuntimeStatus",
+    "AamJantaaInterface",
+    "HonestStatusBadge",
+    "OfflineRuntimeBanner",
+    "RuntimeHealthPanel",
+    "FeatureEntryCard",
+    "EvidencePanel",
+    "BlockedReasonView",
+    "HONEST_STATUS_BADGES",
+    "languageInterfaceMatrix",
+    "maataaUiLaunchReadiness"
+  ],
+  "productionReady": false,
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO"
+}

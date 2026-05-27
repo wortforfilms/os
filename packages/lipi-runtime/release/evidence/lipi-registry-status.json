@@ -1,0 +1,19 @@
+{
+  "module": "lipi-runtime",
+  "phase": "PHASE_0_AMIRPUR_TEST_CLUSTER",
+  "scriptRegistry": {
+    "expected": 426,
+    "ingested": 426,
+    "status": "PASS",
+    "certificationNote": "426 deterministic registry slots exist. Historical certification is blocked until authoritative local evidence bundles are attached."
+  },
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "activeBlockers": [
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ]
+}

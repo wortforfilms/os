@@ -1,0 +1,10 @@
+{
+  "schema": "maataa.release.operator-approval-log.v1",
+  "generated_at": "2026-05-26T16:52:07.894Z",
+  "quorum": 2,
+  "verified_count": 0,
+  "approvals": [],
+  "blockers": [
+    "approval quorum not met: 0/2"
+  ]
+}

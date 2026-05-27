@@ -1,0 +1,172 @@
+{
+  "schema": "maataa.hardware.root-of-trust.capture.v1",
+  "status": "PARTIAL",
+  "production_ready": false,
+  "captured_at": "2026-05-26T16:19:53.568Z",
+  "host_platform": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "os_type": "Darwin",
+    "os_release": "23.6.0"
+  },
+  "trust_sources": [
+    {
+      "id": "macos-system-profiler-hardware",
+      "type": "host-identity",
+      "status": "CAPTURED_HASHED",
+      "summary": "macOS hardware profile captured as a local SHA-256 digest",
+      "evidence_sha256": "89af1f62d17e0dad2f987e2adf296dc12aee8f6d13086e04f37944876390f6a5"
+    },
+    {
+      "id": "macos-ioreg-platform",
+      "type": "machine-uuid-signal",
+      "status": "CAPTURED_HASHED",
+      "summary": "IOPlatformExpertDevice identity material captured as a local SHA-256 digest",
+      "evidence_sha256": "22b4dd01cfdfd9e066f06c3db201bd5b4be6a4819ee4910c717c45a2ae3d8af8"
+    },
+    {
+      "id": "macos-boot-security-mode",
+      "type": "boot-security-signal",
+      "status": "CAPTURED_HASHED",
+      "summary": "macOS SIP status captured as a local SHA-256 digest",
+      "evidence_sha256": "83fb612043aa785d573f4d9ad5bae8ed63dc175f4c39f984d66c367f996f0d36"
+    }
+  ],
+  "missing_sources": [
+    "macOS Secure Enclave attestation is not exposed to this process",
+    "macos-cpu-identity: unavailable",
+    "linux-tpm2-quote: TPM2 quote adapter is Linux-only",
+    "macos-secure-enclave-signed-key: No macOS Secure Enclave or keychain presence signal was visible",
+    "external-hsm-signature: External HSM/YubiHSM attestation material is not configured in MAATAA_HSM_PUBLIC_KEY_PEM and MAATAA_HSM_SIGNATURE_B64",
+    "direct MMIO window 0xFE001000 is not safely accessible from this host process",
+    "hardware-fused attestation quote is not available to this local Node.js capture process"
+  ],
+  "phkd_verdict": "BLOCKED",
+  "blockers": [
+    {
+      "id": "HARDWARE_ATTESTATION_QUOTE_MISSING",
+      "reason": "No TPM, Secure Enclave, HSM, or factory-fused attestation quote was exposed to this process."
+    }
+  ],
+  "attestation_challenge": {
+    "schema": "maataa.hardware.attestation.contract.v1",
+    "nonce": "46bc0a561c9a1c7ef4326d94c613051bf8f8c44d52ff62f7177f49ae36b4d318",
+    "issued_at": "2026-05-26T16:19:53.568Z",
+    "host_platform": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "os_type": "Darwin",
+      "os_release": "23.6.0"
+    },
+    "evidence_binding_seed": "c8c17c19d500c1507e194cf0522c6cc03702ace26d2bbf95bc0b4bed7088c6a5",
+    "replay_window": "single-use",
+    "challenge_hash": "0ba8d5d52e61bb71b773c5507a039bdfda0951a38bb36e6dcb5bf698af3d9f6a"
+  },
+  "attestation_results": [
+    {
+      "provider_id": "linux-tpm2-quote",
+      "provider_type": "tpm2-quote",
+      "status": "UNAVAILABLE",
+      "reason": "TPM2 quote adapter is Linux-only",
+      "raw_summary": {
+        "platform": "darwin"
+      },
+      "verification": {
+        "ok": false,
+        "failures": [
+          "TPM2 quote adapter is Linux-only"
+        ]
+      }
+    },
+    {
+      "provider_id": "macos-secure-enclave-signed-key",
+      "provider_type": "secure-enclave-signed-key",
+      "status": "UNAVAILABLE",
+      "reason": "No macOS Secure Enclave or keychain presence signal was visible",
+      "raw_summary": {},
+      "verification": {
+        "ok": false,
+        "failures": [
+          "No macOS Secure Enclave or keychain presence signal was visible"
+        ]
+      }
+    },
+    {
+      "provider_id": "external-hsm-signature",
+      "provider_type": "external-hsm",
+      "status": "UNAVAILABLE",
+      "reason": "External HSM/YubiHSM attestation material is not configured in MAATAA_HSM_PUBLIC_KEY_PEM and MAATAA_HSM_SIGNATURE_B64",
+      "raw_summary": {},
+      "verification": {
+        "ok": false,
+        "failures": [
+          "External HSM/YubiHSM attestation material is not configured in MAATAA_HSM_PUBLIC_KEY_PEM and MAATAA_HSM_SIGNATURE_B64"
+        ]
+      }
+    }
+  ],
+  "raw_command_summary": [
+    {
+      "command": "system_profiler SPHardwareDataType",
+      "ok": true,
+      "exit_code": 0,
+      "signal": null,
+      "duration_ms": 123,
+      "stdout_sha256": "89af1f62d17e0dad2f987e2adf296dc12aee8f6d13086e04f37944876390f6a5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 470,
+      "stderr_bytes": 0,
+      "error": null
+    },
+    {
+      "command": "system_profiler SPiBridgeDataType",
+      "ok": true,
+      "exit_code": 0,
+      "signal": null,
+      "duration_ms": 56,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "error": null
+    },
+    {
+      "command": "ioreg -rd1 -c IOPlatformExpertDevice",
+      "ok": true,
+      "exit_code": 0,
+      "signal": null,
+      "duration_ms": 14,
+      "stdout_sha256": "22b4dd01cfdfd9e066f06c3db201bd5b4be6a4819ee4910c717c45a2ae3d8af8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1840,
+      "stderr_bytes": 0,
+      "error": null
+    },
+    {
+      "command": "csrutil status",
+      "ok": true,
+      "exit_code": 0,
+      "signal": null,
+      "duration_ms": 10,
+      "stdout_sha256": "83fb612043aa785d573f4d9ad5bae8ed63dc175f4c39f984d66c367f996f0d36",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 45,
+      "stderr_bytes": 0,
+      "error": null
+    },
+    {
+      "command": "sysctl -n machdep.cpu.brand_string",
+      "ok": false,
+      "exit_code": 1,
+      "signal": null,
+      "duration_ms": 3,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "4b48e95fc2c708e90935b4eb0c7fdbef56360fded00e57f1b083e052354d3774",
+      "stdout_bytes": 0,
+      "stderr_bytes": 54,
+      "error": null
+    }
+  ],
+  "no_fake_claims": true,
+  "evidence_hash": "e1cbd36cc3d1fd45f3c9f52487c5ca34f1f7ec368d202b13472ab769b0ce03e1"
+}

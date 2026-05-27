@@ -1,0 +1,12 @@
+{
+  "schema": "maataa.release.lineage.v1",
+  "generated_at": "2026-05-26T16:52:07.894Z",
+  "entries": [
+    {
+      "release_manifest_hash": "208956df3ebc7272a2177110adead09ae85d6876b6da1fe7e0d054172ca429c8",
+      "signed_release_manifest_hash": "d40cd8817657e5f3c610b1388cbb9b5542dad3bc1704f796c92abe38c77584af",
+      "authority_status": "BLOCKED",
+      "release_candidate": "BLOCKED"
+    }
+  ]
+}

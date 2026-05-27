@@ -11,4 +11,5 @@ contextBridge.exposeInMainWorld("maataaDesktop", {
   billingSummary: (sessionId) => ipcRenderer.invoke("maataa:billing-summary", sessionId),
   adminAnalytics: (sessionId) => ipcRenderer.invoke("maataa:admin-analytics", sessionId),
   runtimeEventsSince: (cursor) => ipcRenderer.invoke("maataa:runtime-events-since", cursor),
+  supportDocs: () => ipcRenderer.invoke("maataa:support-docs"),
 });

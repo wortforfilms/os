@@ -1,0 +1,59 @@
+{
+  "schema": "maataa.aam-jantaa.launch-readiness.v0_5",
+  "phase": "0.5",
+  "generatedAt": "2026-05-26T00:00:00.000Z",
+  "scope": "Aam Jantaa Interface local staging artifacts",
+  "phkdVerdict": "BLOCKED",
+  "productionReady": false,
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "activeBlockers": [
+    {
+      "id": "hardware-root-attestation",
+      "status": "BLOCKED",
+      "reason": "Hardware-root evidence is not CAPTURED with verified TPM2, Secure Enclave, HSM, or factory attestation."
+    },
+    {
+      "id": "release-signer-verification",
+      "status": "BLOCKED",
+      "reason": "No hardware-backed release signer has verified the signed release manifest."
+    },
+    {
+      "id": "operator-quorum",
+      "status": "BLOCKED",
+      "reason": "No enrolled hardware-backed operator quorum approvals are present."
+    },
+    {
+      "id": "rollback-drill",
+      "status": "BLOCKED",
+      "reason": "Human rollback drill evidence and restore timing capture are not complete."
+    }
+  ],
+  "hardwareAttestationStatus": "PARTIAL",
+  "releaseSignerStatus": "BLOCKED",
+  "operatorQuorumStatus": "BLOCKED",
+  "rollbackDrillStatus": "BLOCKED",
+  "languageSupportStatus": "PREVIEW",
+  "contentReadinessStatus": "PREVIEW",
+  "launchFrames": [
+    "home",
+    "language-select",
+    "aam-jantaa-dashboard",
+    "feature-entry-cards",
+    "runtime-health",
+    "evidence-blocked-reason",
+    "rollback-offline-fallback"
+  ],
+  "languages": ["hindi", "haryanvi", "punjabi"],
+  "userFacingModules": [
+    "digital-gurukul",
+    "radio-vaigyaaniq",
+    "local-search",
+    "runtime-health",
+    "lipi-learning",
+    "community-broadcast"
+  ],
+  "noFakeGoState": true,
+  "noHardwareProofInvented": true,
+  "noOperatorSignatureInvented": true,
+  "noReleaseAuthorityInvented": true
+}
