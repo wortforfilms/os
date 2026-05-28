@@ -1,0 +1,35 @@
+{
+  "module": "kbs-runtime",
+  "phase": "FULL_MATURITY_HARDENING",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "imageExtraction": "data/kbs-image-extraction.json",
+  "implementedSurfaces": [
+    "packages/kbs-runtime",
+    "packages/kbs-governance",
+    "packages/kbs-graph",
+    "packages/kbs-search",
+    "packages/kbs-sdk",
+    "apps/kbs",
+    "docs/kbs",
+    "tests/kbs"
+  ],
+  "newImageExtraction": "data/kbs-runtime-board-extraction.json",
+  "runtimeBoard": {
+    "totalRuntimes": 55,
+    "healthScore": 92,
+    "status": "VALIDATED_PREVIEW"
+  },
+  "claimStatuses": ["VERIFIED", "PARTIAL", "UNVERIFIED", "BLOCKED", "DISPUTED"],
+  "activeBlockers": [
+    "hardware_attestation_missing",
+    "rollback_drill_verification_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "moderation_maturity_missing",
+    "public_trust_layer_missing",
+    "account_safety_maturity_missing"
+  ],
+  "noFakeClaims": true
+}

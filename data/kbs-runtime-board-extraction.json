@@ -1,0 +1,125 @@
+{
+  "schema": "maataa.kbs.runtime-board-extraction.v1",
+  "sourceImages": [
+    "ChatGPT Image May 28, 2026, 03_44_04 AM.png",
+    "ChatGPT Image May 28, 2026, 03_44_10 AM.png"
+  ],
+  "identity": {
+    "product": "KBS",
+    "expandedName": "Knowledge Base System",
+    "surface": "All Runtimes Board + Dashboard",
+    "ecosystem": "Maataa Ecosystem"
+  },
+  "governance": {
+    "productionReady": false,
+    "phkdVerdict": "BLOCKED",
+    "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+    "noFakeClaims": true,
+    "activeBlockers": [
+      "hardware_attestation_not_verified",
+      "operator_quorum_not_verified",
+      "rollback_drill_not_verified",
+      "signed_release_partially_verified"
+    ]
+  },
+  "runtimeSummary": {
+    "totalRuntimes": 55,
+    "operational": 49,
+    "degraded": 2,
+    "maintenance": 2,
+    "offline": 1,
+    "unclassifiedRemainder": 1,
+    "healthScore": 92
+  },
+  "runtimeFamilies": [
+    {
+      "id": "core",
+      "title": "Core Runtimes",
+      "count": 6,
+      "runtimes": ["KBS Core", "PHKD Engine", "Governance Core", "Identity Runtime", "Evidence Core", "Audit Core"]
+    },
+    {
+      "id": "knowledge",
+      "title": "Knowledge Runtimes",
+      "count": 7,
+      "runtimes": ["Ingestion Runtime", "Search Runtime", "Graph Runtime", "Claim Engine", "Citation Runtime", "Provenance Runtime", "Domain Runtime"]
+    },
+    {
+      "id": "ecosystem",
+      "title": "Ecosystem Runtimes",
+      "count": 8,
+      "runtimes": ["Lipi Runtime", "TLP Runtime", "Maataa Runtime", "Radio Runtime", "Brahmini Chain", "InvestorHub", "Gurukul Runtime", "Saptadhaatu"]
+    },
+    {
+      "id": "governance",
+      "title": "Governance Runtimes",
+      "count": 7,
+      "runtimes": ["Review Engine", "Moderation Engine", "Dispute Runtime", "Scholar Profiles", "Policies", "Compliance", "PHKD Monitor"]
+    },
+    {
+      "id": "engineering",
+      "title": "Engineering Runtimes",
+      "count": 6,
+      "runtimes": ["API Gateway", "Service Mesh", "Data Pipeline", "Cache Runtime", "Queue Runtime", "Storage Runtime"]
+    },
+    {
+      "id": "observability",
+      "title": "Observability Runtimes",
+      "count": 5,
+      "runtimes": ["Metrics Runtime", "Logging Runtime", "Tracing Runtime", "Alert Runtime", "Dashboard Runtime"]
+    },
+    {
+      "id": "security",
+      "title": "Security Runtimes",
+      "count": 6,
+      "runtimes": ["Auth Runtime", "Access Runtime", "Threat Runtime", "Crypto Runtime", "Backup Runtime", "Attestation Runtime"]
+    },
+    {
+      "id": "integration",
+      "title": "Integration Runtimes",
+      "count": 5,
+      "runtimes": ["Third Party Runtime", "Webhook Runtime", "SDK Runtime", "Import/Export", "Connector Runtime"]
+    },
+    {
+      "id": "operations",
+      "title": "Operations Runtimes",
+      "count": 5,
+      "runtimes": ["Deployment Runtime", "Config Runtime", "Release Runtime", "Incident Runtime", "Runbook Runtime"]
+    }
+  ],
+  "dashboard": {
+    "title": "KBS Dashboard",
+    "subtitle": "Truth Layer for Civilization - Governed - Evidence Based - PHKD Aligned",
+    "metrics": {
+      "knowledgeItems": 54230,
+      "claims": 18742,
+      "sources": 8129,
+      "evidenceItems": 312880,
+      "domains": 12,
+      "scripts": 426,
+      "citations": 126450,
+      "reviews": 2124
+    },
+    "claimStatusDistribution": {
+      "verified": 6482,
+      "partial": 3523,
+      "unverified": 5803,
+      "blocked": 2231,
+      "disputed": 703
+    },
+    "evidenceStrength": {
+      "strong": 82,
+      "medium": 14,
+      "weak": 4
+    },
+    "reviewQueue": [
+      { "title": "Harappan seal interpretation", "priority": "High" },
+      { "title": "Ancient Indian aviation claims", "priority": "Medium" },
+      { "title": "Vedic dating timeline", "priority": "Medium" },
+      { "title": "Sushruta surgery claims", "priority": "Low" },
+      { "title": "Puranic chronology", "priority": "Low" }
+    ],
+    "systemHealth": ["API Service", "Database", "Graph Engine", "Search Engine", "Ingestion Service", "Review Service"],
+    "quickActions": ["Add Knowledge", "Add Source", "Add Claim", "Add Evidence", "Start Review", "Explore Graph", "Generate Report", "Export Data", "System Settings"]
+  }
+}

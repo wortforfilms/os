@@ -1,0 +1,95 @@
+{
+  "schema": "maataa.kbs.image-extraction.v1",
+  "sourceImages": [
+    "ChatGPT Image May 28, 2026, 03_08_03 AM.png",
+    "ChatGPT Image May 28, 2026, 03_08_19 AM.png",
+    "ChatGPT Image May 28, 2026, 03_08_24 AM.png"
+  ],
+  "identity": {
+    "product": "KBS",
+    "expandedName": "Knowledge Base System",
+    "ecosystem": "Maataa Ecosystem",
+    "positioning": "Truth Layer for Civilization",
+    "principles": ["Public Honesty", "Humanity First", "Knowledge Sovereignty", "Evidence Before Claims", "Governed, Not Centralized", "No False Production Claims"]
+  },
+  "governance": {
+    "productionReady": false,
+    "phkdVerdict": "BLOCKED",
+    "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+    "currentState": "CONTROLLED_PREVIEW",
+    "targetState": "FULL_MATURITY_HARDENING",
+    "noFakeClaims": true,
+    "activeBlockers": [
+      "hardware_attestation_missing",
+      "rollback_drill_verification_missing",
+      "operator_quorum_unverified",
+      "signed_release_authority_unverified",
+      "moderation_maturity_missing",
+      "public_trust_layer_missing",
+      "account_safety_maturity_missing"
+    ]
+  },
+  "navigation": ["Home", "Knowledge", "Sources", "Claims", "Domains", "Graph", "Search", "Review Queue", "Governance", "Evidence", "Reports", "API & SDK", "Settings"],
+  "pages": [
+    { "id": "home", "number": "01", "title": "KBS Homepage", "route": "/kbs", "status": "VALIDATED_PREVIEW" },
+    { "id": "knowledge", "number": "02", "title": "Knowledge Page", "route": "/kbs/knowledge", "status": "VALIDATED_PREVIEW" },
+    { "id": "sources", "number": "03", "title": "Sources Page", "route": "/kbs/sources", "status": "VALIDATED_PREVIEW" },
+    { "id": "claims", "number": "04", "title": "Claims Page", "route": "/kbs/claims", "status": "VALIDATED_PREVIEW" },
+    { "id": "claim-detail", "number": "05", "title": "Claim Detail Page", "route": "/kbs/claims/[id]", "status": "VALIDATED_PREVIEW" },
+    { "id": "graph", "number": "06", "title": "Knowledge Graph Page", "route": "/kbs/graph", "status": "VALIDATED_PREVIEW" },
+    { "id": "search", "number": "07", "title": "Search Page", "route": "/kbs/search", "status": "VALIDATED_PREVIEW" },
+    { "id": "review-queue", "number": "08", "title": "Review Queue Page", "route": "/kbs/review", "status": "BLOCKED", "blockedReason": "Scholar/reviewer authority is not verified." },
+    { "id": "domain", "number": "09", "title": "Domain Page", "route": "/kbs/domains", "status": "VALIDATED_PREVIEW" },
+    { "id": "evidence", "number": "10", "title": "Evidence Page", "route": "/kbs/evidence", "status": "VALIDATED_PREVIEW" },
+    { "id": "governance", "number": "11", "title": "Governance Page", "route": "/kbs/governance", "status": "BLOCKED", "blockedReason": "Signed governance verification is missing." },
+    { "id": "health", "number": "12", "title": "KBS Health Page", "route": "/kbs/health", "status": "VALIDATED_PREVIEW" },
+    { "id": "api-sdk", "number": "13", "title": "API & SDK Page", "route": "/kbs/api", "status": "BLOCKED", "blockedReason": "Public API maturity and auth middleware are not production verified." },
+    { "id": "reports", "number": "14", "title": "Reports Page", "route": "/kbs/reports", "status": "VALIDATED_PREVIEW" },
+    { "id": "settings", "number": "15", "title": "Settings Page", "route": "/kbs/settings", "status": "VALIDATED_PREVIEW" },
+    { "id": "mobile-preview", "number": "16", "title": "Mobile Responsive Preview", "route": "/kbs/mobile", "status": "VALIDATED_PREVIEW" },
+    { "id": "phkd-status", "number": "17", "title": "PHKD Status Page", "route": "/kbs/phkd", "status": "BLOCKED", "blockedReason": "Production readiness gates are blocked." }
+  ],
+  "stats": {
+    "knowledgeSources": 8129,
+    "knowledgeClaims": 54230,
+    "verifiedClaims": 18742,
+    "domainsCovered": 12,
+    "citations": 126450,
+    "evidenceItems": 312880,
+    "nodes": 142450,
+    "relations": 312880,
+    "clusters": 1246
+  },
+  "claimStatuses": ["VERIFIED", "PARTIAL", "UNVERIFIED", "BLOCKED", "DISPUTED"],
+  "nodeTypes": ["SOURCE", "CLAIM", "DOMAIN", "CITATION", "EVIDENCE", "PERSON", "EVENT", "SCRIPT", "MANUSCRIPT", "ARTIFACT"],
+  "edgeTypes": ["CITES", "SUPPORTS", "CONTRADICTS", "DERIVES_FROM", "BELONGS_TO", "TRANSLATES_TO", "VERIFIED_BY", "REVIEWED_BY"],
+  "domains": [
+    "Lipi",
+    "TLP",
+    "Maataa",
+    "Radio",
+    "Brahmini",
+    "Saptadhaatu",
+    "Ayurveda",
+    "Astronomy",
+    "Culture",
+    "Legal",
+    "Technical",
+    "Education"
+  ],
+  "recentSources": [
+    { "title": "Vedas - Rigveda Samhita", "type": "Sacred Text" },
+    { "title": "Bharatiya Scripts Evolution", "type": "Research Paper" },
+    { "title": "Ayurveda - Charaka Samhita", "type": "Ancient Text" },
+    { "title": "Indian Astronomy - Surya Siddhanta", "type": "Scholarly Work" },
+    { "title": "Brahmi Script Inscriptions", "type": "Archaeological" }
+  ],
+  "sampleClaims": [
+    { "id": "claim-brahmi-origin", "text": "Brahmi script is one of the earliest scripts of India.", "domain": "Lipi", "status": "VERIFIED" },
+    { "id": "claim-rigveda-analysis", "text": "Rigveda material has layered analysis requirements.", "domain": "Culture", "status": "PARTIAL" },
+    { "id": "claim-unsourced-date", "text": "Unverified historical date.", "domain": "Culture", "status": "BLOCKED" }
+  ],
+  "roles": ["SCHOLAR", "REVIEWER", "CURATOR", "ARCHIVIST", "MODERATOR", "OPERATOR"],
+  "languageModes": ["Hindi", "Punjabi", "Haryanvi", "English"],
+  "mobileSurfaces": ["home", "graph", "search", "claim-detail"]
+}
