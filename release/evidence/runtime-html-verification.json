@@ -1,6 +1,6 @@
 {
   "schema": "maataa.runtime-html.verification.v1",
-  "generatedAt": "2026-05-27T13:13:41.060Z",
+  "generatedAt": "2026-05-27T19:09:56.415Z",
   "manifest": "release/runtime-html/manifest.json",
   "pageCount": 16,
   "expectedPageCount": 16,

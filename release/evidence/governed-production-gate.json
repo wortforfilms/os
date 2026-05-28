@@ -1,6 +1,6 @@
 {
   "schema": "maataa.governed.production.gate.v1",
-  "generatedAt": "2026-05-26T16:52:16.314Z",
+  "generatedAt": "2026-05-27T19:10:35.651Z",
   "status": "GOVERNED_PRODUCTION_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
@@ -162,5 +162,5 @@
       "reason": "hardware root phkd_verdict must be PASS"
     }
   ],
-  "signature": "78317edc15af175e01b7886dd9982f84f85d5d7f0ec92db488098d5ace52a043"
+  "signature": "3e88ff8f824d1eb1392ecab43312b15ff043acf18f4a8c28c2538f36cd854e57"
 }
