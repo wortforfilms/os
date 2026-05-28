@@ -3,6 +3,7 @@
 /node_modules/
 /dist/
 /dist-golden/
+/release/electron/
 /src-tauri/gen/
 __pycache__/
 *.py[cod]

@@ -1,0 +1,33 @@
+{
+  "schema": "maataa.electron-pack.v1",
+  "artifact": "release/electron/Maataa OS.app",
+  "archive": "release/electron/Maataa-OS-electron-preview.zip",
+  "status": "PACKED_LOCAL_PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "signed": false,
+  "notarized": false,
+  "fullPack": true,
+  "includedSurfaces": [
+    "Vite production dist",
+    "Electron shell",
+    "Local auth/session bridge",
+    "Support docs manifest",
+    "Governed release HTML",
+    "Runtime HTML previews",
+    "KBS full demo",
+    "Completion status matrix"
+  ],
+  "activeBlockers": [
+    "macos_codesign_not_applied",
+    "notarization_not_applied",
+    "hardware_attestation_missing",
+    "operator_quorum_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "appHash": "849463cf282e9902868fd1738b679b79f2db98209466b2c98ab30c61aad4fd95",
+  "archiveHash": "8d6ab91060386712e3bd287f75f7194ab7ce0fb1076111433aa59d859e6aae8e",
+  "packedAt": "2026-05-28T18:15:53.117Z",
+  "noFakeClaims": true
+}
