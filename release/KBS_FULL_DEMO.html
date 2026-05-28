@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>KBS Full Demo</title>
+    <style>
+      :root {
+        --bg: #020914;
+        --panel: rgba(7, 21, 35, 0.88);
+        --panel-2: rgba(10, 32, 50, 0.74);
+        --line: rgba(147, 184, 204, 0.22);
+        --text: #eef7f5;
+        --muted: #9fb2bc;
+        --gold: #f3ad32;
+        --green: #42d778;
+        --cyan: #34c6ff;
+        --blue: #628cff;
+        --purple: #b97aff;
+        --red: #ff5367;
+        --orange: #ff9e2f;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 22% 2%, rgba(243, 173, 50, 0.18), transparent 27rem),
+          radial-gradient(circle at 78% 4%, rgba(52, 198, 255, 0.14), transparent 31rem),
+          radial-gradient(circle at 48% 44%, rgba(185, 122, 255, 0.12), transparent 37rem),
+          linear-gradient(135deg, #020914, #031523 58%, #020914);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(1580px, calc(100vw - 28px));
+        margin: 0 auto;
+        padding: 16px 0 26px;
+      }
+
+      .topbar,
+      .panel,
+      .card,
+      .side,
+      .footer {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 22px 82px rgba(0, 0, 0, 0.3);
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: 320px 1fr auto auto;
+        gap: 14px;
+        align-items: center;
+        min-height: 62px;
+        padding: 10px 14px;
+      }
+
+      .brand { display: flex; gap: 12px; align-items: center; }
+      .seal {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(243, 173, 50, 0.48);
+        border-radius: 50%;
+        color: var(--gold);
+        font-weight: 950;
+      }
+      .brand h1 { margin: 0; color: white; font-size: 30px; letter-spacing: .06em; }
+      .brand p { margin: 2px 0 0; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .12em; }
+
+      .search {
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.24);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 32px;
+        padding: 6px 11px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .badge.green { color: var(--green); border-color: rgba(66, 215, 120, 0.4); background: rgba(22, 104, 57, 0.18); }
+      .badge.gold { color: var(--gold); border-color: rgba(243, 173, 50, 0.4); background: rgba(113, 75, 8, 0.22); }
+      .badge.red { color: var(--red); border-color: rgba(255, 83, 103, 0.42); background: rgba(125, 19, 33, 0.24); }
+      .badge.blue { color: var(--cyan); border-color: rgba(52, 198, 255, 0.36); background: rgba(10, 80, 126, 0.18); }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 185px 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .side { padding: 12px; align-self: start; position: sticky; top: 10px; }
+      .side h2 { margin: 8px 0; color: var(--gold); font-size: 12px; text-transform: uppercase; }
+      .side a,
+      .side .status-line {
+        min-height: 31px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 8px;
+        border-radius: 6px;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 12px;
+      }
+      .side a.active { background: rgba(243, 173, 50, 0.18); color: var(--gold); }
+      .status-line span:last-child { color: var(--green); font-size: 11px; }
+      .final {
+        margin-top: 12px;
+        padding: 10px;
+        border: 1px solid rgba(255, 83, 103, .32);
+        border-radius: 8px;
+        color: var(--red);
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .panel { padding: 14px; }
+      .hero { grid-column: span 5; min-height: 240px; }
+      .metrics { grid-column: span 3; }
+      .status { grid-column: span 4; }
+      .wide { grid-column: span 8; }
+      .third { grid-column: span 4; }
+      .half { grid-column: span 6; }
+      .full { grid-column: 1 / -1; }
+
+      h2, h3, p { margin-top: 0; }
+      h2 { margin-bottom: 8px; color: white; font-size: 19px; }
+      h3 { margin-bottom: 8px; color: white; font-size: 13px; text-transform: uppercase; }
+      p { color: var(--muted); line-height: 1.5; }
+
+      .hero strong {
+        display: block;
+        margin: 2px 0 8px;
+        color: var(--gold);
+        font-size: clamp(42px, 6vw, 78px);
+        line-height: .9;
+      }
+      .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+      .button {
+        min-height: 34px;
+        padding: 8px 12px;
+        border: 1px solid rgba(243, 173, 50, .36);
+        border-radius: 7px;
+        background: rgba(243, 173, 50, .14);
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .metric-grid,
+      .domain-grid,
+      .page-grid,
+      .runtime-grid,
+      .quick-grid {
+        display: grid;
+        gap: 8px;
+      }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .domain-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .page-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .runtime-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .quick-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+      .card {
+        min-height: 76px;
+        padding: 10px;
+        background: var(--panel-2);
+      }
+      .card strong { display: block; color: white; }
+      .card span { color: var(--muted); font-size: 11px; }
+      .card .num { color: var(--gold); font-size: 11px; font-weight: 900; }
+
+      .metric-card strong { margin-top: 4px; font-size: 22px; }
+      .metric-card em { color: var(--green); font-style: normal; font-size: 11px; }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: center;
+        padding: 8px;
+        border: 1px solid rgba(147, 184, 204, 0.13);
+        border-radius: 7px;
+        background: rgba(255,255,255,.025);
+        font-size: 12px;
+      }
+      .list { display: grid; gap: 7px; }
+      .tag { color: var(--green); font-size: 11px; font-weight: 850; }
+      .tag.partial { color: var(--gold); }
+      .tag.blocked { color: var(--red); }
+      .tag.blue { color: var(--cyan); }
+
+      .graph {
+        min-height: 300px;
+        position: relative;
+        overflow: hidden;
+      }
+      .graph svg { width: 100%; height: 235px; display: block; }
+      .graph line { stroke: rgba(72, 182, 220, .44); stroke-width: 1; }
+      .graph circle { stroke: rgba(255,255,255,.68); stroke-width: 1; }
+
+      .donut {
+        width: 128px;
+        aspect-ratio: 1;
+        margin: 8px auto;
+        border-radius: 50%;
+        background: conic-gradient(var(--green) 0 35%, var(--gold) 35% 54%, var(--blue) 54% 85%, var(--red) 85% 97%, var(--purple) 97% 100%);
+        display: grid;
+        place-items: center;
+      }
+      .donut::after {
+        content: "18,742";
+        width: 82px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #04111d;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-weight: 950;
+      }
+      .gauge {
+        width: 138px;
+        aspect-ratio: 1;
+        margin: 8px auto;
+        border-radius: 50%;
+        background: conic-gradient(var(--green) 0 82%, var(--gold) 82% 96%, var(--red) 96% 100%);
+        display: grid;
+        place-items: center;
+      }
+      .gauge::after {
+        content: "82%";
+        width: 86px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #04111d;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 25px;
+        font-weight: 950;
+      }
+
+      .runtime-family { border-left: 3px solid var(--gold); }
+      .runtime-family.core { border-color: var(--blue); }
+      .runtime-family.knowledge { border-color: var(--purple); }
+      .runtime-family.ecosystem { border-color: var(--green); }
+      .runtime-family.governance { border-color: var(--gold); }
+      .runtime-family.engineering { border-color: var(--cyan); }
+      .runtime-family.security { border-color: var(--red); }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 10px;
+        padding: 11px 12px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      @media (max-width: 1120px) {
+        .topbar, .layout, .content { grid-template-columns: 1fr; }
+        .hero, .metrics, .status, .wide, .third, .half, .full { grid-column: span 1; }
+        .page-grid, .runtime-grid, .domain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .side { position: static; }
+      }
+      @media (max-width: 640px) {
+        .page-grid, .runtime-grid, .domain-grid, .metric-grid, .quick-grid { grid-template-columns: 1fr; }
+        main { width: min(100vw - 18px, 1580px); }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="topbar">
+        <div class="brand">
+          <div class="seal">KBS</div>
+          <div>
+            <h1>KBS</h1>
+            <p>Knowledge Base System<br />Maataa Ecosystem</p>
+          </div>
+        </div>
+        <div class="search">Search knowledge, sources, claims, domains, scripts... &nbsp; ⌘ K</div>
+        <span class="badge green">PHKD Mode&nbsp; Honest - Verified - Governed</span>
+        <span class="badge gold">Governance</span>
+      </header>
+
+      <section class="layout">
+        <aside class="side">
+          <h2>Navigation</h2>
+          <a class="active" href="#home">Home</a>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#pages">All Pages</a>
+          <a href="#runtimes">All Runtimes</a>
+          <a href="#graph">Graph</a>
+          <a href="#review">Review Queue</a>
+          <a href="#governance">PHKD Status</a>
+          <h2>Runtime Status</h2>
+          <div class="status-line"><span>Health</span><span>92%</span></div>
+          <div class="status-line"><span>Total Runtimes</span><span>55</span></div>
+          <div class="status-line"><span>Operational</span><span>49</span></div>
+          <div class="status-line"><span>Degraded</span><span>2</span></div>
+          <div class="status-line"><span>Maintenance</span><span>2</span></div>
+          <div class="status-line"><span>Offline</span><span>1</span></div>
+          <div class="final">FINAL STATUS<br />GOVERNED_PRODUCTION_NO_GO<br />PRODUCTION_READY = FALSE</div>
+        </aside>
+
+        <section class="content">
+          <section id="home" class="panel hero">
+            <p>WELCOME TO</p>
+            <strong>KBS</strong>
+            <h2>Knowledge Base System</h2>
+            <p>Truth Layer for Civilization • Governed • Evidence Based • PHKD Aligned</p>
+            <p>KBS is the sovereign knowledge infrastructure for the Maataa Ecosystem. Discover. Verify. Preserve. Govern.</p>
+            <div class="actions">
+              <a class="button" href="#dashboard">Explore Dashboard</a>
+              <a class="button" href="#graph">View Knowledge Graph</a>
+              <a class="button" href="#runtimes">All Runtimes Board</a>
+            </div>
+          </section>
+
+          <section id="dashboard" class="panel metrics">
+            <h3>KBS Dashboard - Key Metrics</h3>
+            <div class="metric-grid">
+              <div class="card metric-card"><span>Knowledge Items</span><strong>54,230</strong><em>+12.5%</em></div>
+              <div class="card metric-card"><span>Claims</span><strong>18,742</strong><em>+9.3%</em></div>
+              <div class="card metric-card"><span>Sources</span><strong>8,129</strong><em>+8.6%</em></div>
+              <div class="card metric-card"><span>Evidence Items</span><strong>312,880</strong><em>+14.2%</em></div>
+              <div class="card metric-card"><span>Domains</span><strong>12</strong></div>
+              <div class="card metric-card"><span>Scripts</span><strong>426</strong></div>
+              <div class="card metric-card"><span>Citations</span><strong>126,450</strong></div>
+              <div class="card metric-card"><span>Reviews</span><strong>2,124</strong></div>
+            </div>
+          </section>
+
+          <section id="governance" class="panel status">
+            <h3>PHKD Governance</h3>
+            <div class="list">
+              <div class="row"><span>Public Honesty</span><span class="tag">Enabled</span></div>
+              <div class="row"><span>Evidence Before Claims</span><span class="tag">Enabled</span></div>
+              <div class="row"><span>Governed, Not Centralized</span><span class="tag">Enabled</span></div>
+              <div class="row"><span>No False Production Claims</span><span class="tag">Enabled</span></div>
+              <div class="row"><span>Hardware Attestation</span><span class="tag blocked">Not Verified</span></div>
+              <div class="row"><span>Operator Quorum</span><span class="tag blocked">Unverified</span></div>
+              <div class="row"><span>Rollback Drill</span><span class="tag blocked">Not Verified</span></div>
+              <div class="row"><span>Signed Release</span><span class="tag partial">Partially Verified</span></div>
+            </div>
+          </section>
+
+          <section id="graph" class="panel wide graph">
+            <h3>Knowledge Graph Overview</h3>
+            <svg viewBox="0 0 760 250" role="img" aria-label="Knowledge graph overview">
+              <line x1="70" y1="102" x2="154" y2="55" /><line x1="154" y1="55" x2="252" y2="82" /><line x1="252" y1="82" x2="365" y2="45" />
+              <line x1="365" y1="45" x2="520" y2="90" /><line x1="70" y1="102" x2="184" y2="164" /><line x1="184" y1="164" x2="318" y2="130" />
+              <line x1="318" y1="130" x2="520" y2="90" /><line x1="252" y1="82" x2="318" y2="130" /><line x1="365" y1="45" x2="405" y2="178" />
+              <line x1="405" y1="178" x2="184" y2="164" /><line x1="405" y1="178" x2="618" y2="160" /><line x1="618" y1="160" x2="682" y2="86" />
+              <circle cx="70" cy="102" r="9" fill="#42d778" /><circle cx="154" cy="55" r="9" fill="#f3ad32" /><circle cx="252" cy="82" r="9" fill="#34c6ff" />
+              <circle cx="365" cy="45" r="9" fill="#b97aff" /><circle cx="520" cy="90" r="9" fill="#42d778" /><circle cx="184" cy="164" r="9" fill="#34c6ff" />
+              <circle cx="318" cy="130" r="9" fill="#f3ad32" /><circle cx="405" cy="178" r="9" fill="#b97aff" /><circle cx="618" cy="160" r="9" fill="#42d778" />
+              <circle cx="682" cy="86" r="9" fill="#ff9e2f" />
+            </svg>
+            <div class="metric-grid">
+              <div class="card metric-card"><span>Nodes</span><strong>142,450+</strong></div>
+              <div class="card metric-card"><span>Relations</span><strong>312,880+</strong></div>
+              <div class="card metric-card"><span>Clusters</span><strong>1,246</strong></div>
+              <div class="card metric-card"><span>Paths</span><strong>42,890+</strong></div>
+            </div>
+          </section>
+
+          <section class="panel third">
+            <h3>Claim Status Distribution</h3>
+            <div class="donut"></div>
+            <div class="list">
+              <div class="row"><span>Verified</span><span class="tag">6,482</span></div>
+              <div class="row"><span>Partial</span><span class="tag partial">3,523</span></div>
+              <div class="row"><span>Unverified</span><span>5,803</span></div>
+              <div class="row"><span>Blocked</span><span class="tag blocked">2,231</span></div>
+              <div class="row"><span>Disputed</span><span class="tag blue">703</span></div>
+            </div>
+          </section>
+
+          <section class="panel third">
+            <h3>Evidence Strength</h3>
+            <div class="gauge"></div>
+            <div class="row"><span>Strong</span><span class="tag">82%</span></div>
+            <div class="row"><span>Medium</span><span class="tag partial">14%</span></div>
+            <div class="row"><span>Weak</span><span class="tag blocked">4%</span></div>
+          </section>
+
+          <section id="review" class="panel third">
+            <h3>Review Queue</h3>
+            <div class="list">
+              <div class="row"><span>Harappan seal interpretation</span><span class="tag blocked">High</span></div>
+              <div class="row"><span>Ancient Indian aviation claims</span><span class="tag partial">Medium</span></div>
+              <div class="row"><span>Vedic dating timeline</span><span class="tag partial">Medium</span></div>
+              <div class="row"><span>Sushruta surgery claims</span><span class="tag">Low</span></div>
+              <div class="row"><span>Puranic chronology</span><span class="tag">Low</span></div>
+            </div>
+          </section>
+
+          <section class="panel half">
+            <h3>Domain Overview</h3>
+            <div class="domain-grid">
+              <div class="card"><strong>Lipi</strong><span>426 Scripts</span></div>
+              <div class="card"><strong>TLP</strong><span>Production Ecosystem</span></div>
+              <div class="card"><strong>Maataa</strong><span>Operating System</span></div>
+              <div class="card"><strong>Radio</strong><span>Sonic Knowledge</span></div>
+              <div class="card"><strong>Brahmini</strong><span>Governance & Chain</span></div>
+              <div class="card"><strong>Saptadhaatu</strong><span>Civilization Health</span></div>
+              <div class="card"><strong>Ayurveda</strong><span>Ancient Wisdom</span></div>
+              <div class="card"><strong>Astronomy</strong><span>Cosmic Knowledge</span></div>
+              <div class="card"><strong>Culture</strong><span>Heritage & Civilizations</span></div>
+              <div class="card"><strong>Legal</strong><span>Laws & Frameworks</span></div>
+              <div class="card"><strong>Technical</strong><span>Science & Engineering</span></div>
+              <div class="card"><strong>Education</strong><span>Gurukul & Learning</span></div>
+            </div>
+          </section>
+
+          <section class="panel third">
+            <h3>Recent Sources</h3>
+            <div class="list">
+              <div class="row"><span>Vedas - Rigveda Samhita</span><span class="tag">High</span></div>
+              <div class="row"><span>Bharatiya Scripts Evolution</span><span class="tag">High</span></div>
+              <div class="row"><span>Ayurveda - Charaka Samhita</span><span class="tag">High</span></div>
+              <div class="row"><span>Indian Astronomy - Surya Siddhanta</span><span class="tag partial">Medium</span></div>
+              <div class="row"><span>Brahmi Script Inscriptions</span><span class="tag partial">Medium</span></div>
+            </div>
+          </section>
+
+          <section class="panel third">
+            <h3>Activity Feed</h3>
+            <div class="list">
+              <div class="row"><span>New source added: Harappa Inscriptions Study</span><span>18m</span></div>
+              <div class="row"><span>Claim verified: Brahmi script origin in India</span><span>2h</span></div>
+              <div class="row"><span>Evidence linked to claim #KBS-186293</span><span>3h</span></div>
+              <div class="row"><span>Knowledge graph updated</span><span>4h</span></div>
+              <div class="row"><span>Claim blocked: Unverified historical date</span><span>5h</span></div>
+            </div>
+          </section>
+
+          <section id="pages" class="panel full">
+            <h3>Full Demo - All Pages Overview</h3>
+            <div class="page-grid">
+              <div class="card"><span class="num">01</span><strong>KBS Homepage</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">02</span><strong>Knowledge Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">03</span><strong>Sources Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">04</span><strong>Claims Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">05</span><strong>Claim Detail Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">06</span><strong>Knowledge Graph Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">07</span><strong>Search Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">08</span><strong>Review Queue Page</strong><span>Blocked - authority not verified</span></div>
+              <div class="card"><span class="num">09</span><strong>Domain Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">10</span><strong>Evidence Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">11</span><strong>Governance Page</strong><span>Blocked - signed governance missing</span></div>
+              <div class="card"><span class="num">12</span><strong>KBS Health Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">13</span><strong>API & SDK Page</strong><span>Blocked - public API maturity missing</span></div>
+              <div class="card"><span class="num">14</span><strong>Reports Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">15</span><strong>Settings Page</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">16</span><strong>Mobile Responsive Preview</strong><span>Validated preview</span></div>
+              <div class="card"><span class="num">17</span><strong>PHKD Status Page</strong><span>Blocked - production gates blocked</span></div>
+            </div>
+          </section>
+
+          <section id="runtimes" class="panel full">
+            <h3>All Runtimes Board - Complete Runtime Ecosystem Overview</h3>
+            <p>55 total runtimes: 49 operational, 2 degraded, 2 maintenance, 1 offline, and 1 unclassified visual-summary remainder preserved from the extracted image.</p>
+            <div class="runtime-grid">
+              <div class="card runtime-family core"><strong>Core Runtimes</strong><span>KBS Core, PHKD Engine, Governance Core, Identity Runtime, Evidence Core, Audit Core</span></div>
+              <div class="card runtime-family knowledge"><strong>Knowledge Runtimes</strong><span>Ingestion, Search, Graph, Claim, Citation, Provenance, Domain</span></div>
+              <div class="card runtime-family ecosystem"><strong>Ecosystem Runtimes</strong><span>Lipi, TLP, Maataa, Radio, Brahmini, InvestorHub, Gurukul, Saptadhaatu</span></div>
+              <div class="card runtime-family governance"><strong>Governance Runtimes</strong><span>Review, Moderation, Dispute, Scholar Profiles, Policies, Compliance, PHKD Monitor</span></div>
+              <div class="card runtime-family engineering"><strong>Engineering Runtimes</strong><span>API Gateway, Service Mesh, Data Pipeline, Cache, Queue, Storage</span></div>
+              <div class="card runtime-family"><strong>Observability Runtimes</strong><span>Metrics, Logging, Tracing, Alert, Dashboard</span></div>
+              <div class="card runtime-family security"><strong>Security Runtimes</strong><span>Auth, Access, Threat, Crypto, Backup, Attestation</span></div>
+              <div class="card runtime-family"><strong>Integration Runtimes</strong><span>Third Party, Webhook, SDK, Import/Export, Connector</span></div>
+              <div class="card runtime-family governance"><strong>Operations Runtimes</strong><span>Deployment, Config, Release, Incident, Runbook</span></div>
+            </div>
+          </section>
+
+          <section class="panel half">
+            <h3>System Health</h3>
+            <div class="list">
+              <div class="row"><span>API Service</span><span class="tag">Operational</span></div>
+              <div class="row"><span>Database</span><span class="tag">Operational</span></div>
+              <div class="row"><span>Graph Engine</span><span class="tag">Operational</span></div>
+              <div class="row"><span>Search Engine</span><span class="tag">Operational</span></div>
+              <div class="row"><span>Ingestion Service</span><span class="tag">Operational</span></div>
+              <div class="row"><span>Review Service</span><span class="tag">Operational</span></div>
+            </div>
+          </section>
+
+          <section class="panel half">
+            <h3>Quick Actions</h3>
+            <div class="quick-grid">
+              <div class="card"><strong>Add Knowledge</strong><span>Governed workflow</span></div>
+              <div class="card"><strong>Add Source</strong><span>Requires source hashing</span></div>
+              <div class="card"><strong>Add Claim</strong><span>Evidence-first gate</span></div>
+              <div class="card"><strong>Add Evidence</strong><span>Lineage binding</span></div>
+              <div class="card"><strong>Start Review</strong><span>Authority pending</span></div>
+              <div class="card"><strong>Explore Graph</strong><span>Topology visible</span></div>
+              <div class="card"><strong>Generate Report</strong><span>Static preview</span></div>
+              <div class="card"><strong>Export Data</strong><span>Local artifact</span></div>
+              <div class="card"><strong>System Settings</strong><span>PHKD mode always on</span></div>
+            </div>
+          </section>
+        </section>
+      </section>
+
+      <footer class="footer">
+        <span>PHKD MODE ENABLED • Public Honesty • Evidence Before Claims • Governed, Not Centralized • Knowledge Sovereignty • Humanity First</span>
+        <span>© 2025 Maataa Ecosystem. KBS_FULL_DEMO static governed preview.</span>
+      </footer>
+    </main>
+  </body>
+</html>

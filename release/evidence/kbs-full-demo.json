@@ -1,0 +1,37 @@
+{
+  "schema": "maataa.kbs-full-demo.release.v1",
+  "artifact": "release/KBS_FULL_DEMO.html",
+  "status": "RELEASED_STATIC_PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "demoScope": "STATIC_PREVIEW",
+  "sourceExtractions": [
+    "data/kbs-image-extraction.json",
+    "data/kbs-runtime-board-extraction.json"
+  ],
+  "includedSurfaces": [
+    "KBS Dashboard",
+    "KBS Homepage",
+    "All Pages Overview",
+    "All Runtimes Board",
+    "Knowledge Graph Overview",
+    "Claim Status Distribution",
+    "Evidence Strength",
+    "Review Queue",
+    "Domain Overview",
+    "PHKD Status"
+  ],
+  "activeBlockers": [
+    "hardware_attestation_missing",
+    "rollback_drill_verification_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "moderation_maturity_missing",
+    "public_trust_layer_missing",
+    "account_safety_maturity_missing"
+  ],
+  "verificationStatus": "PASS",
+  "failures": [],
+  "verifiedAt": "2026-05-28T17:19:37.131Z"
+}
