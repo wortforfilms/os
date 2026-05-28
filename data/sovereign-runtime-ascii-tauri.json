@@ -1,0 +1,55 @@
+{
+  "schema": "maataa.sovereign-runtime-ascii-tauri.v1",
+  "surface": "MAATAA OS - Sovereign Runtime ASCII Tauri",
+  "shell": "tauri",
+  "mode": "CONTROLLED_CONVERGENCE",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "noFakeClaims": true,
+  "frame": {
+    "columns": 80,
+    "rows": 24,
+    "encoding": "ASCII",
+    "title": "MAATAA OS SOVEREIGN RUNTIME",
+    "lines": [
+      "+------------------------------------------------------------------------------+",
+      "| MAATAA OS :: SOVEREIGN RUNTIME ASCII :: TAURI SHELL                          |",
+      "+------------------------------------------------------------------------------+",
+      "| MODE                 CONTROLLED_CONVERGENCE                                  |",
+      "| FINAL STATUS         GOVERNED_PRODUCTION_NO_GO                               |",
+      "| PRODUCTION READY     FALSE                                                   |",
+      "| PHKD                 EVIDENCE_FIRST_FAIL_CLOSED                              |",
+      "+------------------------------------------------------------------------------+",
+      "| RUNTIME FEDERATION   apps -> thin shells | packages -> sovereign runtimes     |",
+      "| GOVERNANCE           executable, auditable, rollbackable                     |",
+      "| OBSERVABILITY        health, topology, lineage, evidence, degraded mode       |",
+      "| KNOWLEDGE            KBS claims require provenance + review lineage           |",
+      "| AI POLICY            assistive inference only; no hidden certainty            |",
+      "+------------------------------------------------------------------------------+",
+      "| TAURI COMMANDS       support_docs | support_status | sovereign_ascii_status   |",
+      "| LOCALITY             offline bundle; local file/runtime boundaries only       |",
+      "| RELEASE              static preview; unsigned and not notarized               |",
+      "+------------------------------------------------------------------------------+",
+      "| BLOCKERS             hardware_attestation_missing                            |",
+      "|                      operator_quorum_unverified                              |",
+      "|                      signed_release_authority_unverified                     |",
+      "|                      rollback_drill_not_verified                             |",
+      "+------------------------------------------------------------------------------+",
+      "| VERDICT              BLOCKED UNTIL REAL EVIDENCE CLEARS EVERY GATE           |",
+      "+------------------------------------------------------------------------------+"
+    ]
+  },
+  "tauriCommands": [
+    "support_docs",
+    "support_status",
+    "sovereign_ascii_status",
+    "sovereign_ascii_frame"
+  ],
+  "activeBlockers": [
+    "hardware_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ]
+}

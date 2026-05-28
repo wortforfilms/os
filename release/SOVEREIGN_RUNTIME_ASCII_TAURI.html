@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Maataa OS - Sovereign Runtime ASCII Tauri</title>
+    <style>
+      :root {
+        --bg: #020805;
+        --terminal: #05140f;
+        --line: rgba(120, 255, 186, 0.24);
+        --text: #d9ffe9;
+        --muted: #7fba99;
+        --gold: #d6a55c;
+        --red: #ff8f8f;
+        --green: #8df0b1;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 20% 4%, rgba(141, 240, 177, 0.14), transparent 28rem),
+          radial-gradient(circle at 82% 8%, rgba(214, 165, 92, 0.12), transparent 32rem),
+          var(--bg);
+        color: var(--text);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      }
+      main { width: min(1180px, calc(100vw - 28px)); margin: 0 auto; padding: 24px 0 32px; }
+      header, section, pre {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(5, 20, 15, 0.88);
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.32);
+      }
+      header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+        align-items: center;
+        padding: 18px;
+        margin-bottom: 14px;
+      }
+      h1, h2, p { margin-top: 0; }
+      h1 { margin-bottom: 6px; color: white; font-size: clamp(24px, 5vw, 48px); letter-spacing: 0; }
+      p { color: var(--muted); line-height: 1.55; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 6px 10px;
+        border-radius: 7px;
+        border: 1px solid rgba(255, 143, 143, 0.42);
+        color: var(--red);
+        background: rgba(84, 10, 18, 0.28);
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      pre {
+        min-height: 560px;
+        overflow: auto;
+        margin: 0;
+        padding: 18px;
+        color: var(--green);
+        line-height: 1.45;
+        font-size: clamp(11px, 1.8vw, 15px);
+        white-space: pre;
+      }
+      .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+      section { padding: 14px; }
+      section strong { display: block; color: var(--gold); margin-bottom: 7px; }
+      code { color: var(--green); }
+      @media (max-width: 800px) { header, .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <p>MAATAA OS - Sovereign Runtime ASCII Tauri</p>
+          <h1>Evidence-first terminal surface for the Tauri shell.</h1>
+          <p>This is a governed local preview. It does not claim production readiness, hardware attestation, notarization, or operator quorum.</p>
+        </div>
+        <span class="badge">GOVERNED_PRODUCTION_NO_GO</span>
+      </header>
+      <pre aria-label="Sovereign runtime ASCII frame">+------------------------------------------------------------------------------+
+| MAATAA OS :: SOVEREIGN RUNTIME ASCII :: TAURI SHELL                          |
++------------------------------------------------------------------------------+
+| MODE                 CONTROLLED_CONVERGENCE                                  |
+| FINAL STATUS         GOVERNED_PRODUCTION_NO_GO                               |
+| PRODUCTION READY     FALSE                                                   |
+| PHKD                 EVIDENCE_FIRST_FAIL_CLOSED                              |
++------------------------------------------------------------------------------+
+| RUNTIME FEDERATION   apps -> thin shells | packages -> sovereign runtimes     |
+| GOVERNANCE           executable, auditable, rollbackable                     |
+| OBSERVABILITY        health, topology, lineage, evidence, degraded mode       |
+| KNOWLEDGE            KBS claims require provenance + review lineage           |
+| AI POLICY            assistive inference only; no hidden certainty            |
++------------------------------------------------------------------------------+
+| TAURI COMMANDS       support_docs | support_status | sovereign_ascii_status   |
+| LOCALITY             offline bundle; local file/runtime boundaries only       |
+| RELEASE              static preview; unsigned and not notarized               |
++------------------------------------------------------------------------------+
+| BLOCKERS             hardware_attestation_missing                            |
+|                      operator_quorum_unverified                              |
+|                      signed_release_authority_unverified                     |
+|                      rollback_drill_not_verified                             |
++------------------------------------------------------------------------------+
+| VERDICT              BLOCKED UNTIL REAL EVIDENCE CLEARS EVERY GATE           |
++------------------------------------------------------------------------------+</pre>
+      <div class="grid">
+        <section><strong>Tauri Boundary</strong><p><code>sovereign_ascii_status</code> and <code>sovereign_ascii_frame</code> expose this contract to the native shell.</p></section>
+        <section><strong>PHKD</strong><p>Evidence before claims. Fail closed. No fake production GO.</p></section>
+        <section><strong>Rollbackability</strong><p>Runtime surface is static and reproducible; missing release gates remain visible.</p></section>
+        <section><strong>Final Status</strong><p><code>PRODUCTION_READY=false</code><br /><code>GOVERNED_PRODUCTION_NO_GO</code></p></section>
+      </div>
+    </main>
+  </body>
+</html>

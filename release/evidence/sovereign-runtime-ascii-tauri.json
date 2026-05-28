@@ -1,0 +1,26 @@
+{
+  "schema": "maataa.sovereign-runtime-ascii-tauri.release.v1",
+  "artifact": "release/SOVEREIGN_RUNTIME_ASCII_TAURI.html",
+  "data": "data/sovereign-runtime-ascii-tauri.json",
+  "status": "RELEASED_STATIC_PREVIEW",
+  "shell": "tauri",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "noFakeClaims": true,
+  "tauriCommands": [
+    "support_docs",
+    "support_status",
+    "sovereign_ascii_status",
+    "sovereign_ascii_frame"
+  ],
+  "activeBlockers": [
+    "hardware_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified"
+  ],
+  "verificationStatus": "PASS",
+  "failures": [],
+  "verifiedAt": "2026-05-28T18:37:28.142Z"
+}
