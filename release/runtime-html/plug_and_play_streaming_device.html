@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Radio Vaigyaaniq Plug-and-Play Streaming Device</title>
+    <style>
+      :root {
+        --bg: #050816;
+        --panel: rgba(11, 18, 36, 0.86);
+        --line: rgba(197, 198, 199, 0.16);
+        --text: #edf5f2;
+        --muted: #aebbb8;
+        --gold: #d6a55c;
+        --cyan: #66fcf1;
+        --red: #ff9d9d;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 12% 0%, rgba(102, 252, 241, 0.14), transparent 30rem),
+          radial-gradient(circle at 82% 8%, rgba(214, 165, 92, 0.16), transparent 32rem),
+          var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      main { width: min(1320px, calc(100vw - 32px)); margin: 0 auto; padding: 28px 0 44px; }
+      .hero, .panel, .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 28px 90px rgba(0,0,0,.26);
+      }
+      .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 22px; padding: 28px; align-items: end; }
+      .kicker { margin: 0 0 8px; color: var(--gold); font-size: 12px; font-weight: 950; text-transform: uppercase; letter-spacing: .12em; }
+      h1 { margin: 0 0 12px; color: white; font-size: clamp(38px, 7vw, 82px); line-height: .92; }
+      h2, h3 { color: white; margin-top: 0; }
+      p { color: var(--muted); line-height: 1.58; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 14px; margin-top: 18px; }
+      .card, .panel { padding: 18px; }
+      .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+      .pill, .badge {
+        display: inline-flex;
+        min-height: 28px;
+        align-items: center;
+        padding: 5px 9px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.04);
+        font-size: 11px;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+      .preview { color: var(--cyan); border-color: rgba(102,252,241,.32); }
+      .blocked, .no-go { color: var(--red); border-color: rgba(255,157,157,.42); background: rgba(82,11,18,.32); }
+      ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); }
+      li { margin: 5px 0; }
+      code { color: #9de8ff; }
+      @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="kicker">Radio Vaigyaaniq</p>
+          <h1>Plug-and-Play Streaming Device</h1>
+          <p>Local audio. Local proof. Local control. A governed preview profile for an offline-first streaming appliance.</p>
+          <div class="meta">
+            <span class="badge preview">VALIDATED_PREVIEW</span>
+            <span class="pill no-go">PRODUCTION_READY=false</span>
+            <span class="pill no-go">GOVERNED_PRODUCTION_NO_GO</span>
+          </div>
+        </div>
+        <aside class="panel">
+          <h2>Operator Flow</h2>
+          <ul>
+            <li>Connect power</li>
+            <li>Connect microphone or line-in</li>
+            <li>Connect speaker or local transmitter</li>
+            <li>Select local content pack</li>
+            <li>Press broadcast</li>
+            <li>Export evidence receipt</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <article class="card"><h3>Local Audio Capture</h3><span class="badge preview">PREVIEW</span><p>Captures microphone or line-in audio inside the local runtime boundary.</p></article>
+        <article class="card"><h3>Offline Playlist Engine</h3><span class="badge preview">PREVIEW</span><p>Runs signed local audio packs without external network dependency.</p></article>
+        <article class="card"><h3>Loopback Stream Driver</h3><span class="badge preview">PREVIEW</span><p>Routes playback state across local loopback ports 8401, 8402, and 8403.</p></article>
+        <article class="card"><h3>Field Recovery Console</h3><span class="badge blocked">BLOCKED</span><p>Blocked until rollback drill evidence is captured.</p></article>
+        <article class="card"><h3>Session Evidence Receipt</h3><span class="badge blocked">BLOCKED</span><p>Blocked until hardware root attestation and operator quorum are verified.</p></article>
+      </section>
+
+      <section class="grid">
+        <article class="card"><h3>Delhi Corporate Node</h3><p><code>127.0.0.1:8401</code></p><p>Role: corporate-control</p></article>
+        <article class="card"><h3>Noida Distribution Node</h3><p><code>127.0.0.1:8402</code></p><p>Role: distribution</p></article>
+        <article class="card"><h3>Gurugram Broadcast Hub</h3><p><code>127.0.0.1:8403</code></p><p>Role: broadcast-hub</p></article>
+      </section>
+
+      <section class="panel" style="margin-top:18px">
+        <h2>PHKD Blockers</h2>
+        <ul>
+          <li>hardware_root_attestation_missing</li>
+          <li>operator_quorum_unverified</li>
+          <li>signed_release_authority_unverified</li>
+          <li>rollback_drill_not_verified</li>
+          <li>physical_audio_io_not_verified</li>
+          <li>field_power_loss_recovery_not_verified</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

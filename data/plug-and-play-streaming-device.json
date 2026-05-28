@@ -1,0 +1,119 @@
+{
+  "schema": "maataa.plug-and-play-streaming-device.v1",
+  "product": {
+    "id": "radio-vaigyaaniq-plug-play-streaming-device",
+    "name": "Radio Vaigyaaniq Plug-and-Play Streaming Device",
+    "shortName": "RV Stream Node",
+    "tagline": "Local audio. Local proof. Local control.",
+    "audience": ["community radio operators", "education field teams", "local event producers", "offline knowledge hubs"]
+  },
+  "governance": {
+    "productionReady": false,
+    "phkdVerdict": "BLOCKED",
+    "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+    "runtimeStatus": "VALIDATED_PREVIEW",
+    "noFakeClaims": true,
+    "activeBlockers": [
+      "hardware_root_attestation_missing",
+      "operator_quorum_unverified",
+      "signed_release_authority_unverified",
+      "rollback_drill_not_verified",
+      "physical_audio_io_not_verified",
+      "field_power_loss_recovery_not_verified"
+    ]
+  },
+  "deviceFrame": {
+    "enclosure": "single-board appliance with audio input, audio output, local display, storage, and status LEDs",
+    "bootMode": "offline-first",
+    "networkMode": "standalone-loopback",
+    "externalTelemetry": false,
+    "remoteControl": false,
+    "airgapIntegrityLock": true
+  },
+  "operatorFlow": [
+    "connect power",
+    "connect microphone or line-in",
+    "connect speaker or local transmitter",
+    "select local content pack",
+    "press broadcast",
+    "watch local health lights",
+    "export evidence receipt after session"
+  ],
+  "runtimeModules": [
+    {
+      "id": "local-audio-capture",
+      "label": "Local Audio Capture",
+      "status": "PREVIEW",
+      "description": "Captures microphone or line-in audio into the local runtime boundary.",
+      "blockedReason": "Physical audio IO has not been verified on target hardware."
+    },
+    {
+      "id": "offline-playlist-engine",
+      "label": "Offline Playlist Engine",
+      "status": "PREVIEW",
+      "description": "Runs signed local audio packs without external network dependency.",
+      "blockedReason": "Signed release authority is not verified."
+    },
+    {
+      "id": "loopback-stream-driver",
+      "label": "Loopback Stream Driver",
+      "status": "PREVIEW",
+      "description": "Routes device status and playback state across local loopback ports.",
+      "blockedReason": "Physical stress and interruption tests are not complete."
+    },
+    {
+      "id": "field-recovery-console",
+      "label": "Field Recovery Console",
+      "status": "BLOCKED",
+      "description": "Operator-safe recovery view for failed audio, power, or storage checks.",
+      "blockedReason": "Rollback drill is not verified."
+    },
+    {
+      "id": "session-evidence-receipt",
+      "label": "Session Evidence Receipt",
+      "status": "BLOCKED",
+      "description": "Exports session logs, content pack hash, device identity, and operator acknowledgement.",
+      "blockedReason": "Hardware root attestation and operator quorum are missing."
+    }
+  ],
+  "clusterPorts": [
+    {
+      "id": "rv-delhi-corporate-node",
+      "label": "Delhi Corporate Node",
+      "interface": "127.0.0.1",
+      "port": 8401,
+      "role": "corporate-control"
+    },
+    {
+      "id": "rv-noida-distribution-node",
+      "label": "Noida Distribution Node",
+      "interface": "127.0.0.1",
+      "port": 8402,
+      "role": "distribution"
+    },
+    {
+      "id": "rv-gurugram-broadcast-hub",
+      "label": "Gurugram Broadcast Hub",
+      "interface": "127.0.0.1",
+      "port": 8403,
+      "role": "broadcast-hub"
+    }
+  ],
+  "statusLights": [
+    { "id": "power", "label": "Power", "readyState": "solid green", "faultState": "red blink" },
+    { "id": "storage", "label": "Storage", "readyState": "solid blue", "faultState": "amber blink" },
+    { "id": "audio", "label": "Audio IO", "readyState": "green pulse", "faultState": "red pulse" },
+    { "id": "broadcast", "label": "Broadcast", "readyState": "cyan pulse", "faultState": "off" },
+    { "id": "recovery", "label": "Recovery", "readyState": "off", "faultState": "solid amber" }
+  ],
+  "evidenceOutputs": [
+    "release/evidence/plug-and-play-streaming-device.json",
+    "release/runtime-html/plug_and_play_streaming_device.html",
+    "build/receipts/stream-session-[id].txt"
+  ],
+  "operatorCopy": {
+    "ready": "Device is locally armed for preview playback.",
+    "blocked": "Production broadcast is blocked until hardware root, release signature, quorum, and rollback evidence pass.",
+    "offline": "Device remains usable for local preview without internet."
+  }
+}

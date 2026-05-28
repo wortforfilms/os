@@ -1,0 +1,26 @@
+{
+  "schema": "maataa.plug-and-play-streaming-device.evidence.v1",
+  "artifact": "release/runtime-html/plug_and_play_streaming_device.html",
+  "source": "data/plug-and-play-streaming-device.json",
+  "status": "RELEASED_STATIC_PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "includedPorts": [
+    8401,
+    8402,
+    8403
+  ],
+  "noFakeClaims": true,
+  "activeBlockers": [
+    "hardware_root_attestation_missing",
+    "operator_quorum_unverified",
+    "signed_release_authority_unverified",
+    "rollback_drill_not_verified",
+    "physical_audio_io_not_verified",
+    "field_power_loss_recovery_not_verified"
+  ],
+  "verifiedAt": "2026-05-27T21:32:04.277Z",
+  "verificationStatus": "PASS",
+  "failures": []
+}
