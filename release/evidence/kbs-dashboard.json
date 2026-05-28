@@ -1,0 +1,29 @@
+{
+  "schema": "maataa.kbs-dashboard.release.v1",
+  "artifact": "release/KBS_DASHBOARD.html",
+  "status": "RELEASED_STATIC_PREVIEW",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "demoScope": "STATIC_PREVIEW",
+  "sourceExtraction": "data/kbs-runtime-board-extraction.json",
+  "includedSurfaces": [
+    "KBS Dashboard",
+    "Knowledge Graph Overview",
+    "Claim Status Distribution",
+    "Evidence Strength",
+    "Review Queue",
+    "Domain Overview",
+    "System Health",
+    "Quick Actions"
+  ],
+  "activeBlockers": [
+    "hardware_attestation_not_verified",
+    "operator_quorum_not_verified",
+    "rollback_drill_not_verified",
+    "signed_release_partially_verified"
+  ],
+  "verificationStatus": "PASS",
+  "failures": [],
+  "verifiedAt": "2026-05-27T22:43:00.237Z"
+}
