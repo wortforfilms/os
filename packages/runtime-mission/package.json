@@ -1,0 +1,32 @@
+{
+  "name": "@maataa/runtime-mission",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "description": "Reality-to-Mission runtime. Compares declared mission state against observed reality and emits drift signals + advisory actions. Does not enforce.",
+  "maataa": {
+    "runtime": true,
+    "status": "scaffold-only",
+    "authority": [
+      "mission-specs",
+      "drift-records"
+    ],
+    "doesNotOwn": [
+      "enforcement",
+      "truth",
+      "identity",
+      "graph-relations",
+      "claim-validity"
+    ],
+    "dependsOn": [
+      "@maataa/runtime-knowledge-graph",
+      "@maataa/runtime-validation",
+      "@maataa/runtime-observability",
+      "hemant-core"
+    ],
+    "rollback": "mission specs are deletable; drift reports remain as evidence",
+    "spec": "doc/RUNTIME_FEDERATION_2026-05-28.md#44-runtime-mission-reality-to-mission"
+  }
+}

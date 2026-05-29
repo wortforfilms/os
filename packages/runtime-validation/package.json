@@ -1,0 +1,29 @@
+{
+  "name": "@maataa/runtime-validation",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "description": "Scientific Validation runtime. Assesses empirical claims against evidence, methodology, replication, uncertainty. Distinct from hemant-core HSTS (system-trust, not claim-truth).",
+  "maataa": {
+    "runtime": true,
+    "status": "scaffold-only",
+    "authority": [
+      "claim-validation-records"
+    ],
+    "doesNotOwn": [
+      "claim-entity",
+      "identity",
+      "runtime-trust-state",
+      "enforcement"
+    ],
+    "dependsOn": [
+      "@maataa/runtime-knowledge-graph",
+      "@maataa/runtime-hkd-registry",
+      "hemant-core"
+    ],
+    "rollback": "append-only validation records; new validations supersede but never delete prior records",
+    "spec": "doc/RUNTIME_FEDERATION_2026-05-28.md#45-runtime-validation-scientific-validation"
+  }
+}

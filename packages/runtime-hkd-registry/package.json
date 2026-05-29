@@ -1,0 +1,32 @@
+{
+  "name": "@maataa/runtime-hkd-registry",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "description": "Identity, namespace, version-pin, and signature authority for HKD-canonical artifacts.",
+  "maataa": {
+    "runtime": true,
+    "status": "scaffold-only",
+    "authority": [
+      "hkd-identity",
+      "namespace",
+      "version-pins",
+      "signatures",
+      "revocations"
+    ],
+    "doesNotOwn": [
+      "graph-relations",
+      "claim-validity",
+      "mission-state",
+      "enforcement",
+      "user-identity"
+    ],
+    "dependsOn": [
+      "hemant-core"
+    ],
+    "rollback": "append-only ledger; rollback = pin to prior version; history never erased",
+    "spec": "doc/RUNTIME_FEDERATION_2026-05-28.md#43-runtime-hkd-registry-hkd-registry"
+  }
+}

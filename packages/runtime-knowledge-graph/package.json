@@ -1,0 +1,31 @@
+{
+  "name": "@maataa/runtime-knowledge-graph",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "description": "Typed entity + relation store for the MAATAA semantic graph. Owns relations, not identity or claim validity.",
+  "maataa": {
+    "runtime": true,
+    "status": "scaffold-only",
+    "authority": [
+      "typed-relations",
+      "entity-type-schema"
+    ],
+    "doesNotOwn": [
+      "identity",
+      "namespace",
+      "signatures",
+      "claim-validity",
+      "enforcement",
+      "page-local-kv"
+    ],
+    "dependsOn": [
+      "@maataa/runtime-hkd-registry",
+      "hemant-core"
+    ],
+    "rollback": "append-only snapshots with revision pins; rollback = restore to a registry-pinned snapshot id",
+    "spec": "doc/RUNTIME_FEDERATION_2026-05-28.md#42-runtime-knowledge-graph"
+  }
+}
