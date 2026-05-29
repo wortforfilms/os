@@ -1,7 +1,7 @@
 {
   "schema": "maataa.completion.status.matrix.v1",
-  "generatedAt": "2026-05-27T22:20:27.191Z",
-  "commit": "e58afde",
+  "generatedAt": "2026-05-28T18:58:03.932Z",
+  "commit": "3f2bd8d",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
