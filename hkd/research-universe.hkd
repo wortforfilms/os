@@ -1,0 +1,78 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-research-universe-2026-05-28",
+  "title": "Maataa Research Universe (Discover. Question. Experiment. Prove. Share. Elevate Humanity.)",
+  "sourceImage": "user-provided/2026-05-28/research-universe-board.png",
+  "universe": "research",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS RESEARCH STATUS (Researchers/Projects/Papers/Datasets/Experiments/Citations)","type":"dashboard","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.95 },
+    { "id":"sec-lifecycle","title":"Research Lifecycle (Question→Hypothesis→Experiment→Data→Analyze→Evidence→Publish→Impact)","type":"workflow","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-knowledge-graph","title":"Research Knowledge Graph (Hypothesis/Paper/Experiment/Dataset/Evidence/Author nodes)","type":"data","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-domains","title":"Research Domains (12 areas: Health/Agri/Climate/AI/Space/Energy/Edu/Econ/Social/Mind/Culture/Governance)","type":"feature","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-overview","title":"Research Overview (6 totals)","type":"dashboard","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.95 },
+    { "id":"sec-impact-index","title":"Research Impact Index (5 dimensions + Overall)","type":"dashboard","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-assets","title":"Research Assets (Hypotheses/Experiments/Datasets/Papers/Protocols/Benchmarks/Tools)","type":"feature","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-evidence-integrity","title":"Evidence Integrity Framework (Reproducible/Open Data/Peer Reviewed/Transparent/Ethical/Citable)","type":"feature","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-quality-score","title":"Research Quality Score (Methodology/Data/Reproducibility/Peer Review/Transparency)","type":"dashboard","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-collaboration","title":"Research Collaboration (Institutions/Active Collaborations/Countries/Open Calls)","type":"dashboard","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-workspace","title":"Research Workspace + Project Dashboard","type":"feature","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.88 },
+    { "id":"sec-pipeline","title":"Research Pipeline Automation (Data→Experiment→Analysis→Validation→Report→Publication→Impact)","type":"workflow","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.90 },
+    { "id":"sec-global-network","title":"Global Research Network","type":"dashboard","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.90 },
+    { "id":"sec-ethics","title":"Research Ethics & Compliance","type":"feature","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.92 },
+    { "id":"sec-connected","title":"Connected Ecosystem (HKD KG / Scientific Evidence Registry / Data Schemas / Asset Library / AI Agents / Lipi Language / TLP Wisdom Platform)","type":"feature","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"r-question","label":"1. Question — Ask Better Questions","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.65 },
+    { "id":"r-hypothesis","label":"2. Hypothesis — Propose Possibilities","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.55 },
+    { "id":"r-experiment","label":"3. Experiment — Design & Execute","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.45 },
+    { "id":"r-data","label":"4. Data — Collect & Observe","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.50 },
+    { "id":"r-analyze","label":"5. Analyze — Process & Interpret","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.45 },
+    { "id":"r-evidence","label":"6. Evidence — Validate & Verify","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.55 },
+    { "id":"r-publish","label":"7. Publish — Share & Disseminate","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.40 },
+    { "id":"r-impact","label":"8. Impact — Improve Life & Create Legacy","kind":"lifecycle-stage","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-lifecycle","confidence":0.30 },
+    { "id":"node-research","label":"Research (central KG node)","kind":"kg-node","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.60 },
+    { "id":"node-hypothesis","label":"Hypothesis","kind":"kg-node","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.55 },
+    { "id":"node-paper","label":"Paper","kind":"kg-node","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.55 },
+    { "id":"node-experiment","label":"Experiment","kind":"kg-node","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.50 },
+    { "id":"node-dataset","label":"Dataset","kind":"kg-node","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.55 },
+    { "id":"node-evidence","label":"Evidence","kind":"kg-node","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.60 },
+    { "id":"node-author","label":"Author (Profile/Affiliation/Expertise/Reputation)","kind":"kg-node","universe":"research","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.50 }
+  ],
+  "edges": [
+    { "from":"r-question","to":"r-hypothesis","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"r-hypothesis","to":"r-experiment","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"r-experiment","to":"r-data","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"r-data","to":"r-analyze","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"r-analyze","to":"r-evidence","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"r-evidence","to":"r-publish","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"node-paper","to":"node-author","relation":"authored-by","confidence":0.50,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"node-paper","to":"node-experiment","relation":"reports","confidence":0.45,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" },
+    { "from":"node-experiment","to":"node-dataset","relation":"uses","confidence":0.45,"sourceImage":"user-provided/2026-05-28/research-universe-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Research Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-impact-index","title":"Research Impact Index donut 82.6 + 5 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-impact-index","confidence":0.92 },
+    { "id":"w-quality-score","title":"Quality Score donut 92.4 + 5 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-quality-score","confidence":0.92 },
+    { "id":"w-pipeline","title":"Pipeline Automation diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-pipeline","confidence":0.85 },
+    { "id":"w-global-network-map","title":"Global Research Network map","widgetType":"matrix","status":"blocked","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-global-network","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-researchers-156782","text":"Active Researchers: 156,782","status":"BLOCKED","blockedReason":"No researcher registry exists.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-projects-24891","text":"Active Projects: 24,891","status":"BLOCKED","blockedReason":"No project ledger.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-papers-128734","text":"Published Papers: 128,734","status":"BLOCKED","blockedReason":"No publication record system.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-datasets-98172","text":"Datasets: 98,172","status":"BLOCKED","blockedReason":"No dataset registry.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-experiments-3-42m","text":"Experiments Run: 3.42M","status":"BLOCKED","blockedReason":"No experiment tracking.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-citations-2-87m","text":"Citations: 2.87M","status":"BLOCKED","blockedReason":"No citation graph.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-impact-82-6","text":"Research Impact Index: 82.6/100 (Scientific 85.4 / Societal 80.3 / Economic 78.9 / Environmental 81.6 / Cultural 84.7)","status":"BLOCKED","blockedReason":"Aggregate + sub-scores all fabricated.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-impact-index","confidence":0.99 },
+    { "id":"c-quality-92-4","text":"Research Quality Score: 92.4/100 Outstanding","status":"BLOCKED","blockedReason":"Same — fabricated aggregate.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-quality-score","confidence":0.99 },
+    { "id":"c-collaboration-2843","text":"2,843 Collaborating Institutions / 18,742 Active Collaborations / 192 Countries / 316 Open Calls","status":"BLOCKED","blockedReason":"No collaboration registry.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-collaboration","confidence":0.99 },
+    { "id":"c-evidence-integrity-framework","text":"Evidence Integrity Framework: Reproducible / Open Data / Peer Reviewed / Transparent / Ethical / Citable","status":"PARTIAL","blockedReason":"kbs-runtime/src/{claims,review,moderation,governance,provenance} + runtime-validation (scaffold) cover most of these conceptually. End-to-end integrity workflow not wired.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-evidence-integrity","confidence":0.80 },
+    { "id":"c-knowledge-graph-research","text":"Research Knowledge Graph (Hypothesis/Paper/Experiment/Dataset/Evidence/Author)","status":"PARTIAL","blockedReason":"kbs-graph + kbs-runtime/src/graph/ provide the substrate; research-specific entity types not yet defined.","sourceImage":"user-provided/2026-05-28/research-universe-board.png","sourceSectionId":"sec-knowledge-graph","confidence":0.80 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Research Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/research-universe-board.png","confidence":0.85 }
+  ]
+}

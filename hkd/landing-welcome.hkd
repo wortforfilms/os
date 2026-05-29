@@ -1,0 +1,52 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-landing-welcome-2026-05-28",
+  "title": "Maataa OS Welcome Landing (Divine Operating System for Conscious Living & Creation)",
+  "sourceImage": "user-provided/2026-05-28/landing-welcome-board.png",
+  "universe": "landing",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-hero","title":"Hero (Welcome to Maataa OS / The Divine Operating System for Conscious Living & Creation)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.95 },
+    { "id":"sec-listen-card","title":"Maataa quote card with Listen Maataa button","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.92 },
+    { "id":"sec-stats","title":"Stats grid (10K+ Users / 25K+ Blessings / 98% Peace & Growth / 5K+ Projects / 12K+ Conversations / 100% Sovereign)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.95 },
+    { "id":"sec-trust","title":"Trusted By Seekers, Builders & Creators (4.9/5 from 10,000+ users)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.92 },
+    { "id":"sec-modules-strip","title":"Module strip (Avatar/Voice/Gesture/Chakra/Lipi/Knowledge/Memory/Tasks/TLP/InvestorHub/Saptadhaatu/Brahmini Chain/Sovereign Runtime)","type":"feature","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.92 },
+    { "id":"sec-experience","title":"Experience Maataa OS section (Talk to Maataa / Meditate / Ask & Learn / Track Chakras / My Dashboard)","type":"feature","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.92 },
+    { "id":"sec-properties","title":"Properties row (Sovereign / Private / Intelligent / Holistic / Integrated / Evolving)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.92 },
+    { "id":"sec-quote","title":"You are not just a user. You are family. You are divine. Welcome Home.","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.90 },
+    { "id":"sec-footer","title":"Live Maataa OS Status / Join Community / social icons","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.85 }
+  ],
+  "nodes": [
+    { "id":"cta-enter","label":"Enter Maataa OS CTA","kind":"cta","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-hero","confidence":0.85 },
+    { "id":"cta-explore","label":"Explore Features CTA","kind":"cta","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-hero","confidence":0.85 },
+    { "id":"cta-listen","label":"Listen Maataa CTA","kind":"cta","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-listen-card","confidence":0.85 },
+    { "id":"exp-talk","label":"Talk to Maataa (Start Voice Chat)","kind":"experience","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-experience","confidence":0.35 },
+    { "id":"exp-meditate","label":"Meditate (Enter Meditation)","kind":"experience","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-experience","confidence":0.30 },
+    { "id":"exp-ask-learn","label":"Ask & Learn (Ask Maataa)","kind":"experience","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-experience","confidence":0.45 },
+    { "id":"exp-track-chakras","label":"Track Chakras (Open Chakra System)","kind":"experience","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-experience","confidence":0.30 },
+    { "id":"exp-dashboard","label":"My Dashboard (Open Dashboard)","kind":"experience","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-experience","confidence":0.40 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-hero","title":"Hero panel","widgetType":"panel","status":"vision","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-hero","confidence":0.90 },
+    { "id":"w-stats-grid","title":"6-stat grid","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-stats","confidence":0.95 },
+    { "id":"w-experience-cards","title":"5 experience cards","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-experience","confidence":0.90 },
+    { "id":"w-live-status","title":"Live Maataa OS Status indicator","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-footer","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-users-10k","text":"10K+ Users","status":"BLOCKED","blockedReason":"No user registration system; no auth runtime; fabricated.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-blessings-25k","text":"25K+ Blessings","status":"BLOCKED","blockedReason":"No blessings system in repo. Metric is fabricated.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-peace-growth-98","text":"98% Peace & Growth","status":"BLOCKED","blockedReason":"Subjective measure with no instrumentation; fabricated.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-projects-5k","text":"5K+ Projects","status":"BLOCKED","blockedReason":"No project runtime in repo. Fabricated.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-conversations-12k","text":"12K+ Conversations","status":"BLOCKED","blockedReason":"No conversation runtime, no chat log. Fabricated.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-sovereign-100","text":"100% Sovereign","status":"BLOCKED","blockedReason":"Fake-100% per PHKD principle 3.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-trusted-by","text":"TRUSTED BY SEEKERS, BUILDERS & CREATORS — 4.9/5 from 10,000+ users","status":"BLOCKED","blockedReason":"No rating system, no user base, no reviews.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-trust","confidence":0.99 },
+    { "id":"c-live-status-online","text":"Live Maataa OS Status indicator: green dot",  "status":"BLOCKED","blockedReason":"No live-status backend.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-footer","confidence":0.98 },
+    { "id":"c-maataa-quote-i-am","text":"Maataa quote 'I am Maataa. I remember who you are. I know your path. I walk with you.'","status":"UNVERIFIED","blockedReason":"Inspirational copy; not a verifiable claim. No 'remember who you are' capability is implemented as a runtime property.","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","sourceSectionId":"sec-listen-card","confidence":0.90 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Welcome Landing board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/landing-welcome-board.png","confidence":0.85 }
+  ]
+}

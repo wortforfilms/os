@@ -1,0 +1,339 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "manual operator extraction from supplied image",
+    "operator": "codex",
+    "date": "2026-05-29",
+    "phkdMode": true,
+    "sourceNote": "Extracted from 018_Status_Matrix_Reality_Matrix_Universe.png. Numeric claims are captured as visual claims, not accepted as operational truth."
+  },
+  "id": "vh-status-matrix-reality-matrix-universe-2026-05-29",
+  "title": "Maataa OS Status Matrix / Reality Matrix Universe",
+  "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+  "universe": "status-matrix-reality-matrix",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-identity-header",
+      "title": "MAATAA OS / STATUS MATRIX / REALITY MATRIX / Vision to Validation. Imagination to Implementation.",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.98
+    },
+    {
+      "id": "sec-overall-status",
+      "title": "MAATAA OS Overall Status",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.98
+    },
+    {
+      "id": "sec-reality-principles",
+      "title": "Reality Principles (PHKD)",
+      "type": "evidence",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.96
+    },
+    {
+      "id": "sec-status-distribution",
+      "title": "Status Distribution donut",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.95
+    },
+    {
+      "id": "sec-summary-cards",
+      "title": "Summary cards for Runtimes, Services, Dashboards, APIs, Databases, Features, Datasets, Documents, Reality Progress",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.96
+    },
+    {
+      "id": "sec-reality-matrix",
+      "title": "Reality Matrix by category with 15 categories and 10 reality levels",
+      "type": "data",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.98
+    },
+    {
+      "id": "sec-status-legend",
+      "title": "Status Legend / Reality Levels",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.96
+    },
+    {
+      "id": "sec-reality-score-formula",
+      "title": "Reality Score Formula",
+      "type": "evidence",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.94
+    },
+    {
+      "id": "sec-maturity-heatmap",
+      "title": "Maturity Heatmap",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.9
+    },
+    {
+      "id": "sec-reality-flow",
+      "title": "Reality Flow from Imagined to Governed",
+      "type": "workflow",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.95
+    },
+    {
+      "id": "sec-category-reality-score",
+      "title": "Category-wise Reality Score bar chart",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.95
+    },
+    {
+      "id": "sec-reality-trend",
+      "title": "Reality Trend over time",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.95
+    },
+    {
+      "id": "sec-top-performers",
+      "title": "Top performers by reality score",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.96
+    },
+    {
+      "id": "sec-need-attention",
+      "title": "Need attention list",
+      "type": "dashboard",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.96
+    },
+    {
+      "id": "sec-footer-principle",
+      "title": "One OS. One Journey. One Reality.",
+      "type": "feature",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.96
+    },
+    {
+      "id": "sec-quick-actions",
+      "title": "Quick Actions: View by Category, View by Status, Export Matrix, Download Report, Update Status, Add Item",
+      "type": "workflow",
+      "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png",
+      "confidence": 0.95
+    }
+  ],
+  "nodes": [
+    { "id": "level-imagined", "label": "Imagined", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-designed", "label": "Designed", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-specified", "label": "Specified", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-scaffolded", "label": "Scaffolded", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-implemented", "label": "Implemented", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-tested", "label": "Tested", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-validated", "label": "Validated", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-deployed", "label": "Deployed", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-observed", "label": "Observed", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "level-governed", "label": "Governed", "kind": "reality-level", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.98 },
+    { "id": "cat-runtimes", "label": "Runtimes", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-services", "label": "Services", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-workflows", "label": "Workflows", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-dashboards", "label": "Dashboards", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-apis", "label": "APIs", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-databases", "label": "Databases", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-features", "label": "Features", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-datasets", "label": "Datasets", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-documents", "label": "Documents", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "cat-assets", "label": "Assets", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.96 },
+    { "id": "cat-ai-models", "label": "AI Models", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.96 },
+    { "id": "cat-user-journeys", "label": "User Journeys", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.96 },
+    { "id": "cat-integrations", "label": "Integrations", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.96 },
+    { "id": "cat-deployments", "label": "Deployments", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.96 },
+    { "id": "cat-ecosystems", "label": "Ecosystems", "kind": "matrix-category", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.96 },
+    { "id": "principle-conscious", "label": "Conscious", "kind": "phkd-reality-principle", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-principles", "confidence": 0.96 },
+    { "id": "principle-eternal", "label": "Eternal", "kind": "phkd-reality-principle", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-principles", "confidence": 0.96 },
+    { "id": "principle-intelligent", "label": "Intelligent", "kind": "phkd-reality-principle", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-principles", "confidence": 0.96 },
+    { "id": "principle-holistic", "label": "Holistic", "kind": "phkd-reality-principle", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-principles", "confidence": 0.96 },
+    { "id": "principle-sovereign", "label": "Sovereign", "kind": "phkd-reality-principle", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-principles", "confidence": 0.96 },
+    { "id": "principle-evolving", "label": "Evolving", "kind": "phkd-reality-principle", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-principles", "confidence": 0.96 },
+    { "id": "action-view-by-category", "label": "View by Category", "kind": "quick-action", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.96 },
+    { "id": "action-view-by-status", "label": "View by Status", "kind": "quick-action", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.96 },
+    { "id": "action-export-matrix", "label": "Export Matrix", "kind": "quick-action", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.96 },
+    { "id": "action-download-report", "label": "Download Report", "kind": "quick-action", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.96 },
+    { "id": "action-update-status", "label": "Update Status", "kind": "quick-action", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.96 },
+    { "id": "action-add-item", "label": "Add Item", "kind": "quick-action", "universe": "status-matrix-reality-matrix", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.96 }
+  ],
+  "edges": [
+    { "from": "sec-reality-matrix", "to": "sec-reality-score-formula", "relation": "FEEDS_SCORE_FORMULA", "confidence": 0.92, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-score-formula" },
+    { "from": "sec-reality-matrix", "to": "sec-category-reality-score", "relation": "FEEDS_CATEGORY_SCORE", "confidence": 0.92, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-category-reality-score" },
+    { "from": "sec-reality-matrix", "to": "sec-maturity-heatmap", "relation": "FEEDS_HEATMAP", "confidence": 0.9, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-maturity-heatmap" },
+    { "from": "level-imagined", "to": "level-designed", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-designed", "to": "level-specified", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-specified", "to": "level-scaffolded", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-scaffolded", "to": "level-implemented", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-implemented", "to": "level-tested", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-tested", "to": "level-validated", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-validated", "to": "level-deployed", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-deployed", "to": "level-observed", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" },
+    { "from": "level-observed", "to": "level-governed", "relation": "REALITY_FLOW_NEXT", "confidence": 0.96, "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow" }
+  ],
+  "widgets": [
+    { "id": "w-overall-status", "title": "Overall Status panel: 4,842 total, 1,284 implemented, 1,736 in progress, 1,056 designed/scaffolded, 766 concept/imagined, 342 validated, 187 deployed", "widgetType": "status", "status": "blocked", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.98 },
+    { "id": "w-status-distribution", "title": "Status Distribution donut: Implemented 26.5%, In Progress 35.8%, Designed 21.8%, Concept 15.9%", "widgetType": "status", "status": "blocked", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-distribution", "confidence": 0.95 },
+    { "id": "w-summary-cards", "title": "Nine summary cards with category counts and deployed counts", "widgetType": "matrix", "status": "blocked", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.96 },
+    { "id": "w-reality-matrix-grid", "title": "15 categories × 10 status levels reality matrix", "widgetType": "matrix", "status": "blocked", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.98 },
+    { "id": "w-reality-progress", "title": "Reality Progress dial: 44.2% from concept to reality", "widgetType": "status", "status": "blocked", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.96 },
+    { "id": "w-status-legend", "title": "Status legend for ten reality levels", "widgetType": "panel", "status": "specified", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-status-legend", "confidence": 0.96 },
+    { "id": "w-maturity-heatmap", "title": "Maturity heatmap for status × category grid", "widgetType": "matrix", "status": "vision", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-maturity-heatmap", "confidence": 0.9 },
+    { "id": "w-reality-flow", "title": "Reality flow icon chain from Imagined to Governed", "widgetType": "timeline", "status": "specified", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-flow", "confidence": 0.95 },
+    { "id": "w-category-score-bars", "title": "Category-wise Reality Score bars", "widgetType": "status", "status": "blocked", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-category-reality-score", "confidence": 0.95 },
+    { "id": "w-reality-trend-line", "title": "Reality Trend line from Dec 2024 to May 2025", "widgetType": "timeline", "status": "blocked", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-trend", "confidence": 0.95 },
+    { "id": "w-quick-actions", "title": "Quick Actions buttons", "widgetType": "panel", "status": "vision", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.95 }
+  ],
+  "claims": [
+    { "id": "claim-total-items-4842", "text": "Total Items Tracked: 4,842", "status": "BLOCKED", "blockedReason": "No repository inventory or evidence generator currently enumerates 4,842 items.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.99 },
+    { "id": "claim-overall-implemented-1284", "text": "Implemented: 1,284 (26.5%)", "status": "BLOCKED", "blockedReason": "No item-level implementation counter exists at this scale.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.99 },
+    { "id": "claim-overall-in-progress-1736", "text": "In Progress: 1,736 (35.8%)", "status": "BLOCKED", "blockedReason": "No item-level in-progress counter exists at this scale.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.99 },
+    { "id": "claim-overall-designed-scaffolded-1056", "text": "Designed / Scaffolded: 1,056 (21.8%)", "status": "BLOCKED", "blockedReason": "No source matrix proves this aggregate.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.98 },
+    { "id": "claim-overall-concept-imagined-766", "text": "Concept / Imagined: 766 (15.9%)", "status": "BLOCKED", "blockedReason": "No source matrix proves this aggregate.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.98 },
+    { "id": "claim-validated-342", "text": "Validated: 342", "status": "BLOCKED", "blockedReason": "No validation runtime or evidence file emits 342 validated records. HKD cannot validate claims by itself.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.99 },
+    { "id": "claim-deployed-production-187", "text": "Deployed (Production): 187", "status": "BLOCKED", "blockedReason": "No governed production deployment evidence exists.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.99 },
+    { "id": "claim-last-updated-2025-05-17", "text": "Last Updated: 17 May 2025 08:45 AM", "status": "BLOCKED", "blockedReason": "No build or evidence pipeline emits this timestamp.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-overall-status", "confidence": 0.99 },
+    { "id": "claim-summary-runtimes-32", "text": "Runtimes: 32", "status": "BLOCKED", "blockedReason": "Current package/runtime inventory in this checkout does not prove 32 runtimes.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-summary-services-142", "text": "Services: 142", "status": "BLOCKED", "blockedReason": "No services registry enumerates 142 implemented services.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-summary-dashboards-78", "text": "Dashboards: 78", "status": "BLOCKED", "blockedReason": "No dashboard inventory proves 78 dashboards.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-summary-apis-186", "text": "APIs: 186", "status": "BLOCKED", "blockedReason": "No API registry proves 186 APIs.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-summary-databases-23", "text": "Databases: 23", "status": "BLOCKED", "blockedReason": "No database registry proves 23 databases.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-summary-features-1256", "text": "Features summary card: 1,256", "status": "BLOCKED", "blockedReason": "No feature inventory proves 1,256 features. The matrix table itself also contradicts this with 1,596 total features.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-summary-datasets-234", "text": "Datasets summary card: 234", "status": "BLOCKED", "blockedReason": "No dataset registry proves 234 datasets. The matrix table itself also contradicts this with 289 total datasets.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-summary-documents-2145", "text": "Documents summary card: 2,145", "status": "BLOCKED", "blockedReason": "No document registry proves 2,145 documents. The matrix table itself also contradicts this with 2,777 total documents.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-reality-progress-44-2", "text": "Reality Progress: 44.2% from concept to reality", "status": "BLOCKED", "blockedReason": "The formula is visible, but the input counts are unsupported and internally inconsistent.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-summary-cards", "confidence": 0.98 },
+    { "id": "claim-matrix-total-8153", "text": "Reality Matrix total row: 8,153", "status": "BLOCKED", "blockedReason": "The matrix table total contradicts the Overall Status panel's 4,842 tracked items.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.99 },
+    { "id": "claim-row-total-contradiction", "text": "Matrix row totals sum to 8,022 while the displayed total row says 8,153", "status": "BLOCKED", "blockedReason": "Internal arithmetic contradiction inside the visual board.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.99 },
+    { "id": "claim-dashboard-row-contradiction", "text": "Dashboards matrix cells sum to 98 while the row total says 78", "status": "BLOCKED", "blockedReason": "Internal arithmetic contradiction inside the visual board.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.97 },
+    { "id": "claim-api-row-contradiction", "text": "APIs matrix cells sum to 224 while the row total says 186", "status": "BLOCKED", "blockedReason": "Internal arithmetic contradiction inside the visual board.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.97 },
+    { "id": "claim-feature-total-contradiction", "text": "Features summary card says 1,256 while matrix row says 1,596", "status": "BLOCKED", "blockedReason": "Internal contradiction inside the same visual board.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.99 },
+    { "id": "claim-dataset-total-contradiction", "text": "Datasets summary card says 234 while matrix row says 289", "status": "BLOCKED", "blockedReason": "Internal contradiction inside the same visual board.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.99 },
+    { "id": "claim-document-total-contradiction", "text": "Documents summary card says 2,145 while matrix row says 2,777", "status": "BLOCKED", "blockedReason": "Internal contradiction inside the same visual board.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-matrix", "confidence": 0.99 },
+    { "id": "claim-score-formula", "text": "Reality Score formula: (IM + T + V + DP + OB + GV) / (Total Possible from S onward) × 100%", "status": "PARTIAL", "blockedReason": "The formula is captured as design logic, but cannot be trusted until fed by repo-derived counts.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-score-formula", "confidence": 0.9 },
+    { "id": "claim-category-score-series", "text": "Category reality scores: Runtimes 62.5%, Databases 60.9%, Services 56.3%, Dashboards 55.1%, Workflows 54.4%, Deployments 48.9%, Data 46.7%, Ecosystems 45.7%, Documents 44.6%, APIs 43.6%, AI Models 43.0%", "status": "BLOCKED", "blockedReason": "Score series is derived from unsupported visual counts.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-category-reality-score", "confidence": 0.96 },
+    { "id": "claim-reality-trend-series", "text": "Reality trend: Dec 2024 28.6%, Jan 2025 31.2%, Feb 2025 34.6%, Mar 2025 37.9%, Apr 2025 41.0%, May 2025 44.2%", "status": "BLOCKED", "blockedReason": "No historical reality-score records exist to prove this trend.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-trend", "confidence": 0.97 },
+    { "id": "claim-top-performers", "text": "Top performers: Runtimes 62.5%, Databases 60.9%, Services 56.3%, Dashboards 55.1%, Workflows 54.4%", "status": "BLOCKED", "blockedReason": "Top performer list is derived from unsupported visual scores.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-top-performers", "confidence": 0.96 },
+    { "id": "claim-need-attention", "text": "Need attention: APIs 43.6%, AI Models 43.0%, Documents 44.6%", "status": "BLOCKED", "blockedReason": "Need-attention list is derived from unsupported visual scores.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-need-attention", "confidence": 0.96 },
+    { "id": "claim-quick-actions-functional", "text": "Quick actions are available: View by Category, View by Status, Export Matrix, Download Report, Update Status, Add Item", "status": "UNVERIFIED", "blockedReason": "The board depicts actions, but this HKD does not prove application wiring for those controls.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-quick-actions", "confidence": 0.94 },
+    { "id": "claim-phkd-principles", "text": "Reality Principles: Conscious, Eternal, Intelligent, Holistic, Sovereign, Evolving", "status": "UNVERIFIED", "blockedReason": "Captured as declared principles, not machine-verifiable runtime state.", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "sourceSectionId": "sec-reality-principles", "confidence": 0.96 }
+  ],
+  "evidence": [
+    { "id": "ev-source-image", "title": "018_Status_Matrix_Reality_Matrix_Universe.png", "evidenceType": "source_image", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "confidence": 1 },
+    { "id": "ev-manual-extraction", "title": "Manual operator extraction of visible text, matrix cells, widgets, and claims", "evidenceType": "operator_note", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "confidence": 0.9 },
+    { "id": "ev-internal-contradictions", "title": "Internal contradictions captured: total items 4,842 vs matrix total 8,153; features 1,256 vs 1,596; datasets 234 vs 289; documents 2,145 vs 2,777", "evidenceType": "operator_note", "sourceImage": "/Users/vesahe/Downloads/Maataa_OS_Universe_Collection_Batch3/018_Status_Matrix_Reality_Matrix_Universe.png", "confidence": 0.99 }
+  ],
+  "extractedData": {
+    "overallStatus": {
+      "totalItemsTracked": 4842,
+      "implemented": { "count": 1284, "percent": 26.5 },
+      "inProgress": { "count": 1736, "percent": 35.8 },
+      "designedOrScaffolded": { "count": 1056, "percent": 21.8 },
+      "conceptOrImagined": { "count": 766, "percent": 15.9 },
+      "validated": 342,
+      "deployedProduction": 187,
+      "lastUpdated": "17 May 2025 08:45 AM"
+    },
+    "realityPrinciples": ["Conscious", "Eternal", "Intelligent", "Holistic", "Sovereign", "Evolving"],
+    "statusDistribution": [
+      { "label": "Implemented", "percent": 26.5 },
+      { "label": "In Progress", "percent": 35.8 },
+      { "label": "Designed", "percent": 21.8 },
+      { "label": "Concept", "percent": 15.9 }
+    ],
+    "summaryCards": [
+      { "category": "Runtimes", "headlineTotal": 32, "statusChips": [8, 12, 7, 5], "deployed": 6 },
+      { "category": "Services", "headlineTotal": 142, "statusChips": [34, 48, 35, 25], "deployed": 18 },
+      { "category": "Dashboards", "headlineTotal": 78, "statusChips": [22, 26, 18, 12], "deployed": 11 },
+      { "category": "APIs", "headlineTotal": 186, "statusChips": [38, 62, 48, 38], "deployed": 15 },
+      { "category": "Databases", "headlineTotal": 23, "statusChips": [9, 8, 3, 3], "deployed": 8 },
+      { "category": "Features", "headlineTotal": 1256, "statusChips": [312, 456, 286, 202], "deployed": 72 },
+      { "category": "Datasets", "headlineTotal": 234, "statusChips": [64, 89, 51, 30], "deployed": 27 },
+      { "category": "Documents", "headlineTotal": 2145, "statusChips": [544, 768, 513, 320], "deployed": 58 }
+    ],
+    "realityProgressPercent": 44.2,
+    "statusLevels": [
+      { "key": "I", "label": "Imagined", "description": "Just an idea, not yet designed" },
+      { "key": "D", "label": "Designed", "description": "Planned and conceptualized" },
+      { "key": "S", "label": "Specified", "description": "Requirements and specs defined" },
+      { "key": "SC", "label": "Scaffolded", "description": "Structure / code scaffold ready" },
+      { "key": "IM", "label": "Implemented", "description": "Code complete (not yet fully tested)" },
+      { "key": "T", "label": "Tested", "description": "Functionally tested" },
+      { "key": "V", "label": "Validated", "description": "Scientifically / functionally validated" },
+      { "key": "DP", "label": "Deployed", "description": "Live in real environment" },
+      { "key": "OB", "label": "Observed", "description": "In use, data & feedback observed" },
+      { "key": "GV", "label": "Governed", "description": "Fully governed & continuously improved" }
+    ],
+    "matrixColumns": ["I", "D", "S", "SC", "IM", "T", "V", "DP", "OB", "GV", "TOTAL"],
+    "matrixRows": [
+      { "category": "Runtimes", "values": [2, 6, 6, 5, 6, 3, 2, 1, 1, 0], "total": 32 },
+      { "category": "Services", "values": [8, 18, 22, 26, 34, 18, 10, 4, 1, 1], "total": 142 },
+      { "category": "Workflows", "values": [5, 12, 18, 22, 28, 16, 8, 3, 1, 1], "total": 114 },
+      { "category": "Dashboards", "values": [6, 14, 16, 18, 22, 11, 6, 3, 1, 1], "total": 78 },
+      { "category": "APIs", "values": [24, 38, 44, 48, 38, 18, 8, 4, 1, 1], "total": 186 },
+      { "category": "Databases", "values": [0, 2, 4, 5, 9, 2, 1, 0, 0, 0], "total": 23 },
+      { "category": "Features", "values": [202, 286, 314, 284, 312, 118, 46, 20, 8, 6], "total": 1596 },
+      { "category": "Datasets", "values": [30, 51, 55, 48, 64, 23, 10, 4, 2, 2], "total": 289 },
+      { "category": "Documents", "values": [320, 513, 582, 456, 544, 182, 92, 46, 26, 16], "total": 2777 },
+      { "category": "Assets", "values": [180, 360, 420, 540, 520, 180, 90, 46, 22, 12], "total": 2370 },
+      { "category": "AI Models", "values": [12, 18, 22, 16, 12, 6, 4, 2, 1, 0], "total": 93 },
+      { "category": "User Journeys", "values": [6, 12, 14, 12, 10, 5, 3, 2, 1, 1], "total": 66 },
+      { "category": "Integrations", "values": [10, 20, 26, 24, 18, 8, 5, 2, 1, 1], "total": 115 },
+      { "category": "Deployments", "values": [4, 8, 10, 8, 7, 4, 2, 2, 1, 1], "total": 47 },
+      { "category": "Ecosystems", "values": [8, 16, 18, 20, 16, 8, 4, 2, 1, 1], "total": 94 }
+    ],
+    "matrixTotals": { "values": [817, 1373, 1571, 1542, 1610, 699, 291, 137, 68, 45], "total": 8153 },
+    "realityScoreFormula": "(IM + T + V + DP + OB + GV) / (Total Possible from S onward) × 100%",
+    "categoryRealityScores": [
+      { "category": "Runtimes", "percent": 62.5 },
+      { "category": "Databases", "percent": 60.9 },
+      { "category": "Services", "percent": 56.3 },
+      { "category": "Dashboards", "percent": 55.1 },
+      { "category": "Workflows", "percent": 54.4 },
+      { "category": "Deployments", "percent": 48.9 },
+      { "category": "Data", "percent": 46.7 },
+      { "category": "Ecosystems", "percent": 45.7 },
+      { "category": "Documents", "percent": 44.6 },
+      { "category": "APIs", "percent": 43.6 },
+      { "category": "AI Models", "percent": 43.0 }
+    ],
+    "realityTrend": [
+      { "period": "Dec 2024", "percent": 28.6 },
+      { "period": "Jan 2025", "percent": 31.2 },
+      { "period": "Feb 2025", "percent": 34.6 },
+      { "period": "Mar 2025", "percent": 37.9 },
+      { "period": "Apr 2025", "percent": 41.0 },
+      { "period": "May 2025", "percent": 44.2 }
+    ],
+    "topPerformers": [
+      { "rank": 1, "category": "Runtimes", "percent": 62.5 },
+      { "rank": 2, "category": "Databases", "percent": 60.9 },
+      { "rank": 3, "category": "Services", "percent": 56.3 },
+      { "rank": 4, "category": "Dashboards", "percent": 55.1 },
+      { "rank": 5, "category": "Workflows", "percent": 54.4 }
+    ],
+    "needAttention": [
+      { "category": "APIs", "percent": 43.6 },
+      { "category": "AI Models", "percent": 43.0 },
+      { "category": "Documents", "percent": 44.6 }
+    ],
+    "quickActions": ["View by Category", "View by Status", "Export Matrix", "Download Report", "Update Status", "Add Item"],
+    "internalContradictions": [
+      "Overall Status totalItemsTracked is 4,842 but matrix total is 8,153.",
+      "Matrix row totals sum to 8,022 but displayed total row says 8,153.",
+      "Dashboards matrix cells sum to 98 but row total says 78.",
+      "APIs matrix cells sum to 224 but row total says 186.",
+      "Extracted matrix cell column sums diverge from the displayed total row in D, SC, IM, T, DP, and GV.",
+      "Features summary card total is 1,256 but matrix row total is 1,596.",
+      "Datasets summary card total is 234 but matrix row total is 289.",
+      "Documents summary card total is 2,145 but matrix row total is 2,777."
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd for full operator-context + packages observed on disk" },
+  "id": "vh-workflow-universe-2026-05-28",
+  "title": "Maataa Workflow Universe (All Runtimes • All Workflows • One Divine Ecosystem)",
+  "sourceImage": "user-provided/2026-05-28/workflow-universe-board.png",
+  "universe": "workflow",
+  "status": "vision",
+  "sections": [
+    { "id": "sec-status",          "title": "MAATAA OS STATUS",                   "type": "dashboard","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.95 },
+    { "id": "sec-principles",      "title": "Core Principles",                    "type": "dashboard","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.95 },
+    { "id": "sec-runtime-flows",   "title": "Runtime Workflows (12 cards)",       "type": "workflow", "sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.92 },
+    { "id": "sec-sovereign-flow",  "title": "Sovereign Runtime Workflow (Core OS Flow)","type":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.92 },
+    { "id": "sec-cross-flows",     "title": "Cross Runtime Workflows (Integration Flows)","type":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.88 },
+    { "id": "sec-user-journeys",   "title": "End to End User Journeys",           "type": "workflow", "sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.88 },
+    { "id": "sec-data-flow",       "title": "Data Flow Architecture",             "type": "data",     "sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.85 },
+    { "id": "sec-security-flow",   "title": "Security & Sovereign Flow",          "type": "workflow", "sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.85 },
+    { "id": "sec-ops-flow",        "title": "System Operations Workflow",         "type": "workflow", "sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.85 },
+    { "id": "sec-values",          "title": "Maataa OS Values",                   "type": "dashboard","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"wf-avatar",      "label":"Avatar Workflow",      "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-voice",       "label":"Voice Workflow",       "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-gesture",     "label":"Gesture Workflow",     "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-chakra",      "label":"Chakra Workflow",      "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-lipi",        "label":"Lipi Workflow",        "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.65 },
+    { "id":"wf-knowledge",   "label":"Knowledge Workflow",   "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.55 },
+    { "id":"wf-memory",      "label":"Memory Workflow",      "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-task",        "label":"Task Workflow",        "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-tlp",         "label":"TLP Workflow",         "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.50 },
+    { "id":"wf-investor",    "label":"InvestorHub Workflow", "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-saptadhaatu", "label":"Saptadhaatu Workflow", "kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-brahmini",    "label":"Brahmini Chain Workflow","kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.45 },
+    { "id":"wf-sovereign-core","label":"Sovereign Core Flow: Event→Permission→Policy→Route→Process→Store→Sync→Audit→Notify","kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-sovereign-flow","confidence":0.70 },
+    { "id":"j-talk-to-maataa","label":"Journey A: Talk to Maataa (Voice+Knowledge)","kind":"journey","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.55 },
+    { "id":"j-learn-evolve",  "label":"Journey B: Learn & Evolve (Chakra+Knowledge+Task)","kind":"journey","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.45 },
+    { "id":"j-create-film",   "label":"Journey C: Create a Film (TLP end to end)",         "kind":"journey","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.50 },
+    { "id":"j-raise-invest",  "label":"Journey D: Raise Investment (InvestorHub)",         "kind":"journey","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.45 },
+    { "id":"j-create-asset",  "label":"Journey F: Create Asset (Brahmini Chain)",          "kind":"journey","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.40 },
+    { "id":"sec-flow",        "label":"Security: User Action→Auth→Permission→Policy→Encrypted Processing→Secure Storage→Audit Log","kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-security-flow","confidence":0.55 },
+    { "id":"ops-flow",        "label":"Ops: Monitor→Detect→Diagnose→Resolve→Optimize→Evolve","kind":"workflow","universe":"workflow","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-ops-flow","confidence":0.50 }
+  ],
+  "edges": [
+    { "from":"wf-sovereign-core","to":"wf-avatar","relation":"routes-to","confidence":0.40,"sourceImage":"user-provided/2026-05-28/workflow-universe-board.png" },
+    { "from":"wf-sovereign-core","to":"wf-voice","relation":"routes-to","confidence":0.40,"sourceImage":"user-provided/2026-05-28/workflow-universe-board.png" },
+    { "from":"wf-sovereign-core","to":"wf-knowledge","relation":"routes-to","confidence":0.50,"sourceImage":"user-provided/2026-05-28/workflow-universe-board.png" },
+    { "from":"wf-voice","to":"wf-knowledge","relation":"feeds","confidence":0.45,"sourceImage":"user-provided/2026-05-28/workflow-universe-board.png" },
+    { "from":"wf-knowledge","to":"wf-memory","relation":"persists-to","confidence":0.45,"sourceImage":"user-provided/2026-05-28/workflow-universe-board.png" },
+    { "from":"wf-task","to":"wf-tlp","relation":"creates-project-in","confidence":0.40,"sourceImage":"user-provided/2026-05-28/workflow-universe-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-wf-card-avatar",   "title":"Avatar Workflow card",   "widgetType":"card","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.85 },
+    { "id":"w-wf-card-voice",    "title":"Voice Workflow card",    "widgetType":"card","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.85 },
+    { "id":"w-wf-card-lipi",     "title":"Lipi Workflow card",     "widgetType":"card","status":"scaffolded","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.85 },
+    { "id":"w-wf-card-knowledge","title":"Knowledge Workflow card","widgetType":"card","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.85 },
+    { "id":"w-wf-card-tlp",      "title":"TLP Workflow card",      "widgetType":"card","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.85 },
+    { "id":"w-wf-card-investor", "title":"InvestorHub Workflow card","widgetType":"card","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.85 },
+    { "id":"w-wf-card-brahmini", "title":"Brahmini Chain Workflow card","widgetType":"card","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.85 },
+    { "id":"w-sovereign-flow",   "title":"Sovereign Core Flow diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-sovereign-flow","confidence":0.75 },
+    { "id":"w-data-flow",        "title":"Data Flow Architecture diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-data-flow","confidence":0.80 },
+    { "id":"w-journeys-grid",    "title":"End-to-End User Journeys grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.85 }
+  ],
+  "claims": [
+    { "id":"c-all-workflows-active","text":"All Runtime Workflows depicted as active end-to-end","status":"BLOCKED","blockedReason":"None of the 13 runtime workflows have an executing implementation in any package; flows are diagrammatic.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-runtime-flows","confidence":0.95 },
+    { "id":"c-sovereign-flow-pipeline","text":"Sovereign Core Flow: Event→Permission→Policy→Route→Process→Store→Sync→Audit→Notify","status":"UNVERIFIED","blockedReason":"No single executing pipeline in the codebase binds these stages together. Individual stages exist conceptually (kbs-governance has policy/moderation; root maataa-os crate has scheduler sim) but they are not wired into one event-driven pipeline.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-sovereign-flow","confidence":0.80 },
+    { "id":"c-journey-talk-to-maataa","text":"Journey A: Talk to Maataa is an end-to-end voice→knowledge→TTS flow","status":"BLOCKED","blockedReason":"No voice runtime, no STT/TTS implementation found; kbs-runtime has search but no audio I/O integration.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.90 },
+    { "id":"c-journey-create-film","text":"Journey C: Create a Film traverses Idea→Script→Pre→Production→Post→Release inside TLP","status":"BLOCKED","blockedReason":"No tlp-runtime package; apps/tlp/* is README-only.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.90 },
+    { "id":"c-journey-raise-investment","text":"Journey D: Raise Investment end-to-end through InvestorHub","status":"BLOCKED","blockedReason":"No investor runtime, no funding pipeline implementation.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-user-journeys","confidence":0.90 },
+    { "id":"c-security-flow","text":"User Action→Auth→Permission→Policy→Encrypted Processing→Secure Storage→Audit Log","status":"UNVERIFIED","blockedReason":"Conceptual flow; kbs-governance has policy/moderation primitives and lipi-runtime has governance-evidence files, but no end-to-end pipeline exists.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-security-flow","confidence":0.75 },
+    { "id":"c-ops-flow","text":"Ops: Real-time Monitoring→Auto Diagnostics→Self Healing→Continuous Evolution","status":"BLOCKED","blockedReason":"No real-time monitoring, no auto-diagnostics, no self-healing runtime exists. 'Self Healing' and 'Continuous Evolution' as automated capabilities are aspirational.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-ops-flow","confidence":0.90 },
+    { "id":"c-end-to-end-encrypted","text":"End-to-End Encrypted, Offline First, Sovereign by Design","status":"UNVERIFIED","blockedReason":"Encryption library and offline architecture are not wired end-to-end across all runtimes. 'Sovereign by Design' is design intent, not measured property.","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","sourceSectionId":"sec-security-flow","confidence":0.85 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Workflow Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction; no automated OCR","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.85 },
+    { "id":"ev-cross-ref-runtime-universe","title":"Reality reconciliation cross-referenced with hkd/runtime-universe.hkd","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/workflow-universe-board.png","confidence":0.90 }
+  ]
+}

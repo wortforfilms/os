@@ -1,7 +1,7 @@
 {
   "schema": "maataa.completion.status.matrix.v1",
-  "generatedAt": "2026-05-29T05:23:39.064Z",
-  "commit": "a43a997",
+  "generatedAt": "2026-05-29T16:35:08.659Z",
+  "commit": "17d25ec",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
@@ -211,8 +211,2007 @@
     {
       "surface": "MSAR",
       "reason": "Hardware root of trust: HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-active-agents-12",
+      "reason": "Active Agents: 12 — No agent runtime exists in repo. No agent supervisor / no agent registry."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-deployed-1248",
+      "reason": "Deployed Agents: 1,248 — No deployed agents; fabricated count."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-tasks-24h-2-47m",
+      "reason": "Tasks Executed (24h): 2.47M — No task execution log; fabricated."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-success-98-72",
+      "reason": "Success Rate: 98.72% — No agent runs to measure."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-knowledge-nodes-15dam",
+      "reason": "Knowledge Nodes Accessed: 15daM+ — kbs-runtime has knowledge primitives but no 15+M node access log."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-perf-24h-tasks",
+      "reason": "Tasks Completed 2.45M / Failed 29,512 / Avg Response 1.42s / Active 312 / User Satisfaction 4.8/5 — Performance dashboard fabricated."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-marketplace-1248",
+      "reason": "Marketplace: 1,248 Total / 862 Verified / 286 Community / 100 Custom Agents — No marketplace."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-orchestrator-real",
+      "reason": "Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves — No orchestrator runtime. 'Self-evolving orchestrator' is the strongest agent claim; no evidence."
+    },
+    {
+      "surface": "vh-agent-universe-2026-05-28:c-deploy-anywhere",
+      "reason": "Deploy Anywhere: Cloud / Edge / On-Prem / Mobile / IoT / Offline — No deployment exists across any of these."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-models-deployed-162",
+      "reason": "Models Deployed: 162+ — No model deployment infrastructure in repo."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-active-models-89",
+      "reason": "Active Models: 89 — No model serving runtime."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-training-pipelines-312",
+      "reason": "Training Pipelines: 312 — No training infrastructure."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-datasets-1-248m",
+      "reason": "Datasets Curated: 1.248M+ — Fabricated."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-inferences-54-2m",
+      "reason": "Inferences/Day: 54.2M+ — No inference traffic."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-impact-92-7",
+      "reason": "AI Impact Score: 92.7/100 (Accuracy 94.3 / Safety 92.1 / Dharma Alignment 93.8 / Transparency 91.7 / Fairness 92.4 / Efficiency 90.9 / User Trust 93.2 / Societal Impact 91.5) — Composite + 8 sub-scores fabricated."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-llm-vlm-counts",
+      "reason": "LLM 24 / VLM 12 / Speech 8 / Time Series 10 / Graph 9 / Scientific 7 / Decision 6 / Multi-Agent 13 models — No models in catalog; fabricated counts."
+    },
+    {
+      "surface": "vh-ai-model-universe-2026-05-28:c-training-2842-runs",
+      "reason": "Training Runs: 2,842 / Compute Hours: 2.87M+ — No training history."
+    },
+    {
+      "surface": "vh-asset-library-universe-2026-05-28:c-assets-125k",
+      "reason": "Assets Total: 125,000+ — Repo has assets/html (~42 HTML pages), some images, no asset library at this scale."
+    },
+    {
+      "surface": "vh-asset-library-universe-2026-05-28:c-categories-20",
+      "reason": "Categories: 20+ — No category taxonomy implemented."
+    },
+    {
+      "surface": "vh-asset-library-universe-2026-05-28:c-resolutions-8k-64px",
+      "reason": "Resolutions: 8K → 64px — No resolution generation pipeline."
+    },
+    {
+      "surface": "vh-asset-library-universe-2026-05-28:c-libraries-15",
+      "reason": "Libraries: 15+ — No library structure on disk."
+    },
+    {
+      "surface": "vh-asset-library-universe-2026-05-28:c-statistics-storage-8-7tb",
+      "reason": "Statistics: Storage 8.7 TB / CDN Global Nodes 28 / Downloads/Month 2.5M+ / Active Projects 300+ — No CDN; no download tracking."
+    },
+    {
+      "surface": "vh-asset-library-universe-2026-05-28:c-soulbound-brahmini",
+      "reason": "License: Soulbound (Brahmini) — Soulbound tokens require blockchain; Brahmini Chain does not exist."
+    },
+    {
+      "surface": "vh-asset-library-universe-2026-05-28:c-powered-by-cdn",
+      "reason": "Powered by CDN & Edge / Brahmini ID / Search Engine / Analytics Engine — None of those runtimes exist."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-active-nodes-12874",
+      "reason": "Active Nodes: 12,874+ — No blockchain implementation in repo. Directive principle 'never fake blockchain theatrics' applies directly."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-validators-1248",
+      "reason": "Validators: 1,248+ — No validator network."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-transactions-54-21m",
+      "reason": "Transactions (Total): 54.21M+ — No transactions."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-blocks-3-842m",
+      "reason": "Blocks Created: 3.842M+ — No blocks."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-smart-contracts-28-74k",
+      "reason": "Smart Contracts: 28.74K+ — No smart contract runtime."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-dapps-8912",
+      "reason": "DApps Deployed: 8,912+ — No dApp ecosystem."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-users-3-84m",
+      "reason": "Users & Seekers: 3.84M+ — Fabricated."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-throughput-10k-tps",
+      "reason": "High Throughput: 10,000+ TPS — No chain runs."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-quantum-safe",
+      "reason": "Quantum Safe: Future Proof — No quantum-resistant cryptography implemented."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-dharma-pos",
+      "reason": "Consensus: Dharma Proof of Stake (DPoS) — Novel consensus mechanism named; no whitepaper or implementation."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-brc-tokenomics",
+      "reason": "BRC tokenomics: 1B total supply, 30% Seva, 20% Ecosystem, 20% Community, 15% Staking, 10% Dev, 5% Treasury — No token; tokenomics is design intent only."
+    },
+    {
+      "surface": "vh-brahmini-chain-universe-2026-05-28:c-impact-dashboard-94-2",
+      "reason": "Impact Dashboard: 94.2/100 (Dharma Alignment 95.3 / Transparency 94.6 / Community Impact 94.1 / Knowledge Growth 94.1 / Seva Verified 93.7 / Sustainability 94.5 / Inclusivity 94.0) — Aggregate + sub-scores fabricated."
+    },
+    {
+      "surface": "vh-civilization-graph-universe-2026-05-28:c-connected-entities-8-478m",
+      "reason": "Connected Entities: 8.478M+ — No entity graph at this scale; kbs-runtime tracks orders of magnitude fewer entities."
+    },
+    {
+      "surface": "vh-civilization-graph-universe-2026-05-28:c-projects-4-23m",
+      "reason": "Projects & Initiatives: 4.23M+ — Fabricated."
+    },
+    {
+      "surface": "vh-civilization-graph-universe-2026-05-28:c-knowledge-assets-1-87b",
+      "reason": "Knowledge Assets: 1.87B+ — Fabricated."
+    },
+    {
+      "surface": "vh-civilization-graph-universe-2026-05-28:c-communities-9-76m",
+      "reason": "Communities: 9.76M+ — No community runtime."
+    },
+    {
+      "surface": "vh-civilization-graph-universe-2026-05-28:c-countries-195",
+      "reason": "Countries: 195 — Earth has 195 sovereign states; the board claims civilizational reach across all. No deployment beyond repo."
+    },
+    {
+      "surface": "vh-civilization-graph-universe-2026-05-28:c-health-index-78-4",
+      "reason": "Civilization Health Index: 78.4 Healthy Improving — Composite over fabricated dimension scores."
+    },
+    {
+      "surface": "vh-civilization-graph-universe-2026-05-28:c-realtime-insights",
+      "reason": "Real Time Insights: 2.4M+ Projects / 9.7M+ Communities / 1.8B+ Assets / 54.2M+ People Impacted Today / 98.7% Earth Coverage — All metrics fabricated."
+    },
+    {
+      "surface": "vh-consciousness-evolution-universe-2026-05-28:c-conscious-beings-2-1m",
+      "reason": "Conscious Beings: 2,136,774 — No user base; no consciousness measurement. Most ethically charged metric on any board — claims a count of conscious beings."
+    },
+    {
+      "surface": "vh-consciousness-evolution-universe-2026-05-28:c-active-journeys-1-29m",
+      "reason": "Active Journeys: 1,287,562 — Fabricated."
+    },
+    {
+      "surface": "vh-consciousness-evolution-universe-2026-05-28:c-transformations-842k",
+      "reason": "Transformations: 842,118 — Fabricated; 'transformation' is not a measurable engineering output."
+    },
+    {
+      "surface": "vh-consciousness-evolution-universe-2026-05-28:c-legacy-impacted-8-7m",
+      "reason": "Legacy Impacted: 8.7M+ — Fabricated."
+    },
+    {
+      "surface": "vh-consciousness-evolution-universe-2026-05-28:c-evolution-score-78-6",
+      "reason": "Consciousness Evolution Score: 78.6/100 Evolving (+ 6 sub-scores Awareness 82.1 / Learning 76.4 / Practice 72.8 / Transformation 79.3 / Contribution 81.7 / Legacy 76.6) — Score over fabricated inputs."
+    },
+    {
+      "surface": "vh-consciousness-evolution-universe-2026-05-28:c-journey-level-28-96",
+      "reason": "Journey Map shows level progression 28→42→56→70→82→96 across 6 stages — Fabricated trajectory; no measurement substrate."
+    },
+    {
+      "surface": "vh-consciousness-evolution-universe-2026-05-28:c-insights-compassion-88",
+      "reason": "Insights: highest strength Compassion 88% / focus Emotional Mastery 72% / next milestone Transformation 70% / Growth streak 127 days / 1,248 days on journey / 3,842+ lives impacted — All metrics fabricated."
+    },
+    {
+      "surface": "vh-dashboard-universe-2026-05-28:c-30-dashboards-live",
+      "reason": "30 dashboards are live and powered by real data — maataa-ui contains SovereignDashboard.tsx + observatory/* shells but is far from 30 live dashboards. None render real data from a backing store."
+    },
+    {
+      "surface": "vh-dashboard-universe-2026-05-28:c-executive-command-center",
+      "reason": "Executive Command Center renders system overview + KPIs + live status — No KPIs are computed; no live status feeds exist; the 'live status' would be the same fabricated metrics as Deployment Universe."
+    },
+    {
+      "surface": "vh-dashboard-universe-2026-05-28:c-system-health-dashboard",
+      "reason": "System Health Dashboard renders runtimes/services/queues live — There is no live runtime/service supervisor producing health to render."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-schemas-250",
+      "reason": "Schemas: 250+ — lipi-runtime has prisma/schema.prisma (real). Only one schema file in repo; nothing close to 250."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-tables-1200",
+      "reason": "Tables: 1,200+ — Fabricated."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-relations-5000",
+      "reason": "Relations: 5,000+ — Fabricated."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-databases-7",
+      "reason": "Databases: 7 (SQLite/libSQL/Postgres/pgVector/Neo4j/MinIO/Redis + Event Store) — None of these databases are deployed by the repo. lipi-runtime uses Prisma (DB engine-agnostic). No multi-DB orchestration."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-data-health-optimal",
+      "reason": "Data Health: Optimal — No live data layer."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-db-health-live",
+      "reason": "Live DB Health: Connections 128/1000 / Queries/Sec 2,450 / Cache Hit 97.6% / Replication Lag 85ms — No live DB to monitor."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-security-encrypted-everywhere",
+      "reason": "Encryption at Rest (all DBs encrypted) / TLS 1.3 in Transit everywhere / Secrets Vault / Access Audit / PII Masking / GDPR DPDP HIPAA ready — No encryption substrate; no compliance certification (per Deployment Universe BLOCKED claims)."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-backup-strategy",
+      "reason": "Backup: Full daily / Incremental every 6h / Transaction Logs continuous / Object Storage daily / Retention 30/90/365 / Offsite Cross-region — No backup pipeline running."
+    },
+    {
+      "surface": "vh-data-schemas-universe-2026-05-28:c-recovery-rto-rpo",
+      "reason": "DR: Point-in-Time / RTO < 15 min / RPO < 5 min / Auto Restore / Replication Failover / Runbooks — No DR infrastructure beyond doc/rollback.md design intent."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-overall-health",
+      "reason": "Overall Health: Healthy — No production deployment exists."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-system-uptime",
+      "reason": "System Uptime: 99.99% — No production deployment, no uptime measurement."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-services-running",
+      "reason": "Services Running: 1,842 — No services run; figure fabricated."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-incidents-open",
+      "reason": "Incidents (Open): 3 — No incident management system in repo."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-deployments-today",
+      "reason": "Deployments (Today): 27 — No deployment pipeline executes today; no GitOps/Argo/Jenkins config in repo."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-alerts-active",
+      "reason": "Alerts (Active): 12 — No alerting system exists."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-last-updated-may-17-2025",
+      "reason": "Last Updated: May 17, 2025 08:45 AM — Fabricated timestamp; nothing emits this update."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-environments-k8s",
+      "reason": "All environments on Kubernetes with IaC + GitOps — No Kubernetes manifests, no Terraform/Ansible, no GitOps repository structure found."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-multi-cloud-aws-azure-gcp-oci",
+      "reason": "Hybrid multi-cloud across AWS / Azure / GCP / OCI + On-prem (VMware/OpenStack/Bare Metal) + Edge — No multi-cloud deployment; no infrastructure code in repo."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-pipeline-success-98-7",
+      "reason": "Pipeline Success Rate 98.7% (140/142 runs) — No pipeline runs; fabricated."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-slo-availability-99-99",
+      "reason": "SLO Availability 99.99% / Latency P95 215ms / Error Rate 0.02% — No SLO measurement; fabricated."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-soc2-iso27001-gdpr-hipaa-compliant",
+      "reason": "SOC 2 Type II, ISO 27001, GDPR, HIPAA all Compliant — No external auditor reports, no compliance evidence files in repo. Directive principle: never fake attestation."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-cost-spent",
+      "reason": "Cost Overview (MTD): $128,450 / Projected Savings $23,840 (18.6%) — No billing system, no real cloud spend; fabricated."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-people-counts",
+      "reason": "28 SREs, 42 DevOps, 24 Ops Engineers; 5 on-call now / 18 on-call this week / 7 training — No personnel records; fabricated org metrics."
+    },
+    {
+      "surface": "vh-deployment-operations-universe-2026-05-28:c-dr-ready-may-10-2025",
+      "reason": "DR Status: Ready / Last DR Drill May 10, 2025 / Success Rate 100% — No DR drill artifact, no runbook execution log; fabricated."
+    },
+    {
+      "surface": "vh-dharma-values-universe-2026-05-28:c-alignment-95-2",
+      "reason": "Dharma Alignment Score: 95.2% — 'Dharma alignment' as a measurable score is undefined; no measurement runtime."
+    },
+    {
+      "surface": "vh-dharma-values-universe-2026-05-28:c-lives-impacted-54-2m",
+      "reason": "Lives Impacted Positively: 54.2M+ — Matches Mission Universe figure. Fabricated."
+    },
+    {
+      "surface": "vh-dharma-values-universe-2026-05-28:c-communities-3842",
+      "reason": "Communities Served: 3,842+ — Recurring 3,842 number across boards."
+    },
+    {
+      "surface": "vh-dharma-values-universe-2026-05-28:c-dharma-projects-192",
+      "reason": "Dharma Projects Active: 192 — Recurring 192 number (countries) across boards."
+    },
+    {
+      "surface": "vh-dharma-values-universe-2026-05-28:c-global-partners-542",
+      "reason": "Global Dharma Partners: 542+ — No partner registry."
+    },
+    {
+      "surface": "vh-dharma-values-universe-2026-05-28:c-alignment-7-subscores",
+      "reason": "Sub-scores: Intent Purity 96.1 / Truth & Integrity 94.8 / Compassion 95.4 / Justice & Fairness 94.9 / Self-Discipline 93.7 / Service 96.3 / Environmental Harmony 94.2 — All sub-scores fabricated."
+    },
+    {
+      "surface": "vh-dharma-values-universe-2026-05-28:c-impact-metrics-12-7m-trees",
+      "reason": "Impact Metrics: 12.7M+ Trees Planted / 28.4M+ Meals Served / 542K+ Students Guided / 1.24M+ tCO2 Carbon Offset — No environmental/seva measurement system."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-16-brands-live",
+      "reason": "16 ecosystem brands are live and interconnected — Of 16 brands depicted, only MAATAA, TLP, LIPI, and HKD have any tangible presence in the repo (apps/maataa, apps/tlp, lipi-runtime, visual-hkd-runtime/hkd-related types). Others have no code."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-allb-family-live",
+      "reason": "ALLB / ALLB SHOP / ALLB GAMES / ALLB NEWS family is live — No ALLB-* packages exist in repo."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-radio-live",
+      "reason": "Radio Vaigyaaniq audio network is live — No radio runtime or broadcast pipeline in repo."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-mandi-marketplace-live",
+      "reason": "Mandi marketplace and Krishi agri OS are live — No marketplace, no agri runtime."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-cic-civic-live",
+      "reason": "CIC civic OS is live (citizen services, grievance, voting, transparency) — No civic runtime in repo."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-open-api-ecosystem-live",
+      "reason": "Open API Ecosystem (Build/Integrate/Innovate) is live — No public API gateway, no OpenAPI spec served, no developer portal."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-external-government-apis",
+      "reason": "Integrated with Government Systems APIs & Data Exchange — No government API integration code."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-external-payment-networks",
+      "reason": "Integrated with UPI / Visa / Mastercard payment networks — No payment integration code."
+    },
+    {
+      "surface": "vh-ecosystem-interconnection-universe-2026-05-28:c-tech-quantum-ready",
+      "reason": "Technology Foundation includes Quantum Ready — No quantum computing primitives in repo. 'Quantum Ready' is marketing language without implementation."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-students-1-248m",
+      "reason": "Active Students: 1.248M+ — Recurring 1.248M. No student registry."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-gurukuls-4312",
+      "reason": "Gurukuls & Learning Nodes: 4,312 — No gurukul registry."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-courses-28745",
+      "reason": "Courses & Pathways: 28,745 — No course catalog."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-achievers-98721",
+      "reason": "Achievers / Alumni: 98,721 — Fabricated."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-countries-192",
+      "reason": "Countries Reached: 192 — Recurring 192 (all sovereign countries)."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-lives-transformed-54-2m",
+      "reason": "Lives Transformed: 54.2M+ — Recurring 54.2M; fabricated."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-courses-by-path",
+      "reason": "Per pathway course counts: Jnana 8,912+ / Bhakti 4,230+ / Karma 6,781+ / Raja 5,642+ / Seva 3,180+ — No course catalog; counts fabricated."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-impact-89-7",
+      "reason": "Learning Impact Score: 89.7/100 (Knowledge Growth 92.1 / Character 90.3 / Skill 87.8 / Wellbeing 88.9 / Community 91.2 / Environmental 85.4 / Global Consciousness 89.6) — Composite + sub-scores fabricated."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-gurukul-modes-6",
+      "reason": "6 Gurukul Modes (Residential / Day / Online Live / Self-Paced / Community / Hybrid) — No mode-switching runtime; no actual gurukul operates."
+    },
+    {
+      "surface": "vh-education-gurukul-universe-2026-05-28:c-digital-platform",
+      "reason": "Digital Gurukul Platform: Smart Classrooms / AI Personal Mentor / Adaptive Learning / Knowledge Library / Sadhana Tracker / Community Forum / Seva Analytics — No platform implementation. lipi-runtime/src/learning provides script-learning substrate only."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-community-society-source-missing",
+      "reason": "Community & Society Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-creator-economy-source-missing",
+      "reason": "Creator Economy Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-media-broadcasting-source-missing",
+      "reason": "Media & Broadcasting Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-communication-source-missing",
+      "reason": "Communication Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-commerce-source-missing",
+      "reason": "Commerce Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-decision-intelligence-source-missing",
+      "reason": "Decision Intelligence Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-wisdom-engine-source-missing",
+      "reason": "Wisdom Engine Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-reasoning-source-missing",
+      "reason": "Reasoning Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-memory-evolution-source-missing",
+      "reason": "Memory Evolution Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-astronomy-source-missing",
+      "reason": "Astronomy Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-biology-source-missing",
+      "reason": "Biology Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-environmental-source-missing",
+      "reason": "Environmental Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-energy-source-missing",
+      "reason": "Energy Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-security-source-missing",
+      "reason": "Security Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-trust-source-missing",
+      "reason": "Trust Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-compliance-source-missing",
+      "reason": "Compliance Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-space-exploration-source-missing",
+      "reason": "Space Exploration Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-civilization-forecast-source-missing",
+      "reason": "Civilization Forecast Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-future-technology-source-missing",
+      "reason": "Future Technology Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-maataa-consciousness-core-source-missing",
+      "reason": "Maataa Consciousness Core Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-maataa-avatar-source-missing",
+      "reason": "Maataa Avatar Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-maataa-voice-source-missing",
+      "reason": "Maataa Voice Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-runtime-observatory-source-missing",
+      "reason": "Runtime Observatory Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-expanded-universe-absorption-2026-05-29:claim-consistency-source-missing",
+      "reason": "Consistency Universe source image is not available in the checked local universe image collections. — Absorbed from operator prompt text only; no matching PNG was found in Batch2, Batch3, or Partial universe archives."
+    },
+    {
+      "surface": "vh-feature-universe-2026-05-28:c-features-1000plus",
+      "reason": "All Features: 1000+ — There are not 1000 features implemented. The boards depict many; the repo implements a fraction (lipi-runtime modules, kbs-runtime submodules, visual-hkd-runtime pipeline, maataa-ui components). Numeric claim is fabricated."
+    },
+    {
+      "surface": "vh-feature-universe-2026-05-28:c-runtimes-100plus",
+      "reason": "All Runtimes: 100+ Active — Same gap as in runtime-universe.hkd; ~15 packages, not 100+ runtimes."
+    },
+    {
+      "surface": "vh-feature-universe-2026-05-28:c-services-500plus",
+      "reason": "All Services: 500+ Active — No live services exist; figure fabricated."
+    },
+    {
+      "surface": "vh-feature-universe-2026-05-28:c-creation-features-fictional",
+      "reason": "Creation Features: Music Creation / Art Generation / 3D Creation / Code Editor — No creation runtime exists. These are aspirational features."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-instruments-1248",
+      "reason": "Active Financial Instruments: 1,248+ — No financial runtime."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-investors-54-2m",
+      "reason": "Investors & Participants: 54.2M+ — No investor registry."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-funds-12-87b",
+      "reason": "Funds Under Stewardship: $12.87B+ — No funds; fabricated."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-transactions-28-74m",
+      "reason": "Transactions Processed: 28.74M+ — No transaction ledger."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-projects-funded-3842",
+      "reason": "Projects Funded: 3,842+ — Recurring fabricated number."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-countries-192",
+      "reason": "Communities Impacted: 192 Countries — Recurring 192."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-impact-93-2",
+      "reason": "Financial Impact Score: 93.2/100 (Growth 93.8 / Ethical Alignment 95.1 / Risk 92.6 / Transparency 94.0 / Community 93.7 / Environmental 91.4 / Long-term Sustainability 92.2 / Stakeholder Trust 93.3) — Composite + sub-scores fabricated."
+    },
+    {
+      "surface": "vh-financial-universe-2026-05-28:c-system-uptime-99-92",
+      "reason": "System Uptime: 99.92% — No live financial system."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-proposals-1248",
+      "reason": "Proposals Active: 1,248 — No proposal ledger."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-policies-342",
+      "reason": "Policies Enacted: 342 — No policy database; fabricated."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-council-members-108",
+      "reason": "Council Members: 108 — No council registry."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-communities-192",
+      "reason": "Communities Governed: 192 — Recurring 192."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-people-impacted-54-2m",
+      "reason": "People Impacted: 54.2M+ — Recurring 54.2M; fabricated."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-votes-cast-12-87m",
+      "reason": "Votes Cast: 12.87M — No voting runtime."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-trust-index-94-1",
+      "reason": "Trust Index: 94.1/100 (Transparency 95.6 / Accountability 93.8 / Participation 94.2 / Fairness 93.7 / Efficiency 92.1 / Dharma Alignment 96.3 / People Satisfaction 94.8) — Composite + sub-scores fabricated."
+    },
+    {
+      "surface": "vh-governance-universe-2026-05-28:c-transparency-immutable",
+      "reason": "Transparency: Open Data / Immutable Records (Blockchain secured) / Public Dashboards / Audit Trails / Whistleblower Protected — Blockchain-backed immutability not implemented. Audit trail substrate exists for releases via release-authority/."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-people-3842",
+      "reason": "People Empowered: 3,842+ — No health runtime exists."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-profiles-1-248m",
+      "reason": "Health Profiles: 1.248M+ — Fabricated."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-ayur-assessments-5-42m",
+      "reason": "Ayur Assessments: 5.42M+ — No assessment runtime."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-journeys-28-74m",
+      "reason": "Daily Health Journeys: 28.74M+ — Fabricated."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-protocols-12874",
+      "reason": "Healing Protocols: 12,874+ — No protocol library."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-practitioners-54-2k",
+      "reason": "Practitioners & Vaidyas: 54.2K+ — No practitioner network."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-impact-93-8",
+      "reason": "Health Impact Score: 93.8/100 (Physical 94.1 / Mental 92.7 / Emotional 93.5 / Immunity 94.0 / Lifestyle 93.6 / Disease Prevention 93.3 / Longevity 94.2) — Composite + sub-scores fabricated."
+    },
+    {
+      "surface": "vh-health-saptadhaatu-universe-2026-05-28:c-saptadhaatu-runtime-name",
+      "reason": "Implicit @maataa/saptadhaatu-runtime referenced as target package — saptadhaatu-runtime is in the operator's target structure but does not exist on disk. Health Universe is its source vision."
+    },
+    {
+      "surface": "vh-hero-module-universe-2026-05-28:c-100-sovereign",
+      "reason": "100% Sovereign / Offline First / Private / Secure — Fake-100% language. No E2E encryption, no enforced sovereignty, no offline-sync engine implemented."
+    },
+    {
+      "surface": "vh-hero-module-universe-2026-05-28:c-12-modules-shipping",
+      "reason": "12 modules (Avatar/Voice/Gesture/Chakra/Lipi/Knowledge/Memory/Tasks/TLP/InvestoriHub/Saptadhaatu/Brahmini Chain) are shipping — Of 12 modules, only Lipi and Knowledge have package-level implementation (lipi-runtime, kbs-runtime + facades). 10 are vision-only."
+    },
+    {
+      "surface": "vh-hero-module-universe-2026-05-28:c-multimodal-inputs-7-channels",
+      "reason": "Multimodal Inputs: Eye Blink / Hand Gesture / Body Pose / Facial Expression / Voice / Text / Video Upload all accepted — Only text input is technically available (read by kbs-runtime search). Gesture / voice / video / face / eye-blink runtimes do not exist."
+    },
+    {
+      "surface": "vh-hkd-runtime-universe-2026-05-28:c-7-step-compiler",
+      "reason": "7-step Compiler Pipeline (Parse / Validate Schema / Build Graph / Enrich / Store & Index / Generate APIs / Publish) — No compiler CLI exists. visual-hkd-runtime has hkd-generator which builds a VisualHKD from VisualExtractionInput; that's step 3 of 7. Steps 1-2 + 5-7 not implemented."
+    },
+    {
+      "surface": "vh-hkd-runtime-universe-2026-05-28:c-versioning-v100-v150",
+      "reason": "Versioning: v1.0.0 Initial → v1.1.0 → v1.2.0 → v1.3.0 → v1.4.0 → v1.5.0 Community Review with version graph — No HKD versioning runtime; .hkd files don't carry version chain."
+    },
+    {
+      "surface": "vh-hkd-runtime-universe-2026-05-28:c-registry-tiers",
+      "reason": "Registry tiers: Global / Domain / Community / Private / Government — No registry implementation. @maataa/runtime-hkd-registry (scaffolded 2026-05-28) is the intended owner."
+    },
+    {
+      "surface": "vh-hkd-runtime-universe-2026-05-28:c-api-surface",
+      "reason": "API Surface: POST /hkd/compile, /hkd/validate, GET /hkd/(id), POST /hkd/search, /hkd/graph/traverse, /hkd/export, /hkd/version, /hkd/publish — No HTTP server, no API endpoints."
+    },
+    {
+      "surface": "vh-hkd-runtime-universe-2026-05-28:c-export-formats",
+      "reason": "Export formats: HKD native / JSON-LD / RDF-TTL / CSV-Excel / PDF-Markdown / GraphML — No exporter. .hkd is JSON; the other formats are not generated."
+    },
+    {
+      "surface": "vh-hkd-runtime-universe-2026-05-28:c-cli-commands",
+      "reason": "CLI: hkd compile/validate/publish/search/graph/export — No `hkd` CLI binary exists."
+    },
+    {
+      "surface": "vh-hkd-runtime-universe-2026-05-28:c-metrics-live",
+      "reason": "Live Metrics: Total HKDs 1.25M+ / Nodes 25M+ / Relations 120M+ / Searches/Day 12M+ / Avg Response 89ms / Uptime 99.99% — 43 .hkd files exist (not 1.25M). All metrics fabricated."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-total-identities-4-8m",
+      "reason": "Total Identities: 4,842,763 — No identity runtime exists. No identity registration system."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-active-identities-2-1m",
+      "reason": "Active Identities: 2,136,774 — Fabricated."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-verified-identities-1-9m",
+      "reason": "Verified Identities: 1,897,221 — No verification runtime."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-brahmini-identities-251k",
+      "reason": "Brahmini Identities: 251,632 — Brahmini Chain does not exist in repo."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-sample-id-ananya",
+      "reason": "Sample identity: Ananya Sharma — MAAT-8F7A-92K1-X8D3 / BRM-IND-0007821 / Member Since 12 Jan 2024 / India — Sample data. Looks like fictitious PII (or borrowed); no identity issuance has happened in repo."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-trust-score-8742",
+      "reason": "Trust Score: 8,742/10,000 Excellent (Integrity 9.3 / Reliability 9.1 / Transparency 8.8 / Consistency 8.9 / Compassion 9.0 / Expertise 8.7 / Contribution 9.2 / Collaboration 8.6 / Impact 9.4) — Reputation engine + sub-score fabrication."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-credentials-verified",
+      "reason": "All sample credentials (Email/Mobile/Aadhaar/KYC L2/Brahmini/Researcher/PhD/Address) shown Verified — No verification system. Government ID display (Aadhaar XXXX-XXXX-1234) is sample/fictional."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-security-enabled",
+      "reason": "Identity Security: 2FA Enabled / Login Alerts Enabled / Device Mgmt 3 Active / Session Active / Anomaly Active / Backup Enabled — No auth/session subsystem in repo serving real users."
+    },
+    {
+      "surface": "vh-identity-personhood-universe-2026-05-28:c-personhood-spectrum",
+      "reason": "Personhood Spectrum: Consciousness / Learning / Skill / Emotional / Purpose Alignment 92% / Dharma Alignment 88% / Health / Energy — Personhood as a measurable score is contentious; no measurement exists."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-all-graphs-100",
+      "reason": "All Graphs: 100+ Active — kbs-graph (real) is ONE graph. Board claims 100+. Fabricated count."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-total-nodes-1b",
+      "reason": "Total Nodes: 1B+ — kbs-runtime/src/data.ts contains the entire knowledge corpus; orders of magnitude smaller than 1B nodes."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-total-relations-10b",
+      "reason": "Total Relations: 10B+ — Fabricated."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-graph-health-optimal",
+      "reason": "Graph Health: Optimal — No health probe on any operational graph."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-graph-stats",
+      "reason": "Stats: Total Graphs 10 / Nodes 1,350,000,000+ / Relations 10,200,000,000+ / Attributes 25,000,000+ / Storage 15.6 TB / Queries 12M/day / Avg Response 98ms — Every metric fabricated; no storage substrate of that size in repo."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-top-connected-nodes",
+      "reason": "Top Connected Nodes: Consciousness 18.7M / Meditation 15.2M / AI 14.8M / Learning 12.3M / Love 11.9M / Energy 11.1M / Health 10.7M / Yoga 9.8M / Education 9.1M / Creativity 8.6M — Connection counts fabricated."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-health-metrics",
+      "reason": "Health Metrics: Connectivity 98.7% / Consistency 97.3% / Freshness 99.1% / Coverage 96.8% — All 4 metrics fabricated."
+    },
+    {
+      "surface": "vh-knowledge-graph-universe-2026-05-28:c-relations-over-time",
+      "reason": "Relations grew from ~16B to ~128B between 2023-01 and 2025-01 — Time-series fabricated."
+    },
+    {
+      "surface": "vh-landing-sovereign-ai-2026-05-28:c-divine-intelligence-always-learning",
+      "reason": "Divine Intelligence Always Learning — No continual-learning runtime, no online training loop. Marketing copy."
+    },
+    {
+      "surface": "vh-landing-sovereign-ai-2026-05-28:c-108k-conscious-users",
+      "reason": "108K+ Conscious Users Worldwide — No user base of any kind. Fabricated metric."
+    },
+    {
+      "surface": "vh-landing-sovereign-ai-2026-05-28:c-100-sovereign-private",
+      "reason": "100% Sovereign & Private By Design — Fake-100%."
+    },
+    {
+      "surface": "vh-landing-sovereign-ai-2026-05-28:c-realtime-voice-vision-gesture",
+      "reason": "Real-time Voice, Vision & Gesture AI — No voice/vision/gesture runtime implementations."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-users-10k",
+      "reason": "10K+ Users — No user registration system; no auth runtime; fabricated."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-blessings-25k",
+      "reason": "25K+ Blessings — No blessings system in repo. Metric is fabricated."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-peace-growth-98",
+      "reason": "98% Peace & Growth — Subjective measure with no instrumentation; fabricated."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-projects-5k",
+      "reason": "5K+ Projects — No project runtime in repo. Fabricated."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-conversations-12k",
+      "reason": "12K+ Conversations — No conversation runtime, no chat log. Fabricated."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-sovereign-100",
+      "reason": "100% Sovereign — Fake-100% per PHKD principle 3."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-trusted-by",
+      "reason": "TRUSTED BY SEEKERS, BUILDERS & CREATORS — 4.9/5 from 10,000+ users — No rating system, no user base, no reviews."
+    },
+    {
+      "surface": "vh-landing-welcome-2026-05-28:c-live-status-online",
+      "reason": "Live Maataa OS Status indicator: green dot — No live-status backend."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-legacy-profiles-54k",
+      "reason": "Legacy Profiles: 54,218 — No legacy runtime exists."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-contributions-2-48m",
+      "reason": "Contributions Recorded: 2.48M+ — No contribution ledger."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-lives-impacted-98-7m",
+      "reason": "Lives Impacted: 98.7M+ — Matches Time Universe Lives Impacted 98.7M+. Two boards with identical fabricated count."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-knowledge-assets-1-32m",
+      "reason": "Knowledge Assets: 1.32M+ — No knowledge-asset registry."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-projects-completed-28754",
+      "reason": "Projects Completed: 28,754 — Fabricated."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-institutions-built-1248",
+      "reason": "Institutions Built: 1,248 — Same value as Mission Universe Mission Partners 1,248+ — recurrence suspicious."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-lis-92-4",
+      "reason": "Legacy Impact Score (LIS): 92.4/100 Outstanding (Knowledge 94.1 / Social 91.3 / Economic 89.7 / Environmental 93.8 / Cultural 92.0 / Spiritual 95.2 / Timeless 94.0 / Generational 88.9) — Composite + 8 sub-scores fabricated."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-who-inspire-counts",
+      "reason": "Who You Inspire: Immediate 12.4K / Extended 1.2M+ / Generational 12.8M+ / Civilizational 98.7M+ people — Cascading impact fabricated."
+    },
+    {
+      "surface": "vh-legacy-universe-2026-05-28:c-legacy-timeline-sample",
+      "reason": "Legacy Timeline shows: 2001 Started Teaching CS / 2005 Published First Research / 2008 Founded Open Source Community / 2012 Built Education Platform / 2016 Launched Health Initiative / 2020 Mentored 10,000+ Students / 2024 Created AI for Good Framework / 2030+ Legacy Continues — Sample biographical entries; no actual timeline ledger."
+    },
+    {
+      "surface": "vh-lipi-script-universe-2026-05-28:c-scholars-3842",
+      "reason": "Script Scholars: 3,842+ — No scholar registry."
+    },
+    {
+      "surface": "vh-lipi-script-universe-2026-05-28:c-manuscripts-12-87m",
+      "reason": "Manuscripts Cataloged: 12.87M+ — No manuscript catalog in repo."
+    },
+    {
+      "surface": "vh-lipi-script-universe-2026-05-28:c-lipi-impact-94-2",
+      "reason": "Lipi Impact Dashboard: 94.2/100 (Cultural Preservation 95.6 / Knowledge Accessibility 94.1 / Education 93.8 / Digital Empowerment 94.7 / Community Inclusion 93.0 / Civilizational Continuity 95.3 / Innovation 94.4 / Future Readiness 93.6) + Data Reliability 99.92% — Composite + 8 sub-scores fabricated."
+    },
+    {
+      "surface": "vh-lipi-script-universe-2026-05-28:c-tech-stack-ocr-htr",
+      "reason": "Script Technology Stack: OCR/HTR / Transliteration / AI Script Generator / NLP / Font & Glyph / Manuscript Restoration / Blockchain Authenticity — Transliteration is real in lipi-runtime. OCR/HTR/AI generation/restoration/blockchain authenticity layers do not exist."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-marketplace-active",
+      "reason": "Marketplace: Active — No marketplace runtime, no checkout, no listing pipeline exists."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-sellers-3842",
+      "reason": "Sellers: 3,842+ — No seller registration system."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-products-18926",
+      "reason": "Products: 18,926+ — No product catalog; figure fabricated."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-transactions-125642",
+      "reason": "Transactions: 125,642+ — No payment runtime, no order ledger."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-gmv-12-48m",
+      "reason": "GMV (All Time): $12.48M+ — No GMV measurement; fabricated."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-revenue-4-27m",
+      "reason": "Revenue (All Time): $4.27M+ — No revenue; fabricated."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-active-users-248731",
+      "reason": "Active Users: 248,731+ — No user registration/auth system serving users; fabricated."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-revenue-breakdown",
+      "reason": "Revenue breakdown: Subscription $1.87M / Licensing $1.23M / Advertising $285K / Revenue Sharing $560K / Royalties $210K / White-label $850K / Data & Insights $150K — All revenue streams fabricated."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-creator-earnings-7-21m",
+      "reason": "Creator Earnings (avg) $7.21M paid to creators — No payout system."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-78-countries",
+      "reason": "78+ Countries reach — No geo-distribution measurement; fabricated."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-12m-lives-impacted",
+      "reason": "12M+ Lives Impacted — Cannot impact lives without a deployed product; fabricated."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-pci-dss-soc2-gdpr",
+      "reason": "PCI DSS Compliant / SSL Secured / SOC 2 Type II / GDPR Compliant — Compliance claims with no auditor reports; PCI DSS / SOC 2 require external attestation that does not exist."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-affiliate-1284-affiliates",
+      "reason": "1,284+ Active Affiliates / $856K+ Earnings / 22.6% Conversion — No affiliate program in code."
+    },
+    {
+      "surface": "vh-marketplace-universe-2026-05-28:c-revenue-growth-month-over-month",
+      "reason": "34.2% Revenue Growth MoM with charted 12-month trend — Time-series data fabricated."
+    },
+    {
+      "surface": "vh-master-meta-map-2026-05-28:c-meta-governance-councils",
+      "reason": "Meta Governance: 6 councils (Community / Ecosystem / Dharma / Technical / Guardian / Ethics & Review) — No council infrastructure exists; kbs-governance handles claim-moderation only."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-active-missions-7",
+      "reason": "Active Missions: 7 — No mission runtime exists; @maataa/runtime-mission was scaffolded 2026-05-28 with facade returning not_implemented. No mission ledger / no MissionSpec stored."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-active-initiatives-42",
+      "reason": "Active Initiatives: 42+ — No initiative tracking system; fabricated count."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-mission-partners-1248",
+      "reason": "Mission Partners: 1,248+ — No partner registry; fabricated."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-lives-impacted-54-2m",
+      "reason": "Lives Impacted: 54.2M+ — No measurement system, no user base of any size; fabricated."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-countries-192",
+      "reason": "Countries Reached: 192 — No deployment outside the repo; fabricated."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-progress-index-87-6",
+      "reason": "Progress Index: 87.6 / 100 — Aggregate over fabricated dimension scores; no DriftReport has ever been generated."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-last-updated-may-17",
+      "reason": "Last Updated: May 17, 2025 08:45 AM — Fabricated timestamp; nothing emits this update."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-impact-overall-87-6",
+      "reason": "Overall Mission Impact Score: 87.6/100 — Aggregate score over fabricated inputs."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-impact-7-dimensions",
+      "reason": "Per-dimension scores: Economic 89.2 / Social 88.7 / Knowledge 91.3 / Health 86.4 / Environmental 83.6 / Cultural 88.9 / Spiritual 90.1 — All seven dimension measurements fabricated; no instrumentation exists."
+    },
+    {
+      "surface": "vh-mission-universe-2026-05-28:c-trust-score-98-7",
+      "reason": "Trust Score: 98.7% — No trust measurement; fabricated."
+    },
+    {
+      "surface": "vh-product-universe-2026-05-28:c-all-products-exist",
+      "reason": "~50 productized 'Mate' applications across 11 categories exist as products — None of the named -Mate products exist as shipped applications. There is no app store, no installable product binary, no signed release. Pure branding inventory at vision stage."
+    },
+    {
+      "surface": "vh-product-universe-2026-05-28:c-maataa-ai-suite-shipped",
+      "reason": "Maataa AI Suite is a shipping product — No 'Maataa AI Suite' bundle exists. AI primitives live inside kbs-runtime (RAG/search) and visual-hkd-runtime (vision pipeline) as packages, not as a customer-installable AI Suite product."
+    },
+    {
+      "surface": "vh-product-universe-2026-05-28:c-50-products-shipped",
+      "reason": "~50 'Mate' products in market — No products are in market. The board catalogs branding intent."
+    },
+    {
+      "surface": "vh-reality-to-mission-traceability-universe-2026-05-28:c-mission-alignment-92",
+      "reason": "Real-Time Trace: Mission Alignment 92% / Service Delivery 85% / Feature Adoption 72% / Workflow Efficiency 76% / Data Quality 88% / Evidence Integrity 83% / Reality Impact 78% / Overall Mission Progress 78.6% — None of these dimensions have a measurement source today."
+    },
+    {
+      "surface": "vh-reality-to-mission-traceability-universe-2026-05-28:c-impact-map-122-countries",
+      "reason": "Mission Impact Map: 122 Countries / 8.4M+ Lives / 3.2M+ Actions / 1.8M+ Evidence Logs / 94.7 Impact Score — Fabricated."
+    },
+    {
+      "surface": "vh-reality-to-mission-traceability-universe-2026-05-28:c-trace-health-excellent",
+      "reason": "Trace Health Indicators all 'Excellent' or 'Good' (Mission Alignment / Data Completeness / Evidence Integrity / Impact Validation / Cross-Universe Sync / Dharma Compliance) + Transparency Score 94.3% — No live trace exists to be healthy."
+    },
+    {
+      "surface": "vh-reality-to-mission-traceability-universe-2026-05-28:c-promise-tamper-proof",
+      "reason": "The Promise: AI Verified / Human Validated / Evidence Linked / End-to-End Traceable / Immutable / Tamper Proof / Dharma Compliant / Trust Guaranteed — 'Tamper Proof' and 'Trust Guaranteed' require cryptographic substrate (signatures, append-only ledger) that runtime-hkd-registry scaffold has not implemented yet."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-researchers-156782",
+      "reason": "Active Researchers: 156,782 — No researcher registry exists."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-projects-24891",
+      "reason": "Active Projects: 24,891 — No project ledger."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-papers-128734",
+      "reason": "Published Papers: 128,734 — No publication record system."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-datasets-98172",
+      "reason": "Datasets: 98,172 — No dataset registry."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-experiments-3-42m",
+      "reason": "Experiments Run: 3.42M — No experiment tracking."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-citations-2-87m",
+      "reason": "Citations: 2.87M — No citation graph."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-impact-82-6",
+      "reason": "Research Impact Index: 82.6/100 (Scientific 85.4 / Societal 80.3 / Economic 78.9 / Environmental 81.6 / Cultural 84.7) — Aggregate + sub-scores all fabricated."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-quality-92-4",
+      "reason": "Research Quality Score: 92.4/100 Outstanding — Same — fabricated aggregate."
+    },
+    {
+      "surface": "vh-research-universe-2026-05-28:c-collaboration-2843",
+      "reason": "2,843 Collaborating Institutions / 18,742 Active Collaborations / 192 Countries / 316 Open Calls — No collaboration registry."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-all-runtimes-active",
+      "reason": "All Runtimes: Active — Out of 13 runtimes depicted, 1 (@maataa/lipi-runtime) exists on disk by name; 12 do not. No supervisor process exists that could report runtimes as Active."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-last-sync-just-now",
+      "reason": "Last Sync: Just Now — No sync engine implementation exists that could emit a real timestamp; value is decorative."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-avatar-active",
+      "reason": "Avatar Runtime STATUS: ACTIVE — @maataa/avatar-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-voice-active",
+      "reason": "Voice Runtime STATUS: ACTIVE — @maataa/voice-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-gesture-active",
+      "reason": "Gesture Runtime STATUS: ACTIVE — @maataa/gesture-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-chakra-active",
+      "reason": "Chakra Runtime STATUS: ACTIVE — @maataa/chakra-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-memory-active",
+      "reason": "Memory Runtime STATUS: ACTIVE — @maataa/memory-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-task-active",
+      "reason": "Task Runtime STATUS: ACTIVE — @maataa/task-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-tlp-active",
+      "reason": "TLP Runtime STATUS: ACTIVE — @maataa/tlp-runtime does not exist on disk. apps/tlp/* exists as README-only scaffold."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-investor-active",
+      "reason": "InvestorHub Runtime STATUS: ACTIVE — @maataa/investor-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-saptadhaatu-active",
+      "reason": "Saptadhaatu Runtime STATUS: ACTIVE — @maataa/saptadhaatu-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-brahmini-active",
+      "reason": "Brahmini Runtime STATUS: ACTIVE — @maataa/brahmini-runtime does not exist on disk."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-rt-sovereign-active",
+      "reason": "Sovereign Runtime STATUS: ACTIVE — @maataa/runtime does not exist on disk by this name. Root maataa-os crate is a QEMU embedded alpha, not a TS sovereign runtime package."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-live-voice-just-now",
+      "reason": "Live Activity: Voice Command — Just Now — No voice runtime exists; no event log source; timestamp 'Just Now' is decorative."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-live-gesture-namaste",
+      "reason": "Live Activity: Gesture Detected — Namaste Mudra — No gesture runtime exists; fabricated event."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-live-chakra-heart",
+      "reason": "Live Activity: Chakra Update — Heart Chakra Balanced — No chakra runtime exists; fabricated event."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-live-knowledge-sutra",
+      "reason": "Live Activity: Knowledge Query — Aṣṭādhyāyī Sutra 1.1.1 — Aṣṭādhyāyī integration not present in repo as a queryable runtime; no query log evidence."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-live-task-film",
+      "reason": "Live Activity: Task Updated — Film Project Budget — No task runtime exists; fabricated event."
+    },
+    {
+      "surface": "vh-runtime-universe-2026-05-28:c-live-investor-proposal",
+      "reason": "Live Activity: Investor Alert — New Proposal Received — No investor runtime exists; fabricated event."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-registry-active",
+      "reason": "Registry Status: Active — No scientific evidence registry runs. runtime-validation is scaffold-only."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-total-claims-642",
+      "reason": "Total Claims: 642+ — No claim ledger exists; fabricated count."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-validated-128",
+      "reason": "Validated Claims: 128+ — No validation has been performed by any runtime in this repo."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-studies-187",
+      "reason": "Studies Published: 187+ — No publication record; no DOIs; no peer-review trail."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-datasets-96",
+      "reason": "Datasets: 96+ — No datasets stored or registered."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-evidence-items-1842",
+      "reason": "Evidence Items: 1,842+ — No evidence-item ledger."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-eqs-overall-76",
+      "reason": "Evidence Quality Score Overall 76/100 — Aggregate score over fabricated inputs."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-clm-001-validated",
+      "reason": "CLM-001 'Meditation improves attention & focus' Validated EQS 92 — Citation 'Kirtan et al. 2023 N=120' may or may not exist as a real paper, but the registry that claims to track it as Validated does not exist in repo."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-clm-008-self-citation",
+      "reason": "CLM-008 'HKD based learning improves retention' Under Review per Maataa Education 2024 — 'Maataa Education 2024' is a self-citation to the same organization that owns this dashboard. Per PHKD, evidence requires independent provenance + peer review trail."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-clm-002-self-citation",
+      "reason": "CLM-002 'Chakra balancing improves HRV' Validated per 'Maataa Research 2024' — Self-citation; same issue as CLM-008."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-partner-iitb-23-studies",
+      "reason": "IIT Bombay partner with 23 studies — No partnership documentation in repo; no IIT-B authored evidence file present."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-partner-harvard",
+      "reason": "Harvard Medical School partner with 15 studies — No partnership documentation in repo. Naming Harvard without evidence is the highest-risk overclaim on the board."
+    },
+    {
+      "surface": "vh-scientific-evidence-universe-2026-05-28:c-rigor-78-72-81-69",
+      "reason": "Rigor metrics: Study Design 78% / Sample Size 72% / Statistical 81% / Reproducibility 69% / Bias Risk 18% — No aggregated rigor measurement exists."
+    },
+    {
+      "surface": "vh-scientific-firsts-universe-2026-05-28:c-25-scientific-firsts-all",
+      "reason": "All 25 cards: 'World's First' scientific innovations only in Maataa OS — 'Scientific First' raises the bar above marketing 'World's First'. Requires peer-reviewed publication establishing priority + reproducibility. None of the 25 cards link to a peer-reviewed paper authored by Maataa OS contributors or a benchmark dataset demonstrating prior-art absence. PHKD principle 1 explicitly bans 'scientific validation' claims without evidence."
+    },
+    {
+      "surface": "vh-scientific-firsts-universe-2026-05-28:c-sf-01-conscious-ai",
+      "reason": "SF 01: First OS designed with consciousness at the core, not just computation — 'Consciousness at the core' is not a measurable engineering property. Not a falsifiable scientific claim."
+    },
+    {
+      "surface": "vh-scientific-firsts-universe-2026-05-28:c-sf-08-breath-biofeedback",
+      "reason": "SF 08: First OS to integrate breath, heart rate, HRV and biofeedback — Many medical-grade biofeedback platforms exist (Polar, Garmin, Whoop, Apple HealthKit). 'First OS' is provably false."
+    },
+    {
+      "surface": "vh-scientific-firsts-universe-2026-05-28:c-sf-10-brahmini-chain",
+      "reason": "SF 10: First decentralized identity, reputation and ownership protocol built on truth, dharma and transparency — Decentralized identity protocols pre-date this (DID, Sovrin, ION). 'First' is unsupported. Also: no blockchain implementation in repo."
+    },
+    {
+      "surface": "vh-scientific-firsts-universe-2026-05-28:c-sf-23-energy-aura",
+      "reason": "SF 23: First OS to detect, analyze and balance aura and energy fields — 'Aura and energy fields' as detectable phenomena are not established in peer-reviewed physics or medicine. Claiming an OS detects them violates 'never fabricate scientific validation'."
+    },
+    {
+      "surface": "vh-scientific-firsts-universe-2026-05-28:c-sf-25-divine-alignment",
+      "reason": "SF 25: First OS that aligns you with Dharma, Karma, Destiny and Divine Timing — Metaphysical alignment is not a measurable engineering function. Cannot be a 'scientific first'."
+    },
+    {
+      "surface": "vh-service-universe-2026-05-28:c-total-services-100plus",
+      "reason": "Total Services: 100+ Active — There are no live services in the repo. The kbs-runtime monolith re-exports some modules via facades; nothing runs as a service."
+    },
+    {
+      "surface": "vh-service-universe-2026-05-28:c-health-score-99-9",
+      "reason": "Health Score: 99.9% All Systems Healthy — No health-aggregation system has computed this number; no services exist to be healthy."
+    },
+    {
+      "surface": "vh-service-universe-2026-05-28:c-requests-25k-per-sec",
+      "reason": "Requests/sec: 25K+ Real-time Requests — No service is serving real traffic; figure is fabricated."
+    },
+    {
+      "surface": "vh-service-universe-2026-05-28:c-avg-response-120ms",
+      "reason": "Avg Response Time: 120ms Blazing Fast — No response-time measurement exists."
+    },
+    {
+      "surface": "vh-service-universe-2026-05-28:c-uptime-99-99",
+      "reason": "Uptime: 99.99% Sovereign & Reliable — No production deployment exists to measure uptime against."
+    },
+    {
+      "surface": "vh-service-universe-2026-05-28:c-all-services-active",
+      "reason": "All Services Status: All Services / 100+ Active — Same as services count above; no service supervisor exists."
+    },
+    {
+      "surface": "vh-service-universe-2026-05-28:c-most-categories-fictional",
+      "reason": "Avatar/Voice/Gesture/Chakra/Memory/Task/TLP/InvestorHub/Saptadhaatu/Brahmini service categories — No underlying packages exist for any of these; the service category is purely diagrammatic."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-sims-active-12874",
+      "reason": "Simulations Active: 12,874+ — No simulation runtime exists."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-worlds-1248",
+      "reason": "Simulation Worlds: 1,248+ — No worlds."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-scenarios-54212",
+      "reason": "Scenarios Running: 54,212+ — Fabricated."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-agents-28-7m",
+      "reason": "Agents Simulated: 28.7M+ — No agent simulator."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-cycles-3-842t",
+      "reason": "Cycles Computed/Day: 3.842T+ — No compute substrate at trillions of cycles/day."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-insights-142k",
+      "reason": "Insights Generated: 142K+ — No insights pipeline."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-realworld-impacts-9812",
+      "reason": "Real-world Impacts: 9,812+ — No real-world feedback loop."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-impact-94-7",
+      "reason": "Simulation Impact Score: 94.7/100 (Accuracy 94.1 / Insight Quality 95.2 / Coverage 93.6 / Predictive 94.8 / Real-world Relevance 94.3 / Learning Acceleration 95.0 / Ethical 93.8 / Sustainability 94.6) — Composite + 8 sub-scores fabricated."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-sample-bharatvarsha-2047",
+      "reason": "Sample world: Bharatvarsha 2047 Civilizational Future — No civilization-scale simulation runs."
+    },
+    {
+      "surface": "vh-simulation-universe-2026-05-28:c-quantum-sim",
+      "reason": "Technology stack includes Quantum Simulation — No quantum computing primitives."
+    },
+    {
+      "surface": "vh-sku-universe-2026-05-28:c-skus-purchasable",
+      "reason": "24 SKU editions are purchasable products with the listed user/device/storage limits — No product is for sale. No checkout / licensing / entitlement system exists. No license keys are minted. No tenant provisioning. SKU IDs are placeholders."
+    },
+    {
+      "surface": "vh-sku-universe-2026-05-28:c-sku-licensing-enforced",
+      "reason": "Per-SKU user/device caps and storage quotas are enforced — No entitlement engine, no quota meter, no device registration runtime, no licensing telemetry exist."
+    },
+    {
+      "surface": "vh-sku-universe-2026-05-28:c-support-tiers",
+      "reason": "Per-SKU support tiers (Standard / Priority / 24/7 / Enterprise / Sovereign / Elite) — No support desk system, no ticketing, no SLA configuration."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-assets-1-248m",
+      "reason": "Spatial Assets Mapped: 1.248M+ — No GIS engine in repo."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-3d-worlds-342",
+      "reason": "3D Worlds & Realms: 342 — No 3D worlds."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-regions-8912",
+      "reason": "Regions & Zones: 8,912 — Fabricated."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-sacred-sites-54-2k",
+      "reason": "Sacred Sites Registered: 54.2K+ — No registry."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-geo-layers-128",
+      "reason": "Geospatial Layers: 128 — No layer engine."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-live-sessions-12-87k",
+      "reason": "Live Spatial Sessions: 12.87K+ — No session runtime."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-impact-92-8",
+      "reason": "Spatial Impact Score: 92.8/100 (Connectivity 93.6 / Sustainability 92.1 / Accuracy 94.2 / Accessibility 91.7 / Coverage 93.3 / Preservation 92.4 / Utilization 90.8 / Resilience 92.0) — Composite + sub-scores fabricated."
+    },
+    {
+      "surface": "vh-spatial-universe-2026-05-28:c-sacred-network-12k-pilgrimage",
+      "reason": "54.2K Sacred Sites / 28 Dharma Paths / 7,842 Temples / 1,124 Ashrams / 512 Pilgrimage Routes — No sacred-spaces registry."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-total-items-4842",
+      "reason": "Total Items Tracked: 4,842 — No repository inventory or evidence generator currently enumerates 4,842 items."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-overall-implemented-1284",
+      "reason": "Implemented: 1,284 (26.5%) — No item-level implementation counter exists at this scale."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-overall-in-progress-1736",
+      "reason": "In Progress: 1,736 (35.8%) — No item-level in-progress counter exists at this scale."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-overall-designed-scaffolded-1056",
+      "reason": "Designed / Scaffolded: 1,056 (21.8%) — No source matrix proves this aggregate."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-overall-concept-imagined-766",
+      "reason": "Concept / Imagined: 766 (15.9%) — No source matrix proves this aggregate."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-validated-342",
+      "reason": "Validated: 342 — No validation runtime or evidence file emits 342 validated records. HKD cannot validate claims by itself."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-deployed-production-187",
+      "reason": "Deployed (Production): 187 — No governed production deployment evidence exists."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-last-updated-2025-05-17",
+      "reason": "Last Updated: 17 May 2025 08:45 AM — No build or evidence pipeline emits this timestamp."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-runtimes-32",
+      "reason": "Runtimes: 32 — Current package/runtime inventory in this checkout does not prove 32 runtimes."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-services-142",
+      "reason": "Services: 142 — No services registry enumerates 142 implemented services."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-dashboards-78",
+      "reason": "Dashboards: 78 — No dashboard inventory proves 78 dashboards."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-apis-186",
+      "reason": "APIs: 186 — No API registry proves 186 APIs."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-databases-23",
+      "reason": "Databases: 23 — No database registry proves 23 databases."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-features-1256",
+      "reason": "Features summary card: 1,256 — No feature inventory proves 1,256 features. The matrix table itself also contradicts this with 1,596 total features."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-datasets-234",
+      "reason": "Datasets summary card: 234 — No dataset registry proves 234 datasets. The matrix table itself also contradicts this with 289 total datasets."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-summary-documents-2145",
+      "reason": "Documents summary card: 2,145 — No document registry proves 2,145 documents. The matrix table itself also contradicts this with 2,777 total documents."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-reality-progress-44-2",
+      "reason": "Reality Progress: 44.2% from concept to reality — The formula is visible, but the input counts are unsupported and internally inconsistent."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-matrix-total-8153",
+      "reason": "Reality Matrix total row: 8,153 — The matrix table total contradicts the Overall Status panel's 4,842 tracked items."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-row-total-contradiction",
+      "reason": "Matrix row totals sum to 8,022 while the displayed total row says 8,153 — Internal arithmetic contradiction inside the visual board."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-dashboard-row-contradiction",
+      "reason": "Dashboards matrix cells sum to 98 while the row total says 78 — Internal arithmetic contradiction inside the visual board."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-api-row-contradiction",
+      "reason": "APIs matrix cells sum to 224 while the row total says 186 — Internal arithmetic contradiction inside the visual board."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-feature-total-contradiction",
+      "reason": "Features summary card says 1,256 while matrix row says 1,596 — Internal contradiction inside the same visual board."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-dataset-total-contradiction",
+      "reason": "Datasets summary card says 234 while matrix row says 289 — Internal contradiction inside the same visual board."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-document-total-contradiction",
+      "reason": "Documents summary card says 2,145 while matrix row says 2,777 — Internal contradiction inside the same visual board."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-category-score-series",
+      "reason": "Category reality scores: Runtimes 62.5%, Databases 60.9%, Services 56.3%, Dashboards 55.1%, Workflows 54.4%, Deployments 48.9%, Data 46.7%, Ecosystems 45.7%, Documents 44.6%, APIs 43.6%, AI Models 43.0% — Score series is derived from unsupported visual counts."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-reality-trend-series",
+      "reason": "Reality trend: Dec 2024 28.6%, Jan 2025 31.2%, Feb 2025 34.6%, Mar 2025 37.9%, Apr 2025 41.0%, May 2025 44.2% — No historical reality-score records exist to prove this trend."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-top-performers",
+      "reason": "Top performers: Runtimes 62.5%, Databases 60.9%, Services 56.3%, Dashboards 55.1%, Workflows 54.4% — Top performer list is derived from unsupported visual scores."
+    },
+    {
+      "surface": "vh-status-matrix-reality-matrix-universe-2026-05-29:claim-need-attention",
+      "reason": "Need attention: APIs 43.6%, AI Models 43.0%, Documents 44.6% — Need-attention list is derived from unsupported visual scores."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-timelines-24851",
+      "reason": "Timelines Created: 24,851 — No timeline runtime exists. Fabricated count."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-events-captured-1-28b",
+      "reason": "Events Captured: 1.28 B+ — No event log of any kind in repo. A billion+ events is fabricated."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-versions-managed-156m",
+      "reason": "Versions Managed: 156 M+ — No versioning runtime; fabricated."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-entities-tracked-98-7m",
+      "reason": "Entities Tracked: 98.7 M+ — kbs-runtime tracks entities at a tiny scale; 98.7M is fabricated."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-evolution-paths-2-34m",
+      "reason": "Evolution Paths: 2.34 M+ — No evolution-path data structure exists."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-last-updated-may-17",
+      "reason": "Last Updated: May 17, 2025 08:45 AM — Fabricated timestamp."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-events-today-2-14m",
+      "reason": "Events Today: 2.14M — No event source; fabricated."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-events-this-month-54-2m",
+      "reason": "Events This Month: 54.2M — Fabricated."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-historical-events-1-12b",
+      "reason": "Historical Events: 1.12B+ — Fabricated."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-predictions-8-74m",
+      "reason": "Predictions Generated: 8.74M — No prediction runtime."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-futures-simulated-1-23m",
+      "reason": "Futures Simulated: 1.23M — No scenario simulation runtime."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-decisions-influenced-4-87m",
+      "reason": "Decisions Influenced: 4.87M — No decision-influence measurement."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-lives-impacted-98-7m",
+      "reason": "Lives Impacted: 98.7M+ — Fabricated impact metric (different from Mission Universe's 54.2M+ on the same date — internal inconsistency between boards)."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-time-impact-score-91-6",
+      "reason": "Time Impact Score: 91.6 / 100 Exceptional — Aggregate over fabricated inputs."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-evolution-scores",
+      "reason": "Evolution Scorecard: Growth 87.3 / Adaptability 92.1 / Impact 89.6 / Longevity 93.4 / Wisdom 91.8 — Five sub-scores all fabricated."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-time-travel-replay",
+      "reason": "Time Travel — Intelligent Replay (Revisit Past / Reframe Decisions / Redo Simulations / Reimagine Future) — No replay engine, no simulation runtime, no decision history; fabricated capability."
+    },
+    {
+      "surface": "vh-time-evolution-universe-2026-05-28:c-future-builder",
+      "reason": "Future Builder: What-If Scenarios / Scenario Planning / Future Mapping / Roadmap Creation / Milestone Forecasting — No future-modeling runtime exists."
+    },
+    {
+      "surface": "vh-user-journeys-universe-2026-05-28:c-all-runtimes-active",
+      "reason": "All Runtimes: Active / Services: 500+ / Features: 1000+ / Dashboards: 30+ / Databases: 7 / Journeys: Infinite — Status banner reiterates fabricated metrics from other boards."
+    },
+    {
+      "surface": "vh-user-journeys-universe-2026-05-28:c-satisfaction-98-7",
+      "reason": "Satisfaction Score: 98.7% / Success Rate: 97.9% — No users to satisfy; no journeys to succeed."
+    },
+    {
+      "surface": "vh-user-journeys-universe-2026-05-28:c-18-journeys-implemented",
+      "reason": "18 named user journeys exist as end-to-end flows in Maataa OS — None of the 18 journeys has an executing implementation. Most depend on runtimes that don't exist (avatar/voice/gesture/chakra/saptadhaatu/brahmini/etc.)."
+    },
+    {
+      "surface": "vh-usp-universe-2026-05-28:c-usp-multimodal-realtime",
+      "reason": "USP 02: Seamlessly understands voice, gestures, poses, expressions, text, and intentions in real-time — No voice / gesture / pose / expression runtimes exist. Real-time multimodal AI is not implemented."
+    },
+    {
+      "surface": "vh-usp-universe-2026-05-28:c-usp-privacy-by-design",
+      "reason": "USP 05: 100% sovereign, encrypted, offline-first capable — Fake-100% language. No E2E encryption implemented; no sovereign-by-construction enforcement."
+    },
+    {
+      "surface": "vh-usp-universe-2026-05-28:c-usp-decentralized-brahmini-chain",
+      "reason": "USP 06: Built on Brahmini Chain decentralized technology — No blockchain implementation present in repo. Directive warns against 'fake blockchain theatrics'."
+    },
+    {
+      "surface": "vh-usp-universe-2026-05-28:c-usp-chakra-aware",
+      "reason": "USP 08: First OS to integrate Chakra System with AI — No chakra runtime; 'first OS' is a comparative claim with no comparative evidence."
+    },
+    {
+      "surface": "vh-usp-universe-2026-05-28:c-usp-end-to-end-automation",
+      "reason": "USP 10: From thinking to execution, Maataa OS automates workflows, tasks, approvals, reminders, and reporting intelligently — No automation runtime exists."
+    },
+    {
+      "surface": "vh-usp-universe-2026-05-28:c-usp-cross-platform",
+      "reason": "USP 16: Works seamlessly across Web, Mobile, Desktop, Wearables, and IoT — Only desktop shells (Tauri + Electron) exist; no mobile/wearable/IoT delivery exists."
+    },
+    {
+      "surface": "vh-workflow-universe-2026-05-28:c-all-workflows-active",
+      "reason": "All Runtime Workflows depicted as active end-to-end — None of the 13 runtime workflows have an executing implementation in any package; flows are diagrammatic."
+    },
+    {
+      "surface": "vh-workflow-universe-2026-05-28:c-journey-talk-to-maataa",
+      "reason": "Journey A: Talk to Maataa is an end-to-end voice→knowledge→TTS flow — No voice runtime, no STT/TTS implementation found; kbs-runtime has search but no audio I/O integration."
+    },
+    {
+      "surface": "vh-workflow-universe-2026-05-28:c-journey-create-film",
+      "reason": "Journey C: Create a Film traverses Idea→Script→Pre→Production→Post→Release inside TLP — No tlp-runtime package; apps/tlp/* is README-only."
+    },
+    {
+      "surface": "vh-workflow-universe-2026-05-28:c-journey-raise-investment",
+      "reason": "Journey D: Raise Investment end-to-end through InvestorHub — No investor runtime, no funding pipeline implementation."
+    },
+    {
+      "surface": "vh-workflow-universe-2026-05-28:c-ops-flow",
+      "reason": "Ops: Real-time Monitoring→Auto Diagnostics→Self Healing→Continuous Evolution — No real-time monitoring, no auto-diagnostics, no self-healing runtime exists. 'Self Healing' and 'Continuous Evolution' as automated capabilities are aspirational."
+    },
+    {
+      "surface": "vh-worlds-firsts-universe-2026-05-28:c-25-worlds-firsts-all",
+      "reason": "All 25 cards: each described as 'First OS' for its respective claim — Every 'World's First' claim is a comparative superlative. PHKD principle 1 (Evidence Before Claims) and 3 (No Fake 100%) require evidence of (a) the underlying capability working and (b) a comparative search establishing no prior art. Neither exists. The phrase 'World's First' on a 25-card board with no benchmark dataset is a categorical violation of the directive."
+    },
+    {
+      "surface": "vh-worlds-firsts-universe-2026-05-28:c-wf-05-sovereign-encrypted",
+      "reason": "WF 05: First OS 100% sovereign, encrypted, and offline-first capable — Fake-100% + comparative superlative + no encryption implementation. Triple PHKD violation."
+    },
+    {
+      "surface": "vh-worlds-firsts-universe-2026-05-28:c-wf-10-brahmini-chain",
+      "reason": "WF 10: First decentralized identity / reputation / ownership protocol built on Brahmini Chain — No blockchain implementation. Directive bans 'fake blockchain theatrics'."
     }
   ],
+  "hkdSummary": {
+    "files": 44,
+    "totalClaims": 495,
+    "blocked": 376,
+    "partial": 59,
+    "unverified": 60,
+    "lowConfidenceNodes": 553,
+    "totalNodes": 750,
+    "sources": [
+      {
+        "file": "agent-universe.hkd",
+        "id": "vh-agent-universe-2026-05-28",
+        "universe": "agent",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 9,
+          "partial": 2,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "ai-model-universe.hkd",
+        "id": "vh-ai-model-universe-2026-05-28",
+        "universe": "ai-model",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 8,
+          "partial": 1,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "asset-library-universe.hkd",
+        "id": "vh-asset-library-universe-2026-05-28",
+        "universe": "asset-library",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 7,
+          "partial": 2,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "brahmini-chain-universe.hkd",
+        "id": "vh-brahmini-chain-universe-2026-05-28",
+        "universe": "brahmini-chain",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 12,
+          "partial": 0,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "civilization-graph-universe.hkd",
+        "id": "vh-civilization-graph-universe-2026-05-28",
+        "universe": "civilization",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 7,
+          "partial": 1,
+          "unverified": 3
+        }
+      },
+      {
+        "file": "consciousness-evolution-universe.hkd",
+        "id": "vh-consciousness-evolution-universe-2026-05-28",
+        "universe": "consciousness",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 7,
+          "partial": 0,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "dashboard-universe.hkd",
+        "id": "vh-dashboard-universe-2026-05-28",
+        "universe": "dashboard",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 3,
+          "partial": 2,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "data-schemas-universe.hkd",
+        "id": "vh-data-schemas-universe-2026-05-28",
+        "universe": "data-schemas",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 9,
+          "partial": 2,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "deployment-operations-universe.hkd",
+        "id": "vh-deployment-operations-universe-2026-05-28",
+        "universe": "operations",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 15,
+          "partial": 1,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "dharma-values-universe.hkd",
+        "id": "vh-dharma-values-universe-2026-05-28",
+        "universe": "dharma",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 7,
+          "partial": 1,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "ecosystem-interconnection-universe.hkd",
+        "id": "vh-ecosystem-interconnection-universe-2026-05-28",
+        "universe": "ecosystem",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 9,
+          "partial": 2,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "education-gurukul-universe.hkd",
+        "id": "vh-education-gurukul-universe-2026-05-28",
+        "universe": "education",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 10,
+          "partial": 0,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "expanded-universe-absorption.hkd",
+        "id": "vh-expanded-universe-absorption-2026-05-29",
+        "universe": "expanded-maataa-universe-collection",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 24,
+          "partial": 0,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "feature-universe.hkd",
+        "id": "vh-feature-universe-2026-05-28",
+        "universe": "feature",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 4,
+          "partial": 2,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "financial-universe.hkd",
+        "id": "vh-financial-universe-2026-05-28",
+        "universe": "financial",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 8,
+          "partial": 0,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "governance-universe.hkd",
+        "id": "vh-governance-universe-2026-05-28",
+        "universe": "governance",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 8,
+          "partial": 1,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "health-saptadhaatu-universe.hkd",
+        "id": "vh-health-saptadhaatu-universe-2026-05-28",
+        "universe": "health",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 8,
+          "partial": 0,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "hero-module-universe.hkd",
+        "id": "vh-hero-module-universe-2026-05-28",
+        "universe": "hero",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 3,
+          "partial": 1,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "hkd-runtime-universe.hkd",
+        "id": "vh-hkd-runtime-universe-2026-05-28",
+        "universe": "hkd-runtime",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 7,
+          "partial": 5,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "identity-personhood-universe.hkd",
+        "id": "vh-identity-personhood-universe-2026-05-28",
+        "universe": "identity",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 9,
+          "partial": 0,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "knowledge-graph-universe.hkd",
+        "id": "vh-knowledge-graph-universe-2026-05-28",
+        "universe": "knowledge-graph",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 8,
+          "partial": 2,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "landing-sovereign-ai.hkd",
+        "id": "vh-landing-sovereign-ai-2026-05-28",
+        "universe": "landing",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 4,
+          "partial": 2,
+          "unverified": 3
+        }
+      },
+      {
+        "file": "landing-welcome.hkd",
+        "id": "vh-landing-welcome-2026-05-28",
+        "universe": "landing",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 8,
+          "partial": 0,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "legacy-universe.hkd",
+        "id": "vh-legacy-universe-2026-05-28",
+        "universe": "legacy",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 9,
+          "partial": 0,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "lipi-script-universe.hkd",
+        "id": "vh-lipi-script-universe-2026-05-28",
+        "universe": "lipi",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 4,
+          "partial": 6,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "marketplace-universe.hkd",
+        "id": "vh-marketplace-universe-2026-05-28",
+        "universe": "marketplace",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 14,
+          "partial": 0,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "master-meta-map.hkd",
+        "id": "vh-master-meta-map-2026-05-28",
+        "universe": "meta",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 1,
+          "partial": 1,
+          "unverified": 5
+        }
+      },
+      {
+        "file": "mission-universe.hkd",
+        "id": "vh-mission-universe-2026-05-28",
+        "universe": "mission",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 10,
+          "partial": 3,
+          "unverified": 5
+        }
+      },
+      {
+        "file": "product-universe.hkd",
+        "id": "vh-product-universe-2026-05-28",
+        "universe": "product",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 3,
+          "partial": 1,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "reality-to-mission-traceability-universe.hkd",
+        "id": "vh-reality-to-mission-traceability-universe-2026-05-28",
+        "universe": "traceability",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 4,
+          "partial": 2,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "research-universe.hkd",
+        "id": "vh-research-universe-2026-05-28",
+        "universe": "research",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 9,
+          "partial": 2,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "runtime-universe.hkd",
+        "id": "vh-runtime-universe-2026-05-28",
+        "universe": "runtime",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 19,
+          "partial": 2,
+          "unverified": 6
+        }
+      },
+      {
+        "file": "scientific-evidence-universe.hkd",
+        "id": "vh-scientific-evidence-universe-2026-05-28",
+        "universe": "scientific-evidence",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 13,
+          "partial": 2,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "scientific-firsts-universe.hkd",
+        "id": "vh-scientific-firsts-universe-2026-05-28",
+        "universe": "marketing",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 6,
+          "partial": 0,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "service-universe.hkd",
+        "id": "vh-service-universe-2026-05-28",
+        "universe": "service",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 7,
+          "partial": 2,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "simulation-universe.hkd",
+        "id": "vh-simulation-universe-2026-05-28",
+        "universe": "simulation",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 10,
+          "partial": 0,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "sku-universe.hkd",
+        "id": "vh-sku-universe-2026-05-28",
+        "universe": "sku",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 3,
+          "partial": 0,
+          "unverified": 0
+        }
+      },
+      {
+        "file": "spatial-universe.hkd",
+        "id": "vh-spatial-universe-2026-05-28",
+        "universe": "spatial",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 8,
+          "partial": 0,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "status-matrix-universe.hkd",
+        "id": "vh-status-matrix-reality-matrix-universe-2026-05-29",
+        "universe": "status-matrix-reality-matrix",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 28,
+          "partial": 1,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "time-evolution-universe.hkd",
+        "id": "vh-time-evolution-universe-2026-05-28",
+        "universe": "time-evolution",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 17,
+          "partial": 3,
+          "unverified": 1
+        }
+      },
+      {
+        "file": "user-journeys-universe.hkd",
+        "id": "vh-user-journeys-universe-2026-05-28",
+        "universe": "user-journeys",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 3,
+          "partial": 4,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "usp-universe.hkd",
+        "id": "vh-usp-universe-2026-05-28",
+        "universe": "marketing",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 6,
+          "partial": 2,
+          "unverified": 2
+        }
+      },
+      {
+        "file": "workflow-universe.hkd",
+        "id": "vh-workflow-universe-2026-05-28",
+        "universe": "workflow",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 5,
+          "partial": 0,
+          "unverified": 3
+        }
+      },
+      {
+        "file": "worlds-firsts-universe.hkd",
+        "id": "vh-worlds-firsts-universe-2026-05-28",
+        "universe": "marketing",
+        "status": "vision",
+        "claimCounts": {
+          "blocked": 3,
+          "partial": 1,
+          "unverified": 1
+        }
+      }
+    ]
+  },
   "evidenceFiles": [
     "release/evidence/latest.json",
     "release/evidence/blockers.json",

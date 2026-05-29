@@ -1,0 +1,57 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-financial-universe-2026-05-28",
+  "title": "Maataa Financial Universe (Wealth with Dharma. Growth with Purpose. Prosperity for All.)",
+  "sourceImage": "user-provided/2026-05-28/financial-universe-board.png",
+  "universe": "financial",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"FINANCIAL UNIVERSE STATUS (Active Instruments / Investors / Funds Under Stewardship / Transactions / Projects Funded / Countries)","type":"dashboard","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Wealth with Dharma / Prosperity with Purpose / Abundance for All / Sustainable Growth / Legacy for Generations)","type":"dashboard","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"Financial Ecosystem (Capital Providers / Markets & Exchanges / Financial Instruments / Infrastructure / Value Creators / Impact Recipients)","type":"runtime","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"Financial Impact Dashboard 93.2/100","type":"dashboard","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.92 },
+    { "id":"sec-capital-flow","title":"Capital Flow Map (Investors→Maataa OS Capital Engine→Projects/Enterprises/Communities/Environment/Future Generations)","type":"workflow","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.90 },
+    { "id":"sec-instruments","title":"Financial Instruments Universe (Equity / Debt / Revenue Share / Grants / Impact Bonds / Tokens / Insurance / Sukuk)","type":"feature","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.92 },
+    { "id":"sec-themes","title":"Investment Themes (Education / Healthcare / Sustainability / Technology / Agriculture / Culture / Infrastructure)","type":"feature","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.90 },
+    { "id":"sec-fund-structure","title":"Fund Structure (General/Impact/Sector/Project/Endowment/Reserve)","type":"feature","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.88 },
+    { "id":"sec-value-chain","title":"Financial Value Chain (Raise→Allocate→Deploy→Monitor→Generate→Measure→Reinvest→Distribute)","type":"workflow","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.90 },
+    { "id":"sec-risk-compliance","title":"Risk & Compliance Framework (Market/Credit/Liquidity/Operational/Regulatory/Ethical/ESG/Audit)","type":"feature","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.90 },
+    { "id":"sec-fintech","title":"Financial Technology (Fintech) Layer (Blockchain/Smart Contracts/DeFi/AI Analytics/Real-time/Digital Identity KYC/Secure Wallets/Global Payments)","type":"feature","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.90 },
+    { "id":"sec-who-serve","title":"Who We Serve (Individuals/Families/Entrepreneurs/Enterprises/NGOs/Communities/Governments/Future Gens)","type":"feature","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.90 },
+    { "id":"sec-returns-model","title":"Revenue & Returns Model (Long-term Capital Growth 40% / Impact & Social 25% / Community 15% / Ecosystem 10% / Reserves 10%)","type":"feature","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"inst-equity","label":"Equity (Ownership)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.45 },
+    { "id":"inst-debt","label":"Debt (Lending)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.45 },
+    { "id":"inst-revenue-share","label":"Revenue Share (Participation)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.40 },
+    { "id":"inst-grants","label":"Grants (Non-Repayable)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.40 },
+    { "id":"inst-impact-bonds","label":"Impact Bonds (Outcome Based)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.35 },
+    { "id":"inst-tokens","label":"Tokens (Utility / Security)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.20 },
+    { "id":"inst-insurance","label":"Insurance (Risk Protection)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.35 },
+    { "id":"inst-sukuk","label":"Sukuk (Shariah Compliant)","kind":"financial-instrument","universe":"financial","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.30 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Financial Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-impact","title":"Financial Impact donut 93.2/100 + 8 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 },
+    { "id":"w-capital-flow","title":"Capital Flow Map diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-capital-flow","confidence":0.88 },
+    { "id":"w-returns-donut","title":"Value Distribution donut (100% / 40/25/15/10/10 split)","widgetType":"status","status":"vision","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-returns-model","confidence":0.85 }
+  ],
+  "claims": [
+    { "id":"c-instruments-1248","text":"Active Financial Instruments: 1,248+","status":"BLOCKED","blockedReason":"No financial runtime.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-investors-54-2m","text":"Investors & Participants: 54.2M+","status":"BLOCKED","blockedReason":"No investor registry.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-funds-12-87b","text":"Funds Under Stewardship: $12.87B+","status":"BLOCKED","blockedReason":"No funds; fabricated.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-transactions-28-74m","text":"Transactions Processed: 28.74M+","status":"BLOCKED","blockedReason":"No transaction ledger.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-projects-funded-3842","text":"Projects Funded: 3,842+","status":"BLOCKED","blockedReason":"Recurring fabricated number.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-countries-192","text":"Communities Impacted: 192 Countries","status":"BLOCKED","blockedReason":"Recurring 192.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-impact-93-2","text":"Financial Impact Score: 93.2/100 (Growth 93.8 / Ethical Alignment 95.1 / Risk 92.6 / Transparency 94.0 / Community 93.7 / Environmental 91.4 / Long-term Sustainability 92.2 / Stakeholder Trust 93.3)","status":"BLOCKED","blockedReason":"Composite + sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-system-uptime-99-92","text":"System Uptime: 99.92%","status":"BLOCKED","blockedReason":"No live financial system.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-8-instruments-catalog","text":"8 Financial Instruments catalogued (Equity/Debt/Rev Share/Grants/Impact Bonds/Tokens/Insurance/Sukuk)","status":"UNVERIFIED","blockedReason":"Standard finance taxonomy + Sukuk (Shariah-compliant) inclusion is notable. No instruments are actually issued.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-instruments","confidence":0.88 },
+    { "id":"c-100-value-distribution","text":"100% Value Distribution: 40% Long-term Growth / 25% Impact / 15% Community / 10% Ecosystem / 10% Reserves","status":"UNVERIFIED","blockedReason":"Allocation model; no allocation has occurred. Fake-100% framing on the donut.","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","sourceSectionId":"sec-returns-model","confidence":0.92 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Financial Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/financial-universe-board.png","confidence":0.85 }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-hero-module-universe-2026-05-28",
+  "title": "Maataa Hero Module Universe (Divine Mother · Intelligent · Sovereign · Eternal)",
+  "sourceImage": "user-provided/2026-05-28/hero-module-board.png",
+  "universe": "hero",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-modules","title":"12 numbered module panels (Avatar/Voice/Gesture/Chakra/Lipi/Knowledge/Memory/Tasks/TLP/InvestoriHub/Saptadhaatu/Brahmini Chain)","type":"feature","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.95 },
+    { "id":"sec-multimodal-inputs","title":"Multimodal Inputs panel (Eye Blink, Hand Gesture, Body Pose, Facial Expression, Voice Input, Text Input, Video Upload)","type":"feature","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.92 },
+    { "id":"sec-response-engine","title":"Response Engine panel (Divine Guidance, Blessings, Mantras, Insights, Actions)","type":"feature","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.88 },
+    { "id":"sec-sovereign-runtime","title":"13. Sovereign Runtime (Routing/Permission/State Mgmt/Event Bus/Storage Layer/Sync & Offline/Telemetry/Policy/Security Layer)","type":"runtime","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.92 },
+    { "id":"sec-principles","title":"Maataa Principles (Dharma/Seva/Satya/Shakti/Karuna/Gyaan/Sovereignty/Swadeshi/Sarve Bhavantu Sukhinah)","type":"dashboard","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.90 },
+    { "id":"sec-integration","title":"Integration Ecosystem (Vaigyaaniq/Aṣṭādhyāyī/TLP/Lipi OS/ChakraSystem3D/HKD/ALLB)","type":"feature","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.90 },
+    { "id":"sec-listen-remember-guide-evolve","title":"Maataa Ring (Listen / Understand / Guide / Remember / Protect / Evolve)","type":"dashboard","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.88 },
+    { "id":"sec-sovereign-badge","title":"100% Sovereign Offline First Private Secure badge","type":"dashboard","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.92 }
+  ],
+  "nodes": [
+    { "id":"m-01-avatar","label":"1. Avatar (2D/3D, Expressions, Emotions, Gestures, Presence Engine)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-02-voice","label":"2. Voice (Speech-to-Text, Intent Recognition, Multi-Language, Text-to-Speech, Maataa Voice)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-03-gesture","label":"3. Gesture (Hand Tracking, Pose Tracking, Face Mesh, Mudra Recognition, Intent Detection)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-04-chakra","label":"4. Chakra (7 Chakra System, Energy Analysis, Balance Detection, Meditation Guide, 3D Viz)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-05-lipi","label":"5. Lipi (Brahmi, Kharoshthi, Devanagari, Roman, Indus Research, Custom Lipi, Transliteration, Translation, Script Converter, Multi-Direction, Lipi Learning)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.70 },
+    { "id":"m-06-knowledge","label":"6. Knowledge (Knowledge Graph, Semantic Search, Sutra Network, Multimedia Knowledge, AI Reasoning Engine)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.60 },
+    { "id":"m-07-memory","label":"7. Memory (Session Memory, Long Term Memory, Vector Database, Personalization, Memory Timeline)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-08-tasks","label":"8. Tasks (Create Task, Plan & Schedule, Track Progress, Milestones, Smart Suggestions)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-09-tlp","label":"9. TLP (Film Projects, Production Stages, Cast & Crew, Budgets, Deliverables)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.45 },
+    { "id":"m-10-investorihub","label":"10. InvestoriHub (Investors, Pitch Decks, Funding Rounds, Valuations, ROI Tracking)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-11-saptadhaatu","label":"11. Saptadhaatu (Health & Body, Ayurveda, Nutrition, Mind & Energy, Learning Paths)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.40 },
+    { "id":"m-12-brahmini-chain","label":"12. Brahmini Chain (Identity, Assets, Reputation, Governance, Tokenization)","kind":"module","universe":"hero","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.35 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-modules-grid","title":"12-module grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.95 },
+    { "id":"w-multimodal-inputs","title":"Multimodal Inputs panel","widgetType":"panel","status":"vision","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-multimodal-inputs","confidence":0.92 },
+    { "id":"w-response-engine","title":"Response Engine panel","widgetType":"panel","status":"vision","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-response-engine","confidence":0.88 },
+    { "id":"w-sovereign-runtime-row","title":"Sovereign Runtime row (9 service icons)","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-sovereign-runtime","confidence":0.90 },
+    { "id":"w-sovereign-badge","title":"100% Sovereign / Offline First / Private / Secure badge","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-sovereign-badge","confidence":0.95 }
+  ],
+  "claims": [
+    { "id":"c-100-sovereign","text":"100% Sovereign / Offline First / Private / Secure","status":"BLOCKED","blockedReason":"Fake-100% language. No E2E encryption, no enforced sovereignty, no offline-sync engine implemented.","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-sovereign-badge","confidence":0.98 },
+    { "id":"c-12-modules-shipping","text":"12 modules (Avatar/Voice/Gesture/Chakra/Lipi/Knowledge/Memory/Tasks/TLP/InvestoriHub/Saptadhaatu/Brahmini Chain) are shipping","status":"BLOCKED","blockedReason":"Of 12 modules, only Lipi and Knowledge have package-level implementation (lipi-runtime, kbs-runtime + facades). 10 are vision-only.","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.95 },
+    { "id":"c-indus-script-research-label","text":"Lipi includes 'Indus (Research)' — explicitly labelled as research","status":"PARTIAL","blockedReason":"The board itself marks Indus as '(Research)' — PHKD-aligned honesty inside an otherwise overclaiming board. Lipi-runtime governance evidence may track this honestly.","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-modules","confidence":0.90 },
+    { "id":"c-multimodal-inputs-7-channels","text":"Multimodal Inputs: Eye Blink / Hand Gesture / Body Pose / Facial Expression / Voice / Text / Video Upload all accepted","status":"BLOCKED","blockedReason":"Only text input is technically available (read by kbs-runtime search). Gesture / voice / video / face / eye-blink runtimes do not exist.","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-multimodal-inputs","confidence":0.95 },
+    { "id":"c-response-engine-divine-blessings","text":"Response Engine emits Divine Guidance, Blessings, Mantras, Insights, Actions","status":"UNVERIFIED","blockedReason":"Output categories defined but the runtime that emits them does not exist. 'Divine Guidance' as a verifiable engineering output is undefined.","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-response-engine","confidence":0.92 },
+    { "id":"c-principles-shloka","text":"Sanskrit shloka 'yatra naryastu pujyante ramante tatra devataah' translated 'Where women are honored, there the divine rejoices'","status":"UNVERIFIED","blockedReason":"Cultural/principle text; not a software claim. Accurate translation; appropriate to leave as displayed inspiration.","sourceImage":"user-provided/2026-05-28/hero-module-board.png","sourceSectionId":"sec-principles","confidence":0.85 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Hero Module Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/hero-module-board.png","confidence":0.85 }
+  ]
+}

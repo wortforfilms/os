@@ -1,0 +1,65 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-health-saptadhaatu-universe-2026-05-28",
+  "title": "Maataa Health & Saptadhaatu Universe (Heal with Dharma. Nourish Dhatus. Awaken Prana. Live in Balance.)",
+  "sourceImage": "user-provided/2026-05-28/health-saptadhaatu-board.png",
+  "universe": "health",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"HEALTH UNIVERSE STATUS (People / Profiles / Ayur Assessments / Daily Journeys / Protocols / Practitioners / Communities)","type":"dashboard","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Prevent/Protect/Nourish/Heal/Rejuvenate/Evolve)","type":"dashboard","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.90 },
+    { "id":"sec-ecosystem","title":"Health Ecosystem (Ayurveda Intelligence / Health Assessment / Therapeutic Engine / Lifestyle & Routines / Practitioner Network / Outcomes & Evolution)","type":"runtime","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.92 },
+    { "id":"sec-saptadhaatu","title":"Saptadhaatu Framework (Rasa→Rakta→Mamsa→Meda→Asthi→Majja→Shukra)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.92 },
+    { "id":"sec-doshas","title":"Dosha Balance (Vata/Pitta/Kapha)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.92 },
+    { "id":"sec-dimensions","title":"Health Dimensions (Sharira/Prana/Manas/Buddhi/Atma)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.92 },
+    { "id":"sec-journey-flow","title":"Health Journey Flow (Assess→Analyze→Personalize→Apply→Nourish→Balance→Evolve)","type":"workflow","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"Health Impact Dashboard 93.8 + 7 sub-scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.92 },
+    { "id":"sec-therapies","title":"Ayurvedic Therapies (Abhyanga/Shirodhara/Panchakarma/Basti/Nasya/Raktamokshana)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.90 },
+    { "id":"sec-herbs","title":"Herbal & Natural Pharmacology (Ashwagandha/Amalaki/Guduchi/Brahmi/Turmeric/Haritaki)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.90 },
+    { "id":"sec-daily-routines","title":"Daily Health Routines (Dinacharya/Ritucharya/Aahar/Vihar/Sadvritta/Yog & Pranayama)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.90 },
+    { "id":"sec-mind-care","title":"Mind & Consciousness Care (Dhyana/Mantra Healing/Sattva Cultivation/Digital Detox/Bhava Positivity/Sankalpa)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.90 },
+    { "id":"sec-tech-stack","title":"Integrated Health Tech Stack (Health Data / AI Diagnostics / IoT Wearables / Genomics / Predictive Analytics / Health Knowledge Graph)","type":"feature","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"dh-1-rasa","label":"1. Rasa (Plasma — Nutrition Essence)","kind":"dhatu","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.80 },
+    { "id":"dh-2-rakta","label":"2. Rakta (Blood — Vitality, Circulation)","kind":"dhatu","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.80 },
+    { "id":"dh-3-mamsa","label":"3. Mamsa (Muscle — Growth, Structure)","kind":"dhatu","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.75 },
+    { "id":"dh-4-meda","label":"4. Meda (Fat — Lubrication, Energy)","kind":"dhatu","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.75 },
+    { "id":"dh-5-asthi","label":"5. Asthi (Bone — Strength, Support)","kind":"dhatu","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.75 },
+    { "id":"dh-6-majja","label":"6. Majja (Marrow/Nerve — Immunity, Cushion)","kind":"dhatu","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.70 },
+    { "id":"dh-7-shukra","label":"7. Shukra (Reproductive — Vital Essence, Ojas Source)","kind":"dhatu","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.70 },
+    { "id":"dosha-vata","label":"Vata (Movement; Air+Space; Light/Dry/Mobile/Subtle)","kind":"dosha","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-doshas","confidence":0.75 },
+    { "id":"dosha-pitta","label":"Pitta (Transformation; Fire+Water; Hot/Sharp/Light/Liquid)","kind":"dosha","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-doshas","confidence":0.75 },
+    { "id":"dosha-kapha","label":"Kapha (Structure; Earth+Water; Heavy/Slow/Cold/Stable)","kind":"dosha","universe":"health","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-doshas","confidence":0.75 }
+  ],
+  "edges": [
+    { "from":"dh-1-rasa","to":"dh-2-rakta","relation":"transforms-to","confidence":0.75,"sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png" },
+    { "from":"dh-2-rakta","to":"dh-3-mamsa","relation":"transforms-to","confidence":0.75,"sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png" },
+    { "from":"dh-3-mamsa","to":"dh-4-meda","relation":"transforms-to","confidence":0.75,"sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png" },
+    { "from":"dh-4-meda","to":"dh-5-asthi","relation":"transforms-to","confidence":0.75,"sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png" },
+    { "from":"dh-5-asthi","to":"dh-6-majja","relation":"transforms-to","confidence":0.75,"sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png" },
+    { "from":"dh-6-majja","to":"dh-7-shukra","relation":"transforms-to","confidence":0.75,"sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-saptadhaatu-chain","title":"Saptadhaatu chain diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.92 },
+    { "id":"w-impact","title":"Health Impact Dashboard donut 93.8","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-people-3842","text":"People Empowered: 3,842+","status":"BLOCKED","blockedReason":"No health runtime exists.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-profiles-1-248m","text":"Health Profiles: 1.248M+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-ayur-assessments-5-42m","text":"Ayur Assessments: 5.42M+","status":"BLOCKED","blockedReason":"No assessment runtime.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-journeys-28-74m","text":"Daily Health Journeys: 28.74M+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-protocols-12874","text":"Healing Protocols: 12,874+","status":"BLOCKED","blockedReason":"No protocol library.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-practitioners-54-2k","text":"Practitioners & Vaidyas: 54.2K+","status":"BLOCKED","blockedReason":"No practitioner network.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-impact-93-8","text":"Health Impact Score: 93.8/100 (Physical 94.1 / Mental 92.7 / Emotional 93.5 / Immunity 94.0 / Lifestyle 93.6 / Disease Prevention 93.3 / Longevity 94.2)","status":"BLOCKED","blockedReason":"Composite + sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-saptadhaatu-framework","text":"7-stage Saptadhaatu transformation chain (Rasa → Rakta → Mamsa → Meda → Asthi → Majja → Shukra)","status":"UNVERIFIED","blockedReason":"Traditional Ayurvedic framework. Coherent classical model; not a software claim.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-saptadhaatu","confidence":0.90 },
+    { "id":"c-dosha-classification","text":"3 Doshas (Vata/Pitta/Kapha) with element + quality + balance properties","status":"UNVERIFIED","blockedReason":"Traditional classification. Not a falsifiable claim about software.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-doshas","confidence":0.90 },
+    { "id":"c-saptadhaatu-runtime-name","text":"Implicit @maataa/saptadhaatu-runtime referenced as target package","status":"BLOCKED","blockedReason":"saptadhaatu-runtime is in the operator's target structure but does not exist on disk. Health Universe is its source vision.","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","sourceSectionId":"sec-ecosystem","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Health & Saptadhaatu Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/health-saptadhaatu-board.png","confidence":0.85 }
+  ]
+}

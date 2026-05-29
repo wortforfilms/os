@@ -1,0 +1,67 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-knowledge-graph-universe-2026-05-28",
+  "title": "Maataa Knowledge Graph Universe (Everything is Connected. Everything has Meaning.)",
+  "sourceImage": "user-provided/2026-05-28/knowledge-graph-board.png",
+  "universe": "knowledge-graph",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS (System / All Graphs / Total Nodes / Total Relations / Graph Health)","type":"dashboard","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.95 },
+    { "id":"sec-categories","title":"Knowledge Graph Categories (10: Sutra/Person/Project/Asset/Memory/Chakra/Lipi/Investor/Knowledge Domain/Location)","type":"feature","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.92 },
+    { "id":"sec-great-graph","title":"The Great Knowledge Graph (radial diagram of 9 graphs)","type":"data","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.92 },
+    { "id":"sec-statistics","title":"Graph Statistics (Total Graphs/Nodes/Relations/Attributes/Storage/Queries/Response/Health)","type":"dashboard","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.95 },
+    { "id":"sec-capabilities","title":"Graph Capabilities (Semantic/Multi-Hop/Contextual/Pattern/Link Prediction/Anomaly/Temporal/Viz/Embeddings/NL Query)","type":"feature","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.92 },
+    { "id":"sec-sample-queries","title":"Sample Natural Language Queries","type":"feature","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.88 },
+    { "id":"sec-data-sources","title":"Graph Data Sources (User Generated / Sacred Texts / Scientific / Multimedia / APIs / IoT / Transactions / Community / Government)","type":"feature","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.90 },
+    { "id":"sec-relation-types","title":"Relation Types (IS_A/PART_OF/RELATED_TO/CAUSED_BY/DEPENDS_ON/CREATED_BY/USES/MENTIONS/LOCATED_IN/OWNS/INVESTS_IN/TEACHES/LEARNED_FROM)","type":"feature","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.92 },
+    { "id":"sec-relation-examples","title":"Relation examples (Sutra→Project / Person→Project / Knowledge→Asset / Chakra→Practice / Investor→Project / Lipi→Language)","type":"feature","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.88 },
+    { "id":"sec-explorer","title":"Graph Explorer View","type":"dashboard","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.90 },
+    { "id":"sec-top-connected","title":"Top Connected Nodes (Consciousness/Meditation/AI/Learning/Love/Energy/Health/Yoga/Education/Creativity)","type":"dashboard","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.92 },
+    { "id":"sec-relations-time","title":"Relationships Over Time chart (2023-01 → 2025-01)","type":"dashboard","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.90 },
+    { "id":"sec-health-metrics","title":"Graph Health Metrics (Connectivity 98.7 / Consistency 97.3 / Freshness 99.1 / Coverage 96.8)","type":"dashboard","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.92 },
+    { "id":"sec-impact","title":"Knowledge Graph Impact (Better Recommendations / Faster Discoveries / Smarter Decisions / Deeper Insights / Continuous Learning / Infinite Possibilities)","type":"feature","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"g-1-sutra","label":"01 Sutra Graph (50M+ nodes, 500M+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.35 },
+    { "id":"g-2-person","label":"02 Person Graph (200M+ nodes, 1.2B+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.35 },
+    { "id":"g-3-project","label":"03 Project Graph (120M+ nodes, 1B+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.30 },
+    { "id":"g-4-asset","label":"04 Asset Graph (300M+ nodes, 2B+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.30 },
+    { "id":"g-5-memory","label":"05 Memory Graph (250M+ nodes, 1.5B+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.30 },
+    { "id":"g-6-chakra","label":"06 Chakra Graph (80M+ nodes, 600M+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.25 },
+    { "id":"g-7-lipi","label":"07 Lipi Graph (60M+ nodes, 400M+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.55 },
+    { "id":"g-9-knowledge-domain","label":"09 Knowledge Domain Graph (150M+ nodes, 1B+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.50 },
+    { "id":"g-10-location","label":"10 Location Graph (100M+ nodes, 700M+ relations)","kind":"graph","universe":"knowledge-graph","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.30 }
+  ],
+  "edges": [
+    { "from":"g-1-sutra","to":"g-3-project","relation":"inspires","confidence":0.40,"sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png" },
+    { "from":"g-2-person","to":"g-3-project","relation":"leads","confidence":0.40,"sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png" },
+    { "from":"g-9-knowledge-domain","to":"g-4-asset","relation":"produces","confidence":0.40,"sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png" },
+    { "from":"g-7-lipi","to":"g-9-knowledge-domain","relation":"encodes","confidence":0.55,"sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"MAATAA OS Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-great-graph","title":"The Great Knowledge Graph radial","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-great-graph","confidence":0.92 },
+    { "id":"w-statistics","title":"Graph Statistics panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-statistics","confidence":0.95 },
+    { "id":"w-health-donuts","title":"Graph Health Metrics 4 donuts","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-health-metrics","confidence":0.92 },
+    { "id":"w-relations-time","title":"Relationships Over Time chart","widgetType":"timeline","status":"blocked","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-relations-time","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-all-graphs-100","text":"All Graphs: 100+ Active","status":"BLOCKED","blockedReason":"kbs-graph (real) is ONE graph. Board claims 100+. Fabricated count.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-total-nodes-1b","text":"Total Nodes: 1B+","status":"BLOCKED","blockedReason":"kbs-runtime/src/data.ts contains the entire knowledge corpus; orders of magnitude smaller than 1B nodes.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-total-relations-10b","text":"Total Relations: 10B+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-graph-health-optimal","text":"Graph Health: Optimal","status":"BLOCKED","blockedReason":"No health probe on any operational graph.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-graph-stats","text":"Stats: Total Graphs 10 / Nodes 1,350,000,000+ / Relations 10,200,000,000+ / Attributes 25,000,000+ / Storage 15.6 TB / Queries 12M/day / Avg Response 98ms","status":"BLOCKED","blockedReason":"Every metric fabricated; no storage substrate of that size in repo.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-statistics","confidence":0.99 },
+    { "id":"c-top-connected-nodes","text":"Top Connected Nodes: Consciousness 18.7M / Meditation 15.2M / AI 14.8M / Learning 12.3M / Love 11.9M / Energy 11.1M / Health 10.7M / Yoga 9.8M / Education 9.1M / Creativity 8.6M","status":"BLOCKED","blockedReason":"Connection counts fabricated.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-top-connected","confidence":0.99 },
+    { "id":"c-health-metrics","text":"Health Metrics: Connectivity 98.7% / Consistency 97.3% / Freshness 99.1% / Coverage 96.8%","status":"BLOCKED","blockedReason":"All 4 metrics fabricated.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-health-metrics","confidence":0.99 },
+    { "id":"c-13-relation-types","text":"13 Relation Types (IS_A / PART_OF / RELATED_TO / CAUSED_BY / DEPENDS_ON / CREATED_BY / USES / MENTIONS / LOCATED_IN / OWNS / INVESTS_IN / TEACHES / LEARNED_FROM)","status":"UNVERIFIED","blockedReason":"Standard semantic-web-like relation taxonomy. Not implemented in kbs-graph (which has KbsEdgeType but limited set).","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-relation-types","confidence":0.85 },
+    { "id":"c-10-graph-categories","text":"10 Graph Categories: Sutra/Person/Project/Asset/Memory/Chakra/Lipi/Investor/Knowledge Domain/Location","status":"PARTIAL","blockedReason":"kbs-graph is a single graph (real). Lipi Graph could be backed by lipi-runtime/src/lineage. 8 of 10 sub-graphs have no implementation substrate.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-categories","confidence":0.85 },
+    { "id":"c-capabilities-nl-query","text":"Capabilities: Semantic Search / Multi-Hop Reasoning / Contextual Inference / Pattern Discovery / Link Prediction / Anomaly Detection / Temporal Analysis / Viz Explorer / Graph Embeddings / Natural Language Query","status":"PARTIAL","blockedReason":"kbs-runtime/src/{search,graph,claims} provides Semantic Search + basic Multi-Hop. Other capabilities are vision.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-capabilities","confidence":0.85 },
+    { "id":"c-relations-over-time","text":"Relations grew from ~16B to ~128B between 2023-01 and 2025-01","status":"BLOCKED","blockedReason":"Time-series fabricated.","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","sourceSectionId":"sec-relations-time","confidence":0.99 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Knowledge Graph Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.85 },
+    { "id":"ev-kbs-graph-real","title":"@maataa/kbs-graph + kbs-runtime/src/graph/ is the real (single) knowledge graph substrate","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/knowledge-graph-board.png","confidence":0.95 }
+  ]
+}

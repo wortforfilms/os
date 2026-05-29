@@ -1,0 +1,73 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-marketplace-universe-2026-05-28",
+  "title": "Maataa Marketplace & Revenue Engine Universe",
+  "sourceImage": "user-provided/2026-05-28/marketplace-universe-board.png",
+  "universe": "marketplace",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS (Marketplace Active / Sellers / Products / Transactions / GMV / Revenue / Active Users)","type":"dashboard","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.95 },
+    { "id":"sec-ecosystem","title":"01. Marketplace Ecosystem (Theme/Plugin/Asset/Template/Knowledge/Course/Voice/Lipi Stores)","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-flow","title":"02. Marketplace Flow (Discover→Select→Purchase→Deliver→Use→Rate&Review)","type":"workflow","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-revenue-model","title":"03. Revenue Model Overview","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-creator-ecosystem","title":"04. Seller & Creator Ecosystem","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-pricing","title":"05. Pricing & Monetization Options","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-engine-architecture","title":"06. Revenue Engine Architecture (Customer→Marketplace→Gateway→Engine→Settlement→Payouts)","type":"data","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.88 },
+    { "id":"sec-analytics","title":"07. Revenue Analytics","type":"dashboard","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-payments","title":"08. Payments & Settlements","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.90 },
+    { "id":"sec-subscriptions","title":"09. Subscription & Memberships (Basic/Plus/Pro/Studio/Enterprise tiers)","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-affiliates","title":"10. Affiliates & Partners","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.90 },
+    { "id":"sec-global","title":"11. Global Reach & Impact","type":"dashboard","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.92 },
+    { "id":"sec-transparency","title":"12. Transparency & Trust","type":"feature","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"store-theme","label":"Theme Store (1,245+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"store-plugin","label":"Plugin Store (2,384+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"store-asset","label":"Asset Store (5,672+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"store-template","label":"Template Store (2,186+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"store-knowledge","label":"Knowledge Store (1,845+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"store-course","label":"Course Store (1,352+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"store-voice","label":"Voice Store (896+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"store-lipi","label":"Lipi Store (1,446+ Items)","kind":"store","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"tier-free","label":"FREE Tier ($0)","kind":"tier","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-subscriptions","confidence":0.50 },
+    { "id":"tier-starter","label":"STARTER ($9/mo)","kind":"tier","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-subscriptions","confidence":0.40 },
+    { "id":"tier-professional","label":"PROFESSIONAL ($29/mo)","kind":"tier","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-subscriptions","confidence":0.40 },
+    { "id":"tier-enterprise","label":"ENTERPRISE ($99/mo)","kind":"tier","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-subscriptions","confidence":0.40 },
+    { "id":"tier-plus","label":"PLUS ($4.99/mo)","kind":"tier","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-subscriptions","confidence":0.30 },
+    { "id":"tier-pro","label":"PRO ($14.99/mo)","kind":"tier","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-subscriptions","confidence":0.30 },
+    { "id":"tier-studio","label":"STUDIO ($49.99/mo)","kind":"tier","universe":"marketplace","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-subscriptions","confidence":0.30 }
+  ],
+  "edges": [
+    { "from":"store-theme","to":"tier-free","relation":"available-to","confidence":0.40,"sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status-panel","title":"Marketplace status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-revenue-totals","title":"Revenue totals (Subscription $1.87M / Licensing $1.23M / Advertising $285K / Revenue Sharing $560K / Royalties $210K / White-label $850K / Data & Insights $150K)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-revenue-model","confidence":0.92 },
+    { "id":"w-analytics","title":"Revenue Analytics (125,642 Total Transactions / $12.48M GMV / $4.27M Total Revenue / 34.2% Revenue Growth MoM)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-analytics","confidence":0.95 },
+    { "id":"w-revenue-by-stream","title":"Revenue by Stream donut (Subscription 43% / Transaction Fees 25% / Licensing 14% / Revenue Sharing 10% / Advertising 5% / Others 3%)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-analytics","confidence":0.92 },
+    { "id":"w-revenue-chart","title":"Revenue Over Time chart (12-month bar+line series)","widgetType":"timeline","status":"blocked","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-analytics","confidence":0.92 },
+    { "id":"w-creator-tier-progression","title":"Affiliate Commission Tiers (Bronze 10% / Silver 20% / Gold 30% / Platinum 40%)","widgetType":"status","status":"vision","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-affiliates","confidence":0.88 },
+    { "id":"w-revenue-distribution","title":"Revenue Distribution bar (Creator 70% / Platform 20% / Payment Gateway 5% / Taxes 5%)","widgetType":"status","status":"vision","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-transparency","confidence":0.88 }
+  ],
+  "claims": [
+    { "id":"c-marketplace-active","text":"Marketplace: Active","status":"BLOCKED","blockedReason":"No marketplace runtime, no checkout, no listing pipeline exists.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.98 },
+    { "id":"c-sellers-3842","text":"Sellers: 3,842+","status":"BLOCKED","blockedReason":"No seller registration system.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.98 },
+    { "id":"c-products-18926","text":"Products: 18,926+","status":"BLOCKED","blockedReason":"No product catalog; figure fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.98 },
+    { "id":"c-transactions-125642","text":"Transactions: 125,642+","status":"BLOCKED","blockedReason":"No payment runtime, no order ledger.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.98 },
+    { "id":"c-gmv-12-48m","text":"GMV (All Time): $12.48M+","status":"BLOCKED","blockedReason":"No GMV measurement; fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-revenue-4-27m","text":"Revenue (All Time): $4.27M+","status":"BLOCKED","blockedReason":"No revenue; fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-active-users-248731","text":"Active Users: 248,731+","status":"BLOCKED","blockedReason":"No user registration/auth system serving users; fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-status","confidence":0.98 },
+    { "id":"c-revenue-breakdown","text":"Revenue breakdown: Subscription $1.87M / Licensing $1.23M / Advertising $285K / Revenue Sharing $560K / Royalties $210K / White-label $850K / Data & Insights $150K","status":"BLOCKED","blockedReason":"All revenue streams fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-revenue-model","confidence":0.99 },
+    { "id":"c-creator-earnings-7-21m","text":"Creator Earnings (avg) $7.21M paid to creators","status":"BLOCKED","blockedReason":"No payout system.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-creator-ecosystem","confidence":0.98 },
+    { "id":"c-78-countries","text":"78+ Countries reach","status":"BLOCKED","blockedReason":"No geo-distribution measurement; fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-global","confidence":0.95 },
+    { "id":"c-12m-lives-impacted","text":"12M+ Lives Impacted","status":"BLOCKED","blockedReason":"Cannot impact lives without a deployed product; fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-global","confidence":0.95 },
+    { "id":"c-pci-dss-soc2-gdpr","text":"PCI DSS Compliant / SSL Secured / SOC 2 Type II / GDPR Compliant","status":"BLOCKED","blockedReason":"Compliance claims with no auditor reports; PCI DSS / SOC 2 require external attestation that does not exist.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-payments","confidence":0.98 },
+    { "id":"c-affiliate-1284-affiliates","text":"1,284+ Active Affiliates / $856K+ Earnings / 22.6% Conversion","status":"BLOCKED","blockedReason":"No affiliate program in code.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-affiliates","confidence":0.98 },
+    { "id":"c-revenue-growth-month-over-month","text":"34.2% Revenue Growth MoM with charted 12-month trend","status":"BLOCKED","blockedReason":"Time-series data fabricated.","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","sourceSectionId":"sec-analytics","confidence":0.98 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Marketplace & Revenue Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/marketplace-universe-board.png","confidence":0.85 }
+  ]
+}

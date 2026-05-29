@@ -1,0 +1,55 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-worlds-firsts-universe-2026-05-28",
+  "title": "Maataa World's Firsts Universe (25 World's First Innovations)",
+  "sourceImage": "user-provided/2026-05-28/worlds-firsts-board.png",
+  "universe": "marketing",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS","type":"dashboard","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","confidence":0.95 },
+    { "id":"sec-firsts","title":"25 'World's First' cards","type":"feature","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","confidence":0.95 }
+  ],
+  "nodes": [
+    { "id":"wf-01-divine-ai-companion-os","label":"WF 01 Divine AI Companion OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"wf-02-multimodal-spiritual-os","label":"WF 02 Multimodal Spiritual OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"wf-03-chakra-aware-os","label":"WF 03 Chakra Aware Operating System","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"wf-04-lipi-os-multi-script","label":"WF 04 Lipi OS Multi Script Engine","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.45 },
+    { "id":"wf-05-sovereign-encrypted-os","label":"WF 05 Sovereign & Encrypted OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"wf-06-unified-kg-os","label":"WF 06 Unified Knowledge Graph OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.40 },
+    { "id":"wf-07-memory-that-remembers","label":"WF 07 Memory That Truly Remembers","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-08-investor-creator-os","label":"WF 08 Investor & Creator OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-09-saptadhaatu-health-os","label":"WF 09 Saptadhaatu Health OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"wf-10-brahmini-chain-os","label":"WF 10 Brahmini Chain OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-11-task-to-transformation","label":"WF 11 Task to Transformation OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-12-realtime-dharma-engine","label":"WF 12 Real Time Dharma Engine","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-13-emotion-to-evolution","label":"WF 13 Emotion to Evolution OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-14-voice-of-maataa","label":"WF 14 Voice of Maataa","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-15-ai-tutor-teaches-life","label":"WF 15 AI Tutor That Teaches Life","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-16-context-aware-response","label":"WF 16 Context Aware Response Engine","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"wf-17-spiritual-productivity","label":"WF 17 Spiritual + Productivity OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-18-creator-complete-studio","label":"WF 18 Creator to Complete Studio OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-19-events-to-impact","label":"WF 19 Events to Impact OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-20-automation-with-awareness","label":"WF 20 Automation with Awareness","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-21-loving-os","label":"WF 21 Loving OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-22-offline-first-intelligent","label":"WF 22 Offline First Intelligent OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"wf-23-ai-guided-meditation","label":"WF 23 AI Guided Meditation OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-24-evolution-tracker","label":"WF 24 Evolution Tracker OS","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"wf-25-one-os-all-paths","label":"WF 25 One OS for All Paths","kind":"worlds-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-firsts-grid","title":"25 World's First grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.95 }
+  ],
+  "claims": [
+    { "id":"c-25-worlds-firsts-all","text":"All 25 cards: each described as 'First OS' for its respective claim","status":"BLOCKED","blockedReason":"Every 'World's First' claim is a comparative superlative. PHKD principle 1 (Evidence Before Claims) and 3 (No Fake 100%) require evidence of (a) the underlying capability working and (b) a comparative search establishing no prior art. Neither exists. The phrase 'World's First' on a 25-card board with no benchmark dataset is a categorical violation of the directive.","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.99 },
+    { "id":"c-wf-04-lipi-os-first","text":"WF 04: First OS with native multi-script intelligence supporting ancient to modern scripts","status":"PARTIAL","blockedReason":"lipi-runtime is real, with a 426-slot registry and lineage. 'First OS' is unsupported — many OS-level i18n/CLDR/Unicode systems exist; the differentiation needs to be stated precisely (e.g. 'first runtime to register pre-Brahmi → Brahmi → Devanagari lineage as canonical') and benchmarked.","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.92 },
+    { "id":"c-wf-05-sovereign-encrypted","text":"WF 05: First OS 100% sovereign, encrypted, and offline-first capable","status":"BLOCKED","blockedReason":"Fake-100% + comparative superlative + no encryption implementation. Triple PHKD violation.","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.99 },
+    { "id":"c-wf-10-brahmini-chain","text":"WF 10: First decentralized identity / reputation / ownership protocol built on Brahmini Chain","status":"BLOCKED","blockedReason":"No blockchain implementation. Directive bans 'fake blockchain theatrics'.","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.99 },
+    { "id":"c-wf-21-loving-os","text":"WF 21: First OS built with love, values, compassion, and dharma at its core","status":"UNVERIFIED","blockedReason":"Value-laden, not a verifiable engineering property. 'Loving' is not a measurable system attribute.","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.90 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"World's Firsts Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/worlds-firsts-board.png","confidence":0.85 }
+  ]
+}

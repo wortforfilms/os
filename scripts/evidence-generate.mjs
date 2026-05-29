@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
@@ -20,10 +20,78 @@ const hardeningBlockers = Object.entries(hardening.domains ?? {}).flatMap(([doma
   })),
 );
 
+// --- HKD vision-board ingestion (added 2026-05-28) ---
+// Every .hkd file under hkd/ that follows the VisualHKD shape contributes its
+// BLOCKED claims as additional production blockers. UNVERIFIED and PARTIAL
+// claims are counted into hkdSummary but do not block the gate — they are
+// honest open questions, not failures of evidence.
+const hkdDir = "hkd";
+const hkdSummary = {
+  files: 0,
+  totalClaims: 0,
+  blocked: 0,
+  partial: 0,
+  unverified: 0,
+  lowConfidenceNodes: 0,
+  totalNodes: 0,
+  sources: [],
+};
+const hkdBlockers = [];
+if (existsSync(hkdDir)) {
+  const hkdFiles = readdirSync(hkdDir)
+    .filter((f) => f.endsWith(".hkd") && !f.startsWith("._"))
+    .sort();
+  for (const file of hkdFiles) {
+    let data;
+    try {
+      data = readJson(join(hkdDir, file));
+    } catch {
+      continue;
+    }
+    hkdSummary.files += 1;
+    const claims = Array.isArray(data.claims) ? data.claims : [];
+    const nodes = Array.isArray(data.nodes) ? data.nodes : [];
+    hkdSummary.totalClaims += claims.length;
+    hkdSummary.totalNodes += nodes.length;
+    let fileBlocked = 0;
+    let filePartial = 0;
+    let fileUnverified = 0;
+    for (const claim of claims) {
+      if (claim.status === "BLOCKED") {
+        fileBlocked += 1;
+        hkdBlockers.push({
+          surface: `${data.id || file}:${claim.id || "unknown"}`,
+          reason: `${claim.text || ""} — ${claim.blockedReason || ""}`.trim(),
+        });
+      } else if (claim.status === "PARTIAL") {
+        filePartial += 1;
+      } else if (claim.status === "UNVERIFIED") {
+        fileUnverified += 1;
+      }
+    }
+    for (const node of nodes) {
+      if (typeof node.confidence === "number" && node.confidence < 0.5) {
+        hkdSummary.lowConfidenceNodes += 1;
+      }
+    }
+    hkdSummary.blocked += fileBlocked;
+    hkdSummary.partial += filePartial;
+    hkdSummary.unverified += fileUnverified;
+    hkdSummary.sources.push({
+      file,
+      id: data.id,
+      universe: data.universe,
+      status: data.status,
+      claimCounts: { blocked: fileBlocked, partial: filePartial, unverified: fileUnverified },
+    });
+  }
+}
+
 const blockers = [
   ...routeBlockers.map((item) => ({ surface: item.path, reason: item.evidence })),
   ...featureBlockers.map((item) => ({ surface: item.id, reason: item.evidence })),
   ...hardeningBlockers,
+  ...hkdBlockers,
 ];
 
 const completion = {
@@ -37,6 +105,7 @@ const completion = {
   features: matrix.features,
   hardening,
   blockers,
+  hkdSummary,
   evidenceFiles: [
     "release/evidence/latest.json",
     "release/evidence/blockers.json",
@@ -75,7 +144,8 @@ writeFileSync(
 );
 
 console.log(`evidence generated: ${completion.finalStatus}`);
-console.log(`blockers: ${blockers.length}`);
+console.log(`blockers: ${blockers.length} (routes: ${routeBlockers.length}, features: ${featureBlockers.length}, hardening: ${hardeningBlockers.length}, hkd: ${hkdBlockers.length})`);
+console.log(`hkd: ${hkdSummary.files} files / ${hkdSummary.totalClaims} claims (BLOCKED ${hkdSummary.blocked}, PARTIAL ${hkdSummary.partial}, UNVERIFIED ${hkdSummary.unverified})`);
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -115,6 +185,23 @@ function renderMarkdown(status) {
     "| --- | --- | --- |",
     ...status.features.map((item) => `| ${item.id} | ${item.state} | ${item.evidence} |`),
     "",
+    "## HKD Vision Boards",
+    "",
+    status.hkdSummary
+      ? `${status.hkdSummary.files} files / ${status.hkdSummary.totalClaims} claims (BLOCKED: ${status.hkdSummary.blocked}, PARTIAL: ${status.hkdSummary.partial}, UNVERIFIED: ${status.hkdSummary.unverified}). Nodes with confidence < 0.5: ${status.hkdSummary.lowConfidenceNodes}/${status.hkdSummary.totalNodes}.`
+      : "No HKD files found.",
+    "",
+    ...(status.hkdSummary && status.hkdSummary.sources.length
+      ? [
+          "| File | Universe | Blocked | Partial | Unverified |",
+          "| --- | --- | ---: | ---: | ---: |",
+          ...status.hkdSummary.sources.map(
+            (s) =>
+              `| ${s.file} | ${s.universe ?? ""} | ${s.claimCounts.blocked} | ${s.claimCounts.partial} | ${s.claimCounts.unverified} |`
+          ),
+          "",
+        ]
+      : []),
     "## Blockers",
     "",
     ...status.blockers.map((item) => `- ${item.surface}: ${item.reason}`),

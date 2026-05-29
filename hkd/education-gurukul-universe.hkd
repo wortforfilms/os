@@ -1,0 +1,58 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-education-gurukul-universe-2026-05-28",
+  "title": "Maataa Education & Gurukul Universe (Learn. Realize. Serve. Transform. Together.)",
+  "sourceImage": "user-provided/2026-05-28/education-gurukul-board.png",
+  "universe": "education",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"GURUKUL UNIVERSE STATUS (Students / Gurukuls / Courses / Achievers / Countries / Lives Transformed)","type":"dashboard","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Self Realization / Character & Values / Wisdom & Knowledge / Service to Society / Global Harmony)","type":"dashboard","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"Gurukul Ecosystem (Traditional / Modern Learning Hubs / Digital Gurukuls / Community Gurukuls / Research & Innovation / Global Network)","type":"runtime","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.92 },
+    { "id":"sec-pathways","title":"5 Learning Pathways (Jnana / Bhakti / Karma / Raja / Seva)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.95 },
+    { "id":"sec-pillars","title":"Education Pillars (Holistic / Dharma & Values / Life Skills & Wisdom / STEM & Innovation / Arts & Culture / Health & Yoga / Languages & Lipi / Environment & Sustainability / Leadership / Global Citizenship)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.92 },
+    { "id":"sec-learning-experience","title":"Gurukul Learning Experience (Awaken→Learn→Practice→Realize→Serve→Transform)","type":"workflow","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"Learning Impact Dashboard 89.7/100 + 7 sub-scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.92 },
+    { "id":"sec-journey","title":"Student Journey Map (Discover Calling→Choose Path→Enroll→Learn & Practice→Mentorship→Assess→Certify→Serve & Lead)","type":"workflow","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.90 },
+    { "id":"sec-modes","title":"Gurukul Modes (In-Person Residential / Day Gurukul / Online Live / Self-Paced / Community / Hybrid)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.90 },
+    { "id":"sec-digital-platform","title":"Digital Gurukul Platform (Smart Classrooms / AI Personal Mentor / Adaptive Learning / Knowledge Library / Sadhana Tracker / Community Forum / Seva Analytics)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.90 },
+    { "id":"sec-network","title":"Gurukul Network (Countries / Gurukuls / Students / Alumni / Mentors)","type":"dashboard","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.92 },
+    { "id":"sec-who-nurture","title":"Who We Nurture (Children / Youth / Professionals / Elders)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.88 },
+    { "id":"sec-values","title":"Gurukul Values (Six Jewels: Satya / Ahimsa / Asteya / Brahmacharya / Aparigraha / Seva)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.92 },
+    { "id":"sec-assessment","title":"Assessment & Growth (Self / Mentor Feedback / Peer Review / Project Eval / Seva Impact / Real Life Application)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.88 },
+    { "id":"sec-outcomes","title":"Gurukul Outcomes (Awakened Consciousness / Strong Character / Practical Wisdom / Social Responsibility / Spiritual Growth / Global Impact)","type":"feature","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"path-jnana","label":"1. Jnana Patha — Knowledge & Wisdom (Scriptures, Sciences, Philosophy, Arts) / 8,912+ Courses","kind":"learning-path","universe":"education","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.45 },
+    { "id":"path-bhakti","label":"2. Bhakti Patha — Devotion & Love (Kirtan, Stotra, Puja, Bhakti Yoga) / 4,230+ Courses","kind":"learning-path","universe":"education","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.30 },
+    { "id":"path-karma","label":"3. Karma Patha — Action & Excellence (Skills, Leadership, Entrepreneurship) / 6,781+ Courses","kind":"learning-path","universe":"education","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.30 },
+    { "id":"path-raja","label":"4. Raja Patha — Mind & Self Mastery (Yoga, Meditation, Inner Sciences) / 5,642+ Courses","kind":"learning-path","universe":"education","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.30 },
+    { "id":"path-seva","label":"5. Seva Patha — Service & Impact (Social Service, Environment, Health) / 3,180+ Courses","kind":"learning-path","universe":"education","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.30 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Gurukul Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-pathways-grid","title":"5 Learning Pathways grid (Jnana/Bhakti/Karma/Raja/Seva)","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.92 },
+    { "id":"w-impact","title":"Learning Impact donut 89.7 + 7 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 },
+    { "id":"w-network-stats","title":"Gurukul Network counts (192/4,312/1.248M+/98,721+/10,842+)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-network","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-students-1-248m","text":"Active Students: 1.248M+","status":"BLOCKED","blockedReason":"Recurring 1.248M. No student registry.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-gurukuls-4312","text":"Gurukuls & Learning Nodes: 4,312","status":"BLOCKED","blockedReason":"No gurukul registry.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-courses-28745","text":"Courses & Pathways: 28,745","status":"BLOCKED","blockedReason":"No course catalog.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-achievers-98721","text":"Achievers / Alumni: 98,721","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-countries-192","text":"Countries Reached: 192","status":"BLOCKED","blockedReason":"Recurring 192 (all sovereign countries).","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-lives-transformed-54-2m","text":"Lives Transformed: 54.2M+","status":"BLOCKED","blockedReason":"Recurring 54.2M; fabricated.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-courses-by-path","text":"Per pathway course counts: Jnana 8,912+ / Bhakti 4,230+ / Karma 6,781+ / Raja 5,642+ / Seva 3,180+","status":"BLOCKED","blockedReason":"No course catalog; counts fabricated.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.99 },
+    { "id":"c-impact-89-7","text":"Learning Impact Score: 89.7/100 (Knowledge Growth 92.1 / Character 90.3 / Skill 87.8 / Wellbeing 88.9 / Community 91.2 / Environmental 85.4 / Global Consciousness 89.6)","status":"BLOCKED","blockedReason":"Composite + sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-5-pathways-traditional","text":"5 Learning Pathways: Jnana / Bhakti / Karma / Raja / Seva","status":"UNVERIFIED","blockedReason":"Traditional Vedanta-derived classification of paths. Coherent framework; not a software claim.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-pathways","confidence":0.90 },
+    { "id":"c-gurukul-modes-6","text":"6 Gurukul Modes (Residential / Day / Online Live / Self-Paced / Community / Hybrid)","status":"BLOCKED","blockedReason":"No mode-switching runtime; no actual gurukul operates.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-modes","confidence":0.99 },
+    { "id":"c-digital-platform","text":"Digital Gurukul Platform: Smart Classrooms / AI Personal Mentor / Adaptive Learning / Knowledge Library / Sadhana Tracker / Community Forum / Seva Analytics","status":"BLOCKED","blockedReason":"No platform implementation. lipi-runtime/src/learning provides script-learning substrate only.","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","sourceSectionId":"sec-digital-platform","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Education & Gurukul Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.85 },
+    { "id":"ev-lipi-runtime-learning","title":"lipi-runtime/src/learning is the only existing 'learning' substrate, scoped to scripts","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/education-gurukul-board.png","confidence":0.90 }
+  ]
+}

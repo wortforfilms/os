@@ -1,0 +1,55 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-simulation-universe-2026-05-28",
+  "title": "Maataa Simulation Universe (Simulate with Purpose. Learn with Wisdom. Transform Reality.)",
+  "sourceImage": "user-provided/2026-05-28/simulation-universe-board.png",
+  "universe": "simulation",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"SIMULATION UNIVERSE STATUS (Active / Worlds / Scenarios / Agents / Cycles / Insights / Real-world Impacts)","type":"dashboard","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Explore Possibilities / Test Wisdom / Reduce Risks / Accelerate Learning / Create Better Realities)","type":"dashboard","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.90 },
+    { "id":"sec-ecosystem","title":"Simulation Ecosystem (World Builder / Scenario Engine / Agent Simulator / Event & Dynamics / Analytics & Insights / Reality Connector)","type":"runtime","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.92 },
+    { "id":"sec-categories","title":"Simulation Categories (System/Civilization/Environmental/Technology/Human Behavior/Economic/Spiritual/Multi-Universe)","type":"feature","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.92 },
+    { "id":"sec-lifecycle","title":"Simulation Lifecycle (Define→Design→Simulate→Analyze→Decide→Impact)","type":"workflow","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"Simulation Impact Dashboard 94.7 + 8 sub-scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.92 },
+    { "id":"sec-capabilities","title":"Simulation Capabilities (Model Reality → Create Variations → Simulate Dynamics → Observe Outcomes → Learn Insights → Optimize → Manifest Impact)","type":"workflow","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.90 },
+    { "id":"sec-tech-stack","title":"Technology Stack (HPC/Distributed/AI-ML/Physics/Rule&Logic/Data Integration/Visualization/Blockchain/Quantum)","type":"feature","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.90 },
+    { "id":"sec-sample-worlds","title":"Sample Simulation Worlds (Bharatvarsha 2047 / Climate Resilience World / Unified Education World / Dharma Economy World / Interstellar Civilization)","type":"feature","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.90 },
+    { "id":"sec-realworld-integration","title":"Real-World Integration (Real-world Data ↔ Simulation Universe ↔ Real-world Actions feedback loop)","type":"workflow","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.88 },
+    { "id":"sec-data-sources","title":"Simulation Data Sources (IoT/Public/Scientific/User/Historical/Satellite/Proprietary)","type":"feature","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.90 },
+    { "id":"sec-insights","title":"Insights & Outputs (Predictions/Patterns/Recommendations/Visual Reports/Strategy Options/Impact Forecasts/Risk Alerts/Optimization)","type":"feature","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.88 },
+    { "id":"sec-ethics","title":"Ethics & Dharma Framework (Non-Harm/Fairness/Transparency/Accountability/Inclusivity/Privacy/Dharma/Sustainability)","type":"feature","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"sim-cat-system","label":"System Simulations (Physical/Digital/Social)","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.35 },
+    { "id":"sim-cat-civilization","label":"Civilization Simulations (Cultures/Economies/Societies)","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.25 },
+    { "id":"sim-cat-environmental","label":"Environmental Simulations (Climate/Ecosystems/Disasters)","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.30 },
+    { "id":"sim-cat-tech","label":"Technology Simulations (Engineering/AI/Energy/Materials)","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.30 },
+    { "id":"sim-cat-human","label":"Human Behavior Simulations","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.20 },
+    { "id":"sim-cat-economic","label":"Economic Simulations","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.25 },
+    { "id":"sim-cat-spiritual","label":"Spiritual & Consciousness Simulations","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.15 },
+    { "id":"sim-cat-multiverse","label":"Multi-Universe Simulations (Parallel Realities, Timelines)","kind":"sim-category","universe":"simulation","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-categories","confidence":0.15 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Simulation Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-impact","title":"Impact Dashboard donut 94.7 + 8 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-sims-active-12874","text":"Simulations Active: 12,874+","status":"BLOCKED","blockedReason":"No simulation runtime exists.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-worlds-1248","text":"Simulation Worlds: 1,248+","status":"BLOCKED","blockedReason":"No worlds.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-scenarios-54212","text":"Scenarios Running: 54,212+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-agents-28-7m","text":"Agents Simulated: 28.7M+","status":"BLOCKED","blockedReason":"No agent simulator.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-cycles-3-842t","text":"Cycles Computed/Day: 3.842T+","status":"BLOCKED","blockedReason":"No compute substrate at trillions of cycles/day.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-insights-142k","text":"Insights Generated: 142K+","status":"BLOCKED","blockedReason":"No insights pipeline.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-realworld-impacts-9812","text":"Real-world Impacts: 9,812+","status":"BLOCKED","blockedReason":"No real-world feedback loop.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-impact-94-7","text":"Simulation Impact Score: 94.7/100 (Accuracy 94.1 / Insight Quality 95.2 / Coverage 93.6 / Predictive 94.8 / Real-world Relevance 94.3 / Learning Acceleration 95.0 / Ethical 93.8 / Sustainability 94.6)","status":"BLOCKED","blockedReason":"Composite + 8 sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-sample-bharatvarsha-2047","text":"Sample world: Bharatvarsha 2047 Civilizational Future","status":"BLOCKED","blockedReason":"No civilization-scale simulation runs.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-sample-worlds","confidence":0.99 },
+    { "id":"c-quantum-sim","text":"Technology stack includes Quantum Simulation","status":"BLOCKED","blockedReason":"No quantum computing primitives.","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","sourceSectionId":"sec-tech-stack","confidence":0.99 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Simulation Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/simulation-universe-board.png","confidence":0.85 }
+  ]
+}

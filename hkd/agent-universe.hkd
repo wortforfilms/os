@@ -1,0 +1,65 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-agent-universe-2026-05-28",
+  "title": "Maataa Agent Universe (Intelligent Agents. Limitless Capabilities. Infinite Impact.)",
+  "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
+  "universe": "agent",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"AGENT UNIVERSE STATUS (Active/Deployed/Tasks/Success/Knowledge/Interactions)","type":"dashboard","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.95 },
+    { "id":"sec-what","title":"What is an Agent","type":"dashboard","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"Maataa Agent Ecosystem (Orchestrator + 12 agents)","type":"runtime","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.95 },
+    { "id":"sec-capabilities","title":"Agent Capabilities (NLU/Perception/Reasoning/Planning/Tool Usage/Memory/Learning/Collaboration/Safety/Transparency/Continuous Improvement)","type":"feature","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.92 },
+    { "id":"sec-architecture","title":"Agent Architecture (Perception/Memory/Knowledge/Reasoning/Planning/Action/Tool API/Learning loop)","type":"data","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.90 },
+    { "id":"sec-collab-flow","title":"Agent Collaboration Flow (Request→Orchestrate→Delegate→Execute→Review→Deliver) + Research→Guru→Creator→TLP→Investor→Impact","type":"workflow","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.90 },
+    { "id":"sec-memory","title":"Agent Memory System (ST/LT/KG/Vector/User)","type":"data","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.90 },
+    { "id":"sec-marketplace","title":"Agent Marketplace (Total/Verified/Community/Custom + categories)","type":"feature","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.92 },
+    { "id":"sec-governance","title":"Agent Governance & Safety","type":"feature","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.90 },
+    { "id":"sec-performance","title":"Agent Performance (24h) dashboard","type":"dashboard","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.95 },
+    { "id":"sec-deploy","title":"Deploy Anywhere (Cloud/Edge/On-Prem/Mobile/IoT/Offline)","type":"feature","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"agent-orchestrator","label":"Maataa Orchestrator Agent (Directs/Coordinates/Optimizes/Evolves)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"agent-guru","label":"02 Guru Agent (Personal mentor & teacher; designs learning paths)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.25 },
+    { "id":"agent-research","label":"03 Research Agent (Discovers/analyzes/validates knowledge)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"agent-tlp","label":"04 TLP Agent (Manages The Live Platform; events/speakers/content)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.25 },
+    { "id":"agent-investor","label":"05 Investor Agent (Analyzes opportunities, manages deals/portfolio)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.25 },
+    { "id":"agent-health","label":"06 Health Agent (Personalized health companion; monitors/suggests/prevents)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.20 },
+    { "id":"agent-lipi","label":"07 Lipi Agent (Revives languages & scripts; NLP/OCR/translation)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.45 },
+    { "id":"agent-krishi","label":"08 Krishi Agent (Smart farming; crop planning/soil health/mandi supply)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.20 },
+    { "id":"agent-child-family","label":"09 Child & Family Agent (Supports children & families; learning/safety/wellness)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.20 },
+    { "id":"agent-creator","label":"10 Creator Agent (Empowers creators; content/audience/monetization)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.20 },
+    { "id":"agent-governance","label":"11 Governance Agent (Supports policies/voting/transparency)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"agent-system","label":"12 System Agent (Monitors system health/automates ops/ensures reliability)","kind":"agent","universe":"agent","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 }
+  ],
+  "edges": [
+    { "from":"agent-orchestrator","to":"agent-guru","relation":"orchestrates","confidence":0.30,"sourceImage":"user-provided/2026-05-28/agent-universe-board.png" },
+    { "from":"agent-orchestrator","to":"agent-research","relation":"orchestrates","confidence":0.30,"sourceImage":"user-provided/2026-05-28/agent-universe-board.png" },
+    { "from":"agent-research","to":"agent-guru","relation":"feeds","confidence":0.30,"sourceImage":"user-provided/2026-05-28/agent-universe-board.png" },
+    { "from":"agent-guru","to":"agent-creator","relation":"trains","confidence":0.25,"sourceImage":"user-provided/2026-05-28/agent-universe-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Agent Universe Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-ecosystem-radial","title":"12-agent radial ecosystem diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.92 },
+    { "id":"w-perf-24h","title":"Agent Performance (24h) panel (Tasks/Failures/Response/Active/Satisfaction)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-performance","confidence":0.95 },
+    { "id":"w-marketplace","title":"Agent Marketplace counts (1248/862/286/100)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-marketplace","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-active-agents-12","text":"Active Agents: 12","status":"BLOCKED","blockedReason":"No agent runtime exists in repo. No agent supervisor / no agent registry.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-status","confidence":0.98 },
+    { "id":"c-deployed-1248","text":"Deployed Agents: 1,248","status":"BLOCKED","blockedReason":"No deployed agents; fabricated count.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-tasks-24h-2-47m","text":"Tasks Executed (24h): 2.47M","status":"BLOCKED","blockedReason":"No task execution log; fabricated.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-success-98-72","text":"Success Rate: 98.72%","status":"BLOCKED","blockedReason":"No agent runs to measure.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-knowledge-nodes-15dam","text":"Knowledge Nodes Accessed: 15daM+","status":"BLOCKED","blockedReason":"kbs-runtime has knowledge primitives but no 15+M node access log.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"c-perf-24h-tasks","text":"Tasks Completed 2.45M / Failed 29,512 / Avg Response 1.42s / Active 312 / User Satisfaction 4.8/5","status":"BLOCKED","blockedReason":"Performance dashboard fabricated.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-performance","confidence":0.99 },
+    { "id":"c-marketplace-1248","text":"Marketplace: 1,248 Total / 862 Verified / 286 Community / 100 Custom Agents","status":"BLOCKED","blockedReason":"No marketplace.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-marketplace","confidence":0.98 },
+    { "id":"c-lipi-agent-real","text":"Lipi Agent — revives languages & scripts (NLP/OCR/translation)","status":"PARTIAL","blockedReason":"lipi-runtime (real package) provides transliteration/learning/lineage primitives. Agent wrapper does not exist.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.85 },
+    { "id":"c-research-agent-real","text":"Research Agent — discovers/analyzes/validates knowledge","status":"PARTIAL","blockedReason":"kbs-runtime/src/{claims,review,moderation,governance,provenance} provides research-adjacent primitives. No autonomous Research Agent wrapper.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.80 },
+    { "id":"c-orchestrator-real","text":"Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves","status":"BLOCKED","blockedReason":"No orchestrator runtime. 'Self-evolving orchestrator' is the strongest agent claim; no evidence.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-ecosystem","confidence":0.95 },
+    { "id":"c-deploy-anywhere","text":"Deploy Anywhere: Cloud / Edge / On-Prem / Mobile / IoT / Offline","status":"BLOCKED","blockedReason":"No deployment exists across any of these.","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","sourceSectionId":"sec-deploy","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Agent Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/agent-universe-board.png","confidence":0.85 }
+  ]
+}

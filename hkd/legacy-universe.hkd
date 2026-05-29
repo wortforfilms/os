@@ -1,0 +1,68 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-legacy-universe-2026-05-28",
+  "title": "Maataa Legacy Universe (Every Contribution. Every Impact. Forever.)",
+  "sourceImage": "user-provided/2026-05-28/legacy-universe-board.png",
+  "universe": "legacy",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"LEGACY STATUS (Profiles / Contributions / Lives Impacted / Knowledge Assets / Projects / Institutions / Years)","type":"dashboard","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.95 },
+    { "id":"sec-what-is","title":"What is Legacy (You Live → Contribute → Impact → Inspire → Live On)","type":"dashboard","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.90 },
+    { "id":"sec-journey","title":"The Legacy Journey (Be → Learn → Create → Contribute → Transform → Live On)","type":"workflow","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.92 },
+    { "id":"sec-ripple-effect","title":"The Legacy Ripple Effect (Family/Friends/Community/Organization → Nation/Humanity/Earth/Future Generations)","type":"feature","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.88 },
+    { "id":"sec-7-pillars","title":"7 Pillars of Legacy (Knowledge/Impact/Creation/Value/Relationship/Institutional/Civilizational)","type":"feature","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.92 },
+    { "id":"sec-timeline","title":"Legacy Timeline (2001 → 2030+)","type":"workflow","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.88 },
+    { "id":"sec-assets","title":"Legacy Assets You Create (24 categories: Books/Research/Courses/Ideas/Projects/Products/Art/Speeches/Mentorship/Communities/Policies/Open Source/Data/Inventions/Organizations/Movements/Values/Cultural/Scientific/Spiritual/Solutions/Stories/Traditions/Digital Footprint)","type":"feature","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.92 },
+    { "id":"sec-lis","title":"Legacy Impact Score (LIS) 92.4 + 8 sub-scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.92 },
+    { "id":"sec-memory-vault","title":"Legacy Memory Vault (Photos/Documents/Audio/Journals/Artifacts/Personal Reflections/Messages)","type":"data","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.90 },
+    { "id":"sec-who-inspire","title":"Who You Inspire (Immediate/Extended/Generational/Civilizational impact counts)","type":"dashboard","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.92 },
+    { "id":"sec-inheritance","title":"Legacy Inheritance Map (Knowledge/Values/Resource/Responsibility/Vision/Network/Opportunity/Wisdom Transfer)","type":"feature","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.88 },
+    { "id":"sec-preservation","title":"Legacy Preservation (Archive/Document/Share/Protect/Ensure Access/Plan Succession)","type":"feature","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.88 },
+    { "id":"sec-future-gen","title":"Legacy For Future Generations (Better World/More Opportunities/Greater Knowledge/Stronger Values/Sustainable Planet)","type":"feature","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"j-1-be","label":"1. Be — Live your values with awareness and purpose","kind":"journey-stage","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-journey","confidence":0.35 },
+    { "id":"j-2-learn","label":"2. Learn — Acquire knowledge, skills and wisdom","kind":"journey-stage","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-journey","confidence":0.40 },
+    { "id":"j-3-create","label":"3. Create — Build, write, invent, design, teach, innovate","kind":"journey-stage","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-journey","confidence":0.30 },
+    { "id":"j-4-contribute","label":"4. Contribute — Share, serve and empower others selflessly","kind":"journey-stage","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-journey","confidence":0.30 },
+    { "id":"j-5-transform","label":"5. Transform — Create measurable impact that changes lives and systems","kind":"journey-stage","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-journey","confidence":0.25 },
+    { "id":"j-6-liveon","label":"6. Live On — Your legacy continues to inspire generations forever","kind":"journey-stage","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-journey","confidence":0.25 },
+    { "id":"pillar-knowledge","label":"1. Knowledge Legacy — Share wisdom that enlightens generations","kind":"legacy-pillar","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.40 },
+    { "id":"pillar-impact","label":"2. Impact Legacy — Transform lives, systems and society","kind":"legacy-pillar","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.30 },
+    { "id":"pillar-creation","label":"3. Creation Legacy — Build things that outlive you","kind":"legacy-pillar","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.30 },
+    { "id":"pillar-value","label":"4. Value Legacy — Instill values, culture and dharma","kind":"legacy-pillar","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.30 },
+    { "id":"pillar-relationship","label":"5. Relationship Legacy — Nurture relationships that sustain","kind":"legacy-pillar","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.30 },
+    { "id":"pillar-institutional","label":"6. Institutional Legacy — Build institutions that scale impact","kind":"legacy-pillar","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.30 },
+    { "id":"pillar-civilizational","label":"7. Civilizational Legacy — Contribute to the evolution of humanity","kind":"legacy-pillar","universe":"legacy","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.25 }
+  ],
+  "edges": [
+    { "from":"j-1-be","to":"j-2-learn","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/legacy-universe-board.png" },
+    { "from":"j-2-learn","to":"j-3-create","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/legacy-universe-board.png" },
+    { "from":"j-3-create","to":"j-4-contribute","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/legacy-universe-board.png" },
+    { "from":"j-4-contribute","to":"j-5-transform","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/legacy-universe-board.png" },
+    { "from":"j-5-transform","to":"j-6-liveon","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/legacy-universe-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Legacy Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-lis","title":"LIS donut 92.4 + 8 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-lis","confidence":0.92 },
+    { "id":"w-assets-grid","title":"24-asset categories grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-assets","confidence":0.90 },
+    { "id":"w-who-inspire","title":"Who You Inspire — 4 impact tiers (Immediate 12.4K / Extended 1.2M+ / Generational 12.8M+ / Civilizational 98.7M+)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-who-inspire","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-legacy-profiles-54k","text":"Legacy Profiles: 54,218","status":"BLOCKED","blockedReason":"No legacy runtime exists.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-contributions-2-48m","text":"Contributions Recorded: 2.48M+","status":"BLOCKED","blockedReason":"No contribution ledger.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-lives-impacted-98-7m","text":"Lives Impacted: 98.7M+","status":"BLOCKED","blockedReason":"Matches Time Universe Lives Impacted 98.7M+. Two boards with identical fabricated count.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-knowledge-assets-1-32m","text":"Knowledge Assets: 1.32M+","status":"BLOCKED","blockedReason":"No knowledge-asset registry.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-projects-completed-28754","text":"Projects Completed: 28,754","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-institutions-built-1248","text":"Institutions Built: 1,248","status":"BLOCKED","blockedReason":"Same value as Mission Universe Mission Partners 1,248+ — recurrence suspicious.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-lis-92-4","text":"Legacy Impact Score (LIS): 92.4/100 Outstanding (Knowledge 94.1 / Social 91.3 / Economic 89.7 / Environmental 93.8 / Cultural 92.0 / Spiritual 95.2 / Timeless 94.0 / Generational 88.9)","status":"BLOCKED","blockedReason":"Composite + 8 sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-lis","confidence":0.99 },
+    { "id":"c-who-inspire-counts","text":"Who You Inspire: Immediate 12.4K / Extended 1.2M+ / Generational 12.8M+ / Civilizational 98.7M+ people","status":"BLOCKED","blockedReason":"Cascading impact fabricated.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-who-inspire","confidence":0.99 },
+    { "id":"c-legacy-timeline-sample","text":"Legacy Timeline shows: 2001 Started Teaching CS / 2005 Published First Research / 2008 Founded Open Source Community / 2012 Built Education Platform / 2016 Launched Health Initiative / 2020 Mentored 10,000+ Students / 2024 Created AI for Good Framework / 2030+ Legacy Continues","status":"BLOCKED","blockedReason":"Sample biographical entries; no actual timeline ledger.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-timeline","confidence":0.98 },
+    { "id":"c-7-pillars-model","text":"7 Pillars of Legacy framework","status":"UNVERIFIED","blockedReason":"Conceptual taxonomy.","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","sourceSectionId":"sec-7-pillars","confidence":0.90 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Legacy Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/legacy-universe-board.png","confidence":0.85 }
+  ]
+}

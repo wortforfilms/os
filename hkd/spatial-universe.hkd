@@ -1,0 +1,54 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-spatial-universe-2026-05-28",
+  "title": "Maataa Spatial Universe (Space is not empty. It is context. It is possibility. It is dharma in dimension.)",
+  "sourceImage": "user-provided/2026-05-28/spatial-universe-board.png",
+  "universe": "spatial",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"SPATIAL UNIVERSE STATUS (Assets / 3D Worlds / Regions / Sacred Sites / Geospatial Layers / Live Sessions)","type":"dashboard","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Sacred Spaces / Smart Cities / Natural Systems / Cosmic Realms / Human Habitats / Future Frontiers)","type":"dashboard","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.90 },
+    { "id":"sec-ecosystem","title":"Spatial Ecosystem (Geospatial Intelligence / 3D Worlds / Sacred & Heritage / Cosmic & Celestial / Environment & Eco Systems / Spatial Experiences)","type":"runtime","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.92 },
+    { "id":"sec-7-layers","title":"7 Spatial Layers (Celestial/Atmospheric/Terrestrial/Hydrospatial/Biodiversity/Human Made/Information)","type":"feature","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"Spatial Impact Dashboard 92.8/100","type":"dashboard","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.92 },
+    { "id":"sec-assets-catalog","title":"Spatial Assets Catalog (Sacred Sites/Natural/Built/Land Parcels/Water Bodies/Cultural/Infrastructure/Cosmic)","type":"feature","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.92 },
+    { "id":"sec-3d-worlds","title":"3D Worlds & Realms (Real World Twin / Mythic / Learning / Meditation / Future Cities / Space / Subtle)","type":"feature","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.88 },
+    { "id":"sec-capabilities","title":"Spatial Intelligence Capabilities (Sense→Map→Analyze→Simulate→Optimize→Activate)","type":"workflow","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.90 },
+    { "id":"sec-use-cases","title":"Spatial Use Cases (Pilgrimage/Smart City/Disaster Mgmt/Environmental Restoration/Agriculture Intelligence)","type":"feature","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.88 },
+    { "id":"sec-connectivity-map","title":"Spatial Connectivity Map (Countries / Regions / Sacred Sites / Live Sessions / Uptime)","type":"dashboard","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.92 },
+    { "id":"sec-data-sources","title":"Geospatial Data Sources (Satellites/Drones/IoT Sensors/LiDAR/Field Surveys/Crowd Data)","type":"feature","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.90 },
+    { "id":"sec-tech-stack","title":"Spatial Technology Stack (GIS Engine/3D Engine/AI-ML Models/Digital Twin/Spatial DB/Edge Computing/AR-VR-XR)","type":"feature","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.90 },
+    { "id":"sec-sacred-network","title":"Sacred Spaces Network (Sacred Sites / Dharma Paths / Temples / Ashrams / Pilgrimage Routes)","type":"feature","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"layer-1-celestial","label":"L1 Celestial (Cosmic bodies, energies, cycles)","kind":"spatial-layer","universe":"spatial","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.30 },
+    { "id":"layer-2-atmospheric","label":"L2 Atmospheric (Weather, air, storms, climate)","kind":"spatial-layer","universe":"spatial","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.30 },
+    { "id":"layer-3-terrestrial","label":"L3 Terrestrial (Land, terrain, geology, soils)","kind":"spatial-layer","universe":"spatial","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.30 },
+    { "id":"layer-4-hydrospatial","label":"L4 Hydrospatial (Water bodies, oceans, rivers)","kind":"spatial-layer","universe":"spatial","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.30 },
+    { "id":"layer-5-biodiversity","label":"L5 Biodiversity (Flora, fauna, habitats)","kind":"spatial-layer","universe":"spatial","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.30 },
+    { "id":"layer-6-human-made","label":"L6 Human Made (Infrastructure, settlements, assets)","kind":"spatial-layer","universe":"spatial","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.30 },
+    { "id":"layer-7-information","label":"L7 Information (Data, connectivity, signals)","kind":"spatial-layer","universe":"spatial","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.35 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Spatial Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-layers-diagram","title":"7-layer spatial stack diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.92 },
+    { "id":"w-impact","title":"Spatial Impact donut 92.8/100","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-assets-1-248m","text":"Spatial Assets Mapped: 1.248M+","status":"BLOCKED","blockedReason":"No GIS engine in repo.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-3d-worlds-342","text":"3D Worlds & Realms: 342","status":"BLOCKED","blockedReason":"No 3D worlds.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-regions-8912","text":"Regions & Zones: 8,912","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-sacred-sites-54-2k","text":"Sacred Sites Registered: 54.2K+","status":"BLOCKED","blockedReason":"No registry.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-geo-layers-128","text":"Geospatial Layers: 128","status":"BLOCKED","blockedReason":"No layer engine.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-live-sessions-12-87k","text":"Live Spatial Sessions: 12.87K+","status":"BLOCKED","blockedReason":"No session runtime.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-impact-92-8","text":"Spatial Impact Score: 92.8/100 (Connectivity 93.6 / Sustainability 92.1 / Accuracy 94.2 / Accessibility 91.7 / Coverage 93.3 / Preservation 92.4 / Utilization 90.8 / Resilience 92.0)","status":"BLOCKED","blockedReason":"Composite + sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-7-spatial-layers","text":"7 Spatial Layers (Celestial→Atmospheric→Terrestrial→Hydrospatial→Biodiversity→Human Made→Information)","status":"UNVERIFIED","blockedReason":"Conceptual layering. Standard GIS systems don't use this stratification but it's coherent.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-7-layers","confidence":0.85 },
+    { "id":"c-sacred-network-12k-pilgrimage","text":"54.2K Sacred Sites / 28 Dharma Paths / 7,842 Temples / 1,124 Ashrams / 512 Pilgrimage Routes","status":"BLOCKED","blockedReason":"No sacred-spaces registry.","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","sourceSectionId":"sec-sacred-network","confidence":0.99 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Spatial Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/spatial-universe-board.png","confidence":0.85 }
+  ]
+}

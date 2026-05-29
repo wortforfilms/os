@@ -1,0 +1,56 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-governance-universe-2026-05-28",
+  "title": "Maataa Governance Universe (Dharma Guides. Wisdom Decides. Transparency Builds Trust.)",
+  "sourceImage": "user-provided/2026-05-28/governance-universe-board.png",
+  "universe": "governance",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"GOVERNANCE STATUS (Proposals / Policies / Council Members / Communities Governed / People Impacted / Votes / Trust Index / Last Updated)","type":"dashboard","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.95 },
+    { "id":"sec-philosophy","title":"Our Governance Philosophy (Dharma Aligned / Transparency / Accountability / Participation / Compassion)","type":"dashboard","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"Governance Ecosystem (People & Communities / Councils & Leaders / Policies & Frameworks / Data & Insight / Decision Engine / Transparency Layer / Impact & Outcomes)","type":"runtime","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.92 },
+    { "id":"sec-decision-process","title":"Decision Making Process (Propose→Review→Deliberate→Decide→Execute→Evaluate)","type":"workflow","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.92 },
+    { "id":"sec-structure","title":"Governance Structure (Dharma Council / Stewards Council / Community Councils / Working Circles / Every Participant)","type":"feature","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"Governance Impact Dashboard 94.1 Trust Index + 7 sub-scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.92 },
+    { "id":"sec-domains","title":"Key Governance Domains (Justice/Education/Health/Environment/Technology/Economy/Peace/Infrastructure)","type":"feature","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.90 },
+    { "id":"sec-policy-lifecycle","title":"Policy Lifecycle (Draft→Consult→Vote→Enact→Implement→Review→Evolve)","type":"workflow","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.90 },
+    { "id":"sec-participation","title":"Participation Modes (Voice/Vote/Volunteer/Collaborate/Learn)","type":"feature","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.88 },
+    { "id":"sec-transparency","title":"Transparency & Accountability (Open Data/Immutable Records/Public Dashboards/Audit Trails/Whistleblower)","type":"feature","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.92 },
+    { "id":"sec-alignment-check","title":"Dharma Alignment Check (Is it True? Is it Just? Is it Compassionate? Does it Harm? Does it Benefit Many? Will it Stand Time?)","type":"feature","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.88 },
+    { "id":"sec-future-vision","title":"Future Vision (AI for Good / Global Collaboration / Real-time / Fully Decentralized / Dharma-First Civilization)","type":"feature","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.85 }
+  ],
+  "nodes": [
+    { "id":"council-dharma","label":"Dharma Council (Guardians) — Protects principles, ensures dharma alignment","kind":"council","universe":"governance","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-structure","confidence":0.35 },
+    { "id":"council-stewards","label":"Stewards Council (Executives) — Oversees execution, ensures accountability","kind":"council","universe":"governance","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-structure","confidence":0.30 },
+    { "id":"council-community","label":"Community Councils (Local) — Represents regions, groups, interests","kind":"council","universe":"governance","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-structure","confidence":0.30 },
+    { "id":"council-working-circles","label":"Working Circles (Functional) — Focus on domains, projects, initiatives","kind":"council","universe":"governance","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-structure","confidence":0.25 },
+    { "id":"council-every-participant","label":"Every Participant (You) — The foundation. The voice. The change.","kind":"council","universe":"governance","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-structure","confidence":0.30 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Governance Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-impact-trust","title":"Trust Index 94.1 + 7 sub-scores donut","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 },
+    { "id":"w-structure-pyramid","title":"5-tier governance pyramid diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-structure","confidence":0.92 },
+    { "id":"w-policy-pipeline","title":"Policy Lifecycle pipeline","widgetType":"timeline","status":"vision","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-policy-lifecycle","confidence":0.90 },
+    { "id":"w-alignment-check","title":"Dharma Alignment Check (6 questions)","widgetType":"panel","status":"vision","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-alignment-check","confidence":0.88 }
+  ],
+  "claims": [
+    { "id":"c-proposals-1248","text":"Proposals Active: 1,248","status":"BLOCKED","blockedReason":"No proposal ledger.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-policies-342","text":"Policies Enacted: 342","status":"BLOCKED","blockedReason":"No policy database; fabricated.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-council-members-108","text":"Council Members: 108","status":"BLOCKED","blockedReason":"No council registry.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-communities-192","text":"Communities Governed: 192","status":"BLOCKED","blockedReason":"Recurring 192.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-people-impacted-54-2m","text":"People Impacted: 54.2M+","status":"BLOCKED","blockedReason":"Recurring 54.2M; fabricated.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-votes-cast-12-87m","text":"Votes Cast: 12.87M","status":"BLOCKED","blockedReason":"No voting runtime.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-trust-index-94-1","text":"Trust Index: 94.1/100 (Transparency 95.6 / Accountability 93.8 / Participation 94.2 / Fairness 93.7 / Efficiency 92.1 / Dharma Alignment 96.3 / People Satisfaction 94.8)","status":"BLOCKED","blockedReason":"Composite + sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-pyramid-5-tier","text":"5-tier governance pyramid (Dharma/Stewards/Community/Working Circles/Every Participant)","status":"UNVERIFIED","blockedReason":"Coherent governance structure. No council infrastructure in repo. kbs-governance provides claim-level moderation only.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-structure","confidence":0.85 },
+    { "id":"c-policy-lifecycle","text":"Policy Lifecycle: Draft→Consult→Vote→Enact→Implement→Review→Evolve","status":"PARTIAL","blockedReason":"kbs-governance has policy primitives (evaluateKbsGate, rejectProductionClaim). scripts/governed-production-gate.mjs implements an Enact→Implement gate for releases. Full lifecycle is not wired.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-policy-lifecycle","confidence":0.80 },
+    { "id":"c-dharma-alignment-6q","text":"Dharma Alignment Check: 6 questions (True? Just? Compassionate? Harm? Benefit Many? Stand Time?)","status":"UNVERIFIED","blockedReason":"Decision-quality framework; not runtime-enforced.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-alignment-check","confidence":0.88 },
+    { "id":"c-transparency-immutable","text":"Transparency: Open Data / Immutable Records (Blockchain secured) / Public Dashboards / Audit Trails / Whistleblower Protected","status":"BLOCKED","blockedReason":"Blockchain-backed immutability not implemented. Audit trail substrate exists for releases via release-authority/.","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","sourceSectionId":"sec-transparency","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Governance Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.85 },
+    { "id":"ev-kbs-governance","title":"@maataa/kbs-governance + scripts/governed-production-gate.mjs are the real substrate for the Decision→Execute steps of the policy lifecycle","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/governance-universe-board.png","confidence":0.92 }
+  ]
+}

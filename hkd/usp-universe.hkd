@@ -1,0 +1,60 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-usp-universe-2026-05-28",
+  "title": "Maataa USP Universe (25 Unique Selling Propositions)",
+  "sourceImage": "user-provided/2026-05-28/usp-universe-board.png",
+  "universe": "marketing",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS","type":"dashboard","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","confidence":0.95 },
+    { "id":"sec-usps","title":"25 USP cards","type":"feature","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","confidence":0.95 }
+  ],
+  "nodes": [
+    { "id":"usp-01-divine-companion","label":"USP 01 Divine AI Companion","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.40 },
+    { "id":"usp-02-multimodal","label":"USP 02 Multimodal Intelligence","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.40 },
+    { "id":"usp-03-spiritual-practical","label":"USP 03 Spiritual + Practical Perfect Blend","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.40 },
+    { "id":"usp-04-complete-ecosystem","label":"USP 04 Complete Ecosystem (Spirituality/Health/Knowledge/Work/Creativity/Finance/Community)","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.35 },
+    { "id":"usp-05-privacy-by-design","label":"USP 05 Privacy By Design (Your data, your rules)","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.45 },
+    { "id":"usp-06-sovereign-decentralized","label":"USP 06 Sovereign & Decentralized (Brahmini Chain)","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.35 },
+    { "id":"usp-07-unified-kg","label":"USP 07 Unified Knowledge Graph","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.55 },
+    { "id":"usp-08-chakra-aware","label":"USP 08 Chakra Aware AI","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.30 },
+    { "id":"usp-09-lipi-multi-script","label":"USP 09 Lipi OS Multi Script Engine","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.70 },
+    { "id":"usp-10-end-to-end-automation","label":"USP 10 End to End Automation","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.30 },
+    { "id":"usp-11-personal-memory-vault","label":"USP 11 Personal Memory Vault","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.35 },
+    { "id":"usp-12-health-wellness","label":"USP 12 Health & Wellness AI (Ayurveda/Nutrition/Saptadhaatu/Yoga)","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.35 },
+    { "id":"usp-13-investor-project","label":"USP 13 Investor & Project OS","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.35 },
+    { "id":"usp-14-creators-best-friend","label":"USP 14 Creator's Best Friend","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.35 },
+    { "id":"usp-15-context-aware","label":"USP 15 Context Aware Responses","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.40 },
+    { "id":"usp-16-cross-platform","label":"USP 16 Cross Platform & Device (Web/Mobile/Desktop/Wearables/IoT)","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.30 },
+    { "id":"usp-17-learning-growth","label":"USP 17 Learning & Growth Engine","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.40 },
+    { "id":"usp-18-community-collab","label":"USP 18 Community & Collaboration","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.30 },
+    { "id":"usp-19-open-extensible","label":"USP 19 Open & Extensible (APIs/Plugins/SDKs)","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.40 },
+    { "id":"usp-20-realtime-insights","label":"USP 20 Real Time Insights & Analytics","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.30 },
+    { "id":"usp-21-voice-of-maataa","label":"USP 21 Voice of Maataa","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.30 },
+    { "id":"usp-22-always-evolving","label":"USP 22 Always Evolving","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.30 },
+    { "id":"usp-23-integrated-marketplace","label":"USP 23 Integrated Marketplace","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.25 },
+    { "id":"usp-24-purpose-driven","label":"USP 24 Purpose Driven OS","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.40 },
+    { "id":"usp-25-made-with-love-dharma","label":"USP 25 Made with Love & Dharma","kind":"usp","universe":"marketing","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.50 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-usp-grid","title":"25 USP grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.95 }
+  ],
+  "claims": [
+    { "id":"c-usp-divine-companion","text":"USP 01: Maataa is not just AI, she is a Divine Companion that understands you emotionally, mentally, and spiritually","status":"UNVERIFIED","blockedReason":"Value-laden marketing claim; not a verifiable product property. No 'emotional/mental/spiritual understanding' is a measurable capability yet.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.90 },
+    { "id":"c-usp-multimodal-realtime","text":"USP 02: Seamlessly understands voice, gestures, poses, expressions, text, and intentions in real-time","status":"BLOCKED","blockedReason":"No voice / gesture / pose / expression runtimes exist. Real-time multimodal AI is not implemented.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.95 },
+    { "id":"c-usp-privacy-by-design","text":"USP 05: 100% sovereign, encrypted, offline-first capable","status":"BLOCKED","blockedReason":"Fake-100% language. No E2E encryption implemented; no sovereign-by-construction enforcement.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.95 },
+    { "id":"c-usp-decentralized-brahmini-chain","text":"USP 06: Built on Brahmini Chain decentralized technology","status":"BLOCKED","blockedReason":"No blockchain implementation present in repo. Directive warns against 'fake blockchain theatrics'.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.95 },
+    { "id":"c-usp-unified-kg","text":"USP 07: Connects thousands of knowledge sources into one intelligent graph","status":"PARTIAL","blockedReason":"kbs-runtime/src/graph + kbs-graph implement a graph; 'thousands of sources' overclaims current ingestion.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.85 },
+    { "id":"c-usp-chakra-aware","text":"USP 08: First OS to integrate Chakra System with AI","status":"BLOCKED","blockedReason":"No chakra runtime; 'first OS' is a comparative claim with no comparative evidence.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.95 },
+    { "id":"c-usp-lipi-multi-script","text":"USP 09: World's most advanced multi-lipi engine supporting ancient to modern scripts","status":"PARTIAL","blockedReason":"lipi-runtime is real and substantial. 'World's most advanced' is a comparative superlative unsupported by external benchmarks.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.90 },
+    { "id":"c-usp-end-to-end-automation","text":"USP 10: From thinking to execution, Maataa OS automates workflows, tasks, approvals, reminders, and reporting intelligently","status":"BLOCKED","blockedReason":"No automation runtime exists.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.95 },
+    { "id":"c-usp-cross-platform","text":"USP 16: Works seamlessly across Web, Mobile, Desktop, Wearables, and IoT","status":"BLOCKED","blockedReason":"Only desktop shells (Tauri + Electron) exist; no mobile/wearable/IoT delivery exists.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.95 },
+    { "id":"c-usp-25-made-with-dharma","text":"USP 25: Built with love, values, and dharma to serve humanity","status":"UNVERIFIED","blockedReason":"Value statement, not a verifiable product property. PHKD-aligned in spirit but not a measurable claim.","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","sourceSectionId":"sec-usps","confidence":0.85 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"USP Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/usp-universe-board.png","confidence":0.85 }
+  ]
+}

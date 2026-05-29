@@ -1,0 +1,63 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-asset-library-universe-2026-05-28",
+  "title": "Maataa Asset Library Universe (Every Asset. Every Format. Every Purpose.)",
+  "sourceImage": "user-provided/2026-05-28/asset-library-board.png",
+  "universe": "asset-library",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS (Assets / Categories / Formats / Resolutions / Libraries / Status)","type":"dashboard","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.95 },
+    { "id":"sec-libraries","title":"20 Asset Libraries (Icons / Logos / Illustrations / 3D Models / Animations / Voices / Music / Fonts / Lipi Glyphs / Textures / UI Kits / Video / Avatar / Environments / Documents / 3D Scenes / AR-VR / Data Visual)","type":"feature","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.92 },
+    { "id":"sec-statistics","title":"Asset Statistics (Total / Categories / Libraries / Formats / Storage 8.7 TB / CDN Global Nodes / Downloads/Month / Active Projects)","type":"dashboard","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.95 },
+    { "id":"sec-quality","title":"Asset Quality Standards (High Resolution 4K/8K / Optimized & Compressed / Multiple Formats / Consistent Naming / Metadata / PHKD Compliant / License Managed / Version Controlled)","type":"feature","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.90 },
+    { "id":"sec-licenses","title":"Asset Licenses (Maataa OS License / Creative Commons / Royalty Free / Commercial Use / Attribution Required / Soulbound Brahmini)","type":"feature","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.88 },
+    { "id":"sec-organization","title":"Asset Organization Structure (Category→Sub Category→Asset Type→Format→Resolution→Variant→Version→Metadata)","type":"workflow","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.88 },
+    { "id":"sec-powered-by","title":"Powered by Maataa OS Runtimes (HKD Runtime / Asset Runtime / CDN & Edge / Brahmini ID / Search Engine / Analytics Engine)","type":"feature","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.88 },
+    { "id":"sec-formats","title":"Supported Formats (120+) (Images: SVG/PNG/JPG/WebP/GIF/ICO; 3D: GLB/FBX/OBJ/USD/BLEND; Audio: WAV/MP3/OGG/AAC/FLAC; Video: MP4/MOV/WebM/AVI/MKV; Docs: PDF/DOCX/PPTX/ODT/MD; Others: JSON/XML/CSV/TXT/ZIP)","type":"feature","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.92 },
+    { "id":"sec-usage","title":"Asset Usage Across Ecosystem (Maataa OS / TLP / Lipi / Saptadhaatu / InvestorHub / Brahmini / HKD / Vaigyaaniq / ALLB / More)","type":"feature","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"lib-01-icons","label":"01 Icons Library (25,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.30 },
+    { "id":"lib-02-logos","label":"02 Logos & Marks (2,500+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.30 },
+    { "id":"lib-03-illustrations","label":"03 Illustrations (5,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.30 },
+    { "id":"lib-04-3d-models","label":"04 3D Models (3,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.25 },
+    { "id":"lib-05-animations","label":"05 Animations (4,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.25 },
+    { "id":"lib-06-voices","label":"06 Voices Library (500+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.20 },
+    { "id":"lib-08-music","label":"08 Music Library (2,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.25 },
+    { "id":"lib-09-fonts","label":"09 Fonts Library (1,000+) (Brahmi Lipi / Devanagari / Kharoshthi / English / Sanskrit)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.50 },
+    { "id":"lib-10-lipi-glyphs","label":"10 Lipi Glyphs (15,000+) (Brahmi / Kharoshthi / Devanagari / Siddham)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.55 },
+    { "id":"lib-11-textures","label":"11 Textures & Materials (2,500+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.25 },
+    { "id":"lib-12-ui-kits","label":"12 UI Kits & Templates (1,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.30 },
+    { "id":"lib-13-video","label":"13 Video Library (2,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.25 },
+    { "id":"lib-15-avatar","label":"15 Avatar Assets (1,200+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.20 },
+    { "id":"lib-16-environments","label":"16 Environments (500+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.25 },
+    { "id":"lib-17-doc-templates","label":"17 Document Templates (300+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.30 },
+    { "id":"lib-18-3d-scenes","label":"18 3D Scenes & Sets (300+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.20 },
+    { "id":"lib-19-arvr","label":"19 AR/VR Assets (500+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.20 },
+    { "id":"lib-20-data-visual","label":"20 Data Visual Assets (1,000+)","kind":"asset-library","universe":"asset-library","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.30 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Asset Library Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-libraries-grid","title":"20-library grid (with thumbnail collages)","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.92 },
+    { "id":"w-statistics","title":"Asset Statistics panel (125K+ / 20+ / 15+ / 120+ / 8.7TB / 28 / 2.5M+ / 300+)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-statistics","confidence":0.95 }
+  ],
+  "claims": [
+    { "id":"c-assets-125k","text":"Assets Total: 125,000+","status":"BLOCKED","blockedReason":"Repo has assets/html (~42 HTML pages), some images, no asset library at this scale.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-categories-20","text":"Categories: 20+","status":"BLOCKED","blockedReason":"No category taxonomy implemented.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-formats-120","text":"Formats: 120+","status":"PARTIAL","blockedReason":"120+ file formats is generic count; the repo handles a small subset (HTML, MD, JSON, PNG, etc.). No format conversion runtime.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-status","confidence":0.90 },
+    { "id":"c-resolutions-8k-64px","text":"Resolutions: 8K → 64px","status":"BLOCKED","blockedReason":"No resolution generation pipeline.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"c-libraries-15","text":"Libraries: 15+","status":"BLOCKED","blockedReason":"No library structure on disk.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-statistics-storage-8-7tb","text":"Statistics: Storage 8.7 TB / CDN Global Nodes 28 / Downloads/Month 2.5M+ / Active Projects 300+","status":"BLOCKED","blockedReason":"No CDN; no download tracking.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-statistics","confidence":0.99 },
+    { "id":"c-lipi-glyphs-15k","text":"Lipi Glyphs Library: 15,000+ glyphs across Brahmi/Kharoshthi/Devanagari/Siddham","status":"PARTIAL","blockedReason":"lipi-runtime/src/characters provides script-character primitives. 15K specific glyph assets are not stored as a library.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-libraries","confidence":0.80 },
+    { "id":"c-soulbound-brahmini","text":"License: Soulbound (Brahmini)","status":"BLOCKED","blockedReason":"Soulbound tokens require blockchain; Brahmini Chain does not exist.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-licenses","confidence":0.99 },
+    { "id":"c-quality-phkd-compliant","text":"Asset Quality includes PHKD Compliant marker","status":"UNVERIFIED","blockedReason":"PHKD compliance for assets undefined; no asset validator.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-quality","confidence":0.92 },
+    { "id":"c-organization-versioned","text":"Asset Organization: Category→Sub→Type→Format→Resolution→Variant→Version→Metadata","status":"UNVERIFIED","blockedReason":"Reasonable taxonomy; no implementation.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-organization","confidence":0.90 },
+    { "id":"c-powered-by-cdn","text":"Powered by CDN & Edge / Brahmini ID / Search Engine / Analytics Engine","status":"BLOCKED","blockedReason":"None of those runtimes exist.","sourceImage":"user-provided/2026-05-28/asset-library-board.png","sourceSectionId":"sec-powered-by","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Asset Library Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/asset-library-board.png","confidence":0.85 }
+  ]
+}

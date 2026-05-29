@@ -1,0 +1,71 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-civilization-graph-universe-2026-05-28",
+  "title": "Maataa Civilization Graph Universe (One Humanity. Connected Civilizations. Infinite Progress.)",
+  "sourceImage": "user-provided/2026-05-28/civilization-graph-board.png",
+  "universe": "civilization",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS (Connected Entities / Projects / Knowledge Assets / Communities / Countries)","type":"dashboard","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.95 },
+    { "id":"sec-7-levels","title":"7 Levels of Civilization (Human → Family → Community → Institution → Organization → Nation → Earth)","type":"feature","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.92 },
+    { "id":"sec-civ-graph","title":"Civilization Graph (7 levels × 8 dimensions web)","type":"data","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.92 },
+    { "id":"sec-flows","title":"Civilizational Flows (Ideas → Knowledge → Innovation → Value Creation → Distribution → Wellbeing → Legacy)","type":"workflow","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.90 },
+    { "id":"sec-connectors","title":"Civilization Connectors (Common Values / Digital Infrastructure / Open Knowledge / Inclusive Economy / Sustainable Living / Peace & Collaboration)","type":"feature","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.88 },
+    { "id":"sec-example-education","title":"Example: Education Connection Across Civilization","type":"workflow","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.85 },
+    { "id":"sec-health-index","title":"Civilization Health Index 78.4 Healthy Improving + 7 dimension scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.92 },
+    { "id":"sec-interconnection","title":"Interconnection Matrix (8 dimensions × 7 levels)","type":"data","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.90 },
+    { "id":"sec-global-snapshot","title":"Global Civilization Snapshot (regions: NA/SA/EU/Africa/Oceania)","type":"dashboard","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.92 },
+    { "id":"sec-realtime-insights","title":"Real Time Insights","type":"dashboard","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.92 },
+    { "id":"sec-impact-goals","title":"Civilization Impact Goals (End Poverty / Universal Education / Good Health / Sustainable Economy / Climate Positive / Global Peace)","type":"feature","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.90 },
+    { "id":"sec-powered-by","title":"Powered By MAATAA OS (HKD / TLP / LIPI / KRISHI / MANDI / CIC / INVESTORHUB / BRAHMINI AI)","type":"feature","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"lvl-1-human","label":"1. Human (The Individual. The conscious being.)","kind":"civ-level","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.85 },
+    { "id":"lvl-2-family","label":"2. Family (First school of values and love.)","kind":"civ-level","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.80 },
+    { "id":"lvl-3-community","label":"3. Community (People united by purpose & culture.)","kind":"civ-level","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.75 },
+    { "id":"lvl-4-institution","label":"4. Institution (Structured systems for service.)","kind":"civ-level","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.70 },
+    { "id":"lvl-5-organization","label":"5. Organization (Enterprises creating scale & value.)","kind":"civ-level","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.65 },
+    { "id":"lvl-6-nation","label":"6. Nation (Sovereignty, policy & collective vision.)","kind":"civ-level","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.55 },
+    { "id":"lvl-7-earth","label":"7. Earth (One planet. One home. One future.)","kind":"civ-level","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.50 },
+    { "id":"dim-knowledge","label":"Knowledge","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.65 },
+    { "id":"dim-projects","label":"Projects","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.45 },
+    { "id":"dim-economics","label":"Economics","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.45 },
+    { "id":"dim-health","label":"Health","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.45 },
+    { "id":"dim-education","label":"Education","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.45 },
+    { "id":"dim-culture","label":"Culture","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.45 },
+    { "id":"dim-environment","label":"Environment","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.45 },
+    { "id":"dim-governance","label":"Governance","kind":"civ-dimension","universe":"civilization","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.45 }
+  ],
+  "edges": [
+    { "from":"lvl-1-human","to":"lvl-2-family","relation":"part-of","confidence":0.80,"sourceImage":"user-provided/2026-05-28/civilization-graph-board.png" },
+    { "from":"lvl-2-family","to":"lvl-3-community","relation":"part-of","confidence":0.80,"sourceImage":"user-provided/2026-05-28/civilization-graph-board.png" },
+    { "from":"lvl-3-community","to":"lvl-4-institution","relation":"part-of","confidence":0.75,"sourceImage":"user-provided/2026-05-28/civilization-graph-board.png" },
+    { "from":"lvl-4-institution","to":"lvl-5-organization","relation":"part-of","confidence":0.70,"sourceImage":"user-provided/2026-05-28/civilization-graph-board.png" },
+    { "from":"lvl-5-organization","to":"lvl-6-nation","relation":"part-of","confidence":0.65,"sourceImage":"user-provided/2026-05-28/civilization-graph-board.png" },
+    { "from":"lvl-6-nation","to":"lvl-7-earth","relation":"part-of","confidence":0.55,"sourceImage":"user-provided/2026-05-28/civilization-graph-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-civ-graph-web","title":"7-level × 8-dimension civilization graph (web)","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-civ-graph","confidence":0.92 },
+    { "id":"w-health-index","title":"Health Index 78.4 Healthy Improving + 7 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-health-index","confidence":0.92 },
+    { "id":"w-global-map","title":"Global Civilization Snapshot map","widgetType":"matrix","status":"blocked","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-global-snapshot","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-connected-entities-8-478m","text":"Connected Entities: 8.478M+","status":"BLOCKED","blockedReason":"No entity graph at this scale; kbs-runtime tracks orders of magnitude fewer entities.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-projects-4-23m","text":"Projects & Initiatives: 4.23M+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-knowledge-assets-1-87b","text":"Knowledge Assets: 1.87B+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-communities-9-76m","text":"Communities: 9.76M+","status":"BLOCKED","blockedReason":"No community runtime.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-countries-195","text":"Countries: 195","status":"BLOCKED","blockedReason":"Earth has 195 sovereign states; the board claims civilizational reach across all. No deployment beyond repo.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"c-health-index-78-4","text":"Civilization Health Index: 78.4 Healthy Improving","status":"BLOCKED","blockedReason":"Composite over fabricated dimension scores.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-health-index","confidence":0.99 },
+    { "id":"c-realtime-insights","text":"Real Time Insights: 2.4M+ Projects / 9.7M+ Communities / 1.8B+ Assets / 54.2M+ People Impacted Today / 98.7% Earth Coverage","status":"BLOCKED","blockedReason":"All metrics fabricated.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-realtime-insights","confidence":0.99 },
+    { "id":"c-7-levels-model","text":"7 Levels of Civilization (Human → Family → Community → Institution → Organization → Nation → Earth)","status":"UNVERIFIED","blockedReason":"Conceptual model; not a software claim. Coherent hierarchy.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-7-levels","confidence":0.90 },
+    { "id":"c-civ-flows","text":"Civilizational Flows: Ideas → Knowledge → Innovation → Value Creation → Distribution → Wellbeing → Legacy","status":"UNVERIFIED","blockedReason":"Conceptual flow; no measured implementation.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-flows","confidence":0.90 },
+    { "id":"c-impact-goals-6","text":"6 Civilization Impact Goals (End Poverty / Universal Education / Good Health / Sustainable Economy / Climate Positive / Global Peace)","status":"UNVERIFIED","blockedReason":"Aspirational alignment with UN-SDG-style outcomes; not measured.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-impact-goals","confidence":0.90 },
+    { "id":"c-powered-by-lipi","text":"Powered By: LIPI Language & Script","status":"PARTIAL","blockedReason":"lipi-runtime is real; civilizational integration is aspirational.","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","sourceSectionId":"sec-powered-by","confidence":0.85 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Civilization Graph Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/civilization-graph-board.png","confidence":0.85 }
+  ]
+}

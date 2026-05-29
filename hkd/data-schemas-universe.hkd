@@ -1,0 +1,64 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-data-schemas-universe-2026-05-28",
+  "title": "Maataa Data Schemas & Databases Universe (Structured. Connected. Secure. Sovereign.)",
+  "sourceImage": "user-provided/2026-05-28/data-schemas-board.png",
+  "universe": "data-schemas",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS (Data Layer / Schemas 250+ / Tables 1200+ / Relations 5000+ / Databases 7 / Data Health)","type":"dashboard","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.95 },
+    { "id":"sec-database-universe","title":"01 Database Universe (SQLite/libSQL/PostgreSQL/pgVector/Neo4j/MinIO/Redis/Event Store)","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.92 },
+    { "id":"sec-core-schemas","title":"02 Core Data Schemas (Identity/Knowledge/Projects/TLP Content/InvestorHub/Brahmini Identity/Chakra/Lipi/Tasks/Memory/Saptadhaatu Health/System)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.92 },
+    { "id":"sec-erd","title":"03 Entity Relationship Diagram (users/profiles/roles/permissions/projects/tasks/milestones/knowledge_nodes/knowledge_relations/knowledge_sources/documents/assets/events)","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.90 },
+    { "id":"sec-table-example","title":"04 Table Structure Example (users CREATE TABLE)","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-indexes","title":"05 Indexes & Constraints (Primary/Unique/Composite/Full Text/Vector HNSW/Spatial + FK/Unique/Not Null/Check/Cascade)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.90 },
+    { "id":"sec-enums","title":"06 Enums & Types (user_status/task_type/chakra_type/asset_type)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-contracts","title":"07 Data Contracts examples (entity/version/fields/rules)","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-hkd-structure","title":"08 HKD Structure example (hkd_id/type/title/content/language/script/relations/sources/created_at)","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-event-structure","title":"09 Event Structure example (event_id/event_type/aggregate_type/actor_id/occurred_at/data)","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-knowledge-structure","title":"10 Knowledge Structure (Node) example","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-migrations","title":"11 Migrations Management (maataa migrate generate/up/down/status/history)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.92 },
+    { "id":"sec-seed","title":"12 Seed Data examples","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.85 },
+    { "id":"sec-backup","title":"13 Backup Strategy (Full/Incremental/Transaction Logs/Object Storage/Retention/Offsite Replication)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.90 },
+    { "id":"sec-recovery","title":"14 Recovery Plan (PITR/DR/Verification/Auto Restore/Replication/Runbooks)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.90 },
+    { "id":"sec-data-flow","title":"15 Data Flow Architecture (Apps→API Gateway→Services→Databases→Cache/Queue→Search/Analytics)","type":"data","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-quality","title":"16 Data Quality & Governance (Schema/Lineage/Quality/Access/Audit/Retention)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.88 },
+    { "id":"sec-db-health","title":"17 Database Health (Live) (Connections / Queries/sec / Cache Hit Ratio / Replication Lag)","type":"dashboard","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.92 },
+    { "id":"sec-security","title":"18 Security Controls (Encryption at Rest/Transit/Secrets/Audit/PII Masking/Compliance)","type":"feature","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.92 }
+  ],
+  "nodes": [
+    { "id":"db-sqlite","label":"SQLite (Local) — Lightweight, embedded, edge","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.70 },
+    { "id":"db-libsql","label":"libSQL / Turso — Distributed SQLite sync","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.50 },
+    { "id":"db-postgres","label":"PostgreSQL — Relational ACID powerful","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.40 },
+    { "id":"db-pgvector","label":"pgVector — Vector similarity search","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.35 },
+    { "id":"db-neo4j","label":"Neo4j — Graph DB","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.30 },
+    { "id":"db-minio","label":"MinIO / S3 — Object storage","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.35 },
+    { "id":"db-redis","label":"Redis — In-memory cache, pub/sub","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.35 },
+    { "id":"db-event-store","label":"Event Store (Kafka / NATS) — Event streaming","kind":"database","universe":"data-schemas","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-database-universe","confidence":0.25 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Data Schemas Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-erd","title":"ERD diagram (13 tables)","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-erd","confidence":0.90 },
+    { "id":"w-db-health","title":"DB Health live chart (Connections 128/1000, 2,450 Q/s, Cache Hit 97.6%, Replication Lag 85ms)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-db-health","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-schemas-250","text":"Schemas: 250+","status":"BLOCKED","blockedReason":"lipi-runtime has prisma/schema.prisma (real). Only one schema file in repo; nothing close to 250.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-tables-1200","text":"Tables: 1,200+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-relations-5000","text":"Relations: 5,000+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-databases-7","text":"Databases: 7 (SQLite/libSQL/Postgres/pgVector/Neo4j/MinIO/Redis + Event Store)","status":"BLOCKED","blockedReason":"None of these databases are deployed by the repo. lipi-runtime uses Prisma (DB engine-agnostic). No multi-DB orchestration.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"c-data-health-optimal","text":"Data Health: Optimal","status":"BLOCKED","blockedReason":"No live data layer.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-erd-13-tables","text":"ERD: users / profiles / roles / permissions / projects / tasks / milestones / knowledge_nodes / knowledge_relations / knowledge_sources / documents / assets / events","status":"PARTIAL","blockedReason":"lipi-runtime/prisma/schema.prisma contains a real subset (lipi-domain tables). The board's 13-table ERD is broader and not implemented.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-erd","confidence":0.80 },
+    { "id":"c-migrations-cli","text":"Migrations: maataa migrate generate/up/down/status/history CLI","status":"PARTIAL","blockedReason":"scripts/db-migrate.mjs exists; full Prisma-style migration CLI is partial via Prisma in lipi-runtime.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-migrations","confidence":0.80 },
+    { "id":"c-db-health-live","text":"Live DB Health: Connections 128/1000 / Queries/Sec 2,450 / Cache Hit 97.6% / Replication Lag 85ms","status":"BLOCKED","blockedReason":"No live DB to monitor.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-db-health","confidence":0.99 },
+    { "id":"c-security-encrypted-everywhere","text":"Encryption at Rest (all DBs encrypted) / TLS 1.3 in Transit everywhere / Secrets Vault / Access Audit / PII Masking / GDPR DPDP HIPAA ready","status":"BLOCKED","blockedReason":"No encryption substrate; no compliance certification (per Deployment Universe BLOCKED claims).","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-security","confidence":0.99 },
+    { "id":"c-backup-strategy","text":"Backup: Full daily / Incremental every 6h / Transaction Logs continuous / Object Storage daily / Retention 30/90/365 / Offsite Cross-region","status":"BLOCKED","blockedReason":"No backup pipeline running.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-backup","confidence":0.95 },
+    { "id":"c-recovery-rto-rpo","text":"DR: Point-in-Time / RTO < 15 min / RPO < 5 min / Auto Restore / Replication Failover / Runbooks","status":"BLOCKED","blockedReason":"No DR infrastructure beyond doc/rollback.md design intent.","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","sourceSectionId":"sec-recovery","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Data Schemas & Databases Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.85 },
+    { "id":"ev-prisma-real","title":"lipi-runtime/prisma/schema.prisma is the only real schema file in repo today","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/data-schemas-board.png","confidence":0.95 }
+  ]
+}

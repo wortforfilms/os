@@ -1,0 +1,54 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-sku-universe-2026-05-28",
+  "title": "Maataa SKU Universe (All SKUs of Maataa OS)",
+  "sourceImage": "user-provided/2026-05-28/sku-universe-board.png",
+  "universe": "sku",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS","type":"dashboard","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","confidence":0.95 },
+    { "id":"sec-skus","title":"24 SKU editions grid","type":"feature","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","confidence":0.95 },
+    { "id":"sec-legend","title":"SKU Legend (Free/Paid/Premium/Enterprise)","type":"dashboard","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","confidence":0.92 }
+  ],
+  "nodes": [
+    { "id":"sku-per-001","label":"MOS-PER-001 Personal Edition (1 User / 5 Devices / 10 GB / Standard Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-home-002","label":"MOS-HOME-002 Home Edition (6 Users / 20 Devices / 100 GB / Priority Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-std-003","label":"MOS-STD-003 Student Edition (1 User / 5 Devices / 50 GB / Academic Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-edu-004","label":"MOS-EDU-004 Educator Edition (50 Users / 100 Devices / 500 GB / Priority Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-crt-005","label":"MOS-CRT-005 Creator Edition (1 User / 10 Devices / 200 GB / Creator Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-pro-006","label":"MOS-PRO-006 Professional Edition (1 User / 10 Devices / 200 GB / Priority Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-biz-007","label":"MOS-BIZ-007 Business Edition (25 Users / 50 Devices / 1 TB / Business Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-ent-008","label":"MOS-ENT-008 Enterprise Edition (250 Users / 500 Devices / 5 TB / 24/7 Enterprise Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-org-009","label":"MOS-ORG-009 Organization Edition (100 Users / 200 Devices / 2 TB / Priority Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-gov-010","label":"MOS-GOV-010 Government Edition (Unlimited Users/Devices / 10 TB / 24/7 Gov Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-hlt-011","label":"MOS-HLT-011 Healthcare Edition (100 Users / 200 Devices / 2 TB / Healthcare Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-rch-012","label":"MOS-RCH-012 Research Edition (50 Users / 100 Devices / 2 TB / Research Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-dev-013","label":"MOS-DEV-013 Developer Edition (1 User / 10 Devices / 500 GB / Developer Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-str-014","label":"MOS-STR-014 Startup Edition (10 Users / 20 Devices / 1 TB / Startup Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-fin-015","label":"MOS-FIN-015 Finance Edition (100 Users / 200 Devices / 2 TB / Finance Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-rtl-016","label":"MOS-RTL-016 Retail Edition (50 Users / 100 Devices / 1 TB / Retail Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-agr-017","label":"MOS-AGR-017 Agriculture Edition (25 Users / 50 Devices / 500 GB / Agri Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-trv-018","label":"MOS-TRV-018 Travel Edition (25 Users / 50 Devices / 500 GB / Travel Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-entr-019","label":"MOS-ENTR-019 Entertainment Edition (50 Users / 100 Devices / 2 TB / Entertainment Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-gam-020","label":"MOS-GAM-020 Gaming Edition (20 Users / 50 Devices / 1 TB / Gaming Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-sec-021","label":"MOS-SEC-021 Security Edition (100 Users / 200 Devices / 2 TB / 24/7 Security Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-iot-022","label":"MOS-IOT-022 IoT Edition (1000 Devices / 2 TB / Real-time Analytics / IoT Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-sov-023","label":"MOS-SOV-023 Sovereign Cloud Edition (Unlimited / Custom Storage / Sovereign Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 },
+    { "id":"sku-ult-024","label":"MOS-ULT-024 Ultimate Edition (Unlimited everything / 24/7 Elite Support)","kind":"sku","universe":"sku","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.30 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-sku-grid","title":"24-SKU grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.95 },
+    { "id":"w-sku-legend","title":"SKU Legend (Free / Paid / Premium / Enterprise)","widgetType":"status","status":"vision","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-legend","confidence":0.90 }
+  ],
+  "claims": [
+    { "id":"c-skus-purchasable","text":"24 SKU editions are purchasable products with the listed user/device/storage limits","status":"BLOCKED","blockedReason":"No product is for sale. No checkout / licensing / entitlement system exists. No license keys are minted. No tenant provisioning. SKU IDs are placeholders.","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.95 },
+    { "id":"c-sku-licensing-enforced","text":"Per-SKU user/device caps and storage quotas are enforced","status":"BLOCKED","blockedReason":"No entitlement engine, no quota meter, no device registration runtime, no licensing telemetry exist.","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.95 },
+    { "id":"c-support-tiers","text":"Per-SKU support tiers (Standard / Priority / 24/7 / Enterprise / Sovereign / Elite)","status":"BLOCKED","blockedReason":"No support desk system, no ticketing, no SLA configuration.","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","sourceSectionId":"sec-skus","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"SKU Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/sku-universe-board.png","confidence":0.85 }
+  ]
+}

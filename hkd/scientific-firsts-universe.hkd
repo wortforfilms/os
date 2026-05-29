@@ -1,0 +1,56 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-scientific-firsts-universe-2026-05-28",
+  "title": "Maataa Scientific Firsts Universe (25 World's Scientific Firsts)",
+  "sourceImage": "user-provided/2026-05-28/scientific-firsts-board.png",
+  "universe": "marketing",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS","type":"dashboard","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","confidence":0.95 },
+    { "id":"sec-firsts","title":"25 'World's Scientific First' cards","type":"feature","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","confidence":0.95 }
+  ],
+  "nodes": [
+    { "id":"sf-01-conscious-ai-os","label":"SF 01 Conscious AI Operating System","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-02-spiritual-multimodal-ai","label":"SF 02 Spiritual Multimodal AI","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-03-chakra-aware-ai","label":"SF 03 Chakra Aware AI Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-04-lipi-os-multi-script","label":"SF 04 Lipi OS Multi Script Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.40 },
+    { "id":"sf-05-sovereign-decentralized-os","label":"SF 05 Sovereign & Decentralized OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-06-knowledge-graph-os","label":"SF 06 Knowledge Graph OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.35 },
+    { "id":"sf-07-memory-that-remembers-you","label":"SF 07 Memory That Remembers You","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-08-breath-biofeedback","label":"SF 08 Breath & Biofeedback OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.15 },
+    { "id":"sf-09-saptadhaatu-health-os","label":"SF 09 Saptadhaatu Health OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-10-brahmini-chain","label":"SF 10 Brahmini Chain","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-11-investor-intelligence-os","label":"SF 11 Investor Intelligence OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-12-task-life-os","label":"SF 12 Task & Life OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"sf-13-emotion-to-evolution","label":"SF 13 Emotion to Evolution Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-14-ai-tutor-guru","label":"SF 14 AI Tutor & Guru System","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-15-context-aware-response","label":"SF 15 Context Aware Response Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.25 },
+    { "id":"sf-16-voice-of-maataa","label":"SF 16 Voice of Maataa","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-17-gesture-intelligence","label":"SF 17 Gesture Intelligence Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-18-ai-powered-meditation","label":"SF 18 AI Powered Meditation OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-19-events-to-impact","label":"SF 19 Events to Impact Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-20-realtime-knowledge-creation","label":"SF 20 Real Time Knowledge Creation OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.30 },
+    { "id":"sf-21-ai-dream-subconscious","label":"SF 21 AI Dream & Subconscious OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.15 },
+    { "id":"sf-22-purpose-discovery","label":"SF 22 Purpose Discovery Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.20 },
+    { "id":"sf-23-energy-aura-os","label":"SF 23 Energy & Aura OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.15 },
+    { "id":"sf-24-cross-dimensional-search","label":"SF 24 Cross Dimensional Search OS","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.15 },
+    { "id":"sf-25-divine-alignment-engine","label":"SF 25 Divine Alignment Engine","kind":"scientific-first","universe":"marketing","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.15 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-firsts-grid","title":"25 Scientific First grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.95 }
+  ],
+  "claims": [
+    { "id":"c-25-scientific-firsts-all","text":"All 25 cards: 'World's First' scientific innovations only in Maataa OS","status":"BLOCKED","blockedReason":"'Scientific First' raises the bar above marketing 'World's First'. Requires peer-reviewed publication establishing priority + reproducibility. None of the 25 cards link to a peer-reviewed paper authored by Maataa OS contributors or a benchmark dataset demonstrating prior-art absence. PHKD principle 1 explicitly bans 'scientific validation' claims without evidence.","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.99 },
+    { "id":"c-sf-01-conscious-ai","text":"SF 01: First OS designed with consciousness at the core, not just computation","status":"BLOCKED","blockedReason":"'Consciousness at the core' is not a measurable engineering property. Not a falsifiable scientific claim.","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.98 },
+    { "id":"c-sf-08-breath-biofeedback","text":"SF 08: First OS to integrate breath, heart rate, HRV and biofeedback","status":"BLOCKED","blockedReason":"Many medical-grade biofeedback platforms exist (Polar, Garmin, Whoop, Apple HealthKit). 'First OS' is provably false.","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.98 },
+    { "id":"c-sf-10-brahmini-chain","text":"SF 10: First decentralized identity, reputation and ownership protocol built on truth, dharma and transparency","status":"BLOCKED","blockedReason":"Decentralized identity protocols pre-date this (DID, Sovrin, ION). 'First' is unsupported. Also: no blockchain implementation in repo.","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.99 },
+    { "id":"c-sf-23-energy-aura","text":"SF 23: First OS to detect, analyze and balance aura and energy fields","status":"BLOCKED","blockedReason":"'Aura and energy fields' as detectable phenomena are not established in peer-reviewed physics or medicine. Claiming an OS detects them violates 'never fabricate scientific validation'.","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.99 },
+    { "id":"c-sf-25-divine-alignment","text":"SF 25: First OS that aligns you with Dharma, Karma, Destiny and Divine Timing","status":"BLOCKED","blockedReason":"Metaphysical alignment is not a measurable engineering function. Cannot be a 'scientific first'.","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","sourceSectionId":"sec-firsts","confidence":0.99 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Scientific Firsts Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/scientific-firsts-board.png","confidence":0.85 }
+  ]
+}

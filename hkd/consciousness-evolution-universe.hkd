@@ -1,0 +1,64 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-consciousness-evolution-universe-2026-05-28",
+  "title": "Maataa Consciousness Evolution Universe (Evolve with Awareness. Serve with Wisdom. Leave a Legacy.)",
+  "sourceImage": "user-provided/2026-05-28/consciousness-evolution-board.png",
+  "universe": "consciousness",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS (Conscious Beings / Active Journeys / Growth Today / Transformations / Legacy Impacted)","type":"dashboard","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.95 },
+    { "id":"sec-8-dimensions","title":"8 Dimensions of Consciousness (Awareness/Learning/Wisdom/Discipline/Creativity/Service/Leadership/Impact)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.92 },
+    { "id":"sec-evolution-path","title":"Consciousness Evolution Path (Awareness→Learning→Practice→Transformation→Contribution→Legacy)","type":"workflow","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.92 },
+    { "id":"sec-evolution-score","title":"Consciousness Evolution Score 78.6 + 6 sub-scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.92 },
+    { "id":"sec-states","title":"Consciousness States (Sleeping/Waking/Growing/Evolving/Realized)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.90 },
+    { "id":"sec-evolution-indicators","title":"Evolution Indicators (Self Awareness/Emotional Mastery/Mental Clarity/Spiritual Growth/Compassion/Purpose/Resilience/Contribution)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.92 },
+    { "id":"sec-journey-map","title":"Evolution Journey Map (level 28 → 96, 6 stages)","type":"dashboard","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.90 },
+    { "id":"sec-insights","title":"Evolution Insights (highest strength / focus area / next milestone / growth streak / lives impacted)","type":"dashboard","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.90 },
+    { "id":"sec-blocks","title":"Blocks to Evolution (Fear/Ego/Attachment/Distraction/Doubt/Inaction)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.90 },
+    { "id":"sec-daily-practices","title":"Daily Consciousness Practices (Meditation/Reflection/Journaling/Gratitude/Seva/Study/Silence/Sankalpa)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.90 },
+    { "id":"sec-virtues","title":"Virtues That Elevate Consciousness (Satya/Karuna/Jnana/Veerya/Namrata/Kshama/Prema/Samatva)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.90 },
+    { "id":"sec-recommender","title":"Practice Recommender (Morning Meditation / Gratitude Journaling / Study / Physical Discipline / Seva Activity)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.85 },
+    { "id":"sec-ai-guide","title":"Maataa AI Guide companion","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.85 },
+    { "id":"sec-achievements","title":"Achievements & Milestones (badges)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.85 },
+    { "id":"sec-ecosystem","title":"Consciousness Ecosystem (Teachers/Satsangs/Courses/Retreats/Projects/Mentorship)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.88 },
+    { "id":"sec-personal-to-planetary","title":"From Personal to Planetary (Self→Family→Community→Society→Humanity/Earth)","type":"workflow","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.88 },
+    { "id":"sec-legacy-create","title":"Legacy You Create (Knowledge You Share / Lives You Touch / Impact You Leave / Change You Inspire / World You Heal)","type":"feature","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"path-1-awareness","label":"1. Awareness — I See (Curiosity/Observation/Presence/Wonder)","kind":"path-stage","universe":"consciousness","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-path","confidence":0.30 },
+    { "id":"path-2-learning","label":"2. Learning — I Understand (Study/Reflection/Knowledge/Discernment)","kind":"path-stage","universe":"consciousness","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-path","confidence":0.30 },
+    { "id":"path-3-practice","label":"3. Practice — I Integrate (Discipline/Consistency/Habits/Embodiment)","kind":"path-stage","universe":"consciousness","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-path","confidence":0.30 },
+    { "id":"path-4-transformation","label":"4. Transformation — I Become (Inner Change/Letting Go/Healing/Alignment)","kind":"path-stage","universe":"consciousness","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-path","confidence":0.25 },
+    { "id":"path-5-contribution","label":"5. Contribution — I Serve (Seva/Sharing/Empowering/Co-Creation)","kind":"path-stage","universe":"consciousness","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-path","confidence":0.30 },
+    { "id":"path-6-legacy","label":"6. Legacy — I Inspire (Impact/Mentorship/Wisdom/Timelessness)","kind":"path-stage","universe":"consciousness","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-path","confidence":0.25 }
+  ],
+  "edges": [
+    { "from":"path-1-awareness","to":"path-2-learning","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png" },
+    { "from":"path-2-learning","to":"path-3-practice","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png" },
+    { "from":"path-3-practice","to":"path-4-transformation","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png" },
+    { "from":"path-4-transformation","to":"path-5-contribution","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png" },
+    { "from":"path-5-contribution","to":"path-6-legacy","relation":"precedes","confidence":0.85,"sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-evolution-score","title":"Evolution Score 78.6/100 + 6 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-score","confidence":0.92 },
+    { "id":"w-journey-map","title":"Evolution Journey Map line chart","widgetType":"timeline","status":"blocked","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-journey-map","confidence":0.90 },
+    { "id":"w-indicators","title":"Evolution Indicators bars","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-indicators","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-conscious-beings-2-1m","text":"Conscious Beings: 2,136,774","status":"BLOCKED","blockedReason":"No user base; no consciousness measurement. Most ethically charged metric on any board — claims a count of conscious beings.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-active-journeys-1-29m","text":"Active Journeys: 1,287,562","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-transformations-842k","text":"Transformations: 842,118","status":"BLOCKED","blockedReason":"Fabricated; 'transformation' is not a measurable engineering output.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-legacy-impacted-8-7m","text":"Legacy Impacted: 8.7M+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-evolution-score-78-6","text":"Consciousness Evolution Score: 78.6/100 Evolving (+ 6 sub-scores Awareness 82.1 / Learning 76.4 / Practice 72.8 / Transformation 79.3 / Contribution 81.7 / Legacy 76.6)","status":"BLOCKED","blockedReason":"Score over fabricated inputs.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-evolution-score","confidence":0.99 },
+    { "id":"c-journey-level-28-96","text":"Journey Map shows level progression 28→42→56→70→82→96 across 6 stages","status":"BLOCKED","blockedReason":"Fabricated trajectory; no measurement substrate.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-journey-map","confidence":0.99 },
+    { "id":"c-insights-compassion-88","text":"Insights: highest strength Compassion 88% / focus Emotional Mastery 72% / next milestone Transformation 70% / Growth streak 127 days / 1,248 days on journey / 3,842+ lives impacted","status":"BLOCKED","blockedReason":"All metrics fabricated.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-insights","confidence":0.99 },
+    { "id":"c-virtues-sanskrit","text":"Virtues That Elevate Consciousness: Satya / Karuna / Jnana / Veerya / Namrata / Kshama / Prema / Samatva","status":"UNVERIFIED","blockedReason":"Traditional Sanskrit virtues catalogued. Not a software claim.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-virtues","confidence":0.85 },
+    { "id":"c-blocks-fear-ego","text":"Blocks to Evolution: Fear / Ego / Attachment / Distraction / Doubt / Inaction","status":"UNVERIFIED","blockedReason":"Traditional contemplative framework.","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","sourceSectionId":"sec-blocks","confidence":0.85 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Consciousness Evolution Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/consciousness-evolution-board.png","confidence":0.85 }
+  ]
+}

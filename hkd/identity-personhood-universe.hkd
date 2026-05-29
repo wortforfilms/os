@@ -1,0 +1,60 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-identity-personhood-universe-2026-05-28",
+  "title": "Maataa Identity & Personhood Universe (One Identity. Many Roles. Infinite Purposes.)",
+  "sourceImage": "user-provided/2026-05-28/identity-personhood-board.png",
+  "universe": "identity",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA ID STATUS (Total / Active / Verified / Brahmini Identities / Countries)","type":"dashboard","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.95 },
+    { "id":"sec-pillars","title":"Identity Pillars (Who I Am / What I Do / What I Know / Who I Serve / How I Grow / What I Value / What I Create / The Impact I Leave)","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.92 },
+    { "id":"sec-id-card","title":"MAATAA ID Card (Verified, BRM-IND-0007821, etc.)","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.90 },
+    { "id":"sec-id-graph","title":"Identity Graph (Who I Am) — Roles/Skills/Organizations/Relationships/Assets/Communities + Learning/Contributions/Achievements/Impact","type":"data","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.90 },
+    { "id":"sec-roles","title":"Roles & Personas table","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.92 },
+    { "id":"sec-personhood","title":"Personhood Spectrum (Consciousness/Learning/Skill/Emotional/Purpose/Dharma/Health/Energy state)","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.90 },
+    { "id":"sec-reputation","title":"Reputation & Trust (Trust Score 8,742/10,000 + 8 sub-scores)","type":"dashboard","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.92 },
+    { "id":"sec-credentials","title":"Credentials & Verifications (Email/Mobile/Aadhaar/KYC/Brahmini/Professional/Academic/Address)","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.90 },
+    { "id":"sec-dashboards","title":"Identity Dashboards (Identity Graph/Role Matrix/Trust Matrix/Credential Vault/Identity Timeline)","type":"dashboard","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.92 },
+    { "id":"sec-privacy","title":"Identity Privacy & Sovereignty (You Own / Granular / Consent / Zero Exploitation / Right To Be Forgotten)","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.92 },
+    { "id":"sec-connections","title":"Connections & Relationships","type":"dashboard","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.90 },
+    { "id":"sec-achievements","title":"Achievements & Milestones","type":"dashboard","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.90 },
+    { "id":"sec-ai-assistant","title":"AI Identity Assistant","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.85 },
+    { "id":"sec-security","title":"Identity Security (2FA / Login Alerts / Device Mgmt / Session Mgmt / Anomaly / Backup)","type":"feature","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.92 }
+  ],
+  "nodes": [
+    { "id":"sample-id-ananya","label":"Sample MAATAA ID: Ananya Sharma — MAAT-8F7A-92K1-X8D3 (Verified)","kind":"sample-identity","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-id-card","confidence":0.50 },
+    { "id":"pillar-who","label":"Who I Am (Core Identity)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.45 },
+    { "id":"pillar-do","label":"What I Do (Roles & Work)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.45 },
+    { "id":"pillar-know","label":"What I Know (Knowledge)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.45 },
+    { "id":"pillar-serve","label":"Who I Serve (Purpose)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.40 },
+    { "id":"pillar-grow","label":"How I Grow (Learning)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.40 },
+    { "id":"pillar-value","label":"What I Value (Dharma)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.40 },
+    { "id":"pillar-create","label":"What I Create (Contribution)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.40 },
+    { "id":"pillar-impact","label":"The Impact I Leave (Legacy)","kind":"identity-pillar","universe":"identity","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-pillars","confidence":0.35 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"MAATAA ID Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-id-card","title":"Sample identity card (Ananya Sharma)","widgetType":"card","status":"vision","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-id-card","confidence":0.85 },
+    { "id":"w-reputation","title":"Reputation & Trust panel (8,742/10,000)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-reputation","confidence":0.92 },
+    { "id":"w-trust-matrix","title":"Trust Matrix (8.7/8.4/8.9/8.6)","widgetType":"matrix","status":"blocked","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-dashboards","confidence":0.90 }
+  ],
+  "claims": [
+    { "id":"c-total-identities-4-8m","text":"Total Identities: 4,842,763","status":"BLOCKED","blockedReason":"No identity runtime exists. No identity registration system.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-active-identities-2-1m","text":"Active Identities: 2,136,774","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-verified-identities-1-9m","text":"Verified Identities: 1,897,221","status":"BLOCKED","blockedReason":"No verification runtime.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-brahmini-identities-251k","text":"Brahmini Identities: 251,632","status":"BLOCKED","blockedReason":"Brahmini Chain does not exist in repo.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-sample-id-ananya","text":"Sample identity: Ananya Sharma — MAAT-8F7A-92K1-X8D3 / BRM-IND-0007821 / Member Since 12 Jan 2024 / India","status":"BLOCKED","blockedReason":"Sample data. Looks like fictitious PII (or borrowed); no identity issuance has happened in repo.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-id-card","confidence":0.95 },
+    { "id":"c-trust-score-8742","text":"Trust Score: 8,742/10,000 Excellent (Integrity 9.3 / Reliability 9.1 / Transparency 8.8 / Consistency 8.9 / Compassion 9.0 / Expertise 8.7 / Contribution 9.2 / Collaboration 8.6 / Impact 9.4)","status":"BLOCKED","blockedReason":"Reputation engine + sub-score fabrication.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-reputation","confidence":0.99 },
+    { "id":"c-credentials-verified","text":"All sample credentials (Email/Mobile/Aadhaar/KYC L2/Brahmini/Researcher/PhD/Address) shown Verified","status":"BLOCKED","blockedReason":"No verification system. Government ID display (Aadhaar XXXX-XXXX-1234) is sample/fictional.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-credentials","confidence":0.98 },
+    { "id":"c-privacy-zero-exploitation","text":"Privacy: You Own / Granular Privacy / Consent Driven / Zero Identity Exploitation / Right To Be Forgotten — all Enabled","status":"UNVERIFIED","blockedReason":"Strong privacy properties asserted as enabled. None are implemented; @maataa/runtime-hkd-registry (scaffolded 2026-05-28) could host an identity registry but does not yet.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-privacy","confidence":0.95 },
+    { "id":"c-security-enabled","text":"Identity Security: 2FA Enabled / Login Alerts Enabled / Device Mgmt 3 Active / Session Active / Anomaly Active / Backup Enabled","status":"BLOCKED","blockedReason":"No auth/session subsystem in repo serving real users.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-security","confidence":0.99 },
+    { "id":"c-personhood-spectrum","text":"Personhood Spectrum: Consciousness / Learning / Skill / Emotional / Purpose Alignment 92% / Dharma Alignment 88% / Health / Energy","status":"BLOCKED","blockedReason":"Personhood as a measurable score is contentious; no measurement exists.","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","sourceSectionId":"sec-personhood","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Identity & Personhood Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.85 },
+    { "id":"ev-runtime-hkd-registry-scaffold","title":"@maataa/runtime-hkd-registry scaffold (2026-05-28) could host identity issuance + version pinning + verification ledger","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/identity-personhood-board.png","confidence":0.85 }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-ai-model-universe-2026-05-28",
+  "title": "Maataa AI Model Universe (Intelligence with Dharma. Models with Purpose. Impact with Wisdom.)",
+  "sourceImage": "user-provided/2026-05-28/ai-model-board.png",
+  "universe": "ai-model",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"AI UNIVERSE STATUS (Models / Active / Training Pipelines / Datasets / Inferences / Users)","type":"dashboard","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Dharma Aligned / Humanity First / Wisdom Centric / Responsible AI / Universal Benefit)","type":"dashboard","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"AI Model Ecosystem (Foundation / Domain / Task / Decision / Agentic / Values & Ethics)","type":"runtime","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.92 },
+    { "id":"sec-lifecycle","title":"AI Model Lifecycle (Discover→Design→Develop→Deploy→Operate→Evolve)","type":"workflow","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"AI Impact Dashboard 92.7/100","type":"dashboard","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.92 },
+    { "id":"sec-layers","title":"AI Model Layers (Data/Infrastructure/Model/Application/Agent)","type":"feature","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.90 },
+    { "id":"sec-capabilities","title":"AI Model Capabilities (Understand→Reason→Generate→Perceive→Plan→Remember→Act→Collaborate)","type":"workflow","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.90 },
+    { "id":"sec-responsible-ai","title":"Responsible AI Framework (Fairness/Safety/Transparency/Privacy/Security/Accountability/Inclusivity/Sustainability)","type":"feature","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.92 },
+    { "id":"sec-catalog","title":"AI Model Catalog by type (LLM/VLM/Speech/Time Series/Graph/Scientific/Decision/Multi-Agent)","type":"feature","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.90 },
+    { "id":"sec-training","title":"Training & Data Engine (Curated Datasets/Data Pipelines/Training Runs/Compute Hours)","type":"dashboard","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.92 },
+    { "id":"sec-performance","title":"Model Performance Monitoring (Accuracy/Reliability/Robustness/Latency/Cost Efficiency)","type":"dashboard","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.92 },
+    { "id":"sec-global-map","title":"Global Deployment Map","type":"dashboard","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.90 },
+    { "id":"sec-knowledge","title":"Knowledge & Wisdom Integration (Vedas & Shastras / Bharat Knowledge Systems / Modern Science / Global Wisdom / Living Knowledge Graphs)","type":"feature","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"cat-foundation","label":"Foundation Models (LLM/VLM/Multimodal)","kind":"model-category","universe":"ai-model","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-ecosystem","confidence":0.50 },
+    { "id":"cat-domain","label":"Domain Models (Health/Education/Dharma/Finance)","kind":"model-category","universe":"ai-model","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"cat-task","label":"Task Models (Classification/Prediction/Generation)","kind":"model-category","universe":"ai-model","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"cat-decision","label":"Decision Models (Planning/Optimization/Strategy)","kind":"model-category","universe":"ai-model","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-ecosystem","confidence":0.30 },
+    { "id":"cat-agentic","label":"Agentic Models (Agents/Tools/Memory/Action)","kind":"model-category","universe":"ai-model","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-ecosystem","confidence":0.25 },
+    { "id":"cat-values","label":"Values & Ethics Models (Alignment/Safety/Bias/Ethics)","kind":"model-category","universe":"ai-model","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-ecosystem","confidence":0.20 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"AI Universe Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-impact","title":"AI Impact Dashboard donut 92.7","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 },
+    { "id":"w-perf-chart","title":"Model Performance line chart (Dec→May)","widgetType":"timeline","status":"blocked","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-performance","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-models-deployed-162","text":"Models Deployed: 162+","status":"BLOCKED","blockedReason":"No model deployment infrastructure in repo.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-active-models-89","text":"Active Models: 89","status":"BLOCKED","blockedReason":"No model serving runtime.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-training-pipelines-312","text":"Training Pipelines: 312","status":"BLOCKED","blockedReason":"No training infrastructure.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-datasets-1-248m","text":"Datasets Curated: 1.248M+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-inferences-54-2m","text":"Inferences/Day: 54.2M+","status":"BLOCKED","blockedReason":"No inference traffic.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-impact-92-7","text":"AI Impact Score: 92.7/100 (Accuracy 94.3 / Safety 92.1 / Dharma Alignment 93.8 / Transparency 91.7 / Fairness 92.4 / Efficiency 90.9 / User Trust 93.2 / Societal Impact 91.5)","status":"BLOCKED","blockedReason":"Composite + 8 sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-llm-vlm-counts","text":"LLM 24 / VLM 12 / Speech 8 / Time Series 10 / Graph 9 / Scientific 7 / Decision 6 / Multi-Agent 13 models","status":"BLOCKED","blockedReason":"No models in catalog; fabricated counts.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-catalog","confidence":0.99 },
+    { "id":"c-training-2842-runs","text":"Training Runs: 2,842 / Compute Hours: 2.87M+","status":"BLOCKED","blockedReason":"No training history.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-training","confidence":0.99 },
+    { "id":"c-responsible-ai-framework","text":"Responsible AI Framework: Fairness / Safety / Transparency / Privacy / Security / Accountability / Inclusivity / Sustainability","status":"UNVERIFIED","blockedReason":"8 responsible-AI properties named. Maps to docs/no-hallucination-policy.md as design intent. No runtime enforcement.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-responsible-ai","confidence":0.85 },
+    { "id":"c-ai-capabilities-partial","text":"AI Capabilities: Understand (NLU) / Reason & Infer / Generate & Create / Perceive & Interpret / Plan & Decide / Remember & Learn / Act & Automate / Collaborate","status":"PARTIAL","blockedReason":"kbs-runtime/src/{search,claims,reasoning} provides Understand+Reason substrate. visual-hkd-runtime provides Perceive+Interpret for vision boards. Generate/Plan/Act runtimes not present.","sourceImage":"user-provided/2026-05-28/ai-model-board.png","sourceSectionId":"sec-capabilities","confidence":0.80 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"AI Model Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.85 },
+    { "id":"ev-no-hallucination-policy","title":"docs/no-hallucination-policy.md is the closest existing PHKD policy artifact","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/ai-model-board.png","confidence":0.85 }
+  ]
+}

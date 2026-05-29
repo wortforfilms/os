@@ -1,0 +1,59 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-dharma-values-universe-2026-05-28",
+  "title": "Maataa Dharma & Values Universe (Live Dharma. Embody Values. Create Harmony.)",
+  "sourceImage": "user-provided/2026-05-28/dharma-values-board.png",
+  "universe": "dharma",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"DHARMA STATUS (Alignment Score / Values Embodied / Lives Impacted / Communities / Projects / Partners)","type":"dashboard","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Dharma First / Truth & Integrity / Compassion & Love / Equity & Justice / Harmony with All)","type":"dashboard","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"Dharma Ecosystem (Sanatana / Swadharma / Rajadharma / Lokadharma / Vyaktidharma / Yugadharma)","type":"runtime","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.92 },
+    { "id":"sec-12-values","title":"Values (The 12 Lights): Satya/Ahimsa/Asteya/Brahmacharya/Aparigraha/Shaucha/Santosha/Tapas/Svadhyaya/Isvara Pranidhana/Karuna/Seva","type":"feature","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.95 },
+    { "id":"sec-life-pillars","title":"Dharma Life Pillars (Righteous Living / Right Livelihood / Right Relationship / Right Consumption / Right Speech / Right Action / Right Intent)","type":"feature","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.92 },
+    { "id":"sec-alignment-scorecard","title":"Dharma Alignment Scorecard 95.2% + 7 sub-scores","type":"dashboard","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.92 },
+    { "id":"sec-action-areas","title":"Dharma In Action Areas (Education / Healthcare / Environment / Economy / Justice / Culture / Technology / Peace)","type":"feature","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.90 },
+    { "id":"sec-decision-making","title":"Decision Making with Dharma (Pause → Check Intent → Align → Consider Stakeholders → Seek Wisdom → Decide with Courage → Act & Accept Responsibility)","type":"workflow","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.90 },
+    { "id":"sec-impact-metrics","title":"Dharma Impact Metrics (Lives Positively Impacted / Communities Empowered / Projects / Trees / Meals / Students / Carbon Offset)","type":"dashboard","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.92 },
+    { "id":"sec-practice-framework","title":"Dharma Practice Framework (Awareness/Wisdom/Love/Action — Daily Reflection/Gratitude/Meditation/Service/Discipline/Compassion)","type":"feature","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.90 },
+    { "id":"sec-partners-network","title":"Dharma Partners & Network (Spiritual Leaders / NGOs / Educational / Community / Youth / Global Alliances)","type":"feature","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.88 },
+    { "id":"sec-for-segments","title":"For Individuals / Communities / Organizations / Future Generations","type":"feature","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.88 }
+  ],
+  "nodes": [
+    { "id":"v-1-satya","label":"1. Satya (Truthfulness)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.85 },
+    { "id":"v-2-ahimsa","label":"2. Ahimsa (Non-violence)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.85 },
+    { "id":"v-3-asteya","label":"3. Asteya (Non-stealing)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.85 },
+    { "id":"v-4-brahmacharya","label":"4. Brahmacharya (Self-mastery)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.80 },
+    { "id":"v-5-aparigraha","label":"5. Aparigraha (Non-hoarding)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.85 },
+    { "id":"v-6-shaucha","label":"6. Shaucha (Purity)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.80 },
+    { "id":"v-7-santosha","label":"7. Santosha (Contentment)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.80 },
+    { "id":"v-8-tapas","label":"8. Tapas (Discipline)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.80 },
+    { "id":"v-9-svadhyaya","label":"9. Svadhyaya (Self-study)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.80 },
+    { "id":"v-10-isvara-pranidhana","label":"10. Isvara Pranidhana (Surrender to the Divine)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.75 },
+    { "id":"v-11-karuna","label":"11. Karuna (Compassion)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.85 },
+    { "id":"v-12-seva","label":"12. Seva (Selfless Service)","kind":"value","universe":"dharma","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.85 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-status","title":"Dharma Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-12-lights-grid","title":"12 Values (Lights) grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.95 },
+    { "id":"w-alignment-scorecard","title":"Dharma Alignment 95.2% donut + 7 sub-scores","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-alignment-scorecard","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-alignment-95-2","text":"Dharma Alignment Score: 95.2%","status":"BLOCKED","blockedReason":"'Dharma alignment' as a measurable score is undefined; no measurement runtime.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-values-embodied-12","text":"Values Embodied: 12","status":"PARTIAL","blockedReason":"The 12 values (Yamas+Niyamas extended) are catalogued correctly; 'embodied' as a measured property is not defined.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-status","confidence":0.85 },
+    { "id":"c-lives-impacted-54-2m","text":"Lives Impacted Positively: 54.2M+","status":"BLOCKED","blockedReason":"Matches Mission Universe figure. Fabricated.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-communities-3842","text":"Communities Served: 3,842+","status":"BLOCKED","blockedReason":"Recurring 3,842 number across boards.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-dharma-projects-192","text":"Dharma Projects Active: 192","status":"BLOCKED","blockedReason":"Recurring 192 number (countries) across boards.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-global-partners-542","text":"Global Dharma Partners: 542+","status":"BLOCKED","blockedReason":"No partner registry.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-alignment-7-subscores","text":"Sub-scores: Intent Purity 96.1 / Truth & Integrity 94.8 / Compassion 95.4 / Justice & Fairness 94.9 / Self-Discipline 93.7 / Service 96.3 / Environmental Harmony 94.2","status":"BLOCKED","blockedReason":"All sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-alignment-scorecard","confidence":0.99 },
+    { "id":"c-impact-metrics-12-7m-trees","text":"Impact Metrics: 12.7M+ Trees Planted / 28.4M+ Meals Served / 542K+ Students Guided / 1.24M+ tCO2 Carbon Offset","status":"BLOCKED","blockedReason":"No environmental/seva measurement system.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-impact-metrics","confidence":0.99 },
+    { "id":"c-12-values-traditional","text":"12 Values (Lights) classification: Yamas (5) + Niyamas (5) + Karuna + Seva","status":"UNVERIFIED","blockedReason":"Traditional Yoga Sutras + extension. Catalogue accurate; not a software claim.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-12-values","confidence":0.90 },
+    { "id":"c-dharma-types-6","text":"6 Dharma types (Sanatana / Swadharma / Rajadharma / Lokadharma / Vyaktidharma / Yugadharma)","status":"UNVERIFIED","blockedReason":"Traditional dharma taxonomy; coherent classification, not falsifiable software claim.","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","sourceSectionId":"sec-ecosystem","confidence":0.88 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Dharma & Values Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/dharma-values-board.png","confidence":0.85 }
+  ]
+}

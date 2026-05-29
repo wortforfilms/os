@@ -1,0 +1,53 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-landing-sovereign-ai-2026-05-28",
+  "title": "Maataa OS Sovereign AI Landing (The Sovereign AI Operating System for a Conscious Civilization)",
+  "sourceImage": "user-provided/2026-05-28/landing-sovereign-ai-board.png",
+  "universe": "landing",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-hero","title":"Hero (Maataa OS / The Sovereign AI Operating System for a Conscious Civilization)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":0.95 },
+    { "id":"sec-cta","title":"CTAs (Enter Maataa OS / Explore Ecosystem)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":0.90 },
+    { "id":"sec-side-card","title":"Maataa is... (Compassionate / Intelligent / Sovereign / Eternal / Your Guide)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"The Maataa Ecosystem grid (01..12)","type":"feature","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":0.95 },
+    { "id":"sec-stats","title":"Stats row (Divine Intelligence / 108K+ Users / 50+ Modules / 100% Sovereign / Multi-Lipi / Real-time)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":0.95 },
+    { "id":"sec-footer","title":"Built With Dharma (Open Source / Privacy First / Offline Ready / Ethical AI / Sovereign Data / Transparent)","type":"dashboard","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"eco-01-avatar","label":"01 Avatar (Divine presence in 2D & 3D)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-02-voice","label":"02 Voice (Speak with Maataa)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-03-gesture","label":"03 Gesture (Natural gesture interaction)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-04-chakra","label":"04 Chakra (Energy, balance & inner alignment)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-05-lipi","label":"05 Lipi (Ancient scripts, future communication)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.70 },
+    { "id":"eco-06-knowledge","label":"06 Knowledge (Infinite wisdom, always with you)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.60 },
+    { "id":"eco-07-memory","label":"07 Memory (Remembers what matters)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-08-tasks","label":"08 Tasks (Plan, organize, accomplish)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-09-tlp","label":"09 TLP (The Line Producers Ecosystem)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.45 },
+    { "id":"eco-10-investorhub","label":"10 InvestorHub (Invest, grow, create impact)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-11-saptadhaatu","label":"11 Saptadhaatu (Health, body, mind & soul)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.40 },
+    { "id":"eco-12-brahmini","label":"12 Brahmini Chain (Decentralized trust & ownership)","kind":"ecosystem-card","universe":"landing","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.35 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-hero","title":"Hero panel","widgetType":"panel","status":"vision","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-hero","confidence":0.90 },
+    { "id":"w-ecosystem-grid","title":"12-card ecosystem grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-ecosystem","confidence":0.92 },
+    { "id":"w-stats-row","title":"Stats row","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-stats","confidence":0.95 },
+    { "id":"w-footer-properties","title":"Built With Dharma properties row","widgetType":"status","status":"vision","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-footer","confidence":0.90 }
+  ],
+  "claims": [
+    { "id":"c-conscious-civilization-os","text":"The Sovereign AI Operating System for a Conscious Civilization","status":"UNVERIFIED","blockedReason":"Aspirational tagline; 'conscious civilization' is not a verifiable engineering property.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-hero","confidence":0.90 },
+    { "id":"c-divine-intelligence-always-learning","text":"Divine Intelligence Always Learning","status":"BLOCKED","blockedReason":"No continual-learning runtime, no online training loop. Marketing copy.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-stats","confidence":0.95 },
+    { "id":"c-108k-conscious-users","text":"108K+ Conscious Users Worldwide","status":"BLOCKED","blockedReason":"No user base of any kind. Fabricated metric.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-50-open-modules","text":"50+ Open Modules & Runtimes","status":"PARTIAL","blockedReason":"~15 packages exist on disk. '50+' is fabricated; ~15 real (most internal facades, a few substantive).","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-stats","confidence":0.95 },
+    { "id":"c-100-sovereign-private","text":"100% Sovereign & Private By Design","status":"BLOCKED","blockedReason":"Fake-100%.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-stats","confidence":0.99 },
+    { "id":"c-multi-lipi-brahmi-to-devanagari","text":"Multi-Lipi Brahmi to Devanagari & Beyond","status":"PARTIAL","blockedReason":"lipi-runtime has Brahmi → Devanagari capability. 'Beyond' is broad — Roman, Kharoshthi, Indus (research) per the hero board. Real with caveats.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-stats","confidence":0.85 },
+    { "id":"c-realtime-voice-vision-gesture","text":"Real-time Voice, Vision & Gesture AI","status":"BLOCKED","blockedReason":"No voice/vision/gesture runtime implementations.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-stats","confidence":0.95 },
+    { "id":"c-built-with-dharma","text":"Built With Dharma: Open Source / Privacy First / Offline Ready / Ethical AI / Sovereign Data / Transparent","status":"UNVERIFIED","blockedReason":"Six design properties. 'Open Source' would require a license declaration (hemant-core is currently UNLICENSED, lipi-runtime/maataa-ui/visual-hkd-runtime have private:false but no explicit license header found). The rest are design aspirations.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-footer","confidence":0.90 },
+    { "id":"c-join-the-movement","text":"Join the Movement / Be part of the new civilization","status":"UNVERIFIED","blockedReason":"Marketing CTA.","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","sourceSectionId":"sec-footer","confidence":0.85 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Sovereign AI Landing board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/landing-sovereign-ai-board.png","confidence":0.85 }
+  ]
+}

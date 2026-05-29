@@ -1,0 +1,79 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd for full operator-context + packages observed on disk" },
+  "id": "vh-service-universe-2026-05-28",
+  "title": "Maataa Service Universe (All Services • One Ecosystem • Infinite Ecosystem)",
+  "sourceImage": "user-provided/2026-05-28/service-universe-board.png",
+  "universe": "service",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS (All Services: 100+ Active)","type":"dashboard","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":0.95 },
+    { "id":"sec-runtime-services","title":"Runtime Services (14 categories)","type":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":0.90 },
+    { "id":"sec-cross-cutting","title":"Cross Cutting Services","type":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":0.92 },
+    { "id":"sec-infrastructure","title":"Infrastructure Services","type":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":0.92 },
+    { "id":"sec-architecture","title":"Service Architecture (Clients→API Gateway→Service Mesh→Data Layer→Event Bus)","type":"data","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":0.85 },
+    { "id":"sec-metrics","title":"Service Metrics (Total/Health/Requests/Response/Uptime)","type":"dashboard","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":0.95 }
+  ],
+  "nodes": [
+    { "id":"svc-cat-avatar","label":"Avatar Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-voice","label":"Voice Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-gesture","label":"Gesture Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-chakra","label":"Chakra Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-lipi","label":"Lipi Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.70 },
+    { "id":"svc-cat-knowledge","label":"Knowledge Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.60 },
+    { "id":"svc-cat-memory","label":"Memory Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-task","label":"Task Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-tlp","label":"TLP Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-investor","label":"InvestorHub Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-saptadhaatu","label":"Saptadhaatu Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-brahmini","label":"Brahmini Chain Services (5)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.45 },
+    { "id":"svc-cat-sovereign","label":"Sovereign Runtime Services (Event Bus, State, Storage, Policy, Permission, Proof, Audit, Telemetry, Reputation, Governance)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.50 },
+    { "id":"svc-cat-integration","label":"Integration Services (Discovery, API Gateway, Sync, WebSocket, Plugin)","kind":"service-category","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.55 },
+    { "id":"svc-cross-auth","label":"Auth Service (Authentication, Authorization, Token, Session)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.55 },
+    { "id":"svc-cross-notification","label":"Notification Service (Push, Email, SMS, In-App)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.55 },
+    { "id":"svc-cross-file","label":"File Service (Upload, Storage, Encryption, Versioning)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.55 },
+    { "id":"svc-cross-search","label":"Search Service (Global, Full Text, Image, Voice)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.65 },
+    { "id":"svc-cross-ai","label":"AI Services (LLM, Embedding, RAG, Orchestration)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.40 },
+    { "id":"svc-cross-analytics","label":"Analytics Service (Data, User, Behavior, Business)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.40 },
+    { "id":"svc-cross-media","label":"Media Service (Image, Video, Audio, Streaming)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.40 },
+    { "id":"svc-cross-location","label":"Location Service (Geocoding, Maps, Tracking, Geofencing)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.35 },
+    { "id":"svc-cross-payment","label":"Payment Service (Gateway, Subscription, Billing, Invoice)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.35 },
+    { "id":"svc-cross-comm","label":"Communication Service (Chat, Video Call, Voice Call, Group)","kind":"service","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.35 },
+    { "id":"svc-infra-db","label":"Database Service (Relational, Vector, Graph, Cache)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.55 },
+    { "id":"svc-infra-storage","label":"Storage Service (Object, Block, CDN, Backup)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.45 },
+    { "id":"svc-infra-compute","label":"Compute Service (Container, Function, Job Scheduler, Worker)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.40 },
+    { "id":"svc-infra-network","label":"Network Service (Load Balancer, DNS, VPN, Firewall)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.35 },
+    { "id":"svc-infra-security","label":"Security Service (Encryption, Key Mgmt, Threat Detection, Vulnerability Scan)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.35 },
+    { "id":"svc-infra-monitoring","label":"Monitoring Service (System, App, Log Aggregation, Alerting)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.40 },
+    { "id":"svc-infra-cicd","label":"CI/CD Service (Code Pipeline, Build, Deploy, Release)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.30 },
+    { "id":"svc-infra-backup","label":"Backup Service (Data Backup, Automated, DR, Restore)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.30 },
+    { "id":"svc-infra-edge","label":"Edge Service (Computing, Storage, Sync, Analytics)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.30 },
+    { "id":"svc-infra-dev","label":"Dev Tools Service (Environment, Debug, Code Analysis, API Testing)","kind":"infrastructure","universe":"service","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.40 }
+  ],
+  "edges": [
+    { "from":"svc-cross-search","to":"svc-cat-knowledge","relation":"queries","confidence":0.55,"sourceImage":"user-provided/2026-05-28/service-universe-board.png" },
+    { "from":"svc-cross-auth","to":"svc-cat-sovereign","relation":"used-by","confidence":0.40,"sourceImage":"user-provided/2026-05-28/service-universe-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-cross-cutting-grid","title":"Cross Cutting Services grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-cross-cutting","confidence":0.90 },
+    { "id":"w-infra-grid","title":"Infrastructure Services grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-infrastructure","confidence":0.90 },
+    { "id":"w-architecture-diagram","title":"Service Architecture diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-architecture","confidence":0.80 },
+    { "id":"w-service-metrics-panel","title":"Service Metrics panel (Total 100+ / Health 99.9% / Requests 25K+/s / Response 120ms / Uptime 99.99%)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-metrics","confidence":0.95 }
+  ],
+  "claims": [
+    { "id":"c-total-services-100plus","text":"Total Services: 100+ Active","status":"BLOCKED","blockedReason":"There are no live services in the repo. The kbs-runtime monolith re-exports some modules via facades; nothing runs as a service.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-metrics","confidence":0.95 },
+    { "id":"c-health-score-99-9","text":"Health Score: 99.9% All Systems Healthy","status":"BLOCKED","blockedReason":"No health-aggregation system has computed this number; no services exist to be healthy.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-metrics","confidence":0.98 },
+    { "id":"c-requests-25k-per-sec","text":"Requests/sec: 25K+ Real-time Requests","status":"BLOCKED","blockedReason":"No service is serving real traffic; figure is fabricated.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-metrics","confidence":0.98 },
+    { "id":"c-avg-response-120ms","text":"Avg Response Time: 120ms Blazing Fast","status":"BLOCKED","blockedReason":"No response-time measurement exists.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-metrics","confidence":0.98 },
+    { "id":"c-uptime-99-99","text":"Uptime: 99.99% Sovereign & Reliable","status":"BLOCKED","blockedReason":"No production deployment exists to measure uptime against.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-metrics","confidence":0.98 },
+    { "id":"c-all-services-active","text":"All Services Status: All Services / 100+ Active","status":"BLOCKED","blockedReason":"Same as services count above; no service supervisor exists.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"c-service-architecture","text":"Clients (Web/Mobile/Desktop/IoT) → API Gateway → Service Mesh → Data Layer (SQL/NoSQL/Vector DB) + Event Bus","status":"UNVERIFIED","blockedReason":"Architectural concept; no API Gateway, no Service Mesh, no Event Bus implementation present.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-architecture","confidence":0.85 },
+    { "id":"c-knowledge-services-real","text":"Knowledge Services (Knowledge Graph, Semantic Search, Sutra, AI Reasoning, Content Ingestion)","status":"PARTIAL","blockedReason":"kbs-runtime/src/{graph,search,ingestion} provide the underlying primitives. Service-level exposure (HTTP endpoints, separate process) does not exist.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.80 },
+    { "id":"c-lipi-services-real","text":"Lipi Services (Script Translation, Transliteration, Rendering, Direction, Learning)","status":"PARTIAL","blockedReason":"lipi-runtime exists with characters/phonetics/learning modules. Service-level exposure not yet wired.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.80 },
+    { "id":"c-most-categories-fictional","text":"Avatar/Voice/Gesture/Chakra/Memory/Task/TLP/InvestorHub/Saptadhaatu/Brahmini service categories","status":"BLOCKED","blockedReason":"No underlying packages exist for any of these; the service category is purely diagrammatic.","sourceImage":"user-provided/2026-05-28/service-universe-board.png","sourceSectionId":"sec-runtime-services","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Service Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/service-universe-board.png","confidence":0.85 }
+  ]
+}

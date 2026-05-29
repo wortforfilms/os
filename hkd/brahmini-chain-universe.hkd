@@ -1,0 +1,70 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-brahmini-chain-universe-2026-05-28",
+  "title": "Maataa Brahmini Chain Universe (A Dharmic, Decentralized, Intelligent & Conscious Ecosystem)",
+  "sourceImage": "user-provided/2026-05-28/brahmini-chain-board.png",
+  "universe": "brahmini-chain",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"BRAHMINI CHAIN STATUS (Active Nodes / Validators / Transactions / Blocks / Smart Contracts / DApps / Users)","type":"dashboard","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Preserve Wisdom / Empower Humanity / Enable Seva / Ensure Transparency / Promote Dharma / Inspire Generations)","type":"dashboard","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.90 },
+    { "id":"sec-7-layers","title":"Brahmini Chain Layers (Foundation/Data/Contract/Network/Consensus/Service/Application)","type":"feature","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.92 },
+    { "id":"sec-ecosystem","title":"Brahmini Chain Ecosystem (Identities/Knowledge Ledger/Smart Contracts/Dharmic Governance/Seva Network/Value Exchange/Conscious AI Oracle)","type":"runtime","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.92 },
+    { "id":"sec-why","title":"Why Brahmini Chain (Decentralized/Transparent/Knowledge-Centric/Seva Verified/AI+Human/Scalable)","type":"feature","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.90 },
+    { "id":"sec-metrics","title":"Key Metrics At A Glance","type":"dashboard","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.95 },
+    { "id":"sec-value-flow","title":"Brahmini Chain Value Flow (Creator → Validate → Record → Exchange → Impact)","type":"workflow","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.90 },
+    { "id":"sec-future","title":"Powering a Dharmic & Conscious Future (Education / Health / Environment / Culture / Research / Governance / Economy / Social Impact)","type":"feature","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.88 },
+    { "id":"sec-supported-assets","title":"Supported Assets (Knowledge NFTs / Seva Tokens / Dharma Credits / Digital / Real World / Community)","type":"feature","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.88 },
+    { "id":"sec-governance-model","title":"Governance Model (Propose → Discuss → Vote → Execute → Audit)","type":"workflow","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.90 },
+    { "id":"sec-stake-earn","title":"Stake & Earn (Stake BRC / Support Seva / Govern Network / Long-term Lock)","type":"feature","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.88 },
+    { "id":"sec-tokenomics","title":"Tokenomics — BRC (Brahmini Coin) Total 1,000,000,000","type":"dashboard","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.90 },
+    { "id":"sec-impact-dashboard","title":"Brahmini Chain Impact Dashboard 94.2/100","type":"dashboard","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.92 },
+    { "id":"sec-security","title":"Security & Trust","type":"feature","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.90 },
+    { "id":"sec-network-highlights","title":"Network Highlights (High Throughput 10,000+ TPS / Low Fees / Eco Friendly / Interoperable / Quantum Safe / Dharma Secure)","type":"dashboard","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.92 }
+  ],
+  "nodes": [
+    { "id":"layer-1-foundation","label":"L1 Foundation Layer (Brahmini Chain Protocol)","kind":"chain-layer","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.30 },
+    { "id":"layer-2-data","label":"L2 Data Layer (Block Storage, State Mgmt)","kind":"chain-layer","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.25 },
+    { "id":"layer-3-contract","label":"L3 Contract Layer (Smart Contracts, Agreements)","kind":"chain-layer","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.25 },
+    { "id":"layer-4-network","label":"L4 Network Layer (P2P Network, Communication)","kind":"chain-layer","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.25 },
+    { "id":"layer-5-consensus","label":"L5 Consensus Layer (Dharma Proof of Stake DPoS)","kind":"chain-layer","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.20 },
+    { "id":"layer-6-service","label":"L6 Service Layer (AI Oracles, Identity, Storage, APIs)","kind":"chain-layer","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.25 },
+    { "id":"layer-7-application","label":"L7 Application Layer (DApps, Portals, Marketplaces)","kind":"chain-layer","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.25 },
+    { "id":"asset-knowledge-nft","label":"Knowledge NFTs","kind":"supported-asset","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-supported-assets","confidence":0.25 },
+    { "id":"asset-seva-tokens","label":"Seva Tokens","kind":"supported-asset","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-supported-assets","confidence":0.25 },
+    { "id":"asset-dharma-credits","label":"Dharma Credits","kind":"supported-asset","universe":"brahmini-chain","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-supported-assets","confidence":0.25 }
+  ],
+  "edges": [
+    { "from":"layer-1-foundation","to":"layer-2-data","relation":"underlies","confidence":0.70,"sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png" },
+    { "from":"layer-2-data","to":"layer-3-contract","relation":"underlies","confidence":0.70,"sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png" },
+    { "from":"layer-3-contract","to":"layer-4-network","relation":"underlies","confidence":0.70,"sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png" },
+    { "from":"layer-4-network","to":"layer-5-consensus","relation":"underlies","confidence":0.70,"sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png" },
+    { "from":"layer-5-consensus","to":"layer-6-service","relation":"underlies","confidence":0.70,"sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png" },
+    { "from":"layer-6-service","to":"layer-7-application","relation":"underlies","confidence":0.70,"sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Brahmini Chain Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-7-layers-stack","title":"7-layer chain stack diagram","widgetType":"graph","status":"vision","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.92 },
+    { "id":"w-impact-dashboard","title":"Impact Dashboard 94.2/100","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 },
+    { "id":"w-tokenomics","title":"BRC tokenomics donut (Seva 30% / Ecosystem 20% / Community 20% / Staking 15% / Dev 10% / Treasury 5%)","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-tokenomics","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-active-nodes-12874","text":"Active Nodes: 12,874+","status":"BLOCKED","blockedReason":"No blockchain implementation in repo. Directive principle 'never fake blockchain theatrics' applies directly.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-validators-1248","text":"Validators: 1,248+","status":"BLOCKED","blockedReason":"No validator network.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-transactions-54-21m","text":"Transactions (Total): 54.21M+","status":"BLOCKED","blockedReason":"No transactions.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-blocks-3-842m","text":"Blocks Created: 3.842M+","status":"BLOCKED","blockedReason":"No blocks.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-smart-contracts-28-74k","text":"Smart Contracts: 28.74K+","status":"BLOCKED","blockedReason":"No smart contract runtime.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-dapps-8912","text":"DApps Deployed: 8,912+","status":"BLOCKED","blockedReason":"No dApp ecosystem.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-users-3-84m","text":"Users & Seekers: 3.84M+","status":"BLOCKED","blockedReason":"Fabricated.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-throughput-10k-tps","text":"High Throughput: 10,000+ TPS","status":"BLOCKED","blockedReason":"No chain runs.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-network-highlights","confidence":0.99 },
+    { "id":"c-quantum-safe","text":"Quantum Safe: Future Proof","status":"BLOCKED","blockedReason":"No quantum-resistant cryptography implemented.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-network-highlights","confidence":0.99 },
+    { "id":"c-dharma-pos","text":"Consensus: Dharma Proof of Stake (DPoS)","status":"BLOCKED","blockedReason":"Novel consensus mechanism named; no whitepaper or implementation.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-7-layers","confidence":0.98 },
+    { "id":"c-brc-tokenomics","text":"BRC tokenomics: 1B total supply, 30% Seva, 20% Ecosystem, 20% Community, 15% Staking, 10% Dev, 5% Treasury","status":"BLOCKED","blockedReason":"No token; tokenomics is design intent only.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-tokenomics","confidence":0.99 },
+    { "id":"c-impact-dashboard-94-2","text":"Impact Dashboard: 94.2/100 (Dharma Alignment 95.3 / Transparency 94.6 / Community Impact 94.1 / Knowledge Growth 94.1 / Seva Verified 93.7 / Sustainability 94.5 / Inclusivity 94.0)","status":"BLOCKED","blockedReason":"Aggregate + sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Brahmini Chain Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/brahmini-chain-board.png","confidence":0.85 }
+  ]
+}

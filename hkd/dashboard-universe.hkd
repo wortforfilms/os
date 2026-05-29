@@ -1,0 +1,61 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-dashboard-universe-2026-05-28",
+  "title": "Maataa Dashboard Universe (All Dashboards of Maataa OS)",
+  "sourceImage": "user-provided/2026-05-28/dashboard-universe-board.png",
+  "universe": "dashboard",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"MAATAA OS STATUS","type":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","confidence":0.95 },
+    { "id":"sec-dashboards","title":"30 Dashboards grid","type":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","confidence":0.92 },
+    { "id":"sec-dashboard-categories","title":"Dashboard Categories (Executive/Personal/Wellness/Creation/Knowledge/Business/Finance/Security/Community/System)","type":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","confidence":0.90 }
+  ],
+  "nodes": [
+    { "id":"d-01-executive","label":"01. Executive Command Center","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.40 },
+    { "id":"d-02-personal","label":"02. Personal Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.40 },
+    { "id":"d-03-consciousness","label":"03. Consciousness Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-04-chakra","label":"04. Chakra Balance Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-05-knowledge","label":"05. Knowledge Graph Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.55 },
+    { "id":"d-06-task","label":"06. Task & Productivity Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.40 },
+    { "id":"d-07-tlp","label":"07. TLP (Film) Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.40 },
+    { "id":"d-08-investorhub","label":"08. InvestorHub Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.40 },
+    { "id":"d-09-saptadhaatu","label":"09. Saptadhaatu Health Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-10-brahmini","label":"10. Brahmini ID Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-11-finance","label":"11. Finance Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.35 },
+    { "id":"d-12-learning","label":"12. Learning Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.40 },
+    { "id":"d-13-voice","label":"13. Voice Interaction Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-14-gesture","label":"14. Gesture Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-15-lipi","label":"15. Lipi Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.55 },
+    { "id":"d-16-content","label":"16. Content Creation Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.35 },
+    { "id":"d-17-community","label":"17. Community Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-18-communication","label":"18. Communication Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-19-ai","label":"19. AI & Intelligence Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.35 },
+    { "id":"d-20-automation","label":"20. Automation Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-21-security","label":"21. Security Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-22-privacy","label":"22. Privacy Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-23-infrastructure","label":"23. Infrastructure Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-24-dev-api","label":"24. Dev & API Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.35 },
+    { "id":"d-25-iot","label":"25. IoT & Devices Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.25 },
+    { "id":"d-26-travel","label":"26. Travel Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.25 },
+    { "id":"d-27-events","label":"27. Events Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.25 },
+    { "id":"d-28-analytics","label":"28. Analytics Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-29-sovereign-cloud","label":"29. Sovereign Cloud Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 },
+    { "id":"d-30-system-health","label":"30. System Health Dashboard","kind":"dashboard","universe":"dashboard","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.30 }
+  ],
+  "edges": [],
+  "widgets": [
+    { "id":"w-dashboard-grid","title":"30-Dashboard grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-30-dashboards-live","text":"30 dashboards are live and powered by real data","status":"BLOCKED","blockedReason":"maataa-ui contains SovereignDashboard.tsx + observatory/* shells but is far from 30 live dashboards. None render real data from a backing store.","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.95 },
+    { "id":"c-knowledge-graph-dashboard-real","text":"Knowledge Graph Dashboard renders the live knowledge graph","status":"PARTIAL","blockedReason":"kbs-graph + kbs-runtime/src/graph/* exist and could feed a dashboard. The dashboard itself is not built and not wired.","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.85 },
+    { "id":"c-lipi-dashboard-real","text":"Lipi Dashboard renders script learning progress and accuracy","status":"PARTIAL","blockedReason":"lipi-runtime has learning + search + governance data; UI surface is not built.","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.80 },
+    { "id":"c-executive-command-center","text":"Executive Command Center renders system overview + KPIs + live status","status":"BLOCKED","blockedReason":"No KPIs are computed; no live status feeds exist; the 'live status' would be the same fabricated metrics as Deployment Universe.","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.95 },
+    { "id":"c-system-health-dashboard","text":"System Health Dashboard renders runtimes/services/queues live","status":"BLOCKED","blockedReason":"There is no live runtime/service supervisor producing health to render.","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","sourceSectionId":"sec-dashboards","confidence":0.95 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Dashboard Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/dashboard-universe-board.png","confidence":0.85 }
+  ]
+}

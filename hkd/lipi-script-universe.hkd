@@ -1,0 +1,69 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": { "method": "manual operator extraction", "operator": "claude-cowork", "date": "2026-05-28", "seeAlso": "hkd/runtime-universe.hkd" },
+  "id": "vh-lipi-script-universe-2026-05-28",
+  "title": "Maataa Lipi & Script Universe (Sound to Symbol. Symbol to Meaning. Meaning to Wisdom.)",
+  "sourceImage": "user-provided/2026-05-28/lipi-script-board.png",
+  "universe": "lipi",
+  "status": "vision",
+  "sections": [
+    { "id":"sec-status","title":"LIPI UNIVERSE STATUS (Scripts Mapped / Civilizational / Living / Extinct / Glyphs / Scholars / Manuscripts)","type":"dashboard","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.95 },
+    { "id":"sec-vision","title":"Our Vision (Preserve Heritage / Unify Humanity / Empower Expression / Enable Knowledge / Inspire Generations)","type":"dashboard","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.90 },
+    { "id":"sec-ecosystem","title":"Lipi Ecosystem (Script Intelligence / Knowledge Graph / Digital Preservation / Learning & Access / Creation & Innovation / Cultural Continuity)","type":"runtime","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.92 },
+    { "id":"sec-major-families","title":"Major Script Families (Brahmi / Abjad / Abugida / Alphabet / Logographic / Syllabic / Symbolic)","type":"feature","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.92 },
+    { "id":"sec-evolution-timeline","title":"Script Evolution Timeline (Prehistoric → Indus Script 3300 BCE → Vedic Oral → Brahmi 600 BCE → Gupta 300 CE → Medieval → Digital Age → AI & Future)","type":"workflow","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.92 },
+    { "id":"sec-sample-gallery","title":"Sample Scripts Gallery (Devanagari/Tamil/Bengali/Gujarati/Gurmukhi/Arabic/Chinese/Hangul/Indus reconstructed)","type":"feature","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.92 },
+    { "id":"sec-impact-dashboard","title":"Lipi Impact Dashboard 94.2/100","type":"dashboard","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.92 },
+    { "id":"sec-tech-stack","title":"Script Technology Stack (OCR/HTR / Transliteration / AI Script Generator / NLP / Font & Glyph / Manuscript Restoration / Blockchain Authenticity)","type":"feature","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.92 },
+    { "id":"sec-manuscripts","title":"Manuscripts & Inscriptions (Palm Leaf / Birch Bark / Stone / Copper Plate / Paper)","type":"feature","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.92 },
+    { "id":"sec-use-cases","title":"Use Cases (Education / Publishing / Cultural Heritage / Legal / AI & Data Science / Gaming / Metaverse / Spiritual)","type":"feature","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.90 },
+    { "id":"sec-learning-hub","title":"Lipi Learning Hub (Learn Any Script / Interactive Lessons / Practice Tools / Script Games / Certification / Community / Scholar Network / AI Tutor)","type":"feature","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.90 },
+    { "id":"sec-revival","title":"Revival & Preservation Initiative (Endangered Scripts Registry / Digitization / Community Collaboration / Youth Engagement / Cultural Workshops / Funding / Policy)","type":"feature","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.88 },
+    { "id":"sec-key-metrics","title":"Key Metrics At A Glance","type":"dashboard","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.95 }
+  ],
+  "nodes": [
+    { "id":"family-brahmi","label":"Brahmi Family (Brahmi, Devanagari, Tamil, Telugu, Kannada, Bengali, Gurmukhi, Gujarati, Oriya, etc.)","kind":"script-family","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.85 },
+    { "id":"family-abjad","label":"Abjad Family (Arabic, Hebrew, Syriac, Aramaic, Urdu, Persian, Mongolian, etc.)","kind":"script-family","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.70 },
+    { "id":"family-abugida","label":"Abugida Family (Tibetan, Myanmar, Thai, Lao, Khmer, Sinhala, Georgian, Ethiopic, etc.)","kind":"script-family","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.65 },
+    { "id":"family-alphabet","label":"Alphabet Family (Latin, Greek, Cyrillic, Armenian, Georgian, Runic, Hangul, etc.)","kind":"script-family","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.70 },
+    { "id":"family-logographic","label":"Logographic Family (Chinese, Kanji, Hanzi, Egyptian Hieroglyphs, Sumerian, etc.)","kind":"script-family","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.55 },
+    { "id":"family-syllabic","label":"Syllabic Family (Cherokee, Japanese Kana, Linear B, Inuktitut, Syllabics, etc.)","kind":"script-family","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.50 },
+    { "id":"family-symbolic","label":"Symbolic Systems (Indus Symbols, Petroglyphs, Pictographs, Ideographs, etc.)","kind":"script-family","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.55 },
+    { "id":"era-indus","label":"Indus Script (3300 BCE) — Reconstructed/Research","kind":"script-era","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.55 },
+    { "id":"era-vedic","label":"Vedic Oral Tradition","kind":"script-era","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.55 },
+    { "id":"era-brahmi","label":"Brahmi (600 BCE)","kind":"script-era","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.75 },
+    { "id":"era-gupta","label":"Gupta Scripts (300 CE)","kind":"script-era","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.60 },
+    { "id":"era-medieval","label":"Medieval Period scripts","kind":"script-era","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.55 },
+    { "id":"era-digital","label":"Digital Age (Unicode era)","kind":"script-era","universe":"lipi","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.75 }
+  ],
+  "edges": [
+    { "from":"era-indus","to":"era-vedic","relation":"precedes","confidence":0.70,"sourceImage":"user-provided/2026-05-28/lipi-script-board.png" },
+    { "from":"era-vedic","to":"era-brahmi","relation":"precedes","confidence":0.75,"sourceImage":"user-provided/2026-05-28/lipi-script-board.png" },
+    { "from":"era-brahmi","to":"era-gupta","relation":"precedes","confidence":0.80,"sourceImage":"user-provided/2026-05-28/lipi-script-board.png" },
+    { "from":"era-gupta","to":"era-medieval","relation":"precedes","confidence":0.75,"sourceImage":"user-provided/2026-05-28/lipi-script-board.png" },
+    { "from":"family-brahmi","to":"era-brahmi","relation":"originates-from","confidence":0.75,"sourceImage":"user-provided/2026-05-28/lipi-script-board.png" }
+  ],
+  "widgets": [
+    { "id":"w-status","title":"Lipi Universe Status panel","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-status","confidence":0.95 },
+    { "id":"w-family-grid","title":"7 script family cards grid","widgetType":"matrix","status":"vision","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.92 },
+    { "id":"w-timeline","title":"Script evolution timeline","widgetType":"timeline","status":"vision","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.90 },
+    { "id":"w-impact-dashboard","title":"Lipi Impact Dashboard donut 94.2/100","widgetType":"status","status":"blocked","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.92 }
+  ],
+  "claims": [
+    { "id":"c-scripts-mapped-1248","text":"Scripts Mapped: 1,248+","status":"PARTIAL","blockedReason":"lipi-runtime declares a 426-slot script registry (per its README). 1,248 is not derivable from the package; possibly aspirational expansion.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-status","confidence":0.90 },
+    { "id":"c-living-scripts-54","text":"Living Scripts: 54+","status":"PARTIAL","blockedReason":"Real living scripts on Earth — broadly accurate as a count of currently-used writing systems. Whether the lipi-runtime registry implements all is unverified.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-status","confidence":0.80 },
+    { "id":"c-extinct-scripts-312","text":"Extinct Scripts: 312+","status":"PARTIAL","blockedReason":"Order-of-magnitude plausible for known extinct scripts. lipi-runtime would need to enumerate them.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-status","confidence":0.80 },
+    { "id":"c-glyphs-54-21k","text":"Glyphs & Symbols: 54.21K+","status":"PARTIAL","blockedReason":"Unicode 15 contains ~149,000 characters; 54K is a plausible subset. lipi-runtime doesn't yet expose a glyph count.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-status","confidence":0.85 },
+    { "id":"c-scholars-3842","text":"Script Scholars: 3,842+","status":"BLOCKED","blockedReason":"No scholar registry.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-manuscripts-12-87m","text":"Manuscripts Cataloged: 12.87M+","status":"BLOCKED","blockedReason":"No manuscript catalog in repo.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-status","confidence":0.99 },
+    { "id":"c-lipi-impact-94-2","text":"Lipi Impact Dashboard: 94.2/100 (Cultural Preservation 95.6 / Knowledge Accessibility 94.1 / Education 93.8 / Digital Empowerment 94.7 / Community Inclusion 93.0 / Civilizational Continuity 95.3 / Innovation 94.4 / Future Readiness 93.6) + Data Reliability 99.92%","status":"BLOCKED","blockedReason":"Composite + 8 sub-scores fabricated.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-impact-dashboard","confidence":0.99 },
+    { "id":"c-7-script-families","text":"7 Major Script Families (Brahmi / Abjad / Abugida / Alphabet / Logographic / Syllabic / Symbolic)","status":"PARTIAL","blockedReason":"Linguistically standard taxonomy. lipi-runtime/src/{characters,registry,lineage,phonetics} provides substrate for at least the Brahmi family. Full coverage of 7 families is aspirational.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-major-families","confidence":0.85 },
+    { "id":"c-script-evolution-timeline","text":"Evolution Timeline: Prehistoric → Indus 3300 BCE → Vedic Oral → Brahmi 600 BCE → Gupta 300 CE → Medieval → Digital → AI Future","status":"PARTIAL","blockedReason":"Lineage matches mainstream paleography (with Indus undeciphered, properly marked Research). lipi-runtime/src/lineage models this.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-evolution-timeline","confidence":0.85 },
+    { "id":"c-tech-stack-ocr-htr","text":"Script Technology Stack: OCR/HTR / Transliteration / AI Script Generator / NLP / Font & Glyph / Manuscript Restoration / Blockchain Authenticity","status":"BLOCKED","blockedReason":"Transliteration is real in lipi-runtime. OCR/HTR/AI generation/restoration/blockchain authenticity layers do not exist.","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","sourceSectionId":"sec-tech-stack","confidence":0.90 }
+  ],
+  "evidence": [
+    { "id":"ev-source","title":"Lipi & Script Universe board (user-provided 2026-05-28)","evidenceType":"source_image","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":1.0 },
+    { "id":"ev-operator","title":"Manual operator extraction","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.85 },
+    { "id":"ev-lipi-runtime-real","title":"@maataa/lipi-runtime is the real substrate (426-slot registry, lineage, learning, governance)","evidenceType":"operator_note","sourceImage":"user-provided/2026-05-28/lipi-script-board.png","confidence":0.95 }
+  ]
+}
