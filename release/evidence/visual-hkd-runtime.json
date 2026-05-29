@@ -1,0 +1,34 @@
+{
+  "package": "@maataa/visual-hkd-runtime",
+  "phase": "VISUAL_HKD_EXECUTION_BRIDGE_SCAFFOLDED",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "GOVERNED_PRODUCTION_NO_GO",
+  "noFakeClaims": true,
+  "capabilities": [
+    "structured_hkd_generation",
+    "knowledge_graph_projection",
+    "runtime_package_suggestions",
+    "dashboard_widget_inventory",
+    "reality_matrix_entries",
+    "low_confidence_marking"
+  ],
+  "processedImages": 0,
+  "activeBlockers": [
+    "real_vision_provider_not_connected",
+    "operator_image_ingestion_not_run",
+    "human_review_not_completed",
+    "runtime_generation_not_applied",
+    "hardware_root_attestation_missing",
+    "signed_release_authority_unverified"
+  ],
+  "outputs": {
+    "hkdJson": "available through runtime API when real observations are supplied",
+    "knowledgeGraph": "available through runtime API when real observations are supplied",
+    "runtimeSuggestions": "marked scaffolded unless package existence is explicitly supplied",
+    "statusMatrix": "GOVERNED_PRODUCTION_NO_GO"
+  },
+  "verifiedAt": "2026-05-29T05:19:51.990Z",
+  "verificationStatus": "PASS",
+  "failures": []
+}
