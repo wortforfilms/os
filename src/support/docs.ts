@@ -1,4 +1,4 @@
-import supportDocsManifest from "../../data/support-docs.json";
+import supportDocsManifest from "../../data/support-docs.json" with { type: "json" };
 
 export type SupportDocStatus = "READY" | "PREVIEW" | "BLOCKED";
 export type SupportDocAudience = "users" | "operators";

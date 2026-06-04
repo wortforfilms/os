@@ -61,7 +61,7 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
     path: route.path,
     status: route.state as RuntimeState,
     description: route.evidence,
-    tags: ["route", route.state.toLowerCase(), implementedRoutes.has(route.path) ? "implemented" : "blocked-preview"],
+    tags: ["route", route.state.toLowerCase(), implementedRoutes.has(route.path) ? "implemented" : "route-blocked"],
   }));
 
   const featureResults = productMatrix.features.map((feature) => ({
@@ -93,6 +93,44 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
     description: `Repository documentation file: ${path}.`,
     tags: ["docs", "local"],
   }));
+
+  const evidenceResults = [
+    ...productMatrix.routes
+      .filter((route) => route.state === "BLOCKED")
+      .map((route) => ({
+        id: `evidence:route:${route.path}`,
+        title: route.path,
+        type: "evidence" as const,
+        path: route.path,
+        status: "BLOCKED" as const,
+        description: route.evidence,
+        tags: ["evidence", "blockers", "route", route.state.toLowerCase()],
+      })),
+    ...productMatrix.features
+      .filter((feature) => feature.state === "BLOCKED")
+      .map((feature) => ({
+        id: `evidence:feature:${feature.id}`,
+        title: feature.id,
+        type: "evidence" as const,
+        path: "data/product-surface-matrix.json",
+        status: "BLOCKED" as const,
+        description: feature.evidence,
+        tags: ["evidence", "blockers", "feature", feature.state.toLowerCase()],
+      })),
+    ...(hardeningMatrix.domains ? Object.entries(hardeningMatrix.domains as Record<string, Array<{ gate: string; state: string; evidence: string }>>).flatMap(([domain, gates]) =>
+          gates
+            .filter((gate) => gate.state === "BLOCKED")
+            .map((gate, index) => ({
+              id: `evidence:hardening:${domain}:${index}`,
+              title: `${domain} - ${gate.gate}`,
+              type: "evidence" as const,
+              path: "release/reports/PRODUCTION_HARDENING_MATRIX.json",
+              status: "BLOCKED" as const,
+              description: gate.evidence,
+              tags: ["evidence", "blockers", "hardening", domain.toLowerCase(), gate.gate.toLowerCase()],
+            })),
+        ) : []),
+  ];
 
   const surfaceResults = Object.entries(surfaces).flatMap(([type, paths]) =>
     paths.map((path) => ({
@@ -131,7 +169,7 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
       })),
   );
 
-  return [...routeResults, ...featureResults, ...stateResults, ...docResults, ...surfaceResults, ...blockerResults, ...hardeningBlockerResults];
+  return [...routeResults, ...featureResults, ...stateResults, ...docResults, ...evidenceResults, ...surfaceResults, ...blockerResults, ...hardeningBlockerResults];
 }
 
 export function searchUnifiedIndex(query: string, filters: SearchFilters = {}, index = buildUnifiedSearchIndex()): SearchResult[] {

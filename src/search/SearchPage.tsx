@@ -39,24 +39,28 @@ export function SearchPage({ navigate }: { navigate: (route: string) => void }) 
             <p>No local registry entries matched this query.</p>
           </div>
         ) : null}
-        {results.map((result) => (
-          <article className={`search-result-card ${result.status === "BLOCKED" ? "blocked" : ""}`} key={result.id}>
-            <header>
-              <span>{result.type}</span>
-              <strong>{result.status}</strong>
-            </header>
-            <h3>{result.title}</h3>
-            <p>{result.description}</p>
-            <div className="search-tags">
-              {result.tags.map((tag) => (
-                <em key={tag}>{tag}</em>
-              ))}
-            </div>
-            <button disabled={!isNavigableSearchResult(result)} onClick={() => navigate(result.path)}>
-              {isNavigableSearchResult(result) ? "Open Route" : result.status === "BLOCKED" ? "BLOCKED" : "Select Only"}
-            </button>
-          </article>
-        ))}
+        {results.map((result) => {
+          const navigable = isNavigableSearchResult(result);
+          const routeBlocked = result.type === "route" && !navigable;
+          return (
+            <article className={`search-result-card ${result.status === "BLOCKED" || routeBlocked ? "blocked" : ""}`} key={result.id}>
+              <header>
+                <span>{result.type}</span>
+                <strong>{result.status}</strong>
+              </header>
+              <h3>{result.title}</h3>
+              <p>{result.description}</p>
+              <div className="search-tags">
+                {result.tags.map((tag) => (
+                  <em key={tag}>{tag}</em>
+                ))}
+              </div>
+              <button disabled={!navigable} onClick={() => navigate(result.path)}>
+                {navigable ? "Open Route" : routeBlocked ? "ROUTE BLOCKED" : result.status === "BLOCKED" ? "BLOCKED" : "Select Only"}
+              </button>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

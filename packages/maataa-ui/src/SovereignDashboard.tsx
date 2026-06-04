@@ -32,7 +32,8 @@ type RuntimeStatusSnapshot = {
     status: "LIVE" | "DEGRADED" | "OFFLINE" | "BLOCKED";
   }>;
   blockedSystemsCount: number;
-  transport: "electron-ipc" | "browser-fallback" | "none";
+  transport: "sse" | "electron-ipc" | "browser-fallback" | "none";
+  stream: "sse" | "polling" | "fallback";
 };
 
 const navItems = ["Runtime", "Schematic", "Observatory", "Lipi", "Radio", "Governance"] as const;
@@ -211,6 +212,7 @@ function LiveRuntimeStatus({ snapshot }: { snapshot: RuntimeStatusSnapshot }) {
           <h2>{snapshot.state}</h2>
         </div>
         <div className="live-runtime-meta">
+          <span>stream: {snapshot.stream}</span>
           <span>transport: {snapshot.transport}</span>
           <span>cursor: {snapshot.cursor}</span>
           <span>blocked: {snapshot.blockedSystemsCount}</span>

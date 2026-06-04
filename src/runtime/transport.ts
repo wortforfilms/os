@@ -1,6 +1,7 @@
 export type RuntimeTransportState = "LIVE" | "DEGRADED" | "OFFLINE" | "BLOCKED";
 
 export type RuntimeEventType = "heartbeat" | "auth" | "evidence" | "runtime" | "blocked";
+export type RuntimeTransport = "sse" | "electron-ipc" | "browser-fallback";
 
 export type RuntimeEvent = {
   id: number;
@@ -16,7 +17,7 @@ export type RuntimeEventBatch = {
   cursor: number;
   events: RuntimeEvent[];
   blockedSystemsCount: number;
-  transport: "electron-ipc" | "browser-fallback";
+  transport: RuntimeTransport;
 };
 
 export type RuntimeEventError = {
@@ -27,7 +28,6 @@ export type RuntimeEventError = {
 
 export type RuntimeEventResult = RuntimeEventBatch | RuntimeEventError;
 
-const fallbackStartedAt = Date.now();
 let fallbackCursor = 0;
 
 export function parseRuntimeEventBatch(input: unknown): RuntimeEventBatch {
@@ -45,7 +45,7 @@ export function parseRuntimeEventBatch(input: unknown): RuntimeEventBatch {
   if (!Number.isInteger(batch.blockedSystemsCount) || batch.blockedSystemsCount < 0) {
     throw new Error("RUNTIME_BLOCKER_COUNT_INVALID");
   }
-  if (batch.transport !== "electron-ipc" && batch.transport !== "browser-fallback") {
+  if (!isRuntimeTransport(batch.transport)) {
     throw new Error("RUNTIME_TRANSPORT_INVALID");
   }
 
@@ -54,6 +54,32 @@ export function parseRuntimeEventBatch(input: unknown): RuntimeEventBatch {
   }
 
   return batch;
+}
+
+export function parseRuntimeSseData(data: string): RuntimeEventBatch {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(data);
+  } catch {
+    throw new Error("RUNTIME_SSE_DATA_INVALID");
+  }
+  const batch = parseRuntimeEventBatch(parsed);
+  if (batch.transport !== "sse") {
+    throw new Error("RUNTIME_SSE_TRANSPORT_INVALID");
+  }
+  return batch;
+}
+
+export async function resolveRuntimeSseUrl(): Promise<string | null> {
+  const info = await window.maataaDesktop?.runtimeInfo?.();
+  if (!info || typeof info !== "object") {
+    return null;
+  }
+  const target = (info as { telemetryTarget?: unknown }).telemetryTarget;
+  if (typeof target !== "string" || target.trim() === "") {
+    return null;
+  }
+  return isAllowedLocalSseUrl(target) ? target : null;
 }
 
 export async function readRuntimeEventsSince(cursor: number): Promise<RuntimeEventBatch> {
@@ -67,17 +93,23 @@ export async function readRuntimeEventsSince(cursor: number): Promise<RuntimeEve
     return parseRuntimeEventBatch(result);
   }
 
-  return createFallbackBatch(cursor);
+  return createBrowserFallbackBatch(cursor);
 }
 
 export function transportStateFromBatch(batch: RuntimeEventBatch): RuntimeTransportState {
   if (batch.events.some((event) => event.status === "BLOCKED")) {
     return "BLOCKED";
   }
-  return batch.transport === "electron-ipc" ? "LIVE" : "DEGRADED";
+  if (batch.events.some((event) => event.status === "OFFLINE")) {
+    return "OFFLINE";
+  }
+  if (batch.events.some((event) => event.status === "DEGRADED")) {
+    return "DEGRADED";
+  }
+  return batch.transport === "browser-fallback" ? "DEGRADED" : "LIVE";
 }
 
-function createFallbackBatch(cursor: number): RuntimeEventBatch {
+export function createBrowserFallbackBatch(cursor: number): RuntimeEventBatch {
   fallbackCursor = Math.max(fallbackCursor + 1, cursor + 1);
   return {
     ok: true,
@@ -87,14 +119,27 @@ function createFallbackBatch(cursor: number): RuntimeEventBatch {
     events: [
       {
         id: fallbackCursor,
-        type: "heartbeat",
+        type: "runtime",
         at: Date.now(),
-        title: "Browser fallback heartbeat",
-        detail: `No Electron IPC stream detected; uptime ${Math.round((Date.now() - fallbackStartedAt) / 1000)}s.`,
+        title: "Runtime stream unavailable",
+        detail: "No local SSE or Electron IPC stream is connected; browser is showing a degraded fallback only.",
         status: "DEGRADED",
       },
     ],
   };
+}
+
+function isRuntimeTransport(transport: unknown): transport is RuntimeTransport {
+  return transport === "sse" || transport === "electron-ipc" || transport === "browser-fallback";
+}
+
+function isAllowedLocalSseUrl(rawUrl: string): boolean {
+  try {
+    const url = new URL(rawUrl);
+    return (url.protocol === "http:" || url.protocol === "https:") && ["127.0.0.1", "localhost", "::1"].includes(url.hostname);
+  } catch {
+    return false;
+  }
 }
 
 function validateRuntimeEvent(event: RuntimeEvent): void {
