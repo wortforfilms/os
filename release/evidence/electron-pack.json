@@ -26,8 +26,8 @@
     "operator_quorum_unverified",
     "rollback_drill_not_verified"
   ],
-  "appHash": "849463cf282e9902868fd1738b679b79f2db98209466b2c98ab30c61aad4fd95",
-  "archiveHash": "8d6ab91060386712e3bd287f75f7194ab7ce0fb1076111433aa59d859e6aae8e",
-  "packedAt": "2026-05-28T18:15:53.117Z",
+  "appHash": "75cd3e76ea9481024a891ab3eefe697df063316c1b3174f3a602ec2569587fd5",
+  "archiveHash": "125009db09123627bfb4b141f3d19c8773a53b99bb0d9908154ef29a644842aa",
+  "packedAt": "2026-06-04T13:56:47.438Z",
   "noFakeClaims": true
 }

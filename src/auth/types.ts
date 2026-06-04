@@ -90,10 +90,19 @@ export type SupportDocsBridgeResult =
     }
   | { ok: false; error: string };
 
+export type RuntimeInfoResult = {
+  shell: "electron";
+  stage: "desktop-alpha";
+  localOnly: true;
+  telemetryTarget: string | null;
+  sseStatus: "ready" | "starting" | "blocked";
+};
+
 declare global {
   interface Window {
     maataaDesktop?: {
-      runtimeInfo?: () => Promise<unknown>;
+      runtimeInfo?: () => Promise<RuntimeInfoResult | unknown>;
+      runtimeEventsSince?: (cursor: number) => Promise<unknown>;
       supportDocs?: () => Promise<SupportDocsBridgeResult>;
     } & Partial<AuthBridge>;
   }

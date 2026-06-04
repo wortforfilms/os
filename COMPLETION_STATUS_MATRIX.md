@@ -1,7 +1,7 @@
 # Completion Status Matrix
 
-Generated: 2026-05-29T16:35:08.659Z
-Commit: 17d25ec
+Generated: 2026-06-04T18:22:31.599Z
+Commit: 7804c14
 Final status: CONTROLLED_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
@@ -32,7 +32,7 @@ PHKD verdict: BLOCKED
 | auth-and-roles | PREVIEW_VERIFIED | Electron auth bridge stores users, sessions, and audit logs in local SQLite; browser fallback is preview-only. |
 | offline-local-db | PREVIEW_VERIFIED | SQLite product runtime migration and Electron auth store are active for the auth slice. |
 | telemetry | PREVIEW_VERIFIED | Telemetry pressure and chaos reports exist for loopback frames. |
-| sse-live-status | PREVIEW_VERIFIED | Electron-safe runtime event cursor emits local heartbeat events; browser fallback reports DEGRADED instead of fake live. |
+| sse-live-status | PREVIEW_VERIFIED | Electron exposes a real loopback SSE stream for runtime heartbeats; missing SSE/IPC connections report DEGRADED fallback instead of fake live. |
 | search | PREVIEW_VERIFIED | Unified search index and Ctrl/Cmd+K command palette are wired to local product matrix, docs, states, blockers, and repo surfaces. |
 | billing-entitlements | PREVIEW_VERIFIED | Local dev billing simulator stores products, entitlements, and invoices in SQLite and exposes role-gated summaries. |
 | admin-analytics | PREVIEW_VERIFIED | Admin analytics reads persisted audit, runtime, telemetry, invoice, and entitlement counts from the local store. |

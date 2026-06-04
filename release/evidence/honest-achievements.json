@@ -1,0 +1,433 @@
+{
+  "schema": "maataa.honest-achievements.v1",
+  "generatedAt": "2026-06-04T20:14:32.343Z",
+  "honesty": "Each milestone is ACHIEVED only if its probe passed against real artifacts/commands at run time. Probes fail closed. Probes are owned per-group under scripts/achievements/.",
+  "totals": {
+    "probes": 42,
+    "achieved": 40,
+    "notAchieved": 2,
+    "modules": 6
+  },
+  "achievements": [
+    {
+      "id": "a-pwa-manifest-isolation",
+      "universe": "pwa",
+      "futureMilestone": "Each app ships an isolated PWA manifest (unique id + scope, favicon, valid manifest)",
+      "achievement": "ACHIEVED",
+      "currentState": "7/7 apps with valid+isolated manifest (unique ids=7, unique scopes=7, each with favicon.svg + index.html)",
+      "verifiedBy": "scripts/achievements/apps-experience.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.785Z"
+    },
+    {
+      "id": "a-pwa-service-worker-isolation",
+      "universe": "pwa",
+      "futureMilestone": "Each app has an isolated service worker with a unique cache name + registration",
+      "achievement": "ACHIEVED",
+      "currentState": "7/7 apps with isolated SW (unique cache names=7, scope-limited fetch + registered in index.html)",
+      "verifiedBy": "scripts/achievements/apps-experience.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.789Z"
+    },
+    {
+      "id": "a-apps-theme-color-unique",
+      "universe": "pwa",
+      "futureMilestone": "Each app declares a unique theme-color in its index.html (no two apps share a brand color)",
+      "achievement": "ACHIEVED",
+      "currentState": "7/7 apps declare theme-color in index.html; 7 unique colors (#7c3aed, #dc2626, #0891b2, #ea580c, #16a34a, #475569, #ca8a04)",
+      "verifiedBy": "scripts/achievements/apps-experience.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.793Z"
+    },
+    {
+      "id": "a-apps-manifest-standalone-display",
+      "universe": "pwa",
+      "futureMilestone": "Every app manifest declares display=standalone (enabling installable PWA experience)",
+      "achievement": "ACHIEVED",
+      "currentState": "7/7 manifests declare display=\"standalone\"",
+      "verifiedBy": "scripts/achievements/apps-experience.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.795Z"
+    },
+    {
+      "id": "a-apps-manifest-icon-purposes",
+      "universe": "pwa",
+      "futureMilestone": "Every app manifest ships icons with both 'any' and 'maskable' purposes (adaptive icon support)",
+      "achievement": "ACHIEVED",
+      "currentState": "7/7 apps ship icons with both \"any\" and \"maskable\" purpose",
+      "verifiedBy": "scripts/achievements/apps-experience.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.797Z"
+    },
+    {
+      "id": "a-apps-theme-color-manifest-html-consistent",
+      "universe": "pwa",
+      "futureMilestone": "Each app's manifest theme_color matches its index.html meta theme-color (consistent branding)",
+      "achievement": "ACHIEVED",
+      "currentState": "7/7 apps have matching theme_color in manifest and index.html",
+      "verifiedBy": "scripts/achievements/apps-experience.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.801Z"
+    },
+    {
+      "id": "a-apps-favicon-svg-valid",
+      "universe": "pwa",
+      "futureMilestone": "Each app ships a valid SVG favicon (file exists and opens with <svg tag)",
+      "achievement": "ACHIEVED",
+      "currentState": "7/7 apps ship a favicon.svg that opens with <svg",
+      "verifiedBy": "scripts/achievements/apps-experience.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.803Z"
+    },
+    {
+      "id": "a-civ-group-hkd-boards-valid-json",
+      "universe": "data-schemas",
+      "futureMilestone": "All Civilization & Domains universe HKD board files are valid JSON and conform to VisualHKD shape (id, universe, claims[])",
+      "achievement": "ACHIEVED",
+      "currentState": "9 valid group HKD boards; 0 invalid. Boards: civilization-graph-universe.hkd(universe=civilization,claims=11), data-schemas-universe.hkd(universe=data-schemas,claims=11), ecosystem-interconnection-universe.hkd(universe=ecosystem,claims=12), expanded-universe-absorption.hkd(universe=expanded-maataa-universe-collection,claims=25), health-saptadhaatu-universe.hkd(universe=health,claims=10), legacy-universe.hkd(universe=legacy,claims=10), mission-universe.hkd(universe=mission,claims=18), spatial-universe.hkd(universe=spatial,claims=9), time-evolution-universe.hkd(universe=time-evolution,claims=21)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.817Z"
+    },
+    {
+      "id": "a-civ-group-hkd-schema-declared",
+      "universe": "data-schemas",
+      "futureMilestone": "Every Civilization & Domains HKD board declares $schema pointing to VisualHKD type definition",
+      "achievement": "ACHIEVED",
+      "currentState": "9 boards with correct $schema; 0 missing/wrong. Missing: []",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.828Z"
+    },
+    {
+      "id": "a-civ-ecosystem-data-files-valid",
+      "universe": "ecosystem",
+      "futureMilestone": "Ecosystem data files (maataa-ecosystem-wall.json, maataa-ecosystem-merkle-tree.json) are valid JSON with schema field",
+      "achievement": "ACHIEVED",
+      "currentState": "data/maataa-ecosystem-wall.json: OK (schema=maataa.ecosystem.wall.v1) | data/maataa-ecosystem-merkle-tree.json: OK (schema=maataa.ecosystem.merkle-tree.v1)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.829Z"
+    },
+    {
+      "id": "a-civ-data-schemas-lipi-prisma-models",
+      "universe": "data-schemas",
+      "futureMilestone": "lipi-runtime ships a real Prisma schema with DB model definitions (data-schemas universe: ERD is real but scope-limited to lipi domain, NOT the board's full 13-table ERD)",
+      "achievement": "ACHIEVED",
+      "currentState": "3 Prisma models: [LipiScript, LipiCharacter, LipiLineageEdge]; datasource=true; generator=true. Honest scope: lipi-domain only, not the board's 13-table aspirational ERD.",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.830Z"
+    },
+    {
+      "id": "a-economy-hkd-boards-valid-vision",
+      "universe": "asset-library",
+      "futureMilestone": "All 6 Economy & Identity universe boards exist as valid JSON files with status=vision (honest declaration that no metrics are live)",
+      "achievement": "ACHIEVED",
+      "currentState": "All 6 Economy & Identity HKD boards parse as valid JSON with status=\"vision\"",
+      "verifiedBy": "scripts/achievements/economy-identity.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.831Z"
+    },
+    {
+      "id": "a-economy-lipi-426-master-defined",
+      "universe": "asset-library",
+      "futureMilestone": "lipi-runtime defines LIPI_426_EXPECTED_COUNT=426 with ≥1 canonical script entry (asset-library / Lipi Glyphs component, design target encoded)",
+      "achievement": "ACHIEVED",
+      "currentState": "LIPI_426_EXPECTED_COUNT=426, export lipi426Master=true, canonical script entries=12 (rest are BLOCKED extension stubs waiting for evidence)",
+      "verifiedBy": "scripts/achievements/economy-identity.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:29.832Z"
+    },
+    {
+      "id": "a-economy-lipi-runtime-typechecks",
+      "universe": "asset-library",
+      "futureMilestone": "lipi-runtime (asset-library / Lipi Glyphs runtime) passes tsc --noEmit typecheck",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tsconfig.json → tsc --noEmit exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/economy-identity.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.660Z"
+    },
+    {
+      "id": "a-economy-lipi-seeded-character-anchors",
+      "universe": "asset-library",
+      "futureMilestone": "lipi-runtime has ≥4 SEEDED character anchors across ≥2 real scripts (brahmi, kharosthi, siddham) — honest small seed, not 15,000+",
+      "achievement": "ACHIEVED",
+      "currentState": "SEEDED anchors=4 across scripts=[brahmi, kharosthi, siddham] — honest seed count (15,000+ glyph asset library is NOT achieved)",
+      "verifiedBy": "scripts/achievements/economy-identity.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.660Z"
+    },
+    {
+      "id": "a-gate-fails-closed",
+      "universe": "governance",
+      "futureMilestone": "Production gate fails closed: refuses GO without hardware root-of-trust evidence",
+      "achievement": "ACHIEVED",
+      "currentState": "gate status=GOVERNED_PRODUCTION_NO_GO; hardware-root-of-trust blocker present=true (safety property holds)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.693Z"
+    },
+    {
+      "id": "a-governance-tests-pass",
+      "universe": "governance",
+      "futureMilestone": "Governance gate has a passing automated test suite",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/governed-production-gate.test.mjs → pass=9 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.745Z"
+    },
+    {
+      "id": "a-ci-honesty-guard",
+      "universe": "governance",
+      "futureMilestone": "CI honesty guard: no milestone can be ACHIEVED without VERIFIED provenance",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/milestones-matrix.test.mjs → pass=4 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.790Z"
+    },
+    {
+      "id": "a-fabrication-detection-operational",
+      "universe": "evidence",
+      "futureMilestone": "Fabrication detection operational: every fabricated metric catalogued, none presented as live",
+      "achievement": "ACHIEVED",
+      "currentState": "376 fabricated claims catalogued as BLOCKED across hkd/*.hkd; 0 rendered as achieved",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.803Z"
+    },
+    {
+      "id": "a-milestones-matrix-deterministic",
+      "universe": "evidence",
+      "futureMilestone": "Milestones matrix content is reproducible (stable hash across runs)",
+      "achievement": "ACHIEVED",
+      "currentState": "stableHash run1=8438cea6f71b… run2=8438cea6f71b… identical=true",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.916Z"
+    },
+    {
+      "id": "a-gov-release-authority-fails-closed",
+      "universe": "governance",
+      "futureMilestone": "Release authority enforces fail-closed integrity: no unsigned production release, no fake signatures, named hardware and quorum blockers",
+      "achievement": "ACHIEVED",
+      "currentState": "release-authority status=BLOCKED; no_fake_signatures=true; no_unsigned_production_release=true; blockers=3 (hw=true, quorum=true) — honest fail-closed gate",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.916Z"
+    },
+    {
+      "id": "a-gov-gate-content-addressed",
+      "universe": "governance",
+      "futureMilestone": "Governed production gate report is content-addressed: carries a signature field and SHA-256 hashes of all inputs",
+      "achievement": "ACHIEVED",
+      "currentState": "governed-production-gate.json signature=27a50957b9ba…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.916Z"
+    },
+    {
+      "id": "a-gov-release-authority-tests-pass",
+      "universe": "governance",
+      "futureMilestone": "Release authority logic has a passing automated test suite (signing, quorum, blocking)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/release-authority.test.mjs → pass=10 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:30.982Z"
+    },
+    {
+      "id": "a-gov-operator-quorum-tests-pass",
+      "universe": "governance",
+      "futureMilestone": "Operator quorum enforcement has a passing automated test suite (revoked operator, expired approval, quorum thresholds)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/operator-quorum.test.mjs → pass=5 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.038Z"
+    },
+    {
+      "id": "a-knowledge-kbs-runtime-suite-passes",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KBS runtime test suite (12 tests) covers claim validation, graph integrity, search, moderation, SDK, provenance, export, governance, and traversal — all green",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/kbs/kbs-runtime.test.ts: 12 pass, 0 fail (expected 12 pass, 0 fail)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.136Z"
+    },
+    {
+      "id": "a-knowledge-graph-validates-clean",
+      "universe": "knowledge-graph",
+      "futureMilestone": "kbs-runtime exports a graph validator (dangling-edge logic) over built-in graph node/edge data",
+      "achievement": "ACHIEVED",
+      "currentState": "graph/index.ts exports validateGraph=true (danglingEdges logic=true); data.ts exports kbsGraphNodes=true, kbsGraphEdges=true",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.136Z"
+    },
+    {
+      "id": "a-knowledge-kbs-sdk-openapi-spec",
+      "universe": "knowledge-graph",
+      "futureMilestone": "kbs-sdk exports a typed OpenAPI 3.1.0 spec object and a createKbsClient factory — SDK contract is in place",
+      "achievement": "ACHIEVED",
+      "currentState": "kbs-sdk/src/index.ts: kbsOpenApiSpec=true, openapi 3.1.0=true, createKbsClient=true, /api/kbs/search path=true",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.137Z"
+    },
+    {
+      "id": "a-knowledge-provenance-hash-deterministic",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KBS provenance module exports a stableHash + bindEvidenceHash contract (FNV-1a) for evidence lineage",
+      "achievement": "ACHIEVED",
+      "currentState": "provenance/index.ts: stableHash=true, FNV-1a offset basis present=true, bindEvidenceHash=true, kbs: prefix=true",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.137Z"
+    },
+    {
+      "id": "a-knowledge-lipi-426-master-registry",
+      "universe": "knowledge-graph",
+      "futureMilestone": "lipi-runtime declares a 426-slot master script registry (LIPI_426_EXPECTED_COUNT=426) with ≥12 canonical entries + extension-slot generation",
+      "achievement": "ACHIEVED",
+      "currentState": "lipi-426-master.ts (static): exports lipi426Master=true, LIPI_426_EXPECTED_COUNT=426, canonical id entries=12, extension-slot pattern=true, freeze concat=true",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.137Z"
+    },
+    {
+      "id": "a-knowledge-kbs-governance-blocked",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KBS governance state is honestly BLOCKED with 7 named production blockers (no false GO claim)",
+      "achievement": "ACHIEVED",
+      "currentState": "data.ts: phkdVerdict=BLOCKED=true, GOVERNED_PRODUCTION_NO_GO=true, unique named blockers=7/7",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.138Z"
+    },
+    {
+      "id": "a-knowledge-runtime-knowledge-graph-ready",
+      "universe": "knowledge-graph",
+      "futureMilestone": "runtime-knowledge-graph health() reports status=ready (not scaffold)",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "runtime-knowledge-graph/src/index.ts health() reports status \"scaffold\" (not \"ready\")=true; governedProductionGo=false=true; roadmap: NOT_ACHIEVED",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.138Z"
+    },
+    {
+      "id": "a-knowledge-lipi-agent-wrapper",
+      "universe": "agent",
+      "futureMilestone": "A Lipi Agent wrapper exists that drives lipi-runtime transliteration/lineage via an agent interface",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "Searched for lipi-agent wrapper at: packages/lipi-agent/src/index.ts, packages/lipi-agent/index.ts, apps/lipi-agent/src/index.ts, packages/agent/src/lipi-agent.ts; found=none; roadmap: NOT_ACHIEVED",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.139Z"
+    },
+    {
+      "id": "a-runtime-packages-present",
+      "universe": "runtime",
+      "futureMilestone": "Federated runtime packages exist as isolated workspaces (target ≥ 8)",
+      "achievement": "ACHIEVED",
+      "currentState": "15 runtime packages with package.json: evidence-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, lipi-runtime, maataa-ui, runtime-hkd-registry, runtime-knowledge-graph, runtime-mission, runtime-observability, runtime-validation, universal-runtime, visual-hkd-runtime",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.142Z"
+    },
+    {
+      "id": "a-offline-model-tooling",
+      "universe": "offline",
+      "futureMilestone": "Offline model manifest + fetch tooling present (weights fetched on demand, not bundled)",
+      "achievement": "ACHIEVED",
+      "currentState": "model-manifest.json=true, download_models.py=true; model weights are NOT bundled (honest scope)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.142Z"
+    },
+    {
+      "id": "a-observability-health-contract",
+      "universe": "observability",
+      "futureMilestone": "Observability runtime exposes a health() contract",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-observability/src/index.ts exports health()=true, HealthReport type=true",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.142Z"
+    },
+    {
+      "id": "a-rollback-drill-evidence",
+      "universe": "release",
+      "futureMilestone": "Rollback drill evidence present and passing (drop-to-recovery-console)",
+      "achievement": "ACHIEVED",
+      "currentState": "PANIC_ROLLBACK report: PANIC_ROLLBACK=PASS, checksumRollback=PASS, driftRollback=PASS, overflowRollback=PASS; 4 recovery events",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.142Z"
+    },
+    {
+      "id": "a-platform-universal-runtime-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "universal-runtime package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/universal-runtime/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:31.848Z"
+    },
+    {
+      "id": "a-platform-evidence-runtime-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "evidence-runtime package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/evidence-runtime/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:32.215Z"
+    },
+    {
+      "id": "a-platform-hardware-attestation-suite-passes",
+      "universe": "system",
+      "futureMilestone": "Hardware attestation test suite passes (nonce-bound HSM signature, replay rejection, provider summary)",
+      "achievement": "ACHIEVED",
+      "currentState": "hardware-attestation.test.mjs: pass=3, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:32.279Z"
+    },
+    {
+      "id": "a-platform-hardware-root-suite-passes",
+      "universe": "system",
+      "futureMilestone": "Hardware root-of-trust test suite passes (capture lifecycle, signature verify, hash mutation detection)",
+      "achievement": "ACHIEVED",
+      "currentState": "hardware-root-of-trust.test.mjs: pass=5, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:32.342Z"
+    },
+    {
+      "id": "a-platform-runtime-validation-health-contract",
+      "universe": "runtime",
+      "futureMilestone": "runtime-validation package exports/declares a health() contract with HealthReport type",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-validation/src/index.ts exports/declares health()=true, HealthReport type=true",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:32.342Z"
+    },
+    {
+      "id": "a-platform-governed-production-gate-tooling",
+      "universe": "operations",
+      "futureMilestone": "Governed production gate script present as operational release tooling",
+      "achievement": "ACHIEVED",
+      "currentState": "scripts/governed-production-gate.mjs present=true; release gate tooling on disk",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "verifiedAt": "2026-06-04T20:14:32.343Z"
+    }
+  ]
+}

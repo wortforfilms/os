@@ -16,7 +16,6 @@ type RouteId =
   | "/domains"
   | "/docs"
   | "/settings"
-  | "/runtime-observatory"
   | "/search";
 type AuthStatus = "checking" | "anonymous" | "authenticated";
 
@@ -33,8 +32,7 @@ function currentPath(): RouteId {
     path === "/domains" ||
     path === "/docs" ||
     path === "/search" ||
-    path === "/settings" ||
-    path === "/runtime-observatory"
+    path === "/settings"
   ) {
     return path;
   }
@@ -226,8 +224,7 @@ function normalizeRoute(path: string): RouteId | null {
     path === "/domains" ||
     path === "/docs" ||
     path === "/search" ||
-    path === "/settings" ||
-    path === "/runtime-observatory"
+    path === "/settings"
   ) {
     return path;
   }

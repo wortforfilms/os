@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, session } = require("electron");
 const { existsSync, readFileSync } = require("node:fs");
+const { createServer } = require("node:http");
 const { join, resolve } = require("node:path");
 const { pathToFileURL } = require("node:url");
 const { createAuthStore } = require("./auth-store.cjs");
@@ -15,6 +16,9 @@ let mainWindow;
 let authStore;
 let runtimeCursor = 0;
 const runtimeStartedAt = Date.now();
+let runtimeSseServer;
+let runtimeSseUrl = null;
+let runtimeSseStatus = "starting";
 
 function isAllowedLocalUrl(rawUrl) {
   try {
@@ -81,6 +85,7 @@ app.commandLine.appendSwitch("autoplay-policy", "user-gesture-required");
 
 app.whenReady().then(() => {
   authStore = createAuthStore(join(app.getPath("userData"), "maataa-auth.sqlite"));
+  startRuntimeSseServer();
 
   session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
     callback({ cancel: !isAllowedLocalUrl(details.url) });
@@ -90,7 +95,8 @@ app.whenReady().then(() => {
     shell: "electron",
     stage: "desktop-alpha",
     localOnly: true,
-    telemetryTarget: "http://127.0.0.1:1420/api/telemetry-stream",
+    telemetryTarget: runtimeSseUrl,
+    sseStatus: runtimeSseStatus,
   }));
 
   ipcMain.handle("maataa:auth-login", (_event, payload) => authStore.login(payload?.username, payload?.password));
@@ -120,7 +126,59 @@ app.on("window-all-closed", () => {
   }
 });
 
-function runtimeEventsSince(cursor) {
+app.on("before-quit", () => {
+  runtimeSseServer?.close();
+});
+
+function startRuntimeSseServer() {
+  runtimeSseServer = createServer((request, response) => {
+    const requestUrl = new URL(request.url || "/", "http://127.0.0.1");
+    if (requestUrl.pathname !== "/api/telemetry-stream") {
+      response.writeHead(404, { "content-type": "application/json" });
+      response.end(JSON.stringify({ ok: false, error: "ROUTE_NOT_FOUND" }));
+      return;
+    }
+
+    response.writeHead(200, {
+      "access-control-allow-origin": "*",
+      "cache-control": "no-cache, no-transform",
+      connection: "keep-alive",
+      "content-type": "text/event-stream; charset=utf-8",
+      "x-accel-buffering": "no",
+    });
+    response.flushHeaders?.();
+    request.socket.setTimeout(0);
+
+    let clientCursor = 0;
+    const send = () => {
+      const batch = runtimeEventsSince(clientCursor, "sse");
+      clientCursor = batch.cursor;
+      response.write(`event: runtime-status\nid: ${batch.cursor}\n`);
+      response.write(`data: ${JSON.stringify(batch)}\n\n`);
+    };
+
+    send();
+    const interval = setInterval(send, 2500);
+    request.on("close", () => {
+      clearInterval(interval);
+    });
+  });
+
+  runtimeSseServer.on("error", () => {
+    runtimeSseStatus = "blocked";
+    runtimeSseUrl = null;
+  });
+
+  runtimeSseServer.listen(0, "127.0.0.1", () => {
+    const address = runtimeSseServer.address();
+    if (address && typeof address === "object") {
+      runtimeSseUrl = `http://127.0.0.1:${address.port}/api/telemetry-stream`;
+      runtimeSseStatus = "ready";
+    }
+  });
+}
+
+function runtimeEventsSince(cursor, transport = "electron-ipc") {
   runtimeCursor = Math.max(runtimeCursor + 1, cursor + 1);
   const now = Date.now();
   const events = [
@@ -151,7 +209,7 @@ function runtimeEventsSince(cursor) {
     cursor: runtimeCursor,
     events,
     blockedSystemsCount: 6,
-    transport: "electron-ipc",
+    transport,
   };
 }
 

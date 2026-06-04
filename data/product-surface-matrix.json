@@ -29,7 +29,7 @@
     { "id": "auth-and-roles", "state": "PREVIEW_VERIFIED", "evidence": "Electron auth bridge stores users, sessions, and audit logs in local SQLite; browser fallback is preview-only." },
     { "id": "offline-local-db", "state": "PREVIEW_VERIFIED", "evidence": "SQLite product runtime migration and Electron auth store are active for the auth slice." },
     { "id": "telemetry", "state": "PREVIEW_VERIFIED", "evidence": "Telemetry pressure and chaos reports exist for loopback frames." },
-    { "id": "sse-live-status", "state": "PREVIEW_VERIFIED", "evidence": "Electron-safe runtime event cursor emits local heartbeat events; browser fallback reports DEGRADED instead of fake live." },
+    { "id": "sse-live-status", "state": "PREVIEW_VERIFIED", "evidence": "Electron exposes a real loopback SSE stream for runtime heartbeats; missing SSE/IPC connections report DEGRADED fallback instead of fake live." },
     { "id": "search", "state": "PREVIEW_VERIFIED", "evidence": "Unified search index and Ctrl/Cmd+K command palette are wired to local product matrix, docs, states, blockers, and repo surfaces." },
     { "id": "billing-entitlements", "state": "PREVIEW_VERIFIED", "evidence": "Local dev billing simulator stores products, entitlements, and invoices in SQLite and exposes role-gated summaries." },
     { "id": "admin-analytics", "state": "PREVIEW_VERIFIED", "evidence": "Admin analytics reads persisted audit, runtime, telemetry, invoice, and entitlement counts from the local store." },
