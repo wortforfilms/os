@@ -1,10 +1,10 @@
 # Governed Production Gate
 
-Generated: 2026-06-07T18:58:14.081Z
+Generated: 2026-06-07T18:59:06.221Z
 Status: GOVERNED_PRODUCTION_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
-Signature: 222e1d0bd47357fd6d08d25a43cf9184cca1064bf733aab317046ba18b23306e
+Signature: 649727ce0f08483cc5aa0603bb14d93dbb4736cd18d01ffd0efae05311d8f718
 
 ## Inputs
 

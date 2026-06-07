@@ -1,6 +1,6 @@
 {
   "schema": "maataa.milestones-cycle.v1",
-  "ranAt": "2026-06-07T18:55:13.958Z",
+  "ranAt": "2026-06-07T18:59:14.358Z",
   "totals": {
     "groups": 6,
     "universes": 48,
@@ -177,22 +177,22 @@
   ],
   "newlyAchieved": [],
   "regressed": [],
-  "stableHash": "2adefcb704ed56db61de2873a878674a52a09a3891c50a0ecf7e6b13b4809c5c",
+  "stableHash": "03f24d15ef82d09100ca80eb6431fc28d9fdd080c364619a192655a336d602ba",
   "steps": [
     {
       "label": "build test cache",
       "status": "ok",
-      "ms": 2874
+      "ms": 1878
     },
     {
       "label": "verify honest achievements",
       "status": "ok",
-      "ms": 11236
+      "ms": 8838
     },
     {
       "label": "generate milestones matrix",
       "status": "ok",
-      "ms": 44
+      "ms": 43
     },
     {
       "label": "render milestones surface",
@@ -202,22 +202,22 @@
     {
       "label": "derive workers + agents",
       "status": "ok",
-      "ms": 68
+      "ms": 25
     },
     {
       "label": "derive next-in-line",
       "status": "ok",
-      "ms": 38
+      "ms": 40
     },
     {
       "label": "render kanban",
       "status": "ok",
-      "ms": 25
+      "ms": 34
     },
     {
       "label": "generate notice board",
       "status": "ok",
-      "ms": 62
+      "ms": 55
     },
     {
       "label": "honesty guard",

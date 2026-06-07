@@ -1,6 +1,6 @@
 {
   "schema": "maataa.governed.production.gate.v1",
-  "generatedAt": "2026-06-07T18:58:14.081Z",
+  "generatedAt": "2026-06-07T18:59:06.221Z",
   "status": "GOVERNED_PRODUCTION_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
@@ -137,7 +137,7 @@
     "noFakeClaims": true
   },
   "runtimeHealth": {
-    "ts": 1780858694193,
+    "ts": 1780858746288,
     "sources": [
       {
         "runtime": "runtime-mission",
@@ -353,5 +353,5 @@
       "reason": "hardware root phkd_verdict must be PASS"
     }
   ],
-  "signature": "222e1d0bd47357fd6d08d25a43cf9184cca1064bf733aab317046ba18b23306e"
+  "signature": "649727ce0f08483cc5aa0603bb14d93dbb4736cd18d01ffd0efae05311d8f718"
 }

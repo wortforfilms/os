@@ -1,0 +1,111 @@
+{
+  "schema": "maataa.next-batch.v1",
+  "batchId": "next-5-20260607-c10b7f118bf5",
+  "generatedAt": "2026-06-07T18:59:18.816Z",
+  "mode": "completed-real-builds",
+  "source": {
+    "queuePath": "data/next-in-line.json",
+    "queueGeneratedAt": "2026-06-07T18:59:14.190Z",
+    "cyclePath": "release/evidence/milestones-cycle-last.json",
+    "cycleRanAt": "2026-06-07T18:59:14.358Z"
+  },
+  "honesty": "This batch is derived from completed real-build entries in data/next-in-line.json. Completion is evidence-backed by the listed probes and milestones-cycle-last.json.",
+  "totals": {
+    "requested": 5,
+    "included": 5,
+    "achievedAtSource": 163,
+    "milestonesAtSource": 654
+  },
+  "items": [
+    {
+      "batchOrder": 1,
+      "sourceRank": 1,
+      "id": "next-1-wire-runtime-mission-propose-runtime-governance-enforce",
+      "title": "Wire runtime-mission propose → runtime-governance enforce",
+      "group": "Governance & Evidence",
+      "detail": "runtime-governance now exists (enforce/audit/rollback). Connect mission's proposals to real enforcement decisions + test.",
+      "completionProbe": "a-gov-runtime-mission-governance-wired",
+      "workStatus": "COMPLETED",
+      "evidenceStatus": "ACHIEVED_BY_PROBE",
+      "completion": "ACHIEVED",
+      "completedAt": "2026-06-07T18:59:14.358Z",
+      "requiredToFlip": [
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 2,
+      "sourceRank": 2,
+      "id": "next-2-persistence-tier-for-the-6-runtimes",
+      "title": "Persistence tier for the 6 runtimes",
+      "group": "Platform & Runtime",
+      "detail": "Back KG/mission/registry/validation/observability/governance with SQLite (node:sqlite) so state survives restarts; add persistence tests.",
+      "completionProbe": "a-platform-runtime-persistence-tier-operational",
+      "workStatus": "COMPLETED",
+      "evidenceStatus": "ACHIEVED_BY_PROBE",
+      "completion": "ACHIEVED",
+      "completedAt": "2026-06-07T18:59:14.358Z",
+      "requiredToFlip": [
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 3,
+      "sourceRank": 3,
+      "id": "next-3-wire-runtime-observability-collect-into-the-gate",
+      "title": "Wire runtime-observability.collect into the gate",
+      "group": "Platform & Runtime",
+      "detail": "Have the governed-production-gate read live runtime health via observability.collect for a real topology snapshot.",
+      "completionProbe": "a-gov-gate-observability-live-health",
+      "workStatus": "COMPLETED",
+      "evidenceStatus": "ACHIEVED_BY_PROBE",
+      "completion": "ACHIEVED",
+      "completedAt": "2026-06-07T18:59:14.358Z",
+      "requiredToFlip": [
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 4,
+      "sourceRank": 4,
+      "id": "next-4-runtime-transport-facade",
+      "title": "runtime-transport facade",
+      "group": "Platform & Runtime",
+      "detail": "A real deterministic transport contract between runtimes (currently no transport universe runtime).",
+      "completionProbe": "a-platform-runtime-transport-facade-operational",
+      "workStatus": "COMPLETED",
+      "evidenceStatus": "ACHIEVED_BY_PROBE",
+      "completion": "ACHIEVED",
+      "completedAt": "2026-06-07T18:59:14.358Z",
+      "requiredToFlip": [
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 5,
+      "sourceRank": 5,
+      "id": "next-5-lipi-agent-wrapper",
+      "title": "lipi-agent wrapper",
+      "group": "Knowledge & Intelligence",
+      "detail": "Honest agent wrapper over lipi-runtime (transliteration/lineage) — flips a-knowledge-lipi-agent-wrapper.",
+      "completionProbe": "a-knowledge-lipi-agent-wrapper",
+      "workStatus": "COMPLETED",
+      "evidenceStatus": "ACHIEVED_BY_PROBE",
+      "completion": "ACHIEVED",
+      "completedAt": "2026-06-07T18:59:14.358Z",
+      "requiredToFlip": [
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    }
+  ]
+}

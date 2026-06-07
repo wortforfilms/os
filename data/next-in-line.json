@@ -1,0 +1,152 @@
+{
+  "schema": "maataa.next-in-line.v1",
+  "generatedAt": "2026-06-07T18:59:14.190Z",
+  "honesty": "real-build items are genuine engineering targets that require code + a passing test before they flip (no fabrication). in-progress-claim items are surfaced from the matrix and are mostly aspirational board claims.",
+  "totals": {
+    "realBuilds": 0,
+    "completedRealBuilds": 5,
+    "inProgressShown": 12,
+    "achieved": 163,
+    "milestones": 654
+  },
+  "completedRealBuilds": [
+    {
+      "completedOrder": 1,
+      "kind": "completed-real-build",
+      "title": "Wire runtime-mission propose → runtime-governance enforce",
+      "detail": "runtime-governance now exists (enforce/audit/rollback). Connect mission's proposals to real enforcement decisions + test.",
+      "group": "Governance & Evidence",
+      "completionProbe": "a-gov-runtime-mission-governance-wired"
+    },
+    {
+      "completedOrder": 2,
+      "kind": "completed-real-build",
+      "title": "Persistence tier for the 6 runtimes",
+      "detail": "Back KG/mission/registry/validation/observability/governance with SQLite (node:sqlite) so state survives restarts; add persistence tests.",
+      "group": "Platform & Runtime",
+      "completionProbe": "a-platform-runtime-persistence-tier-operational"
+    },
+    {
+      "completedOrder": 3,
+      "kind": "completed-real-build",
+      "title": "Wire runtime-observability.collect into the gate",
+      "detail": "Have the governed-production-gate read live runtime health via observability.collect for a real topology snapshot.",
+      "group": "Platform & Runtime",
+      "completionProbe": "a-gov-gate-observability-live-health"
+    },
+    {
+      "completedOrder": 4,
+      "kind": "completed-real-build",
+      "title": "runtime-transport facade",
+      "detail": "A real deterministic transport contract between runtimes (currently no transport universe runtime).",
+      "group": "Platform & Runtime",
+      "completionProbe": "a-platform-runtime-transport-facade-operational"
+    },
+    {
+      "completedOrder": 5,
+      "kind": "completed-real-build",
+      "title": "lipi-agent wrapper",
+      "detail": "Honest agent wrapper over lipi-runtime (transliteration/lineage) — flips a-knowledge-lipi-agent-wrapper.",
+      "group": "Knowledge & Intelligence",
+      "completionProbe": "a-knowledge-lipi-agent-wrapper"
+    }
+  ],
+  "queue": [
+    {
+      "rank": 1,
+      "kind": "in-progress-claim",
+      "id": "c-lipi-agent-real",
+      "title": "Lipi Agent — revives languages & scripts (NLP/OCR/translation)",
+      "group": "Knowledge & Intelligence",
+      "detail": "lipi-runtime (real package) provides transliteration/learning/lineage primitives. Agent wrapper does not exist."
+    },
+    {
+      "rank": 2,
+      "kind": "in-progress-claim",
+      "id": "c-research-agent-real",
+      "title": "Research Agent — discovers/analyzes/validates knowledge",
+      "group": "Knowledge & Intelligence",
+      "detail": "kbs-runtime/src/{claims,review,moderation,governance,provenance} provides research-adjacent primitives. No autonomous Research Agent wrapper."
+    },
+    {
+      "rank": 3,
+      "kind": "in-progress-claim",
+      "id": "c-ai-capabilities-partial",
+      "title": "AI Capabilities: Understand (NLU) / Reason & Infer / Generate & Create / Perceive & Interpret / Plan & Decide / Remember & Learn / Act & Automate / Collaborate",
+      "group": "Knowledge & Intelligence",
+      "detail": "kbs-runtime/src/{search,claims,reasoning} provides Understand+Reason substrate. visual-hkd-runtime provides Perceive+Interpret for vision boards. Generate/Plan/Act runtimes not present."
+    },
+    {
+      "rank": 4,
+      "kind": "in-progress-claim",
+      "id": "c-formats-120",
+      "title": "Formats: 120+",
+      "group": "Economy & Identity",
+      "detail": "120+ file formats is generic count; the repo handles a small subset (HTML, MD, JSON, PNG, etc.). No format conversion runtime."
+    },
+    {
+      "rank": 5,
+      "kind": "in-progress-claim",
+      "id": "c-lipi-glyphs-15k",
+      "title": "Lipi Glyphs Library: 15,000+ glyphs across Brahmi/Kharoshthi/Devanagari/Siddham",
+      "group": "Economy & Identity",
+      "detail": "lipi-runtime/src/characters provides script-character primitives. 15K specific glyph assets are not stored as a library."
+    },
+    {
+      "rank": 6,
+      "kind": "in-progress-claim",
+      "id": "c-powered-by-lipi",
+      "title": "Powered By: LIPI Language & Script",
+      "group": "Civilization & Domains",
+      "detail": "lipi-runtime is real; civilizational integration is aspirational."
+    },
+    {
+      "rank": 7,
+      "kind": "in-progress-claim",
+      "id": "c-knowledge-graph-dashboard-real",
+      "title": "Knowledge Graph Dashboard renders the live knowledge graph",
+      "group": "Apps & Experience",
+      "detail": "kbs-graph + kbs-runtime/src/graph/* exist and could feed a dashboard. The dashboard itself is not built and not wired."
+    },
+    {
+      "rank": 8,
+      "kind": "in-progress-claim",
+      "id": "c-lipi-dashboard-real",
+      "title": "Lipi Dashboard renders script learning progress and accuracy",
+      "group": "Apps & Experience",
+      "detail": "lipi-runtime has learning + search + governance data; UI surface is not built."
+    },
+    {
+      "rank": 9,
+      "kind": "in-progress-claim",
+      "id": "c-erd-13-tables",
+      "title": "ERD: users / profiles / roles / permissions / projects / tasks / milestones / knowledge_nodes / knowledge_relations / knowledge_sources / documents / assets / events",
+      "group": "Civilization & Domains",
+      "detail": "lipi-runtime/prisma/schema.prisma contains a real subset (lipi-domain tables). The board's 13-table ERD is broader and not implemented."
+    },
+    {
+      "rank": 10,
+      "kind": "in-progress-claim",
+      "id": "c-values-embodied-12",
+      "title": "Values Embodied: 12",
+      "group": "Governance & Evidence",
+      "detail": "The 12 values (Yamas+Niyamas extended) are catalogued correctly; 'embodied' as a measured property is not defined."
+    },
+    {
+      "rank": 11,
+      "kind": "in-progress-claim",
+      "id": "c-hkd-enabler",
+      "title": "HKD (Human Knowledge Data) is the universal knowledge format powering the ecosystem",
+      "group": "Civilization & Domains",
+      "detail": "visual-hkd-runtime defines an HKD type system and pipeline. It is real but narrow: extraction from visual sources to knowledge-graph projections. It is not (yet) wired as the universal cross-ecosystem format."
+    },
+    {
+      "rank": 12,
+      "kind": "in-progress-claim",
+      "id": "c-knowledge-features-real",
+      "title": "Knowledge Features (Knowledge Graph, Semantic Search, AI Reasoning, Source Attribution, Continuous Learning)",
+      "group": "Apps & Experience",
+      "detail": "kbs-runtime/src/{graph,search,claims,provenance,ingestion} provide the underlying capabilities. 'Continuous Learning' as a runtime is aspirational."
+    }
+  ]
+}
