@@ -6,6 +6,30 @@ import { fileURLToPath } from "node:url";
 import { HARDWARE_ROOT_SCHEMA, STATUS_CAPTURED, computeHardwareEvidenceHash } from "./capture-hardware-root-of-trust.mjs";
 import { verifyReleaseAuthority } from "./release-authority/verify-release.mjs";
 
+let observability = null;
+const runtimeHealthModules = [];
+try {
+  observability = await import("../packages/runtime-observability/src/index.ts");
+} catch (e) {
+  console.warn(`[governed-production-gate] runtime-observability not available: ${e.message}`);
+}
+
+for (const target of [
+  ["runtime-mission", "../packages/runtime-mission/src/index.ts"],
+  ["runtime-governance", "../packages/runtime-governance/src/index.ts"],
+  ["runtime-observability", "../packages/runtime-observability/src/index.ts"],
+  ["runtime-knowledge-graph", "../packages/runtime-knowledge-graph/src/index.ts"],
+  ["runtime-hkd-registry", "../packages/runtime-hkd-registry/src/index.ts"],
+  ["runtime-validation", "../packages/runtime-validation/src/index.ts"],
+]) {
+  const [runtime, modulePath] = target;
+  try {
+    runtimeHealthModules.push({ runtime, mod: await import(modulePath) });
+  } catch (e) {
+    runtimeHealthModules.push({ runtime, error: e });
+  }
+}
+
 export const GOVERNED_GO = "GOVERNED_PRODUCTION_GO";
 export const GOVERNED_NO_GO = "GOVERNED_PRODUCTION_NO_GO";
 export const GOVERNED_RELEASE_CANDIDATE = "GOVERNED_RELEASE_CANDIDATE";
@@ -80,7 +104,7 @@ export function validateHardwareRootEvidence(evidence) {
   };
 }
 
-export function evaluateGovernedProduction({ completion, hardening, hardwareEvidence }) {
+export function evaluateGovernedProduction({ completion, hardening, hardwareEvidence, runtimeHealth = null }) {
   const blockers = [];
   const hardware = validateHardwareRootEvidence(hardwareEvidence);
 
@@ -96,6 +120,19 @@ export function evaluateGovernedProduction({ completion, hardening, hardwareEvid
       surface: "hardening",
       reason: `hardening matrix is ${hardening.phkdVerdict}; productionReady=${hardening.productionReady}`,
     });
+  }
+
+  // Check live runtime health if available
+  if (runtimeHealth && runtimeHealth.sources) {
+    const degradedRuntimes = runtimeHealth.sources.filter((s) =>
+      s.status === "blocked" || s.status === "degraded" || s.status === "unknown"
+    );
+    if (degradedRuntimes.length > 0) {
+      blockers.push({
+        surface: "runtime-health",
+        reason: `degraded runtimes: ${degradedRuntimes.map((r) => `${r.runtime}=${r.status}`).join(", ")}`,
+      });
+    }
   }
 
   if (!hardware.ok) {
@@ -115,12 +152,53 @@ export function evaluateGovernedProduction({ completion, hardening, hardwareEvid
   };
 }
 
+export function collectLiveRuntimeHealth() {
+  if (!observability?.collect) return null;
+
+  const targets = runtimeHealthModules.map(({ runtime }) => ({ runtime }));
+  const details = [];
+  for (const entry of runtimeHealthModules) {
+    if (entry.error) {
+      details.push({ runtime: entry.runtime, status: "degraded", error: entry.error.message });
+      observability.report?.(entry.runtime, "degraded");
+      continue;
+    }
+    try {
+      const health = entry.mod.health();
+      details.push({
+        runtime: entry.runtime,
+        status: health.status,
+        initialized: health.initialized,
+        capabilities: health.capabilities,
+        governedProductionGo: health.__meta?.governedProductionGo === true,
+      });
+      observability.report?.(entry.runtime, health.status);
+      observability.link?.("governed-production-gate", entry.runtime, "collects-health");
+    } catch (e) {
+      details.push({ runtime: entry.runtime, status: "degraded", error: e.message });
+      observability.report?.(entry.runtime, "degraded");
+    }
+  }
+
+  const aggregate = observability.collect(targets);
+  const topology = observability.getTopology?.();
+  if (!aggregate?.isOk) return null;
+  return {
+    ...aggregate.data,
+    details,
+    topology: topology?.isOk ? topology.data : null,
+  };
+}
+
 export function createGovernedGateReport({ root = process.cwd(), generatedAt = new Date().toISOString() } = {}) {
   const completion = readJson(join(root, "COMPLETION_STATUS_MATRIX.json"));
   const hardening = readJson(join(root, "release/reports/PRODUCTION_HARDENING_MATRIX.json"));
   const hardwareEvidencePath = join(root, "release/evidence/hardware-root-of-trust.json");
   const hardwareEvidence = existsSync(hardwareEvidencePath) ? readJson(hardwareEvidencePath) : null;
-  const evaluation = evaluateGovernedProduction({ completion, hardening, hardwareEvidence });
+
+  const runtimeHealth = collectLiveRuntimeHealth();
+
+  const evaluation = evaluateGovernedProduction({ completion, hardening, hardwareEvidence, runtimeHealth });
   const releaseAuthority = verifyReleaseAuthority({ root });
   const governedStatus = evaluation.productionReady
     ? GOVERNED_GO
@@ -143,6 +221,7 @@ export function createGovernedGateReport({ root = process.cwd(), generatedAt = n
     },
     releaseAuthority,
     hardwareEvidence: evaluation.hardware.normalized,
+    runtimeHealth,
     blockers: evaluation.blockers,
   };
 
@@ -223,6 +302,15 @@ function renderMarkdown(report) {
     report.hardwareEvidence
       ? `- Evidence hash: ${report.hardwareEvidence.evidenceHash ?? "MISSING"}`
       : "- Evidence hash: MISSING",
+    "",
+    "## Runtime Health",
+    "",
+    report.runtimeHealth
+      ? `- Sources: ${report.runtimeHealth.sources.map((source) => `${source.runtime}=${source.status}`).join(", ")}`
+      : "- Sources: unavailable",
+    report.runtimeHealth?.topology
+      ? `- Topology: ${report.runtimeHealth.topology.nodes.length} nodes, ${report.runtimeHealth.topology.edges.length} edges`
+      : "- Topology: unavailable",
     "",
     "## Blockers",
     "",

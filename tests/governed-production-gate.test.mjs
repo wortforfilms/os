@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   GOVERNED_GO,
   GOVERNED_NO_GO,
+  collectLiveRuntimeHealth,
   evaluateGovernedProduction,
   validateHardwareRootEvidence,
 } from "../scripts/governed-production-gate.mjs";
@@ -106,4 +107,25 @@ test("governed production unlocks only when every gate is evidence-backed", () =
 
   assert.equal(result.status, GOVERNED_GO);
   assert.equal(result.productionReady, true);
+});
+
+test("governed production blocks degraded or unknown runtime health", () => {
+  const result = evaluateGovernedProduction({
+    completion: { productionReady: true, finalStatus: "GO" },
+    hardening: { productionReady: true, phkdVerdict: "PASS" },
+    hardwareEvidence: capturedHardwareEvidence(),
+    runtimeHealth: { sources: [{ runtime: "runtime-mission", status: "degraded" }] },
+  });
+
+  assert.equal(result.status, GOVERNED_NO_GO);
+  assert.equal(result.blockers.some((blocker) => blocker.surface === "runtime-health"), true);
+});
+
+test("governed production gate collects live runtime health through observability", () => {
+  const health = collectLiveRuntimeHealth();
+  assert.ok(health);
+  assert.ok(health.sources.some((source) => source.runtime === "runtime-observability" && source.status === "ready"));
+  assert.ok(health.sources.some((source) => source.runtime === "runtime-governance" && source.status === "ready"));
+  assert.ok(health.topology.nodes.some((node) => node.id === "governed-production-gate"));
+  assert.ok(health.topology.edges.some((edge) => edge.from === "governed-production-gate" && edge.kind === "collects-health"));
 });
