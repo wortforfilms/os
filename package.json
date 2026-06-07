@@ -58,6 +58,14 @@
     "runtime-html:verify": "node scripts/verify-runtime-html.mjs",
     "evidence:generate": "node scripts/evidence-generate.mjs",
     "status:matrix": "node scripts/status-matrix.mjs",
+    "milestones": "node scripts/milestones-cycle.mjs",
+    "milestones:verify": "node scripts/verify-honest-achievements.mjs",
+    "milestones:pwa": "node scripts/generate-pwa-manifests.mjs",
+    "milestones:kanban": "node scripts/render-kanban.mjs",
+    "milestones:workers": "node scripts/generate-workers-agents.mjs",
+    "test:cache": "node scripts/build-test-cache.mjs",
+    "migrate": "node --experimental-sqlite scripts/maataa-migrate.mjs",
+    "test:migrations-cli": "node --test tests/migrations-cli.test.mjs",
     "hardware:env": "node scripts/verify-hardware-attestation-env.mjs",
     "hardware:attest": "node scripts/hardware-attestation/run-attestation.mjs",
     "hardware:root": "node scripts/capture-hardware-root-of-trust.mjs",
@@ -80,6 +88,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^2.5.0",
+    "better-sqlite3": "^11.6.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
