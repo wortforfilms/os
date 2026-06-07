@@ -1,6 +1,6 @@
 {
   "schema": "maataa.workers-agents.v1",
-  "generatedAt": "2026-06-07T17:32:47.343Z",
+  "generatedAt": "2026-06-07T18:55:13.726Z",
   "honesty": "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). One-off authoring subagents are finished and are not listed as active.",
   "totals": {
     "workers": 10,
@@ -76,48 +76,48 @@
       "kind": "scheduled-runner",
       "cadence": "recurring (configured in scheduler)",
       "status": "active",
-      "lastRun": "2026-06-07T15:38:33.447Z",
+      "lastRun": "2026-06-07T18:32:38.924Z",
       "lastResult": "163/654 achieved · +0 new · 0 regressed",
       "steps": [
         {
           "label": "build test cache",
           "status": "ok",
-          "ms": 3087
+          "ms": 2537
         },
         {
           "label": "verify honest achievements",
           "status": "ok",
-          "ms": 13287
+          "ms": 11007
         },
         {
           "label": "generate milestones matrix",
           "status": "ok",
-          "ms": 69
+          "ms": 53
         },
         {
           "label": "render milestones surface",
           "status": "ok",
-          "ms": 104
+          "ms": 113
         },
         {
           "label": "derive workers + agents",
           "status": "ok",
-          "ms": 68
+          "ms": 63
         },
         {
           "label": "derive next-in-line",
           "status": "ok",
-          "ms": 36
+          "ms": 35
         },
         {
           "label": "render kanban",
           "status": "ok",
-          "ms": 60
+          "ms": 64
         },
         {
           "label": "generate notice board",
           "status": "ok",
-          "ms": 157
+          "ms": 121
         },
         {
           "label": "honesty guard",

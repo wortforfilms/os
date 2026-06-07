@@ -1,11 +1,11 @@
 {
   "schema": "maataa.governed.production.gate.v1",
-  "generatedAt": "2026-06-07T17:32:35.809Z",
+  "generatedAt": "2026-06-07T18:58:14.081Z",
   "status": "GOVERNED_PRODUCTION_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
   "inputs": {
-    "completionMatrix": "5e8d8a7f6a904c0a86981728fe9465744d23a464c48eed0b91f0233ff1033fcf",
+    "completionMatrix": "182131b0304a948dec8e0c5e30a5bfcc4edffaae79101e9dc014185e328c2c6c",
     "hardeningMatrix": "f7e75faabfac1ad6ac55d04a260b0cd6fed11550eb4b804b330495f04394318b",
     "hardwareRootOfTrust": "8115ea340870eb52caf672099562aa278dd39742678cd7ca65cca9fa115626b1",
     "releaseAuthority": "5f716e30b5a52d1851f68a35031a7c292cc5f4e545db6124c67d024a6544c5a2"
@@ -137,7 +137,7 @@
     "noFakeClaims": true
   },
   "runtimeHealth": {
-    "ts": 1780853556161,
+    "ts": 1780858694193,
     "sources": [
       {
         "runtime": "runtime-mission",
@@ -353,5 +353,5 @@
       "reason": "hardware root phkd_verdict must be PASS"
     }
   ],
-  "signature": "7a405456c687a448a3d3a3cb85c64c47054f19f5273f3d0badb58ec73fe629b6"
+  "signature": "222e1d0bd47357fd6d08d25a43cf9184cca1064bf733aab317046ba18b23306e"
 }
