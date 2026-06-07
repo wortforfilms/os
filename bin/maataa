@@ -1,0 +1,815 @@
+#!/usr/bin/env bash
+
+set -u
+
+SCRIPT_SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SCRIPT_SOURCE" ]; do
+  SCRIPT_DIR="$(cd -P "$(dirname "$SCRIPT_SOURCE")" >/dev/null 2>&1 && pwd)"
+  LINK_TARGET="$(readlink "$SCRIPT_SOURCE")"
+  case "$LINK_TARGET" in
+    /*) SCRIPT_SOURCE="$LINK_TARGET" ;;
+    *) SCRIPT_SOURCE="$SCRIPT_DIR/$LINK_TARGET" ;;
+  esac
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SCRIPT_SOURCE")" >/dev/null 2>&1 && pwd)"
+
+is_repo_root() {
+  [ -f "$1/package.json" ] && [ -d "$1/scripts" ] && [ -d "$1/release" ]
+}
+
+detect_repo_root() {
+  if [ -n "${MAATAA_REPO_ROOT:-}" ]; then
+    cd "$MAATAA_REPO_ROOT" >/dev/null 2>&1 && pwd -P
+    return $?
+  fi
+
+  local dir
+  dir="$(cd "$SCRIPT_DIR/.." >/dev/null 2>&1 && pwd -P)"
+  while [ "$dir" != "/" ]; do
+    if is_repo_root "$dir"; then
+      printf '%s\n' "$dir"
+      return 0
+    fi
+    dir="$(dirname "$dir")"
+  done
+
+  dir="$(pwd -P)"
+  while [ "$dir" != "/" ]; do
+    if is_repo_root "$dir"; then
+      printf '%s\n' "$dir"
+      return 0
+    fi
+    dir="$(dirname "$dir")"
+  done
+
+  return 1
+}
+
+REPO_ROOT="$(detect_repo_root || true)"
+if [ -z "$REPO_ROOT" ]; then
+  echo "REPO_ROOT=UNKNOWN"
+  echo "CLI_STATUS=BLOCKED"
+  echo "REASON=Could not detect MAATAA-OS repository root."
+  exit 2
+fi
+
+rel_path() {
+  printf '%s/%s' "$REPO_ROOT" "$1"
+}
+
+has_file() {
+  [ -f "$(rel_path "$1")" ]
+}
+
+json_value() {
+  local rel="$1"
+  local key="$2"
+  local fallback="${3:-UNKNOWN}"
+  local file
+  local value
+
+  file="$(rel_path "$rel")"
+  if [ ! -f "$file" ]; then
+    printf '%s\n' "$fallback"
+    return 1
+  fi
+
+  if command -v jq >/dev/null 2>&1; then
+    value="$(jq -r --arg key "$key" '
+      try getpath($key | split(".")) catch null
+      | if . == null then empty
+        elif type == "array" then length
+        elif type == "object" then @json
+        else tostring
+        end
+    ' "$file" 2>/dev/null || true)"
+  elif command -v node >/dev/null 2>&1; then
+    value="$(node -e '
+      const fs = require("fs");
+      const file = process.argv[1];
+      const key = process.argv[2];
+      const data = JSON.parse(fs.readFileSync(file, "utf8"));
+      let value = data;
+      for (const part of key.split(".")) {
+        if (!part) continue;
+        if (value && Object.prototype.hasOwnProperty.call(value, part)) {
+          value = value[part];
+        } else {
+          process.exit(3);
+        }
+      }
+      if (value === undefined || value === null || value === "") process.exit(3);
+      if (Array.isArray(value)) console.log(value.length);
+      else if (typeof value === "object") console.log(JSON.stringify(value));
+      else console.log(String(value));
+    ' "$file" "$key" 2>/dev/null || true)"
+  else
+    local last_key
+    last_key="${key##*.}"
+    value="$(grep -E "\"$last_key\"[[:space:]]*:" "$file" 2>/dev/null | head -1 | sed -E 's/^[^:]+:[[:space:]]*//; s/[",]//g; s/^[[:space:]]+//; s/[[:space:]]+$//' || true)"
+  fi
+
+  if [ -z "$value" ]; then
+    printf '%s\n' "$fallback"
+    return 1
+  fi
+
+  printf '%s\n' "$value"
+}
+
+warn_utf8() {
+  local locale_value="${LC_ALL:-${LC_CTYPE:-${LANG:-}}}"
+  case "$locale_value" in
+    *UTF-8*|*utf8*|*utf-8*) return 0 ;;
+  esac
+  echo "WARN_UTF8=Terminal locale does not look UTF-8; Lipi samples may not render." >&2
+}
+
+matrix_file() {
+  if has_file "COMPLETION_STATUS_MATRIX.json"; then
+    printf '%s\n' "COMPLETION_STATUS_MATRIX.json"
+  elif has_file "release/evidence/latest.json"; then
+    printf '%s\n' "release/evidence/latest.json"
+  else
+    printf '%s\n' "COMPLETION_STATUS_MATRIX.json"
+  fi
+}
+
+print_status_en() {
+  local matrix
+  matrix="$(matrix_file)"
+  if ! has_file "$matrix"; then
+    echo "FINAL_STATUS=UNKNOWN"
+    echo "PRODUCTION_READY=UNKNOWN"
+    echo "PHKD_VERDICT=UNKNOWN"
+    echo "BLOCKERS=UNKNOWN"
+    echo "STATUS_SOURCE=BLOCKED"
+    return 1
+  fi
+
+  echo "FINAL_STATUS=$(json_value "$matrix" "finalStatus" "UNKNOWN")"
+  echo "PRODUCTION_READY=$(json_value "$matrix" "productionReady" "UNKNOWN")"
+  echo "PHKD_VERDICT=$(json_value "$matrix" "phkdVerdict" "UNKNOWN")"
+  echo "BLOCKERS=$(json_value "$matrix" "blockers" "UNKNOWN")"
+  echo "STATUS_SOURCE=$matrix"
+}
+
+print_status_hi() {
+  local matrix
+  matrix="$(matrix_file)"
+  if ! has_file "$matrix"; then
+    echo "अंतिम_स्थिति=UNKNOWN"
+    echo "उत्पादन_तैयार=UNKNOWN"
+    echo "PHKD_निर्णय=UNKNOWN"
+    echo "अवरोधक=UNKNOWN"
+    echo "स्थिति_स्रोत=BLOCKED"
+    return 1
+  fi
+
+  echo "अंतिम_स्थिति=$(json_value "$matrix" "finalStatus" "UNKNOWN")"
+  echo "उत्पादन_तैयार=$(json_value "$matrix" "productionReady" "UNKNOWN")"
+  echo "PHKD_निर्णय=$(json_value "$matrix" "phkdVerdict" "UNKNOWN")"
+  echo "अवरोधक=$(json_value "$matrix" "blockers" "UNKNOWN")"
+  echo "स्थिति_स्रोत=$matrix"
+}
+
+cmd_status() {
+  local lang="en"
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --lang)
+        shift
+        lang="${1:-}"
+        ;;
+      --lang=*)
+        lang="${1#--lang=}"
+        ;;
+      *)
+        echo "STATUS=BLOCKED"
+        echo "REASON=Unknown status option: $1"
+        return 2
+        ;;
+    esac
+    shift || true
+  done
+
+  case "$lang" in
+    en) print_status_en ;;
+    hi)
+      warn_utf8
+      print_status_hi
+      ;;
+    both)
+      warn_utf8
+      print_status_en
+      print_status_hi
+      ;;
+    *)
+      echo "STATUS=BLOCKED"
+      echo "REASON=Unsupported language: $lang"
+      return 2
+      ;;
+  esac
+}
+
+cmd_doctor_fonts() {
+  local locale_value="${LC_ALL:-${LC_CTYPE:-${LANG:-UNKNOWN}}}"
+  local utf8="false"
+  case "$locale_value" in
+    *UTF-8*|*utf8*|*utf-8*) utf8="true" ;;
+  esac
+
+  [ "$utf8" = "true" ] || warn_utf8
+  echo "FONT_CHECK=AVAILABLE"
+  echo "TERMINAL_LOCALE=$locale_value"
+  echo "TERMINAL_UTF8=$utf8"
+  echo "BUNDLED_FONTS=NONE"
+  if command -v fc-match >/dev/null 2>&1; then
+    echo "FONTCONFIG=$(fc-match sans 2>/dev/null | head -1 || echo UNKNOWN)"
+  else
+    echo "FONTCONFIG=UNKNOWN"
+  fi
+  echo "DEVANAGARI_SAMPLE=अ आ इ ई उ ऊ ए ऐ ओ औ क ख ग नमस्ते"
+  echo "BRAHMI_SAMPLE=𑀅 𑀆 𑀇 𑀈 𑀉 𑀊 𑀏 𑀐 𑀑 𑀒 𑀓 𑀔 𑀕"
+}
+
+required_evidence_status() {
+  local missing=0
+  local rel
+  for rel in "COMPLETION_STATUS_MATRIX.json" "release/evidence/latest.json" "release/evidence/blockers.json"; do
+    if has_file "$rel"; then
+      echo "FOUND=$rel"
+    else
+      echo "MISSING=$rel"
+      missing=1
+    fi
+  done
+
+  if [ "$missing" -eq 0 ]; then
+    echo "EVIDENCE_STATUS=AVAILABLE"
+    return 0
+  fi
+
+  echo "EVIDENCE_STATUS=BLOCKED"
+  return 1
+}
+
+cmd_doctor() {
+  if [ "${1:-}" = "fonts" ]; then
+    shift
+    cmd_doctor_fonts "$@"
+    return $?
+  fi
+
+  echo "REPO_ROOT=$REPO_ROOT"
+  if is_repo_root "$REPO_ROOT"; then
+    echo "REPO_STATUS=FOUND"
+  else
+    echo "REPO_STATUS=UNKNOWN"
+  fi
+  required_evidence_status >/dev/null 2>&1
+  if [ "$?" -eq 0 ]; then
+    echo "EVIDENCE_STATUS=AVAILABLE"
+  else
+    echo "EVIDENCE_STATUS=BLOCKED"
+  fi
+  print_status_en
+  cmd_device_trust_summary
+}
+
+cmd_evidence_generate() {
+  if ! has_file "scripts/evidence-generate.mjs"; then
+    echo "EVIDENCE_GENERATE=BLOCKED"
+    echo "REASON=scripts/evidence-generate.mjs is missing."
+    return 1
+  fi
+  (cd "$REPO_ROOT" && node scripts/evidence-generate.mjs)
+}
+
+cmd_evidence_latest() {
+  if ! has_file "release/evidence/latest.json"; then
+    echo "EVIDENCE_LATEST=UNKNOWN"
+    echo "REASON=release/evidence/latest.json is missing."
+    return 1
+  fi
+  echo "EVIDENCE_LATEST=FOUND"
+  echo "FINAL_STATUS=$(json_value "release/evidence/latest.json" "finalStatus" "UNKNOWN")"
+  echo "PRODUCTION_READY=$(json_value "release/evidence/latest.json" "productionReady" "UNKNOWN")"
+  echo "PHKD_VERDICT=$(json_value "release/evidence/latest.json" "phkdVerdict" "UNKNOWN")"
+  echo "BLOCKERS=$(json_value "release/evidence/latest.json" "blockers" "UNKNOWN")"
+}
+
+cmd_evidence_blockers() {
+  local file
+  file="$(rel_path "release/evidence/blockers.json")"
+  if [ ! -f "$file" ]; then
+    echo "BLOCKERS=UNKNOWN"
+    echo "REASON=release/evidence/blockers.json is missing."
+    return 1
+  fi
+
+  echo "BLOCKERS=$(json_value "release/evidence/blockers.json" "blockers" "UNKNOWN")"
+  echo "BLOCKERS_SHOWN=20"
+  if command -v jq >/dev/null 2>&1; then
+    jq -r '.blockers[0:20][]? | "- " + ((.id // .route // .feature // .title // .reason // .message // tostring) | tostring)' "$file"
+  elif command -v node >/dev/null 2>&1; then
+    node -e '
+      const fs = require("fs");
+      const data = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+      for (const blocker of (data.blockers || []).slice(0, 20)) {
+        console.log("- " + String(blocker.id || blocker.route || blocker.feature || blocker.title || blocker.reason || blocker.message || JSON.stringify(blocker)));
+      }
+    ' "$file"
+  fi
+}
+
+cmd_evidence_validate() {
+  required_evidence_status
+  local status=$?
+  if [ "$status" -ne 0 ]; then
+    echo "VALIDATION=FAILED"
+    return 1
+  fi
+
+  echo "VALIDATION=PASSED"
+  echo "FINAL_STATUS=$(json_value "COMPLETION_STATUS_MATRIX.json" "finalStatus" "UNKNOWN")"
+  echo "PRODUCTION_READY=$(json_value "COMPLETION_STATUS_MATRIX.json" "productionReady" "UNKNOWN")"
+  return 0
+}
+
+cmd_evidence() {
+  local sub="${1:-}"
+  shift || true
+  case "$sub" in
+    generate) cmd_evidence_generate "$@" ;;
+    latest) cmd_evidence_latest "$@" ;;
+    blockers) cmd_evidence_blockers "$@" ;;
+    validate) cmd_evidence_validate "$@" ;;
+    *) echo "EVIDENCE_STATUS=BLOCKED"; echo "REASON=Unknown evidence command: ${sub:-missing}"; return 2 ;;
+  esac
+}
+
+cmd_milestones_run() {
+  if ! has_file "scripts/milestones-cycle.mjs"; then
+    echo "MILESTONES_RUN=BLOCKED"
+    echo "REASON=scripts/milestones-cycle.mjs is missing."
+    return 1
+  fi
+  (cd "$REPO_ROOT" && node scripts/milestones-cycle.mjs)
+}
+
+cmd_milestones_report() {
+  local rel="release/evidence/milestones-cycle-last.json"
+  if ! has_file "$rel"; then
+    echo "MILESTONES_REPORT=UNKNOWN"
+    echo "REASON=$rel is missing."
+    return 1
+  fi
+  echo "MILESTONES_REPORT=FOUND"
+  echo "RAN_AT=$(json_value "$rel" "ranAt" "UNKNOWN")"
+  echo "GROUPS=$(json_value "$rel" "totals.groups" "UNKNOWN")"
+  echo "UNIVERSES=$(json_value "$rel" "totals.universes" "UNKNOWN")"
+  echo "MILESTONES=$(json_value "$rel" "totals.milestones" "UNKNOWN")"
+  echo "ACHIEVED=$(json_value "$rel" "totals.achieved" "UNKNOWN")"
+  echo "IN_PROGRESS=$(json_value "$rel" "totals.inProgress" "UNKNOWN")"
+  echo "NOT_ACHIEVED=$(json_value "$rel" "totals.notAchieved" "UNKNOWN")"
+  echo "UNVERIFIED=$(json_value "$rel" "totals.unverified" "UNKNOWN")"
+}
+
+cmd_milestones_kanban() {
+  if ! has_file "scripts/render-kanban.mjs"; then
+    echo "MILESTONES_KANBAN=BLOCKED"
+    echo "REASON=scripts/render-kanban.mjs is missing."
+    return 1
+  fi
+  (cd "$REPO_ROOT" && node scripts/render-kanban.mjs)
+  echo "KANBAN_PATH=release/MILESTONES_KANBAN.html"
+}
+
+cmd_milestones() {
+  local sub="${1:-}"
+  shift || true
+  case "$sub" in
+    run) cmd_milestones_run "$@" ;;
+    report) cmd_milestones_report "$@" ;;
+    kanban) cmd_milestones_kanban "$@" ;;
+    *) echo "MILESTONES_STATUS=BLOCKED"; echo "REASON=Unknown milestones command: ${sub:-missing}"; return 2 ;;
+  esac
+}
+
+cmd_runtime_list() {
+  local count=0
+  local manifest
+  echo "RUNTIME_PACKAGES_SOURCE=packages/*/package.json"
+  for manifest in "$REPO_ROOT"/packages/*/package.json; do
+    [ -f "$manifest" ] || continue
+    case "$manifest" in
+      *"/._"*) continue ;;
+    esac
+    count=$((count + 1))
+    if command -v node >/dev/null 2>&1; then
+      node -e 'const fs=require("fs"); const p=process.argv[1]; const j=JSON.parse(fs.readFileSync(p,"utf8")); console.log("- " + (j.name || p));' "$manifest" 2>/dev/null || echo "- $manifest"
+    else
+      echo "- $manifest"
+    fi
+  done
+  echo "RUNTIME_PACKAGES=$count"
+  [ "$count" -gt 0 ]
+}
+
+cmd_runtime_test() {
+  local name="$1"
+  local test_file="$2"
+  if ! has_file "$test_file"; then
+    echo "RUNTIME_${name}=BLOCKED"
+    echo "REASON=$test_file is missing."
+    return 1
+  fi
+  echo "RUNTIME_${name}_TEST=$test_file"
+  (cd "$REPO_ROOT" && node --experimental-strip-types --test "$test_file")
+}
+
+cmd_runtime() {
+  local sub="${1:-}"
+  shift || true
+  case "$sub" in
+    list) cmd_runtime_list "$@" ;;
+    transport) cmd_runtime_test "TRANSPORT" "tests/runtime-transport.test.ts" ;;
+    graph) cmd_runtime_test "GRAPH" "tests/runtime-knowledge-graph.test.ts" ;;
+    *) echo "RUNTIME_STATUS=BLOCKED"; echo "REASON=Unknown runtime command: ${sub:-missing}"; return 2 ;;
+  esac
+}
+
+cmd_device_memory() {
+  local candidate
+  for candidate in \
+    "target/thumbv7em-none-eabihf/release/maataa-os" \
+    "target/release/maataa-os" \
+    "dist-golden/maataa-os-0.1.0-alpha.1"; do
+    if has_file "$candidate"; then
+      echo "DEVICE_MEMORY=FOUND"
+      echo "DEVICE_ARTIFACT=$candidate"
+      if stat -f%z "$(rel_path "$candidate")" >/dev/null 2>&1; then
+        echo "DEVICE_ARTIFACT_BYTES=$(stat -f%z "$(rel_path "$candidate")")"
+      else
+        echo "DEVICE_ARTIFACT_BYTES=$(stat -c%s "$(rel_path "$candidate")" 2>/dev/null || echo UNKNOWN)"
+      fi
+      return 0
+    fi
+  done
+  echo "DEVICE_MEMORY=UNKNOWN"
+  echo "REASON=No release/device artifact evidence found."
+  return 1
+}
+
+real_hardware_trust() {
+  local rel="release/evidence/hardware-root-of-trust.json"
+  [ -f "$(rel_path "$rel")" ] || return 1
+  local status
+  local ready
+  local verdict
+  local blockers
+  status="$(json_value "$rel" "status" "UNKNOWN")"
+  ready="$(json_value "$rel" "production_ready" "false")"
+  verdict="$(json_value "$rel" "phkd_verdict" "UNKNOWN")"
+  blockers="$(json_value "$rel" "blockers" "UNKNOWN")"
+  [ "$status" = "CAPTURED" ] && [ "$ready" = "true" ] && [ "$verdict" = "PASS" ] && [ "$blockers" = "0" ]
+}
+
+cmd_device_trust_summary() {
+  local rel="release/evidence/hardware-root-of-trust.json"
+  if real_hardware_trust; then
+    echo "DEVICE_TRUST=VERIFIED"
+    echo "HARDWARE_EVIDENCE=$rel"
+  else
+    echo "DEVICE_TRUST=BLOCKED"
+    if has_file "$rel"; then
+      echo "HARDWARE_EVIDENCE_STATUS=$(json_value "$rel" "status" "UNKNOWN")"
+      echo "HARDWARE_PHKD_VERDICT=$(json_value "$rel" "phkd_verdict" "UNKNOWN")"
+    else
+      echo "HARDWARE_EVIDENCE_STATUS=MISSING"
+      echo "HARDWARE_PHKD_VERDICT=UNKNOWN"
+    fi
+  fi
+}
+
+cmd_device_trust() {
+  cmd_device_trust_summary
+  real_hardware_trust
+}
+
+cmd_device() {
+  local sub="${1:-}"
+  shift || true
+  case "$sub" in
+    memory) cmd_device_memory "$@" ;;
+    trust) cmd_device_trust "$@" ;;
+    *) echo "DEVICE_STATUS=BLOCKED"; echo "REASON=Unknown device command: ${sub:-missing}"; return 2 ;;
+  esac
+}
+
+cmd_lipi_status() {
+  if has_file "packages/lipi-runtime/package.json"; then
+    echo "LIPI_STATUS=FOUND"
+    echo "LIPI_RUNTIME=packages/lipi-runtime"
+  else
+    echo "LIPI_STATUS=BLOCKED"
+    echo "REASON=packages/lipi-runtime/package.json is missing."
+    return 1
+  fi
+  echo "NO_OCR_GUESSING=true"
+  echo "CERTIFICATION_CLAIMS=NONE"
+  echo "FINAL_STATUS=$(json_value "$(matrix_file)" "finalStatus" "UNKNOWN")"
+}
+
+cmd_lipi_pages() {
+  local count=0
+  local file
+  warn_utf8
+  echo "LIPI_PAGES_SOURCE=docs release"
+  while IFS= read -r file; do
+    [ -n "$file" ] || continue
+    count=$((count + 1))
+    echo "- ${file#$REPO_ROOT/}"
+  done <<EOF
+$(find "$REPO_ROOT/docs" "$REPO_ROOT/release" -type f -iname '*lipi*' 2>/dev/null | sort)
+EOF
+  echo "LIPI_PAGES=$count"
+}
+
+cmd_lipi_fonts() {
+  warn_utf8
+  echo "LIPI_FONTS=SYSTEM_ONLY"
+  echo "BUNDLED_FONTS=NONE"
+  echo "DEVANAGARI_SAMPLE=अ आ इ ई उ ऊ ए ऐ ओ औ क ख ग नमस्ते"
+  echo "BRAHMI_SAMPLE=𑀅 𑀆 𑀇 𑀈 𑀉 𑀊 𑀏 𑀐 𑀑 𑀒 𑀓 𑀔 𑀕"
+  if command -v fc-match >/dev/null 2>&1; then
+    echo "FONTCONFIG=$(fc-match sans 2>/dev/null | head -1 || echo UNKNOWN)"
+  else
+    echo "FONTCONFIG=UNKNOWN"
+  fi
+}
+
+cmd_lipi_validate() {
+  if ! has_file "packages/lipi-runtime/package.json"; then
+    echo "LIPI_VALIDATE=BLOCKED"
+    echo "REASON=packages/lipi-runtime/package.json is missing."
+    return 1
+  fi
+  if ! ls "$REPO_ROOT"/packages/lipi-runtime/tests/*.test.mjs >/dev/null 2>&1; then
+    echo "LIPI_VALIDATE=BLOCKED"
+    echo "REASON=No lipi-runtime tests found."
+    return 1
+  fi
+  (cd "$REPO_ROOT" && node --test packages/lipi-runtime/tests/*.test.mjs)
+}
+
+cmd_lipi_evidence() {
+  local rel="release/evidence/honest-achievements.json"
+  local file
+  file="$(rel_path "$rel")"
+  if [ ! -f "$file" ]; then
+    echo "LIPI_EVIDENCE=BLOCKED"
+    echo "REASON=$rel is missing."
+    return 1
+  fi
+
+  if command -v node >/dev/null 2>&1; then
+    node -e '
+      const fs = require("fs");
+      const data = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+      const list = Array.isArray(data) ? data : (data.achievements || data.items || data.claims || []);
+      const lipi = list.filter((item) => JSON.stringify(item).toLowerCase().includes("lipi"));
+      console.log("LIPI_EVIDENCE=" + (lipi.length > 0 ? "FOUND" : "UNKNOWN"));
+      console.log("LIPI_EVIDENCE_COUNT=" + lipi.length);
+      for (const item of lipi.slice(0, 20)) {
+        console.log("- " + String(item.id || item.title || item.futureMilestone || item.evidence || JSON.stringify(item)).slice(0, 240));
+      }
+      process.exit(lipi.length > 0 ? 0 : 1);
+    ' "$file"
+    return $?
+  fi
+
+  echo "LIPI_EVIDENCE=UNKNOWN"
+  echo "REASON=Node is unavailable for evidence parsing."
+  return 1
+}
+
+cmd_lipi_transliterate() {
+  local from=""
+  local to=""
+  local text_parts=()
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --from)
+        shift
+        from="${1:-}"
+        ;;
+      --to)
+        shift
+        to="${1:-}"
+        ;;
+      --)
+        shift
+        while [ $# -gt 0 ]; do
+          text_parts+=("$1")
+          shift
+        done
+        break
+        ;;
+      -*)
+        echo "TRANSLITERATION=BLOCKED"
+        echo "REASON=Unknown transliteration option: $1"
+        return 2
+        ;;
+      *)
+        text_parts+=("$1")
+        ;;
+    esac
+    shift || true
+  done
+
+  if [ "$from" != "brahmi" ] || [ "$to" != "devanagari" ]; then
+    echo "TRANSLITERATION=BLOCKED"
+    echo "REASON=Only --from brahmi --to devanagari is supported."
+    return 2
+  fi
+
+  if [ "${#text_parts[@]}" -eq 0 ]; then
+    echo "TRANSLITERATION=BLOCKED"
+    echo "REASON=Missing text."
+    return 2
+  fi
+
+  if ! command -v node >/dev/null 2>&1; then
+    echo "TRANSLITERATION=BLOCKED"
+    echo "REASON=Node is unavailable for Unicode-safe transliteration."
+    return 1
+  fi
+
+  warn_utf8
+  echo "TRANSLITERATION_FROM=brahmi"
+  echo "TRANSLITERATION_TO=devanagari"
+  node -e '
+    const text = process.argv.slice(1).join(" ");
+    const map = new Map([
+      ["𑀅", "अ"], ["𑀆", "आ"], ["𑀇", "इ"], ["𑀈", "ई"], ["𑀉", "उ"], ["𑀊", "ऊ"],
+      ["𑀏", "ए"], ["𑀐", "ऐ"], ["𑀑", "ओ"], ["𑀒", "औ"],
+      ["𑀓", "क"], ["𑀔", "ख"], ["𑀕", "ग"], ["𑀖", "घ"], ["𑀗", "ङ"],
+      ["𑀘", "च"], ["𑀙", "छ"], ["𑀚", "ज"], ["𑀛", "झ"], ["𑀜", "ञ"],
+      ["𑀝", "ट"], ["𑀞", "ठ"], ["𑀟", "ड"], ["𑀠", "ढ"], ["𑀡", "ण"],
+      ["𑀢", "त"], ["𑀣", "थ"], ["𑀤", "द"], ["𑀥", "ध"], ["𑀦", "न"],
+      ["𑀧", "प"], ["𑀨", "फ"], ["𑀩", "ब"], ["𑀪", "भ"], ["𑀫", "म"],
+      ["𑀬", "य"], ["𑀭", "र"], ["𑀮", "ल"], ["𑀯", "व"],
+      ["𑀰", "श"], ["𑀱", "ष"], ["𑀲", "स"], ["𑀳", "ह"],
+      ["𑀁", "ं"], ["𑀂", "ः"], ["𑁆", "्"],
+      ["𑁦", "०"], ["𑁧", "१"], ["𑁨", "२"], ["𑁩", "३"], ["𑁪", "४"],
+      ["𑁫", "५"], ["𑁬", "६"], ["𑁭", "७"], ["𑁮", "८"], ["𑁯", "९"],
+      ["।", "।"], [".", "।"], [",", ","]
+    ]);
+    let out = "";
+    for (const ch of text) {
+      if (/\s/u.test(ch)) out += ch;
+      else out += map.has(ch) ? map.get(ch) : "[UNKNOWN]";
+    }
+    console.log("TRANSLITERATED_TEXT=" + out);
+  ' "${text_parts[@]}"
+  echo "OCR_GUESSING=false"
+  echo "CERTIFICATION_CLAIMS=NONE"
+}
+
+cmd_lipi() {
+  local sub="${1:-}"
+  shift || true
+  case "$sub" in
+    status) cmd_lipi_status "$@" ;;
+    pages) cmd_lipi_pages "$@" ;;
+    fonts) cmd_lipi_fonts "$@" ;;
+    validate) cmd_lipi_validate "$@" ;;
+    evidence) cmd_lipi_evidence "$@" ;;
+    transliterate) cmd_lipi_transliterate "$@" ;;
+    *) echo "LIPI_STATUS=BLOCKED"; echo "REASON=Unknown lipi command: ${sub:-missing}"; return 2 ;;
+  esac
+}
+
+cmd_themelab_report() {
+  if ! has_file "data/theme-lab-runtime.json"; then
+    echo "THEMELAB_REPORT=UNKNOWN"
+    echo "REASON=data/theme-lab-runtime.json is missing."
+    return 1
+  fi
+  echo "THEMELAB_REPORT=FOUND"
+  echo "THEMELAB_SOURCE=data/theme-lab-runtime.json"
+  echo "THEMELAB_THEME_CARDS=$(json_value "data/theme-lab-runtime.json" "themeCards" "UNKNOWN")"
+}
+
+cmd_themelab_readiness() {
+  if ! has_file "data/theme-lab-runtime.json"; then
+    echo "THEMELAB_READINESS=UNKNOWN"
+    return 1
+  fi
+  echo "THEMELAB_FINAL_STATUS=$(json_value "data/theme-lab-runtime.json" "governance.finalStatus" "$(json_value "$(matrix_file)" "finalStatus" "UNKNOWN")")"
+  echo "THEMELAB_PRODUCTION_READY=$(json_value "data/theme-lab-runtime.json" "governance.productionReady" "false")"
+  echo "THEMELAB_PHKD_VERDICT=$(json_value "data/theme-lab-runtime.json" "governance.phkdVerdict" "BLOCKED")"
+}
+
+cmd_themelab_entitlements() {
+  if ! has_file "data/theme-lab-runtime.json"; then
+    echo "THEMELAB_ENTITLEMENTS=UNKNOWN"
+    return 1
+  fi
+  local entitlements
+  entitlements="$(json_value "data/theme-lab-runtime.json" "entitlements" "UNKNOWN")"
+  echo "THEMELAB_ENTITLEMENTS=$entitlements"
+  [ "$entitlements" != "UNKNOWN" ]
+}
+
+cmd_themelab() {
+  local sub="${1:-}"
+  shift || true
+  case "$sub" in
+    report) cmd_themelab_report "$@" ;;
+    readiness) cmd_themelab_readiness "$@" ;;
+    entitlements) cmd_themelab_entitlements "$@" ;;
+    *) echo "THEMELAB_STATUS=BLOCKED"; echo "REASON=Unknown themelab command: ${sub:-missing}"; return 2 ;;
+  esac
+}
+
+cmd_release_matrix() {
+  print_status_en
+}
+
+cmd_release_preview() {
+  cmd_evidence_generate || return $?
+  if ! has_file "scripts/status-matrix.mjs"; then
+    echo "RELEASE_PREVIEW=BLOCKED"
+    echo "REASON=scripts/status-matrix.mjs is missing."
+    return 1
+  fi
+  (cd "$REPO_ROOT" && node scripts/status-matrix.mjs)
+}
+
+cmd_release_gate() {
+  if ! has_file "scripts/governed-production-gate.mjs"; then
+    echo "RELEASE_GATE=BLOCKED"
+    echo "REASON=scripts/governed-production-gate.mjs is missing."
+    return 1
+  fi
+  (cd "$REPO_ROOT" && node scripts/governed-production-gate.mjs)
+}
+
+cmd_release() {
+  local sub="${1:-}"
+  shift || true
+  case "$sub" in
+    matrix) cmd_release_matrix "$@" ;;
+    preview) cmd_release_preview "$@" ;;
+    gate) cmd_release_gate "$@" ;;
+    *) echo "RELEASE_STATUS=BLOCKED"; echo "REASON=Unknown release command: ${sub:-missing}"; return 2 ;;
+  esac
+}
+
+print_help() {
+  cat <<'EOF'
+MAATAA CLI (non-npm)
+
+Commands:
+  maataa status --lang hi|en|both
+  maataa doctor [fonts]
+  maataa evidence generate|latest|blockers|validate
+  maataa milestones run|report|kanban
+  maataa runtime list|transport|graph
+  maataa device memory|trust
+  maataa lipi status|pages|fonts|validate|evidence
+  maataa lipi transliterate --from brahmi --to devanagari TEXT
+  maataa themelab report|readiness|entitlements
+  maataa release matrix|preview|gate
+
+PHKD: missing evidence reports BLOCKED or UNKNOWN; no hardware trust or GO is claimed without evidence.
+EOF
+}
+
+main() {
+  local cmd="${1:-help}"
+  shift || true
+  case "$cmd" in
+    status) cmd_status "$@" ;;
+    doctor) cmd_doctor "$@" ;;
+    evidence) cmd_evidence "$@" ;;
+    milestones) cmd_milestones "$@" ;;
+    runtime) cmd_runtime "$@" ;;
+    device) cmd_device "$@" ;;
+    lipi) cmd_lipi "$@" ;;
+    themelab) cmd_themelab "$@" ;;
+    release) cmd_release "$@" ;;
+    help|--help|-h) print_help ;;
+    *)
+      echo "CLI_STATUS=BLOCKED"
+      echo "REASON=Unknown command: $cmd"
+      print_help
+      return 2
+      ;;
+  esac
+}
+
+main "$@"

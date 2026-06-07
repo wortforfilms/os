@@ -1,0 +1,131 @@
+{
+  "schema": "maataa.workers-agents.v1",
+  "generatedAt": "2026-06-07T17:32:47.343Z",
+  "honesty": "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). One-off authoring subagents are finished and are not listed as active.",
+  "totals": {
+    "workers": 10,
+    "totalProbes": 200,
+    "totalPassing": 163,
+    "agents": 1
+  },
+  "workers": [
+    {
+      "module": "platform-runtime.mjs",
+      "probes": 55,
+      "passing": 55,
+      "resolvers": 0
+    },
+    {
+      "module": "knowledge-intelligence.mjs",
+      "probes": 41,
+      "passing": 41,
+      "resolvers": 0
+    },
+    {
+      "module": "governance-evidence.mjs",
+      "probes": 34,
+      "passing": 34,
+      "resolvers": 0
+    },
+    {
+      "module": "civilization-domains.mjs",
+      "probes": 17,
+      "passing": 17,
+      "resolvers": 0
+    },
+    {
+      "module": "apps-experience.mjs",
+      "probes": 7,
+      "passing": 7,
+      "resolvers": 0
+    },
+    {
+      "module": "economy-identity.mjs",
+      "probes": 5,
+      "passing": 5,
+      "resolvers": 0
+    },
+    {
+      "module": "resolve-evidence.mjs",
+      "probes": 2,
+      "passing": 2,
+      "resolvers": 2
+    },
+    {
+      "module": "resolve-lipi.mjs",
+      "probes": 21,
+      "passing": 1,
+      "resolvers": 21
+    },
+    {
+      "module": "resolve-knowledge.mjs",
+      "probes": 1,
+      "passing": 1,
+      "resolvers": 1
+    },
+    {
+      "module": "resolve-knowledge-hkd.mjs",
+      "probes": 17,
+      "passing": 0,
+      "resolvers": 17
+    }
+  ],
+  "agents": [
+    {
+      "id": "milestones-cycle",
+      "kind": "scheduled-runner",
+      "cadence": "recurring (configured in scheduler)",
+      "status": "active",
+      "lastRun": "2026-06-07T15:38:33.447Z",
+      "lastResult": "163/654 achieved · +0 new · 0 regressed",
+      "steps": [
+        {
+          "label": "build test cache",
+          "status": "ok",
+          "ms": 3087
+        },
+        {
+          "label": "verify honest achievements",
+          "status": "ok",
+          "ms": 13287
+        },
+        {
+          "label": "generate milestones matrix",
+          "status": "ok",
+          "ms": 69
+        },
+        {
+          "label": "render milestones surface",
+          "status": "ok",
+          "ms": 104
+        },
+        {
+          "label": "derive workers + agents",
+          "status": "ok",
+          "ms": 68
+        },
+        {
+          "label": "derive next-in-line",
+          "status": "ok",
+          "ms": 36
+        },
+        {
+          "label": "render kanban",
+          "status": "ok",
+          "ms": 60
+        },
+        {
+          "label": "generate notice board",
+          "status": "ok",
+          "ms": 157
+        },
+        {
+          "label": "honesty guard",
+          "status": "ok",
+          "ms": 0,
+          "detail": "4/4"
+        }
+      ]
+    }
+  ]
+}

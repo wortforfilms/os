@@ -1,0 +1,328 @@
+{
+  "schema": "maataa.test-cache.v1",
+  "generatedAt": "2026-06-07T17:32:32.938Z",
+  "concurrency": 8,
+  "durationMs": 3582,
+  "totals": {
+    "files": 63,
+    "ok": 61,
+    "failed": 2
+  },
+  "files": {
+    "packages/lipi-runtime/tests/lipi-amirpur-readiness.test.mjs": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "packages/lipi-runtime/tests/lipi-character-matrix.test.mjs": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "packages/lipi-runtime/tests/lipi-governance.test.mjs": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "packages/lipi-runtime/tests/lipi-search.test.mjs": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "packages/lipi-runtime/tests/lipi-lineage.test.mjs": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "packages/lipi-runtime/tests/lipi-registry.test.mjs": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/aam-jantaa-launch-readiness.test.mjs": {
+      "pass": 9,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/expanded-universe-absorption.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "packages/lipi-runtime/tests/lipi-agent.test.mjs": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/auth-session.test.mjs": {
+      "pass": 0,
+      "fail": 5,
+      "ok": false
+    },
+    "tests/federation-bootstrap.test.ts": {
+      "pass": 1,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-health.test.ts": {
+      "pass": 1,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-evidence-resolve.test.ts": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/full-demo-release.test.mjs": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-batch3.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-release-policy.test.ts": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-kg-claim.test.ts": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-batch2.test.ts": {
+      "pass": 6,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/hardware-attestation.test.mjs": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-graph-analytics.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/hardware-root-of-trust.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/kbs-full-demo-release.test.mjs": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/kbs-dashboard-release.test.mjs": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/html-prototype-absorption.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/maataa-ecosystem-tree.test.mjs": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/maataa-ecosystem-wall.test.mjs": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/lipi-agent.test.ts": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/lipi-glyphs.test.ts": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/milestones-matrix.test.mjs": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/next-batch.test.mjs": {
+      "pass": 2,
+      "fail": 1,
+      "ok": false
+    },
+    "tests/operator-quorum.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/plug-and-play-streaming-device.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/governed-production-gate.test.mjs": {
+      "pass": 11,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/maataa-ui-release.test.mjs": {
+      "pass": 7,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/kbs/kbs-runtime.test.ts": {
+      "pass": 12,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-agent-supervisor-batch2.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/migrations-cli.test.mjs": {
+      "pass": 1,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-agent-supervisor.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/release-authority.test.mjs": {
+      "pass": 10,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-fsm.test.ts": {
+      "pass": 7,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-html.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-governance.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-hkd-registry.test.ts": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-knowledge-graph.test.ts": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-merkle.test.ts": {
+      "pass": 6,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-model-serving.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-mission.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-research.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-observability.test.ts": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-scheduler.test.ts": {
+      "pass": 6,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-transport.test.ts": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-spatial.test.ts": {
+      "pass": 7,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-search.test.ts": {
+      "pass": 11,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-versioning.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-validation.test.ts": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/sovereign-runtime-ascii-tauri.test.mjs": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/status-matrix-hkd.test.mjs": {
+      "pass": 6,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-persistence.test.ts": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/support-center-release.test.mjs": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/support-docs.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/visual-hkd-runtime.test.ts": {
+      "pass": 6,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-lifecycle-batch.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/maataa-cli.test.mjs": {
+      "pass": 10,
+      "fail": 0,
+      "ok": true
+    }
+  }
+}

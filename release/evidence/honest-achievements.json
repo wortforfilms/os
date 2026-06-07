@@ -1,12 +1,12 @@
 {
   "schema": "maataa.honest-achievements.v1",
-  "generatedAt": "2026-06-04T20:14:32.343Z",
+  "generatedAt": "2026-06-07T17:32:47.152Z",
   "honesty": "Each milestone is ACHIEVED only if its probe passed against real artifacts/commands at run time. Probes fail closed. Probes are owned per-group under scripts/achievements/.",
   "totals": {
-    "probes": 42,
-    "achieved": 40,
-    "notAchieved": 2,
-    "modules": 6
+    "probes": 200,
+    "achieved": 163,
+    "notAchieved": 37,
+    "modules": 10
   },
   "achievements": [
     {
@@ -17,7 +17,8 @@
       "currentState": "7/7 apps with valid+isolated manifest (unique ids=7, unique scopes=7, each with favicon.svg + index.html)",
       "verifiedBy": "scripts/achievements/apps-experience.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.785Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.168Z"
     },
     {
       "id": "a-pwa-service-worker-isolation",
@@ -27,7 +28,8 @@
       "currentState": "7/7 apps with isolated SW (unique cache names=7, scope-limited fetch + registered in index.html)",
       "verifiedBy": "scripts/achievements/apps-experience.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.789Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.228Z"
     },
     {
       "id": "a-apps-theme-color-unique",
@@ -37,7 +39,8 @@
       "currentState": "7/7 apps declare theme-color in index.html; 7 unique colors (#7c3aed, #dc2626, #0891b2, #ea580c, #16a34a, #475569, #ca8a04)",
       "verifiedBy": "scripts/achievements/apps-experience.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.793Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.231Z"
     },
     {
       "id": "a-apps-manifest-standalone-display",
@@ -47,7 +50,8 @@
       "currentState": "7/7 manifests declare display=\"standalone\"",
       "verifiedBy": "scripts/achievements/apps-experience.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.795Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.233Z"
     },
     {
       "id": "a-apps-manifest-icon-purposes",
@@ -57,7 +61,8 @@
       "currentState": "7/7 apps ship icons with both \"any\" and \"maskable\" purpose",
       "verifiedBy": "scripts/achievements/apps-experience.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.797Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.234Z"
     },
     {
       "id": "a-apps-theme-color-manifest-html-consistent",
@@ -67,7 +72,8 @@
       "currentState": "7/7 apps have matching theme_color in manifest and index.html",
       "verifiedBy": "scripts/achievements/apps-experience.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.801Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.237Z"
     },
     {
       "id": "a-apps-favicon-svg-valid",
@@ -77,7 +83,8 @@
       "currentState": "7/7 apps ship a favicon.svg that opens with <svg",
       "verifiedBy": "scripts/achievements/apps-experience.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.803Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.251Z"
     },
     {
       "id": "a-civ-group-hkd-boards-valid-json",
@@ -87,7 +94,8 @@
       "currentState": "9 valid group HKD boards; 0 invalid. Boards: civilization-graph-universe.hkd(universe=civilization,claims=11), data-schemas-universe.hkd(universe=data-schemas,claims=11), ecosystem-interconnection-universe.hkd(universe=ecosystem,claims=12), expanded-universe-absorption.hkd(universe=expanded-maataa-universe-collection,claims=25), health-saptadhaatu-universe.hkd(universe=health,claims=10), legacy-universe.hkd(universe=legacy,claims=10), mission-universe.hkd(universe=mission,claims=18), spatial-universe.hkd(universe=spatial,claims=9), time-evolution-universe.hkd(universe=time-evolution,claims=21)",
       "verifiedBy": "scripts/achievements/civilization-domains.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.817Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.277Z"
     },
     {
       "id": "a-civ-group-hkd-schema-declared",
@@ -97,7 +105,8 @@
       "currentState": "9 boards with correct $schema; 0 missing/wrong. Missing: []",
       "verifiedBy": "scripts/achievements/civilization-domains.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.828Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.292Z"
     },
     {
       "id": "a-civ-ecosystem-data-files-valid",
@@ -107,7 +116,8 @@
       "currentState": "data/maataa-ecosystem-wall.json: OK (schema=maataa.ecosystem.wall.v1) | data/maataa-ecosystem-merkle-tree.json: OK (schema=maataa.ecosystem.merkle-tree.v1)",
       "verifiedBy": "scripts/achievements/civilization-domains.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.829Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.293Z"
     },
     {
       "id": "a-civ-data-schemas-lipi-prisma-models",
@@ -117,7 +127,151 @@
       "currentState": "3 Prisma models: [LipiScript, LipiCharacter, LipiLineageEdge]; datasource=true; generator=true. Honest scope: lipi-domain only, not the board's 13-table aspirational ERD.",
       "verifiedBy": "scripts/achievements/civilization-domains.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.830Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-runtime-mission-operational",
+      "universe": "mission",
+      "futureMilestone": "runtime-mission is operational (in-memory advisory tier): real declare/assess/propose drift detection, never enforces",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-mission.test.ts → pass=4 fail=0 (real drift assessment; advisory-only, governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-versioning-snapshot",
+      "universe": "time-evolution",
+      "futureMilestone": "Versioning: append-only snapshots with content hashes",
+      "achievement": "ACHIEVED",
+      "currentState": "versioning [snapshot appends] → pass=1 fail=0 (in-process; not the board's v1→v5 marketing; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-versioning-history",
+      "universe": "time-evolution",
+      "futureMilestone": "Versioning: full version history (fail-closed on unknown key)",
+      "achievement": "ACHIEVED",
+      "currentState": "versioning [history lists] → pass=1 fail=0 (in-process; not the board's v1→v5 marketing; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-versioning-get",
+      "universe": "time-evolution",
+      "futureMilestone": "Versioning: get value at latest or pinned version",
+      "achievement": "ACHIEVED",
+      "currentState": "versioning [get returns latest] → pass=1 fail=0 (in-process; not the board's v1→v5 marketing; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-versioning-diff",
+      "universe": "time-evolution",
+      "futureMilestone": "Versioning: real structural diff (added/removed/changed) between versions",
+      "achievement": "ACHIEVED",
+      "currentState": "versioning [diff computes real] → pass=1 fail=0 (in-process; not the board's v1→v5 marketing; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-versioning-rollback",
+      "universe": "time-evolution",
+      "futureMilestone": "Versioning: non-destructive rollback (recorded as a new version)",
+      "achievement": "ACHIEVED",
+      "currentState": "versioning [rollback restores] → pass=1 fail=0 (in-process; not the board's v1→v5 marketing; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-spatial-insert",
+      "universe": "spatial",
+      "futureMilestone": "Spatial: insert/upsert points, fail-closed on non-finite coords",
+      "achievement": "ACHIEVED",
+      "currentState": "spatial [insert stores points] → pass=1 fail=0 (in-process exact index; NOT a distributed geo system; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-spatial-remove",
+      "universe": "spatial",
+      "futureMilestone": "Spatial: remove points, fail-closed on unknown id",
+      "achievement": "ACHIEVED",
+      "currentState": "spatial [remove deletes] → pass=1 fail=0 (in-process exact index; NOT a distributed geo system; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-spatial-range",
+      "universe": "spatial",
+      "futureMilestone": "Spatial: exact axis-aligned bbox range query",
+      "achievement": "ACHIEVED",
+      "currentState": "spatial [rangeQuery returns points] → pass=1 fail=0 (in-process exact index; NOT a distributed geo system; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-spatial-nearest",
+      "universe": "spatial",
+      "futureMilestone": "Spatial: nearest-point by real Euclidean distance, fail-closed when empty",
+      "achievement": "ACHIEVED",
+      "currentState": "spatial [nearest returns the closest] → pass=1 fail=0 (in-process exact index; NOT a distributed geo system; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-spatial-knn",
+      "universe": "spatial",
+      "futureMilestone": "Spatial: k-nearest-neighbours sorted by distance",
+      "achievement": "ACHIEVED",
+      "currentState": "spatial [knn returns k closest] → pass=1 fail=0 (in-process exact index; NOT a distributed geo system; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-spatial-radius-bounds",
+      "universe": "spatial",
+      "futureMilestone": "Spatial: within-radius query and bounding-box of all points",
+      "achievement": "ACHIEVED",
+      "currentState": "spatial [withinRadius and bounds] → pass=1 fail=0 (in-process exact index; NOT a distributed geo system; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
+    },
+    {
+      "id": "a-civ-spatial-health",
+      "universe": "spatial",
+      "futureMilestone": "Spatial: health exposes real point count, not production-GO",
+      "achievement": "ACHIEVED",
+      "currentState": "spatial [health reports real counts] → pass=1 fail=0 (in-process exact index; NOT a distributed geo system; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/civilization-domains.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.294Z"
     },
     {
       "id": "a-economy-hkd-boards-valid-vision",
@@ -127,7 +281,8 @@
       "currentState": "All 6 Economy & Identity HKD boards parse as valid JSON with status=\"vision\"",
       "verifiedBy": "scripts/achievements/economy-identity.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.831Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.296Z"
     },
     {
       "id": "a-economy-lipi-426-master-defined",
@@ -137,7 +292,8 @@
       "currentState": "LIPI_426_EXPECTED_COUNT=426, export lipi426Master=true, canonical script entries=12 (rest are BLOCKED extension stubs waiting for evidence)",
       "verifiedBy": "scripts/achievements/economy-identity.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:29.832Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:33.296Z"
     },
     {
       "id": "a-economy-lipi-runtime-typechecks",
@@ -147,7 +303,8 @@
       "currentState": "packages/lipi-runtime/tsconfig.json → tsc --noEmit exited 0 (no type errors)",
       "verifiedBy": "scripts/achievements/economy-identity.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.660Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:35.619Z"
     },
     {
       "id": "a-economy-lipi-seeded-character-anchors",
@@ -157,7 +314,19 @@
       "currentState": "SEEDED anchors=4 across scripts=[brahmi, kharosthi, siddham] — honest seed count (15,000+ glyph asset library is NOT achieved)",
       "verifiedBy": "scripts/achievements/economy-identity.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.660Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:35.620Z"
+    },
+    {
+      "id": "a-economy-lipi-glyph-library-real",
+      "universe": "asset-library",
+      "futureMilestone": "Real Unicode-backed Lipi glyph library: genuine assigned codepoints across Brahmi/Kharoshthi/Devanagari/Siddham (NOT the fabricated 15,000+ claim)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/lipi-glyphs.test.ts → pass=3 fail=0 (403 real Unicode glyphs; 15,000+ is fabricated and stays NOT_ACHIEVED)",
+      "verifiedBy": "scripts/achievements/economy-identity.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:35.620Z"
     },
     {
       "id": "a-gate-fails-closed",
@@ -167,17 +336,19 @@
       "currentState": "gate status=GOVERNED_PRODUCTION_NO_GO; hardware-root-of-trust blocker present=true (safety property holds)",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.693Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.213Z"
     },
     {
       "id": "a-governance-tests-pass",
       "universe": "governance",
       "futureMilestone": "Governance gate has a passing automated test suite",
       "achievement": "ACHIEVED",
-      "currentState": "tests/governed-production-gate.test.mjs → pass=9 fail=0",
+      "currentState": "tests/governed-production-gate.test.mjs → pass=11 fail=0",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.745Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.213Z"
     },
     {
       "id": "a-ci-honesty-guard",
@@ -187,7 +358,8 @@
       "currentState": "tests/milestones-matrix.test.mjs → pass=4 fail=0",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.790Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.213Z"
     },
     {
       "id": "a-fabrication-detection-operational",
@@ -197,17 +369,19 @@
       "currentState": "376 fabricated claims catalogued as BLOCKED across hkd/*.hkd; 0 rendered as achieved",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.803Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.230Z"
     },
     {
       "id": "a-milestones-matrix-deterministic",
       "universe": "evidence",
       "futureMilestone": "Milestones matrix content is reproducible (stable hash across runs)",
       "achievement": "ACHIEVED",
-      "currentState": "stableHash run1=8438cea6f71b… run2=8438cea6f71b… identical=true",
+      "currentState": "stableHash run1=82fdd3142ee9… run2=82fdd3142ee9… identical=true",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.916Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.381Z"
     },
     {
       "id": "a-gov-release-authority-fails-closed",
@@ -217,17 +391,19 @@
       "currentState": "release-authority status=BLOCKED; no_fake_signatures=true; no_unsigned_production_release=true; blockers=3 (hw=true, quorum=true) — honest fail-closed gate",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.916Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
     },
     {
       "id": "a-gov-gate-content-addressed",
       "universe": "governance",
       "futureMilestone": "Governed production gate report is content-addressed: carries a signature field and SHA-256 hashes of all inputs",
       "achievement": "ACHIEVED",
-      "currentState": "governed-production-gate.json signature=27a50957b9ba…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
+      "currentState": "governed-production-gate.json signature=7a405456c687…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.916Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
     },
     {
       "id": "a-gov-release-authority-tests-pass",
@@ -237,7 +413,8 @@
       "currentState": "tests/release-authority.test.mjs → pass=10 fail=0",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:30.982Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
     },
     {
       "id": "a-gov-operator-quorum-tests-pass",
@@ -247,7 +424,283 @@
       "currentState": "tests/operator-quorum.test.mjs → pass=5 fail=0",
       "verifiedBy": "scripts/achievements/governance-evidence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.038Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-support-docs-tests-pass",
+      "universe": "governance",
+      "futureMilestone": "Support documentation has a passing automated test suite verifying completeness and structure",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/support-docs.test.mjs → pass=5 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-support-center-release-tests-pass",
+      "universe": "governance",
+      "futureMilestone": "Support center release process has a passing automated test suite",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/support-center-release.test.mjs → pass=3 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-status-matrix-hkd-tests-pass",
+      "universe": "evidence",
+      "futureMilestone": "HKD status matrix has a passing automated test suite verifying honest claim tracking",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/status-matrix-hkd.test.mjs → pass=6 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-aam-jantaa-launch-readiness-tests-pass",
+      "universe": "governance",
+      "futureMilestone": "AAM Jantaa launch readiness has a passing automated test suite covering all readiness gates",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/aam-jantaa-launch-readiness.test.mjs → pass=9 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-expanded-universe-absorption-tests-pass",
+      "universe": "evidence",
+      "futureMilestone": "Expanded universe absorption has a passing automated test suite verifying integration completeness",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/expanded-universe-absorption.test.mjs → pass=5 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-html-prototype-absorption-tests-pass",
+      "universe": "evidence",
+      "futureMilestone": "HTML prototype absorption has a passing automated test suite verifying prototype integration",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/html-prototype-absorption.test.mjs → pass=5 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-runtime-validation-operational",
+      "universe": "scientific-evidence",
+      "futureMilestone": "runtime-validation is operational: real submit/assess/replication with transparent confidence + uncertainty (moderation pending by default, not production-GO)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-validation.test.ts → pass=3 fail=0 (real claim assessment; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-runtime-governance-operational",
+      "universe": "governance",
+      "futureMilestone": "runtime-governance enforcement engine operational: declarative policies, fail-closed enforce, hash-chained audit, rollback",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-governance.test.ts → pass=4 fail=0 (real enforce/audit/rollback; does NOT replace release-authority; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.382Z"
+    },
+    {
+      "id": "a-gov-runtime-mission-governance-wired",
+      "universe": "governance",
+      "futureMilestone": "runtime-mission proposals are wired through runtime-governance.enforce with a real policy decision",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-mission.test.ts → pass=4 fail=0 (propose() candidate enforced by runtime-governance; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-gate-observability-live-health",
+      "universe": "governance",
+      "futureMilestone": "governed-production-gate reads live runtime health via runtime-observability.collect and records topology",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/governed-production-gate.test.mjs → pass=11 fail=0 (includes live runtime health/topology via collectLiveRuntimeHealth)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-federation-evidence-resolve",
+      "universe": "scientific-evidence",
+      "futureMilestone": "validation → registry: evidence refs resolve against the hkd-registry ledger",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/federation-evidence-resolve.test.ts → pass=2 fail=0 (real cross-runtime integration; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-federation-release-policy",
+      "universe": "governance",
+      "futureMilestone": "Release-readiness enforced via runtime-governance policy pack (fail-closed on hw/quorum/signer)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/federation-release-policy.test.ts → pass=2 fail=0 (real cross-runtime integration; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-federation-audit-chain-integrity",
+      "universe": "governance",
+      "futureMilestone": "Governance audit log hash-chain integrity verified (recompute + linkage)",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch2 [verifyGovernanceAuditChain] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-federation-ledger-chain-integrity",
+      "universe": "evidence",
+      "futureMilestone": "hkd-registry ledger chain integrity verified (every artifact verifies + prevHash links)",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch2 [verifyRegistryLedgerChain] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-validation-replication",
+      "universe": "scientific-evidence",
+      "futureMilestone": "Claim replication recording (independent replications raise the count)",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-lifecycle-batch [recordReplication] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-validation-moderation",
+      "universe": "scientific-evidence",
+      "futureMilestone": "Claim moderation is fail-closed: must be reviewed first, no double-finalise",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-lifecycle-batch [moderate] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-federation-consensus",
+      "universe": "scientific-evidence",
+      "futureMilestone": "Cross-validation consensus: replication-weighted mean confidence + agreement",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch3 [consensus] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-federation-evidence-bundle-seal",
+      "universe": "evidence",
+      "futureMilestone": "Sealed federation evidence bundle (sha256) with tamper detection",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch3 [sealEvidenceBundle] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-federation-readiness-gate",
+      "universe": "governance",
+      "futureMilestone": "Composite release readiness: all runtimes ready AND policies pass (fail-closed)",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch3 [federationReadiness] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-merkle-build",
+      "universe": "evidence",
+      "futureMilestone": "Merkle: deterministic SHA-256 root from evidence leaves, fail-closed on empty",
+      "achievement": "ACHIEVED",
+      "currentState": "merkle [build computes a deterministic root] → pass=1 fail=0 (real SHA-256 proofs; NOT a blockchain/consensus; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-merkle-tamper",
+      "universe": "evidence",
+      "futureMilestone": "Merkle: tamper-evident root (any leaf change changes the root)",
+      "achievement": "ACHIEVED",
+      "currentState": "merkle [root changes when data changes] → pass=1 fail=0 (real SHA-256 proofs; NOT a blockchain/consensus; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-merkle-append",
+      "universe": "evidence",
+      "futureMilestone": "Merkle: append leaves, report index/size",
+      "achievement": "ACHIEVED",
+      "currentState": "merkle [append grows the tree] → pass=1 fail=0 (real SHA-256 proofs; NOT a blockchain/consensus; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-merkle-proof-verify",
+      "universe": "evidence",
+      "futureMilestone": "Merkle: real inclusion proofs that verify against the root",
+      "achievement": "ACHIEVED",
+      "currentState": "merkle [valid inclusion proof verifies] → pass=1 fail=0 (real SHA-256 proofs; NOT a blockchain/consensus; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-merkle-reject-forgery",
+      "universe": "evidence",
+      "futureMilestone": "Merkle: verify rejects forged items / wrong roots (fail-closed integrity)",
+      "achievement": "ACHIEVED",
+      "currentState": "merkle [verify rejects a forged] → pass=1 fail=0 (real SHA-256 proofs; NOT a blockchain/consensus; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
+    },
+    {
+      "id": "a-gov-merkle-health",
+      "universe": "evidence",
+      "futureMilestone": "Merkle: health exposes real leaf count + root, not production-GO",
+      "achievement": "ACHIEVED",
+      "currentState": "merkle [health reports real leaf count] → pass=1 fail=0 (real SHA-256 proofs; NOT a blockchain/consensus; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/governance-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
     },
     {
       "id": "a-knowledge-kbs-runtime-suite-passes",
@@ -257,7 +710,8 @@
       "currentState": "tests/kbs/kbs-runtime.test.ts: 12 pass, 0 fail (expected 12 pass, 0 fail)",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.136Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.383Z"
     },
     {
       "id": "a-knowledge-graph-validates-clean",
@@ -267,7 +721,8 @@
       "currentState": "graph/index.ts exports validateGraph=true (danglingEdges logic=true); data.ts exports kbsGraphNodes=true, kbsGraphEdges=true",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.136Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.384Z"
     },
     {
       "id": "a-knowledge-kbs-sdk-openapi-spec",
@@ -277,7 +732,8 @@
       "currentState": "kbs-sdk/src/index.ts: kbsOpenApiSpec=true, openapi 3.1.0=true, createKbsClient=true, /api/kbs/search path=true",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.137Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.384Z"
     },
     {
       "id": "a-knowledge-provenance-hash-deterministic",
@@ -287,7 +743,8 @@
       "currentState": "provenance/index.ts: stableHash=true, FNV-1a offset basis present=true, bindEvidenceHash=true, kbs: prefix=true",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.137Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.384Z"
     },
     {
       "id": "a-knowledge-lipi-426-master-registry",
@@ -297,7 +754,8 @@
       "currentState": "lipi-426-master.ts (static): exports lipi426Master=true, LIPI_426_EXPECTED_COUNT=426, canonical id entries=12, extension-slot pattern=true, freeze concat=true",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.137Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.385Z"
     },
     {
       "id": "a-knowledge-kbs-governance-blocked",
@@ -307,37 +765,404 @@
       "currentState": "data.ts: phkdVerdict=BLOCKED=true, GOVERNED_PRODUCTION_NO_GO=true, unique named blockers=7/7",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.138Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.385Z"
+    },
+    {
+      "id": "a-knowledge-kbs-dashboard-release-suite-passes",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KBS dashboard release artifact (3 tests) verifies GOVERNED_PRODUCTION_NO_GO status, 8 extracted surfaces, and dashboard section markers — all green",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/kbs-dashboard-release.test.mjs: 3 pass, 0 fail (expected 3 pass, 0 fail)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.385Z"
+    },
+    {
+      "id": "a-knowledge-kbs-full-demo-release-suite-passes",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KBS full demo release artifact (4 tests) verifies GOVERNED_PRODUCTION_NO_GO status, 10 surfaces, 17 pages, all-runtimes board, and hardware-attestation blocker — all green",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/kbs-full-demo-release.test.mjs: 4 pass, 0 fail (expected 4 pass, 0 fail)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.385Z"
+    },
+    {
+      "id": "a-knowledge-visual-hkd-runtime-suite-passes",
+      "universe": "knowledge-graph",
+      "futureMilestone": "visual-hkd-runtime test suite (6 tests) covers UNREADABLE-text honesty, source-image lineage, graph ingestion, runtime scaffolding, unverified claims, and GOVERNED_PRODUCTION_NO_GO validator — all green",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/visual-hkd-runtime.test.ts: 6 pass, 0 fail (expected 6 pass, 0 fail)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.385Z"
+    },
+    {
+      "id": "a-knowledge-maataa-ecosystem-tree-suite-passes",
+      "universe": "knowledge-graph",
+      "futureMilestone": "Maataa ecosystem Merkle tree (4 tests) verifies 8 domains, 65 frames, 10 frame types, 10 data categories, and unverified root-hash governance — all green",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/maataa-ecosystem-tree.test.mjs: 4 pass, 0 fail (expected 4 pass, 0 fail)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.385Z"
+    },
+    {
+      "id": "a-knowledge-maataa-ecosystem-wall-suite-passes",
+      "universe": "knowledge-graph",
+      "futureMilestone": "Maataa ecosystem wall (4 tests) verifies 5+4 domain layout, KBM/Maataa/TLP centre, honest preview claims, and blocked domains with explicit reasons — all green",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/maataa-ecosystem-wall.test.mjs: 4 pass, 0 fail (expected 4 pass, 0 fail)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.385Z"
     },
     {
       "id": "a-knowledge-runtime-knowledge-graph-ready",
       "universe": "knowledge-graph",
-      "futureMilestone": "runtime-knowledge-graph health() reports status=ready (not scaffold)",
-      "achievement": "NOT_ACHIEVED",
-      "currentState": "runtime-knowledge-graph/src/index.ts health() reports status \"scaffold\" (not \"ready\")=true; governedProductionGo=false=true; roadmap: NOT_ACHIEVED",
+      "futureMilestone": "runtime-knowledge-graph is operational (in-memory tier): real define/add/relate/query + health=ready, validated end-to-end",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-knowledge-graph.test.ts → pass=3 fail=0 (real in-memory KG operations + health=ready; governedProductionGo still false)",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.138Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
     },
     {
       "id": "a-knowledge-lipi-agent-wrapper",
       "universe": "agent",
       "futureMilestone": "A Lipi Agent wrapper exists that drives lipi-runtime transliteration/lineage via an agent interface",
-      "achievement": "NOT_ACHIEVED",
-      "currentState": "Searched for lipi-agent wrapper at: packages/lipi-agent/src/index.ts, packages/lipi-agent/index.ts, apps/lipi-agent/src/index.ts, packages/agent/src/lipi-agent.ts; found=none; roadmap: NOT_ACHIEVED",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tests/lipi-agent.test.mjs → pass=2 fail=0 (LipiAgent wraps lipi-runtime character anchors + lineage; no OCR/translation overclaim)",
       "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.139Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-federation-kg-claim",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG → validation integration: a KG entity can be submitted as a validation claim (real cross-runtime)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/federation-kg-claim.test.ts → pass=2 fail=0 (KG entity → validation claim)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-federation-two-hop",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG two-hop neighbourhood traversal (real multi-edge graph walk)",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch2 [twoHopNeighbours] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-federation-shortest-path",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG shortest-path (BFS) between two entities over real edges",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch3 [shortestPath] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-register",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: register a real deterministic handler agent",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-agent-supervisor [registerAgent] → pass=1 fail=0 (in-process tier; not 1,248 agents; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-lifecycle",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: real start/stop lifecycle state machine",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-agent-supervisor [agent lifecycle] → pass=1 fail=0 (in-process tier; not 1,248 agents; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-run-task",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: execute a task through a running agent (real handler invocation)",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-agent-supervisor [runTask executes] → pass=1 fail=0 (in-process tier; not 1,248 agents; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-fail-closed",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor fail-closed: not-running / unknown / throwing handlers rejected + counted",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-agent-supervisor [fail-closed] → pass=1 fail=0 (in-process tier; not 1,248 agents; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-status-list",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: real status/list + run accounting (honest count, never inflated)",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-agent-supervisor [status/list] → pass=1 fail=0 (in-process tier; not 1,248 agents; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-queue",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: buffered task queue drained FIFO through a running agent",
+      "achievement": "ACHIEVED",
+      "currentState": "agent-supervisor-batch2 [enqueue \\+ processQueue] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-queue-failclosed",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: queue processing fail-closed when agent not running",
+      "achievement": "ACHIEVED",
+      "currentState": "agent-supervisor-batch2 [fail-closed when the agent is not running] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-history",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: per-run audit history (ok + failures)",
+      "achievement": "ACHIEVED",
+      "currentState": "agent-supervisor-batch2 [history records] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-route",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: capability-tag routing to a running agent",
+      "achievement": "ACHIEVED",
+      "currentState": "agent-supervisor-batch2 [route dispatches] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-agent-failpolicy-fanout",
+      "universe": "agent",
+      "futureMilestone": "Agent supervisor: failure-threshold auto-stop + multi-agent fan-out",
+      "achievement": "ACHIEVED",
+      "currentState": "agent-supervisor-batch2 [failure policy auto-stops] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-model-register-infer",
+      "universe": "ai-model",
+      "futureMilestone": "Model serving: register a real deterministic model + run inference",
+      "achievement": "ACHIEVED",
+      "currentState": "model-serving [registerModel \\+ infer] → pass=1 fail=0 (in-process; not 162 models / fabricated accuracy; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-model-version-routing",
+      "universe": "ai-model",
+      "futureMilestone": "Model serving: version routing (latest unless pinned)",
+      "achievement": "ACHIEVED",
+      "currentState": "model-serving [version routing] → pass=1 fail=0 (in-process; not 162 models / fabricated accuracy; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-model-metrics",
+      "universe": "ai-model",
+      "futureMilestone": "Model serving: real inference metrics",
+      "achievement": "ACHIEVED",
+      "currentState": "model-serving [metrics report] → pass=1 fail=0 (in-process; not 162 models / fabricated accuracy; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-model-evaluate",
+      "universe": "ai-model",
+      "futureMilestone": "Model serving: MEASURED accuracy on labelled samples (never fabricated)",
+      "achievement": "ACHIEVED",
+      "currentState": "model-serving [evaluate measures] → pass=1 fail=0 (in-process; not 162 models / fabricated accuracy; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-model-health",
+      "universe": "ai-model",
+      "futureMilestone": "Model serving: health reports real model/inference counts, not production-GO",
+      "achievement": "ACHIEVED",
+      "currentState": "model-serving [health reports real model] → pass=1 fail=0 (in-process; not 162 models / fabricated accuracy; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-graph-subgraph",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG analytics: depth-bounded subgraph extraction (BFS)",
+      "achievement": "ACHIEVED",
+      "currentState": "graph-analytics [subgraph] → pass=1 fail=0 (real algorithm over KG edges)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-graph-cycle",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG analytics: directed cycle detection (DFS three-colour)",
+      "achievement": "ACHIEVED",
+      "currentState": "graph-analytics [hasCycle] → pass=1 fail=0 (real algorithm over KG edges)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-graph-centrality",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG analytics: in/out degree centrality, top-N",
+      "achievement": "ACHIEVED",
+      "currentState": "graph-analytics [degreeCentrality] → pass=1 fail=0 (real algorithm over KG edges)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-graph-components",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG analytics: weakly-connected components (union-find)",
+      "achievement": "ACHIEVED",
+      "currentState": "graph-analytics [connectedComponents] → pass=1 fail=0 (real algorithm over KG edges)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-graph-topo",
+      "universe": "knowledge-graph",
+      "futureMilestone": "KG analytics: topological order (Kahn), fail-closed on cycles",
+      "achievement": "ACHIEVED",
+      "currentState": "graph-analytics [topoOrder] → pass=1 fail=0 (real algorithm over KG edges)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-research-register",
+      "universe": "research",
+      "futureMilestone": "Research runtime: register hypothesis + attach experiments",
+      "achievement": "ACHIEVED",
+      "currentState": "research [registerHypothesis \\+ addExperiment] → pass=1 fail=0 (in-process; not a thousands-of-papers KG; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-research-evidence-failclosed",
+      "universe": "research",
+      "futureMilestone": "Research runtime: weighted evidence with fail-closed validation",
+      "achievement": "ACHIEVED",
+      "currentState": "research [addEvidence is fail-closed] → pass=1 fail=0 (in-process; not a thousands-of-papers KG; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-research-assess-supported",
+      "universe": "research",
+      "futureMilestone": "Research runtime: transparent support-score computation (supported)",
+      "achievement": "ACHIEVED",
+      "currentState": "research [assess computes a transparent support] → pass=1 fail=0 (in-process; not a thousands-of-papers KG; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-research-assess-cases",
+      "universe": "research",
+      "futureMilestone": "Research runtime: refuted/inconclusive status + fail-closed",
+      "achievement": "ACHIEVED",
+      "currentState": "research [refuted and inconclusive] → pass=1 fail=0 (in-process; not a thousands-of-papers KG; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
+    },
+    {
+      "id": "a-knowledge-research-list-health",
+      "universe": "research",
+      "futureMilestone": "Research runtime: list/health real counts, advisory, not production-GO",
+      "achievement": "ACHIEVED",
+      "currentState": "research [list \\+ health report real counts] → pass=1 fail=0 (in-process; not a thousands-of-papers KG; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/knowledge-intelligence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.386Z"
     },
     {
       "id": "a-runtime-packages-present",
       "universe": "runtime",
       "futureMilestone": "Federated runtime packages exist as isolated workspaces (target ≥ 8)",
       "achievement": "ACHIEVED",
-      "currentState": "15 runtime packages with package.json: evidence-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, lipi-runtime, maataa-ui, runtime-hkd-registry, runtime-knowledge-graph, runtime-mission, runtime-observability, runtime-validation, universal-runtime, visual-hkd-runtime",
+      "currentState": "27 runtime packages with package.json: evidence-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, lipi-runtime, maataa-ui, runtime-agent-supervisor, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-transport, runtime-validation, runtime-versioning, universal-runtime, visual-hkd-runtime",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.142Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.390Z"
     },
     {
       "id": "a-offline-model-tooling",
@@ -347,7 +1172,8 @@
       "currentState": "model-manifest.json=true, download_models.py=true; model weights are NOT bundled (honest scope)",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.142Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.390Z"
     },
     {
       "id": "a-observability-health-contract",
@@ -357,7 +1183,8 @@
       "currentState": "runtime-observability/src/index.ts exports health()=true, HealthReport type=true",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.142Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.390Z"
     },
     {
       "id": "a-rollback-drill-evidence",
@@ -367,7 +1194,8 @@
       "currentState": "PANIC_ROLLBACK report: PANIC_ROLLBACK=PASS, checksumRollback=PASS, driftRollback=PASS, overflowRollback=PASS; 4 recovery events",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.142Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:36.391Z"
     },
     {
       "id": "a-platform-universal-runtime-typechecks",
@@ -377,7 +1205,8 @@
       "currentState": "tsc --noEmit on packages/universal-runtime/tsconfig.json exited 0 (no type errors)",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:31.848Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.227Z"
     },
     {
       "id": "a-platform-evidence-runtime-typechecks",
@@ -387,7 +1216,8 @@
       "currentState": "tsc --noEmit on packages/evidence-runtime/tsconfig.json exited 0 (no type errors)",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:32.215Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.649Z"
     },
     {
       "id": "a-platform-hardware-attestation-suite-passes",
@@ -397,7 +1227,8 @@
       "currentState": "hardware-attestation.test.mjs: pass=3, fail=0",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:32.279Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.706Z"
     },
     {
       "id": "a-platform-hardware-root-suite-passes",
@@ -407,7 +1238,8 @@
       "currentState": "hardware-root-of-trust.test.mjs: pass=5, fail=0",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:32.342Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.762Z"
     },
     {
       "id": "a-platform-runtime-validation-health-contract",
@@ -417,7 +1249,8 @@
       "currentState": "runtime-validation/src/index.ts exports/declares health()=true, HealthReport type=true",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:32.342Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.763Z"
     },
     {
       "id": "a-platform-governed-production-gate-tooling",
@@ -427,7 +1260,954 @@
       "currentState": "scripts/governed-production-gate.mjs present=true; release gate tooling on disk",
       "verifiedBy": "scripts/achievements/platform-runtime.mjs",
       "sourceClaimStatus": "VERIFIED",
-      "verifiedAt": "2026-06-04T20:14:32.343Z"
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.763Z"
+    },
+    {
+      "id": "a-platform-runtime-persistence-tier-operational",
+      "universe": "runtime",
+      "futureMilestone": "runtime-persistence backs KG, mission, registry, validation, observability, and governance with SQLite restore semantics",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-persistence.test.ts → pass=2 fail=0 (SQLite close/reopen + six-runtime restore)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.763Z"
+    },
+    {
+      "id": "a-platform-runtime-transport-facade-operational",
+      "universe": "transport",
+      "futureMilestone": "runtime-transport facade provides deterministic handler calls, ACL, ledger, timeout/fallback",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-transport.test.ts → pass=3 fail=0 (registered handlers + ACL + cached fallback)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.763Z"
+    },
+    {
+      "id": "a-platform-runtime-search-suite-passes",
+      "universe": "runtime",
+      "futureMilestone": "runtime-search test suite passes (transport heartbeat, SSE fallback, malformed-batch rejection)",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-search.test.ts: pass=11, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.859Z"
+    },
+    {
+      "id": "a-platform-maataa-ui-release-suite-passes",
+      "universe": "release",
+      "futureMilestone": "maataa-ui-release test suite passes (governed production gate checks, no-go evidence)",
+      "achievement": "ACHIEVED",
+      "currentState": "maataa-ui-release.test.mjs: pass=7, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.922Z"
+    },
+    {
+      "id": "a-platform-ascii-tauri-suite-passes",
+      "universe": "runtime",
+      "futureMilestone": "sovereign-runtime ASCII Tauri test suite passes (scaffold, commands, blocker evidence)",
+      "achievement": "ACHIEVED",
+      "currentState": "sovereign-runtime-ascii-tauri.test.mjs: pass=4, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:37.984Z"
+    },
+    {
+      "id": "a-platform-runtime-html-suite-passes",
+      "universe": "runtime",
+      "futureMilestone": "runtime-html test suite passes (HTML prototype pages, ThemeLab runtime matrix)",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-html.test.mjs: pass=5, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:38.073Z"
+    },
+    {
+      "id": "a-platform-streaming-device-suite-passes",
+      "universe": "transport",
+      "futureMilestone": "plug-and-play streaming device test suite passes (device config, HTML surface, honest evidence)",
+      "achievement": "ACHIEVED",
+      "currentState": "plug-and-play-streaming-device.test.mjs: pass=5, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:38.134Z"
+    },
+    {
+      "id": "a-platform-full-demo-release-suite-passes",
+      "universe": "release",
+      "futureMilestone": "full-demo-release test suite passes (demo release evidence gates, honest blocked state)",
+      "achievement": "ACHIEVED",
+      "currentState": "full-demo-release.test.mjs: pass=3, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:38.194Z"
+    },
+    {
+      "id": "a-platform-kbs-runtime-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "kbs-runtime package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/kbs-runtime/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:39.189Z"
+    },
+    {
+      "id": "a-platform-kbs-graph-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "kbs-graph package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/kbs-graph/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:40.129Z"
+    },
+    {
+      "id": "a-platform-kbs-sdk-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "kbs-sdk package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/kbs-sdk/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:40.983Z"
+    },
+    {
+      "id": "a-platform-kbs-search-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "kbs-search package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/kbs-search/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:41.850Z"
+    },
+    {
+      "id": "a-platform-lipi-amirpur-readiness-suite-passes",
+      "universe": "lipi",
+      "futureMilestone": "Lipi Amirpur readiness suite passes",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tests/lipi-amirpur-readiness.test.mjs: pass=2, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:41.918Z"
+    },
+    {
+      "id": "a-platform-lipi-character-matrix-suite-passes",
+      "universe": "lipi",
+      "futureMilestone": "Lipi character matrix suite passes",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tests/lipi-character-matrix.test.mjs: pass=2, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:41.972Z"
+    },
+    {
+      "id": "a-platform-lipi-governance-suite-passes",
+      "universe": "lipi",
+      "futureMilestone": "Lipi governance suite passes",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tests/lipi-governance.test.mjs: pass=3, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:42.021Z"
+    },
+    {
+      "id": "a-platform-lipi-lineage-suite-passes",
+      "universe": "lipi",
+      "futureMilestone": "Lipi lineage suite passes",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tests/lipi-lineage.test.mjs: pass=2, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:42.068Z"
+    },
+    {
+      "id": "a-platform-lipi-registry-suite-passes",
+      "universe": "lipi",
+      "futureMilestone": "Lipi registry suite passes",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tests/lipi-registry.test.mjs: pass=2, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:42.119Z"
+    },
+    {
+      "id": "a-platform-lipi-search-suite-passes",
+      "universe": "lipi",
+      "futureMilestone": "Lipi search suite passes",
+      "achievement": "ACHIEVED",
+      "currentState": "packages/lipi-runtime/tests/lipi-search.test.mjs: pass=2, fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:42.168Z"
+    },
+    {
+      "id": "a-platform-maataa-ui-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "maataa-ui package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/maataa-ui/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:44.052Z"
+    },
+    {
+      "id": "a-platform-root-app-typechecks",
+      "universe": "runtime",
+      "futureMilestone": "Root web app typechecks cleanly end-to-end (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit (root tsconfig) exited 0 — whole web app typechecks",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:46.227Z"
+    },
+    {
+      "id": "a-platform-visual-hkd-typechecks",
+      "universe": "hkd-runtime",
+      "futureMilestone": "visual-hkd-runtime package typechecks cleanly (tsc --noEmit exit 0)",
+      "achievement": "ACHIEVED",
+      "currentState": "tsc --noEmit on packages/visual-hkd-runtime/tsconfig.json exited 0 (no type errors)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-hkd-registry-operational",
+      "universe": "hkd-runtime",
+      "futureMilestone": "runtime-hkd-registry is operational: real hash-chained register/resolve/list/pin/verify ledger (advisory trust, not production-GO)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-hkd-registry.test.ts → pass=3 fail=0 (real in-memory tier; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-observability-operational",
+      "universe": "observability",
+      "futureMilestone": "runtime-observability is operational: real report/link/emit + collect/getTopology/getLineage (in-memory fabric, not production-GO)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/runtime-observability.test.ts → pass=3 fail=0 (real in-memory tier; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-federation-bootstrap",
+      "universe": "observability",
+      "futureMilestone": "Federation bootstrap wires all runtimes into observability topology (real report/link)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/federation-bootstrap.test.ts → pass=1 fail=0 (real cross-runtime integration; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-federation-health",
+      "universe": "operations",
+      "futureMilestone": "Federation health aggregates real health() of all 5 runtimes (allReady)",
+      "achievement": "ACHIEVED",
+      "currentState": "tests/federation-health.test.ts → pass=1 fail=0 (real cross-runtime integration; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-federation-lineage-trace",
+      "universe": "observability",
+      "futureMilestone": "Cross-runtime claim lineage traced via observability emit/getLineage",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch2 [traceClaimLineage] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-federation-degraded-detect",
+      "universe": "operations",
+      "futureMilestone": "Federation degraded-mode detection (any runtime not ready)",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch2 [detectDegraded] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-federation-report",
+      "universe": "operations",
+      "futureMilestone": "Composite federation report: health + audit + ledger integrity",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch2 [federationReport] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-registry-revoke",
+      "universe": "hkd-runtime",
+      "futureMilestone": "hkd-registry artifact revocation (removed from resolve, retained in ledger for audit)",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-lifecycle-batch [revoke] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-persistence-wal-fallback-health-cli",
+      "universe": "operations",
+      "futureMilestone": "maataa health ops CLI reports federation health (persistence WAL-fallback works on any FS)",
+      "achievement": "ACHIEVED",
+      "currentState": "runtime-lifecycle-batch [health CLI] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.112Z"
+    },
+    {
+      "id": "a-platform-parallel-test-cache",
+      "universe": "operations",
+      "futureMilestone": "Parallel test-cache runner: whole suite runs concurrently with a real per-file results cache (verifier perf)",
+      "achievement": "ACHIEVED",
+      "currentState": "test-cache: 61/63 files green in 3582ms (concurrency=8) — real per-file results, not fabricated",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.116Z"
+    },
+    {
+      "id": "a-platform-federation-lineage-critical-path",
+      "universe": "observability",
+      "futureMilestone": "Lineage critical-path: ordered cross-runtime hops with elapsed deltas + total duration",
+      "achievement": "ACHIEVED",
+      "currentState": "federation-batch3 [lineageCriticalPath] → pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-scheduler-schedule",
+      "universe": "operations",
+      "futureMilestone": "Scheduler: schedule tasks at logical due-times, fail-closed on bad input",
+      "achievement": "ACHIEVED",
+      "currentState": "scheduler [schedule registers tasks] → pass=1 fail=0 (in-process logical-clock; NOT a cron daemon; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-scheduler-tick",
+      "universe": "operations",
+      "futureMilestone": "Scheduler: tick advances logical clock and marks due tasks, fail-closed on bad delta",
+      "achievement": "ACHIEVED",
+      "currentState": "scheduler [tick advances] → pass=1 fail=0 (in-process logical-clock; NOT a cron daemon; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-scheduler-rundue",
+      "universe": "operations",
+      "futureMilestone": "Scheduler: runDue executes due tasks deterministically and increments run counts",
+      "achievement": "ACHIEVED",
+      "currentState": "scheduler [runDue runs due] → pass=1 fail=0 (in-process logical-clock; NOT a cron daemon; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-scheduler-cancel",
+      "universe": "operations",
+      "futureMilestone": "Scheduler: cancel pending tasks, fail-closed on ran/unknown",
+      "achievement": "ACHIEVED",
+      "currentState": "scheduler [cancel removes] → pass=1 fail=0 (in-process logical-clock; NOT a cron daemon; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-scheduler-list",
+      "universe": "operations",
+      "futureMilestone": "Scheduler: list tasks filtered by state, fail-closed on unknown state",
+      "achievement": "ACHIEVED",
+      "currentState": "scheduler [list filters] → pass=1 fail=0 (in-process logical-clock; NOT a cron daemon; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-scheduler-snapshot",
+      "universe": "operations",
+      "futureMilestone": "Scheduler: deterministic snapshot for evidence/replay; not production-GO",
+      "achievement": "ACHIEVED",
+      "currentState": "scheduler [snapshot is deterministic] → pass=1 fail=0 (in-process logical-clock; NOT a cron daemon; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-fsm-define",
+      "universe": "operations",
+      "futureMilestone": "FSM: define states/initial/transitions, reject non-deterministic edges",
+      "achievement": "ACHIEVED",
+      "currentState": "fsm [define validates] → pass=1 fail=0 (deterministic FSM; NOT a distributed orchestrator; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-fsm-send",
+      "universe": "operations",
+      "futureMilestone": "FSM: deterministic transitions, fail-closed on undefined edges",
+      "achievement": "ACHIEVED",
+      "currentState": "fsm [send transitions deterministically] → pass=1 fail=0 (deterministic FSM; NOT a distributed orchestrator; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-fsm-state",
+      "universe": "operations",
+      "futureMilestone": "FSM: query current state, fail-closed when undefined",
+      "achievement": "ACHIEVED",
+      "currentState": "fsm [state returns the current] → pass=1 fail=0 (deterministic FSM; NOT a distributed orchestrator; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-fsm-can",
+      "universe": "operations",
+      "futureMilestone": "FSM: side-effect-free guard check of allowed transitions",
+      "achievement": "ACHIEVED",
+      "currentState": "fsm [can reports allowed] → pass=1 fail=0 (deterministic FSM; NOT a distributed orchestrator; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-fsm-history",
+      "universe": "operations",
+      "futureMilestone": "FSM: ordered transition history for audit",
+      "achievement": "ACHIEVED",
+      "currentState": "fsm [history records every] → pass=1 fail=0 (deterministic FSM; NOT a distributed orchestrator; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-fsm-restart",
+      "universe": "operations",
+      "futureMilestone": "FSM: restart to initial state, clears history, keeps definition",
+      "achievement": "ACHIEVED",
+      "currentState": "fsm [restart returns to initial] → pass=1 fail=0 (deterministic FSM; NOT a distributed orchestrator; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-platform-fsm-snapshot",
+      "universe": "operations",
+      "futureMilestone": "FSM: deterministic snapshot for evidence/replay; not production-GO",
+      "achievement": "ACHIEVED",
+      "currentState": "fsm [snapshot is deterministic] → pass=1 fail=0 (deterministic FSM; NOT a distributed orchestrator; governedProductionGo=false)",
+      "verifiedBy": "scripts/achievements/platform-runtime.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": null,
+      "verifiedAt": "2026-06-07T17:32:47.117Z"
+    },
+    {
+      "id": "a-resolve-ev-9-level-stack-model",
+      "universe": "traceability",
+      "futureMilestone": "9-Level Traceability Stack model is canonically defined: Mission → Universe → Runtime → Service → Feature → Workflow → Data → Evidence → Reality",
+      "achievement": "ACHIEVED",
+      "currentState": "hkd/reality-to-mission-traceability-universe.hkd contains exactly 9 trace-level nodes (Mission → Universe → Runtime / Ecosystem → Service → Feature → Workflow → Data → Evidence → Reality) with 8 narrows-to edges — the canonical 9-level model is defined",
+      "verifiedBy": "scripts/achievements/resolve-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-9-level-stack-model",
+      "verifiedAt": "2026-06-07T17:32:47.118Z"
+    },
+    {
+      "id": "a-resolve-ev-migrations-cli",
+      "universe": "data-schemas",
+      "futureMilestone": "maataa migrate CLI implements generate/up/down/status/history over a real SQLite ledger",
+      "achievement": "ACHIEVED",
+      "currentState": "maataa migrate CLI verified end-to-end (generate/up/down/status/history; real SQLite exec) — tests/migrations-cli.test.mjs pass=1 fail=0",
+      "verifiedBy": "scripts/achievements/resolve-evidence.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-migrations-cli",
+      "verifiedAt": "2026-06-07T17:32:47.118Z"
+    },
+    {
+      "id": "a-resolve-kh-research-agent-real",
+      "universe": "hkd-runtime",
+      "futureMilestone": "Research Agent that autonomously discovers, analyzes, and validates knowledge",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "No research agent wrapper found; checked packages/kbs-runtime/src/agent, packages/kbs-runtime/src/research-agent.ts, packages/research-agent/src/index.ts; existsSync=false",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-research-agent-real",
+      "verifiedAt": "2026-06-07T17:32:47.119Z"
+    },
+    {
+      "id": "a-resolve-kh-ai-capabilities-partial",
+      "universe": "ai-model",
+      "futureMilestone": "AI Capabilities: Understand/Reason/Infer/Generate/Create/Perceive/Interpret/Plan/Decide/Remember/Learn/Act/Automate/Collaborate",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "Claim requires 8 distinct AI capability runtimes; 3 of 3 checked dirs missing (packages/runtime-generate, packages/runtime-plan, packages/runtime-collaborate). Only Understand+Perceive substrates exist.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-ai-capabilities-partial",
+      "verifiedAt": "2026-06-07T17:32:47.119Z"
+    },
+    {
+      "id": "a-resolve-kh-knowledge-graph-dashboard-real",
+      "universe": "dashboard",
+      "futureMilestone": "Knowledge Graph Dashboard renders the live knowledge graph",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "No knowledge-graph dashboard package or wiring found; checked packages/dashboard-knowledge-graph, packages/kbs-dashboard/src/knowledge-graph.ts, apps/dashboard/src/knowledge-graph; anyFound=false",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-knowledge-graph-dashboard-real",
+      "verifiedAt": "2026-06-07T17:32:47.120Z"
+    },
+    {
+      "id": "a-resolve-kh-hkd-enabler",
+      "universe": "ecosystem",
+      "futureMilestone": "HKD is the universal cross-ecosystem knowledge format",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "VisualHKD type defined (types.ts exists=true) but scoped to visual extraction only. Cross-ecosystem registry not found (hkd-registry/src/index.ts exists=false). Full claim \"universal format powering the ecosystem\" not satisfied.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-hkd-enabler",
+      "verifiedAt": "2026-06-07T17:32:47.120Z"
+    },
+    {
+      "id": "a-resolve-kh-knowledge-features-real",
+      "universe": "feature",
+      "futureMilestone": "Knowledge Features: Knowledge Graph, Semantic Search, AI Reasoning, Source Attribution, Continuous Learning",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "AI Reasoning dir exists=false, Continuous Learning dir exists=false. Both aspirational — not implemented. Full 5-feature claim not satisfied.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-knowledge-features-real",
+      "verifiedAt": "2026-06-07T17:32:47.120Z"
+    },
+    {
+      "id": "a-resolve-kh-9-entity-types",
+      "universe": "hkd-runtime",
+      "futureMilestone": "9 HKD Entity Types: Concept/Entity/Person/Event/Location/Asset/Document/Observation/Evidence",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "types.ts exists but HKDNode.kind is free-form string. Required named types as literals: found 0/9 (none). KbsNodeType defines different 10-type set.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-9-entity-types",
+      "verifiedAt": "2026-06-07T17:32:47.121Z"
+    },
+    {
+      "id": "a-resolve-kh-9-relation-types",
+      "universe": "hkd-runtime",
+      "futureMilestone": "9 HKD Relation Types: IS_A/PART_OF/CAUSES/DEPENDS_ON/RELATED_TO/CREATED_BY/USES/SUPPORTS/CONTRADICTS",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "types.ts HKDEdge.relation is free-form string. Required named types as literals: found 0/9 (none). KbsEdgeType defines a different 8-type set.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-9-relation-types",
+      "verifiedAt": "2026-06-07T17:32:47.121Z"
+    },
+    {
+      "id": "a-resolve-kh-hkd-runtime-active",
+      "universe": "hkd-runtime",
+      "futureMilestone": "HKD Runtime/Compiler/Registry/Search/Validation/Ecosystem all Active",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "runtime-knowledge-graph health() status is scaffold (found=true). Claim requires \"all Active\" — scaffold disqualifies. Compiler/Registry/Versioner/Permission subsystems absent.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-hkd-runtime-active",
+      "verifiedAt": "2026-06-07T17:32:47.122Z"
+    },
+    {
+      "id": "a-resolve-kh-validation-engine",
+      "universe": "hkd-runtime",
+      "futureMilestone": "Validation Engine (Schema/Semantic/Evidence/Consistency/Sovereignty/Integrity/Tamper trust)",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "status-validator.ts exists with validateVisualHKDStatus (structural checks only). Claim requires 7 stages; stage keywords found: 0/5 checked (none). Full 7-stage engine not present.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-validation-engine",
+      "verifiedAt": "2026-06-07T17:32:47.122Z"
+    },
+    {
+      "id": "a-resolve-kh-10-graph-categories",
+      "universe": "knowledge-graph",
+      "futureMilestone": "10 Graph Categories: Sutra/Person/Project/Asset/Memory/Chakra/Lipi/Investor/Knowledge Domain/Location",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "kbs-graph is a single unified graph. 8/8 named sub-graph packages absent. Claim requires 10 distinct category graphs.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-10-graph-categories",
+      "verifiedAt": "2026-06-07T17:32:47.123Z"
+    },
+    {
+      "id": "a-resolve-kh-capabilities-nl-query",
+      "universe": "knowledge-graph",
+      "futureMilestone": "Capabilities: Semantic Search/Multi-Hop Reasoning/Contextual Inference/Pattern Discovery/Link Prediction/Anomaly Detection/Temporal Analysis/Viz Explorer/Graph Embeddings/Natural Language Query",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "search/index.ts exists (keywordSearch + semanticSearch alias). Advanced capability functions found: 0/5 (none). 9 of 10 claimed capabilities not implemented.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-capabilities-nl-query",
+      "verifiedAt": "2026-06-07T17:32:47.124Z"
+    },
+    {
+      "id": "a-resolve-kh-usp-unified-kg",
+      "universe": "marketing",
+      "futureMilestone": "USP 07: Connects thousands of knowledge sources into one intelligent graph",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "kbs-runtime/src/data.ts defines 5 KbsSource records. Claim requires \"thousands of knowledge sources\" — not satisfied.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-usp-unified-kg",
+      "verifiedAt": "2026-06-07T17:32:47.124Z"
+    },
+    {
+      "id": "a-resolve-kh-knowledge-for-all-real",
+      "universe": "mission",
+      "futureMilestone": "Mission 2: Knowledge For All — democratize knowledge in every language",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "Claim requires \"every language\" support. Checked packages/runtime-translation, packages/runtime-i18n, packages/language-runtime; anyFound=false. lipi-runtime covers specific Bharatiya scripts only — \"every language\" not satisfied.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-knowledge-for-all-real",
+      "verifiedAt": "2026-06-07T17:32:47.124Z"
+    },
+    {
+      "id": "a-resolve-kh-knowledge-graph-research",
+      "universe": "research",
+      "futureMilestone": "Research Knowledge Graph (Hypothesis/Paper/Experiment/Dataset/Evidence/Author)",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "kbs-runtime/src/types.ts defines KbsNodeType but does not include research entity types. Found: 0/5 (none). Substrate present but research-specific types not defined.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-knowledge-graph-research",
+      "verifiedAt": "2026-06-07T17:32:47.125Z"
+    },
+    {
+      "id": "a-resolve-kh-rt-knowledge-active",
+      "universe": "runtime",
+      "futureMilestone": "Knowledge Runtime STATUS: ACTIVE",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "packages/knowledge-runtime/package.json exists=false. No @maataa/knowledge-runtime package; kbs-runtime is real but name-mismatched and not labelled ACTIVE. runtime-knowledge-graph is scaffold. Claim not satisfied.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-rt-knowledge-active",
+      "verifiedAt": "2026-06-07T17:32:47.125Z"
+    },
+    {
+      "id": "a-resolve-kh-knowledge-services-real",
+      "universe": "service",
+      "futureMilestone": "Knowledge Services (Knowledge Graph, Semantic Search, Sutra, AI Reasoning, Content Ingestion)",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "No HTTP service package found; checked packages/kbs-service/src/server.ts, packages/knowledge-service/src/index.ts, apps/kbs-api/src/index.ts; anyFound=false. kbs-sdk has OpenAPI spec but no running service process. Claim not satisfied.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-knowledge-services-real",
+      "verifiedAt": "2026-06-07T17:32:47.125Z"
+    },
+    {
+      "id": "a-resolve-kh-connected-universes-hkd-kg",
+      "universe": "time-evolution",
+      "futureMilestone": "Connected Universes: HKD Knowledge + KG Graph integration",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "No HKD-KG integration module found; checked packages/hkd-kg-bridge/src/index.ts, packages/visual-hkd-runtime/src/kg-integration.ts, packages/kbs-graph/src/hkd-bridge.ts; anyFound=false. visual-hkd-runtime and kbs-graph exist as separate packages with no wiring. Temporal layer absent.",
+      "verifiedBy": "scripts/achievements/resolve-knowledge-hkd.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-connected-universes-hkd-kg",
+      "verifiedAt": "2026-06-07T17:32:47.126Z"
+    },
+    {
+      "id": "a-resolve-hkd-file-format",
+      "universe": "hkd-runtime",
+      "futureMilestone": "HKD (.hkd) file format is real: files on disk conform to the VisualHKD shape (id/title/universe/sections/claims)",
+      "achievement": "ACHIEVED",
+      "currentState": "44/44 .hkd files parse and conform to VisualHKD shape (id/title/universe + sections|claims|nodes)",
+      "verifiedBy": "scripts/achievements/resolve-knowledge.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-hkd-file-format",
+      "verifiedAt": "2026-06-07T17:32:47.143Z"
+    },
+    {
+      "id": "a-resolve-lipi-enabler-multilingual",
+      "universe": "ecosystem",
+      "futureMilestone": "LIPI is the multilingual script foundation: @maataa/lipi-runtime package exists with multi-family script registry, phonetics, lineage, learning, and governance modules",
+      "achievement": "ACHIEVED",
+      "currentState": "@maataa/lipi-runtime (private=false) verified: 3 real script families (Brahmi, Kharosthi, Perso-Arabic); 5 modules present (registry, phonetics, lineage, learning, governance)",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-enabler-multilingual",
+      "verifiedAt": "2026-06-07T17:32:47.146Z"
+    },
+    {
+      "id": "a-resolve-lipi-revival-mission-real",
+      "universe": "mission",
+      "futureMilestone": "Mission 3 Revive Bharatiya lipis & scripts: formal mission node exists in HKD with real lipi-runtime technical substrate (canonical Bharatiya scripts, lineage, learning)",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "Mission node m-03-lipi-revival declared; substrate real (Bharatiya scripts brahmi, devanagari, gurmukhi, tamil, bengali; gurukul paths=true) — but \"revive scripts\" is an ongoing mission, not an accomplished milestone; left IN_PROGRESS",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-revival-mission-real",
+      "verifiedAt": "2026-06-07T17:32:47.147Z"
+    },
+    {
+      "id": "a-resolve-lipi-agent-real",
+      "universe": "agent",
+      "futureMilestone": "Lipi Agent exists as a runnable agent wrapper with NLP/OCR/translation capabilities",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "packages/lipi-agent directory does not exist; no agent wrapper for Lipi",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-agent-real",
+      "verifiedAt": "2026-06-07T17:32:47.147Z"
+    },
+    {
+      "id": "a-resolve-formats-120",
+      "universe": "asset-library",
+      "futureMilestone": "120+ file formats supported by a format-conversion runtime",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "No format-conversion runtime found; 120+ format count is a fabricated marketing number",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-formats-120",
+      "verifiedAt": "2026-06-07T17:32:47.147Z"
+    },
+    {
+      "id": "a-resolve-lipi-glyphs-15k",
+      "universe": "asset-library",
+      "futureMilestone": "15,000+ glyphs stored in a Lipi glyph library across Brahmi/Kharoshthi/Devanagari/Siddham",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "token-anchors.ts has only 4 seeded character entries; claim requires 15,000+ glyphs — not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-glyphs-15k",
+      "verifiedAt": "2026-06-07T17:32:47.148Z"
+    },
+    {
+      "id": "a-resolve-powered-by-lipi",
+      "universe": "civilization",
+      "futureMilestone": "A production app or OS layer is powered by LIPI Language & Script",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "lipi-runtime is GOVERNED_PRODUCTION_NO_GO per its own governance; civilizational 'Powered By' integration is aspirational",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-powered-by-lipi",
+      "verifiedAt": "2026-06-07T17:32:47.148Z"
+    },
+    {
+      "id": "a-resolve-lipi-dashboard-real",
+      "universe": "dashboard",
+      "futureMilestone": "A Lipi Dashboard UI renders script learning progress and accuracy",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "Found packages/lipi-runtime/apps but no rendered dashboard UI verified",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-dashboard-real",
+      "verifiedAt": "2026-06-07T17:32:47.148Z"
+    },
+    {
+      "id": "a-resolve-lipi-features-real",
+      "universe": "feature",
+      "futureMilestone": "Lipi Features fully implemented: Brahmi, Kharoshthi, Devanagari, multi-direction (including TTB), Custom Fonts, and Learning Engine",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "brahmi: true; kharosthi: true; devanagari: true; TTB direction script exists: false (type defined but no actual script uses TTB); Custom Fonts: not implemented in codebase; Claim requires ALL features including Custom Fonts and TTB scripts — not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-features-real",
+      "verifiedAt": "2026-06-07T17:32:47.148Z"
+    },
+    {
+      "id": "a-resolve-indus-script-research-label",
+      "universe": "hero",
+      "futureMilestone": "Indus (Research) script is registered in lipi-runtime with research/blocked status label",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "Indus script is NOT registered in lipi-426-master.ts; claim requires it to be present with (Research) label in code — not satisfied (only visible on board image)",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-indus-script-research-label",
+      "verifiedAt": "2026-06-07T17:32:47.149Z"
+    },
+    {
+      "id": "a-resolve-multi-lipi-brahmi-to-devanagari",
+      "universe": "landing",
+      "futureMilestone": "A transliteration/conversion path from Brahmi to Devanagari (and beyond) is implemented",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "transliteration-map.ts has 0 entries (roman transliterations only); no Brahmi→Devanagari script-to-script conversion engine exists — claim \"Brahmi to Devanagari & Beyond\" not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-multi-lipi-brahmi-to-devanagari",
+      "verifiedAt": "2026-06-07T17:32:47.149Z"
+    },
+    {
+      "id": "a-resolve-7-script-families",
+      "universe": "lipi",
+      "futureMilestone": "All 7 major script families (Brahmi/Abjad/Abugida/Alphabet/Logographic/Syllabic/Symbolic) are registered in lipi-runtime",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "Registry has 3 real family labels (Brahmi, Kharosthi, Perso-Arabic); missing families: Abjad, Abugida, Alphabet, Logographic, Syllabic, Symbolic — 7-family coverage not achieved",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-7-script-families",
+      "verifiedAt": "2026-06-07T17:32:47.149Z"
+    },
+    {
+      "id": "a-resolve-extinct-scripts-312",
+      "universe": "lipi",
+      "futureMilestone": "312+ extinct scripts enumerated in lipi-runtime registry",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "lipi-426-master.ts has 7 HISTORICAL scripts (all are named canonical entries); remaining 414 slots are BLOCKED extension placeholders with no data — 312+ extinct count not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-extinct-scripts-312",
+      "verifiedAt": "2026-06-07T17:32:47.150Z"
+    },
+    {
+      "id": "a-resolve-glyphs-54-21k",
+      "universe": "lipi",
+      "futureMilestone": "54,210+ glyphs and symbols cataloged in lipi-runtime",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "token-anchors.ts has 4 glyph entries; 54,210+ is a fabricated marketing number — not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-glyphs-54-21k",
+      "verifiedAt": "2026-06-07T17:32:47.150Z"
+    },
+    {
+      "id": "a-resolve-living-scripts-54",
+      "universe": "lipi",
+      "futureMilestone": "54+ living (ACTIVE status) scripts registered in lipi-runtime",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "lipi-426-master.ts has 5 ACTIVE (living) scripts; claim requires 54+ — not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-living-scripts-54",
+      "verifiedAt": "2026-06-07T17:32:47.150Z"
+    },
+    {
+      "id": "a-resolve-script-evolution-timeline",
+      "universe": "lipi",
+      "futureMilestone": "A script evolution timeline data structure from Prehistoric through AI Future is implemented in lipi-runtime",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "script-lineage-graph.ts has 3 edges; no BCE/CE date data found (hasBCE: false); full prehistoric→AI timeline not implemented — not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-script-evolution-timeline",
+      "verifiedAt": "2026-06-07T17:32:47.150Z"
+    },
+    {
+      "id": "a-resolve-scripts-mapped-1248",
+      "universe": "lipi",
+      "futureMilestone": "1,248+ scripts mapped in lipi-runtime registry",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "lipi-426-master.ts declares LIPI_426_EXPECTED_COUNT=426; claim requires 1,248+ — fabricated count, not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-scripts-mapped-1248",
+      "verifiedAt": "2026-06-07T17:32:47.150Z"
+    },
+    {
+      "id": "a-resolve-usp-lipi-multi-script",
+      "universe": "marketing",
+      "futureMilestone": "USP: World's most advanced multi-lipi engine — externally benchmarked",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "\"World's most advanced\" is a comparative superlative requiring external benchmarks; no such benchmark exists in repo — PHKD cannot certify marketing superlatives",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-usp-lipi-multi-script",
+      "verifiedAt": "2026-06-07T17:32:47.150Z"
+    },
+    {
+      "id": "a-resolve-wf-04-lipi-os-first",
+      "universe": "marketing",
+      "futureMilestone": "WF 04: First OS with native multi-script intelligence — verified by competitive analysis",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "\"First OS\" claim requires competitive analysis; Unicode/CLDR/OS i18n systems already exist — PHKD cannot certify historical-primacy marketing claims without external evidence",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-wf-04-lipi-os-first",
+      "verifiedAt": "2026-06-07T17:32:47.150Z"
+    },
+    {
+      "id": "a-resolve-lipi-product-shipped",
+      "universe": "product",
+      "futureMilestone": "LipiMate or a Lipi end-user product is shipping to customers",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "No LipiMate product package found; lipi-runtime is a governed runtime (private:false publishable) but not a shipped end-user product",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-product-shipped",
+      "verifiedAt": "2026-06-07T17:32:47.151Z"
+    },
+    {
+      "id": "a-resolve-rt-lipi-active",
+      "universe": "runtime",
+      "futureMilestone": "Lipi Runtime STATUS: ACTIVE (production GO)",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "phkd-verdict.ts declares phkdVerdict=\"BLOCKED\", finalStatus=\"GOVERNED_PRODUCTION_NO_GO\", productionReady=false — runtime self-reports NOT ACTIVE; claim cannot be resolved",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-rt-lipi-active",
+      "verifiedAt": "2026-06-07T17:32:47.152Z"
+    },
+    {
+      "id": "a-resolve-lipi-services-real",
+      "universe": "service",
+      "futureMilestone": "Lipi Services fully wired: Script Translation, Transliteration, Rendering, Direction, Learning exposed as services",
+      "achievement": "NOT_ACHIEVED",
+      "currentState": "transliterationMap has 0 entries; Rendering module: false; Script Translation service: absent; Service-level exposure not wired — claim requires all 5 services, not satisfied",
+      "verifiedBy": "scripts/achievements/resolve-lipi.mjs",
+      "sourceClaimStatus": "VERIFIED",
+      "resolves": "c-lipi-services-real",
+      "verifiedAt": "2026-06-07T17:32:47.152Z"
     }
   ]
 }
