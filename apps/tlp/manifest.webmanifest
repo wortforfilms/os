@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "/apps/tlp/",
+  "name": "MAATAA OS — TLP",
+  "short_name": "TLP",
+  "description": "TLP production-os runtime shell.",
+  "scope": "/apps/tlp/",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#ca8a04",
+  "background_color": "#0b0f14",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

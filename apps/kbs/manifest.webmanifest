@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "/apps/kbs/",
+  "name": "MAATAA OS — KBS Knowledge",
+  "short_name": "KBS",
+  "description": "Governed knowledge runtime shell.",
+  "scope": "/apps/kbs/",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#0891b2",
+  "background_color": "#0b0f14",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

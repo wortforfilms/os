@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "/apps/pedagogy/",
+  "name": "MAATAA OS — Gurukul Pedagogy",
+  "short_name": "Gurukul",
+  "description": "Pedagogy runtime shell.",
+  "scope": "/apps/pedagogy/",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#16a34a",
+  "background_color": "#0b0f14",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

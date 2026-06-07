@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MAATAA OS — Gurukul Pedagogy</title>
+  <meta name="theme-color" content="#16a34a" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+</head>
+<body>
+  <div id="root"></div>
+  <!-- Isolated scope: /apps/pedagogy/ — shared runtimes are imported, not duplicated. -->
+  <script type="module" src="./index.tsx"></script>
+  <script>
+    // Register this app's isolated service worker (cache "maataa-pedagogy-v1").
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js", { scope: "./" }));
+    }
+  </script>
+</body>
+</html>

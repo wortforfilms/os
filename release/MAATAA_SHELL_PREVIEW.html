@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" data-mode="alpha">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maataa Shell — MotherShell Preview</title>
+<style>
+  :root{
+    --bg:#0b0d10; --panel:#11151b; --panel2:#161b22; --line:#232b35;
+    --ink:#e6edf3; --dim:#8b98a5; --faint:#5c6773;
+    --accent:#6fb1ff; --warn:#f0b252; --bad:#ff6b6b; --ok:#5ad19a;
+    --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--mono);
+    -webkit-font-smoothing:antialiased;line-height:1.5;padding:28px;}
+  .wrap{max-width:980px;margin:0 auto;}
+  .topbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;
+    border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:14px 18px;}
+  .topbar .id{font-size:12px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+  .gate{font-size:11px;letter-spacing:.06em;border:1px solid var(--bad);color:var(--bad);
+    border-radius:999px;padding:4px 10px;background:rgba(255,107,107,.08);}
+  .modes{display:flex;gap:6px;}
+  .modes button{font-family:var(--mono);font-size:12px;background:var(--panel2);color:var(--dim);
+    border:1px solid var(--line);border-radius:7px;padding:6px 12px;cursor:pointer;}
+  .modes button[aria-pressed="true"]{color:var(--ink);border-color:var(--accent);
+    box-shadow:inset 0 0 0 1px var(--accent);}
+  .shell{margin-top:20px;border:1px solid var(--line);border-radius:14px;background:
+    linear-gradient(180deg,var(--panel),var(--bg));overflow:hidden;}
+  .shell-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);position:relative;}
+  .shell-head .kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);}
+  .shell-head h1{margin:6px 0 2px;font-size:30px;font-weight:600;letter-spacing:.02em;}
+  .shell-head p.desc{margin:8px 0 0;color:var(--dim);font-size:13px;max-width:62ch;}
+  .mode-badge{position:absolute;top:22px;right:24px;font-size:11px;color:var(--faint);
+    border:1px dashed var(--line);border-radius:6px;padding:3px 9px;}
+  [data-mode="operator"] .shell-head .kicker{color:var(--warn)}
+  [data-mode="ceremony"] .shell-head .kicker{color:var(--ok)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+    border-bottom:1px solid var(--line);}
+  .card{background:var(--panel);padding:18px;min-height:118px;}
+  .card.span{grid-column:1 / -1;}
+  .card h3{margin:0;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;}
+  .card .path{font-size:11px;color:var(--faint);margin-top:2px;}
+  .card .role{font-size:12px;color:var(--dim);margin-top:10px;}
+  .tag{font-size:10px;letter-spacing:.05em;border:1px solid var(--line);border-radius:5px;
+    padding:2px 7px;color:var(--faint);text-transform:uppercase;}
+  .tag.placeholder{color:var(--warn);border-color:rgba(240,178,82,.4)}
+  .foot{margin-top:18px;font-size:11px;color:var(--faint);line-height:1.7;}
+  .foot code{color:var(--dim)}
+  .evidence{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .evidence span{font-size:10.5px;border:1px solid var(--line);border-radius:5px;padding:3px 8px;color:var(--dim);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div>
+      <div class="id">Maataa OS · UX Surface</div>
+      <div style="font-size:13px;color:var(--ink);margin-top:2px;">MotherShell — coordination shell</div>
+    </div>
+    <div class="modes" role="group" aria-label="Shell mode">
+      <button data-set="alpha" aria-pressed="true">alpha</button>
+      <button data-set="operator" aria-pressed="false">operator</button>
+      <button data-set="ceremony" aria-pressed="false">ceremony</button>
+    </div>
+    <div class="gate" title="Governed production gate">GOVERNED_PRODUCTION_NO_GO</div>
+  </div>
+
+  <section class="shell" aria-label="Maataa shell">
+    <div class="shell-head">
+      <div class="kicker">Mother Interface</div>
+      <h1 id="shell-title">Maataa</h1>
+      <span class="mode-badge">data-mode=<span id="mode-val">alpha</span></span>
+      <p class="desc">Primary coordination shell for Maataa OS apps, rituals, sensors, and
+        timelines. This is a thin UX facade — it frames the child surfaces; runtime truth is
+        meant to flow in from <code>packages/maataa-ui</code>.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>ChakraSystem <span class="tag placeholder">stub</span></h3>
+        <div class="path">chakra/ChakraSystem.tsx</div>
+        <div class="role">Energy-state surface. Mounted first among the children.</div>
+      </div>
+      <div class="card">
+        <h3>AuraField <span class="tag placeholder">stub</span></h3>
+        <div class="path">aura/AuraField.tsx</div>
+        <div class="role">Field rendering surface.</div>
+      </div>
+      <div class="card">
+        <h3>SensorPanel <span class="tag placeholder">stub</span></h3>
+        <div class="path">sensors/SensorPanel.tsx</div>
+        <div class="role">Device-signal surface. No live data wired.</div>
+      </div>
+      <div class="card span">
+        <h3>TimelineView <span class="tag placeholder">stub</span></h3>
+        <div class="path">timeline/TimelineView.tsx</div>
+        <div class="role">Temporal / event surface spanning the shell width.</div>
+      </div>
+    </div>
+
+    <div style="padding:16px 24px;">
+      <div class="evidence">
+        <span>source: apps/maataa/index.tsx</span>
+        <span>shell: apps/maataa/ui/MotherShell.tsx</span>
+        <span>modes: alpha · operator · ceremony</span>
+        <span>composition: verified from code</span>
+        <span>child behavior: placeholder</span>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">
+    Honest status: composition order (MotherShell → ChakraSystem → AuraField → SensorPanel →
+    TimelineView) is taken directly from <code>apps/maataa/index.tsx</code>. The three modes are
+    the real <code>MotherShellProps.mode</code> union. Child surfaces are currently stubs
+    (<code>ui/README.md</code>: "Placeholder for Maataa interface components"), so this preview
+    shows the <em>frame</em>, not fabricated runtime data — consistent with the repo's
+    GOVERNED_PRODUCTION_NO_GO gate. No fake metrics, no fake live state.
+  </p>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const titleEl = document.getElementById('shell-title');
+  const modeVal = document.getElementById('mode-val');
+  const titles = { alpha: 'Maataa', operator: 'Maataa · Operator', ceremony: 'Maataa · Ceremony' };
+  document.querySelectorAll('.modes button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const m = btn.dataset.set;
+      document.querySelectorAll('.modes button').forEach(b =>
+        b.setAttribute('aria-pressed', String(b === btn)));
+      root.setAttribute('data-mode', m);
+      modeVal.textContent = m;
+      titleEl.textContent = titles[m];
+    });
+  });
+</script>
+</body>
+</html>
