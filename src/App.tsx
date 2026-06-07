@@ -1,7 +1,8 @@
 import { FormEvent, ReactNode, useEffect, useMemo, useState } from "react";
 import { SovereignDashboard } from "../packages/maataa-ui/src/SovereignDashboard";
 import { createAuthClient, type AuthClient } from "./auth/client";
-import type { AdminAnalyticsResult, AdminSummary, AuthSession, BillingSummaryResult, DomainRegistryResult } from "./auth/types";
+import type { AdminAnalyticsResult, AdminSummary, AuthSession, BillingSummaryResult } from "./auth/types";
+import { DomainRegistryPage } from "./domains/DomainRegistryPage";
 import { CommandPalette } from "./search/CommandPalette";
 import { SearchPage } from "./search/SearchPage";
 import { useRuntimeStatus } from "./runtime/useRuntimeStatus";
@@ -14,6 +15,8 @@ type RouteId =
   | "/auth/signup"
   | "/admin"
   | "/domains"
+  | "/domains/status"
+  | "/domains/runtime"
   | "/docs"
   | "/settings"
   | "/search";
@@ -30,6 +33,8 @@ function currentPath(): RouteId {
     path === "/auth/signup" ||
     path === "/admin" ||
     path === "/domains" ||
+    path === "/domains/status" ||
+    path === "/domains/runtime" ||
     path === "/docs" ||
     path === "/search" ||
     path === "/settings"
@@ -139,10 +144,10 @@ export function App() {
     );
   }
 
-  if (route === "/domains") {
+  if (route === "/domains" || route === "/domains/status" || route === "/domains/runtime") {
     return (
       <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
-        <DomainsShell auth={auth} />
+        <DomainRegistryPage route={route} navigate={navigate} />
       </AuthShell>
     );
   }
@@ -222,6 +227,8 @@ function normalizeRoute(path: string): RouteId | null {
     path === "/auth/signup" ||
     path === "/admin" ||
     path === "/domains" ||
+    path === "/domains/status" ||
+    path === "/domains/runtime" ||
     path === "/docs" ||
     path === "/search" ||
     path === "/settings"
@@ -392,55 +399,6 @@ function AdminShell({ auth, session }: { auth: AuthClient; session: AuthSession 
           <p className="auth-message">BLOCKED: {analytics?.error ?? "LOADING"}</p>
         )}
       </div>
-    </section>
-  );
-}
-
-function DomainsShell({ auth }: { auth: AuthClient }) {
-  const [registry, setRegistry] = useState<DomainRegistryResult | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-    auth.domainRegistry().then((result) => {
-      if (mounted) {
-        setRegistry(result);
-      }
-    });
-    return () => {
-      mounted = false;
-    };
-  }, [auth]);
-
-  if (!registry) {
-    return <AuthFrame title="Domain Registry" detail="Loading local domain registry." backend={auth.backend} />;
-  }
-
-  if (!registry.ok) {
-    return <AccessBlocked reason={registry.error} detail="Domain registry failed closed." />;
-  }
-
-  return (
-    <section className="auth-card">
-      <p className="dashboard-kicker">Domains</p>
-      <h2>Local sovereign domain registry.</h2>
-      <table className="auth-table">
-        <thead>
-          <tr>
-            <th>Domain</th>
-            <th>State</th>
-            <th>Owner</th>
-          </tr>
-        </thead>
-        <tbody>
-          {registry.domains.map((domain) => (
-            <tr key={domain.id}>
-              <td>{domain.name}</td>
-              <td>{domain.state}</td>
-              <td>{domain.owner}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </section>
   );
 }

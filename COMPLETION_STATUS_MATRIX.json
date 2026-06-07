@@ -1,7 +1,7 @@
 {
   "schema": "maataa.completion.status.matrix.v1",
-  "generatedAt": "2026-06-07T18:56:50.037Z",
-  "commit": "9e72702",
+  "generatedAt": "2026-06-07T19:49:55.884Z",
+  "commit": "3f0b503",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
@@ -207,10 +207,79 @@
       ]
     }
   },
+  "domainRegistry": {
+    "source": "data/domain-registry.json",
+    "evidenceFile": "release/evidence/domain-registry.json",
+    "summary": {
+      "domains": 7,
+      "routes": 3,
+      "dnsUnknown": 7,
+      "dnsBlocked": 0,
+      "runtimeUnknown": 0,
+      "runtimeBlocked": 1,
+      "missingRoutes": 1,
+      "blockers": 7
+    },
+    "routes": [
+      {
+        "path": "/domains",
+        "state": "PREVIEW_VERIFIED",
+        "artifact": "src/domains/DomainRegistryPage.tsx",
+        "evidence": "In-app governed domain registry table route exists."
+      },
+      {
+        "path": "/domains/status",
+        "state": "PREVIEW_VERIFIED",
+        "artifact": "src/domains/DomainRegistryPage.tsx",
+        "evidence": "In-app DNS/runtime status summary route exists."
+      },
+      {
+        "path": "/domains/runtime",
+        "state": "PREVIEW_VERIFIED",
+        "artifact": "src/domains/DomainRegistryPage.tsx",
+        "evidence": "In-app runtime mapping route exists."
+      }
+    ]
+  },
   "blockers": [
     {
       "surface": "MSAR",
       "reason": "Hardware root of trust: HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace."
+    },
+    {
+      "surface": "domain:maataa.local",
+      "route": "/",
+      "reason": "DNS uptime is UNKNOWN and live deployment is not verified."
+    },
+    {
+      "surface": "domain:domains.maataa.local",
+      "route": "/domains",
+      "reason": "DNS uptime is UNKNOWN; this is a local preview route only."
+    },
+    {
+      "surface": "domain:status.domains.maataa.local",
+      "route": "/domains/status",
+      "reason": "DNS status has not been probed by a live resolver."
+    },
+    {
+      "surface": "domain:runtime.domains.maataa.local",
+      "route": "/domains/runtime",
+      "reason": "Runtime mapping is preview verified, but DNS and live deployment remain UNKNOWN."
+    },
+    {
+      "surface": "domain:lipi.maataa.local",
+      "route": "/domains/runtime",
+      "reason": "DNS uptime is UNKNOWN; no live Lipi deployment is claimed."
+    },
+    {
+      "surface": "domain:radio.vaigyaaniq.local",
+      "route": "/radio",
+      "reason": "Route /radio is missing and DNS uptime is UNKNOWN."
+    },
+    {
+      "surface": "domain:maataa.in",
+      "route": "/domains/status",
+      "reason": "Production domain is BLOCKED until global PHKD gates, DNS evidence, and release authority pass."
     },
     {
       "surface": "vh-agent-universe-2026-05-28:c-active-agents-12",
@@ -2215,6 +2284,7 @@
   "evidenceFiles": [
     "release/evidence/latest.json",
     "release/evidence/blockers.json",
+    "release/evidence/domain-registry.json",
     "COMPLETION_STATUS_MATRIX.json",
     "COMPLETION_STATUS_MATRIX.md"
   ]

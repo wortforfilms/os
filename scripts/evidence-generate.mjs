@@ -5,6 +5,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const matrix = readJson("data/product-surface-matrix.json");
+const domainRegistry = readJson("data/domain-registry.json");
 const hardening = readJson("release/reports/PRODUCTION_HARDENING_MATRIX.json");
 const evidenceDir = "release/evidence";
 mkdirSync(evidenceDir, { recursive: true });
@@ -19,6 +20,42 @@ const hardeningBlockers = Object.entries(hardening.domains ?? {}).flatMap(([doma
     reason: `${gate.gate}: ${gate.evidence}`,
   })),
 );
+
+const implementedDomainRoutes = new Set(["/", ...(domainRegistry.routes ?? []).map((route) => route.path)]);
+assertHonestDomainRegistry(domainRegistry, implementedDomainRoutes);
+const domainBlockers = (domainRegistry.domains ?? [])
+  .filter((domain) => hasDomainBlocker(domain, implementedDomainRoutes))
+  .map((domain) => ({
+    surface: `domain:${domain.domain}`,
+    route: domain.route,
+    reason: domain.blocker || domainBlockerReasons(domain, implementedDomainRoutes).join(" "),
+  }));
+const domainSummary = {
+  domains: domainRegistry.domains?.length ?? 0,
+  routes: domainRegistry.routes?.length ?? 0,
+  dnsUnknown: (domainRegistry.domains ?? []).filter((domain) => domain.dnsState === "UNKNOWN").length,
+  dnsBlocked: (domainRegistry.domains ?? []).filter((domain) => domain.dnsState === "BLOCKED").length,
+  runtimeUnknown: (domainRegistry.domains ?? []).filter((domain) => domain.runtimeState === "UNKNOWN").length,
+  runtimeBlocked: (domainRegistry.domains ?? []).filter((domain) => domain.runtimeState === "BLOCKED").length,
+  missingRoutes: (domainRegistry.domains ?? []).filter((domain) => !implementedDomainRoutes.has(domain.route)).length,
+  blockers: domainBlockers.length,
+};
+const domainEvidence = {
+  schema: "maataa.domain-registry.evidence.v1",
+  generatedAt,
+  commit,
+  finalStatus: "CONTROLLED_NO_GO",
+  productionReady: false,
+  phkdVerdict: "BLOCKED",
+  source: "data/domain-registry.json",
+  noFakeDnsUptime: true,
+  noFakeLiveDeployment: true,
+  noFakeProductionReadiness: true,
+  summary: domainSummary,
+  routes: domainRegistry.routes,
+  domains: domainRegistry.domains,
+  blockers: domainBlockers,
+};
 
 // --- HKD vision-board ingestion (added 2026-05-28) ---
 // Every .hkd file under hkd/ that follows the VisualHKD shape contributes its
@@ -91,6 +128,7 @@ const blockers = [
   ...routeBlockers.map((item) => ({ surface: item.path, reason: item.evidence })),
   ...featureBlockers.map((item) => ({ surface: item.id, reason: item.evidence })),
   ...hardeningBlockers,
+  ...domainBlockers,
   ...hkdBlockers,
 ];
 
@@ -104,16 +142,24 @@ const completion = {
   routes: matrix.routes,
   features: matrix.features,
   hardening,
+  domainRegistry: {
+    source: "data/domain-registry.json",
+    evidenceFile: "release/evidence/domain-registry.json",
+    summary: domainSummary,
+    routes: domainRegistry.routes,
+  },
   blockers,
   hkdSummary,
   evidenceFiles: [
     "release/evidence/latest.json",
     "release/evidence/blockers.json",
+    "release/evidence/domain-registry.json",
     "COMPLETION_STATUS_MATRIX.json",
     "COMPLETION_STATUS_MATRIX.md",
   ],
 };
 
+writeJson(join(evidenceDir, "domain-registry.json"), domainEvidence);
 writeJson("COMPLETION_STATUS_MATRIX.json", completion);
 writeJson(join(evidenceDir, "latest.json"), completion);
 writeJson(join(evidenceDir, "blockers.json"), {
@@ -144,7 +190,7 @@ writeFileSync(
 );
 
 console.log(`evidence generated: ${completion.finalStatus}`);
-console.log(`blockers: ${blockers.length} (routes: ${routeBlockers.length}, features: ${featureBlockers.length}, hardening: ${hardeningBlockers.length}, hkd: ${hkdBlockers.length})`);
+console.log(`blockers: ${blockers.length} (routes: ${routeBlockers.length}, features: ${featureBlockers.length}, hardening: ${hardeningBlockers.length}, domains: ${domainBlockers.length}, hkd: ${hkdBlockers.length})`);
 console.log(`hkd: ${hkdSummary.files} files / ${hkdSummary.totalClaims} claims (BLOCKED ${hkdSummary.blocked}, PARTIAL ${hkdSummary.partial}, UNVERIFIED ${hkdSummary.unverified})`);
 
 function readJson(path) {
@@ -160,6 +206,47 @@ function runOptional(command, args) {
     return execFileSync(command, args, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
   } catch {
     return null;
+  }
+}
+
+function hasDomainBlocker(domain, implementedRoutes) {
+  return Boolean(domain.blocker) || domainBlockerReasons(domain, implementedRoutes).length > 0;
+}
+
+function domainBlockerReasons(domain, implementedRoutes) {
+  const reasons = [];
+  if (domain.dnsState === "UNKNOWN") {
+    reasons.push("DNS state is UNKNOWN; no live resolver evidence is recorded.");
+  } else if (domain.dnsState === "BLOCKED") {
+    reasons.push("DNS state is BLOCKED.");
+  }
+  if (domain.runtimeState === "UNKNOWN") {
+    reasons.push("Runtime state is UNKNOWN.");
+  } else if (domain.runtimeState === "BLOCKED") {
+    reasons.push("Runtime state is BLOCKED.");
+  }
+  if (!implementedRoutes.has(domain.route)) {
+    reasons.push(`Route ${domain.route} is not a PREVIEW_VERIFIED domain route.`);
+  }
+  return reasons;
+}
+
+function assertHonestDomainRegistry(value, implementedRoutes) {
+  if (value.productionReady !== false || value.finalStatus !== "CONTROLLED_NO_GO" || value.phkdVerdict !== "BLOCKED") {
+    throw new Error("DOMAIN_REGISTRY_PRODUCTION_READY_CLAIM_BLOCKED");
+  }
+  for (const route of value.routes ?? []) {
+    if (route.state === "PREVIEW_VERIFIED" && !existsSync(route.artifact)) {
+      throw new Error(`DOMAIN_REGISTRY_ROUTE_ARTIFACT_MISSING:${route.path}:${route.artifact}`);
+    }
+  }
+  for (const domain of value.domains ?? []) {
+    if (domain.dnsState === "LIVE" || domain.runtimeState === "LIVE") {
+      throw new Error(`DOMAIN_REGISTRY_FAKE_LIVE_STATE:${domain.domain}`);
+    }
+    if (hasDomainBlocker(domain, implementedRoutes) && !domain.blocker) {
+      throw new Error(`DOMAIN_REGISTRY_BLOCKER_REQUIRED:${domain.domain}`);
+    }
   }
 }
 
@@ -202,6 +289,12 @@ function renderMarkdown(status) {
           "",
         ]
       : []),
+    "## Domain Registry",
+    "",
+    status.domainRegistry
+      ? `${status.domainRegistry.summary.domains} domains / ${status.domainRegistry.summary.routes} preview routes. DNS UNKNOWN: ${status.domainRegistry.summary.dnsUnknown}. Missing routes: ${status.domainRegistry.summary.missingRoutes}. Domain blockers: ${status.domainRegistry.summary.blockers}.`
+      : "No domain registry evidence found.",
+    "",
     "## Blockers",
     "",
     ...status.blockers.map((item) => `- ${item.surface}: ${item.reason}`),

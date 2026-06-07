@@ -1,7 +1,7 @@
 # Completion Status Matrix
 
-Generated: 2026-06-07T18:56:50.037Z
-Commit: 9e72702
+Generated: 2026-06-07T19:49:55.884Z
+Commit: 3f0b503
 Final status: CONTROLLED_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
@@ -92,9 +92,20 @@ PHKD verdict: BLOCKED
 | workflow-universe.hkd | workflow | 5 | 0 | 3 |
 | worlds-firsts-universe.hkd | marketing | 3 | 1 | 1 |
 
+## Domain Registry
+
+7 domains / 3 preview routes. DNS UNKNOWN: 7. Missing routes: 1. Domain blockers: 7.
+
 ## Blockers
 
 - MSAR: Hardware root of trust: HardwareRootOfTrust MMIO binding maps 0xFE001000 and rejects zero fused masks; physical silicon read evidence is not captured in this workspace.
+- domain:maataa.local: DNS uptime is UNKNOWN and live deployment is not verified.
+- domain:domains.maataa.local: DNS uptime is UNKNOWN; this is a local preview route only.
+- domain:status.domains.maataa.local: DNS status has not been probed by a live resolver.
+- domain:runtime.domains.maataa.local: Runtime mapping is preview verified, but DNS and live deployment remain UNKNOWN.
+- domain:lipi.maataa.local: DNS uptime is UNKNOWN; no live Lipi deployment is claimed.
+- domain:radio.vaigyaaniq.local: Route /radio is missing and DNS uptime is UNKNOWN.
+- domain:maataa.in: Production domain is BLOCKED until global PHKD gates, DNS evidence, and release authority pass.
 - vh-agent-universe-2026-05-28:c-active-agents-12: Active Agents: 12 — No agent runtime exists in repo. No agent supervisor / no agent registry.
 - vh-agent-universe-2026-05-28:c-deployed-1248: Deployed Agents: 1,248 — No deployed agents; fabricated count.
 - vh-agent-universe-2026-05-28:c-tasks-24h-2-47m: Tasks Executed (24h): 2.47M — No task execution log; fabricated.

@@ -1,0 +1,158 @@
+{
+  "schema": "maataa.domain-registry.evidence.v1",
+  "generatedAt": "2026-06-07T19:49:55.884Z",
+  "commit": "3f0b503",
+  "finalStatus": "CONTROLLED_NO_GO",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "source": "data/domain-registry.json",
+  "noFakeDnsUptime": true,
+  "noFakeLiveDeployment": true,
+  "noFakeProductionReadiness": true,
+  "summary": {
+    "domains": 7,
+    "routes": 3,
+    "dnsUnknown": 7,
+    "dnsBlocked": 0,
+    "runtimeUnknown": 0,
+    "runtimeBlocked": 1,
+    "missingRoutes": 1,
+    "blockers": 7
+  },
+  "routes": [
+    {
+      "path": "/domains",
+      "state": "PREVIEW_VERIFIED",
+      "artifact": "src/domains/DomainRegistryPage.tsx",
+      "evidence": "In-app governed domain registry table route exists."
+    },
+    {
+      "path": "/domains/status",
+      "state": "PREVIEW_VERIFIED",
+      "artifact": "src/domains/DomainRegistryPage.tsx",
+      "evidence": "In-app DNS/runtime status summary route exists."
+    },
+    {
+      "path": "/domains/runtime",
+      "state": "PREVIEW_VERIFIED",
+      "artifact": "src/domains/DomainRegistryPage.tsx",
+      "evidence": "In-app runtime mapping route exists."
+    }
+  ],
+  "domains": [
+    {
+      "id": "dom-maataa-root",
+      "domain": "maataa.local",
+      "surface": "Sovereign dashboard",
+      "route": "/",
+      "runtime": "sovereign-dashboard",
+      "dnsState": "UNKNOWN",
+      "runtimeState": "PREVIEW_VERIFIED",
+      "evidence": "Local root route renders the SovereignDashboard. No DNS uptime or public deployment probe is recorded.",
+      "blocker": "DNS uptime is UNKNOWN and live deployment is not verified."
+    },
+    {
+      "id": "dom-domain-registry",
+      "domain": "domains.maataa.local",
+      "surface": "Governed Domains Registry",
+      "route": "/domains",
+      "runtime": "domain-registry",
+      "dnsState": "UNKNOWN",
+      "runtimeState": "PREVIEW_VERIFIED",
+      "evidence": "The local /domains route renders data/domain-registry.json through src/domains.",
+      "blocker": "DNS uptime is UNKNOWN; this is a local preview route only."
+    },
+    {
+      "id": "dom-domain-status",
+      "domain": "status.domains.maataa.local",
+      "surface": "Domain DNS status",
+      "route": "/domains/status",
+      "runtime": "domain-status",
+      "dnsState": "UNKNOWN",
+      "runtimeState": "PREVIEW_VERIFIED",
+      "evidence": "The local /domains/status route summarizes DNS UNKNOWN/BLOCKED states without claiming LIVE.",
+      "blocker": "DNS status has not been probed by a live resolver."
+    },
+    {
+      "id": "dom-domain-runtime",
+      "domain": "runtime.domains.maataa.local",
+      "surface": "Domain runtime mapping",
+      "route": "/domains/runtime",
+      "runtime": "domain-runtime-map",
+      "dnsState": "UNKNOWN",
+      "runtimeState": "PREVIEW_VERIFIED",
+      "evidence": "The local /domains/runtime route maps domains to runtime surfaces and evidence files.",
+      "blocker": "Runtime mapping is preview verified, but DNS and live deployment remain UNKNOWN."
+    },
+    {
+      "id": "dom-lipi",
+      "domain": "lipi.maataa.local",
+      "surface": "Lipi civilization",
+      "route": "/domains/runtime",
+      "runtime": "lipi-runtime",
+      "dnsState": "UNKNOWN",
+      "runtimeState": "PREVIEW_VERIFIED",
+      "evidence": "Lipi runtime tests and CLI evidence exist locally; no public DNS record is verified.",
+      "blocker": "DNS uptime is UNKNOWN; no live Lipi deployment is claimed."
+    },
+    {
+      "id": "dom-radio",
+      "domain": "radio.vaigyaaniq.local",
+      "surface": "Radio Vaigyaaniq",
+      "route": "/radio",
+      "runtime": "radio-vaigyaaniq",
+      "dnsState": "UNKNOWN",
+      "runtimeState": "STAGED",
+      "evidence": "Radio runtime data exists, but /radio is not implemented as a navigable route in this app.",
+      "blocker": "Route /radio is missing and DNS uptime is UNKNOWN."
+    },
+    {
+      "id": "dom-production",
+      "domain": "maataa.in",
+      "surface": "Public production domain",
+      "route": "/domains/status",
+      "runtime": "production-gate",
+      "dnsState": "UNKNOWN",
+      "runtimeState": "BLOCKED",
+      "evidence": "No live production deployment, DNS uptime, hardware trust, or release authority evidence is present.",
+      "blocker": "Production domain is BLOCKED until global PHKD gates, DNS evidence, and release authority pass."
+    }
+  ],
+  "blockers": [
+    {
+      "surface": "domain:maataa.local",
+      "route": "/",
+      "reason": "DNS uptime is UNKNOWN and live deployment is not verified."
+    },
+    {
+      "surface": "domain:domains.maataa.local",
+      "route": "/domains",
+      "reason": "DNS uptime is UNKNOWN; this is a local preview route only."
+    },
+    {
+      "surface": "domain:status.domains.maataa.local",
+      "route": "/domains/status",
+      "reason": "DNS status has not been probed by a live resolver."
+    },
+    {
+      "surface": "domain:runtime.domains.maataa.local",
+      "route": "/domains/runtime",
+      "reason": "Runtime mapping is preview verified, but DNS and live deployment remain UNKNOWN."
+    },
+    {
+      "surface": "domain:lipi.maataa.local",
+      "route": "/domains/runtime",
+      "reason": "DNS uptime is UNKNOWN; no live Lipi deployment is claimed."
+    },
+    {
+      "surface": "domain:radio.vaigyaaniq.local",
+      "route": "/radio",
+      "reason": "Route /radio is missing and DNS uptime is UNKNOWN."
+    },
+    {
+      "surface": "domain:maataa.in",
+      "route": "/domains/status",
+      "reason": "Production domain is BLOCKED until global PHKD gates, DNS evidence, and release authority pass."
+    }
+  ]
+}

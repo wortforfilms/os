@@ -1,5 +1,11 @@
 import productMatrix from "../../data/product-surface-matrix.json" with { type: "json" };
 import hardeningMatrix from "../../release/reports/PRODUCTION_HARDENING_MATRIX.json" with { type: "json" };
+import {
+  domainSearchStatus,
+  getGovernedDomainRegistry,
+  hasDomainBlocker,
+  isDomainRouteImplemented,
+} from "../domains/index.ts";
 
 const RUNTIME_STATES = [
   "EXPERIMENTAL",
@@ -13,14 +19,14 @@ const RUNTIME_STATES = [
 
 type RuntimeState = (typeof RUNTIME_STATES)[number];
 
-export type SearchResultType = "route" | "feature" | "state" | "doc" | "evidence" | "package" | "app" | "crate" | "blocker";
+export type SearchResultType = "route" | "feature" | "state" | "doc" | "evidence" | "domain" | "package" | "app" | "crate" | "blocker";
 
 export type SearchResult = {
   id: string;
   title: string;
   type: SearchResultType;
   path: string;
-  status: RuntimeState | "PASS" | "BLOCKED";
+  status: RuntimeState | "PASS" | "BLOCKED" | "UNKNOWN";
   description: string;
   tags: string[];
 };
@@ -30,7 +36,7 @@ export type SearchFilters = {
   status?: string | "all";
 };
 
-const implementedRoutes = new Set(["/", "/dashboard", "/auth/login", "/auth/signup", "/admin", "/domains", "/docs", "/settings", "/search"]);
+const implementedRoutes = new Set(["/", "/dashboard", "/auth/login", "/auth/signup", "/admin", "/domains", "/domains/status", "/domains/runtime", "/docs", "/settings", "/search"]);
 
 const docs = [
   "docs/getting-started.md",
@@ -54,6 +60,7 @@ const surfaces = {
 };
 
 export function buildUnifiedSearchIndex(): SearchResult[] {
+  const domainRegistry = getGovernedDomainRegistry();
   const routeResults = productMatrix.routes.map((route) => ({
     id: `route:${route.path}`,
     title: route.path === "/" ? "Home" : route.path,
@@ -132,6 +139,38 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
         ) : []),
   ];
 
+  const productRoutePaths = new Set(productMatrix.routes.map((route) => route.path));
+  const domainRouteResults = domainRegistry.routes
+    .filter((route) => !productRoutePaths.has(route.path))
+    .map((route) => ({
+      id: `route:${route.path}`,
+      title: route.path,
+      type: "route" as const,
+      path: route.path,
+      status: route.state,
+      description: route.evidence,
+      tags: ["route", "domain", "domains", route.state.toLowerCase()],
+    }));
+
+  const domainResults = domainRegistry.domains.map((domain) => ({
+    id: `domain:${domain.id}`,
+    title: domain.domain,
+    type: "domain" as const,
+    path: domain.route,
+    status: domainSearchStatus(domain),
+    description: `${domain.surface}: ${domain.evidence}${domain.blocker ? ` Blocker: ${domain.blocker}` : ""}`,
+    tags: [
+      "domain",
+      "domains",
+      domain.surface.toLowerCase(),
+      domain.runtime.toLowerCase(),
+      `dns-${domain.dnsState.toLowerCase()}`,
+      `runtime-${domain.runtimeState.toLowerCase()}`,
+      isDomainRouteImplemented(domain.route) ? "route-implemented" : "route-blocked",
+      hasDomainBlocker(domain) ? "blocker" : "clear",
+    ],
+  }));
+
   const surfaceResults = Object.entries(surfaces).flatMap(([type, paths]) =>
     paths.map((path) => ({
       id: `${type}:${path}`,
@@ -168,8 +207,31 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
         tags: ["blocker", "phkd", domain.toLowerCase(), gate.gate.toLowerCase()],
       })),
   );
+  const domainBlockerResults = domainRegistry.domains
+    .filter((domain) => hasDomainBlocker(domain))
+    .map((domain) => ({
+      id: `blocker:domain:${domain.id}`,
+      title: domain.domain,
+      type: "blocker" as const,
+      path: domain.route,
+      status: "BLOCKED" as const,
+      description: domain.blocker,
+      tags: ["blocker", "domain", domain.dnsState.toLowerCase(), domain.runtimeState.toLowerCase()],
+    }));
 
-  return [...routeResults, ...featureResults, ...stateResults, ...docResults, ...evidenceResults, ...surfaceResults, ...blockerResults, ...hardeningBlockerResults];
+  return [
+    ...routeResults,
+    ...domainRouteResults,
+    ...featureResults,
+    ...stateResults,
+    ...docResults,
+    ...evidenceResults,
+    ...domainResults,
+    ...surfaceResults,
+    ...blockerResults,
+    ...hardeningBlockerResults,
+    ...domainBlockerResults,
+  ];
 }
 
 export function searchUnifiedIndex(query: string, filters: SearchFilters = {}, index = buildUnifiedSearchIndex()): SearchResult[] {
@@ -195,6 +257,9 @@ export function searchUnifiedIndex(query: string, filters: SearchFilters = {}, i
 }
 
 export function isNavigableSearchResult(result: SearchResult): boolean {
+  if (result.type === "domain") {
+    return isDomainRouteImplemented(result.path) && result.status !== "BLOCKED";
+  }
   return result.type === "route" && implementedRoutes.has(result.path) && result.status !== "BLOCKED";
 }
 
@@ -205,6 +270,7 @@ export const SEARCH_RESULT_TYPES: ReadonlyArray<SearchResultType | "all"> = [
   "state",
   "doc",
   "evidence",
+  "domain",
   "package",
   "app",
   "crate",
