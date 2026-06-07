@@ -7,3 +7,4 @@ export * from "./learning";
 export * from "./search";
 export * from "./governance";
 export * from "./data";
+export * from "./agent.ts";
