@@ -1,0 +1,25 @@
+{
+  "schema": "maataa.kbs-graph.relation-store.v1",
+  "generatedAt": "2026-06-09T20:42:31Z",
+  "capability": "local deterministic KG relation store and traversal/query layer",
+  "relationTypesTotal": 13,
+  "relationTypesSource": "packages/kbs-graph/src/relation-types.ts",
+  "storeSource": "packages/kbs-graph/src/relation-store.ts",
+  "testSource": "kbs-graph/tests/relation-store.test.ts",
+  "storage": "local/in-memory",
+  "graphDatabase": false,
+  "productionReady": false,
+  "traversalImplemented": true,
+  "reasoningEngine": false,
+  "milestoneAdvanced": false,
+  "achievementProbeAdded": false,
+  "claimMatch": "none_exact",
+  "phkdBoundaries": [
+    "No production graph database is claimed.",
+    "No Neo4j, pgVector, or deployed graph engine is claimed.",
+    "No graph reasoning engine is claimed.",
+    "No node counts or graph stats are invented.",
+    "Relation storage is local and in-memory only."
+  ],
+  "finalStatus": "CONTROLLED_NO_GO"
+}
