@@ -1,7 +1,7 @@
 # Completion Status Matrix
 
-Generated: 2026-06-07T19:49:55.884Z
-Commit: 3f0b503
+Generated: 2026-06-09T23:11:05.948Z
+Commit: 4575ea3
 Final status: CONTROLLED_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
@@ -43,11 +43,11 @@ PHKD verdict: BLOCKED
 
 ## HKD Vision Boards
 
-44 files / 495 claims (BLOCKED: 376, PARTIAL: 59, UNVERIFIED: 60). Nodes with confidence < 0.5: 553/750.
+44 files / 495 claims (BLOCKED: 374, PARTIAL: 61, UNVERIFIED: 60). Nodes with confidence < 0.5: 553/750.
 
 | File | Universe | Blocked | Partial | Unverified |
 | --- | --- | ---: | ---: | ---: |
-| agent-universe.hkd | agent | 9 | 2 | 0 |
+| agent-universe.hkd | agent | 7 | 4 | 0 |
 | ai-model-universe.hkd | ai-model | 8 | 1 | 1 |
 | asset-library-universe.hkd | asset-library | 7 | 2 | 2 |
 | brahmini-chain-universe.hkd | brahmini-chain | 12 | 0 | 0 |
@@ -106,14 +106,12 @@ PHKD verdict: BLOCKED
 - domain:lipi.maataa.local: DNS uptime is UNKNOWN; no live Lipi deployment is claimed.
 - domain:radio.vaigyaaniq.local: Route /radio is missing and DNS uptime is UNKNOWN.
 - domain:maataa.in: Production domain is BLOCKED until global PHKD gates, DNS evidence, and release authority pass.
-- vh-agent-universe-2026-05-28:c-active-agents-12: Active Agents: 12 — No agent runtime exists in repo. No agent supervisor / no agent registry.
 - vh-agent-universe-2026-05-28:c-deployed-1248: Deployed Agents: 1,248 — No deployed agents; fabricated count.
 - vh-agent-universe-2026-05-28:c-tasks-24h-2-47m: Tasks Executed (24h): 2.47M — No task execution log; fabricated.
 - vh-agent-universe-2026-05-28:c-success-98-72: Success Rate: 98.72% — No agent runs to measure.
 - vh-agent-universe-2026-05-28:c-knowledge-nodes-15dam: Knowledge Nodes Accessed: 15daM+ — kbs-runtime has knowledge primitives but no 15+M node access log.
 - vh-agent-universe-2026-05-28:c-perf-24h-tasks: Tasks Completed 2.45M / Failed 29,512 / Avg Response 1.42s / Active 312 / User Satisfaction 4.8/5 — Performance dashboard fabricated.
 - vh-agent-universe-2026-05-28:c-marketplace-1248: Marketplace: 1,248 Total / 862 Verified / 286 Community / 100 Custom Agents — No marketplace.
-- vh-agent-universe-2026-05-28:c-orchestrator-real: Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves — No orchestrator runtime. 'Self-evolving orchestrator' is the strongest agent claim; no evidence.
 - vh-agent-universe-2026-05-28:c-deploy-anywhere: Deploy Anywhere: Cloud / Edge / On-Prem / Mobile / IoT / Offline — No deployment exists across any of these.
 - vh-ai-model-universe-2026-05-28:c-models-deployed-162: Models Deployed: 162+ — No model deployment infrastructure in repo.
 - vh-ai-model-universe-2026-05-28:c-active-models-89: Active Models: 89 — No model serving runtime.

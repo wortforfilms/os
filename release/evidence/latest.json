@@ -1,7 +1,7 @@
 {
   "schema": "maataa.completion.status.matrix.v1",
-  "generatedAt": "2026-06-07T19:49:55.884Z",
-  "commit": "3f0b503",
+  "generatedAt": "2026-06-09T23:11:05.948Z",
+  "commit": "4575ea3",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",
@@ -282,10 +282,6 @@
       "reason": "Production domain is BLOCKED until global PHKD gates, DNS evidence, and release authority pass."
     },
     {
-      "surface": "vh-agent-universe-2026-05-28:c-active-agents-12",
-      "reason": "Active Agents: 12 — No agent runtime exists in repo. No agent supervisor / no agent registry."
-    },
-    {
       "surface": "vh-agent-universe-2026-05-28:c-deployed-1248",
       "reason": "Deployed Agents: 1,248 — No deployed agents; fabricated count."
     },
@@ -308,10 +304,6 @@
     {
       "surface": "vh-agent-universe-2026-05-28:c-marketplace-1248",
       "reason": "Marketplace: 1,248 Total / 862 Verified / 286 Community / 100 Custom Agents — No marketplace."
-    },
-    {
-      "surface": "vh-agent-universe-2026-05-28:c-orchestrator-real",
-      "reason": "Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves — No orchestrator runtime. 'Self-evolving orchestrator' is the strongest agent claim; no evidence."
     },
     {
       "surface": "vh-agent-universe-2026-05-28:c-deploy-anywhere",
@@ -1789,8 +1781,8 @@
   "hkdSummary": {
     "files": 44,
     "totalClaims": 495,
-    "blocked": 376,
-    "partial": 59,
+    "blocked": 374,
+    "partial": 61,
     "unverified": 60,
     "lowConfidenceNodes": 553,
     "totalNodes": 750,
@@ -1801,8 +1793,8 @@
         "universe": "agent",
         "status": "vision",
         "claimCounts": {
-          "blocked": 9,
-          "partial": 2,
+          "blocked": 7,
+          "partial": 4,
           "unverified": 0
         }
       },

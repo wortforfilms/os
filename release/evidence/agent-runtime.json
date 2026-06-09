@@ -1,0 +1,112 @@
+{
+  "package": "@maataa/agent-runtime",
+  "claim": "c-active-agents-12",
+  "generatedAt": "2026-06-09T23:08:40.742Z",
+  "activeAgents": 12,
+  "registeredAgents": 12,
+  "agents": [
+    {
+      "slug": "child-family",
+      "name": "Child & Family Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "creator",
+      "name": "Creator Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "governance",
+      "name": "Governance Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "guru",
+      "name": "Guru Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "health",
+      "name": "Health Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "investor",
+      "name": "Investor Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "krishi",
+      "name": "Krishi Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "lipi",
+      "name": "Lipi Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "orchestrator",
+      "name": "Maataa Orchestrator Agent",
+      "kind": "orchestrator"
+    },
+    {
+      "slug": "research",
+      "name": "Research Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "system",
+      "name": "System Agent",
+      "kind": "agent"
+    },
+    {
+      "slug": "tlp",
+      "name": "TLP Agent",
+      "kind": "agent"
+    }
+  ],
+  "performance24h": {
+    "windowMs": 86400000,
+    "activeAgents": 12,
+    "registeredAgents": 12,
+    "tasksCompleted": 3,
+    "tasksFailed": 1,
+    "successRate": 0.75
+  },
+  "claimSplit": {
+    "LOCAL_VERIFIED": [
+      "12 registered canonical agents exist in the local SQLite registry.",
+      "12 agents are active only after real heartbeats are emitted inside the heartbeat TTL.",
+      "The orchestrator/supervisor can delegate recorded local tasks to registered agents.",
+      "24h performance values are derived from the local task log, not constants."
+    ],
+    "TARGET": [
+      "Deployment records per environment.",
+      "Marketplace records for public/community/custom agents.",
+      "Sustained 24h task volume measured from real production traffic.",
+      "Knowledge-node access counters tied to KBS queries."
+    ],
+    "BLOCKED": [
+      "No deployed-agent count is claimed.",
+      "No 1,248-agent marketplace claim is emitted.",
+      "No 2.47M task volume claim is emitted.",
+      "No 98.72% success-rate claim is emitted.",
+      "No fake knowledge-node access total is emitted."
+    ]
+  },
+  "source": [
+    "apps/electron/agent-store.cjs",
+    "src/runtime/agent-supervisor.cjs",
+    "tests/agent-registry.test.mjs"
+  ],
+  "stillBlocked": [
+    "c-deployed-1248",
+    "c-tasks-24h-2-47m",
+    "c-success-98-72",
+    "c-perf-24h-tasks",
+    "c-marketplace-1248",
+    "c-deploy-anywhere"
+  ],
+  "verificationStatus": "PASS"
+}
