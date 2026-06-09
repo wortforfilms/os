@@ -1,0 +1,3 @@
+{"id":"local-demo-route-open","surface":"web","kind":"route_probe","route":"/","source":"LOCAL_DEMO_SEED","liveMetric":false,"generatedAt":"2026-06-09T20:15:54.194Z"}
+{"id":"local-demo-electron-contract","surface":"electron","kind":"load_contract_probe","route":"/","source":"LOCAL_DEMO_SEED","liveMetric":false,"generatedAt":"2026-06-09T20:15:54.194Z"}
+{"id":"local-demo-tauri-contract","surface":"tauri","kind":"load_contract_probe","route":"/","source":"LOCAL_DEMO_SEED","liveMetric":false,"generatedAt":"2026-06-09T20:15:54.194Z"}

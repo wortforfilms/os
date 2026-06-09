@@ -1,0 +1,53 @@
+{
+  "schema": "maataa.local-demo.summary.v1",
+  "capturedAt": "2026-06-09T20:16:06.397Z",
+  "finalStatus": "CONTROLLED_NO_GO",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "localOnly": true,
+  "paymentsEnabled": false,
+  "metricsMode": "LOCAL_SEEDED_NOT_LIVE",
+  "web": {
+    "schema": "maataa.local-demo.web-route.v1",
+    "capturedAt": "2026-06-09T20:16:06.337Z",
+    "url": "http://127.0.0.1:1420/",
+    "status": 200,
+    "ok": true,
+    "localOnly": true,
+    "productionReady": false,
+    "finalStatus": "CONTROLLED_NO_GO",
+    "bodyBytes": 551,
+    "hasRootElement": true
+  },
+  "electron": {
+    "status": "PREVIEW_VERIFIED",
+    "loadTarget": "http://127.0.0.1:1420/",
+    "checks": {
+      "mainExists": true,
+      "acceptsLocalOverride": true,
+      "loadsResolvedEntryUrl": true,
+      "allowsLoopbackHost": true,
+      "scriptPresent": true
+    },
+    "evidencePath": "apps/electron/main.cjs"
+  },
+  "tauri": {
+    "status": "PREVIEW_VERIFIED",
+    "loadTarget": "http://127.0.0.1:1420",
+    "checks": {
+      "configExists": true,
+      "devUrlMatches": true,
+      "beforeDevCommand": true,
+      "frontendDist": true,
+      "scriptPresent": true
+    },
+    "evidencePath": "src-tauri/tauri.conf.json"
+  },
+  "blockers": [
+    "local preview only",
+    "no production deployment claimed",
+    "no fake live metrics",
+    "payments disabled",
+    "global final status remains CONTROLLED_NO_GO"
+  ]
+}

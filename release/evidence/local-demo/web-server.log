@@ -1,0 +1,524 @@
+Error:   Failed to scan for dependencies from entries:
+  /Volumes/LaCie/pprm/tlps.in/maataa-os/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/FULL_DEMO.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/KBS_DASHBOARD.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/KBS_FULL_DEMO.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/MAATAA_SHELL_PREVIEW.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/MATA_OS_SUPPORT_CENTER.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/MILESTONES_KANBAN.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/MILESTONES_VS_CURRENT.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/SOVEREIGN_RUNTIME_ASCII_TAURI.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/SYSTEM_NOTICE_BOARD.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/all-pages-scaffold.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/aadhyatmik/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/film/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/kbs/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/maataa/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/pedagogy/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/system/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/tlp/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/boot_ritual.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/dashboard.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/desktop.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/features.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/landing_page.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/maataa_avataar_v2.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/monitor.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/os_holy_screen.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/quick_start.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/sales.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/services.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/systemprocesses.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/usp.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/avatar_engine.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/boot_ritual.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/dashboard.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/desktop.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/features.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/holy_screen.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/landing_page.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/monitor.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/plug_and_play_streaming_device.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/quick_start.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/sales.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/services.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/services_and_features.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/system_processes.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/theme_lab.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/runtime-html/usp.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/humanevolutioncontinum.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/mahabharat_cosmic_yantra.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/mahabharat_unified_timeline.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/vaishvik_puratan_sthaana_map.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/k8/intent.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/k8/kernel_dashboard.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/quantum/enhanced_kernel.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/quantum/human_evolution_continuum.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/quantum/kernel.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/core/renderer/html/chakra_system.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/core/renderer/html/gpu_canvas.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/core/renderer/html/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/dist-golden/maataa-os-0.1.0-alpha.1/ui/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/aud.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/creation_layer.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/docs.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/earth_energy_pitra_resonance_concious.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/ide.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/ir.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/ml.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/os.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/pitra_tensor.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/playground.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/shrotA.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/studio.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/superstring_dashboard.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/superstring_engine.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/system_architect.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/assets/html/gallery/maa_lang/system_complete_product.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/FULL_DEMO.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/KBS_DASHBOARD.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/KBS_FULL_DEMO.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/MAATAA_SHELL_PREVIEW.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/MATA_OS_SUPPORT_CENTER.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/SOVEREIGN_RUNTIME_ASCII_TAURI.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/all-pages-scaffold.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/avatar_engine.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/boot_ritual.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/dashboard.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/desktop.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/features.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/holy_screen.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/index.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/landing_page.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/monitor.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/plug_and_play_streaming_device.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/quick_start.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/sales.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/services.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/services_and_features.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/system_processes.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/theme_lab.html
+/Volumes/LaCie/pprm/tlps.in/maataa-os/release/electron/Maataa OS.app/Contents/Resources/app/release/runtime-html/usp.html
+
+  [31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/index.html:1:7:
+[37m      1 │ import [32m"/src/main.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/maataa/index.html:1:7:
+[37m      1 │ import [32m"./index.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/pedagogy/index.html:1:7:
+[37m      1 │ import [32m"./index.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/system/index.html:1:7:
+[37m      1 │ import [32m"./index.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/kbs/index.html:1:7:
+[37m      1 │ import [32m"./index.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/film/index.html:1:7:
+[37m      1 │ import [32m"./index.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/aadhyatmik/index.html:1:7:
+[37m      1 │ import [32m"./index.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/apps/tlp/index.html:1:7:
+[37m      1 │ import [32m"./index.tsx"[37m
+        ╵        [32m~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe server is being restarted or closed. Request is outdated[0m [1m[35m[plugin vite:dep-scan][0m
+
+    node_modules/esbuild/lib/main.js:1217:27:
+[37m      1217 │         let result = await [32m[37mcallback({
+           ╵                            [32m^[0m
+
+    at throwClosedServerError (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42185:15)
+    at EnvironmentPluginContainer.resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42364:9)
+    at resolveId (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14314:40)
+    at resolve (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14325:28)
+    at file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14534:34
+    at requestCallbacks.on-resolve (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1217:28)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1141:20:
+[37m      1141 │       let promise = [32m[37msetup({
+           ╵                     [32m^[0m
+
+    at setup (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14529:13)
+    at handlePlugins (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1141:21)
+    at buildOrContextImpl (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:854:5)
+    at Object.buildOrContext (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:680:5)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:68
+    at new Promise (<anonymous>)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:2035:27)
+    at Object.context (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1877:58)
+    at prepareEsbuildScanner (file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:14266:24)
+    at async file:///Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:47144:28
+
+  The plugin "vite:dep-scan" was triggered by this import
+
+    html:/Volumes/LaCie/pprm/tlps.in/maataa-os/dist-golden/maataa-os-0.1.0-alpha.1/ui/index.html:1:7:
+[37m      1 │ import [32m"/assets/index-C4MmjbKr.js"[37m
+        ╵        [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+    at failureErrorWithLog (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1467:15)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:924:7)
+    at /Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:936:9
+    at new Promise (<anonymous>)
+    at requestCallbacks.on-end (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:935:54)
+    at handleRequest (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:628:17)
+    at handleIncomingPacket (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:653:7)
+    at Socket.readFromStdout (/Volumes/LaCie/pprm/tlps.in/maataa-os/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)

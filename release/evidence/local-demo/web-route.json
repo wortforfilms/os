@@ -1,0 +1,12 @@
+{
+  "schema": "maataa.local-demo.web-route.v1",
+  "capturedAt": "2026-06-09T20:16:06.337Z",
+  "url": "http://127.0.0.1:1420/",
+  "status": 200,
+  "ok": true,
+  "localOnly": true,
+  "productionReady": false,
+  "finalStatus": "CONTROLLED_NO_GO",
+  "bodyBytes": 551,
+  "hasRootElement": true
+}

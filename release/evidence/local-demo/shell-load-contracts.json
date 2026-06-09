@@ -1,0 +1,35 @@
+{
+  "schema": "maataa.local-demo.shell-load-contracts.v1",
+  "capturedAt": "2026-06-09T20:16:06.383Z",
+  "localWebUrl": "http://127.0.0.1:1420/",
+  "finalStatus": "CONTROLLED_NO_GO",
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "paymentsEnabled": false,
+  "guiLaunchClaimed": false,
+  "note": "Automated evidence verifies local route availability plus Electron/Tauri local load contracts. It does not claim GUI launch, production deployment, uptime, or payments.",
+  "electron": {
+    "status": "PREVIEW_VERIFIED",
+    "loadTarget": "http://127.0.0.1:1420/",
+    "checks": {
+      "mainExists": true,
+      "acceptsLocalOverride": true,
+      "loadsResolvedEntryUrl": true,
+      "allowsLoopbackHost": true,
+      "scriptPresent": true
+    },
+    "evidencePath": "apps/electron/main.cjs"
+  },
+  "tauri": {
+    "status": "PREVIEW_VERIFIED",
+    "loadTarget": "http://127.0.0.1:1420",
+    "checks": {
+      "configExists": true,
+      "devUrlMatches": true,
+      "beforeDevCommand": true,
+      "frontendDist": true,
+      "scriptPresent": true
+    },
+    "evidencePath": "src-tauri/tauri.conf.json"
+  }
+}
