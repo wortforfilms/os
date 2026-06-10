@@ -1,0 +1,187 @@
+// @maataa/runtime-data — platform relational ERD (data-schemas universe).
+//
+// HONEST SCOPE: this file is the REAL entity-relationship DESIGN for the 13-table
+// platform data model named on the data-schemas board (claim c-erd-13-tables).
+// It is a schema/design artifact — a coherent, valid Prisma model set with
+// fields and foreign-key relations. It is NOT a deployed database, has no applied
+// migrations, and serves no production data. Do not present it as a live DB.
+//
+// Provider is sqlite to match the repo's only real engine (node:sqlite via
+// @maataa/runtime-persistence). Multi-engine claims (Postgres/Neo4j/etc.) remain
+// BLOCKED and are not implied here.
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ── Identity & access ────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  handle    String?  @unique
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+
+  profile   Profile?
+  roles     Role[]      @relation("UserRoles")
+  tasks     Task[]      @relation("TaskAssignee")
+  documents Document[]  @relation("DocumentAuthor")
+  events    Event[]     @relation("EventActor")
+}
+
+model Profile {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  displayName String
+  bio         String?
+  avatarUrl   String?
+  locale      String  @default("en")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Role {
+  id          String  @id @default(cuid())
+  key         String  @unique
+  name        String
+  description String?
+
+  users       User[]       @relation("UserRoles")
+  permissions Permission[] @relation("RolePermissions")
+}
+
+model Permission {
+  id          String  @id @default(cuid())
+  key         String  @unique
+  resource    String
+  action      String
+  description String?
+
+  roles Role[] @relation("RolePermissions")
+}
+
+// ── Delivery: projects / tasks / milestones ──────────────────────────────────
+
+model Project {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+
+  tasks      Task[]
+  milestones Milestone[]
+  documents  Document[]
+  assets     Asset[]
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  title       String
+  status      String    @default("open")
+  priority    String    @default("normal")
+  createdAt   DateTime  @default(now())
+
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assigneeId  String?
+  assignee    User?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  milestoneId String?
+  milestone   Milestone? @relation(fields: [milestoneId], references: [id])
+}
+
+model Milestone {
+  id        String    @id @default(cuid())
+  title     String
+  status    String    @default("planned")
+  dueDate   DateTime?
+
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks     Task[]
+}
+
+// ── Knowledge graph ──────────────────────────────────────────────────────────
+
+model KnowledgeNode {
+  id        String   @id @default(cuid())
+  kind      String
+  label     String
+  createdAt DateTime @default(now())
+
+  sourceId  String?
+  source    KnowledgeSource? @relation(fields: [sourceId], references: [id])
+  outgoing  KnowledgeRelation[] @relation("RelationFrom")
+  incoming  KnowledgeRelation[] @relation("RelationTo")
+  documents Document[]
+}
+
+model KnowledgeRelation {
+  id       String  @id @default(cuid())
+  relation String
+  weight   Float?
+
+  fromId   String
+  from     KnowledgeNode @relation("RelationFrom", fields: [fromId], references: [id], onDelete: Cascade)
+  toId     String
+  to       KnowledgeNode @relation("RelationTo", fields: [toId], references: [id], onDelete: Cascade)
+
+  @@unique([fromId, toId, relation])
+}
+
+model KnowledgeSource {
+  id        String  @id @default(cuid())
+  name      String
+  kind      String
+  uri       String?
+  trust     String  @default("UNVERIFIED")
+
+  nodes KnowledgeNode[]
+}
+
+// ── Artifacts & audit ────────────────────────────────────────────────────────
+
+model Document {
+  id        String   @id @default(cuid())
+  title     String
+  kind      String   @default("note")
+  uri       String?
+  createdAt DateTime @default(now())
+
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+  authorId  String?
+  author    User?    @relation("DocumentAuthor", fields: [authorId], references: [id])
+  nodeId    String?
+  node      KnowledgeNode? @relation(fields: [nodeId], references: [id])
+}
+
+model Asset {
+  id        String   @id @default(cuid())
+  name      String
+  kind      String
+  uri       String
+  sizeBytes Int?
+  createdAt DateTime @default(now())
+
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  type        String
+  subjectType String?
+  subjectId   String?
+  payload     String?
+  ts          DateTime @default(now())
+
+  actorId String?
+  actor   User?  @relation("EventActor", fields: [actorId], references: [id])
+}

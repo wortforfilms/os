@@ -1,0 +1,18 @@
+{
+  "name": "@maataa/runtime-data",
+  "version": "0.1.0-alpha.1",
+  "private": false,
+  "type": "module",
+  "description": "Platform relational ERD (data-schemas universe). Design artifact only — schema, not a deployed database.",
+  "files": [
+    "prisma",
+    "README.md"
+  ],
+  "scripts": {
+    "prisma:format": "prisma format --schema prisma/schema.prisma",
+    "prisma:validate": "prisma validate --schema prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "prisma": "^6.1.0"
+  }
+}

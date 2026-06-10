@@ -1,0 +1,22 @@
+{
+  "name": "@maataa/runtime-storage",
+  "version": "0.1.0-alpha.1",
+  "private": false,
+  "type": "module",
+  "description": "Sovereign storage runtime: real SQLite + libSQL + IPFS-spec content addressing. Local-first; no public IPFS network (no DHT/bitswap/pinning).",
+  "main": "./src/index.mjs",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "multiformats": "^13.0.0"
+  }
+}

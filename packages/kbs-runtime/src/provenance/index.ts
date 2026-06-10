@@ -1,3 +1,6 @@
+// Content-addressed provenance (genuine IPFS CIDs via @maataa/runtime-storage).
+export * from "./content-address.ts";
+
 export function stableHash(input: unknown): string {
   const normalized = stableStringify(input);
   let hash = 2166136261;

@@ -1,0 +1,18 @@
+{
+  "name": "@maataa/runtime-entitlements",
+  "version": "0.1.0-alpha.1",
+  "private": false,
+  "type": "module",
+  "description": "Entitlement boundary + billing simulator. Enforces per-SKU seat/device/storage caps (fail-closed) and computes deterministic cost simulations. No payment networks, no real charges, no checkout.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

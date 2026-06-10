@@ -13,3 +13,6 @@ export function normalizeClaim(claim: KbsClaim): KbsClaim {
     citations: claim.citations.map((citation) => ({ ...citation, hash: citation.hash ?? stableHash(citation) }))
   };
 }
+
+// Entitlement-gated ingestion (boundary enforced in-flow).
+export * from "./gated.ts";
