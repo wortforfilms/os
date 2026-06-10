@@ -18,6 +18,7 @@ import {
   TlpEvolution,
 } from "./widgets";
 import { ProductionReadinessMatrix } from "./governance/ProductionReadinessMatrix";
+import { AdminAnalyticsPanel } from "./governance/AdminAnalyticsPanel";
 
 type RuntimeStatusSnapshot = {
   state: "LIVE" | "DEGRADED" | "OFFLINE" | "BLOCKED";
@@ -188,6 +189,9 @@ export function SovereignDashboard({ runtimeStatus }: { runtimeStatus?: RuntimeS
           </DashboardPanel>
           <DashboardPanel title="Remaining Gaps">
             <RemainingGaps />
+          </DashboardPanel>
+          <DashboardPanel title="Admin Analytics">
+            <AdminAnalyticsPanel />
           </DashboardPanel>
           <div className="closing-panel">
             <span>TATHAASTU</span>

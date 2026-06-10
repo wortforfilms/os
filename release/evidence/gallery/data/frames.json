@@ -1,0 +1,1216 @@
+{
+  "seed": [
+    {
+      "slug": "orchestrator",
+      "name": "Maataa Orchestrator Agent"
+    },
+    {
+      "slug": "guru",
+      "name": "Guru Agent"
+    },
+    {
+      "slug": "research",
+      "name": "Research Agent"
+    },
+    {
+      "slug": "tlp",
+      "name": "TLP Agent"
+    },
+    {
+      "slug": "investor",
+      "name": "Investor Agent"
+    },
+    {
+      "slug": "health",
+      "name": "Health Agent"
+    },
+    {
+      "slug": "lipi",
+      "name": "Lipi Agent"
+    },
+    {
+      "slug": "krishi",
+      "name": "Krishi Agent"
+    },
+    {
+      "slug": "child-family",
+      "name": "Child & Family Agent"
+    },
+    {
+      "slug": "creator",
+      "name": "Creator Agent"
+    },
+    {
+      "slug": "governance",
+      "name": "Governance Agent"
+    },
+    {
+      "slug": "system",
+      "name": "System Agent"
+    }
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "activeAgents": 0,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": []
+    },
+    {
+      "frame": 1,
+      "activeAgents": 0,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": []
+    },
+    {
+      "frame": 2,
+      "activeAgents": 1,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "orchestrator"
+      ]
+    },
+    {
+      "frame": 3,
+      "activeAgents": 1,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "orchestrator"
+      ]
+    },
+    {
+      "frame": 4,
+      "activeAgents": 2,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "orchestrator"
+      ]
+    },
+    {
+      "frame": 5,
+      "activeAgents": 2,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "orchestrator"
+      ]
+    },
+    {
+      "frame": 6,
+      "activeAgents": 3,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "orchestrator",
+        "research"
+      ]
+    },
+    {
+      "frame": 7,
+      "activeAgents": 3,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "orchestrator",
+        "research"
+      ]
+    },
+    {
+      "frame": 8,
+      "activeAgents": 4,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 9,
+      "activeAgents": 4,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 10,
+      "activeAgents": 5,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "investor",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 11,
+      "activeAgents": 5,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "investor",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 12,
+      "activeAgents": 6,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "health",
+        "investor",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 13,
+      "activeAgents": 6,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "health",
+        "investor",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 14,
+      "activeAgents": 7,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "health",
+        "investor",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 15,
+      "activeAgents": 7,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "health",
+        "investor",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 16,
+      "activeAgents": 8,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 17,
+      "activeAgents": 8,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 18,
+      "activeAgents": 9,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "child-family",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 19,
+      "activeAgents": 9,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "child-family",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 20,
+      "activeAgents": 10,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 21,
+      "activeAgents": 10,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 22,
+      "activeAgents": 11,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 23,
+      "activeAgents": 11,
+      "registeredAgents": 12,
+      "tasksCompleted": 0,
+      "tasksFailed": 0,
+      "successRate": null,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 24,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 1,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 25,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 1,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 26,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 2,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 27,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 2,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 28,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 3,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 29,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 3,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 30,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 4,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 31,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 4,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 32,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 5,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 33,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 5,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 34,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 6,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 35,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 6,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 36,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 7,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 37,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 7,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 38,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 8,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 39,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 8,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 40,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 9,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 41,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 9,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 42,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 10,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 43,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 10,
+      "tasksFailed": 0,
+      "successRate": 1,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 44,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 10,
+      "tasksFailed": 1,
+      "successRate": 0.9091,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 45,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 10,
+      "tasksFailed": 1,
+      "successRate": 0.9091,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 46,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 11,
+      "tasksFailed": 1,
+      "successRate": 0.9167,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 47,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 11,
+      "tasksFailed": 1,
+      "successRate": 0.9167,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 48,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 12,
+      "tasksFailed": 1,
+      "successRate": 0.9231,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 49,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 12,
+      "tasksFailed": 1,
+      "successRate": 0.9231,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 50,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 13,
+      "tasksFailed": 1,
+      "successRate": 0.9286,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 51,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 13,
+      "tasksFailed": 1,
+      "successRate": 0.9286,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 52,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 14,
+      "tasksFailed": 1,
+      "successRate": 0.9333,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 53,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 14,
+      "tasksFailed": 1,
+      "successRate": 0.9333,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 54,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 15,
+      "tasksFailed": 1,
+      "successRate": 0.9375,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 55,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 15,
+      "tasksFailed": 1,
+      "successRate": 0.9375,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 56,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 16,
+      "tasksFailed": 1,
+      "successRate": 0.9412,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 57,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 16,
+      "tasksFailed": 1,
+      "successRate": 0.9412,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 58,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 17,
+      "tasksFailed": 1,
+      "successRate": 0.9444,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    },
+    {
+      "frame": 59,
+      "activeAgents": 12,
+      "registeredAgents": 12,
+      "tasksCompleted": 17,
+      "tasksFailed": 1,
+      "successRate": 0.9444,
+      "onlineSlugs": [
+        "child-family",
+        "creator",
+        "governance",
+        "guru",
+        "health",
+        "investor",
+        "krishi",
+        "lipi",
+        "orchestrator",
+        "research",
+        "system",
+        "tlp"
+      ]
+    }
+  ]
+}

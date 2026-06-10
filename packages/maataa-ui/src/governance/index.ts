@@ -4,5 +4,6 @@ export * from "./BlockerCards";
 export * from "./PromotionMatrix";
 export * from "./ProductionReadinessMatrix";
 export * from "./DeviceRegistryPanel";
+export * from "./AdminAnalyticsPanel";
 export * from "./PHKDRuntime";
 export * from "./governance-states";

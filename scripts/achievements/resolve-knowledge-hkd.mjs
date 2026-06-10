@@ -17,21 +17,34 @@ export const probes = [
     id: "a-resolve-kh-research-agent-real",
     universe: "hkd-runtime",
     resolves: "c-research-agent-real",
-    futureMilestone: "Research Agent that autonomously discovers, analyzes, and validates knowledge",
-    probe({ root, join, existsSync }) {
+    futureMilestone: "Local Research Agent wrapper discovers, analyzes, and validates local KBS records",
+    probe({ root, join, existsSync, execFileSync }) {
       // Claim: "Research Agent — discovers/analyzes/validates knowledge"
-      // No autonomous Research Agent wrapper exists. kbs-runtime provides
-      // research-adjacent primitives (claims, review, moderation, provenance)
-      // but no agent class/entry-point that orchestrates them.
+      // This probe only accepts a local-preview agent wrapper over real KBS and
+      // runtime-research primitives. It does not prove web-scale autonomous
+      // discovery, live deployment, or production readiness.
       const agentPaths = [
-        "packages/kbs-runtime/src/agent",
-        "packages/kbs-runtime/src/research-agent.ts",
         "packages/research-agent/src/index.ts",
+        "tests/research-agent.test.ts",
       ];
-      const found = agentPaths.some((p) => existsSync(join(root, p)));
+      const missing = agentPaths.filter((p) => !existsSync(join(root, p)));
+      let output = "";
+      try {
+        output = execFileSync(process.execPath, ["--experimental-strip-types", "--test", "tests/research-agent.test.ts"], {
+          cwd: root,
+          encoding: "utf8",
+        });
+      } catch (err) {
+        output = `${err.stdout ?? ""}${err.stderr ?? ""}`;
+      }
+      const pass = Number(output.match(/# pass (\d+)/)?.[1] ?? 0);
+      const fail = Number(output.match(/# fail (\d+)/)?.[1] ?? 1);
+      const ok = missing.length === 0 && fail === 0 && pass >= 4;
       return {
-        pass: false,
-        evidence: `No research agent wrapper found; checked ${agentPaths.join(", ")}; existsSync=${found}`,
+        pass: ok,
+        evidence: ok
+          ? `tests/research-agent.test.ts → pass=${pass} fail=${fail} (local KBS-only Research Agent wrapper; externalDiscovery=false; productionReady=false; phkdVerdict=BLOCKED)`
+          : `Research agent wrapper incomplete; missing=${missing.join(",") || "none"}; tests/research-agent.test.ts pass=${pass} fail=${fail}`,
       };
     },
   },
@@ -64,18 +77,32 @@ export const probes = [
     universe: "dashboard",
     resolves: "c-knowledge-graph-dashboard-real",
     futureMilestone: "Knowledge Graph Dashboard renders the live knowledge graph",
-    probe({ root, join, existsSync }) {
-      // Claim: dashboard "renders the live knowledge graph".
-      // kbs-graph + kbs-runtime/src/graph exist; no dashboard package or wiring.
+    probe({ root, join, existsSync, execFileSync }) {
+      // Claim: dashboard "renders the live knowledge graph". This only proves
+      // a local preview dashboard renderer over the current in-repo KBS graph;
+      // it does not prove deployment, production traffic, or production GO.
       const dashboardPaths = [
-        "packages/dashboard-knowledge-graph",
-        "packages/kbs-dashboard/src/knowledge-graph.ts",
-        "apps/dashboard/src/knowledge-graph",
+        "packages/dashboard-knowledge-graph/src/index.ts",
+        "tests/knowledge-graph-dashboard.test.ts",
       ];
-      const found = dashboardPaths.some((p) => existsSync(join(root, p)));
+      const missing = dashboardPaths.filter((p) => !existsSync(join(root, p)));
+      let output = "";
+      try {
+        output = execFileSync(process.execPath, ["--experimental-strip-types", "--test", "tests/knowledge-graph-dashboard.test.ts"], {
+          cwd: root,
+          encoding: "utf8",
+        });
+      } catch (err) {
+        output = `${err.stdout ?? ""}${err.stderr ?? ""}`;
+      }
+      const pass = Number(output.match(/# pass (\d+)/)?.[1] ?? 0);
+      const fail = Number(output.match(/# fail (\d+)/)?.[1] ?? 1);
+      const ok = missing.length === 0 && fail === 0 && pass >= 4;
       return {
-        pass: false,
-        evidence: `No knowledge-graph dashboard package or wiring found; checked ${dashboardPaths.join(", ")}; anyFound=${found}`,
+        pass: ok,
+        evidence: ok
+          ? `tests/knowledge-graph-dashboard.test.ts → pass=${pass} fail=${fail} (renders current kbsGraphNodes/kbsGraphEdges as local preview; productionReady=false; phkdVerdict=BLOCKED)`
+          : `Knowledge graph dashboard incomplete; missing=${missing.join(",") || "none"}; tests/knowledge-graph-dashboard.test.ts pass=${pass} fail=${fail}`,
       };
     },
   },

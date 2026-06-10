@@ -1,0 +1,235 @@
+{
+  "agent": "evidence",
+  "sweptAt": "2026-06-09T22:01:29.067Z",
+  "results": [
+    {
+      "runtime": "Agent Runtime (maataa-os)",
+      "path": "tlps.in/maataa-os — agent runtime",
+      "status": "VERIFIED",
+      "detail": "Ran `node --experimental-sqlite --test tests/agent-registry.test.mjs` — 7/7 tests pass.",
+      "sourceFiles": 595,
+      "tests": {
+        "pass": 7,
+        "fail": 0
+      }
+    },
+    {
+      "runtime": "release/a",
+      "path": "release/a",
+      "status": "UNVERIFIED",
+      "detail": "Empty/stub — no package.json and no source files.",
+      "sourceFiles": 0
+    },
+    {
+      "runtime": "release/canva-apps-sdk-starter-kit-main",
+      "path": "release/canva-apps-sdk-starter-kit-main",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 1 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 1,
+      "hasBuild": true
+    },
+    {
+      "runtime": "release/dev",
+      "path": "release/dev",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 1 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 1,
+      "hasBuild": false
+    },
+    {
+      "runtime": "release/h",
+      "path": "release/h",
+      "status": "UNVERIFIED",
+      "detail": "Empty/stub — no package.json and no source files.",
+      "sourceFiles": 0
+    },
+    {
+      "runtime": "release/k",
+      "path": "release/k",
+      "status": "UNVERIFIED",
+      "detail": "Empty/stub — no package.json and no source files.",
+      "sourceFiles": 0
+    },
+    {
+      "runtime": "release/piccolo",
+      "path": "release/piccolo",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 192 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 192,
+      "hasBuild": true
+    },
+    {
+      "runtime": "release/shivom",
+      "path": "release/shivom",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 4 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 4,
+      "hasBuild": true
+    },
+    {
+      "runtime": "release/shivom-main",
+      "path": "release/shivom-main",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 79 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 79,
+      "hasBuild": true
+    },
+    {
+      "runtime": "release/shivom-main 2",
+      "path": "release/shivom-main 2",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 35 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 35,
+      "hasBuild": false
+    },
+    {
+      "runtime": "release/tlp-amp",
+      "path": "release/tlp-amp",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 8 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 8,
+      "hasBuild": true
+    },
+    {
+      "runtime": "release/tlp-main",
+      "path": "release/tlp-main",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 81 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 81,
+      "hasBuild": true
+    },
+    {
+      "runtime": "release/vidhaan",
+      "path": "release/vidhaan",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 2 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 2,
+      "hasBuild": false
+    },
+    {
+      "runtime": "tlps.in/tlp",
+      "path": "tlps.in/tlp",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 6 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 6,
+      "hasBuild": false
+    },
+    {
+      "runtime": "tlps.in/allb",
+      "path": "tlps.in/allb",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 92 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 92,
+      "hasBuild": false
+    },
+    {
+      "runtime": "tlps.in/ram-navami-ai",
+      "path": "tlps.in/ram-navami-ai",
+      "status": "PARTIAL",
+      "detail": "Has package.json; not executed in this sweep.",
+      "sourceFiles": 321,
+      "hasBuild": false
+    },
+    {
+      "runtime": "tlps.in/aot",
+      "path": "tlps.in/aot",
+      "status": "UNVERIFIED",
+      "detail": "Partial backup — 52 source files but no package.json, so it cannot be built or run here.",
+      "sourceFiles": 52,
+      "hasBuild": false
+    },
+    {
+      "runtime": "tlps.in/tlp-access",
+      "path": "tlps.in/tlp-access",
+      "status": "PARTIAL",
+      "detail": "Has package.json + build output; not executed in this sweep.",
+      "sourceFiles": 349,
+      "hasBuild": true
+    }
+  ],
+  "fleetSnapshot": {
+    "generatedAt": "2026-06-09T22:01:29.067Z",
+    "activeAgents": 13,
+    "registeredAgents": 13,
+    "agents": [
+      {
+        "slug": "child-family",
+        "name": "Child & Family Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "creator",
+        "name": "Creator Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "evidence",
+        "name": "Evidence Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "governance",
+        "name": "Governance Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "guru",
+        "name": "Guru Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "health",
+        "name": "Health Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "investor",
+        "name": "Investor Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "krishi",
+        "name": "Krishi Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "lipi",
+        "name": "Lipi Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "orchestrator",
+        "name": "Maataa Orchestrator Agent",
+        "kind": "orchestrator"
+      },
+      {
+        "slug": "research",
+        "name": "Research Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "system",
+        "name": "System Agent",
+        "kind": "agent"
+      },
+      {
+        "slug": "tlp",
+        "name": "TLP Agent",
+        "kind": "agent"
+      }
+    ],
+    "performance24h": {
+      "windowMs": 86400000,
+      "activeAgents": 13,
+      "registeredAgents": 13,
+      "tasksCompleted": 3,
+      "tasksFailed": 15,
+      "successRate": 0.1667
+    }
+  },
+  "counts": {
+    "VERIFIED": 1,
+    "UNVERIFIED": 15,
+    "PARTIAL": 2
+  }
+}

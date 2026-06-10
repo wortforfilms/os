@@ -232,18 +232,30 @@ export const probes = [
     universe: "dashboard",
     resolves: "c-lipi-dashboard-real",
     futureMilestone: "A Lipi Dashboard UI renders script learning progress and accuracy",
-    probe({ root, join, existsSync }) {
+    probe({ root, join, existsSync, execFileSync }) {
       const candidates = [
-        "packages/lipi-runtime/apps",
-        "apps/lipi-dashboard",
-        "packages/lipi-dashboard",
+        "packages/lipi-dashboard/src/index.ts",
+        "tests/lipi-dashboard.test.ts",
       ];
-      const found = candidates.filter(p => existsSync(join(root, p)));
+      const missing = candidates.filter((p) => !existsSync(join(root, p)));
+      let out = "";
+      try {
+        out = execFileSync(process.execPath, ["--experimental-strip-types", "--test", "tests/lipi-dashboard.test.ts"], {
+          cwd: root,
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "pipe"],
+        });
+      } catch (e) {
+        out = `${e.stdout || ""}${e.stderr || ""}`;
+      }
+      const pass = (out.match(/# pass (\d+)/) || [])[1];
+      const fail = (out.match(/# fail (\d+)/) || [])[1];
+      const ok = missing.length === 0 && fail === "0" && Number(pass) >= 4;
       return {
-        pass: false,
-        evidence: found.length > 0
-          ? `Found ${found.join(", ")} but no rendered dashboard UI verified`
-          : "No Lipi dashboard UI package found; UI surface not built",
+        pass: ok,
+        evidence: ok
+          ? `tests/lipi-dashboard.test.ts → pass=${pass} fail=${fail} (renders seeded lesson progress; accuracy UNKNOWN without learner telemetry; productionReady=false)`
+          : `Lipi dashboard incomplete; missing=${missing.join(",") || "none"}; tests/lipi-dashboard.test.ts pass=${pass ?? "?"} fail=${fail ?? "?"}`,
       };
     },
   },
@@ -298,18 +310,34 @@ export const probes = [
     universe: "hero",
     resolves: "c-indus-script-research-label",
     futureMilestone: "Indus (Research) script is registered in lipi-runtime with research/blocked status label",
-    probe({ root, join, existsSync, readFileSync }) {
+    probe({ root, join, existsSync, readFileSync, execFileSync }) {
       const masterPath = join(root, "packages/lipi-runtime/src/data/lipi-426-master.ts");
       if (!existsSync(masterPath)) {
         return { pass: false, evidence: "lipi-426-master.ts not found" };
       }
       const masterSrc = readFileSync(masterPath, "utf8");
-      const hasIndus = masterSrc.toLowerCase().includes('"indus"') || masterSrc.toLowerCase().includes("'indus'") || masterSrc.includes("id: \"indus");
+      const hasIndus = masterSrc.includes('id: "indus"');
+      const hasResearch = masterSrc.includes('name: "Indus (Research)"');
+      const hasBlocked = masterSrc.includes('status: "BLOCKED"');
+      const hasNoTranslationClaim = masterSrc.includes("not transliteration, OCR, or translation ready");
+      let out = "";
+      try {
+        out = execFileSync(process.execPath, ["--experimental-strip-types", "--test", "tests/indus-research-label.test.ts"], {
+          cwd: root,
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "pipe"],
+        });
+      } catch (e) {
+        out = `${e.stdout || ""}${e.stderr || ""}`;
+      }
+      const pass = (out.match(/# pass (\d+)/) || [])[1];
+      const fail = (out.match(/# fail (\d+)/) || [])[1];
+      const ok = hasIndus && hasResearch && hasBlocked && hasNoTranslationClaim && fail === "0" && Number(pass) >= 2;
       return {
-        pass: false,
-        evidence: hasIndus
-          ? "Indus script found in master but research label status not verified"
-          : "Indus script is NOT registered in lipi-426-master.ts; claim requires it to be present with (Research) label in code — not satisfied (only visible on board image)",
+        pass: ok,
+        evidence: ok
+          ? `tests/indus-research-label.test.ts → pass=${pass} fail=${fail} (Indus registered as BLOCKED research-only label; no transliteration/OCR/translation readiness claimed)`
+          : `Indus research label incomplete; hasIndus=${hasIndus}; hasResearch=${hasResearch}; hasBlocked=${hasBlocked}; noTranslationClaim=${hasNoTranslationClaim}; tests pass=${pass ?? "?"} fail=${fail ?? "?"}`,
       };
     },
   },
