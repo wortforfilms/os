@@ -62,6 +62,7 @@
     "evidence:generate": "node scripts/evidence-generate.mjs",
     "status:matrix": "node scripts/status-matrix.mjs",
     "milestones": "node scripts/milestones-cycle.mjs",
+    "milestones:autoloop": "node scripts/milestones-autoloop.mjs",
     "milestones:verify": "node scripts/verify-honest-achievements.mjs",
     "milestones:pwa": "node scripts/generate-pwa-manifests.mjs",
     "milestones:kanban": "node scripts/render-kanban.mjs",

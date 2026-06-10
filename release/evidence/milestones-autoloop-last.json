@@ -1,0 +1,686 @@
+{
+  "schema": "maataa.milestones-autoloop.v1",
+  "ranAt": "2026-06-09T19:21:58.294Z",
+  "honesty": "Milestones advance ONLY when the real honest cycle re-verifies them as ACHIEVED via human-reviewed remediations. No probes added, no stubs, nothing fabricated. Non-advancing changes are rolled back. Fail closed.",
+  "ladder": [
+    13,
+    5,
+    1
+  ],
+  "pool": {
+    "candidates": 109,
+    "actionable": 0,
+    "skipped": 109
+  },
+  "advanced": 0,
+  "rollbackDegraded": false,
+  "orphanPaths": [],
+  "finalGuardOk": true,
+  "totals": {
+    "groups": 6,
+    "universes": 48,
+    "milestones": 654,
+    "notAchieved": 375,
+    "inProgress": 50,
+    "unverified": 59,
+    "achieved": 170
+  },
+  "stableHash": "f51c3aad3a91ded5b78a947ba0ea76dc49713e04885bb7bdabc195220854413e",
+  "batches": [],
+  "results": [
+    {
+      "id": "c-100-value-distribution",
+      "group": "Economy & Identity",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-12-values-traditional",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-13-relation-types",
+      "group": "Knowledge & Intelligence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-30t-india",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-5-dharmic-pillars",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-5-pathways-traditional",
+      "group": "Knowledge & Intelligence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-7-levels-model",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-7-pillars-model",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-7-spatial-layers",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-7-universal-chains",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-8-instruments-catalog",
+      "group": "Economy & Identity",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-blocks-fear-ego",
+      "group": "Knowledge & Intelligence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-built-with-dharma",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-civ-flows",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-common-stages-discover-onboard",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-conscious-civilization-os",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-cross-universe-integration",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-data-flow-pipeline",
+      "group": "Platform & Runtime",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-data-sovereignty-enforced",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-dharma-alignment-6q",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-dharma-types-6",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-dosha-classification",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-end-to-end-encrypted",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-golden-trace-rules",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-impact-goals-6",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-integration-allb",
+      "group": "Platform & Runtime",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-integration-radio-vaigyaaniq",
+      "group": "Platform & Runtime",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-join-the-movement",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-journeys-infinite",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-maataa-quote-i-am",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-mission-flow-discover-design-deploy",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-organization-versioned",
+      "group": "Economy & Identity",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-outcome-100m-educated",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-outcome-30t-by-2030",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-outcome-50-lipis-revived",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-principles-shloka",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-privacy-zero-exploitation",
+      "group": "Economy & Identity",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-pyramid-5-tier",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-quality-phkd-compliant",
+      "group": "Economy & Identity",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-response-engine-divine-blessings",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-responsible-ai-framework",
+      "group": "Knowledge & Intelligence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-saptadhaatu-framework",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-security-flow",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-service-architecture",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-sovereign-enabled",
+      "group": "Platform & Runtime",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-sovereign-features-aspiration",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-sovereign-flow-pipeline",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-sovereignty-encrypted",
+      "group": "Platform & Runtime",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-success-beyond-kpi",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-system-online",
+      "group": "Platform & Runtime",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-time-horizons",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-time-mantras",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-usp-25-made-with-dharma",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-usp-divine-companion",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-virtues-sanskrit",
+      "group": "Knowledge & Intelligence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-wf-21-loving-os",
+      "group": "Apps & Experience",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "claim-batch-runtime-implementation-unverified",
+      "group": "Civilization & Domains",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "claim-phkd-principles",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "claim-quick-actions-functional",
+      "group": "Governance & Evidence",
+      "was": "UNVERIFIED",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-10-graph-categories",
+      "group": "Knowledge & Intelligence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-12-primary-universes",
+      "group": "Governance & Evidence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-50-open-modules",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-7-missions-only-6-visible",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-7-script-families",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-9-entity-types",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-9-relation-types",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-ai-capabilities-partial",
+      "group": "Knowledge & Intelligence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-capabilities-nl-query",
+      "group": "Knowledge & Intelligence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-connected-universes-hkd-kg",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-enablers-stack",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-evidence-integrity-framework",
+      "group": "Knowledge & Intelligence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-evidence-workflow-honest",
+      "group": "Governance & Evidence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-extinct-scripts-312",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-formats-120",
+      "group": "Economy & Identity",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-glyphs-54-21k",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-hkd-enabler",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-hkd-runtime-active",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-journey-developer",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-journey-lapsi",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-journey-researcher",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-knowledge-features-real",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-knowledge-for-all-real",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-knowledge-graph-research",
+      "group": "Knowledge & Intelligence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-knowledge-services-real",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-lipi-agent-real",
+      "group": "Knowledge & Intelligence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-lipi-features-real",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-lipi-glyphs-15k",
+      "group": "Economy & Identity",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-lipi-product-shipped",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-lipi-revival-mission-real",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-lipi-services-real",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-living-scripts-54",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-maturity-l0-l9",
+      "group": "Governance & Evidence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-multi-lipi-brahmi-to-devanagari",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-policy-lifecycle",
+      "group": "Governance & Evidence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-powered-by-lipi",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-rt-knowledge-active",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-rt-lipi-active",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-script-evolution-timeline",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-scripts-mapped-1248",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-time-dimension-real",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-toolchain-installed",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-traceability-end-to-end",
+      "group": "Governance & Evidence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-usp-lipi-multi-script",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-usp-unified-kg",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-validation-engine",
+      "group": "Platform & Runtime",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-values-embodied-12",
+      "group": "Governance & Evidence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-versioning-pipeline-real",
+      "group": "Civilization & Domains",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "c-wf-04-lipi-os-first",
+      "group": "Apps & Experience",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    },
+    {
+      "id": "claim-score-formula",
+      "group": "Governance & Evidence",
+      "was": "IN_PROGRESS",
+      "status": "SKIPPED_NO_REMEDIATION"
+    }
+  ]
+}

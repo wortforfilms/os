@@ -1,25 +1,26 @@
 {
   "schema": "maataa.next-batch.v1",
-  "batchId": "next-5-20260607-c10b7f118bf5",
-  "generatedAt": "2026-06-07T18:59:18.816Z",
+  "batchId": "next-5-20260609-c10b7f118bf5",
+  "generatedAt": "2026-06-09T02:49:15.315Z",
   "mode": "completed-real-builds",
   "source": {
     "queuePath": "data/next-in-line.json",
-    "queueGeneratedAt": "2026-06-07T18:59:14.190Z",
+    "queueGeneratedAt": "2026-06-09T02:49:05.362Z",
     "cyclePath": "release/evidence/milestones-cycle-last.json",
-    "cycleRanAt": "2026-06-07T18:59:14.358Z"
+    "cycleRanAt": "2026-06-09T02:49:05.663Z"
   },
   "honesty": "This batch is derived from completed real-build entries in data/next-in-line.json. Completion is evidence-backed by the listed probes and milestones-cycle-last.json.",
   "totals": {
     "requested": 5,
     "included": 5,
-    "achievedAtSource": 163,
+    "achievedAtSource": 167,
     "milestonesAtSource": 654
   },
   "items": [
     {
       "batchOrder": 1,
       "sourceRank": 1,
+      "sourceKind": "completed-real-build",
       "id": "next-1-wire-runtime-mission-propose-runtime-governance-enforce",
       "title": "Wire runtime-mission propose → runtime-governance enforce",
       "group": "Governance & Evidence",
@@ -28,7 +29,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-07T18:59:14.358Z",
+      "completedAt": "2026-06-09T02:49:05.663Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -38,6 +39,7 @@
     {
       "batchOrder": 2,
       "sourceRank": 2,
+      "sourceKind": "completed-real-build",
       "id": "next-2-persistence-tier-for-the-6-runtimes",
       "title": "Persistence tier for the 6 runtimes",
       "group": "Platform & Runtime",
@@ -46,7 +48,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-07T18:59:14.358Z",
+      "completedAt": "2026-06-09T02:49:05.663Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -56,6 +58,7 @@
     {
       "batchOrder": 3,
       "sourceRank": 3,
+      "sourceKind": "completed-real-build",
       "id": "next-3-wire-runtime-observability-collect-into-the-gate",
       "title": "Wire runtime-observability.collect into the gate",
       "group": "Platform & Runtime",
@@ -64,7 +67,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-07T18:59:14.358Z",
+      "completedAt": "2026-06-09T02:49:05.663Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -74,6 +77,7 @@
     {
       "batchOrder": 4,
       "sourceRank": 4,
+      "sourceKind": "completed-real-build",
       "id": "next-4-runtime-transport-facade",
       "title": "runtime-transport facade",
       "group": "Platform & Runtime",
@@ -82,7 +86,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-07T18:59:14.358Z",
+      "completedAt": "2026-06-09T02:49:05.663Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -92,6 +96,7 @@
     {
       "batchOrder": 5,
       "sourceRank": 5,
+      "sourceKind": "completed-real-build",
       "id": "next-5-lipi-agent-wrapper",
       "title": "lipi-agent wrapper",
       "group": "Knowledge & Intelligence",
@@ -100,7 +105,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-07T18:59:14.358Z",
+      "completedAt": "2026-06-09T02:49:05.663Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",

@@ -1,0 +1,261 @@
+{
+  "schema": "maataa.next-batch.v1",
+  "batchId": "next-12-20260609-0b99044fc18c",
+  "generatedAt": "2026-06-09T02:49:15.315Z",
+  "mode": "next-queue",
+  "source": {
+    "queuePath": "data/next-in-line.json",
+    "queueGeneratedAt": "2026-06-09T02:49:05.362Z",
+    "cyclePath": "release/evidence/milestones-cycle-last.json",
+    "cycleRanAt": "2026-06-09T02:49:05.663Z"
+  },
+  "honesty": "This batch is derived from the live next-in-line queue. Queue items may be in-progress claims, not scoped engineering work; this is not achievement evidence and every item remains blocked until a concrete real-build, code, focused tests, and regenerated evidence prove it.",
+  "totals": {
+    "requested": 12,
+    "included": 12,
+    "achievedAtSource": 167,
+    "milestonesAtSource": 654
+  },
+  "items": [
+    {
+      "batchOrder": 1,
+      "sourceRank": 1,
+      "sourceKind": "in-progress-claim",
+      "id": "next-1-lipi-agent-revives-languages-scripts-nlp-ocr-translation",
+      "title": "Lipi Agent — revives languages & scripts (NLP/OCR/translation)",
+      "group": "Knowledge & Intelligence",
+      "detail": "lipi-runtime (real package) provides transliteration/learning/lineage primitives. Agent wrapper does not exist.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 2,
+      "sourceRank": 2,
+      "sourceKind": "in-progress-claim",
+      "id": "next-2-ai-capabilities-understand-nlu-reason-infer-generate-create-perceive-int",
+      "title": "AI Capabilities: Understand (NLU) / Reason & Infer / Generate & Create / Perceive & Interpret / Plan & Decide / Remember & Learn / Act & Automate / Collaborate",
+      "group": "Knowledge & Intelligence",
+      "detail": "kbs-runtime/src/{search,claims,reasoning} provides Understand+Reason substrate. visual-hkd-runtime provides Perceive+Interpret for vision boards. Generate/Plan/Act runtimes not present.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 3,
+      "sourceRank": 3,
+      "sourceKind": "in-progress-claim",
+      "id": "next-3-formats-120",
+      "title": "Formats: 120+",
+      "group": "Economy & Identity",
+      "detail": "120+ file formats is generic count; the repo handles a small subset (HTML, MD, JSON, PNG, etc.). No format conversion runtime.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 4,
+      "sourceRank": 4,
+      "sourceKind": "in-progress-claim",
+      "id": "next-4-lipi-glyphs-library-15-000-glyphs-across-brahmi-kharoshthi-devanagari-si",
+      "title": "Lipi Glyphs Library: 15,000+ glyphs across Brahmi/Kharoshthi/Devanagari/Siddham",
+      "group": "Economy & Identity",
+      "detail": "lipi-runtime/src/characters provides script-character primitives. 15K specific glyph assets are not stored as a library.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 5,
+      "sourceRank": 5,
+      "sourceKind": "in-progress-claim",
+      "id": "next-5-powered-by-lipi-language-script",
+      "title": "Powered By: LIPI Language & Script",
+      "group": "Civilization & Domains",
+      "detail": "lipi-runtime is real; civilizational integration is aspirational.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 6,
+      "sourceRank": 6,
+      "sourceKind": "in-progress-claim",
+      "id": "next-6-erd-users-profiles-roles-permissions-projects-tasks-milestones-knowledge",
+      "title": "ERD: users / profiles / roles / permissions / projects / tasks / milestones / knowledge_nodes / knowledge_relations / knowledge_sources / documents / assets / events",
+      "group": "Civilization & Domains",
+      "detail": "lipi-runtime/prisma/schema.prisma contains a real subset (lipi-domain tables). The board's 13-table ERD is broader and not implemented.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 7,
+      "sourceRank": 7,
+      "sourceKind": "in-progress-claim",
+      "id": "next-7-values-embodied-12",
+      "title": "Values Embodied: 12",
+      "group": "Governance & Evidence",
+      "detail": "The 12 values (Yamas+Niyamas extended) are catalogued correctly; 'embodied' as a measured property is not defined.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 8,
+      "sourceRank": 8,
+      "sourceKind": "in-progress-claim",
+      "id": "next-8-hkd-human-knowledge-data-is-the-universal-knowledge-format-powering-the-",
+      "title": "HKD (Human Knowledge Data) is the universal knowledge format powering the ecosystem",
+      "group": "Civilization & Domains",
+      "detail": "visual-hkd-runtime defines an HKD type system and pipeline. It is real but narrow: extraction from visual sources to knowledge-graph projections. It is not (yet) wired as the universal cross-ecosystem format.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 9,
+      "sourceRank": 9,
+      "sourceKind": "in-progress-claim",
+      "id": "next-9-knowledge-features-knowledge-graph-semantic-search-ai-reasoning-source-a",
+      "title": "Knowledge Features (Knowledge Graph, Semantic Search, AI Reasoning, Source Attribution, Continuous Learning)",
+      "group": "Apps & Experience",
+      "detail": "kbs-runtime/src/{graph,search,claims,provenance,ingestion} provide the underlying capabilities. 'Continuous Learning' as a runtime is aspirational.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 10,
+      "sourceRank": 10,
+      "sourceKind": "in-progress-claim",
+      "id": "next-10-lipi-features-brahmi-kharoshthi-devanagari-multi-direction-rtl-ltr-ttb-c",
+      "title": "Lipi Features (Brahmi, Kharoshthi, Devanagari, Multi-direction, RTL/LTR/TTB, Custom Fonts, Lipi Learning Engine)",
+      "group": "Apps & Experience",
+      "detail": "lipi-runtime/src/{characters,phonetics,registry,learning,search,governance} implement many of these. Indus Script Research is marked '(Research)' on board image 1 — appropriate.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 11,
+      "sourceRank": 11,
+      "sourceKind": "in-progress-claim",
+      "id": "next-11-policy-lifecycle-draft-consult-vote-enact-implement-review-evolve",
+      "title": "Policy Lifecycle: Draft→Consult→Vote→Enact→Implement→Review→Evolve",
+      "group": "Governance & Evidence",
+      "detail": "kbs-governance has policy primitives (evaluateKbsGate, rejectProductionClaim). scripts/governed-production-gate.mjs implements an Enact→Implement gate for releases. Full lifecycle is not wired.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    },
+    {
+      "batchOrder": 12,
+      "sourceRank": 12,
+      "sourceKind": "in-progress-claim",
+      "id": "next-12-9-hkd-entity-types-concept-entity-person-event-location-asset-document-o",
+      "title": "9 HKD Entity Types: Concept / Entity / Person / Event / Location / Asset / Document / Observation / Evidence",
+      "group": "Platform & Runtime",
+      "detail": "VisualHKD's HKDNode has a `kind: string` field — entity types are user-defined. The 9 named types are a sensible taxonomy but not encoded in the type system.",
+      "completionProbe": null,
+      "workStatus": "BLOCKED_CANDIDATE_ONLY",
+      "evidenceStatus": "CLAIM_PARTIAL_UNTIL_REAL_BUILD_SCOPED",
+      "completion": "NOT_STARTED",
+      "completedAt": null,
+      "requiredToFlip": [
+        "scope a concrete real-build",
+        "code implementation",
+        "passing focused test",
+        "milestones/evidence regeneration"
+      ]
+    }
+  ]
+}

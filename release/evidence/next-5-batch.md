@@ -1,10 +1,10 @@
 # MAATAA OS Next 5 Batch
 
-- Batch: `next-5-20260607-c10b7f118bf5`
-- Generated: 2026-06-07T18:59:18.816Z
-- Source queue: `data/next-in-line.json` (2026-06-07T18:59:14.190Z)
-- Source cycle: `release/evidence/milestones-cycle-last.json` (2026-06-07T18:59:14.358Z)
-- Source tally: 163/654 achieved
+- Batch: `next-5-20260609-c10b7f118bf5`
+- Generated: 2026-06-09T02:49:15.315Z
+- Source queue: `data/next-in-line.json` (2026-06-09T02:49:05.362Z)
+- Source cycle: `release/evidence/milestones-cycle-last.json` (2026-06-09T02:49:05.663Z)
+- Source tally: 167/654 achieved
 - Mode: completed-real-builds
 
 > This is completed progress evidence. Every item is ACHIEVED only because its listed probe passed and the milestone cycle regenerated.
@@ -15,10 +15,11 @@
 
 - Group: Governance & Evidence
 - Source rank: 1
+- Source kind: completed-real-build
 - Status: COMPLETED
 - Evidence: ACHIEVED_BY_PROBE
 - Completion probe: a-gov-runtime-mission-governance-wired
-- Completed at: 2026-06-07T18:59:14.358Z
+- Completed at: 2026-06-09T02:49:05.663Z
 - Detail: runtime-governance now exists (enforce/audit/rollback). Connect mission's proposals to real enforcement decisions + test.
 - Required to flip: code implementation; passing focused test; milestones/evidence regeneration
 
@@ -26,10 +27,11 @@
 
 - Group: Platform & Runtime
 - Source rank: 2
+- Source kind: completed-real-build
 - Status: COMPLETED
 - Evidence: ACHIEVED_BY_PROBE
 - Completion probe: a-platform-runtime-persistence-tier-operational
-- Completed at: 2026-06-07T18:59:14.358Z
+- Completed at: 2026-06-09T02:49:05.663Z
 - Detail: Back KG/mission/registry/validation/observability/governance with SQLite (node:sqlite) so state survives restarts; add persistence tests.
 - Required to flip: code implementation; passing focused test; milestones/evidence regeneration
 
@@ -37,10 +39,11 @@
 
 - Group: Platform & Runtime
 - Source rank: 3
+- Source kind: completed-real-build
 - Status: COMPLETED
 - Evidence: ACHIEVED_BY_PROBE
 - Completion probe: a-gov-gate-observability-live-health
-- Completed at: 2026-06-07T18:59:14.358Z
+- Completed at: 2026-06-09T02:49:05.663Z
 - Detail: Have the governed-production-gate read live runtime health via observability.collect for a real topology snapshot.
 - Required to flip: code implementation; passing focused test; milestones/evidence regeneration
 
@@ -48,10 +51,11 @@
 
 - Group: Platform & Runtime
 - Source rank: 4
+- Source kind: completed-real-build
 - Status: COMPLETED
 - Evidence: ACHIEVED_BY_PROBE
 - Completion probe: a-platform-runtime-transport-facade-operational
-- Completed at: 2026-06-07T18:59:14.358Z
+- Completed at: 2026-06-09T02:49:05.663Z
 - Detail: A real deterministic transport contract between runtimes (currently no transport universe runtime).
 - Required to flip: code implementation; passing focused test; milestones/evidence regeneration
 
@@ -59,10 +63,11 @@
 
 - Group: Knowledge & Intelligence
 - Source rank: 5
+- Source kind: completed-real-build
 - Status: COMPLETED
 - Evidence: ACHIEVED_BY_PROBE
 - Completion probe: a-knowledge-lipi-agent-wrapper
-- Completed at: 2026-06-07T18:59:14.358Z
+- Completed at: 2026-06-09T02:49:05.663Z
 - Detail: Honest agent wrapper over lipi-runtime (transliteration/lineage) — flips a-knowledge-lipi-agent-wrapper.
 - Required to flip: code implementation; passing focused test; milestones/evidence regeneration
 
