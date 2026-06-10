@@ -1,0 +1,76 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "operator scaffold extraction from release/all-pages-scaffold.html",
+    "operator": "codex",
+    "date": "2026-06-10",
+    "sourceSurface": "release/all-pages-scaffold.html#creator-economy",
+    "phkdBoundary": "Static local preview only. No live creator payouts, marketplace activity, user count, or production readiness is claimed."
+  },
+  "id": "vh-creator-economy-universe-2026-06-10",
+  "title": "Maataa Creator Economy Universe (Local Scaffold Link)",
+  "sourceImage": "release/all-pages-scaffold.html#creator-economy",
+  "universe": "creator-economy",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-creator-economy-surface",
+      "title": "Creator Economy page surface from all-pages scaffold",
+      "type": "feature",
+      "sourceImage": "release/all-pages-scaffold.html#creator-economy",
+      "confidence": 0.94
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node-creator-economy-surface",
+      "label": "Creator Economy page surface",
+      "kind": "surface",
+      "universe": "creator-economy",
+      "sourceImage": "release/all-pages-scaffold.html#creator-economy",
+      "sourceSectionId": "sec-creator-economy-surface",
+      "confidence": 0.94
+    },
+    {
+      "id": "node-creator-economy-hkd-link",
+      "label": "Creator Economy HKD link",
+      "kind": "evidence-link",
+      "universe": "creator-economy",
+      "sourceImage": "release/all-pages-scaffold.html#creator-economy",
+      "sourceSectionId": "sec-creator-economy-surface",
+      "confidence": 0.94
+    }
+  ],
+  "edges": [
+    {
+      "from": "node-creator-economy-surface",
+      "to": "node-creator-economy-hkd-link",
+      "relation": "HAS_HKD_LINK",
+      "sourceImage": "release/all-pages-scaffold.html#creator-economy",
+      "sourceSectionId": "sec-creator-economy-surface",
+      "confidence": 0.94
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w-creator-economy-card",
+      "title": "Creator Economy scaffold card",
+      "widgetType": "card",
+      "status": "blocked",
+      "sourceImage": "release/all-pages-scaffold.html#creator-economy",
+      "sourceSectionId": "sec-creator-economy-surface",
+      "confidence": 0.94
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    {
+      "id": "evidence-creator-economy-scaffold-card",
+      "title": "release/all-pages-scaffold.html card #creator-economy",
+      "evidenceType": "operator_note",
+      "sourceImage": "release/all-pages-scaffold.html#creator-economy",
+      "sourceSectionId": "sec-creator-economy-surface",
+      "confidence": 0.94
+    }
+  ]
+}

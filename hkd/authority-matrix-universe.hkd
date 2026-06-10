@@ -1,0 +1,76 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "operator scaffold extraction from release/all-pages-scaffold.html",
+    "operator": "codex",
+    "date": "2026-06-10",
+    "sourceSurface": "release/all-pages-scaffold.html#authority",
+    "phkdBoundary": "Static local preview only. No live authority registry, signed ownership chain, or production readiness is claimed."
+  },
+  "id": "vh-authority-matrix-universe-2026-06-10",
+  "title": "Maataa Authority Matrix Universe (Local Scaffold Link)",
+  "sourceImage": "release/all-pages-scaffold.html#authority",
+  "universe": "authority-matrix",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-authority-matrix-surface",
+      "title": "Authority Matrix page surface from all-pages scaffold",
+      "type": "evidence",
+      "sourceImage": "release/all-pages-scaffold.html#authority",
+      "confidence": 0.94
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node-authority-matrix-surface",
+      "label": "Authority Matrix page surface",
+      "kind": "surface",
+      "universe": "authority-matrix",
+      "sourceImage": "release/all-pages-scaffold.html#authority",
+      "sourceSectionId": "sec-authority-matrix-surface",
+      "confidence": 0.94
+    },
+    {
+      "id": "node-authority-matrix-hkd-link",
+      "label": "Authority Matrix HKD link",
+      "kind": "evidence-link",
+      "universe": "authority-matrix",
+      "sourceImage": "release/all-pages-scaffold.html#authority",
+      "sourceSectionId": "sec-authority-matrix-surface",
+      "confidence": 0.94
+    }
+  ],
+  "edges": [
+    {
+      "from": "node-authority-matrix-surface",
+      "to": "node-authority-matrix-hkd-link",
+      "relation": "HAS_HKD_LINK",
+      "sourceImage": "release/all-pages-scaffold.html#authority",
+      "sourceSectionId": "sec-authority-matrix-surface",
+      "confidence": 0.94
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w-authority-matrix-card",
+      "title": "Authority Matrix scaffold card",
+      "widgetType": "card",
+      "status": "blocked",
+      "sourceImage": "release/all-pages-scaffold.html#authority",
+      "sourceSectionId": "sec-authority-matrix-surface",
+      "confidence": 0.94
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    {
+      "id": "evidence-authority-matrix-scaffold-card",
+      "title": "release/all-pages-scaffold.html card #authority",
+      "evidenceType": "operator_note",
+      "sourceImage": "release/all-pages-scaffold.html#authority",
+      "sourceSectionId": "sec-authority-matrix-surface",
+      "confidence": 0.94
+    }
+  ]
+}

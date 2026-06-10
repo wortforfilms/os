@@ -1,0 +1,76 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "operator scaffold extraction from release/all-pages-scaffold.html",
+    "operator": "codex",
+    "date": "2026-06-10",
+    "sourceSurface": "release/all-pages-scaffold.html#community",
+    "phkdBoundary": "Static local preview only. No live community runtime, deployment, user count, or production readiness is claimed."
+  },
+  "id": "vh-community-universe-2026-06-10",
+  "title": "Maataa Community Universe (Local Scaffold Link)",
+  "sourceImage": "release/all-pages-scaffold.html#community",
+  "universe": "community",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-community-surface",
+      "title": "Community page surface from all-pages scaffold",
+      "type": "dashboard",
+      "sourceImage": "release/all-pages-scaffold.html#community",
+      "confidence": 0.94
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node-community-surface",
+      "label": "Community page surface",
+      "kind": "surface",
+      "universe": "community",
+      "sourceImage": "release/all-pages-scaffold.html#community",
+      "sourceSectionId": "sec-community-surface",
+      "confidence": 0.94
+    },
+    {
+      "id": "node-community-hkd-link",
+      "label": "Community HKD link",
+      "kind": "evidence-link",
+      "universe": "community",
+      "sourceImage": "release/all-pages-scaffold.html#community",
+      "sourceSectionId": "sec-community-surface",
+      "confidence": 0.94
+    }
+  ],
+  "edges": [
+    {
+      "from": "node-community-surface",
+      "to": "node-community-hkd-link",
+      "relation": "HAS_HKD_LINK",
+      "sourceImage": "release/all-pages-scaffold.html#community",
+      "sourceSectionId": "sec-community-surface",
+      "confidence": 0.94
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w-community-card",
+      "title": "Community scaffold card",
+      "widgetType": "card",
+      "status": "blocked",
+      "sourceImage": "release/all-pages-scaffold.html#community",
+      "sourceSectionId": "sec-community-surface",
+      "confidence": 0.94
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    {
+      "id": "evidence-community-scaffold-card",
+      "title": "release/all-pages-scaffold.html card #community",
+      "evidenceType": "operator_note",
+      "sourceImage": "release/all-pages-scaffold.html#community",
+      "sourceSectionId": "sec-community-surface",
+      "confidence": 0.94
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "operator scaffold extraction from release/all-pages-scaffold.html",
+    "operator": "codex",
+    "date": "2026-06-10",
+    "sourceSurface": "release/all-pages-scaffold.html#consistency",
+    "phkdBoundary": "Static local preview only. No live consistency engine, continuous audit, or production readiness is claimed."
+  },
+  "id": "vh-consistency-report-universe-2026-06-10",
+  "title": "Maataa Consistency Report Universe (Local Scaffold Link)",
+  "sourceImage": "release/all-pages-scaffold.html#consistency",
+  "universe": "consistency-report",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-consistency-report-surface",
+      "title": "Consistency Report page surface from all-pages scaffold",
+      "type": "evidence",
+      "sourceImage": "release/all-pages-scaffold.html#consistency",
+      "confidence": 0.94
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node-consistency-report-surface",
+      "label": "Consistency Report page surface",
+      "kind": "surface",
+      "universe": "consistency-report",
+      "sourceImage": "release/all-pages-scaffold.html#consistency",
+      "sourceSectionId": "sec-consistency-report-surface",
+      "confidence": 0.94
+    },
+    {
+      "id": "node-consistency-report-hkd-link",
+      "label": "Consistency Report HKD link",
+      "kind": "evidence-link",
+      "universe": "consistency-report",
+      "sourceImage": "release/all-pages-scaffold.html#consistency",
+      "sourceSectionId": "sec-consistency-report-surface",
+      "confidence": 0.94
+    }
+  ],
+  "edges": [
+    {
+      "from": "node-consistency-report-surface",
+      "to": "node-consistency-report-hkd-link",
+      "relation": "HAS_HKD_LINK",
+      "sourceImage": "release/all-pages-scaffold.html#consistency",
+      "sourceSectionId": "sec-consistency-report-surface",
+      "confidence": 0.94
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w-consistency-report-card",
+      "title": "Consistency Report scaffold card",
+      "widgetType": "card",
+      "status": "blocked",
+      "sourceImage": "release/all-pages-scaffold.html#consistency",
+      "sourceSectionId": "sec-consistency-report-surface",
+      "confidence": 0.94
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    {
+      "id": "evidence-consistency-report-scaffold-card",
+      "title": "release/all-pages-scaffold.html card #consistency",
+      "evidenceType": "operator_note",
+      "sourceImage": "release/all-pages-scaffold.html#consistency",
+      "sourceSectionId": "sec-consistency-report-surface",
+      "confidence": 0.94
+    }
+  ]
+}

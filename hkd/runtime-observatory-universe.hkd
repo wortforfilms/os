@@ -1,0 +1,76 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "operator scaffold extraction from release/all-pages-scaffold.html",
+    "operator": "codex",
+    "date": "2026-06-10",
+    "sourceSurface": "release/all-pages-scaffold.html#observatory",
+    "phkdBoundary": "Static local preview only. No live runtime telemetry, uptime, packet rate, or production readiness is claimed."
+  },
+  "id": "vh-runtime-observatory-universe-2026-06-10",
+  "title": "Maataa Runtime Observatory Universe (Local Scaffold Link)",
+  "sourceImage": "release/all-pages-scaffold.html#observatory",
+  "universe": "runtime-observatory",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-runtime-observatory-surface",
+      "title": "Runtime Observatory page surface from all-pages scaffold",
+      "type": "dashboard",
+      "sourceImage": "release/all-pages-scaffold.html#observatory",
+      "confidence": 0.94
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node-runtime-observatory-surface",
+      "label": "Runtime Observatory page surface",
+      "kind": "surface",
+      "universe": "runtime-observatory",
+      "sourceImage": "release/all-pages-scaffold.html#observatory",
+      "sourceSectionId": "sec-runtime-observatory-surface",
+      "confidence": 0.94
+    },
+    {
+      "id": "node-runtime-observatory-hkd-link",
+      "label": "Runtime Observatory HKD link",
+      "kind": "evidence-link",
+      "universe": "runtime-observatory",
+      "sourceImage": "release/all-pages-scaffold.html#observatory",
+      "sourceSectionId": "sec-runtime-observatory-surface",
+      "confidence": 0.94
+    }
+  ],
+  "edges": [
+    {
+      "from": "node-runtime-observatory-surface",
+      "to": "node-runtime-observatory-hkd-link",
+      "relation": "HAS_HKD_LINK",
+      "sourceImage": "release/all-pages-scaffold.html#observatory",
+      "sourceSectionId": "sec-runtime-observatory-surface",
+      "confidence": 0.94
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w-runtime-observatory-card",
+      "title": "Runtime Observatory scaffold card",
+      "widgetType": "card",
+      "status": "blocked",
+      "sourceImage": "release/all-pages-scaffold.html#observatory",
+      "sourceSectionId": "sec-runtime-observatory-surface",
+      "confidence": 0.94
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    {
+      "id": "evidence-runtime-observatory-scaffold-card",
+      "title": "release/all-pages-scaffold.html card #observatory",
+      "evidenceType": "operator_note",
+      "sourceImage": "release/all-pages-scaffold.html#observatory",
+      "sourceSectionId": "sec-runtime-observatory-surface",
+      "confidence": 0.94
+    }
+  ]
+}

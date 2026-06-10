@@ -1,0 +1,76 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "operator scaffold extraction from release/all-pages-scaffold.html",
+    "operator": "codex",
+    "date": "2026-06-10",
+    "sourceSurface": "release/all-pages-scaffold.html#communication",
+    "phkdBoundary": "Static local preview only. No live messaging transport, delivery metric, user count, or production readiness is claimed."
+  },
+  "id": "vh-communication-universe-2026-06-10",
+  "title": "Maataa Communication Universe (Local Scaffold Link)",
+  "sourceImage": "release/all-pages-scaffold.html#communication",
+  "universe": "communication",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-communication-surface",
+      "title": "Communication page surface from all-pages scaffold",
+      "type": "service",
+      "sourceImage": "release/all-pages-scaffold.html#communication",
+      "confidence": 0.94
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node-communication-surface",
+      "label": "Communication page surface",
+      "kind": "surface",
+      "universe": "communication",
+      "sourceImage": "release/all-pages-scaffold.html#communication",
+      "sourceSectionId": "sec-communication-surface",
+      "confidence": 0.94
+    },
+    {
+      "id": "node-communication-hkd-link",
+      "label": "Communication HKD link",
+      "kind": "evidence-link",
+      "universe": "communication",
+      "sourceImage": "release/all-pages-scaffold.html#communication",
+      "sourceSectionId": "sec-communication-surface",
+      "confidence": 0.94
+    }
+  ],
+  "edges": [
+    {
+      "from": "node-communication-surface",
+      "to": "node-communication-hkd-link",
+      "relation": "HAS_HKD_LINK",
+      "sourceImage": "release/all-pages-scaffold.html#communication",
+      "sourceSectionId": "sec-communication-surface",
+      "confidence": 0.94
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w-communication-card",
+      "title": "Communication scaffold card",
+      "widgetType": "card",
+      "status": "blocked",
+      "sourceImage": "release/all-pages-scaffold.html#communication",
+      "sourceSectionId": "sec-communication-surface",
+      "confidence": 0.94
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    {
+      "id": "evidence-communication-scaffold-card",
+      "title": "release/all-pages-scaffold.html card #communication",
+      "evidenceType": "operator_note",
+      "sourceImage": "release/all-pages-scaffold.html#communication",
+      "sourceSectionId": "sec-communication-surface",
+      "confidence": 0.94
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../packages/visual-hkd-runtime/src/types.ts#VisualHKD",
+  "$reconstruction": {
+    "method": "operator scaffold extraction from release/all-pages-scaffold.html",
+    "operator": "codex",
+    "date": "2026-06-10",
+    "sourceSurface": "release/all-pages-scaffold.html#phkd",
+    "phkdBoundary": "Static local preview only. PHKD evidence must remain sourced from regenerated evidence files, not from this scaffold card."
+  },
+  "id": "vh-phkd-evidence-universe-2026-06-10",
+  "title": "Maataa PHKD Evidence Universe (Local Scaffold Link)",
+  "sourceImage": "release/all-pages-scaffold.html#phkd",
+  "universe": "phkd-evidence",
+  "status": "vision",
+  "sections": [
+    {
+      "id": "sec-phkd-evidence-surface",
+      "title": "PHKD Evidence page surface from all-pages scaffold",
+      "type": "evidence",
+      "sourceImage": "release/all-pages-scaffold.html#phkd",
+      "confidence": 0.94
+    }
+  ],
+  "nodes": [
+    {
+      "id": "node-phkd-evidence-surface",
+      "label": "PHKD Evidence page surface",
+      "kind": "surface",
+      "universe": "phkd-evidence",
+      "sourceImage": "release/all-pages-scaffold.html#phkd",
+      "sourceSectionId": "sec-phkd-evidence-surface",
+      "confidence": 0.94
+    },
+    {
+      "id": "node-phkd-evidence-hkd-link",
+      "label": "PHKD Evidence HKD link",
+      "kind": "evidence-link",
+      "universe": "phkd-evidence",
+      "sourceImage": "release/all-pages-scaffold.html#phkd",
+      "sourceSectionId": "sec-phkd-evidence-surface",
+      "confidence": 0.94
+    }
+  ],
+  "edges": [
+    {
+      "from": "node-phkd-evidence-surface",
+      "to": "node-phkd-evidence-hkd-link",
+      "relation": "HAS_HKD_LINK",
+      "sourceImage": "release/all-pages-scaffold.html#phkd",
+      "sourceSectionId": "sec-phkd-evidence-surface",
+      "confidence": 0.94
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w-phkd-evidence-card",
+      "title": "PHKD Evidence scaffold card",
+      "widgetType": "card",
+      "status": "blocked",
+      "sourceImage": "release/all-pages-scaffold.html#phkd",
+      "sourceSectionId": "sec-phkd-evidence-surface",
+      "confidence": 0.94
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    {
+      "id": "evidence-phkd-evidence-scaffold-card",
+      "title": "release/all-pages-scaffold.html card #phkd",
+      "evidenceType": "operator_note",
+      "sourceImage": "release/all-pages-scaffold.html#phkd",
+      "sourceSectionId": "sec-phkd-evidence-surface",
+      "confidence": 0.94
+    }
+  ]
+}
