@@ -1,6 +1,6 @@
 {
   "schema": "maataa.milestones-vs-current.v1",
-  "generatedAt": "2026-06-10T14:02:18.284Z",
+  "generatedAt": "2026-06-10T18:07:11.745Z",
   "source": "hkd/*.hkd (VisualHKD vision boards)",
   "honesty": "Every entry is a FUTURE MILESTONE (aspirational target). currentState is the real measured/observed state. No achievement is claimed unless evidenced. Targets are never presented as live metrics.",
   "totals": {
@@ -1575,7 +1575,7 @@
       "universe": "evidence",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Milestones matrix content is reproducible (stable hash across runs)",
-      "currentState": "stableHash run1=7f66aac1fcfa… run2=7f66aac1fcfa… identical=true",
+      "currentState": "stableHash run1=e45ac5f45584… run2=e45ac5f45584… identical=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2065,7 +2065,7 @@
       "universe": "governance",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Governed production gate report is content-addressed: carries a signature field and SHA-256 hashes of all inputs",
-      "currentState": "governed-production-gate.json signature=8efe9f2643a5…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
+      "currentState": "governed-production-gate.json signature=d99880c4d20b…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -4225,7 +4225,7 @@
       "universe": "operations",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Parallel test-cache runner: whole suite runs concurrently with a real per-file results cache (verifier perf)",
-      "currentState": "test-cache: 78/79 files green in 3959ms (concurrency=8) — real per-file results, not fabricated",
+      "currentState": "test-cache: 79/79 files green in 2917ms (concurrency=8) — real per-file results, not fabricated",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -6610,6 +6610,6 @@
       "sourceClaimStatus": "UNVERIFIED"
     }
   ],
-  "stableHash": "e45ac5f45584ec05f47864bb29e7e1036e9433f7523423ff3101c703c603e738",
-  "contentHash": "a8c5b08e76f7729926575443dca53a596a6a0867dc11eca5eb0aad306f22083a"
+  "stableHash": "d179efed72eef399202fcb3cb63db9bacd28292aea37137dd9c759b1a663815f",
+  "contentHash": "4861248fc258f898cb5edc54df40c34b42792f32c5178a530fd44934e6d2716c"
 }

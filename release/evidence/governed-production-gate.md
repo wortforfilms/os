@@ -1,14 +1,14 @@
 # Governed Production Gate
 
-Generated: 2026-06-10T14:02:05.833Z
+Generated: 2026-06-10T18:07:01.656Z
 Status: GOVERNED_PRODUCTION_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
-Signature: 8efe9f2643a54f2de0e45b3f4a4736a694bea72240e5c709c5e40993d88c3079
+Signature: d99880c4d20b94b42156653d240d2bccae430f164799e225bc3f07c3cfbbd132
 
 ## Inputs
 
-- Completion matrix: c20eb0de7e34f045e48b9bb21e077446550e6a5d3a1cf949672d3f0f905fe981
+- Completion matrix: 1b7cd932c7e1f0726a794d1f3cd015674e5c9962a9ade8a546aaf8fae6a17de2
 - Hardening matrix: f7e75faabfac1ad6ac55d04a260b0cd6fed11550eb4b804b330495f04394318b
 - Hardware root of trust: 8115ea340870eb52caf672099562aa278dd39742678cd7ca65cca9fa115626b1
 - Release authority: 5f716e30b5a52d1851f68a35031a7c292cc5f4e545db6124c67d024a6544c5a2

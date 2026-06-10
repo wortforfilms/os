@@ -1,6 +1,6 @@
 {
   "schema": "maataa.milestones-cycle.v1",
-  "ranAt": "2026-06-10T14:02:18.817Z",
+  "ranAt": "2026-06-10T18:07:12.195Z",
   "totals": {
     "groups": 6,
     "universes": 48,
@@ -184,51 +184,49 @@
     "c-sku-licensing-enforced",
     "c-storage-sqlite-libsql-ipfs"
   ],
-  "newlyAchieved": [
-    "c-storage-sqlite-libsql-ipfs"
-  ],
+  "newlyAchieved": [],
   "regressed": [],
-  "stableHash": "e45ac5f45584ec05f47864bb29e7e1036e9433f7523423ff3101c703c603e738",
+  "stableHash": "d179efed72eef399202fcb3cb63db9bacd28292aea37137dd9c759b1a663815f",
   "steps": [
     {
       "label": "build test cache",
       "status": "ok",
-      "ms": 4008
+      "ms": 2960
     },
     {
       "label": "verify honest achievements",
       "status": "ok",
-      "ms": 15346
+      "ms": 13146
     },
     {
       "label": "generate milestones matrix",
       "status": "ok",
-      "ms": 52
+      "ms": 57
     },
     {
       "label": "render milestones surface",
       "status": "ok",
-      "ms": 94
+      "ms": 116
     },
     {
       "label": "derive workers + agents",
       "status": "ok",
-      "ms": 66
+      "ms": 45
     },
     {
       "label": "derive next-in-line",
       "status": "ok",
-      "ms": 68
+      "ms": 52
     },
     {
       "label": "render kanban",
       "status": "ok",
-      "ms": 72
+      "ms": 54
     },
     {
       "label": "generate notice board",
       "status": "ok",
-      "ms": 105
+      "ms": 77
     },
     {
       "label": "honesty guard",

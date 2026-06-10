@@ -1,0 +1,20 @@
+{
+  "schema": "maataa.next-batch.v1",
+  "batchId": "next-13-20260610-4f53cda18c2b",
+  "generatedAt": "2026-06-10T18:08:22.474Z",
+  "mode": "next-queue",
+  "source": {
+    "queuePath": "data/next-in-line.json",
+    "queueGeneratedAt": "2026-06-10T18:07:11.954Z",
+    "cyclePath": "release/evidence/milestones-cycle-last.json",
+    "cycleRanAt": "2026-06-10T18:07:12.195Z"
+  },
+  "honesty": "This batch is derived from the live next-in-line queue. Queue items may be in-progress claims, not scoped engineering work; this is not achievement evidence. Requested 13, included 0; if included is 0, the queue is currently empty and no work is claimed.",
+  "totals": {
+    "requested": 13,
+    "included": 0,
+    "achievedAtSource": 172,
+    "milestonesAtSource": 654
+  },
+  "items": []
+}
