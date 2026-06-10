@@ -35,7 +35,7 @@ const sourcePool = completedMode
     ? next.queue
     : next.queue.filter((item) => item.kind === "real-build");
 const selected = sourcePool.slice(0, batchSize);
-if (selected.length < batchSize) {
+if (selected.length < batchSize && !queueMode) {
   const label = completedMode ? "completed real-build" : queueMode ? "queue" : "real-build";
   throw new Error(`cannot create next-${batchSize} batch: only ${selected.length} ${label} items are available`);
 }
@@ -77,7 +77,7 @@ const payload = {
     completedMode
       ? "This batch is derived from completed real-build entries in data/next-in-line.json. Completion is evidence-backed by the listed probes and milestones-cycle-last.json."
       : queueMode
-        ? "This batch is derived from the live next-in-line queue. Queue items may be in-progress claims, not scoped engineering work; this is not achievement evidence and every item remains blocked until a concrete real-build, code, focused tests, and regenerated evidence prove it."
+        ? `This batch is derived from the live next-in-line queue. Queue items may be in-progress claims, not scoped engineering work; this is not achievement evidence. Requested ${batchSize}, included ${selected.length}; if included is 0, the queue is currently empty and no work is claimed.`
       : "This batch is derived from real-build entries in data/next-in-line.json. It is not achievement evidence; every item stays blocked until code and tests land.",
   totals: {
     requested: batchSize,

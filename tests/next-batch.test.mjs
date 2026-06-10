@@ -40,14 +40,15 @@ test("next batch records source evidence for completed probes", () => {
 });
 
 test("next 12 queue batch contains the live in-progress queue without claiming progress", () => {
+  const expected = next.queue.slice(0, 12);
+
   assert.equal(queueBatch.schema, "maataa.next-batch.v1");
   assert.equal(queueBatch.mode, "next-queue");
   assert.equal(queueBatch.totals.requested, 12);
-  assert.equal(queueBatch.items.length, 12);
-  assert.equal(queueBatch.totals.included, 12);
+  assert.equal(queueBatch.items.length, expected.length);
+  assert.equal(queueBatch.totals.included, expected.length);
   assert.match(queueBatch.honesty, /not achievement evidence/i);
 
-  const expected = next.queue.slice(0, 12);
   assert.deepEqual(
     queueBatch.items.map((item) => ({ rank: item.sourceRank, sourceKind: item.sourceKind, title: item.title, group: item.group })),
     expected.map((item) => ({ rank: item.rank, sourceKind: item.kind, title: item.title, group: item.group })),

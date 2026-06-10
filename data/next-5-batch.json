@@ -1,19 +1,19 @@
 {
   "schema": "maataa.next-batch.v1",
-  "batchId": "next-5-20260609-c10b7f118bf5",
-  "generatedAt": "2026-06-09T02:49:15.315Z",
+  "batchId": "next-5-20260610-c10b7f118bf5",
+  "generatedAt": "2026-06-10T14:30:48.038Z",
   "mode": "completed-real-builds",
   "source": {
     "queuePath": "data/next-in-line.json",
-    "queueGeneratedAt": "2026-06-09T02:49:05.362Z",
+    "queueGeneratedAt": "2026-06-10T14:02:18.507Z",
     "cyclePath": "release/evidence/milestones-cycle-last.json",
-    "cycleRanAt": "2026-06-09T02:49:05.663Z"
+    "cycleRanAt": "2026-06-10T14:02:18.817Z"
   },
   "honesty": "This batch is derived from completed real-build entries in data/next-in-line.json. Completion is evidence-backed by the listed probes and milestones-cycle-last.json.",
   "totals": {
     "requested": 5,
     "included": 5,
-    "achievedAtSource": 167,
+    "achievedAtSource": 172,
     "milestonesAtSource": 654
   },
   "items": [
@@ -29,7 +29,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-09T02:49:05.663Z",
+      "completedAt": "2026-06-10T14:02:18.817Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -48,7 +48,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-09T02:49:05.663Z",
+      "completedAt": "2026-06-10T14:02:18.817Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -67,7 +67,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-09T02:49:05.663Z",
+      "completedAt": "2026-06-10T14:02:18.817Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -86,7 +86,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-09T02:49:05.663Z",
+      "completedAt": "2026-06-10T14:02:18.817Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
@@ -105,7 +105,7 @@
       "workStatus": "COMPLETED",
       "evidenceStatus": "ACHIEVED_BY_PROBE",
       "completion": "ACHIEVED",
-      "completedAt": "2026-06-09T02:49:05.663Z",
+      "completedAt": "2026-06-10T14:02:18.817Z",
       "requiredToFlip": [
         "code implementation",
         "passing focused test",
