@@ -1,6 +1,7 @@
 /target/
 /src-tauri/target/
 /node_modules/
+**/node_modules/
 /dist/
 /dist-golden/
 /release/electron/
@@ -20,6 +21,9 @@ __pycache__/
 !/resources/audio/README.md
 /resources/chakra-images/*
 !/resources/chakra-images/README.md
+/assets/html/
+/data/.fuse_hidden*
+/data/runtime-*.sqlite*
 
 .DS_Store
 ._*
