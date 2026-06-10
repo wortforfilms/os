@@ -1,0 +1,135 @@
+{
+  "schema": "maataa.missing-runtime-targets.v1",
+  "createdAt": "2026-06-10T00:00:00.000Z",
+  "runtimeTargetsTotal": 13,
+  "productionReady": false,
+  "phkdVerdict": "BLOCKED",
+  "finalStatus": "CONTROLLED_NO_GO",
+  "scope": "Creates exact package-name targets for HKD runtime cards that were previously missing on disk. These are scaffold-only packages and do not implement live runtime behavior.",
+  "boundaries": {
+    "liveDeployment": false,
+    "fakeMetrics": false,
+    "hardwareTrust": false,
+    "productionClaim": false,
+    "behaviorImplemented": false
+  },
+  "targets": [
+    {
+      "packageName": "@maataa/avatar-runtime",
+      "path": "packages/avatar-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-avatar-active",
+      "blocker": "Runtime behavior, model evidence, deployment, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/voice-runtime",
+      "path": "packages/voice-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-voice-active",
+      "blocker": "Speech runtime, model evidence, live audio path, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/gesture-runtime",
+      "path": "packages/gesture-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-gesture-active",
+      "blocker": "Gesture runtime, sensor evidence, live input stream, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/chakra-runtime",
+      "path": "packages/chakra-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-chakra-active",
+      "blocker": "Wellness runtime, evidence validation, live source, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/knowledge-runtime",
+      "path": "packages/knowledge-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-knowledge-active",
+      "blocker": "Exact package-name target exists; real knowledge primitives remain in KBS packages and are not bridged here."
+    },
+    {
+      "packageName": "@maataa/memory-runtime",
+      "path": "packages/memory-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-memory-active",
+      "blocker": "Memory store, privacy enforcement, recall runtime, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/task-runtime",
+      "path": "packages/task-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-task-active",
+      "blocker": "Task queue, worker runtime, automation safety gate, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/tlp-runtime",
+      "path": "packages/tlp-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-tlp-active",
+      "blocker": "TLP production workflow runtime, vendor/payment integration, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/investor-runtime",
+      "path": "packages/investor-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-investor-active",
+      "blocker": "Investor portal, regulated finance workflow, reporting evidence, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/saptadhaatu-runtime",
+      "path": "packages/saptadhaatu-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-saptadhaatu-runtime-name",
+      "blocker": "Health runtime, clinical validation, medical safety gate, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/brahmini-runtime",
+      "path": "packages/brahmini-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-brahmini-active",
+      "blocker": "Blockchain node, transaction ledger, consensus runtime, and production gate are not implemented."
+    },
+    {
+      "packageName": "@maataa/runtime",
+      "path": "packages/runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-rt-sovereign-active",
+      "blocker": "TypeScript sovereign runtime is only a target. Root Rust/QEMU alpha remains separate; production gate is not implemented here."
+    },
+    {
+      "packageName": "@maataa/scientific-evidence-registry-runtime",
+      "path": "packages/scientific-evidence-registry-runtime",
+      "status": "scaffold",
+      "liveDeployment": false,
+      "productionReady": false,
+      "hkdClaimId": "c-registry-active",
+      "blocker": "Scientific evidence registry, citation resolver, peer review lineage, and production gate are not implemented."
+    }
+  ]
+}
