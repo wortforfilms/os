@@ -1,70 +1,70 @@
 {
   "schema": "maataa.milestones-vs-current.v1",
-  "generatedAt": "2026-06-07T18:59:14.090Z",
+  "generatedAt": "2026-06-10T14:02:18.284Z",
   "source": "hkd/*.hkd (VisualHKD vision boards)",
   "honesty": "Every entry is a FUTURE MILESTONE (aspirational target). currentState is the real measured/observed state. No achievement is claimed unless evidenced. Targets are never presented as live metrics.",
   "totals": {
     "groups": 6,
     "universes": 48,
     "milestones": 654,
-    "notAchieved": 376,
-    "inProgress": 55,
-    "unverified": 60,
-    "achieved": 163
+    "notAchieved": 424,
+    "inProgress": 0,
+    "unverified": 58,
+    "achieved": 172
   },
   "byGroup": [
     {
       "group": "Platform & Runtime",
       "total": 121,
-      "achieved": 56,
-      "inProgress": 13,
-      "unverified": 7,
-      "notAchieved": 45,
+      "achieved": 57,
+      "inProgress": 0,
+      "unverified": 6,
+      "notAchieved": 58,
       "universes": 9
     },
     {
       "group": "Knowledge & Intelligence",
       "total": 114,
-      "achieved": 41,
-      "inProgress": 7,
-      "unverified": 5,
-      "notAchieved": 61,
+      "achieved": 44,
+      "inProgress": 0,
+      "unverified": 4,
+      "notAchieved": 66,
       "universes": 7
     },
     {
       "group": "Governance & Evidence",
       "total": 115,
       "achieved": 35,
-      "inProgress": 7,
+      "inProgress": 0,
       "unverified": 12,
-      "notAchieved": 61,
+      "notAchieved": 68,
       "universes": 7
     },
     {
       "group": "Civilization & Domains",
       "total": 144,
-      "achieved": 19,
-      "inProgress": 9,
+      "achieved": 20,
+      "inProgress": 0,
       "unverified": 15,
-      "notAchieved": 101,
+      "notAchieved": 109,
       "universes": 9
     },
     {
       "group": "Apps & Experience",
       "total": 95,
-      "achieved": 7,
-      "inProgress": 17,
+      "achieved": 10,
+      "inProgress": 0,
       "unverified": 16,
-      "notAchieved": 55,
+      "notAchieved": 69,
       "universes": 10
     },
     {
       "group": "Economy & Identity",
       "total": 65,
-      "achieved": 5,
-      "inProgress": 2,
+      "achieved": 6,
+      "inProgress": 0,
       "unverified": 5,
-      "notAchieved": 53,
+      "notAchieved": 54,
       "universes": 6
     }
   ],
@@ -183,11 +183,11 @@
       "id": "c-active-agents-12",
       "group": "Knowledge & Intelligence",
       "universe": "agent",
-      "sourceBoard": "agent-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Active Agents: 12",
-      "currentState": "No agent runtime exists in repo. No agent supervisor / no agent registry.",
-      "achievement": "NOT_ACHIEVED",
-      "sourceClaimStatus": "BLOCKED"
+      "currentState": "tests/agent-registry.test.mjs → pass=8 fail=0; release/evidence/agent-runtime.json activeAgents=12 from heartbeat-backed local registry; deployed/marketplace/production traffic remain BLOCKED [resolved by a-resolve-agent-active-agents-12; was PARTIAL]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-deploy-anywhere",
@@ -226,8 +226,8 @@
       "sourceBoard": "agent-universe.hkd",
       "futureMilestone": "Lipi Agent — revives languages & scripts (NLP/OCR/translation)",
       "currentState": "lipi-runtime (real package) provides transliteration/learning/lineage primitives. Agent wrapper does not exist.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-marketplace-1248",
@@ -245,7 +245,7 @@
       "universe": "agent",
       "sourceBoard": "agent-universe.hkd",
       "futureMilestone": "Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves",
-      "currentState": "No orchestrator runtime. 'Self-evolving orchestrator' is the strongest agent claim; no evidence.",
+      "currentState": "Orchestrator now exists as a real supervisor that boots the fleet and delegates tasks (src/runtime/agent-supervisor.cjs). 'Self-evolving/optimizing' remains unproven.",
       "achievement": "NOT_ACHIEVED",
       "sourceClaimStatus": "BLOCKED"
     },
@@ -263,11 +263,11 @@
       "id": "c-research-agent-real",
       "group": "Knowledge & Intelligence",
       "universe": "agent",
-      "sourceBoard": "agent-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Research Agent — discovers/analyzes/validates knowledge",
-      "currentState": "kbs-runtime/src/{claims,review,moderation,governance,provenance} provides research-adjacent primitives. No autonomous Research Agent wrapper.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "currentState": "tests/research-agent.test.ts → pass=4 fail=0 (local KBS-only Research Agent wrapper; externalDiscovery=false; productionReady=false; phkdVerdict=BLOCKED) [resolved by a-resolve-kh-research-agent-real; was PARTIAL]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-success-98-72",
@@ -356,8 +356,8 @@
       "sourceBoard": "ai-model-universe.hkd",
       "futureMilestone": "AI Capabilities: Understand (NLU) / Reason & Infer / Generate & Create / Perceive & Interpret / Plan & Decide / Remember & Learn / Act & Automate / Collaborate",
       "currentState": "kbs-runtime/src/{search,claims,reasoning} provides Understand+Reason substrate. visual-hkd-runtime provides Perceive+Interpret for vision boards. Generate/Plan/Act runtimes not present.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-datasets-1-248m",
@@ -455,7 +455,7 @@
       "universe": "asset-library",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "lipi-runtime defines LIPI_426_EXPECTED_COUNT=426 with ≥1 canonical script entry (asset-library / Lipi Glyphs component, design target encoded)",
-      "currentState": "LIPI_426_EXPECTED_COUNT=426, export lipi426Master=true, canonical script entries=12 (rest are BLOCKED extension stubs waiting for evidence)",
+      "currentState": "LIPI_426_EXPECTED_COUNT=426, export lipi426Master=true, canonical script entries=13 (rest are BLOCKED extension stubs waiting for evidence)",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -516,8 +516,8 @@
       "sourceBoard": "asset-library-universe.hkd",
       "futureMilestone": "Formats: 120+",
       "currentState": "120+ file formats is generic count; the repo handles a small subset (HTML, MD, JSON, PNG, etc.). No format conversion runtime.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-libraries-15",
@@ -536,8 +536,8 @@
       "sourceBoard": "asset-library-universe.hkd",
       "futureMilestone": "Lipi Glyphs Library: 15,000+ glyphs across Brahmi/Kharoshthi/Devanagari/Siddham",
       "currentState": "lipi-runtime/src/characters provides script-character primitives. 15K specific glyph assets are not stored as a library.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-organization-versioned",
@@ -806,8 +806,8 @@
       "sourceBoard": "civilization-graph-universe.hkd",
       "futureMilestone": "Powered By: LIPI Language & Script",
       "currentState": "lipi-runtime is real; civilizational integration is aspirational.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-projects-4-23m",
@@ -943,21 +943,21 @@
       "id": "c-knowledge-graph-dashboard-real",
       "group": "Apps & Experience",
       "universe": "dashboard",
-      "sourceBoard": "dashboard-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Knowledge Graph Dashboard renders the live knowledge graph",
-      "currentState": "kbs-graph + kbs-runtime/src/graph/* exist and could feed a dashboard. The dashboard itself is not built and not wired.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "currentState": "tests/knowledge-graph-dashboard.test.ts → pass=4 fail=0 (renders current kbsGraphNodes/kbsGraphEdges as local preview; productionReady=false; phkdVerdict=BLOCKED) [resolved by a-resolve-kh-knowledge-graph-dashboard-real; was PARTIAL]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-lipi-dashboard-real",
       "group": "Apps & Experience",
       "universe": "dashboard",
-      "sourceBoard": "dashboard-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Lipi Dashboard renders script learning progress and accuracy",
-      "currentState": "lipi-runtime has learning + search + governance data; UI surface is not built.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "currentState": "tests/lipi-dashboard.test.ts → pass=4 fail=0 (renders seeded lesson progress; accuracy UNKNOWN without learner telemetry; productionReady=false) [resolved by a-resolve-lipi-dashboard-real; was PARTIAL]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-system-health-dashboard",
@@ -1043,11 +1043,11 @@
       "id": "c-erd-13-tables",
       "group": "Civilization & Domains",
       "universe": "data-schemas",
-      "sourceBoard": "data-schemas-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "ERD: users / profiles / roles / permissions / projects / tasks / milestones / knowledge_nodes / knowledge_relations / knowledge_sources / documents / assets / events",
-      "currentState": "lipi-runtime/prisma/schema.prisma contains a real subset (lipi-domain tables). The board's 13-table ERD is broader and not implemented.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "currentState": "13/13 ERD models defined with 22 relation refs (all named relations paired; targets resolve). DESIGN artifact only — no migrations/engine/data; multi-engine & IPFS claims remain BLOCKED. [resolved by a-resolve-data-erd-13-tables; was PARTIAL]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-migrations-cli",
@@ -1206,8 +1206,8 @@
       "sourceBoard": "dharma-values-universe.hkd",
       "futureMilestone": "Values Embodied: 12",
       "currentState": "The 12 values (Yamas+Niyamas extended) are catalogued correctly; 'embodied' as a measured property is not defined.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "a-civ-ecosystem-data-files-valid",
@@ -1286,8 +1286,8 @@
       "sourceBoard": "ecosystem-interconnection-universe.hkd",
       "futureMilestone": "HKD (Human Knowledge Data) is the universal knowledge format powering the ecosystem",
       "currentState": "visual-hkd-runtime defines an HKD type system and pipeline. It is real but narrow: extraction from visual sources to knowledge-graph projections. It is not (yet) wired as the universal cross-ecosystem format.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-lipi-enabler-multilingual",
@@ -1295,7 +1295,7 @@
       "universe": "ecosystem",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "LIPI is the multilingual script foundation",
-      "currentState": "@maataa/lipi-runtime (private=false) verified: 3 real script families (Brahmi, Kharosthi, Perso-Arabic); 5 modules present (registry, phonetics, lineage, learning, governance) [resolved by a-resolve-lipi-enabler-multilingual; was PARTIAL]",
+      "currentState": "@maataa/lipi-runtime (private=false) verified: 4 real script families (Brahmi, Kharosthi, Symbolic Systems, Perso-Arabic); 5 modules present (registry, phonetics, lineage, learning, governance) [resolved by a-resolve-lipi-enabler-multilingual; was PARTIAL]",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -1455,7 +1455,7 @@
       "universe": "evidence",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Fabrication detection operational: every fabricated metric catalogued, none presented as live",
-      "currentState": "376 fabricated claims catalogued as BLOCKED across hkd/*.hkd; 0 rendered as achieved",
+      "currentState": "425 fabricated claims catalogued as BLOCKED across hkd/*.hkd; 0 rendered as achieved",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -1575,7 +1575,7 @@
       "universe": "evidence",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Milestones matrix content is reproducible (stable hash across runs)",
-      "currentState": "stableHash run1=c7963ac4fd4f… run2=c7963ac4fd4f… identical=true",
+      "currentState": "stableHash run1=7f66aac1fcfa… run2=7f66aac1fcfa… identical=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -1856,8 +1856,8 @@
       "sourceBoard": "feature-universe.hkd",
       "futureMilestone": "Knowledge Features (Knowledge Graph, Semantic Search, AI Reasoning, Source Attribution, Continuous Learning)",
       "currentState": "kbs-runtime/src/{graph,search,claims,provenance,ingestion} provide the underlying capabilities. 'Continuous Learning' as a runtime is aspirational.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-lipi-features-real",
@@ -1866,8 +1866,8 @@
       "sourceBoard": "feature-universe.hkd",
       "futureMilestone": "Lipi Features (Brahmi, Kharoshthi, Devanagari, Multi-direction, RTL/LTR/TTB, Custom Fonts, Lipi Learning Engine)",
       "currentState": "lipi-runtime/src/{characters,phonetics,registry,learning,search,governance} implement many of these. Indus Script Research is marked '(Research)' on board image 1 — appropriate.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-runtimes-100plus",
@@ -2065,7 +2065,7 @@
       "universe": "governance",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Governed production gate report is content-addressed: carries a signature field and SHA-256 hashes of all inputs",
-      "currentState": "governed-production-gate.json signature=649727ce0f08…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
+      "currentState": "governed-production-gate.json signature=8efe9f2643a5…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2216,8 +2216,8 @@
       "sourceBoard": "governance-universe.hkd",
       "futureMilestone": "Policy Lifecycle: Draft→Consult→Vote→Enact→Implement→Review→Evolve",
       "currentState": "kbs-governance has policy primitives (evaluateKbsGate, rejectProductionClaim). scripts/governed-production-gate.mjs implements an Enact→Implement gate for releases. Full lifecycle is not wired.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-proposals-1248",
@@ -2393,11 +2393,11 @@
       "id": "c-indus-script-research-label",
       "group": "Apps & Experience",
       "universe": "hero",
-      "sourceBoard": "hero-module-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Lipi includes 'Indus (Research)' — explicitly labelled as research",
-      "currentState": "The board itself marks Indus as '(Research)' — PHKD-aligned honesty inside an otherwise overclaiming board. Lipi-runtime governance evidence may track this honestly.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "currentState": "tests/indus-research-label.test.ts → pass=2 fail=0 (Indus registered as BLOCKED research-only label; no transliteration/OCR/translation readiness claimed) [resolved by a-resolve-indus-script-research-label; was PARTIAL]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-multimodal-inputs-7-channels",
@@ -2476,8 +2476,8 @@
       "sourceBoard": "hkd-runtime-universe.hkd",
       "futureMilestone": "9 HKD Entity Types: Concept / Entity / Person / Event / Location / Asset / Document / Observation / Evidence",
       "currentState": "VisualHKD's HKDNode has a `kind: string` field — entity types are user-defined. The 9 named types are a sensible taxonomy but not encoded in the type system.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-9-relation-types",
@@ -2486,8 +2486,8 @@
       "sourceBoard": "hkd-runtime-universe.hkd",
       "futureMilestone": "9 HKD Relation Types: IS_A / PART_OF / CAUSES / DEPENDS_ON / RELATED_TO / CREATED_BY / USES / SUPPORTS / CONTRADICTS",
       "currentState": "VisualHKD's HKDEdge has a `relation: string` field — relations are user-defined. Standard semantic-web taxonomy named on board.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-api-surface",
@@ -2525,7 +2525,7 @@
       "universe": "hkd-runtime",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "HKD File Structure (.hkd) sample with hkd version / id / title / type / entities / relations / evidence / insights / metadata",
-      "currentState": "44/44 .hkd files parse and conform to VisualHKD shape (id/title/universe + sections|claims|nodes) [resolved by a-resolve-hkd-file-format; was PARTIAL]",
+      "currentState": "54/54 .hkd files parse and conform to VisualHKD shape (id/title/universe + sections|claims|nodes) [resolved by a-resolve-hkd-file-format; was PARTIAL]",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2536,8 +2536,8 @@
       "sourceBoard": "hkd-runtime-universe.hkd",
       "futureMilestone": "HKD Runtime / Compiler / Registry / Search / Validation / Ecosystem all Active",
       "currentState": "@maataa/visual-hkd-runtime is real (vision-extractor → hkd-generator → graph-ingestor pipeline). 'Compiler/Validator/Registry/Search Engine/Versioner/Permission Layer' as named runtime processes do NOT exist as separate active subsystems. The .hkd JSON shape itself is real (VisualHKD type).",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-metrics-live",
@@ -2576,8 +2576,8 @@
       "sourceBoard": "hkd-runtime-universe.hkd",
       "futureMilestone": "Validation Engine (Schema / Semantic / Evidence / Consistency / Sovereignty / Integrity / Tamper trust)",
       "currentState": "visual-hkd-runtime/src/status-validator.ts has validateVisualHKDStatus which emits VisualHKDValidationResult ({pass, productionReady: false, phkdVerdict, failures, warnings}). One stage of the 6-stage chain is real.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-versioning-v100-v150",
@@ -2835,7 +2835,7 @@
       "universe": "knowledge-graph",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "lipi-runtime declares a 426-slot master script registry (LIPI_426_EXPECTED_COUNT=426) with ≥12 canonical entries + extension-slot generation",
-      "currentState": "lipi-426-master.ts (static): exports lipi426Master=true, LIPI_426_EXPECTED_COUNT=426, canonical id entries=12, extension-slot pattern=true, freeze concat=true",
+      "currentState": "lipi-426-master.ts (static): exports lipi426Master=true, LIPI_426_EXPECTED_COUNT=426, canonical id entries=13, extension-slot pattern=true, freeze concat=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2896,18 +2896,18 @@
       "sourceBoard": "knowledge-graph-universe.hkd",
       "futureMilestone": "10 Graph Categories: Sutra/Person/Project/Asset/Memory/Chakra/Lipi/Investor/Knowledge Domain/Location",
       "currentState": "kbs-graph is a single graph (real). Lipi Graph could be backed by lipi-runtime/src/lineage. 8 of 10 sub-graphs have no implementation substrate.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-13-relation-types",
       "group": "Knowledge & Intelligence",
       "universe": "knowledge-graph",
-      "sourceBoard": "knowledge-graph-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "13 Relation Types (IS_A / PART_OF / RELATED_TO / CAUSED_BY / DEPENDS_ON / CREATED_BY / USES / MENTIONS / LOCATED_IN / OWNS / INVESTS_IN / TEACHES / LEARNED_FROM)",
-      "currentState": "Standard semantic-web-like relation taxonomy. Not implemented in kbs-graph (which has KbsEdgeType but limited set).",
-      "achievement": "UNVERIFIED",
-      "sourceClaimStatus": "UNVERIFIED"
+      "currentState": "kbs-graph/relation-types declares all 13 types; tests/kg-relation-types → pass=7 fail=0 (inverse consistency + fail-closed validation). Distinct from KBS evidence edges (KbsEdgeType unchanged). [resolved by a-resolve-kg-13-relation-types; was UNVERIFIED]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-all-graphs-100",
@@ -2926,8 +2926,8 @@
       "sourceBoard": "knowledge-graph-universe.hkd",
       "futureMilestone": "Capabilities: Semantic Search / Multi-Hop Reasoning / Contextual Inference / Pattern Discovery / Link Prediction / Anomaly Detection / Temporal Analysis / Viz Explorer / Graph Embeddings / Natural Language Query",
       "currentState": "kbs-runtime/src/{search,graph,claims} provides Semantic Search + basic Multi-Hop. Other capabilities are vision.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-graph-health-optimal",
@@ -3026,8 +3026,8 @@
       "sourceBoard": "landing-sovereign-ai.hkd",
       "futureMilestone": "50+ Open Modules & Runtimes",
       "currentState": "~15 packages exist on disk. '50+' is fabricated; ~15 real (most internal facades, a few substantive).",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-blessings-25k",
@@ -3116,8 +3116,8 @@
       "sourceBoard": "landing-sovereign-ai.hkd",
       "futureMilestone": "Multi-Lipi Brahmi to Devanagari & Beyond",
       "currentState": "lipi-runtime has Brahmi → Devanagari capability. 'Beyond' is broad — Roman, Kharoshthi, Indus (research) per the hero board. Real with caveats.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-peace-growth-98",
@@ -3346,8 +3346,8 @@
       "sourceBoard": "lipi-script-universe.hkd",
       "futureMilestone": "7 Major Script Families (Brahmi / Abjad / Abugida / Alphabet / Logographic / Syllabic / Symbolic)",
       "currentState": "Linguistically standard taxonomy. lipi-runtime/src/{characters,registry,lineage,phonetics} provides substrate for at least the Brahmi family. Full coverage of 7 families is aspirational.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-extinct-scripts-312",
@@ -3356,8 +3356,8 @@
       "sourceBoard": "lipi-script-universe.hkd",
       "futureMilestone": "Extinct Scripts: 312+",
       "currentState": "Order-of-magnitude plausible for known extinct scripts. lipi-runtime would need to enumerate them.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-glyphs-54-21k",
@@ -3366,8 +3366,8 @@
       "sourceBoard": "lipi-script-universe.hkd",
       "futureMilestone": "Glyphs & Symbols: 54.21K+",
       "currentState": "Unicode 15 contains ~149,000 characters; 54K is a plausible subset. lipi-runtime doesn't yet expose a glyph count.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-lipi-impact-94-2",
@@ -3386,8 +3386,8 @@
       "sourceBoard": "lipi-script-universe.hkd",
       "futureMilestone": "Living Scripts: 54+",
       "currentState": "Real living scripts on Earth — broadly accurate as a count of currently-used writing systems. Whether the lipi-runtime registry implements all is unverified.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-manuscripts-12-87m",
@@ -3416,8 +3416,8 @@
       "sourceBoard": "lipi-script-universe.hkd",
       "futureMilestone": "Evolution Timeline: Prehistoric → Indus 3300 BCE → Vedic Oral → Brahmi 600 BCE → Gupta 300 CE → Medieval → Digital → AI Future",
       "currentState": "Lineage matches mainstream paleography (with Indus undeciphered, properly marked Research). lipi-runtime/src/lineage models this.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-scripts-mapped-1248",
@@ -3426,8 +3426,8 @@
       "sourceBoard": "lipi-script-universe.hkd",
       "futureMilestone": "Scripts Mapped: 1,248+",
       "currentState": "lipi-runtime declares a 426-slot script registry (per its README). 1,248 is not derivable from the package; possibly aspirational expansion.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-tech-stack-ocr-htr",
@@ -3576,8 +3576,8 @@
       "sourceBoard": "usp-universe.hkd",
       "futureMilestone": "USP 09: World's most advanced multi-lipi engine supporting ancient to modern scripts",
       "currentState": "lipi-runtime is real and substantial. 'World's most advanced' is a comparative superlative unsupported by external benchmarks.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-usp-multimodal-realtime",
@@ -3606,8 +3606,8 @@
       "sourceBoard": "usp-universe.hkd",
       "futureMilestone": "USP 07: Connects thousands of knowledge sources into one intelligent graph",
       "currentState": "kbs-runtime/src/graph + kbs-graph implement a graph; 'thousands of sources' overclaims current ingestion.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-wf-04-lipi-os-first",
@@ -3616,8 +3616,8 @@
       "sourceBoard": "worlds-firsts-universe.hkd",
       "futureMilestone": "WF 04: First OS with native multi-script intelligence supporting ancient to modern scripts",
       "currentState": "lipi-runtime is real, with a 426-slot registry and lineage. 'First OS' is unsupported — many OS-level i18n/CLDR/Unicode systems exist; the differentiation needs to be stated precisely (e.g. 'first runtime to register pre-Brahmi → Brahmi → Devanagari lineage as canonical') and benchmarked.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-wf-05-sovereign-encrypted",
@@ -3796,8 +3796,8 @@
       "sourceBoard": "master-meta-map.hkd",
       "futureMilestone": "The 12 Primary Universes constitute MAATAA OS",
       "currentState": "All 12 are extracted as their own .hkd files (this corpus). They exist as boards/visions. Only Lipi & Script, Education (via lipi-runtime), and Knowledge (via kbs-runtime) have partial implementation substrate.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-5-dharmic-pillars",
@@ -3886,8 +3886,8 @@
       "sourceBoard": "mission-universe.hkd",
       "futureMilestone": "'7 missions, 42+ initiatives' but only 6 mission cards are visible on the board",
       "currentState": "Visual extraction shows 6 cards (M1-M6) plus the '7 MISSIONS' tagline. M7 may be rendered off-frame, conceptual, or a counting inconsistency.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-active-initiatives-42",
@@ -3946,8 +3946,8 @@
       "sourceBoard": "mission-universe.hkd",
       "futureMilestone": "Mission 2: Knowledge For All — democratize knowledge in every language",
       "currentState": "kbs-runtime + kbs-graph + kbs-search are real and substantial. 'Every language' overclaims; lipi-runtime supports a specific set of Bharatiya scripts.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-last-updated-may-17",
@@ -3966,8 +3966,8 @@
       "sourceBoard": "mission-universe.hkd",
       "futureMilestone": "Mission 3: Revive Bharatiya lipis & scripts",
       "currentState": "lipi-runtime exists with substantial code (426-slot registry, characters, lineage, learning, governance). Real progress on the *technical* side; 'revival' as social outcome cannot be measured here.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-lives-impacted-54-2m",
@@ -4225,7 +4225,7 @@
       "universe": "operations",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Parallel test-cache runner: whole suite runs concurrently with a real per-file results cache (verifier perf)",
-      "currentState": "test-cache: 63/63 files green in 1828ms (concurrency=8) — real per-file results, not fabricated",
+      "currentState": "test-cache: 78/79 files green in 3959ms (concurrency=8) — real per-file results, not fabricated",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -4456,8 +4456,8 @@
       "sourceBoard": "deployment-operations-universe.hkd",
       "futureMilestone": "Git/GitHub/Jenkins/SonarQube/Harbor/Argo CD/Helm/Prometheus/Grafana installed and configured",
       "currentState": "Git is real (the repo has .git). All other tools are aspirational icons; no CI config (.github/workflows, Jenkinsfile, Helm charts) exists.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-50-products-shipped",
@@ -4486,8 +4486,8 @@
       "sourceBoard": "product-universe.hkd",
       "futureMilestone": "A 'LipiMate' or Lipi product is shipping",
       "currentState": "No customer product 'LipiMate' on board, but lipi-runtime exists with publishable manifest (private:false). It is a publishable runtime, not a productized end-user app.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-maataa-ai-suite-shipped",
@@ -4686,8 +4686,8 @@
       "sourceBoard": "research-universe.hkd",
       "futureMilestone": "Evidence Integrity Framework: Reproducible / Open Data / Peer Reviewed / Transparent / Ethical / Citable",
       "currentState": "kbs-runtime/src/{claims,review,moderation,governance,provenance} + runtime-validation (scaffold) cover most of these conceptually. End-to-end integrity workflow not wired.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-experiments-3-42m",
@@ -4716,8 +4716,8 @@
       "sourceBoard": "research-universe.hkd",
       "futureMilestone": "Research Knowledge Graph (Hypothesis/Paper/Experiment/Dataset/Evidence/Author)",
       "currentState": "kbs-graph + kbs-runtime/src/graph/ provide the substrate; research-specific entity types not yet defined.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-papers-128734",
@@ -4895,7 +4895,7 @@
       "universe": "runtime",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Federated runtime packages exist as isolated workspaces (target ≥ 8)",
-      "currentState": "27 runtime packages with package.json: evidence-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, lipi-runtime, maataa-ui, runtime-agent-supervisor, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-transport, runtime-validation, runtime-versioning, universal-runtime, visual-hkd-runtime",
+      "currentState": "48 runtime packages with package.json: avatar-runtime, brahmini-runtime, chakra-runtime, dashboard-knowledge-graph, evidence-runtime, gesture-runtime, investor-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, knowledge-runtime, lipi-dashboard, lipi-runtime, maataa-ui, memory-runtime, research-agent, runtime, runtime-agent-supervisor, runtime-analytics, runtime-data, runtime-entitlements, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-storage, runtime-target-scaffold, runtime-transport, runtime-validation, runtime-versioning, saptadhaatu-runtime, scientific-evidence-registry-runtime, task-runtime, tlp-runtime, universal-runtime, visual-hkd-runtime, voice-runtime",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -5066,8 +5066,8 @@
       "sourceBoard": "runtime-universe.hkd",
       "futureMilestone": "Knowledge Runtime STATUS: ACTIVE",
       "currentState": "Board name @maataa/knowledge-runtime does not exist; the closest existing package is @maataa/kbs-runtime, which is real and substantial but is name-mismatched and not labelled 'Active' anywhere.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-rt-lipi-active",
@@ -5076,8 +5076,8 @@
       "sourceBoard": "runtime-universe.hkd",
       "futureMilestone": "Lipi Runtime STATUS: ACTIVE",
       "currentState": "@maataa/lipi-runtime exists on disk with substantial code, prisma, release scripts, and a PHKD-aligned README. Its own README declares PRODUCTION_READY=false, PHKD_VERDICT=BLOCKED, FINAL_STATUS=GOVERNED_PRODUCTION_NO_GO — so 'ACTIVE' overclaims the package's own honest status.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-rt-memory-active",
@@ -5153,11 +5153,11 @@
       "id": "c-storage-sqlite-libsql-ipfs",
       "group": "Platform & Runtime",
       "universe": "runtime",
-      "sourceBoard": "runtime-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Storage Layer: SQLite / libSQL / IPFS",
-      "currentState": "Storage stack named on board; no storage engine wired across packages today (lipi-runtime has prisma; others don't share a storage layer).",
-      "achievement": "UNVERIFIED",
-      "sourceClaimStatus": "UNVERIFIED"
+      "currentState": "packages/runtime-storage tests → pass=5 fail=0: real SQLite (node:sqlite) + libSQL (@libsql/client file mode) + IPFS content store (CID verified vs canonical vector). LOCAL only — no public IPFS network; 7-engine claim c-databases-7 stays BLOCKED; governedProductionGo=false. [resolved by a-resolve-storage-sqlite-libsql-ipfs; was UNVERIFIED]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-system-online",
@@ -5286,8 +5286,8 @@
       "sourceBoard": "scientific-evidence-universe.hkd",
       "futureMilestone": "Evidence Workflow: Claim → Screening → Collection → Quality Assessment → Expert Review → Validation Decision → Registry Publish → Continuous Update",
       "currentState": "The workflow is a reasonable PHKD-style pipeline. visual-hkd-runtime + runtime-validation (scaffold) + kbs-runtime/src/{claims,review,moderation,governance,provenance} together cover most of these stages conceptually. End-to-end wiring does not exist.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-maturity-l0-l9",
@@ -5296,8 +5296,8 @@
       "sourceBoard": "scientific-evidence-universe.hkd",
       "futureMilestone": "Evidence Maturity Levels L0 Hypothesis → L9 Established Science",
       "currentState": "The maturity ladder is sensible. No claim in repo is plotted on it today.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-partner-harvard",
@@ -5406,8 +5406,8 @@
       "sourceBoard": "service-universe.hkd",
       "futureMilestone": "Knowledge Services (Knowledge Graph, Semantic Search, Sutra, AI Reasoning, Content Ingestion)",
       "currentState": "kbs-runtime/src/{graph,search,ingestion} provide the underlying primitives. Service-level exposure (HTTP endpoints, separate process) does not exist.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-lipi-services-real",
@@ -5416,8 +5416,8 @@
       "sourceBoard": "service-universe.hkd",
       "futureMilestone": "Lipi Services (Script Translation, Transliteration, Rendering, Direction, Learning)",
       "currentState": "lipi-runtime exists with characters/phonetics/learning modules. Service-level exposure not yet wired.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-most-categories-fictional",
@@ -5573,11 +5573,11 @@
       "id": "c-sku-licensing-enforced",
       "group": "Economy & Identity",
       "universe": "sku",
-      "sourceBoard": "sku-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Per-SKU user/device caps and storage quotas are enforced",
-      "currentState": "No entitlement engine, no quota meter, no device registration runtime, no licensing telemetry exist.",
-      "achievement": "NOT_ACHIEVED",
-      "sourceClaimStatus": "BLOCKED"
+      "currentState": "tests/runtime-entitlements → pass=7 fail=0: entitlement engine enforces per-SKU seat/device/storage caps fail-closed (over-cap & unknown-account denied; quota meter real). Scope: enforcement only — not purchasable SKUs (c-skus-purchasable BLOCKED), not support desk (c-support-tiers BLOCKED); billing is simulation, no payment network. [resolved by a-resolve-sku-licensing-enforced; was BLOCKED]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-skus-purchasable",
@@ -5956,8 +5956,8 @@
       "sourceBoard": "status-matrix-universe.hkd",
       "futureMilestone": "Reality Score formula: (IM + T + V + DP + OB + GV) / (Total Possible from S onward) × 100%",
       "currentState": "The formula is captured as design logic, but cannot be trusted until fed by repo-derived counts.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "claim-summary-apis-186",
@@ -6146,8 +6146,8 @@
       "sourceBoard": "time-evolution-universe.hkd",
       "futureMilestone": "Connected Universes: HKD Knowledge + KG Graph integration",
       "currentState": "HKD type system (visual-hkd-runtime) and KG (kbs-graph) exist as real packages. Their integration with a temporal layer does not exist.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-decisions-influenced-4-87m",
@@ -6286,8 +6286,8 @@
       "sourceBoard": "time-evolution-universe.hkd",
       "futureMilestone": "Real Time dimension: 'now in the moment'",
       "currentState": "hemant-core has MonotonicTick + HEMANT_SAMWAT_EPOCH_NANOS — a real monotonic time primitive in no_std Rust. Real but narrow (embedded), not the cross-runtime real-time fabric the board depicts.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-time-impact-score-91-6",
@@ -6336,8 +6336,8 @@
       "sourceBoard": "time-evolution-universe.hkd",
       "futureMilestone": "Versioning & Evolution pipeline (v1.0 → v5.0)",
       "currentState": "Conceptual versioning workflow. lipi-runtime + kbs-runtime have type-level versioning via package.json; semantic versioning of timeline entities themselves does not exist.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-versions-managed-156m",
@@ -6416,8 +6416,8 @@
       "sourceBoard": "reality-to-mission-traceability-universe.hkd",
       "futureMilestone": "End-to-end traceability flow: Mission Defined → Universe Selected → Runtime Activated → Service Delivered → Feature Used → Workflow Executed → Data Captured → Evidence Generated → Reality Measured → Impact Verified",
       "currentState": "Closest existing implementation: scripts/evidence-generate.mjs + scripts/governed-production-gate.mjs cover Evidence Generated → Reality Measured for the production-gate slice. End-to-end is not wired.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "a-platform-runtime-transport-facade-operational",
@@ -6476,8 +6476,8 @@
       "sourceBoard": "user-journeys-universe.hkd",
       "futureMilestone": "Journey Enablers: AI Voice / Knowledge Graph / HKD Runtime / Chakra Balance / Brahmini ID / Analytics Engine / Sovereign Cloud / API & SDK",
       "currentState": "Knowledge Graph + HKD Runtime (visual-hkd-runtime) are real partial substrates. The other 6 enablers don't exist.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-journey-developer",
@@ -6486,8 +6486,8 @@
       "sourceBoard": "user-journeys-universe.hkd",
       "futureMilestone": "Developer Journey: Explore→Build→Integrate→Test→Deploy→Scale with API Hub / SDK & Tools / Sandbox / CI-CD Engine / Monitoring",
       "currentState": "npm scripts + tests + electron-build / governed-production-gate cover parts of this. No SDK / no public API Hub.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-journey-lapsi",
@@ -6496,8 +6496,8 @@
       "sourceBoard": "user-journeys-universe.hkd",
       "futureMilestone": "Lapsi (script) Journey: Learn→Practice→Create→Preserve→Share→Teach with Lipi Runtime / Lipi Studio / HKD Runtime / Archive Hub / Community modules",
       "currentState": "lipi-runtime is real and has learning + characters + lineage modules. Studio / Archive Hub UI not built.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-journey-researcher",
@@ -6506,8 +6506,8 @@
       "sourceBoard": "user-journeys-universe.hkd",
       "futureMilestone": "Researcher Journey: Explore→Research→Analyze→Publish→Share→Impact with Research Hub / Knowledge Graph / Data Lab / Publication Hub / Collaboration modules",
       "currentState": "kbs-runtime + kbs-graph + kbs-search provide research-adjacent substrate. End-to-end journey not orchestrated.",
-      "achievement": "IN_PROGRESS",
-      "sourceClaimStatus": "PARTIAL"
+      "achievement": "NOT_ACHIEVED",
+      "sourceClaimStatus": "BLOCKED"
     },
     {
       "id": "c-journeys-infinite",
@@ -6610,6 +6610,6 @@
       "sourceClaimStatus": "UNVERIFIED"
     }
   ],
-  "stableHash": "03f24d15ef82d09100ca80eb6431fc28d9fdd080c364619a192655a336d602ba",
-  "contentHash": "7ba91e01afc9633cf0dcee12cec9dd77780470053f21349e9a7c115ed5ea04a0"
+  "stableHash": "e45ac5f45584ec05f47864bb29e7e1036e9433f7523423ff3101c703c603e738",
+  "contentHash": "a8c5b08e76f7729926575443dca53a596a6a0867dc11eca5eb0aad306f22083a"
 }

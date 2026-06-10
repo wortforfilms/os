@@ -1,0 +1,400 @@
+{
+  "schema": "maataa.in-progress-closure.v1",
+  "generatedAt": "2026-06-10T14:00:28.605Z",
+  "honesty": "Unresolved IN_PROGRESS claims were not marked achieved. They were closed to BLOCKED unless a real resolver probe proves the exact claim. c-active-agents-12 is excluded because a heartbeat-backed resolver was added.",
+  "sourceMatrix": {
+    "inProgressBefore": 65,
+    "achievedBefore": 171,
+    "milestones": 654
+  },
+  "resolverAdvancements": [
+    "c-active-agents-12"
+  ],
+  "closedToBlocked": 64,
+  "changed": [
+    {
+      "file": "agent-universe.hkd",
+      "id": "c-knowledge-nodes-15dam",
+      "text": "Knowledge Nodes Accessed: 15daM+",
+      "blockedReason": "kbs-runtime has knowledge primitives but no 15+M node access log."
+    },
+    {
+      "file": "agent-universe.hkd",
+      "id": "c-lipi-agent-real",
+      "text": "Lipi Agent — revives languages & scripts (NLP/OCR/translation)",
+      "blockedReason": "lipi-runtime (real package) provides transliteration/learning/lineage primitives. Agent wrapper does not exist."
+    },
+    {
+      "file": "agent-universe.hkd",
+      "id": "c-orchestrator-real",
+      "text": "Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves",
+      "blockedReason": "Orchestrator now exists as a real supervisor that boots the fleet and delegates tasks (src/runtime/agent-supervisor.cjs). 'Self-evolving/optimizing' remains unproven."
+    },
+    {
+      "file": "ai-model-universe.hkd",
+      "id": "c-ai-capabilities-partial",
+      "text": "AI Capabilities: Understand (NLU) / Reason & Infer / Generate & Create / Perceive & Interpret / Plan & Decide / Remember & Learn / Act & Automate / Collaborate",
+      "blockedReason": "kbs-runtime/src/{search,claims,reasoning} provides Understand+Reason substrate. visual-hkd-runtime provides Perceive+Interpret for vision boards. Generate/Plan/Act runtimes not present."
+    },
+    {
+      "file": "asset-library-universe.hkd",
+      "id": "c-formats-120",
+      "text": "Formats: 120+",
+      "blockedReason": "120+ file formats is generic count; the repo handles a small subset (HTML, MD, JSON, PNG, etc.). No format conversion runtime."
+    },
+    {
+      "file": "asset-library-universe.hkd",
+      "id": "c-lipi-glyphs-15k",
+      "text": "Lipi Glyphs Library: 15,000+ glyphs across Brahmi/Kharoshthi/Devanagari/Siddham",
+      "blockedReason": "lipi-runtime/src/characters provides script-character primitives. 15K specific glyph assets are not stored as a library."
+    },
+    {
+      "file": "civilization-graph-universe.hkd",
+      "id": "c-connected-entities-8-478m",
+      "text": "Connected Entities: 8.478M+",
+      "blockedReason": "No entity graph at this scale; kbs-runtime tracks orders of magnitude fewer entities."
+    },
+    {
+      "file": "civilization-graph-universe.hkd",
+      "id": "c-powered-by-lipi",
+      "text": "Powered By: LIPI Language & Script",
+      "blockedReason": "lipi-runtime is real; civilizational integration is aspirational."
+    },
+    {
+      "file": "dashboard-universe.hkd",
+      "id": "c-30-dashboards-live",
+      "text": "30 dashboards are live and powered by real data",
+      "blockedReason": "maataa-ui contains SovereignDashboard.tsx + observatory/* shells but is far from 30 live dashboards. None render real data from a backing store."
+    },
+    {
+      "file": "data-schemas-universe.hkd",
+      "id": "c-schemas-250",
+      "text": "Schemas: 250+",
+      "blockedReason": "lipi-runtime has prisma/schema.prisma (real). Only one schema file in repo; nothing close to 250."
+    },
+    {
+      "file": "deployment-operations-universe.hkd",
+      "id": "c-toolchain-installed",
+      "text": "Git/GitHub/Jenkins/SonarQube/Harbor/Argo CD/Helm/Prometheus/Grafana installed and configured",
+      "blockedReason": "Git is real (the repo has .git). All other tools are aspirational icons; no CI config (.github/workflows, Jenkinsfile, Helm charts) exists."
+    },
+    {
+      "file": "dharma-values-universe.hkd",
+      "id": "c-values-embodied-12",
+      "text": "Values Embodied: 12",
+      "blockedReason": "The 12 values (Yamas+Niyamas extended) are catalogued correctly; 'embodied' as a measured property is not defined."
+    },
+    {
+      "file": "ecosystem-interconnection-universe.hkd",
+      "id": "c-hkd-enabler",
+      "text": "HKD (Human Knowledge Data) is the universal knowledge format powering the ecosystem",
+      "blockedReason": "visual-hkd-runtime defines an HKD type system and pipeline. It is real but narrow: extraction from visual sources to knowledge-graph projections. It is not (yet) wired as the universal cross-ecosystem format."
+    },
+    {
+      "file": "education-gurukul-universe.hkd",
+      "id": "c-digital-platform",
+      "text": "Digital Gurukul Platform: Smart Classrooms / AI Personal Mentor / Adaptive Learning / Knowledge Library / Sadhana Tracker / Community Forum / Seva Analytics",
+      "blockedReason": "No platform implementation. lipi-runtime/src/learning provides script-learning substrate only."
+    },
+    {
+      "file": "feature-universe.hkd",
+      "id": "c-lipi-features-real",
+      "text": "Lipi Features (Brahmi, Kharoshthi, Devanagari, Multi-direction, RTL/LTR/TTB, Custom Fonts, Lipi Learning Engine)",
+      "blockedReason": "lipi-runtime/src/{characters,phonetics,registry,learning,search,governance} implement many of these. Indus Script Research is marked '(Research)' on board image 1 — appropriate."
+    },
+    {
+      "file": "feature-universe.hkd",
+      "id": "c-knowledge-features-real",
+      "text": "Knowledge Features (Knowledge Graph, Semantic Search, AI Reasoning, Source Attribution, Continuous Learning)",
+      "blockedReason": "kbs-runtime/src/{graph,search,claims,provenance,ingestion} provide the underlying capabilities. 'Continuous Learning' as a runtime is aspirational."
+    },
+    {
+      "file": "governance-universe.hkd",
+      "id": "c-policy-lifecycle",
+      "text": "Policy Lifecycle: Draft→Consult→Vote→Enact→Implement→Review→Evolve",
+      "blockedReason": "kbs-governance has policy primitives (evaluateKbsGate, rejectProductionClaim). scripts/governed-production-gate.mjs implements an Enact→Implement gate for releases. Full lifecycle is not wired."
+    },
+    {
+      "file": "hero-module-universe.hkd",
+      "id": "c-12-modules-shipping",
+      "text": "12 modules (Avatar/Voice/Gesture/Chakra/Lipi/Knowledge/Memory/Tasks/TLP/InvestoriHub/Saptadhaatu/Brahmini Chain) are shipping",
+      "blockedReason": "Of 12 modules, only Lipi and Knowledge have package-level implementation (lipi-runtime, kbs-runtime + facades). 10 are vision-only."
+    },
+    {
+      "file": "hero-module-universe.hkd",
+      "id": "c-multimodal-inputs-7-channels",
+      "text": "Multimodal Inputs: Eye Blink / Hand Gesture / Body Pose / Facial Expression / Voice / Text / Video Upload all accepted",
+      "blockedReason": "Only text input is technically available (read by kbs-runtime search). Gesture / voice / video / face / eye-blink runtimes do not exist."
+    },
+    {
+      "file": "hkd-runtime-universe.hkd",
+      "id": "c-hkd-runtime-active",
+      "text": "HKD Runtime / Compiler / Registry / Search / Validation / Ecosystem all Active",
+      "blockedReason": "@maataa/visual-hkd-runtime is real (vision-extractor → hkd-generator → graph-ingestor pipeline). 'Compiler/Validator/Registry/Search Engine/Versioner/Permission Layer' as named runtime processes do NOT exist as separate active subsystems. The .hkd JSON shape itself is real (VisualHKD type)."
+    },
+    {
+      "file": "hkd-runtime-universe.hkd",
+      "id": "c-9-entity-types",
+      "text": "9 HKD Entity Types: Concept / Entity / Person / Event / Location / Asset / Document / Observation / Evidence",
+      "blockedReason": "VisualHKD's HKDNode has a `kind: string` field — entity types are user-defined. The 9 named types are a sensible taxonomy but not encoded in the type system."
+    },
+    {
+      "file": "hkd-runtime-universe.hkd",
+      "id": "c-9-relation-types",
+      "text": "9 HKD Relation Types: IS_A / PART_OF / CAUSES / DEPENDS_ON / RELATED_TO / CREATED_BY / USES / SUPPORTS / CONTRADICTS",
+      "blockedReason": "VisualHKD's HKDEdge has a `relation: string` field — relations are user-defined. Standard semantic-web taxonomy named on board."
+    },
+    {
+      "file": "hkd-runtime-universe.hkd",
+      "id": "c-7-step-compiler",
+      "text": "7-step Compiler Pipeline (Parse / Validate Schema / Build Graph / Enrich / Store & Index / Generate APIs / Publish)",
+      "blockedReason": "No compiler CLI exists. visual-hkd-runtime has hkd-generator which builds a VisualHKD from VisualExtractionInput; that's step 3 of 7. Steps 1-2 + 5-7 not implemented."
+    },
+    {
+      "file": "hkd-runtime-universe.hkd",
+      "id": "c-validation-engine",
+      "text": "Validation Engine (Schema / Semantic / Evidence / Consistency / Sovereignty / Integrity / Tamper trust)",
+      "blockedReason": "visual-hkd-runtime/src/status-validator.ts has validateVisualHKDStatus which emits VisualHKDValidationResult ({pass, productionReady: false, phkdVerdict, failures, warnings}). One stage of the 6-stage chain is real."
+    },
+    {
+      "file": "knowledge-graph-universe.hkd",
+      "id": "c-total-nodes-1b",
+      "text": "Total Nodes: 1B+",
+      "blockedReason": "kbs-runtime/src/data.ts contains the entire knowledge corpus; orders of magnitude smaller than 1B nodes."
+    },
+    {
+      "file": "knowledge-graph-universe.hkd",
+      "id": "c-10-graph-categories",
+      "text": "10 Graph Categories: Sutra/Person/Project/Asset/Memory/Chakra/Lipi/Investor/Knowledge Domain/Location",
+      "blockedReason": "kbs-graph is a single graph (real). Lipi Graph could be backed by lipi-runtime/src/lineage. 8 of 10 sub-graphs have no implementation substrate."
+    },
+    {
+      "file": "knowledge-graph-universe.hkd",
+      "id": "c-capabilities-nl-query",
+      "text": "Capabilities: Semantic Search / Multi-Hop Reasoning / Contextual Inference / Pattern Discovery / Link Prediction / Anomaly Detection / Temporal Analysis / Viz Explorer / Graph Embeddings / Natural Language Query",
+      "blockedReason": "kbs-runtime/src/{search,graph,claims} provides Semantic Search + basic Multi-Hop. Other capabilities are vision."
+    },
+    {
+      "file": "landing-sovereign-ai.hkd",
+      "id": "c-50-open-modules",
+      "text": "50+ Open Modules & Runtimes",
+      "blockedReason": "~15 packages exist on disk. '50+' is fabricated; ~15 real (most internal facades, a few substantive)."
+    },
+    {
+      "file": "landing-sovereign-ai.hkd",
+      "id": "c-multi-lipi-brahmi-to-devanagari",
+      "text": "Multi-Lipi Brahmi to Devanagari & Beyond",
+      "blockedReason": "lipi-runtime has Brahmi → Devanagari capability. 'Beyond' is broad — Roman, Kharoshthi, Indus (research) per the hero board. Real with caveats."
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "id": "c-scripts-mapped-1248",
+      "text": "Scripts Mapped: 1,248+",
+      "blockedReason": "lipi-runtime declares a 426-slot script registry (per its README). 1,248 is not derivable from the package; possibly aspirational expansion."
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "id": "c-living-scripts-54",
+      "text": "Living Scripts: 54+",
+      "blockedReason": "Real living scripts on Earth — broadly accurate as a count of currently-used writing systems. Whether the lipi-runtime registry implements all is unverified."
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "id": "c-extinct-scripts-312",
+      "text": "Extinct Scripts: 312+",
+      "blockedReason": "Order-of-magnitude plausible for known extinct scripts. lipi-runtime would need to enumerate them."
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "id": "c-glyphs-54-21k",
+      "text": "Glyphs & Symbols: 54.21K+",
+      "blockedReason": "Unicode 15 contains ~149,000 characters; 54K is a plausible subset. lipi-runtime doesn't yet expose a glyph count."
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "id": "c-7-script-families",
+      "text": "7 Major Script Families (Brahmi / Abjad / Abugida / Alphabet / Logographic / Syllabic / Symbolic)",
+      "blockedReason": "Linguistically standard taxonomy. lipi-runtime/src/{characters,registry,lineage,phonetics} provides substrate for at least the Brahmi family. Full coverage of 7 families is aspirational."
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "id": "c-script-evolution-timeline",
+      "text": "Evolution Timeline: Prehistoric → Indus 3300 BCE → Vedic Oral → Brahmi 600 BCE → Gupta 300 CE → Medieval → Digital → AI Future",
+      "blockedReason": "Lineage matches mainstream paleography (with Indus undeciphered, properly marked Research). lipi-runtime/src/lineage models this."
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "id": "c-tech-stack-ocr-htr",
+      "text": "Script Technology Stack: OCR/HTR / Transliteration / AI Script Generator / NLP / Font & Glyph / Manuscript Restoration / Blockchain Authenticity",
+      "blockedReason": "Transliteration is real in lipi-runtime. OCR/HTR/AI generation/restoration/blockchain authenticity layers do not exist."
+    },
+    {
+      "file": "master-meta-map.hkd",
+      "id": "c-12-primary-universes",
+      "text": "The 12 Primary Universes constitute MAATAA OS",
+      "blockedReason": "All 12 are extracted as their own .hkd files (this corpus). They exist as boards/visions. Only Lipi & Script, Education (via lipi-runtime), and Knowledge (via kbs-runtime) have partial implementation substrate."
+    },
+    {
+      "file": "mission-universe.hkd",
+      "id": "c-lipi-revival-mission-real",
+      "text": "Mission 3: Revive Bharatiya lipis & scripts",
+      "blockedReason": "lipi-runtime exists with substantial code (426-slot registry, characters, lineage, learning, governance). Real progress on the *technical* side; 'revival' as social outcome cannot be measured here."
+    },
+    {
+      "file": "mission-universe.hkd",
+      "id": "c-knowledge-for-all-real",
+      "text": "Mission 2: Knowledge For All — democratize knowledge in every language",
+      "blockedReason": "kbs-runtime + kbs-graph + kbs-search are real and substantial. 'Every language' overclaims; lipi-runtime supports a specific set of Bharatiya scripts."
+    },
+    {
+      "file": "mission-universe.hkd",
+      "id": "c-7-missions-only-6-visible",
+      "text": "'7 missions, 42+ initiatives' but only 6 mission cards are visible on the board",
+      "blockedReason": "Visual extraction shows 6 cards (M1-M6) plus the '7 MISSIONS' tagline. M7 may be rendered off-frame, conceptual, or a counting inconsistency."
+    },
+    {
+      "file": "product-universe.hkd",
+      "id": "c-maataa-ai-suite-shipped",
+      "text": "Maataa AI Suite is a shipping product",
+      "blockedReason": "No 'Maataa AI Suite' bundle exists. AI primitives live inside kbs-runtime (RAG/search) and visual-hkd-runtime (vision pipeline) as packages, not as a customer-installable AI Suite product."
+    },
+    {
+      "file": "product-universe.hkd",
+      "id": "c-lipi-product-shipped",
+      "text": "A 'LipiMate' or Lipi product is shipping",
+      "blockedReason": "No customer product 'LipiMate' on board, but lipi-runtime exists with publishable manifest (private:false). It is a publishable runtime, not a productized end-user app."
+    },
+    {
+      "file": "reality-to-mission-traceability-universe.hkd",
+      "id": "c-traceability-end-to-end",
+      "text": "End-to-end traceability flow: Mission Defined → Universe Selected → Runtime Activated → Service Delivered → Feature Used → Workflow Executed → Data Captured → Evidence Generated → Reality Measured → Impact Verified",
+      "blockedReason": "Closest existing implementation: scripts/evidence-generate.mjs + scripts/governed-production-gate.mjs cover Evidence Generated → Reality Measured for the production-gate slice. End-to-end is not wired."
+    },
+    {
+      "file": "research-universe.hkd",
+      "id": "c-evidence-integrity-framework",
+      "text": "Evidence Integrity Framework: Reproducible / Open Data / Peer Reviewed / Transparent / Ethical / Citable",
+      "blockedReason": "kbs-runtime/src/{claims,review,moderation,governance,provenance} + runtime-validation (scaffold) cover most of these conceptually. End-to-end integrity workflow not wired."
+    },
+    {
+      "file": "research-universe.hkd",
+      "id": "c-knowledge-graph-research",
+      "text": "Research Knowledge Graph (Hypothesis/Paper/Experiment/Dataset/Evidence/Author)",
+      "blockedReason": "kbs-graph + kbs-runtime/src/graph/ provide the substrate; research-specific entity types not yet defined."
+    },
+    {
+      "file": "runtime-universe.hkd",
+      "id": "c-all-runtimes-active",
+      "text": "All Runtimes: Active",
+      "blockedReason": "Out of 13 runtimes depicted, 1 (@maataa/lipi-runtime) exists on disk by name; 12 do not. No supervisor process exists that could report runtimes as Active."
+    },
+    {
+      "file": "runtime-universe.hkd",
+      "id": "c-rt-lipi-active",
+      "text": "Lipi Runtime STATUS: ACTIVE",
+      "blockedReason": "@maataa/lipi-runtime exists on disk with substantial code, prisma, release scripts, and a PHKD-aligned README. Its own README declares PRODUCTION_READY=false, PHKD_VERDICT=BLOCKED, FINAL_STATUS=GOVERNED_PRODUCTION_NO_GO — so 'ACTIVE' overclaims the package's own honest status."
+    },
+    {
+      "file": "runtime-universe.hkd",
+      "id": "c-rt-knowledge-active",
+      "text": "Knowledge Runtime STATUS: ACTIVE",
+      "blockedReason": "Board name @maataa/knowledge-runtime does not exist; the closest existing package is @maataa/kbs-runtime, which is real and substantial but is name-mismatched and not labelled 'Active' anywhere."
+    },
+    {
+      "file": "scientific-evidence-universe.hkd",
+      "id": "c-evidence-workflow-honest",
+      "text": "Evidence Workflow: Claim → Screening → Collection → Quality Assessment → Expert Review → Validation Decision → Registry Publish → Continuous Update",
+      "blockedReason": "The workflow is a reasonable PHKD-style pipeline. visual-hkd-runtime + runtime-validation (scaffold) + kbs-runtime/src/{claims,review,moderation,governance,provenance} together cover most of these stages conceptually. End-to-end wiring does not exist."
+    },
+    {
+      "file": "scientific-evidence-universe.hkd",
+      "id": "c-maturity-l0-l9",
+      "text": "Evidence Maturity Levels L0 Hypothesis → L9 Established Science",
+      "blockedReason": "The maturity ladder is sensible. No claim in repo is plotted on it today."
+    },
+    {
+      "file": "service-universe.hkd",
+      "id": "c-total-services-100plus",
+      "text": "Total Services: 100+ Active",
+      "blockedReason": "There are no live services in the repo. The kbs-runtime monolith re-exports some modules via facades; nothing runs as a service."
+    },
+    {
+      "file": "service-universe.hkd",
+      "id": "c-knowledge-services-real",
+      "text": "Knowledge Services (Knowledge Graph, Semantic Search, Sutra, AI Reasoning, Content Ingestion)",
+      "blockedReason": "kbs-runtime/src/{graph,search,ingestion} provide the underlying primitives. Service-level exposure (HTTP endpoints, separate process) does not exist."
+    },
+    {
+      "file": "service-universe.hkd",
+      "id": "c-lipi-services-real",
+      "text": "Lipi Services (Script Translation, Transliteration, Rendering, Direction, Learning)",
+      "blockedReason": "lipi-runtime exists with characters/phonetics/learning modules. Service-level exposure not yet wired."
+    },
+    {
+      "file": "status-matrix-universe.hkd",
+      "id": "claim-score-formula",
+      "text": "Reality Score formula: (IM + T + V + DP + OB + GV) / (Total Possible from S onward) × 100%",
+      "blockedReason": "The formula is captured as design logic, but cannot be trusted until fed by repo-derived counts."
+    },
+    {
+      "file": "time-evolution-universe.hkd",
+      "id": "c-time-dimension-real",
+      "text": "Real Time dimension: 'now in the moment'",
+      "blockedReason": "hemant-core has MonotonicTick + HEMANT_SAMWAT_EPOCH_NANOS — a real monotonic time primitive in no_std Rust. Real but narrow (embedded), not the cross-runtime real-time fabric the board depicts."
+    },
+    {
+      "file": "time-evolution-universe.hkd",
+      "id": "c-versioning-pipeline-real",
+      "text": "Versioning & Evolution pipeline (v1.0 → v5.0)",
+      "blockedReason": "Conceptual versioning workflow. lipi-runtime + kbs-runtime have type-level versioning via package.json; semantic versioning of timeline entities themselves does not exist."
+    },
+    {
+      "file": "time-evolution-universe.hkd",
+      "id": "c-connected-universes-hkd-kg",
+      "text": "Connected Universes: HKD Knowledge + KG Graph integration",
+      "blockedReason": "HKD type system (visual-hkd-runtime) and KG (kbs-graph) exist as real packages. Their integration with a temporal layer does not exist."
+    },
+    {
+      "file": "user-journeys-universe.hkd",
+      "id": "c-journey-lapsi",
+      "text": "Lapsi (script) Journey: Learn→Practice→Create→Preserve→Share→Teach with Lipi Runtime / Lipi Studio / HKD Runtime / Archive Hub / Community modules",
+      "blockedReason": "lipi-runtime is real and has learning + characters + lineage modules. Studio / Archive Hub UI not built."
+    },
+    {
+      "file": "user-journeys-universe.hkd",
+      "id": "c-journey-researcher",
+      "text": "Researcher Journey: Explore→Research→Analyze→Publish→Share→Impact with Research Hub / Knowledge Graph / Data Lab / Publication Hub / Collaboration modules",
+      "blockedReason": "kbs-runtime + kbs-graph + kbs-search provide research-adjacent substrate. End-to-end journey not orchestrated."
+    },
+    {
+      "file": "user-journeys-universe.hkd",
+      "id": "c-journey-developer",
+      "text": "Developer Journey: Explore→Build→Integrate→Test→Deploy→Scale with API Hub / SDK & Tools / Sandbox / CI-CD Engine / Monitoring",
+      "blockedReason": "npm scripts + tests + electron-build / governed-production-gate cover parts of this. No SDK / no public API Hub."
+    },
+    {
+      "file": "user-journeys-universe.hkd",
+      "id": "c-enablers-stack",
+      "text": "Journey Enablers: AI Voice / Knowledge Graph / HKD Runtime / Chakra Balance / Brahmini ID / Analytics Engine / Sovereign Cloud / API & SDK",
+      "blockedReason": "Knowledge Graph + HKD Runtime (visual-hkd-runtime) are real partial substrates. The other 6 enablers don't exist."
+    },
+    {
+      "file": "usp-universe.hkd",
+      "id": "c-usp-unified-kg",
+      "text": "USP 07: Connects thousands of knowledge sources into one intelligent graph",
+      "blockedReason": "kbs-runtime/src/graph + kbs-graph implement a graph; 'thousands of sources' overclaims current ingestion."
+    },
+    {
+      "file": "usp-universe.hkd",
+      "id": "c-usp-lipi-multi-script",
+      "text": "USP 09: World's most advanced multi-lipi engine supporting ancient to modern scripts",
+      "blockedReason": "lipi-runtime is real and substantial. 'World's most advanced' is a comparative superlative unsupported by external benchmarks."
+    },
+    {
+      "file": "worlds-firsts-universe.hkd",
+      "id": "c-wf-04-lipi-os-first",
+      "text": "WF 04: First OS with native multi-script intelligence supporting ancient to modern scripts",
+      "blockedReason": "lipi-runtime is real, with a 426-slot registry and lineage. 'First OS' is unsupported — many OS-level i18n/CLDR/Unicode systems exist; the differentiation needs to be stated precisely (e.g. 'first runtime to register pre-Brahmi → Brahmi → Devanagari lineage as canonical') and benchmarked."
+    }
+  ]
+}

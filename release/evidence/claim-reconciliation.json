@@ -1,0 +1,475 @@
+{
+  "generatedAt": "2026-06-10T00:00:51.856Z",
+  "mode": "APPLIED",
+  "files": 44,
+  "totalClaims": 495,
+  "statusBefore": {
+    "BLOCKED": 374,
+    "PARTIAL": 61,
+    "UNVERIFIED": 60
+  },
+  "dispositions": {
+    "PARTIAL": 13,
+    "ROADMAP": 220,
+    "REVIEW": 141,
+    "KEEP": 121
+  },
+  "hkdBlockers": {
+    "before": 374,
+    "after": 361,
+    "reducedBy": 13
+  },
+  "note": "Only BLOCKED->PARTIAL reduces gate blockers. ROADMAP/REVIEW stay BLOCKED until the dashboard stops presenting them as live (ROADMAP) or a human decides (REVIEW).",
+  "examples": {
+    "PARTIAL": [
+      {
+        "id": "c-knowledge-nodes-15dam",
+        "text": "Knowledge Nodes Accessed: 15daM+",
+        "reason": "kbs-runtime has knowledge primitives but no 15+M node access log."
+      },
+      {
+        "id": "c-connected-entities-8-478m",
+        "text": "Connected Entities: 8.478M+",
+        "reason": "No entity graph at this scale; kbs-runtime tracks orders of magnitude fewer entities."
+      },
+      {
+        "id": "c-30-dashboards-live",
+        "text": "30 dashboards are live and powered by real data",
+        "reason": "maataa-ui contains SovereignDashboard.tsx + observatory/* shells but is far from 30 live dashboards. None render real data from a backing store."
+      },
+      {
+        "id": "c-schemas-250",
+        "text": "Schemas: 250+",
+        "reason": "lipi-runtime has prisma/schema.prisma (real). Only one schema file in repo; nothing close to 250."
+      },
+      {
+        "id": "c-digital-platform",
+        "text": "Digital Gurukul Platform: Smart Classrooms / AI Personal Mentor / Adaptive Learning / Knowledge Library / Sadhana Tracker / Community Forum / Seva Analytics",
+        "reason": "No platform implementation. lipi-runtime/src/learning provides script-learning substrate only."
+      },
+      {
+        "id": "c-12-modules-shipping",
+        "text": "12 modules (Avatar/Voice/Gesture/Chakra/Lipi/Knowledge/Memory/Tasks/TLP/InvestoriHub/Saptadhaatu/Brahmini Chain) are shipping",
+        "reason": "Of 12 modules, only Lipi and Knowledge have package-level implementation (lipi-runtime, kbs-runtime + facades). 10 are vision-only."
+      }
+    ],
+    "ROADMAP": [
+      {
+        "id": "c-deployed-1248",
+        "text": "Deployed Agents: 1,248",
+        "reason": "No deployed agents; fabricated count."
+      },
+      {
+        "id": "c-tasks-24h-2-47m",
+        "text": "Tasks Executed (24h): 2.47M",
+        "reason": "No task execution log; fabricated."
+      },
+      {
+        "id": "c-perf-24h-tasks",
+        "text": "Tasks Completed 2.45M / Failed 29,512 / Avg Response 1.42s / Active 312 / User Satisfaction 4.8/5",
+        "reason": "Performance dashboard fabricated."
+      },
+      {
+        "id": "c-marketplace-1248",
+        "text": "Marketplace: 1,248 Total / 862 Verified / 286 Community / 100 Custom Agents",
+        "reason": "No marketplace."
+      },
+      {
+        "id": "c-deploy-anywhere",
+        "text": "Deploy Anywhere: Cloud / Edge / On-Prem / Mobile / IoT / Offline",
+        "reason": "No deployment exists across any of these."
+      },
+      {
+        "id": "c-models-deployed-162",
+        "text": "Models Deployed: 162+",
+        "reason": "No model deployment infrastructure in repo."
+      }
+    ],
+    "REVIEW": [
+      {
+        "id": "c-success-98-72",
+        "text": "Success Rate: 98.72%",
+        "reason": "No agent runs to measure."
+      },
+      {
+        "id": "c-training-pipelines-312",
+        "text": "Training Pipelines: 312",
+        "reason": "No training infrastructure."
+      },
+      {
+        "id": "c-inferences-54-2m",
+        "text": "Inferences/Day: 54.2M+",
+        "reason": "No inference traffic."
+      },
+      {
+        "id": "c-training-2842-runs",
+        "text": "Training Runs: 2,842 / Compute Hours: 2.87M+",
+        "reason": "No training history."
+      },
+      {
+        "id": "c-assets-125k",
+        "text": "Assets Total: 125,000+",
+        "reason": "Repo has assets/html (~42 HTML pages), some images, no asset library at this scale."
+      },
+      {
+        "id": "c-categories-20",
+        "text": "Categories: 20+",
+        "reason": "No category taxonomy implemented."
+      }
+    ]
+  },
+  "perFile": [
+    {
+      "file": "hero-module-universe.hkd",
+      "blockedBefore": 3,
+      "toPartial": 2,
+      "roadmap": 0,
+      "review": 1,
+      "blockedAfter": 1
+    },
+    {
+      "file": "agent-universe.hkd",
+      "blockedBefore": 7,
+      "toPartial": 1,
+      "roadmap": 5,
+      "review": 1,
+      "blockedAfter": 6
+    },
+    {
+      "file": "civilization-graph-universe.hkd",
+      "blockedBefore": 7,
+      "toPartial": 1,
+      "roadmap": 6,
+      "review": 0,
+      "blockedAfter": 6
+    },
+    {
+      "file": "dashboard-universe.hkd",
+      "blockedBefore": 3,
+      "toPartial": 1,
+      "roadmap": 2,
+      "review": 0,
+      "blockedAfter": 2
+    },
+    {
+      "file": "data-schemas-universe.hkd",
+      "blockedBefore": 9,
+      "toPartial": 1,
+      "roadmap": 3,
+      "review": 5,
+      "blockedAfter": 8
+    },
+    {
+      "file": "education-gurukul-universe.hkd",
+      "blockedBefore": 10,
+      "toPartial": 1,
+      "roadmap": 7,
+      "review": 2,
+      "blockedAfter": 9
+    },
+    {
+      "file": "hkd-runtime-universe.hkd",
+      "blockedBefore": 7,
+      "toPartial": 1,
+      "roadmap": 4,
+      "review": 2,
+      "blockedAfter": 6
+    },
+    {
+      "file": "knowledge-graph-universe.hkd",
+      "blockedBefore": 8,
+      "toPartial": 1,
+      "roadmap": 6,
+      "review": 1,
+      "blockedAfter": 7
+    },
+    {
+      "file": "lipi-script-universe.hkd",
+      "blockedBefore": 4,
+      "toPartial": 1,
+      "roadmap": 2,
+      "review": 1,
+      "blockedAfter": 3
+    },
+    {
+      "file": "product-universe.hkd",
+      "blockedBefore": 3,
+      "toPartial": 1,
+      "roadmap": 0,
+      "review": 2,
+      "blockedAfter": 2
+    },
+    {
+      "file": "runtime-universe.hkd",
+      "blockedBefore": 19,
+      "toPartial": 1,
+      "roadmap": 17,
+      "review": 1,
+      "blockedAfter": 18
+    },
+    {
+      "file": "service-universe.hkd",
+      "blockedBefore": 7,
+      "toPartial": 1,
+      "roadmap": 5,
+      "review": 1,
+      "blockedAfter": 6
+    },
+    {
+      "file": "ai-model-universe.hkd",
+      "blockedBefore": 8,
+      "toPartial": 0,
+      "roadmap": 5,
+      "review": 3,
+      "blockedAfter": 8
+    },
+    {
+      "file": "asset-library-universe.hkd",
+      "blockedBefore": 7,
+      "toPartial": 0,
+      "roadmap": 1,
+      "review": 6,
+      "blockedAfter": 7
+    },
+    {
+      "file": "brahmini-chain-universe.hkd",
+      "blockedBefore": 12,
+      "toPartial": 0,
+      "roadmap": 6,
+      "review": 6,
+      "blockedAfter": 12
+    },
+    {
+      "file": "consciousness-evolution-universe.hkd",
+      "blockedBefore": 7,
+      "toPartial": 0,
+      "roadmap": 6,
+      "review": 1,
+      "blockedAfter": 7
+    },
+    {
+      "file": "deployment-operations-universe.hkd",
+      "blockedBefore": 15,
+      "toPartial": 0,
+      "roadmap": 12,
+      "review": 3,
+      "blockedAfter": 15
+    },
+    {
+      "file": "dharma-values-universe.hkd",
+      "blockedBefore": 7,
+      "toPartial": 0,
+      "roadmap": 4,
+      "review": 3,
+      "blockedAfter": 7
+    },
+    {
+      "file": "ecosystem-interconnection-universe.hkd",
+      "blockedBefore": 9,
+      "toPartial": 0,
+      "roadmap": 4,
+      "review": 5,
+      "blockedAfter": 9
+    },
+    {
+      "file": "expanded-universe-absorption.hkd",
+      "blockedBefore": 24,
+      "toPartial": 0,
+      "roadmap": 0,
+      "review": 24,
+      "blockedAfter": 24
+    },
+    {
+      "file": "feature-universe.hkd",
+      "blockedBefore": 4,
+      "toPartial": 0,
+      "roadmap": 3,
+      "review": 1,
+      "blockedAfter": 4
+    },
+    {
+      "file": "financial-universe.hkd",
+      "blockedBefore": 8,
+      "toPartial": 0,
+      "roadmap": 5,
+      "review": 3,
+      "blockedAfter": 8
+    },
+    {
+      "file": "governance-universe.hkd",
+      "blockedBefore": 8,
+      "toPartial": 0,
+      "roadmap": 5,
+      "review": 3,
+      "blockedAfter": 8
+    },
+    {
+      "file": "health-saptadhaatu-universe.hkd",
+      "blockedBefore": 8,
+      "toPartial": 0,
+      "roadmap": 6,
+      "review": 2,
+      "blockedAfter": 8
+    },
+    {
+      "file": "identity-personhood-universe.hkd",
+      "blockedBefore": 9,
+      "toPartial": 0,
+      "roadmap": 6,
+      "review": 3,
+      "blockedAfter": 9
+    },
+    {
+      "file": "landing-sovereign-ai.hkd",
+      "blockedBefore": 4,
+      "toPartial": 0,
+      "roadmap": 3,
+      "review": 1,
+      "blockedAfter": 4
+    },
+    {
+      "file": "landing-welcome.hkd",
+      "blockedBefore": 8,
+      "toPartial": 0,
+      "roadmap": 5,
+      "review": 3,
+      "blockedAfter": 8
+    },
+    {
+      "file": "legacy-universe.hkd",
+      "blockedBefore": 9,
+      "toPartial": 0,
+      "roadmap": 6,
+      "review": 3,
+      "blockedAfter": 9
+    },
+    {
+      "file": "marketplace-universe.hkd",
+      "blockedBefore": 14,
+      "toPartial": 0,
+      "roadmap": 11,
+      "review": 3,
+      "blockedAfter": 14
+    },
+    {
+      "file": "master-meta-map.hkd",
+      "blockedBefore": 1,
+      "toPartial": 0,
+      "roadmap": 1,
+      "review": 0,
+      "blockedAfter": 1
+    },
+    {
+      "file": "mission-universe.hkd",
+      "blockedBefore": 10,
+      "toPartial": 0,
+      "roadmap": 10,
+      "review": 0,
+      "blockedAfter": 10
+    },
+    {
+      "file": "reality-to-mission-traceability-universe.hkd",
+      "blockedBefore": 4,
+      "toPartial": 0,
+      "roadmap": 2,
+      "review": 2,
+      "blockedAfter": 4
+    },
+    {
+      "file": "research-universe.hkd",
+      "blockedBefore": 9,
+      "toPartial": 0,
+      "roadmap": 5,
+      "review": 4,
+      "blockedAfter": 9
+    },
+    {
+      "file": "scientific-evidence-universe.hkd",
+      "blockedBefore": 13,
+      "toPartial": 0,
+      "roadmap": 6,
+      "review": 7,
+      "blockedAfter": 13
+    },
+    {
+      "file": "scientific-firsts-universe.hkd",
+      "blockedBefore": 6,
+      "toPartial": 0,
+      "roadmap": 2,
+      "review": 4,
+      "blockedAfter": 6
+    },
+    {
+      "file": "simulation-universe.hkd",
+      "blockedBefore": 10,
+      "toPartial": 0,
+      "roadmap": 4,
+      "review": 6,
+      "blockedAfter": 10
+    },
+    {
+      "file": "sku-universe.hkd",
+      "blockedBefore": 3,
+      "toPartial": 0,
+      "roadmap": 2,
+      "review": 1,
+      "blockedAfter": 3
+    },
+    {
+      "file": "spatial-universe.hkd",
+      "blockedBefore": 8,
+      "toPartial": 0,
+      "roadmap": 5,
+      "review": 3,
+      "blockedAfter": 8
+    },
+    {
+      "file": "status-matrix-universe.hkd",
+      "blockedBefore": 28,
+      "toPartial": 0,
+      "roadmap": 9,
+      "review": 19,
+      "blockedAfter": 28
+    },
+    {
+      "file": "time-evolution-universe.hkd",
+      "blockedBefore": 17,
+      "toPartial": 0,
+      "roadmap": 16,
+      "review": 1,
+      "blockedAfter": 17
+    },
+    {
+      "file": "user-journeys-universe.hkd",
+      "blockedBefore": 3,
+      "toPartial": 0,
+      "roadmap": 1,
+      "review": 2,
+      "blockedAfter": 3
+    },
+    {
+      "file": "usp-universe.hkd",
+      "blockedBefore": 6,
+      "toPartial": 0,
+      "roadmap": 5,
+      "review": 1,
+      "blockedAfter": 6
+    },
+    {
+      "file": "workflow-universe.hkd",
+      "blockedBefore": 5,
+      "toPartial": 0,
+      "roadmap": 4,
+      "review": 1,
+      "blockedAfter": 5
+    },
+    {
+      "file": "worlds-firsts-universe.hkd",
+      "blockedBefore": 3,
+      "toPartial": 0,
+      "roadmap": 3,
+      "review": 0,
+      "blockedAfter": 3
+    }
+  ]
+}

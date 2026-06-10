@@ -1,7 +1,7 @@
 {
   "schema": "maataa.domain-registry.evidence.v1",
-  "generatedAt": "2026-06-07T19:49:55.884Z",
-  "commit": "3f0b503",
+  "generatedAt": "2026-06-10T14:02:31.485Z",
+  "commit": "4a15807",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionReady": false,
   "phkdVerdict": "BLOCKED",

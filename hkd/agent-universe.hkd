@@ -286,7 +286,12 @@
       "blockedReason": "No deployed agents; fabricated count.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-status",
-      "confidence": 0.99
+      "confidence": 0.99,
+      "reconciliation": {
+        "disposition": "ROADMAP",
+        "rationale": "fabricated current-stat; move to roadmap/vision, keep blocked",
+        "at": "2026-06-10T00:00:51.684Z"
+      }
     },
     {
       "id": "c-tasks-24h-2-47m",
@@ -295,7 +300,12 @@
       "blockedReason": "No task execution log; fabricated.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-status",
-      "confidence": 0.99
+      "confidence": 0.99,
+      "reconciliation": {
+        "disposition": "ROADMAP",
+        "rationale": "fabricated current-stat; move to roadmap/vision, keep blocked",
+        "at": "2026-06-10T00:00:51.685Z"
+      }
     },
     {
       "id": "c-success-98-72",
@@ -304,7 +314,12 @@
       "blockedReason": "No agent runs to measure.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-status",
-      "confidence": 0.99
+      "confidence": 0.99,
+      "reconciliation": {
+        "disposition": "REVIEW",
+        "rationale": "no clear signal; needs human review",
+        "at": "2026-06-10T00:00:51.685Z"
+      }
     },
     {
       "id": "c-knowledge-nodes-15dam",
@@ -313,7 +328,18 @@
       "blockedReason": "kbs-runtime has knowledge primitives but no 15+M node access log.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-status",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "reconciliation": {
+        "disposition": "PARTIAL",
+        "rationale": "blockedReason affirmatively cites real repo backing",
+        "at": "2026-06-10T00:00:51.685Z"
+      },
+      "completionDisposition": {
+        "from": "IN_PROGRESS",
+        "to": "BLOCKED",
+        "rule": "full_claim_not_locally_verified",
+        "note": "Partial substrate may exist, but the full HKD claim remains unproven or unmeasured. Closed fail-closed instead of leaving an in-progress production signal."
+      }
     },
     {
       "id": "c-perf-24h-tasks",
@@ -322,7 +348,12 @@
       "blockedReason": "Performance dashboard fabricated.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-performance",
-      "confidence": 0.99
+      "confidence": 0.99,
+      "reconciliation": {
+        "disposition": "ROADMAP",
+        "rationale": "fabricated current-stat; move to roadmap/vision, keep blocked",
+        "at": "2026-06-10T00:00:51.685Z"
+      }
     },
     {
       "id": "c-marketplace-1248",
@@ -331,16 +362,27 @@
       "blockedReason": "No marketplace.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-marketplace",
-      "confidence": 0.98
+      "confidence": 0.98,
+      "reconciliation": {
+        "disposition": "ROADMAP",
+        "rationale": "fabricated current-stat; move to roadmap/vision, keep blocked",
+        "at": "2026-06-10T00:00:51.685Z"
+      }
     },
     {
       "id": "c-lipi-agent-real",
       "text": "Lipi Agent — revives languages & scripts (NLP/OCR/translation)",
-      "status": "PARTIAL",
+      "status": "BLOCKED",
       "blockedReason": "lipi-runtime (real package) provides transliteration/learning/lineage primitives. Agent wrapper does not exist.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-ecosystem",
-      "confidence": 0.85
+      "confidence": 0.85,
+      "completionDisposition": {
+        "from": "IN_PROGRESS",
+        "to": "BLOCKED",
+        "rule": "full_claim_not_locally_verified",
+        "note": "Partial substrate may exist, but the full HKD claim remains unproven or unmeasured. Closed fail-closed instead of leaving an in-progress production signal."
+      }
     },
     {
       "id": "c-research-agent-real",
@@ -354,12 +396,18 @@
     {
       "id": "c-orchestrator-real",
       "text": "Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves",
-      "status": "PARTIAL",
+      "status": "BLOCKED",
       "blockedReason": "Orchestrator now exists as a real supervisor that boots the fleet and delegates tasks (src/runtime/agent-supervisor.cjs). 'Self-evolving/optimizing' remains unproven.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-ecosystem",
       "confidence": 0.95,
-      "evidence": "release/evidence/agent-runtime.json"
+      "evidence": "release/evidence/agent-runtime.json",
+      "completionDisposition": {
+        "from": "IN_PROGRESS",
+        "to": "BLOCKED",
+        "rule": "full_claim_not_locally_verified",
+        "note": "Partial substrate may exist, but the full HKD claim remains unproven or unmeasured. Closed fail-closed instead of leaving an in-progress production signal."
+      }
     },
     {
       "id": "c-deploy-anywhere",
@@ -368,7 +416,12 @@
       "blockedReason": "No deployment exists across any of these.",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
       "sourceSectionId": "sec-deploy",
-      "confidence": 0.95
+      "confidence": 0.95,
+      "reconciliation": {
+        "disposition": "ROADMAP",
+        "rationale": "fabricated current-stat; move to roadmap/vision, keep blocked",
+        "at": "2026-06-10T00:00:51.685Z"
+      }
     }
   ],
   "evidence": [
@@ -377,7 +430,7 @@
       "title": "Agent Universe board (user-provided 2026-05-28)",
       "evidenceType": "source_image",
       "sourceImage": "user-provided/2026-05-28/agent-universe-board.png",
-      "confidence": 1.0
+      "confidence": 1
     },
     {
       "id": "ev-operator",

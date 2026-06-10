@@ -1,11 +1,11 @@
 {
   "schema": "maataa.workers-agents.v1",
-  "generatedAt": "2026-06-07T18:59:14.165Z",
+  "generatedAt": "2026-06-10T14:02:18.432Z",
   "honesty": "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). One-off authoring subagents are finished and are not listed as active.",
   "totals": {
-    "workers": 10,
-    "totalProbes": 200,
-    "totalPassing": 163,
+    "workers": 15,
+    "totalProbes": 205,
+    "totalPassing": 172,
     "agents": 1
   },
   "workers": [
@@ -46,16 +46,34 @@
       "resolvers": 0
     },
     {
+      "module": "resolve-lipi.mjs",
+      "probes": 21,
+      "passing": 3,
+      "resolvers": 21
+    },
+    {
+      "module": "resolve-knowledge-hkd.mjs",
+      "probes": 17,
+      "passing": 2,
+      "resolvers": 17
+    },
+    {
       "module": "resolve-evidence.mjs",
       "probes": 2,
       "passing": 2,
       "resolvers": 2
     },
     {
-      "module": "resolve-lipi.mjs",
-      "probes": 21,
+      "module": "resolve-agents.mjs",
+      "probes": 1,
       "passing": 1,
-      "resolvers": 21
+      "resolvers": 1
+    },
+    {
+      "module": "resolve-data-schemas.mjs",
+      "probes": 1,
+      "passing": 1,
+      "resolvers": 1
     },
     {
       "module": "resolve-knowledge.mjs",
@@ -64,10 +82,22 @@
       "resolvers": 1
     },
     {
-      "module": "resolve-knowledge-hkd.mjs",
-      "probes": 17,
-      "passing": 0,
-      "resolvers": 17
+      "module": "resolve-relation-types.mjs",
+      "probes": 1,
+      "passing": 1,
+      "resolvers": 1
+    },
+    {
+      "module": "resolve-sku.mjs",
+      "probes": 1,
+      "passing": 1,
+      "resolvers": 1
+    },
+    {
+      "module": "resolve-storage.mjs",
+      "probes": 1,
+      "passing": 1,
+      "resolvers": 1
     }
   ],
   "agents": [
@@ -76,48 +106,48 @@
       "kind": "scheduled-runner",
       "cadence": "recurring (configured in scheduler)",
       "status": "active",
-      "lastRun": "2026-06-07T18:55:13.958Z",
-      "lastResult": "163/654 achieved · +0 new · 0 regressed",
+      "lastRun": "2026-06-10T14:00:59.514Z",
+      "lastResult": "171/654 achieved · +1 new · 1 regressed",
       "steps": [
         {
           "label": "build test cache",
           "status": "ok",
-          "ms": 2874
+          "ms": 4074
         },
         {
           "label": "verify honest achievements",
           "status": "ok",
-          "ms": 11236
+          "ms": 15529
         },
         {
           "label": "generate milestones matrix",
           "status": "ok",
-          "ms": 44
+          "ms": 78
         },
         {
           "label": "render milestones surface",
           "status": "ok",
-          "ms": 46
+          "ms": 79
         },
         {
           "label": "derive workers + agents",
           "status": "ok",
-          "ms": 68
+          "ms": 48
         },
         {
           "label": "derive next-in-line",
           "status": "ok",
-          "ms": 38
+          "ms": 66
         },
         {
           "label": "render kanban",
           "status": "ok",
-          "ms": 25
+          "ms": 57
         },
         {
           "label": "generate notice board",
           "status": "ok",
-          "ms": 62
+          "ms": 113
         },
         {
           "label": "honesty guard",

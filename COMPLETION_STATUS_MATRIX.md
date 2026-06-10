@@ -1,7 +1,7 @@
 # Completion Status Matrix
 
-Generated: 2026-06-09T23:11:05.948Z
-Commit: 4575ea3
+Generated: 2026-06-10T14:02:31.485Z
+Commit: 4a15807
 Final status: CONTROLLED_NO_GO
 Production ready: false
 PHKD verdict: BLOCKED
@@ -43,54 +43,64 @@ PHKD verdict: BLOCKED
 
 ## HKD Vision Boards
 
-44 files / 495 claims (BLOCKED: 374, PARTIAL: 61, UNVERIFIED: 60). Nodes with confidence < 0.5: 553/750.
+54 files / 495 claims (BLOCKED: 425, PARTIAL: 10, UNVERIFIED: 60). Nodes with confidence < 0.5: 553/770.
 
 | File | Universe | Blocked | Partial | Unverified |
 | --- | --- | ---: | ---: | ---: |
-| agent-universe.hkd | agent | 7 | 4 | 0 |
-| ai-model-universe.hkd | ai-model | 8 | 1 | 1 |
-| asset-library-universe.hkd | asset-library | 7 | 2 | 2 |
+| admin-universe.hkd | admin | 0 | 0 | 0 |
+| agent-universe.hkd | agent | 9 | 2 | 0 |
+| ai-model-universe.hkd | ai-model | 9 | 0 | 1 |
+| asset-library-universe.hkd | asset-library | 9 | 0 | 2 |
+| authority-matrix-universe.hkd | authority-matrix | 0 | 0 | 0 |
 | brahmini-chain-universe.hkd | brahmini-chain | 12 | 0 | 0 |
-| civilization-graph-universe.hkd | civilization | 7 | 1 | 3 |
+| civilization-graph-universe.hkd | civilization | 8 | 0 | 3 |
+| commerce-universe.hkd | commerce | 0 | 0 | 0 |
+| communication-universe.hkd | communication | 0 | 0 | 0 |
+| community-universe.hkd | community | 0 | 0 | 0 |
 | consciousness-evolution-universe.hkd | consciousness | 7 | 0 | 2 |
+| consistency-report-universe.hkd | consistency-report | 0 | 0 | 0 |
+| creator-economy-universe.hkd | creator-economy | 0 | 0 | 0 |
 | dashboard-universe.hkd | dashboard | 3 | 2 | 0 |
 | data-schemas-universe.hkd | data-schemas | 9 | 2 | 0 |
-| deployment-operations-universe.hkd | operations | 15 | 1 | 0 |
-| dharma-values-universe.hkd | dharma | 7 | 1 | 2 |
-| ecosystem-interconnection-universe.hkd | ecosystem | 9 | 2 | 1 |
+| deployment-operations-universe.hkd | operations | 16 | 0 | 0 |
+| dharma-values-universe.hkd | dharma | 8 | 0 | 2 |
+| ecosystem-interconnection-universe.hkd | ecosystem | 10 | 1 | 1 |
 | education-gurukul-universe.hkd | education | 10 | 0 | 1 |
 | expanded-universe-absorption.hkd | expanded-maataa-universe-collection | 24 | 0 | 1 |
-| feature-universe.hkd | feature | 4 | 2 | 1 |
+| feature-universe.hkd | feature | 6 | 0 | 1 |
 | financial-universe.hkd | financial | 8 | 0 | 2 |
-| governance-universe.hkd | governance | 8 | 1 | 2 |
+| governance-universe.hkd | governance | 9 | 0 | 2 |
 | health-saptadhaatu-universe.hkd | health | 8 | 0 | 2 |
 | hero-module-universe.hkd | hero | 3 | 1 | 2 |
-| hkd-runtime-universe.hkd | hkd-runtime | 7 | 5 | 1 |
+| hkd-runtime-universe.hkd | hkd-runtime | 11 | 1 | 1 |
 | identity-personhood-universe.hkd | identity | 9 | 0 | 1 |
-| knowledge-graph-universe.hkd | knowledge-graph | 8 | 2 | 1 |
-| landing-sovereign-ai.hkd | landing | 4 | 2 | 3 |
+| knowledge-graph-universe.hkd | knowledge-graph | 10 | 0 | 1 |
+| landing-sovereign-ai.hkd | landing | 6 | 0 | 3 |
 | landing-welcome.hkd | landing | 8 | 0 | 1 |
 | legacy-universe.hkd | legacy | 9 | 0 | 1 |
-| lipi-script-universe.hkd | lipi | 4 | 6 | 0 |
+| lipi-script-universe.hkd | lipi | 10 | 0 | 0 |
 | marketplace-universe.hkd | marketplace | 14 | 0 | 0 |
-| master-meta-map.hkd | meta | 1 | 1 | 5 |
-| mission-universe.hkd | mission | 10 | 3 | 5 |
-| product-universe.hkd | product | 3 | 1 | 0 |
-| reality-to-mission-traceability-universe.hkd | traceability | 4 | 2 | 1 |
-| research-universe.hkd | research | 9 | 2 | 0 |
-| runtime-universe.hkd | runtime | 19 | 2 | 6 |
-| scientific-evidence-universe.hkd | scientific-evidence | 13 | 2 | 0 |
+| master-meta-map.hkd | meta | 2 | 0 | 5 |
+| media-universe.hkd | media | 0 | 0 | 0 |
+| mission-universe.hkd | mission | 13 | 0 | 5 |
+| phkd-evidence-universe.hkd | phkd-evidence | 0 | 0 | 0 |
+| product-universe.hkd | product | 4 | 0 | 0 |
+| reality-to-mission-traceability-universe.hkd | traceability | 5 | 1 | 1 |
+| research-universe.hkd | research | 11 | 0 | 0 |
+| runtime-observatory-universe.hkd | runtime-observatory | 0 | 0 | 0 |
+| runtime-universe.hkd | runtime | 21 | 0 | 6 |
+| scientific-evidence-universe.hkd | scientific-evidence | 15 | 0 | 0 |
 | scientific-firsts-universe.hkd | marketing | 6 | 0 | 0 |
-| service-universe.hkd | service | 7 | 2 | 1 |
+| service-universe.hkd | service | 9 | 0 | 1 |
 | simulation-universe.hkd | simulation | 10 | 0 | 0 |
 | sku-universe.hkd | sku | 3 | 0 | 0 |
 | spatial-universe.hkd | spatial | 8 | 0 | 1 |
-| status-matrix-universe.hkd | status-matrix-reality-matrix | 28 | 1 | 2 |
-| time-evolution-universe.hkd | time-evolution | 17 | 3 | 1 |
-| user-journeys-universe.hkd | user-journeys | 3 | 4 | 2 |
-| usp-universe.hkd | marketing | 6 | 2 | 2 |
+| status-matrix-universe.hkd | status-matrix-reality-matrix | 29 | 0 | 2 |
+| time-evolution-universe.hkd | time-evolution | 20 | 0 | 1 |
+| user-journeys-universe.hkd | user-journeys | 7 | 0 | 2 |
+| usp-universe.hkd | marketing | 8 | 0 | 2 |
 | workflow-universe.hkd | workflow | 5 | 0 | 3 |
-| worlds-firsts-universe.hkd | marketing | 3 | 1 | 1 |
+| worlds-firsts-universe.hkd | marketing | 4 | 0 | 1 |
 
 ## Domain Registry
 
@@ -112,6 +122,8 @@ PHKD verdict: BLOCKED
 - vh-agent-universe-2026-05-28:c-knowledge-nodes-15dam: Knowledge Nodes Accessed: 15daM+ — kbs-runtime has knowledge primitives but no 15+M node access log.
 - vh-agent-universe-2026-05-28:c-perf-24h-tasks: Tasks Completed 2.45M / Failed 29,512 / Avg Response 1.42s / Active 312 / User Satisfaction 4.8/5 — Performance dashboard fabricated.
 - vh-agent-universe-2026-05-28:c-marketplace-1248: Marketplace: 1,248 Total / 862 Verified / 286 Community / 100 Custom Agents — No marketplace.
+- vh-agent-universe-2026-05-28:c-lipi-agent-real: Lipi Agent — revives languages & scripts (NLP/OCR/translation) — lipi-runtime (real package) provides transliteration/learning/lineage primitives. Agent wrapper does not exist.
+- vh-agent-universe-2026-05-28:c-orchestrator-real: Maataa Orchestrator Agent — directs/coordinates/optimizes/evolves — Orchestrator now exists as a real supervisor that boots the fleet and delegates tasks (src/runtime/agent-supervisor.cjs). 'Self-evolving/optimizing' remains unproven.
 - vh-agent-universe-2026-05-28:c-deploy-anywhere: Deploy Anywhere: Cloud / Edge / On-Prem / Mobile / IoT / Offline — No deployment exists across any of these.
 - vh-ai-model-universe-2026-05-28:c-models-deployed-162: Models Deployed: 162+ — No model deployment infrastructure in repo.
 - vh-ai-model-universe-2026-05-28:c-active-models-89: Active Models: 89 — No model serving runtime.
@@ -121,11 +133,14 @@ PHKD verdict: BLOCKED
 - vh-ai-model-universe-2026-05-28:c-impact-92-7: AI Impact Score: 92.7/100 (Accuracy 94.3 / Safety 92.1 / Dharma Alignment 93.8 / Transparency 91.7 / Fairness 92.4 / Efficiency 90.9 / User Trust 93.2 / Societal Impact 91.5) — Composite + 8 sub-scores fabricated.
 - vh-ai-model-universe-2026-05-28:c-llm-vlm-counts: LLM 24 / VLM 12 / Speech 8 / Time Series 10 / Graph 9 / Scientific 7 / Decision 6 / Multi-Agent 13 models — No models in catalog; fabricated counts.
 - vh-ai-model-universe-2026-05-28:c-training-2842-runs: Training Runs: 2,842 / Compute Hours: 2.87M+ — No training history.
+- vh-ai-model-universe-2026-05-28:c-ai-capabilities-partial: AI Capabilities: Understand (NLU) / Reason & Infer / Generate & Create / Perceive & Interpret / Plan & Decide / Remember & Learn / Act & Automate / Collaborate — kbs-runtime/src/{search,claims,reasoning} provides Understand+Reason substrate. visual-hkd-runtime provides Perceive+Interpret for vision boards. Generate/Plan/Act runtimes not present.
 - vh-asset-library-universe-2026-05-28:c-assets-125k: Assets Total: 125,000+ — Repo has assets/html (~42 HTML pages), some images, no asset library at this scale.
 - vh-asset-library-universe-2026-05-28:c-categories-20: Categories: 20+ — No category taxonomy implemented.
+- vh-asset-library-universe-2026-05-28:c-formats-120: Formats: 120+ — 120+ file formats is generic count; the repo handles a small subset (HTML, MD, JSON, PNG, etc.). No format conversion runtime.
 - vh-asset-library-universe-2026-05-28:c-resolutions-8k-64px: Resolutions: 8K → 64px — No resolution generation pipeline.
 - vh-asset-library-universe-2026-05-28:c-libraries-15: Libraries: 15+ — No library structure on disk.
 - vh-asset-library-universe-2026-05-28:c-statistics-storage-8-7tb: Statistics: Storage 8.7 TB / CDN Global Nodes 28 / Downloads/Month 2.5M+ / Active Projects 300+ — No CDN; no download tracking.
+- vh-asset-library-universe-2026-05-28:c-lipi-glyphs-15k: Lipi Glyphs Library: 15,000+ glyphs across Brahmi/Kharoshthi/Devanagari/Siddham — lipi-runtime/src/characters provides script-character primitives. 15K specific glyph assets are not stored as a library.
 - vh-asset-library-universe-2026-05-28:c-soulbound-brahmini: License: Soulbound (Brahmini) — Soulbound tokens require blockchain; Brahmini Chain does not exist.
 - vh-asset-library-universe-2026-05-28:c-powered-by-cdn: Powered by CDN & Edge / Brahmini ID / Search Engine / Analytics Engine — None of those runtimes exist.
 - vh-brahmini-chain-universe-2026-05-28:c-active-nodes-12874: Active Nodes: 12,874+ — No blockchain implementation in repo. Directive principle 'never fake blockchain theatrics' applies directly.
@@ -147,6 +162,7 @@ PHKD verdict: BLOCKED
 - vh-civilization-graph-universe-2026-05-28:c-countries-195: Countries: 195 — Earth has 195 sovereign states; the board claims civilizational reach across all. No deployment beyond repo.
 - vh-civilization-graph-universe-2026-05-28:c-health-index-78-4: Civilization Health Index: 78.4 Healthy Improving — Composite over fabricated dimension scores.
 - vh-civilization-graph-universe-2026-05-28:c-realtime-insights: Real Time Insights: 2.4M+ Projects / 9.7M+ Communities / 1.8B+ Assets / 54.2M+ People Impacted Today / 98.7% Earth Coverage — All metrics fabricated.
+- vh-civilization-graph-universe-2026-05-28:c-powered-by-lipi: Powered By: LIPI Language & Script — lipi-runtime is real; civilizational integration is aspirational.
 - vh-consciousness-evolution-universe-2026-05-28:c-conscious-beings-2-1m: Conscious Beings: 2,136,774 — No user base; no consciousness measurement. Most ethically charged metric on any board — claims a count of conscious beings.
 - vh-consciousness-evolution-universe-2026-05-28:c-active-journeys-1-29m: Active Journeys: 1,287,562 — Fabricated.
 - vh-consciousness-evolution-universe-2026-05-28:c-transformations-842k: Transformations: 842,118 — Fabricated; 'transformation' is not a measurable engineering output.
@@ -173,6 +189,7 @@ PHKD verdict: BLOCKED
 - vh-deployment-operations-universe-2026-05-28:c-deployments-today: Deployments (Today): 27 — No deployment pipeline executes today; no GitOps/Argo/Jenkins config in repo.
 - vh-deployment-operations-universe-2026-05-28:c-alerts-active: Alerts (Active): 12 — No alerting system exists.
 - vh-deployment-operations-universe-2026-05-28:c-last-updated-may-17-2025: Last Updated: May 17, 2025 08:45 AM — Fabricated timestamp; nothing emits this update.
+- vh-deployment-operations-universe-2026-05-28:c-toolchain-installed: Git/GitHub/Jenkins/SonarQube/Harbor/Argo CD/Helm/Prometheus/Grafana installed and configured — Git is real (the repo has .git). All other tools are aspirational icons; no CI config (.github/workflows, Jenkinsfile, Helm charts) exists.
 - vh-deployment-operations-universe-2026-05-28:c-environments-k8s: All environments on Kubernetes with IaC + GitOps — No Kubernetes manifests, no Terraform/Ansible, no GitOps repository structure found.
 - vh-deployment-operations-universe-2026-05-28:c-multi-cloud-aws-azure-gcp-oci: Hybrid multi-cloud across AWS / Azure / GCP / OCI + On-prem (VMware/OpenStack/Bare Metal) + Edge — No multi-cloud deployment; no infrastructure code in repo.
 - vh-deployment-operations-universe-2026-05-28:c-pipeline-success-98-7: Pipeline Success Rate 98.7% (140/142 runs) — No pipeline runs; fabricated.
@@ -182,6 +199,7 @@ PHKD verdict: BLOCKED
 - vh-deployment-operations-universe-2026-05-28:c-people-counts: 28 SREs, 42 DevOps, 24 Ops Engineers; 5 on-call now / 18 on-call this week / 7 training — No personnel records; fabricated org metrics.
 - vh-deployment-operations-universe-2026-05-28:c-dr-ready-may-10-2025: DR Status: Ready / Last DR Drill May 10, 2025 / Success Rate 100% — No DR drill artifact, no runbook execution log; fabricated.
 - vh-dharma-values-universe-2026-05-28:c-alignment-95-2: Dharma Alignment Score: 95.2% — 'Dharma alignment' as a measurable score is undefined; no measurement runtime.
+- vh-dharma-values-universe-2026-05-28:c-values-embodied-12: Values Embodied: 12 — The 12 values (Yamas+Niyamas extended) are catalogued correctly; 'embodied' as a measured property is not defined.
 - vh-dharma-values-universe-2026-05-28:c-lives-impacted-54-2m: Lives Impacted Positively: 54.2M+ — Matches Mission Universe figure. Fabricated.
 - vh-dharma-values-universe-2026-05-28:c-communities-3842: Communities Served: 3,842+ — Recurring 3,842 number across boards.
 - vh-dharma-values-universe-2026-05-28:c-dharma-projects-192: Dharma Projects Active: 192 — Recurring 192 number (countries) across boards.
@@ -193,6 +211,7 @@ PHKD verdict: BLOCKED
 - vh-ecosystem-interconnection-universe-2026-05-28:c-radio-live: Radio Vaigyaaniq audio network is live — No radio runtime or broadcast pipeline in repo.
 - vh-ecosystem-interconnection-universe-2026-05-28:c-mandi-marketplace-live: Mandi marketplace and Krishi agri OS are live — No marketplace, no agri runtime.
 - vh-ecosystem-interconnection-universe-2026-05-28:c-cic-civic-live: CIC civic OS is live (citizen services, grievance, voting, transparency) — No civic runtime in repo.
+- vh-ecosystem-interconnection-universe-2026-05-28:c-hkd-enabler: HKD (Human Knowledge Data) is the universal knowledge format powering the ecosystem — visual-hkd-runtime defines an HKD type system and pipeline. It is real but narrow: extraction from visual sources to knowledge-graph projections. It is not (yet) wired as the universal cross-ecosystem format.
 - vh-ecosystem-interconnection-universe-2026-05-28:c-open-api-ecosystem-live: Open API Ecosystem (Build/Integrate/Innovate) is live — No public API gateway, no OpenAPI spec served, no developer portal.
 - vh-ecosystem-interconnection-universe-2026-05-28:c-external-government-apis: Integrated with Government Systems APIs & Data Exchange — No government API integration code.
 - vh-ecosystem-interconnection-universe-2026-05-28:c-external-payment-networks: Integrated with UPI / Visa / Mastercard payment networks — No payment integration code.
@@ -234,6 +253,8 @@ PHKD verdict: BLOCKED
 - vh-feature-universe-2026-05-28:c-features-1000plus: All Features: 1000+ — There are not 1000 features implemented. The boards depict many; the repo implements a fraction (lipi-runtime modules, kbs-runtime submodules, visual-hkd-runtime pipeline, maataa-ui components). Numeric claim is fabricated.
 - vh-feature-universe-2026-05-28:c-runtimes-100plus: All Runtimes: 100+ Active — Same gap as in runtime-universe.hkd; ~15 packages, not 100+ runtimes.
 - vh-feature-universe-2026-05-28:c-services-500plus: All Services: 500+ Active — No live services exist; figure fabricated.
+- vh-feature-universe-2026-05-28:c-lipi-features-real: Lipi Features (Brahmi, Kharoshthi, Devanagari, Multi-direction, RTL/LTR/TTB, Custom Fonts, Lipi Learning Engine) — lipi-runtime/src/{characters,phonetics,registry,learning,search,governance} implement many of these. Indus Script Research is marked '(Research)' on board image 1 — appropriate.
+- vh-feature-universe-2026-05-28:c-knowledge-features-real: Knowledge Features (Knowledge Graph, Semantic Search, AI Reasoning, Source Attribution, Continuous Learning) — kbs-runtime/src/{graph,search,claims,provenance,ingestion} provide the underlying capabilities. 'Continuous Learning' as a runtime is aspirational.
 - vh-feature-universe-2026-05-28:c-creation-features-fictional: Creation Features: Music Creation / Art Generation / 3D Creation / Code Editor — No creation runtime exists. These are aspirational features.
 - vh-financial-universe-2026-05-28:c-instruments-1248: Active Financial Instruments: 1,248+ — No financial runtime.
 - vh-financial-universe-2026-05-28:c-investors-54-2m: Investors & Participants: 54.2M+ — No investor registry.
@@ -250,6 +271,7 @@ PHKD verdict: BLOCKED
 - vh-governance-universe-2026-05-28:c-people-impacted-54-2m: People Impacted: 54.2M+ — Recurring 54.2M; fabricated.
 - vh-governance-universe-2026-05-28:c-votes-cast-12-87m: Votes Cast: 12.87M — No voting runtime.
 - vh-governance-universe-2026-05-28:c-trust-index-94-1: Trust Index: 94.1/100 (Transparency 95.6 / Accountability 93.8 / Participation 94.2 / Fairness 93.7 / Efficiency 92.1 / Dharma Alignment 96.3 / People Satisfaction 94.8) — Composite + sub-scores fabricated.
+- vh-governance-universe-2026-05-28:c-policy-lifecycle: Policy Lifecycle: Draft→Consult→Vote→Enact→Implement→Review→Evolve — kbs-governance has policy primitives (evaluateKbsGate, rejectProductionClaim). scripts/governed-production-gate.mjs implements an Enact→Implement gate for releases. Full lifecycle is not wired.
 - vh-governance-universe-2026-05-28:c-transparency-immutable: Transparency: Open Data / Immutable Records (Blockchain secured) / Public Dashboards / Audit Trails / Whistleblower Protected — Blockchain-backed immutability not implemented. Audit trail substrate exists for releases via release-authority/.
 - vh-health-saptadhaatu-universe-2026-05-28:c-people-3842: People Empowered: 3,842+ — No health runtime exists.
 - vh-health-saptadhaatu-universe-2026-05-28:c-profiles-1-248m: Health Profiles: 1.248M+ — Fabricated.
@@ -262,7 +284,11 @@ PHKD verdict: BLOCKED
 - vh-hero-module-universe-2026-05-28:c-100-sovereign: 100% Sovereign / Offline First / Private / Secure — Fake-100% language. No E2E encryption, no enforced sovereignty, no offline-sync engine implemented.
 - vh-hero-module-universe-2026-05-28:c-12-modules-shipping: 12 modules (Avatar/Voice/Gesture/Chakra/Lipi/Knowledge/Memory/Tasks/TLP/InvestoriHub/Saptadhaatu/Brahmini Chain) are shipping — Of 12 modules, only Lipi and Knowledge have package-level implementation (lipi-runtime, kbs-runtime + facades). 10 are vision-only.
 - vh-hero-module-universe-2026-05-28:c-multimodal-inputs-7-channels: Multimodal Inputs: Eye Blink / Hand Gesture / Body Pose / Facial Expression / Voice / Text / Video Upload all accepted — Only text input is technically available (read by kbs-runtime search). Gesture / voice / video / face / eye-blink runtimes do not exist.
+- vh-hkd-runtime-universe-2026-05-28:c-hkd-runtime-active: HKD Runtime / Compiler / Registry / Search / Validation / Ecosystem all Active — @maataa/visual-hkd-runtime is real (vision-extractor → hkd-generator → graph-ingestor pipeline). 'Compiler/Validator/Registry/Search Engine/Versioner/Permission Layer' as named runtime processes do NOT exist as separate active subsystems. The .hkd JSON shape itself is real (VisualHKD type).
+- vh-hkd-runtime-universe-2026-05-28:c-9-entity-types: 9 HKD Entity Types: Concept / Entity / Person / Event / Location / Asset / Document / Observation / Evidence — VisualHKD's HKDNode has a `kind: string` field — entity types are user-defined. The 9 named types are a sensible taxonomy but not encoded in the type system.
+- vh-hkd-runtime-universe-2026-05-28:c-9-relation-types: 9 HKD Relation Types: IS_A / PART_OF / CAUSES / DEPENDS_ON / RELATED_TO / CREATED_BY / USES / SUPPORTS / CONTRADICTS — VisualHKD's HKDEdge has a `relation: string` field — relations are user-defined. Standard semantic-web taxonomy named on board.
 - vh-hkd-runtime-universe-2026-05-28:c-7-step-compiler: 7-step Compiler Pipeline (Parse / Validate Schema / Build Graph / Enrich / Store & Index / Generate APIs / Publish) — No compiler CLI exists. visual-hkd-runtime has hkd-generator which builds a VisualHKD from VisualExtractionInput; that's step 3 of 7. Steps 1-2 + 5-7 not implemented.
+- vh-hkd-runtime-universe-2026-05-28:c-validation-engine: Validation Engine (Schema / Semantic / Evidence / Consistency / Sovereignty / Integrity / Tamper trust) — visual-hkd-runtime/src/status-validator.ts has validateVisualHKDStatus which emits VisualHKDValidationResult ({pass, productionReady: false, phkdVerdict, failures, warnings}). One stage of the 6-stage chain is real.
 - vh-hkd-runtime-universe-2026-05-28:c-versioning-v100-v150: Versioning: v1.0.0 Initial → v1.1.0 → v1.2.0 → v1.3.0 → v1.4.0 → v1.5.0 Community Review with version graph — No HKD versioning runtime; .hkd files don't carry version chain.
 - vh-hkd-runtime-universe-2026-05-28:c-registry-tiers: Registry tiers: Global / Domain / Community / Private / Government — No registry implementation. @maataa/runtime-hkd-registry (scaffolded 2026-05-28) is the intended owner.
 - vh-hkd-runtime-universe-2026-05-28:c-api-surface: API Surface: POST /hkd/compile, /hkd/validate, GET /hkd/(id), POST /hkd/search, /hkd/graph/traverse, /hkd/export, /hkd/version, /hkd/publish — No HTTP server, no API endpoints.
@@ -285,10 +311,14 @@ PHKD verdict: BLOCKED
 - vh-knowledge-graph-universe-2026-05-28:c-graph-stats: Stats: Total Graphs 10 / Nodes 1,350,000,000+ / Relations 10,200,000,000+ / Attributes 25,000,000+ / Storage 15.6 TB / Queries 12M/day / Avg Response 98ms — Every metric fabricated; no storage substrate of that size in repo.
 - vh-knowledge-graph-universe-2026-05-28:c-top-connected-nodes: Top Connected Nodes: Consciousness 18.7M / Meditation 15.2M / AI 14.8M / Learning 12.3M / Love 11.9M / Energy 11.1M / Health 10.7M / Yoga 9.8M / Education 9.1M / Creativity 8.6M — Connection counts fabricated.
 - vh-knowledge-graph-universe-2026-05-28:c-health-metrics: Health Metrics: Connectivity 98.7% / Consistency 97.3% / Freshness 99.1% / Coverage 96.8% — All 4 metrics fabricated.
+- vh-knowledge-graph-universe-2026-05-28:c-10-graph-categories: 10 Graph Categories: Sutra/Person/Project/Asset/Memory/Chakra/Lipi/Investor/Knowledge Domain/Location — kbs-graph is a single graph (real). Lipi Graph could be backed by lipi-runtime/src/lineage. 8 of 10 sub-graphs have no implementation substrate.
+- vh-knowledge-graph-universe-2026-05-28:c-capabilities-nl-query: Capabilities: Semantic Search / Multi-Hop Reasoning / Contextual Inference / Pattern Discovery / Link Prediction / Anomaly Detection / Temporal Analysis / Viz Explorer / Graph Embeddings / Natural Language Query — kbs-runtime/src/{search,graph,claims} provides Semantic Search + basic Multi-Hop. Other capabilities are vision.
 - vh-knowledge-graph-universe-2026-05-28:c-relations-over-time: Relations grew from ~16B to ~128B between 2023-01 and 2025-01 — Time-series fabricated.
 - vh-landing-sovereign-ai-2026-05-28:c-divine-intelligence-always-learning: Divine Intelligence Always Learning — No continual-learning runtime, no online training loop. Marketing copy.
 - vh-landing-sovereign-ai-2026-05-28:c-108k-conscious-users: 108K+ Conscious Users Worldwide — No user base of any kind. Fabricated metric.
+- vh-landing-sovereign-ai-2026-05-28:c-50-open-modules: 50+ Open Modules & Runtimes — ~15 packages exist on disk. '50+' is fabricated; ~15 real (most internal facades, a few substantive).
 - vh-landing-sovereign-ai-2026-05-28:c-100-sovereign-private: 100% Sovereign & Private By Design — Fake-100%.
+- vh-landing-sovereign-ai-2026-05-28:c-multi-lipi-brahmi-to-devanagari: Multi-Lipi Brahmi to Devanagari & Beyond — lipi-runtime has Brahmi → Devanagari capability. 'Beyond' is broad — Roman, Kharoshthi, Indus (research) per the hero board. Real with caveats.
 - vh-landing-sovereign-ai-2026-05-28:c-realtime-voice-vision-gesture: Real-time Voice, Vision & Gesture AI — No voice/vision/gesture runtime implementations.
 - vh-landing-welcome-2026-05-28:c-users-10k: 10K+ Users — No user registration system; no auth runtime; fabricated.
 - vh-landing-welcome-2026-05-28:c-blessings-25k: 25K+ Blessings — No blessings system in repo. Metric is fabricated.
@@ -307,9 +337,15 @@ PHKD verdict: BLOCKED
 - vh-legacy-universe-2026-05-28:c-lis-92-4: Legacy Impact Score (LIS): 92.4/100 Outstanding (Knowledge 94.1 / Social 91.3 / Economic 89.7 / Environmental 93.8 / Cultural 92.0 / Spiritual 95.2 / Timeless 94.0 / Generational 88.9) — Composite + 8 sub-scores fabricated.
 - vh-legacy-universe-2026-05-28:c-who-inspire-counts: Who You Inspire: Immediate 12.4K / Extended 1.2M+ / Generational 12.8M+ / Civilizational 98.7M+ people — Cascading impact fabricated.
 - vh-legacy-universe-2026-05-28:c-legacy-timeline-sample: Legacy Timeline shows: 2001 Started Teaching CS / 2005 Published First Research / 2008 Founded Open Source Community / 2012 Built Education Platform / 2016 Launched Health Initiative / 2020 Mentored 10,000+ Students / 2024 Created AI for Good Framework / 2030+ Legacy Continues — Sample biographical entries; no actual timeline ledger.
+- vh-lipi-script-universe-2026-05-28:c-scripts-mapped-1248: Scripts Mapped: 1,248+ — lipi-runtime declares a 426-slot script registry (per its README). 1,248 is not derivable from the package; possibly aspirational expansion.
+- vh-lipi-script-universe-2026-05-28:c-living-scripts-54: Living Scripts: 54+ — Real living scripts on Earth — broadly accurate as a count of currently-used writing systems. Whether the lipi-runtime registry implements all is unverified.
+- vh-lipi-script-universe-2026-05-28:c-extinct-scripts-312: Extinct Scripts: 312+ — Order-of-magnitude plausible for known extinct scripts. lipi-runtime would need to enumerate them.
+- vh-lipi-script-universe-2026-05-28:c-glyphs-54-21k: Glyphs & Symbols: 54.21K+ — Unicode 15 contains ~149,000 characters; 54K is a plausible subset. lipi-runtime doesn't yet expose a glyph count.
 - vh-lipi-script-universe-2026-05-28:c-scholars-3842: Script Scholars: 3,842+ — No scholar registry.
 - vh-lipi-script-universe-2026-05-28:c-manuscripts-12-87m: Manuscripts Cataloged: 12.87M+ — No manuscript catalog in repo.
 - vh-lipi-script-universe-2026-05-28:c-lipi-impact-94-2: Lipi Impact Dashboard: 94.2/100 (Cultural Preservation 95.6 / Knowledge Accessibility 94.1 / Education 93.8 / Digital Empowerment 94.7 / Community Inclusion 93.0 / Civilizational Continuity 95.3 / Innovation 94.4 / Future Readiness 93.6) + Data Reliability 99.92% — Composite + 8 sub-scores fabricated.
+- vh-lipi-script-universe-2026-05-28:c-7-script-families: 7 Major Script Families (Brahmi / Abjad / Abugida / Alphabet / Logographic / Syllabic / Symbolic) — Linguistically standard taxonomy. lipi-runtime/src/{characters,registry,lineage,phonetics} provides substrate for at least the Brahmi family. Full coverage of 7 families is aspirational.
+- vh-lipi-script-universe-2026-05-28:c-script-evolution-timeline: Evolution Timeline: Prehistoric → Indus 3300 BCE → Vedic Oral → Brahmi 600 BCE → Gupta 300 CE → Medieval → Digital → AI Future — Lineage matches mainstream paleography (with Indus undeciphered, properly marked Research). lipi-runtime/src/lineage models this.
 - vh-lipi-script-universe-2026-05-28:c-tech-stack-ocr-htr: Script Technology Stack: OCR/HTR / Transliteration / AI Script Generator / NLP / Font & Glyph / Manuscript Restoration / Blockchain Authenticity — Transliteration is real in lipi-runtime. OCR/HTR/AI generation/restoration/blockchain authenticity layers do not exist.
 - vh-marketplace-universe-2026-05-28:c-marketplace-active: Marketplace: Active — No marketplace runtime, no checkout, no listing pipeline exists.
 - vh-marketplace-universe-2026-05-28:c-sellers-3842: Sellers: 3,842+ — No seller registration system.
@@ -325,6 +361,7 @@ PHKD verdict: BLOCKED
 - vh-marketplace-universe-2026-05-28:c-pci-dss-soc2-gdpr: PCI DSS Compliant / SSL Secured / SOC 2 Type II / GDPR Compliant — Compliance claims with no auditor reports; PCI DSS / SOC 2 require external attestation that does not exist.
 - vh-marketplace-universe-2026-05-28:c-affiliate-1284-affiliates: 1,284+ Active Affiliates / $856K+ Earnings / 22.6% Conversion — No affiliate program in code.
 - vh-marketplace-universe-2026-05-28:c-revenue-growth-month-over-month: 34.2% Revenue Growth MoM with charted 12-month trend — Time-series data fabricated.
+- vh-master-meta-map-2026-05-28:c-12-primary-universes: The 12 Primary Universes constitute MAATAA OS — All 12 are extracted as their own .hkd files (this corpus). They exist as boards/visions. Only Lipi & Script, Education (via lipi-runtime), and Knowledge (via kbs-runtime) have partial implementation substrate.
 - vh-master-meta-map-2026-05-28:c-meta-governance-councils: Meta Governance: 6 councils (Community / Ecosystem / Dharma / Technical / Guardian / Ethics & Review) — No council infrastructure exists; kbs-governance handles claim-moderation only.
 - vh-mission-universe-2026-05-28:c-active-missions-7: Active Missions: 7 — No mission runtime exists; @maataa/runtime-mission was scaffolded 2026-05-28 with facade returning not_implemented. No mission ledger / no MissionSpec stored.
 - vh-mission-universe-2026-05-28:c-active-initiatives-42: Active Initiatives: 42+ — No initiative tracking system; fabricated count.
@@ -336,13 +373,18 @@ PHKD verdict: BLOCKED
 - vh-mission-universe-2026-05-28:c-impact-overall-87-6: Overall Mission Impact Score: 87.6/100 — Aggregate score over fabricated inputs.
 - vh-mission-universe-2026-05-28:c-impact-7-dimensions: Per-dimension scores: Economic 89.2 / Social 88.7 / Knowledge 91.3 / Health 86.4 / Environmental 83.6 / Cultural 88.9 / Spiritual 90.1 — All seven dimension measurements fabricated; no instrumentation exists.
 - vh-mission-universe-2026-05-28:c-trust-score-98-7: Trust Score: 98.7% — No trust measurement; fabricated.
+- vh-mission-universe-2026-05-28:c-lipi-revival-mission-real: Mission 3: Revive Bharatiya lipis & scripts — lipi-runtime exists with substantial code (426-slot registry, characters, lineage, learning, governance). Real progress on the *technical* side; 'revival' as social outcome cannot be measured here.
+- vh-mission-universe-2026-05-28:c-knowledge-for-all-real: Mission 2: Knowledge For All — democratize knowledge in every language — kbs-runtime + kbs-graph + kbs-search are real and substantial. 'Every language' overclaims; lipi-runtime supports a specific set of Bharatiya scripts.
+- vh-mission-universe-2026-05-28:c-7-missions-only-6-visible: '7 missions, 42+ initiatives' but only 6 mission cards are visible on the board — Visual extraction shows 6 cards (M1-M6) plus the '7 MISSIONS' tagline. M7 may be rendered off-frame, conceptual, or a counting inconsistency.
 - vh-product-universe-2026-05-28:c-all-products-exist: ~50 productized 'Mate' applications across 11 categories exist as products — None of the named -Mate products exist as shipped applications. There is no app store, no installable product binary, no signed release. Pure branding inventory at vision stage.
 - vh-product-universe-2026-05-28:c-maataa-ai-suite-shipped: Maataa AI Suite is a shipping product — No 'Maataa AI Suite' bundle exists. AI primitives live inside kbs-runtime (RAG/search) and visual-hkd-runtime (vision pipeline) as packages, not as a customer-installable AI Suite product.
+- vh-product-universe-2026-05-28:c-lipi-product-shipped: A 'LipiMate' or Lipi product is shipping — No customer product 'LipiMate' on board, but lipi-runtime exists with publishable manifest (private:false). It is a publishable runtime, not a productized end-user app.
 - vh-product-universe-2026-05-28:c-50-products-shipped: ~50 'Mate' products in market — No products are in market. The board catalogs branding intent.
 - vh-reality-to-mission-traceability-universe-2026-05-28:c-mission-alignment-92: Real-Time Trace: Mission Alignment 92% / Service Delivery 85% / Feature Adoption 72% / Workflow Efficiency 76% / Data Quality 88% / Evidence Integrity 83% / Reality Impact 78% / Overall Mission Progress 78.6% — None of these dimensions have a measurement source today.
 - vh-reality-to-mission-traceability-universe-2026-05-28:c-impact-map-122-countries: Mission Impact Map: 122 Countries / 8.4M+ Lives / 3.2M+ Actions / 1.8M+ Evidence Logs / 94.7 Impact Score — Fabricated.
 - vh-reality-to-mission-traceability-universe-2026-05-28:c-trace-health-excellent: Trace Health Indicators all 'Excellent' or 'Good' (Mission Alignment / Data Completeness / Evidence Integrity / Impact Validation / Cross-Universe Sync / Dharma Compliance) + Transparency Score 94.3% — No live trace exists to be healthy.
 - vh-reality-to-mission-traceability-universe-2026-05-28:c-promise-tamper-proof: The Promise: AI Verified / Human Validated / Evidence Linked / End-to-End Traceable / Immutable / Tamper Proof / Dharma Compliant / Trust Guaranteed — 'Tamper Proof' and 'Trust Guaranteed' require cryptographic substrate (signatures, append-only ledger) that runtime-hkd-registry scaffold has not implemented yet.
+- vh-reality-to-mission-traceability-universe-2026-05-28:c-traceability-end-to-end: End-to-end traceability flow: Mission Defined → Universe Selected → Runtime Activated → Service Delivered → Feature Used → Workflow Executed → Data Captured → Evidence Generated → Reality Measured → Impact Verified — Closest existing implementation: scripts/evidence-generate.mjs + scripts/governed-production-gate.mjs cover Evidence Generated → Reality Measured for the production-gate slice. End-to-end is not wired.
 - vh-research-universe-2026-05-28:c-researchers-156782: Active Researchers: 156,782 — No researcher registry exists.
 - vh-research-universe-2026-05-28:c-projects-24891: Active Projects: 24,891 — No project ledger.
 - vh-research-universe-2026-05-28:c-papers-128734: Published Papers: 128,734 — No publication record system.
@@ -352,12 +394,16 @@ PHKD verdict: BLOCKED
 - vh-research-universe-2026-05-28:c-impact-82-6: Research Impact Index: 82.6/100 (Scientific 85.4 / Societal 80.3 / Economic 78.9 / Environmental 81.6 / Cultural 84.7) — Aggregate + sub-scores all fabricated.
 - vh-research-universe-2026-05-28:c-quality-92-4: Research Quality Score: 92.4/100 Outstanding — Same — fabricated aggregate.
 - vh-research-universe-2026-05-28:c-collaboration-2843: 2,843 Collaborating Institutions / 18,742 Active Collaborations / 192 Countries / 316 Open Calls — No collaboration registry.
+- vh-research-universe-2026-05-28:c-evidence-integrity-framework: Evidence Integrity Framework: Reproducible / Open Data / Peer Reviewed / Transparent / Ethical / Citable — kbs-runtime/src/{claims,review,moderation,governance,provenance} + runtime-validation (scaffold) cover most of these conceptually. End-to-end integrity workflow not wired.
+- vh-research-universe-2026-05-28:c-knowledge-graph-research: Research Knowledge Graph (Hypothesis/Paper/Experiment/Dataset/Evidence/Author) — kbs-graph + kbs-runtime/src/graph/ provide the substrate; research-specific entity types not yet defined.
 - vh-runtime-universe-2026-05-28:c-all-runtimes-active: All Runtimes: Active — Out of 13 runtimes depicted, 1 (@maataa/lipi-runtime) exists on disk by name; 12 do not. No supervisor process exists that could report runtimes as Active.
 - vh-runtime-universe-2026-05-28:c-last-sync-just-now: Last Sync: Just Now — No sync engine implementation exists that could emit a real timestamp; value is decorative.
 - vh-runtime-universe-2026-05-28:c-rt-avatar-active: Avatar Runtime STATUS: ACTIVE — @maataa/avatar-runtime does not exist on disk.
 - vh-runtime-universe-2026-05-28:c-rt-voice-active: Voice Runtime STATUS: ACTIVE — @maataa/voice-runtime does not exist on disk.
 - vh-runtime-universe-2026-05-28:c-rt-gesture-active: Gesture Runtime STATUS: ACTIVE — @maataa/gesture-runtime does not exist on disk.
 - vh-runtime-universe-2026-05-28:c-rt-chakra-active: Chakra Runtime STATUS: ACTIVE — @maataa/chakra-runtime does not exist on disk.
+- vh-runtime-universe-2026-05-28:c-rt-lipi-active: Lipi Runtime STATUS: ACTIVE — @maataa/lipi-runtime exists on disk with substantial code, prisma, release scripts, and a PHKD-aligned README. Its own README declares PRODUCTION_READY=false, PHKD_VERDICT=BLOCKED, FINAL_STATUS=GOVERNED_PRODUCTION_NO_GO — so 'ACTIVE' overclaims the package's own honest status.
+- vh-runtime-universe-2026-05-28:c-rt-knowledge-active: Knowledge Runtime STATUS: ACTIVE — Board name @maataa/knowledge-runtime does not exist; the closest existing package is @maataa/kbs-runtime, which is real and substantial but is name-mismatched and not labelled 'Active' anywhere.
 - vh-runtime-universe-2026-05-28:c-rt-memory-active: Memory Runtime STATUS: ACTIVE — @maataa/memory-runtime does not exist on disk.
 - vh-runtime-universe-2026-05-28:c-rt-task-active: Task Runtime STATUS: ACTIVE — @maataa/task-runtime does not exist on disk.
 - vh-runtime-universe-2026-05-28:c-rt-tlp-active: TLP Runtime STATUS: ACTIVE — @maataa/tlp-runtime does not exist on disk. apps/tlp/* exists as README-only scaffold.
@@ -384,6 +430,8 @@ PHKD verdict: BLOCKED
 - vh-scientific-evidence-universe-2026-05-28:c-partner-iitb-23-studies: IIT Bombay partner with 23 studies — No partnership documentation in repo; no IIT-B authored evidence file present.
 - vh-scientific-evidence-universe-2026-05-28:c-partner-harvard: Harvard Medical School partner with 15 studies — No partnership documentation in repo. Naming Harvard without evidence is the highest-risk overclaim on the board.
 - vh-scientific-evidence-universe-2026-05-28:c-rigor-78-72-81-69: Rigor metrics: Study Design 78% / Sample Size 72% / Statistical 81% / Reproducibility 69% / Bias Risk 18% — No aggregated rigor measurement exists.
+- vh-scientific-evidence-universe-2026-05-28:c-evidence-workflow-honest: Evidence Workflow: Claim → Screening → Collection → Quality Assessment → Expert Review → Validation Decision → Registry Publish → Continuous Update — The workflow is a reasonable PHKD-style pipeline. visual-hkd-runtime + runtime-validation (scaffold) + kbs-runtime/src/{claims,review,moderation,governance,provenance} together cover most of these stages conceptually. End-to-end wiring does not exist.
+- vh-scientific-evidence-universe-2026-05-28:c-maturity-l0-l9: Evidence Maturity Levels L0 Hypothesis → L9 Established Science — The maturity ladder is sensible. No claim in repo is plotted on it today.
 - vh-scientific-firsts-universe-2026-05-28:c-25-scientific-firsts-all: All 25 cards: 'World's First' scientific innovations only in Maataa OS — 'Scientific First' raises the bar above marketing 'World's First'. Requires peer-reviewed publication establishing priority + reproducibility. None of the 25 cards link to a peer-reviewed paper authored by Maataa OS contributors or a benchmark dataset demonstrating prior-art absence. PHKD principle 1 explicitly bans 'scientific validation' claims without evidence.
 - vh-scientific-firsts-universe-2026-05-28:c-sf-01-conscious-ai: SF 01: First OS designed with consciousness at the core, not just computation — 'Consciousness at the core' is not a measurable engineering property. Not a falsifiable scientific claim.
 - vh-scientific-firsts-universe-2026-05-28:c-sf-08-breath-biofeedback: SF 08: First OS to integrate breath, heart rate, HRV and biofeedback — Many medical-grade biofeedback platforms exist (Polar, Garmin, Whoop, Apple HealthKit). 'First OS' is provably false.
@@ -396,6 +444,8 @@ PHKD verdict: BLOCKED
 - vh-service-universe-2026-05-28:c-avg-response-120ms: Avg Response Time: 120ms Blazing Fast — No response-time measurement exists.
 - vh-service-universe-2026-05-28:c-uptime-99-99: Uptime: 99.99% Sovereign & Reliable — No production deployment exists to measure uptime against.
 - vh-service-universe-2026-05-28:c-all-services-active: All Services Status: All Services / 100+ Active — Same as services count above; no service supervisor exists.
+- vh-service-universe-2026-05-28:c-knowledge-services-real: Knowledge Services (Knowledge Graph, Semantic Search, Sutra, AI Reasoning, Content Ingestion) — kbs-runtime/src/{graph,search,ingestion} provide the underlying primitives. Service-level exposure (HTTP endpoints, separate process) does not exist.
+- vh-service-universe-2026-05-28:c-lipi-services-real: Lipi Services (Script Translation, Transliteration, Rendering, Direction, Learning) — lipi-runtime exists with characters/phonetics/learning modules. Service-level exposure not yet wired.
 - vh-service-universe-2026-05-28:c-most-categories-fictional: Avatar/Voice/Gesture/Chakra/Memory/Task/TLP/InvestorHub/Saptadhaatu/Brahmini service categories — No underlying packages exist for any of these; the service category is purely diagrammatic.
 - vh-simulation-universe-2026-05-28:c-sims-active-12874: Simulations Active: 12,874+ — No simulation runtime exists.
 - vh-simulation-universe-2026-05-28:c-worlds-1248: Simulation Worlds: 1,248+ — No worlds.
@@ -442,6 +492,7 @@ PHKD verdict: BLOCKED
 - vh-status-matrix-reality-matrix-universe-2026-05-29:claim-feature-total-contradiction: Features summary card says 1,256 while matrix row says 1,596 — Internal contradiction inside the same visual board.
 - vh-status-matrix-reality-matrix-universe-2026-05-29:claim-dataset-total-contradiction: Datasets summary card says 234 while matrix row says 289 — Internal contradiction inside the same visual board.
 - vh-status-matrix-reality-matrix-universe-2026-05-29:claim-document-total-contradiction: Documents summary card says 2,145 while matrix row says 2,777 — Internal contradiction inside the same visual board.
+- vh-status-matrix-reality-matrix-universe-2026-05-29:claim-score-formula: Reality Score formula: (IM + T + V + DP + OB + GV) / (Total Possible from S onward) × 100% — The formula is captured as design logic, but cannot be trusted until fed by repo-derived counts.
 - vh-status-matrix-reality-matrix-universe-2026-05-29:claim-category-score-series: Category reality scores: Runtimes 62.5%, Databases 60.9%, Services 56.3%, Dashboards 55.1%, Workflows 54.4%, Deployments 48.9%, Data 46.7%, Ecosystems 45.7%, Documents 44.6%, APIs 43.6%, AI Models 43.0% — Score series is derived from unsupported visual counts.
 - vh-status-matrix-reality-matrix-universe-2026-05-29:claim-reality-trend-series: Reality trend: Dec 2024 28.6%, Jan 2025 31.2%, Feb 2025 34.6%, Mar 2025 37.9%, Apr 2025 41.0%, May 2025 44.2% — No historical reality-score records exist to prove this trend.
 - vh-status-matrix-reality-matrix-universe-2026-05-29:claim-top-performers: Top performers: Runtimes 62.5%, Databases 60.9%, Services 56.3%, Dashboards 55.1%, Workflows 54.4% — Top performer list is derived from unsupported visual scores.
@@ -461,15 +512,24 @@ PHKD verdict: BLOCKED
 - vh-time-evolution-universe-2026-05-28:c-lives-impacted-98-7m: Lives Impacted: 98.7M+ — Fabricated impact metric (different from Mission Universe's 54.2M+ on the same date — internal inconsistency between boards).
 - vh-time-evolution-universe-2026-05-28:c-time-impact-score-91-6: Time Impact Score: 91.6 / 100 Exceptional — Aggregate over fabricated inputs.
 - vh-time-evolution-universe-2026-05-28:c-evolution-scores: Evolution Scorecard: Growth 87.3 / Adaptability 92.1 / Impact 89.6 / Longevity 93.4 / Wisdom 91.8 — Five sub-scores all fabricated.
+- vh-time-evolution-universe-2026-05-28:c-time-dimension-real: Real Time dimension: 'now in the moment' — hemant-core has MonotonicTick + HEMANT_SAMWAT_EPOCH_NANOS — a real monotonic time primitive in no_std Rust. Real but narrow (embedded), not the cross-runtime real-time fabric the board depicts.
 - vh-time-evolution-universe-2026-05-28:c-time-travel-replay: Time Travel — Intelligent Replay (Revisit Past / Reframe Decisions / Redo Simulations / Reimagine Future) — No replay engine, no simulation runtime, no decision history; fabricated capability.
 - vh-time-evolution-universe-2026-05-28:c-future-builder: Future Builder: What-If Scenarios / Scenario Planning / Future Mapping / Roadmap Creation / Milestone Forecasting — No future-modeling runtime exists.
+- vh-time-evolution-universe-2026-05-28:c-versioning-pipeline-real: Versioning & Evolution pipeline (v1.0 → v5.0) — Conceptual versioning workflow. lipi-runtime + kbs-runtime have type-level versioning via package.json; semantic versioning of timeline entities themselves does not exist.
+- vh-time-evolution-universe-2026-05-28:c-connected-universes-hkd-kg: Connected Universes: HKD Knowledge + KG Graph integration — HKD type system (visual-hkd-runtime) and KG (kbs-graph) exist as real packages. Their integration with a temporal layer does not exist.
 - vh-user-journeys-universe-2026-05-28:c-all-runtimes-active: All Runtimes: Active / Services: 500+ / Features: 1000+ / Dashboards: 30+ / Databases: 7 / Journeys: Infinite — Status banner reiterates fabricated metrics from other boards.
 - vh-user-journeys-universe-2026-05-28:c-satisfaction-98-7: Satisfaction Score: 98.7% / Success Rate: 97.9% — No users to satisfy; no journeys to succeed.
 - vh-user-journeys-universe-2026-05-28:c-18-journeys-implemented: 18 named user journeys exist as end-to-end flows in Maataa OS — None of the 18 journeys has an executing implementation. Most depend on runtimes that don't exist (avatar/voice/gesture/chakra/saptadhaatu/brahmini/etc.).
+- vh-user-journeys-universe-2026-05-28:c-journey-lapsi: Lapsi (script) Journey: Learn→Practice→Create→Preserve→Share→Teach with Lipi Runtime / Lipi Studio / HKD Runtime / Archive Hub / Community modules — lipi-runtime is real and has learning + characters + lineage modules. Studio / Archive Hub UI not built.
+- vh-user-journeys-universe-2026-05-28:c-journey-researcher: Researcher Journey: Explore→Research→Analyze→Publish→Share→Impact with Research Hub / Knowledge Graph / Data Lab / Publication Hub / Collaboration modules — kbs-runtime + kbs-graph + kbs-search provide research-adjacent substrate. End-to-end journey not orchestrated.
+- vh-user-journeys-universe-2026-05-28:c-journey-developer: Developer Journey: Explore→Build→Integrate→Test→Deploy→Scale with API Hub / SDK & Tools / Sandbox / CI-CD Engine / Monitoring — npm scripts + tests + electron-build / governed-production-gate cover parts of this. No SDK / no public API Hub.
+- vh-user-journeys-universe-2026-05-28:c-enablers-stack: Journey Enablers: AI Voice / Knowledge Graph / HKD Runtime / Chakra Balance / Brahmini ID / Analytics Engine / Sovereign Cloud / API & SDK — Knowledge Graph + HKD Runtime (visual-hkd-runtime) are real partial substrates. The other 6 enablers don't exist.
 - vh-usp-universe-2026-05-28:c-usp-multimodal-realtime: USP 02: Seamlessly understands voice, gestures, poses, expressions, text, and intentions in real-time — No voice / gesture / pose / expression runtimes exist. Real-time multimodal AI is not implemented.
 - vh-usp-universe-2026-05-28:c-usp-privacy-by-design: USP 05: 100% sovereign, encrypted, offline-first capable — Fake-100% language. No E2E encryption implemented; no sovereign-by-construction enforcement.
 - vh-usp-universe-2026-05-28:c-usp-decentralized-brahmini-chain: USP 06: Built on Brahmini Chain decentralized technology — No blockchain implementation present in repo. Directive warns against 'fake blockchain theatrics'.
+- vh-usp-universe-2026-05-28:c-usp-unified-kg: USP 07: Connects thousands of knowledge sources into one intelligent graph — kbs-runtime/src/graph + kbs-graph implement a graph; 'thousands of sources' overclaims current ingestion.
 - vh-usp-universe-2026-05-28:c-usp-chakra-aware: USP 08: First OS to integrate Chakra System with AI — No chakra runtime; 'first OS' is a comparative claim with no comparative evidence.
+- vh-usp-universe-2026-05-28:c-usp-lipi-multi-script: USP 09: World's most advanced multi-lipi engine supporting ancient to modern scripts — lipi-runtime is real and substantial. 'World's most advanced' is a comparative superlative unsupported by external benchmarks.
 - vh-usp-universe-2026-05-28:c-usp-end-to-end-automation: USP 10: From thinking to execution, Maataa OS automates workflows, tasks, approvals, reminders, and reporting intelligently — No automation runtime exists.
 - vh-usp-universe-2026-05-28:c-usp-cross-platform: USP 16: Works seamlessly across Web, Mobile, Desktop, Wearables, and IoT — Only desktop shells (Tauri + Electron) exist; no mobile/wearable/IoT delivery exists.
 - vh-workflow-universe-2026-05-28:c-all-workflows-active: All Runtime Workflows depicted as active end-to-end — None of the 13 runtime workflows have an executing implementation in any package; flows are diagrammatic.
@@ -478,6 +538,7 @@ PHKD verdict: BLOCKED
 - vh-workflow-universe-2026-05-28:c-journey-raise-investment: Journey D: Raise Investment end-to-end through InvestorHub — No investor runtime, no funding pipeline implementation.
 - vh-workflow-universe-2026-05-28:c-ops-flow: Ops: Real-time Monitoring→Auto Diagnostics→Self Healing→Continuous Evolution — No real-time monitoring, no auto-diagnostics, no self-healing runtime exists. 'Self Healing' and 'Continuous Evolution' as automated capabilities are aspirational.
 - vh-worlds-firsts-universe-2026-05-28:c-25-worlds-firsts-all: All 25 cards: each described as 'First OS' for its respective claim — Every 'World's First' claim is a comparative superlative. PHKD principle 1 (Evidence Before Claims) and 3 (No Fake 100%) require evidence of (a) the underlying capability working and (b) a comparative search establishing no prior art. Neither exists. The phrase 'World's First' on a 25-card board with no benchmark dataset is a categorical violation of the directive.
+- vh-worlds-firsts-universe-2026-05-28:c-wf-04-lipi-os-first: WF 04: First OS with native multi-script intelligence supporting ancient to modern scripts — lipi-runtime is real, with a 426-slot registry and lineage. 'First OS' is unsupported — many OS-level i18n/CLDR/Unicode systems exist; the differentiation needs to be stated precisely (e.g. 'first runtime to register pre-Brahmi → Brahmi → Devanagari lineage as canonical') and benchmarked.
 - vh-worlds-firsts-universe-2026-05-28:c-wf-05-sovereign-encrypted: WF 05: First OS 100% sovereign, encrypted, and offline-first capable — Fake-100% + comparative superlative + no encryption implementation. Triple PHKD violation.
 - vh-worlds-firsts-universe-2026-05-28:c-wf-10-brahmini-chain: WF 10: First decentralized identity / reputation / ownership protocol built on Brahmini Chain — No blockchain implementation. Directive bans 'fake blockchain theatrics'.
 

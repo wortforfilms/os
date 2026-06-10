@@ -1,14 +1,14 @@
 {
   "schema": "maataa.milestones-cycle.v1",
-  "ranAt": "2026-06-07T18:59:14.358Z",
+  "ranAt": "2026-06-10T14:02:18.817Z",
   "totals": {
     "groups": 6,
     "universes": 48,
     "milestones": 654,
-    "notAchieved": 376,
-    "inProgress": 55,
-    "unverified": 60,
-    "achieved": 163
+    "notAchieved": 424,
+    "inProgress": 0,
+    "unverified": 58,
+    "achieved": 172
   },
   "achievedIds": [
     "a-apps-favicon-svg-valid",
@@ -170,54 +170,65 @@
     "a-pwa-service-worker-isolation",
     "a-rollback-drill-evidence",
     "a-runtime-packages-present",
+    "c-13-relation-types",
     "c-9-level-stack-model",
+    "c-active-agents-12",
+    "c-erd-13-tables",
     "c-hkd-file-format",
+    "c-indus-script-research-label",
+    "c-knowledge-graph-dashboard-real",
+    "c-lipi-dashboard-real",
     "c-lipi-enabler-multilingual",
-    "c-migrations-cli"
+    "c-migrations-cli",
+    "c-research-agent-real",
+    "c-sku-licensing-enforced",
+    "c-storage-sqlite-libsql-ipfs"
   ],
-  "newlyAchieved": [],
+  "newlyAchieved": [
+    "c-storage-sqlite-libsql-ipfs"
+  ],
   "regressed": [],
-  "stableHash": "03f24d15ef82d09100ca80eb6431fc28d9fdd080c364619a192655a336d602ba",
+  "stableHash": "e45ac5f45584ec05f47864bb29e7e1036e9433f7523423ff3101c703c603e738",
   "steps": [
     {
       "label": "build test cache",
       "status": "ok",
-      "ms": 1878
+      "ms": 4008
     },
     {
       "label": "verify honest achievements",
       "status": "ok",
-      "ms": 8838
+      "ms": 15346
     },
     {
       "label": "generate milestones matrix",
       "status": "ok",
-      "ms": 43
+      "ms": 52
     },
     {
       "label": "render milestones surface",
       "status": "ok",
-      "ms": 46
+      "ms": 94
     },
     {
       "label": "derive workers + agents",
       "status": "ok",
-      "ms": 25
+      "ms": 66
     },
     {
       "label": "derive next-in-line",
       "status": "ok",
-      "ms": 40
+      "ms": 68
     },
     {
       "label": "render kanban",
       "status": "ok",
-      "ms": 34
+      "ms": 72
     },
     {
       "label": "generate notice board",
       "status": "ok",
-      "ms": 55
+      "ms": 105
     },
     {
       "label": "honesty guard",

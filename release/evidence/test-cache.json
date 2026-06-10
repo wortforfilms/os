@@ -1,12 +1,12 @@
 {
   "schema": "maataa.test-cache.v1",
-  "generatedAt": "2026-06-07T18:59:05.189Z",
+  "generatedAt": "2026-06-10T14:02:02.884Z",
   "concurrency": 8,
-  "durationMs": 1828,
+  "durationMs": 3959,
   "totals": {
-    "files": 63,
-    "ok": 63,
-    "failed": 0
+    "files": 79,
+    "ok": 78,
+    "failed": 1
   },
   "files": {
     "packages/lipi-runtime/tests/lipi-registry.test.mjs": {
@@ -19,12 +19,12 @@
       "fail": 0,
       "ok": true
     },
-    "packages/lipi-runtime/tests/lipi-lineage.test.mjs": {
+    "packages/lipi-runtime/tests/lipi-character-matrix.test.mjs": {
       "pass": 2,
       "fail": 0,
       "ok": true
     },
-    "packages/lipi-runtime/tests/lipi-character-matrix.test.mjs": {
+    "packages/lipi-runtime/tests/lipi-lineage.test.mjs": {
       "pass": 2,
       "fail": 0,
       "ok": true
@@ -39,13 +39,13 @@
       "fail": 0,
       "ok": true
     },
-    "tests/aam-jantaa-launch-readiness.test.mjs": {
-      "pass": 9,
+    "packages/lipi-runtime/tests/lipi-agent.test.mjs": {
+      "pass": 2,
       "fail": 0,
       "ok": true
     },
-    "packages/lipi-runtime/tests/lipi-agent.test.mjs": {
-      "pass": 2,
+    "tests/aam-jantaa-launch-readiness.test.mjs": {
+      "pass": 9,
       "fail": 0,
       "ok": true
     },
@@ -54,8 +54,18 @@
       "fail": 0,
       "ok": true
     },
-    "tests/federation-bootstrap.test.ts": {
-      "pass": 1,
+    "tests/dashboard-figures.test.mjs": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/agent-registry.test.mjs": {
+      "pass": 8,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/domains-registry.test.mjs": {
+      "pass": 6,
       "fail": 0,
       "ok": true
     },
@@ -64,13 +74,18 @@
       "fail": 0,
       "ok": true
     },
-    "tests/federation-batch2.test.ts": {
-      "pass": 6,
+    "tests/federation-bootstrap.test.ts": {
+      "pass": 1,
       "fail": 0,
       "ok": true
     },
     "tests/federation-batch3.test.ts": {
       "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/federation-batch2.test.ts": {
+      "pass": 6,
       "fail": 0,
       "ok": true
     },
@@ -84,7 +99,7 @@
       "fail": 0,
       "ok": true
     },
-    "tests/full-demo-release.test.mjs": {
+    "tests/hardware-attestation.test.mjs": {
       "pass": 3,
       "fail": 0,
       "ok": true
@@ -94,18 +109,13 @@
       "fail": 0,
       "ok": true
     },
-    "tests/hardware-attestation.test.mjs": {
-      "pass": 3,
-      "fail": 0,
-      "ok": true
-    },
     "tests/federation-release-policy.test.ts": {
       "pass": 2,
       "fail": 0,
       "ok": true
     },
-    "tests/html-prototype-absorption.test.mjs": {
-      "pass": 5,
+    "tests/full-demo-release.test.mjs": {
+      "pass": 3,
       "fail": 0,
       "ok": true
     },
@@ -119,7 +129,22 @@
       "fail": 0,
       "ok": true
     },
+    "tests/html-prototype-absorption.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/indus-research-label.test.ts": {
+      "pass": 2,
+      "fail": 0,
+      "ok": true
+    },
     "tests/kbs-dashboard-release.test.mjs": {
+      "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/kbs-content-address.test.ts": {
       "pass": 3,
       "fail": 0,
       "ok": true
@@ -129,13 +154,38 @@
       "fail": 0,
       "ok": true
     },
+    "tests/job-runner.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/kbs-gated-ingestion.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
     "tests/lipi-agent.test.ts": {
       "pass": 3,
       "fail": 0,
       "ok": true
     },
-    "tests/lipi-glyphs.test.ts": {
-      "pass": 3,
+    "tests/kg-relation-types.test.ts": {
+      "pass": 7,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/knowledge-graph-dashboard.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/lipi-dashboard.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "packages/runtime-storage/tests/storage.test.mjs": {
+      "pass": 5,
       "fail": 0,
       "ok": true
     },
@@ -144,8 +194,8 @@
       "fail": 0,
       "ok": true
     },
-    "tests/maataa-ecosystem-wall.test.mjs": {
-      "pass": 4,
+    "tests/lipi-glyphs.test.ts": {
+      "pass": 3,
       "fail": 0,
       "ok": true
     },
@@ -154,8 +204,8 @@
       "fail": 0,
       "ok": true
     },
-    "tests/maataa-ui-release.test.mjs": {
-      "pass": 7,
+    "tests/maataa-ecosystem-wall.test.mjs": {
+      "pass": 4,
       "fail": 0,
       "ok": true
     },
@@ -165,16 +215,26 @@
       "ok": true
     },
     "tests/next-batch.test.mjs": {
-      "pass": 3,
+      "pass": 2,
+      "fail": 2,
+      "ok": false
+    },
+    "tests/maataa-ui-release.test.mjs": {
+      "pass": 7,
       "fail": 0,
       "ok": true
     },
-    "tests/plug-and-play-streaming-device.test.mjs": {
-      "pass": 5,
+    "tests/milestones-autoloop.test.mjs": {
+      "pass": 7,
       "fail": 0,
       "ok": true
     },
     "tests/operator-quorum.test.mjs": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/plug-and-play-streaming-device.test.mjs": {
       "pass": 5,
       "fail": 0,
       "ok": true
@@ -184,12 +244,37 @@
       "fail": 0,
       "ok": true
     },
+    "tests/missing-runtime-targets.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/research-agent.test.ts": {
+      "pass": 4,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/migrations-cli.test.mjs": {
+      "pass": 1,
+      "fail": 0,
+      "ok": true
+    },
     "tests/runtime-agent-supervisor-batch2.test.ts": {
       "pass": 5,
       "fail": 0,
       "ok": true
     },
     "tests/runtime-agent-supervisor.test.ts": {
+      "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-entitlements.test.ts": {
+      "pass": 7,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-analytics.test.ts": {
       "pass": 5,
       "fail": 0,
       "ok": true
@@ -204,23 +289,23 @@
       "fail": 0,
       "ok": true
     },
-    "tests/runtime-html.test.mjs": {
-      "pass": 5,
-      "fail": 0,
-      "ok": true
-    },
     "tests/runtime-hkd-registry.test.ts": {
       "pass": 3,
       "fail": 0,
       "ok": true
     },
-    "tests/migrations-cli.test.mjs": {
-      "pass": 1,
+    "tests/runtime-html.test.mjs": {
+      "pass": 5,
       "fail": 0,
       "ok": true
     },
     "tests/runtime-knowledge-graph.test.ts": {
       "pass": 3,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/auth-session.test.mjs": {
+      "pass": 5,
       "fail": 0,
       "ok": true
     },
@@ -244,13 +329,18 @@
       "fail": 0,
       "ok": true
     },
-    "tests/runtime-persistence.test.ts": {
-      "pass": 2,
+    "tests/runtime-research.test.ts": {
+      "pass": 5,
       "fail": 0,
       "ok": true
     },
-    "tests/runtime-research.test.ts": {
-      "pass": 5,
+    "tests/runtime-scheduler.test.ts": {
+      "pass": 6,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/runtime-persistence.test.ts": {
+      "pass": 2,
       "fail": 0,
       "ok": true
     },
@@ -264,16 +354,6 @@
       "fail": 0,
       "ok": true
     },
-    "tests/runtime-scheduler.test.ts": {
-      "pass": 6,
-      "fail": 0,
-      "ok": true
-    },
-    "tests/runtime-lifecycle-batch.test.ts": {
-      "pass": 4,
-      "fail": 0,
-      "ok": true
-    },
     "tests/runtime-transport.test.ts": {
       "pass": 3,
       "fail": 0,
@@ -284,13 +364,18 @@
       "fail": 0,
       "ok": true
     },
-    "tests/sovereign-runtime-ascii-tauri.test.mjs": {
+    "tests/runtime-lifecycle-batch.test.ts": {
       "pass": 4,
       "fail": 0,
       "ok": true
     },
     "tests/runtime-versioning.test.ts": {
       "pass": 5,
+      "fail": 0,
+      "ok": true
+    },
+    "tests/sovereign-runtime-ascii-tauri.test.mjs": {
+      "pass": 4,
       "fail": 0,
       "ok": true
     },
@@ -309,18 +394,13 @@
       "fail": 0,
       "ok": true
     },
-    "tests/visual-hkd-runtime.test.ts": {
-      "pass": 6,
-      "fail": 0,
-      "ok": true
-    },
     "tests/maataa-cli.test.mjs": {
       "pass": 10,
       "fail": 0,
       "ok": true
     },
-    "tests/auth-session.test.mjs": {
-      "pass": 5,
+    "tests/visual-hkd-runtime.test.ts": {
+      "pass": 6,
       "fail": 0,
       "ok": true
     }
