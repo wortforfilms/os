@@ -19,7 +19,15 @@
     { "path": "/auth/login", "state": "PREVIEW_VERIFIED", "evidence": "Login route authenticates seed users through the local auth bridge and persists sessions." },
     { "path": "/auth/signup", "state": "PREVIEW_VERIFIED", "evidence": "Signup route creates local Viewer accounts and opens a persisted session." },
     { "path": "/settings", "state": "STAGED", "evidence": "Theme/runtime packages exist; route is not implemented." },
-    { "path": "/docs", "state": "PREVIEW_VERIFIED", "evidence": "Docs exist in repository; in-app docs route is not implemented." }
+    { "path": "/docs", "state": "PREVIEW_VERIFIED", "evidence": "Docs exist in repository; in-app docs route is not implemented." },
+    { "path": "/maataa-ui/playground", "state": "PREVIEW_VERIFIED", "evidence": "PHKD-safe Maataa UI playground index renders local review metadata only." },
+    { "path": "/maataa-ui/playground/components", "state": "PREVIEW_VERIFIED", "evidence": "Component review surface renders local maataa-ui export evidence and blocked payment controls." },
+    { "path": "/maataa-ui/playground/themes", "state": "PREVIEW_VERIFIED", "evidence": "Theme review surface renders local theme registry evidence without runtime promotion." },
+    { "path": "/maataa-ui/playground/tokens", "state": "PREVIEW_VERIFIED", "evidence": "Token review surface renders local design-token swatches and unknown live sync blocker." },
+    { "path": "/maataa-ui/playground/layouts", "state": "PREVIEW_VERIFIED", "evidence": "Layout review surface renders local layout inventory without production readiness claims." },
+    { "path": "/themelab/theme-sandbox", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab theme sandbox renders local theme variants with publish controls blocked." },
+    { "path": "/themelab/asset-sandbox", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab asset sandbox renders local asset bins without CDN or download claims." },
+    { "path": "/themelab/sandboxes", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab sandbox index links local theme and asset review surfaces." }
   ],
   "features": [
     { "id": "cinematic-homepage", "state": "PREVIEW_VERIFIED", "evidence": "SovereignDashboard now has cinematic header and ecosystem schematic." },
@@ -33,6 +41,8 @@
     { "id": "search", "state": "PREVIEW_VERIFIED", "evidence": "Unified search index and Ctrl/Cmd+K command palette are wired to local product matrix, docs, states, blockers, and repo surfaces." },
     { "id": "billing-entitlements", "state": "PREVIEW_VERIFIED", "evidence": "Local dev billing simulator stores products, entitlements, and invoices in SQLite and exposes role-gated summaries." },
     { "id": "admin-analytics", "state": "PREVIEW_VERIFIED", "evidence": "Admin analytics reads persisted audit, runtime, telemetry, invoice, and entitlement counts from the local store." },
+    { "id": "maataa-ui-playground", "state": "PREVIEW_VERIFIED", "evidence": "Local UI playground routes render component/theme/token/layout review surfaces with PHKD blockers." },
+    { "id": "themelab-sandboxes", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab local sandboxes render theme and asset review surfaces with production controls disabled." },
     { "id": "evidence-matrix", "state": "PREVIEW_VERIFIED", "evidence": "Production hardening matrix and evidence reports are generated locally." },
     { "id": "release-governance", "state": "PREVIEW_VERIFIED", "evidence": "Golden image verification reads hardening matrix and refuses false PASS." },
     { "id": "desktop-electron", "state": "PREVIEW_VERIFIED", "evidence": "Electron shell launches local Vite UI with loopback-only request gate." },

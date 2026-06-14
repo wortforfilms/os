@@ -6,6 +6,7 @@ import {
   hasDomainBlocker,
   isDomainRouteImplemented,
 } from "../domains/index.ts";
+import { playgroundRoutes } from "../playgrounds/data.ts";
 
 const RUNTIME_STATES = [
   "EXPERIMENTAL",
@@ -36,7 +37,20 @@ export type SearchFilters = {
   status?: string | "all";
 };
 
-const implementedRoutes = new Set(["/", "/dashboard", "/auth/login", "/auth/signup", "/admin", "/domains", "/domains/status", "/domains/runtime", "/docs", "/settings", "/search"]);
+const implementedRoutes = new Set([
+  "/",
+  "/dashboard",
+  "/auth/login",
+  "/auth/signup",
+  "/admin",
+  "/domains",
+  "/domains/status",
+  "/domains/runtime",
+  "/docs",
+  "/settings",
+  "/search",
+  ...playgroundRoutes.map((route) => route.path),
+]);
 
 const docs = [
   "docs/getting-started.md",

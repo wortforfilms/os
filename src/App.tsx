@@ -3,6 +3,7 @@ import { SovereignDashboard } from "../packages/maataa-ui/src/SovereignDashboard
 import { createAuthClient, type AuthClient } from "./auth/client";
 import type { AdminAnalyticsResult, AdminSummary, AuthSession, BillingSummaryResult } from "./auth/types";
 import { DomainRegistryPage } from "./domains/DomainRegistryPage";
+import { PlaygroundPage, implementedPlaygroundRoutes, type PlaygroundRouteId } from "./playgrounds";
 import { CommandPalette } from "./search/CommandPalette";
 import { SearchPage } from "./search/SearchPage";
 import { useRuntimeStatus } from "./runtime/useRuntimeStatus";
@@ -17,6 +18,7 @@ type RouteId =
   | "/domains"
   | "/domains/status"
   | "/domains/runtime"
+  | PlaygroundRouteId
   | "/docs"
   | "/settings"
   | "/search";
@@ -26,6 +28,9 @@ const protectedRoutes = new Set<RouteId>(["/admin"]);
 
 function currentPath(): RouteId {
   const path = window.location.pathname as RouteId;
+  if (implementedPlaygroundRoutes.has(path as PlaygroundRouteId)) {
+    return path as PlaygroundRouteId;
+  }
   if (
     path === "/" ||
     path === "/dashboard" ||
@@ -152,6 +157,14 @@ export function App() {
     );
   }
 
+  if (implementedPlaygroundRoutes.has(route as PlaygroundRouteId)) {
+    return (
+      <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
+        <PlaygroundPage route={route as PlaygroundRouteId} navigate={navigate} />
+      </AuthShell>
+    );
+  }
+
   if (route === "/docs") {
     return (
       <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
@@ -193,9 +206,19 @@ function AuthShell({
     <div className="auth-product-shell">
       <aside className="auth-nav" aria-label="Product navigation">
         <div className="brand-mark">M</div>
-        {(["/", "/dashboard", "/admin", "/domains", "/search", "/docs", "/settings"] as const).map((item) => (
-          <button className={route === item ? "active" : ""} key={item} onClick={() => navigate(item)}>
-            {item === "/" ? "Home" : item.replace("/", "")}
+        {[
+          { path: "/", label: "Home" },
+          { path: "/dashboard", label: "Dashboard" },
+          { path: "/admin", label: "Admin" },
+          { path: "/domains", label: "Domains" },
+          { path: "/search", label: "Search" },
+          { path: "/maataa-ui/playground", label: "UI Lab" },
+          { path: "/themelab/sandboxes", label: "ThemeLab" },
+          { path: "/docs", label: "Docs" },
+          { path: "/settings", label: "Settings" },
+        ].map((item) => (
+          <button className={route === item.path || route.startsWith(`${item.path}/`) ? "active" : ""} key={item.path} onClick={() => navigate(item.path)}>
+            {item.label}
           </button>
         ))}
         <button onClick={() => navigate("/auth/login")}>login</button>
@@ -220,6 +243,9 @@ function AuthShell({
 }
 
 function normalizeRoute(path: string): RouteId | null {
+  if (implementedPlaygroundRoutes.has(path as PlaygroundRouteId)) {
+    return path as PlaygroundRouteId;
+  }
   if (
     path === "/" ||
     path === "/dashboard" ||

@@ -1,0 +1,196 @@
+{
+  "schema": "maataa.ui-playground.visual-evidence.v1",
+  "generatedAt": "2026-06-10T20:16:27.880Z",
+  "finalStatus": "CONTROLLED_NO_GO",
+  "productionStatus": "PRODUCTION_READY_NO",
+  "productionReady": false,
+  "productionDatabase": false,
+  "realPayments": false,
+  "runtimePromotion": false,
+  "visualEvidence": {
+    "engine": "playwright-core",
+    "browser": "system-chrome",
+    "baseUrl": "http://127.0.0.1:1467",
+    "screenshots": [
+      {
+        "route": "/maataa-ui/playground",
+        "title": "Maataa UI Playground",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/maataa-ui__playground.png"
+      },
+      {
+        "route": "/maataa-ui/playground/components",
+        "title": "Component Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/maataa-ui__playground__components.png"
+      },
+      {
+        "route": "/maataa-ui/playground/themes",
+        "title": "Theme Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/maataa-ui__playground__themes.png"
+      },
+      {
+        "route": "/maataa-ui/playground/tokens",
+        "title": "Token Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/maataa-ui__playground__tokens.png"
+      },
+      {
+        "route": "/maataa-ui/playground/layouts",
+        "title": "Layout Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/maataa-ui__playground__layouts.png"
+      },
+      {
+        "route": "/themelab/theme-sandbox",
+        "title": "ThemeLab Theme Sandbox",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__theme-sandbox.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox",
+        "title": "ThemeLab Asset Sandbox",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox.png"
+      },
+      {
+        "route": "/themelab/sandboxes",
+        "title": "ThemeLab Sandboxes",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__sandboxes.png"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "path": "/maataa-ui/playground",
+      "title": "Maataa UI Playground",
+      "family": "Maataa UI",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": []
+    },
+    {
+      "path": "/maataa-ui/playground/components",
+      "title": "Component Review",
+      "family": "Maataa UI",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "payments",
+          "label": "Payment Widgets",
+          "blocker": "No real payments or checkout runtime is wired for this playground."
+        }
+      ]
+    },
+    {
+      "path": "/maataa-ui/playground/themes",
+      "title": "Theme Review",
+      "family": "Maataa UI",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "promotion",
+          "label": "Runtime Promotion",
+          "blocker": "Theme selection is review-only and cannot promote runtime state."
+        }
+      ]
+    },
+    {
+      "path": "/maataa-ui/playground/tokens",
+      "title": "Token Review",
+      "family": "Maataa UI",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "live-token-sync",
+          "label": "Live Token Sync",
+          "blocker": "No production design-token telemetry source is connected."
+        }
+      ]
+    },
+    {
+      "path": "/maataa-ui/playground/layouts",
+      "title": "Layout Review",
+      "family": "Maataa UI",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": []
+    },
+    {
+      "path": "/themelab/theme-sandbox",
+      "title": "ThemeLab Theme Sandbox",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "contrast",
+          "label": "Contrast Checks",
+          "blocker": "No automated WCAG contrast measurement is attached yet."
+        },
+        {
+          "id": "publish",
+          "label": "Publish Theme",
+          "blocker": "Publishing is disabled in this local sandbox."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox",
+      "title": "ThemeLab Asset Sandbox",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "cdn",
+          "label": "CDN Delivery",
+          "blocker": "No CDN node, live delivery, or download count is asserted."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/sandboxes",
+      "title": "ThemeLab Sandboxes",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "payments",
+          "label": "Paid Theme Sales",
+          "blocker": "No real payments are available in ThemeLab review surfaces."
+        }
+      ]
+    }
+  ]
+}

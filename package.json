@@ -25,7 +25,7 @@
     "telemetry:chaos": "node --experimental-strip-types tests/integration/telemetry-chaos-harness.ts",
     "telemetry:pressure": "node scripts/telemetry/simulate-hardware-pressure.mjs",
     "typecheck": "tsc --noEmit && npm run typecheck:maataa-ui && npm run typecheck:lipi-runtime && npm run typecheck:evidence-runtime && npm run typecheck:kbs && npm run typecheck:visual-hkd && tsc -p packages/universal-runtime/tsconfig.json --noEmit",
-    "test": "npm run test:auth && npm run test:runtime && npm run test:governance && npm run test:hardware-root && npm run test:hardware-attestation && npm run test:release-authority && npm run test:operator-quorum && npm run test:aam-jantaa && npm run test:maataa-ui-release && npm run test:lipi && npm run test:support-docs && npm run test:support-center && npm run test:full-demo && npm run test:kbs-dashboard && npm run test:kbs-full-demo && npm run test:ascii-tauri && npm run test:visual-hkd && npm run test:status-matrix-hkd && npm run test:expanded-universe && npm run test:ecosystem-tree && npm run test:ecosystem-wall && npm run test:html-prototypes && npm run test:runtime-html && npm run test:streaming-device && npm run test:kbs && cargo test --lib",
+    "test": "npm run test:auth && npm run test:runtime && npm run test:governance && npm run test:hardware-root && npm run test:hardware-attestation && npm run test:release-authority && npm run test:operator-quorum && npm run test:aam-jantaa && npm run test:maataa-ui-release && npm run test:maataa-ui-playground && npm run test:lipi && npm run test:support-docs && npm run test:support-center && npm run test:full-demo && npm run test:kbs-dashboard && npm run test:kbs-full-demo && npm run test:ascii-tauri && npm run test:visual-hkd && npm run test:status-matrix-hkd && npm run test:expanded-universe && npm run test:ecosystem-tree && npm run test:ecosystem-wall && npm run test:html-prototypes && npm run test:runtime-html && npm run test:streaming-device && npm run test:kbs && cargo test --lib",
     "test:auth": "node --test tests/auth-session.test.mjs",
     "test:runtime": "node --experimental-strip-types --test tests/runtime-search.test.ts",
     "test:governance": "node --test tests/governed-production-gate.test.mjs",
@@ -35,6 +35,7 @@
     "test:operator-quorum": "node --test tests/operator-quorum.test.mjs",
     "test:aam-jantaa": "node --test tests/aam-jantaa-launch-readiness.test.mjs",
     "test:maataa-ui-release": "node --test tests/maataa-ui-release.test.mjs",
+    "test:maataa-ui-playground": "node --experimental-strip-types --test tests/maataa-ui-playground.test.ts",
     "test:lipi": "node --test packages/lipi-runtime/tests/*.test.mjs",
     "test:support-docs": "node --test tests/support-docs.test.mjs",
     "test:support-center": "node --test tests/support-center-release.test.mjs",
@@ -59,6 +60,7 @@
     "visual-hkd:verify": "node scripts/verify-visual-hkd-runtime.mjs",
     "runtime-html:generate": "node scripts/generate-runtime-html.mjs",
     "runtime-html:verify": "node scripts/verify-runtime-html.mjs",
+    "playground:evidence": "node --experimental-strip-types scripts/playgrounds/capture-maataa-ui-playground-evidence.mjs",
     "evidence:generate": "node scripts/evidence-generate.mjs",
     "status:matrix": "node scripts/status-matrix.mjs",
     "milestones": "node scripts/milestones-cycle.mjs",
@@ -102,6 +104,7 @@
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.0",
     "electron": "^33.4.11",
+    "playwright-core": "^1.60.0",
     "typescript": "^5.8.3",
     "vite": "^6.4.3"
   }
