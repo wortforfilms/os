@@ -1,0 +1,442 @@
+{
+  "schema": "maataa.lipi.phonetic-binding.v1",
+  "totalShiftTokens": 61,
+  "seeded": 4,
+  "unknown": 57,
+  "bindings": [
+    {
+      "token": "A",
+      "normalized": "a",
+      "ipa": "ə",
+      "status": "NEEDS_NATIVE_REVIEW",
+      "source": "lipi-runtime/phonetics/pronunciation-rules"
+    },
+    {
+      "token": "KA",
+      "normalized": "ka",
+      "ipa": "kə",
+      "status": "NEEDS_NATIVE_REVIEW",
+      "source": "lipi-runtime/phonetics/pronunciation-rules"
+    },
+    {
+      "token": "NA",
+      "normalized": "na",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "PA",
+      "normalized": "pa",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "RA",
+      "normalized": "ra",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "CA",
+      "normalized": "ca",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "HA",
+      "normalized": "ha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "JA",
+      "normalized": "ja",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "LA",
+      "normalized": "la",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "MA",
+      "normalized": "ma",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "NNA",
+      "normalized": "nna",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "NYA",
+      "normalized": "nya",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "SA",
+      "normalized": "sa",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "SHA",
+      "normalized": "sha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "TA",
+      "normalized": "ta",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "TTA",
+      "normalized": "tta",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "U",
+      "normalized": "u",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "YA",
+      "normalized": "ya",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "AA",
+      "normalized": "aa",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "AI",
+      "normalized": "ai",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "AU",
+      "normalized": "au",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "BA",
+      "normalized": "ba",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "BHA",
+      "normalized": "bha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "CHA",
+      "normalized": "cha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "DA",
+      "normalized": "da",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "DDA",
+      "normalized": "dda",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "DDHA",
+      "normalized": "ddha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "DHA",
+      "normalized": "dha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "GA",
+      "normalized": "ga",
+      "ipa": "gə",
+      "status": "SEEDED_UNREVIEWED",
+      "source": "lipi-runtime/phonetics/ipa-map"
+    },
+    {
+      "token": "GHA",
+      "normalized": "gha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "I",
+      "normalized": "i",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "II",
+      "normalized": "ii",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "KHA",
+      "normalized": "kha",
+      "ipa": "kʰə",
+      "status": "SEEDED_UNREVIEWED",
+      "source": "lipi-runtime/phonetics/ipa-map"
+    },
+    {
+      "token": "NGA",
+      "normalized": "nga",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "PHA",
+      "normalized": "pha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "SSA",
+      "normalized": "ssa",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "THA",
+      "normalized": "tha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "TTHA",
+      "normalized": "ttha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "UU",
+      "normalized": "uu",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "VA",
+      "normalized": "va",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "JHA",
+      "normalized": "jha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "E",
+      "normalized": "e",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "O",
+      "normalized": "o",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "VOCALIC L",
+      "normalized": "vocalic l",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "VOCALIC LL",
+      "normalized": "vocalic ll",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "VOCALIC R",
+      "normalized": "vocalic r",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "VOCALIC RR",
+      "normalized": "vocalic rr",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "LLA",
+      "normalized": "lla",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "RRA",
+      "normalized": "rra",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "EE",
+      "normalized": "ee",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "OO",
+      "normalized": "oo",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "LLLA",
+      "normalized": "llla",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "FA",
+      "normalized": "fa",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "NNNA",
+      "normalized": "nnna",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "RHA",
+      "normalized": "rha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "YYA",
+      "normalized": "yya",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "ZA",
+      "normalized": "za",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "GHHA",
+      "normalized": "ghha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "KHHA",
+      "normalized": "khha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "VI",
+      "normalized": "vi",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    },
+    {
+      "token": "ZHA",
+      "normalized": "zha",
+      "ipa": null,
+      "status": "UNKNOWN",
+      "source": null
+    }
+  ],
+  "authority": {
+    "ipaMapEntries": 4,
+    "pronunciationRules": 2
+  },
+  "governedProductionGo": false,
+  "status": "CONTROLLED_NO_GO",
+  "note": "IPA values come only from the seeded in-repo authority; unseeded tokens are UNKNOWN, never invented. Seeded values are review-pending, not certified. Broadening coverage requires real seeded anchors (local teacher / evidence bundle) or an external ISO 15919 / IPA dataset ingested with provenance."
+}

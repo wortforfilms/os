@@ -1,0 +1,182 @@
+{
+  "schema": "maataa.lipi.unicode-data.v1",
+  "source": "/sessions/sharp-focused-sagan/mnt/maataa-os/data/unicode/UnicodeData.txt",
+  "totalRecords": 29215,
+  "byCategory": {
+    "Cc": 65,
+    "Zs": 17,
+    "Po": 513,
+    "Sc": 53,
+    "Ps": 75,
+    "Pe": 73,
+    "Sm": 948,
+    "Pd": 24,
+    "Nd": 550,
+    "Lu": 1631,
+    "Sk": 121,
+    "Pc": 10,
+    "Ll": 1984,
+    "So": 5677,
+    "Lo": 14163,
+    "Pi": 12,
+    "Cf": 150,
+    "No": 647,
+    "Pf": 10,
+    "Lt": 31,
+    "Lm": 248,
+    "Mn": 1567,
+    "Me": 13,
+    "Mc": 383,
+    "Nl": 236,
+    "Zl": 1,
+    "Zp": 1,
+    "Cs": 6,
+    "Co": 6
+  },
+  "byBlock": {
+    "Basic Latin": 128,
+    "Latin-1 Supplement": 128,
+    "UNKNOWN": 27362,
+    "Devanagari": 128,
+    "Bengali": 93,
+    "Gurmukhi": 79,
+    "Gujarati": 85,
+    "Oriya": 90,
+    "Tamil": 72,
+    "Telugu": 96,
+    "Kannada": 87,
+    "Malayalam": 100,
+    "Sinhala": 90,
+    "Vedic Extensions": 41,
+    "Devanagari Extended": 30,
+    "Kharoshthi": 65,
+    "Brahmi": 109,
+    "Sharada": 94,
+    "Grantha": 85,
+    "Tirhuta": 82,
+    "Siddham": 92,
+    "Modi": 79
+  },
+  "indicTotal": 1597,
+  "unknownBlock": 27362,
+  "generated": true,
+  "governedProductionGo": false,
+  "status": "CONTROLLED_NO_GO",
+  "indicScripts": [
+    {
+      "block": "Devanagari",
+      "start": "0900",
+      "end": "097F",
+      "count": 128
+    },
+    {
+      "block": "Bengali",
+      "start": "0980",
+      "end": "09FF",
+      "count": 93
+    },
+    {
+      "block": "Gurmukhi",
+      "start": "0A00",
+      "end": "0A7F",
+      "count": 79
+    },
+    {
+      "block": "Gujarati",
+      "start": "0A80",
+      "end": "0AFF",
+      "count": 85
+    },
+    {
+      "block": "Oriya",
+      "start": "0B00",
+      "end": "0B7F",
+      "count": 90
+    },
+    {
+      "block": "Tamil",
+      "start": "0B80",
+      "end": "0BFF",
+      "count": 72
+    },
+    {
+      "block": "Telugu",
+      "start": "0C00",
+      "end": "0C7F",
+      "count": 96
+    },
+    {
+      "block": "Kannada",
+      "start": "0C80",
+      "end": "0CFF",
+      "count": 87
+    },
+    {
+      "block": "Malayalam",
+      "start": "0D00",
+      "end": "0D7F",
+      "count": 100
+    },
+    {
+      "block": "Sinhala",
+      "start": "0D80",
+      "end": "0DFF",
+      "count": 90
+    },
+    {
+      "block": "Devanagari Extended",
+      "start": "A8E0",
+      "end": "A8FF",
+      "count": 30
+    },
+    {
+      "block": "Vedic Extensions",
+      "start": "1CD0",
+      "end": "1CFF",
+      "count": 41
+    },
+    {
+      "block": "Kharoshthi",
+      "start": "10A00",
+      "end": "10A5F",
+      "count": 65
+    },
+    {
+      "block": "Brahmi",
+      "start": "11000",
+      "end": "1107F",
+      "count": 109
+    },
+    {
+      "block": "Sharada",
+      "start": "11180",
+      "end": "111DF",
+      "count": 94
+    },
+    {
+      "block": "Grantha",
+      "start": "11300",
+      "end": "1137F",
+      "count": 85
+    },
+    {
+      "block": "Siddham",
+      "start": "11580",
+      "end": "115FF",
+      "count": 92
+    },
+    {
+      "block": "Modi",
+      "start": "11600",
+      "end": "1165F",
+      "count": 79
+    },
+    {
+      "block": "Tirhuta",
+      "start": "11480",
+      "end": "114DF",
+      "count": 82
+    }
+  ],
+  "note": "Generated from data/unicode/UnicodeData.txt at build time. No counts hardcoded. Lipi certification NOT claimed."
+}

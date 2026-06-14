@@ -1,0 +1,56 @@
+{
+  "schema": "maataa.lipi.glyph-coverage.v1",
+  "total": 1597,
+  "perScript": {
+    "Devanagari": 128,
+    "Bengali": 93,
+    "Gurmukhi": 79,
+    "Gujarati": 85,
+    "Oriya": 90,
+    "Tamil": 72,
+    "Telugu": 96,
+    "Kannada": 87,
+    "Malayalam": 100,
+    "Sinhala": 90,
+    "Devanagari Extended": 30,
+    "Vedic Extensions": 41,
+    "Kharoshthi": 65,
+    "Brahmi": 109,
+    "Sharada": 94,
+    "Grantha": 85,
+    "Siddham": 92,
+    "Modi": 79,
+    "Tirhuta": 82
+  },
+  "fabricatedTarget": 15000,
+  "claimSatisfied": false,
+  "gapToFabricatedTarget": 13403,
+  "legacyReconciliation": [
+    {
+      "script": "Brahmi",
+      "claimed": 115,
+      "ingested": 109,
+      "delta": -6
+    },
+    {
+      "script": "Kharoshthi",
+      "claimed": 68,
+      "ingested": 65,
+      "delta": -3
+    },
+    {
+      "script": "Devanagari",
+      "claimed": 128,
+      "ingested": 128,
+      "delta": 0
+    },
+    {
+      "script": "Siddham",
+      "claimed": 92,
+      "ingested": 92,
+      "delta": 0
+    }
+  ],
+  "governedProductionGo": false,
+  "status": "CONTROLLED_NO_GO"
+}

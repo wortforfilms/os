@@ -1,0 +1,175 @@
+{
+  "schema": "maataa.lipi.relation-mind-graph.v1",
+  "nodes": {
+    "tokens": 167,
+    "scripts": 18
+  },
+  "edges": 884,
+  "scriptList": [
+    "Bengali",
+    "Brahmi",
+    "Devanagari",
+    "Devanagari Extended",
+    "Grantha",
+    "Gujarati",
+    "Gurmukhi",
+    "Kannada",
+    "Kharoshthi",
+    "Malayalam",
+    "Modi",
+    "Oriya",
+    "Sharada",
+    "Siddham",
+    "Sinhala",
+    "Tamil",
+    "Telugu",
+    "Tirhuta"
+  ],
+  "topShared": [
+    {
+      "token": "A",
+      "scripts": 17
+    },
+    {
+      "token": "KA",
+      "scripts": 17
+    },
+    {
+      "token": "NA",
+      "scripts": 17
+    },
+    {
+      "token": "PA",
+      "scripts": 17
+    },
+    {
+      "token": "RA",
+      "scripts": 17
+    },
+    {
+      "token": "CA",
+      "scripts": 16
+    },
+    {
+      "token": "HA",
+      "scripts": 16
+    },
+    {
+      "token": "JA",
+      "scripts": 16
+    },
+    {
+      "token": "LA",
+      "scripts": 16
+    },
+    {
+      "token": "MA",
+      "scripts": 16
+    },
+    {
+      "token": "NNA",
+      "scripts": 16
+    },
+    {
+      "token": "NYA",
+      "scripts": 16
+    }
+  ],
+  "governedProductionGo": false,
+  "status": "CONTROLLED_NO_GO",
+  "sampleObserveShift": {
+    "token": "KA",
+    "set": [
+      {
+        "script": "Devanagari",
+        "char": "क",
+        "hex": "0915"
+      },
+      {
+        "script": "Bengali",
+        "char": "ক",
+        "hex": "0995"
+      },
+      {
+        "script": "Gurmukhi",
+        "char": "ਕ",
+        "hex": "0A15"
+      },
+      {
+        "script": "Gujarati",
+        "char": "ક",
+        "hex": "0A95"
+      },
+      {
+        "script": "Oriya",
+        "char": "କ",
+        "hex": "0B15"
+      },
+      {
+        "script": "Tamil",
+        "char": "க",
+        "hex": "0B95"
+      },
+      {
+        "script": "Telugu",
+        "char": "క",
+        "hex": "0C15"
+      },
+      {
+        "script": "Kannada",
+        "char": "ಕ",
+        "hex": "0C95"
+      },
+      {
+        "script": "Malayalam",
+        "char": "ക",
+        "hex": "0D15"
+      },
+      {
+        "script": "Devanagari Extended",
+        "char": "꣬",
+        "hex": "A8EC"
+      },
+      {
+        "script": "Kharoshthi",
+        "char": "𐨐",
+        "hex": "10A10"
+      },
+      {
+        "script": "Brahmi",
+        "char": "𑀓",
+        "hex": "11013"
+      },
+      {
+        "script": "Sharada",
+        "char": "𑆑",
+        "hex": "11191"
+      },
+      {
+        "script": "Grantha",
+        "char": "𑌕",
+        "hex": "11315"
+      },
+      {
+        "script": "Grantha",
+        "char": "𑍱",
+        "hex": "11371"
+      },
+      {
+        "script": "Siddham",
+        "char": "𑖎",
+        "hex": "1158E"
+      },
+      {
+        "script": "Modi",
+        "char": "𑘎",
+        "hex": "1160E"
+      },
+      {
+        "script": "Tirhuta",
+        "char": "𑒏",
+        "hex": "1148F"
+      }
+    ]
+  }
+}
