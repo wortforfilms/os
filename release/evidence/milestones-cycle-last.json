@@ -1,14 +1,14 @@
 {
   "schema": "maataa.milestones-cycle.v1",
-  "ranAt": "2026-06-10T18:07:12.195Z",
+  "ranAt": "2026-06-14T10:49:38.611Z",
   "totals": {
     "groups": 6,
     "universes": 48,
-    "milestones": 654,
+    "milestones": 664,
     "notAchieved": 424,
     "inProgress": 0,
     "unverified": 58,
-    "achieved": 172
+    "achieved": 182
   },
   "achievedIds": [
     "a-apps-favicon-svg-valid",
@@ -71,6 +71,12 @@
     "a-gov-validation-moderation",
     "a-gov-validation-replication",
     "a-governance-tests-pass",
+    "a-hkd-schema-contracts",
+    "a-hkd-schema-entitled-status",
+    "a-hkd-schema-uri-build",
+    "a-hkd-schema-uri-parse",
+    "a-hkd-schema-validate-closed",
+    "a-hkd-schema-validate-ok",
     "a-knowledge-agent-fail-closed",
     "a-knowledge-agent-failpolicy-fanout",
     "a-knowledge-agent-history",
@@ -182,51 +188,57 @@
     "c-migrations-cli",
     "c-research-agent-real",
     "c-sku-licensing-enforced",
-    "c-storage-sqlite-libsql-ipfs"
+    "c-storage-sqlite-libsql-ipfs",
+    "lipi-devanagari-ipa-base",
+    "lipi-phonetic-binding-seeded",
+    "lipi-shapeshifter-cross-script",
+    "lipi-unicode-authority-dataset"
   ],
-  "newlyAchieved": [],
+  "newlyAchieved": [
+    "lipi-devanagari-ipa-base"
+  ],
   "regressed": [],
-  "stableHash": "d179efed72eef399202fcb3cb63db9bacd28292aea37137dd9c759b1a663815f",
+  "stableHash": "71939d1c520808fc424674747a62666a16c5d7ee9bd5d2100fbdded6f99eccd8",
   "steps": [
     {
       "label": "build test cache",
       "status": "ok",
-      "ms": 2960
+      "ms": 6992
     },
     {
       "label": "verify honest achievements",
       "status": "ok",
-      "ms": 13146
+      "ms": 28449
     },
     {
       "label": "generate milestones matrix",
       "status": "ok",
-      "ms": 57
+      "ms": 111
     },
     {
       "label": "render milestones surface",
       "status": "ok",
-      "ms": 116
+      "ms": 122
     },
     {
       "label": "derive workers + agents",
       "status": "ok",
-      "ms": 45
+      "ms": 75
     },
     {
       "label": "derive next-in-line",
       "status": "ok",
-      "ms": 52
+      "ms": 47
     },
     {
       "label": "render kanban",
       "status": "ok",
-      "ms": 54
+      "ms": 72
     },
     {
       "label": "generate notice board",
       "status": "ok",
-      "ms": 77
+      "ms": 241
     },
     {
       "label": "honesty guard",

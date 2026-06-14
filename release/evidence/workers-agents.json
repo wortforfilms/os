@@ -1,11 +1,11 @@
 {
   "schema": "maataa.workers-agents.v1",
-  "generatedAt": "2026-06-10T18:07:11.911Z",
+  "generatedAt": "2026-06-14T10:49:38.084Z",
   "honesty": "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). One-off authoring subagents are finished and are not listed as active.",
   "totals": {
-    "workers": 15,
-    "totalProbes": 205,
-    "totalPassing": 172,
+    "workers": 17,
+    "totalProbes": 215,
+    "totalPassing": 182,
     "agents": 1
   },
   "workers": [
@@ -40,9 +40,21 @@
       "resolvers": 0
     },
     {
+      "module": "hkd-schema.mjs",
+      "probes": 6,
+      "passing": 6,
+      "resolvers": 0
+    },
+    {
       "module": "economy-identity.mjs",
       "probes": 5,
       "passing": 5,
+      "resolvers": 0
+    },
+    {
+      "module": "lipi-unicode.mjs",
+      "probes": 4,
+      "passing": 4,
       "resolvers": 0
     },
     {
@@ -106,48 +118,48 @@
       "kind": "scheduled-runner",
       "cadence": "recurring (configured in scheduler)",
       "status": "active",
-      "lastRun": "2026-06-10T14:02:18.817Z",
-      "lastResult": "172/654 achieved · +1 new · 0 regressed",
+      "lastRun": "2026-06-14T10:32:54.053Z",
+      "lastResult": "181/663 achieved · +0 new · 0 regressed",
       "steps": [
         {
           "label": "build test cache",
           "status": "ok",
-          "ms": 4008
+          "ms": 7543
         },
         {
           "label": "verify honest achievements",
           "status": "ok",
-          "ms": 15346
+          "ms": 30142
         },
         {
           "label": "generate milestones matrix",
           "status": "ok",
-          "ms": 52
+          "ms": 128
         },
         {
           "label": "render milestones surface",
           "status": "ok",
-          "ms": 94
+          "ms": 97
         },
         {
           "label": "derive workers + agents",
           "status": "ok",
-          "ms": 66
+          "ms": 63
         },
         {
           "label": "derive next-in-line",
           "status": "ok",
-          "ms": 68
+          "ms": 80
         },
         {
           "label": "render kanban",
           "status": "ok",
-          "ms": 72
+          "ms": 69
         },
         {
           "label": "generate notice board",
           "status": "ok",
-          "ms": 105
+          "ms": 225
         },
         {
           "label": "honesty guard",

@@ -1,22 +1,22 @@
 {
   "schema": "maataa.milestones-vs-current.v1",
-  "generatedAt": "2026-06-10T18:07:11.745Z",
+  "generatedAt": "2026-06-14T10:49:37.875Z",
   "source": "hkd/*.hkd (VisualHKD vision boards)",
   "honesty": "Every entry is a FUTURE MILESTONE (aspirational target). currentState is the real measured/observed state. No achievement is claimed unless evidenced. Targets are never presented as live metrics.",
   "totals": {
     "groups": 6,
     "universes": 48,
-    "milestones": 654,
+    "milestones": 664,
     "notAchieved": 424,
     "inProgress": 0,
     "unverified": 58,
-    "achieved": 172
+    "achieved": 182
   },
   "byGroup": [
     {
       "group": "Platform & Runtime",
-      "total": 121,
-      "achieved": 57,
+      "total": 131,
+      "achieved": 67,
       "inProgress": 0,
       "unverified": 6,
       "notAchieved": 58,
@@ -1575,7 +1575,7 @@
       "universe": "evidence",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Milestones matrix content is reproducible (stable hash across runs)",
-      "currentState": "stableHash run1=e45ac5f45584… run2=e45ac5f45584… identical=true",
+      "currentState": "stableHash run1=ccca64fafc97… run2=ccca64fafc97… identical=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2065,7 +2065,7 @@
       "universe": "governance",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Governed production gate report is content-addressed: carries a signature field and SHA-256 hashes of all inputs",
-      "currentState": "governed-production-gate.json signature=d99880c4d20b…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
+      "currentState": "governed-production-gate.json signature=f85468916858…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2428,6 +2428,66 @@
       "currentState": "Output categories defined but the runtime that emits them does not exist. 'Divine Guidance' as a verifiable engineering output is undefined.",
       "achievement": "UNVERIFIED",
       "sourceClaimStatus": "UNVERIFIED"
+    },
+    {
+      "id": "a-hkd-schema-contracts",
+      "group": "Platform & Runtime",
+      "universe": "hkd-runtime",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "HKD schema: verbatim contracts captured + health reports governedProductionGo=false",
+      "currentState": "hkd-schema [contracts captured verbatim] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "a-hkd-schema-entitled-status",
+      "group": "Platform & Runtime",
+      "universe": "hkd-runtime",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "HKD schema: capsule rule — 'verified' requires source-proven evidence + zero blockers, else downgraded",
+      "currentState": "hkd-schema [entitledStatus enforces] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "a-hkd-schema-uri-build",
+      "group": "Platform & Runtime",
+      "universe": "hkd-runtime",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "HKD schema: build hkd:// URIs, round-trips with the parser, fail-closed",
+      "currentState": "hkd-schema [buildHkdUri round-trips] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "a-hkd-schema-uri-parse",
+      "group": "Platform & Runtime",
+      "universe": "hkd-runtime",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "HKD schema: real hkd:// URI parser, fail-closed on bad scheme/empty path",
+      "currentState": "hkd-schema [parseHkdUri parses] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "a-hkd-schema-validate-closed",
+      "group": "Platform & Runtime",
+      "universe": "hkd-runtime",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "HKD schema: fail-closed validation (missing fields / bad status / bad uri / bad evidence)",
+      "currentState": "hkd-schema [validateHkd is fail-closed] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "a-hkd-schema-validate-ok",
+      "group": "Platform & Runtime",
+      "universe": "hkd-runtime",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "HKD schema: validate a well-formed capsule against the canonical contract",
+      "currentState": "hkd-schema [validateHkd accepts] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "a-platform-hkd-registry-operational",
@@ -3440,6 +3500,46 @@
       "sourceClaimStatus": "BLOCKED"
     },
     {
+      "id": "lipi-devanagari-ipa-base",
+      "group": "Platform & Runtime",
+      "universe": "lipi",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "Lipi Devanagari→IPA: base aksharas mapped to standard ISO 15919 / Devanagari citation-form IPA, every entry NEEDS_NATIVE_REVIEW (not certified), unmapped letters UNKNOWN (not invented); CONTROLLED_NO_GO.",
+      "currentState": "devanagari-ipa tests → pass=5 fail=0 (56/78 base aksharas mapped, review-pending, cited; rest UNKNOWN/not-invented; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "lipi-phonetic-binding-seeded",
+      "group": "Platform & Runtime",
+      "universe": "lipi",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "Lipi phonetic binding: shapeshifter tokens joined to the seeded in-repo IPA authority; IPA assigned ONLY where seeded, UNKNOWN (never invented) elsewhere — review-pending, CONTROLLED_NO_GO.",
+      "currentState": "phonetic-binding tests → pass=4 fail=0 (IPA only from seeded authority; unseeded tokens UNKNOWN/not-invented; review-pending; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "lipi-shapeshifter-cross-script",
+      "group": "Platform & Runtime",
+      "universe": "lipi",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "Lipi shapeshifter: one phonetic LETTER token rendered as real shapes across Brahmic scripts (observe_shift + relation_mind_graph), derived only from Unicode names — no invented meaning; CONTROLLED_NO_GO.",
+      "currentState": "shapeshifter tests → pass=7 fail=0 (KA spans 17 scripts; correspondence from Unicode LETTER names only; governedProductionGo=false)",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
+      "id": "lipi-unicode-authority-dataset",
+      "group": "Platform & Runtime",
+      "universe": "lipi",
+      "sourceBoard": "verify-honest-achievements.mjs",
+      "futureMilestone": "Lipi local Unicode authority: UnicodeData.txt absorbed with a real parser, CLI, tests, evidence, and dataset-corrected glyph counts (Brahmi 109 / Kharoshthi 65 / Devanagari 128 / Siddham 92) — NOT a complete Lipi certification; CONTROLLED_NO_GO.",
+      "currentState": "Lipi Unicode authority verified: 6/6 checks — 29215 UCD records, dataset-corrected counts, CONTROLLED_NO_GO (not a Lipi certification).",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
+    },
+    {
       "id": "c-25-scientific-firsts-all",
       "group": "Apps & Experience",
       "universe": "marketing",
@@ -4225,7 +4325,7 @@
       "universe": "operations",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Parallel test-cache runner: whole suite runs concurrently with a real per-file results cache (verifier perf)",
-      "currentState": "test-cache: 79/79 files green in 2917ms (concurrency=8) — real per-file results, not fabricated",
+      "currentState": "test-cache: 84/86 files green in 6932ms (concurrency=8) — real per-file results, not fabricated",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -4895,7 +4995,7 @@
       "universe": "runtime",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Federated runtime packages exist as isolated workspaces (target ≥ 8)",
-      "currentState": "48 runtime packages with package.json: avatar-runtime, brahmini-runtime, chakra-runtime, dashboard-knowledge-graph, evidence-runtime, gesture-runtime, investor-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, knowledge-runtime, lipi-dashboard, lipi-runtime, maataa-ui, memory-runtime, research-agent, runtime, runtime-agent-supervisor, runtime-analytics, runtime-data, runtime-entitlements, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-storage, runtime-target-scaffold, runtime-transport, runtime-validation, runtime-versioning, saptadhaatu-runtime, scientific-evidence-registry-runtime, task-runtime, tlp-runtime, universal-runtime, visual-hkd-runtime, voice-runtime",
+      "currentState": "49 runtime packages with package.json: avatar-runtime, brahmini-runtime, chakra-runtime, dashboard-knowledge-graph, evidence-runtime, gesture-runtime, investor-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, knowledge-runtime, lipi-dashboard, lipi-runtime, maataa-ui, memory-runtime, research-agent, runtime, runtime-agent-supervisor, runtime-analytics, runtime-data, runtime-entitlements, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-hkd-schema, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-storage, runtime-target-scaffold, runtime-transport, runtime-validation, runtime-versioning, saptadhaatu-runtime, scientific-evidence-registry-runtime, task-runtime, tlp-runtime, universal-runtime, visual-hkd-runtime, voice-runtime",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -6610,6 +6710,6 @@
       "sourceClaimStatus": "UNVERIFIED"
     }
   ],
-  "stableHash": "d179efed72eef399202fcb3cb63db9bacd28292aea37137dd9c759b1a663815f",
-  "contentHash": "4861248fc258f898cb5edc54df40c34b42792f32c5178a530fd44934e6d2716c"
+  "stableHash": "71939d1c520808fc424674747a62666a16c5d7ee9bd5d2100fbdded6f99eccd8",
+  "contentHash": "3b44affc2d845f3afb89708412b5bf63e30dd7aef25a383f8a9da367f483aec2"
 }

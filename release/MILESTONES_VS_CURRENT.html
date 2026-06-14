@@ -42,20 +42,20 @@
 <body>
 <header>
   <h1>MAATAA OS — Milestones vs Current Stats</h1>
-  <div class="sub">Generated 2026-06-10T18:07:11.745Z · source hkd/*.hkd (VisualHKD vision boards) · content hash 4861248fc258f898…</div>
+  <div class="sub">Generated 2026-06-14T10:49:37.875Z · source hkd/*.hkd (VisualHKD vision boards) · content hash 3b44affc2d845f3a…</div>
   <div class="honesty">Every entry is a FUTURE MILESTONE (aspirational target). currentState is the real measured/observed state. No achievement is claimed unless evidenced. Targets are never presented as live metrics.</div>
 </header>
 <div class="totals">
-  <div class="stat"><div class="n">654</div><div class="l">Total milestones</div></div>
+  <div class="stat"><div class="n">664</div><div class="l">Total milestones</div></div>
   <div class="stat"><div class="n">48</div><div class="l">Universes</div></div>
-  <div class="stat"><div class="n" style="color:#86efac">172</div><div class="l">Achieved</div></div>
+  <div class="stat"><div class="n" style="color:#86efac">182</div><div class="l">Achieved</div></div>
   <div class="stat"><div class="n" style="color:#fca5a5">424</div><div class="l">Not achieved</div></div>
   <div class="stat"><div class="n" style="color:#fcd34d">0</div><div class="l">In progress</div></div>
   <div class="stat"><div class="n" style="color:#93c5fd">58</div><div class="l">Unverified</div></div>
   <div class="stat"><div class="n">6</div><div class="l">Groups</div></div>
 </div>
 <div class="groupgrid">
-  <a class="gchip" href="#g-platform-runtime"><span class="gn">Platform &amp; Runtime</span><span class="gm">57 achieved</span> <span class="gt">/ 121</span></a>
+  <a class="gchip" href="#g-platform-runtime"><span class="gn">Platform &amp; Runtime</span><span class="gm">67 achieved</span> <span class="gt">/ 131</span></a>
   <a class="gchip" href="#g-knowledge-intelligence"><span class="gn">Knowledge &amp; Intelligence</span><span class="gm">44 achieved</span> <span class="gt">/ 114</span></a>
   <a class="gchip" href="#g-governance-evidence"><span class="gn">Governance &amp; Evidence</span><span class="gm">35 achieved</span> <span class="gt">/ 115</span></a>
   <a class="gchip" href="#g-civilization-domains"><span class="gn">Civilization &amp; Domains</span><span class="gm">20 achieved</span> <span class="gt">/ 144</span></a>
@@ -66,17 +66,47 @@
   <div class="group-head">
     <h2>Platform &amp; Runtime</h2>
     <div class="rollup">
-      <span class="r-achieved">57 achieved</span> /
-      <span>121 milestones</span>
+      <span class="r-achieved">67 achieved</span> /
+      <span>131 milestones</span>
       <span class="r-dim">· 0 in progress · 58 not achieved · 9 universes</span>
-      <div class="bar"><div class="bar-fill" style="width:47%"></div></div>
+      <div class="bar"><div class="bar-fill" style="width:51%"></div></div>
     </div>
   </div>
   <section class="universe">
-    <h3>hkd-runtime <span class="count">16</span></h3>
+    <h3>hkd-runtime <span class="count">22</span></h3>
     <table>
       <thead><tr><th>Future Milestone (target)</th><th>Current State (real)</th><th>Status</th></tr></thead>
       <tbody>
+<tr>
+  <td class="milestone">HKD schema: verbatim contracts captured + health reports governedProductionGo=false</td>
+  <td class="current">hkd-schema [contracts captured verbatim] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">HKD schema: capsule rule — 'verified' requires source-proven evidence + zero blockers, else downgraded</td>
+  <td class="current">hkd-schema [entitledStatus enforces] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">HKD schema: build hkd:// URIs, round-trips with the parser, fail-closed</td>
+  <td class="current">hkd-schema [buildHkdUri round-trips] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">HKD schema: real hkd:// URI parser, fail-closed on bad scheme/empty path</td>
+  <td class="current">hkd-schema [parseHkdUri parses] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">HKD schema: fail-closed validation (missing fields / bad status / bad uri / bad evidence)</td>
+  <td class="current">hkd-schema [validateHkd is fail-closed] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">HKD schema: validate a well-formed capsule against the canonical contract</td>
+  <td class="current">hkd-schema [validateHkd accepts] → pass=1 fail=0 (absorbed from mockups; NOT a complete HKD certification; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
 <tr>
   <td class="milestone">runtime-hkd-registry is operational: real hash-chained register/resolve/list/pin/verify ledger (advisory trust, not production-GO)</td>
   <td class="current">tests/runtime-hkd-registry.test.ts → pass=3 fail=0 (real in-memory tier; governedProductionGo=false)</td>
@@ -161,7 +191,7 @@
     </table>
   </section>
   <section class="universe">
-    <h3>lipi <span class="count">16</span></h3>
+    <h3>lipi <span class="count">20</span></h3>
     <table>
       <thead><tr><th>Future Milestone (target)</th><th>Current State (real)</th><th>Status</th></tr></thead>
       <tbody>
@@ -244,6 +274,26 @@
   <td class="milestone">Script Technology Stack: OCR/HTR / Transliteration / AI Script Generator / NLP / Font &amp; Glyph / Manuscript Restoration / Blockchain Authenticity</td>
   <td class="current">Transliteration is real in lipi-runtime. OCR/HTR/AI generation/restoration/blockchain authenticity layers do not exist.</td>
   <td><span class="badge" style="color:#7f1d1d;background:#fecaca">NOT ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">Lipi Devanagari→IPA: base aksharas mapped to standard ISO 15919 / Devanagari citation-form IPA, every entry NEEDS_NATIVE_REVIEW (not certified), unmapped letters UNKNOWN (not invented); CONTROLLED_NO_GO.</td>
+  <td class="current">devanagari-ipa tests → pass=5 fail=0 (56/78 base aksharas mapped, review-pending, cited; rest UNKNOWN/not-invented; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">Lipi phonetic binding: shapeshifter tokens joined to the seeded in-repo IPA authority; IPA assigned ONLY where seeded, UNKNOWN (never invented) elsewhere — review-pending, CONTROLLED_NO_GO.</td>
+  <td class="current">phonetic-binding tests → pass=4 fail=0 (IPA only from seeded authority; unseeded tokens UNKNOWN/not-invented; review-pending; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">Lipi shapeshifter: one phonetic LETTER token rendered as real shapes across Brahmic scripts (observe_shift + relation_mind_graph), derived only from Unicode names — no invented meaning; CONTROLLED_NO_GO.</td>
+  <td class="current">shapeshifter tests → pass=7 fail=0 (KA spans 17 scripts; correspondence from Unicode LETTER names only; governedProductionGo=false)</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
+</tr>
+<tr>
+  <td class="milestone">Lipi local Unicode authority: UnicodeData.txt absorbed with a real parser, CLI, tests, evidence, and dataset-corrected glyph counts (Brahmi 109 / Kharoshthi 65 / Devanagari 128 / Siddham 92) — NOT a complete Lipi certification; CONTROLLED_NO_GO.</td>
+  <td class="current">Lipi Unicode authority verified: 6/6 checks — 29215 UCD records, dataset-corrected counts, CONTROLLED_NO_GO (not a Lipi certification).</td>
+  <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
 </tr>
       </tbody>
     </table>
@@ -356,7 +406,7 @@
 </tr>
 <tr>
   <td class="milestone">Parallel test-cache runner: whole suite runs concurrently with a real per-file results cache (verifier perf)</td>
-  <td class="current">test-cache: 79/79 files green in 2917ms (concurrency=8) — real per-file results, not fabricated</td>
+  <td class="current">test-cache: 84/86 files green in 6932ms (concurrency=8) — real per-file results, not fabricated</td>
   <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
 </tr>
 <tr>
@@ -572,7 +622,7 @@
 </tr>
 <tr>
   <td class="milestone">Federated runtime packages exist as isolated workspaces (target ≥ 8)</td>
-  <td class="current">48 runtime packages with package.json: avatar-runtime, brahmini-runtime, chakra-runtime, dashboard-knowledge-graph, evidence-runtime, gesture-runtime, investor-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, knowledge-runtime, lipi-dashboard, lipi-runtime, maataa-ui, memory-runtime, research-agent, runtime, runtime-agent-supervisor, runtime-analytics, runtime-data, runtime-entitlements, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-storage, runtime-target-scaffold, runtime-transport, runtime-validation, runtime-versioning, saptadhaatu-runtime, scientific-evidence-registry-runtime, task-runtime, tlp-runtime, universal-runtime, visual-hkd-runtime, voice-runtime</td>
+  <td class="current">49 runtime packages with package.json: avatar-runtime, brahmini-runtime, chakra-runtime, dashboard-knowledge-graph, evidence-runtime, gesture-runtime, investor-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, knowledge-runtime, lipi-dashboard, lipi-runtime, maataa-ui, memory-runtime, research-agent, runtime, runtime-agent-supervisor, runtime-analytics, runtime-data, runtime-entitlements, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-hkd-schema, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-storage, runtime-target-scaffold, runtime-transport, runtime-validation, runtime-versioning, saptadhaatu-runtime, scientific-evidence-registry-runtime, task-runtime, tlp-runtime, universal-runtime, visual-hkd-runtime, voice-runtime</td>
   <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
 </tr>
 <tr>
@@ -1522,7 +1572,7 @@
 </tr>
 <tr>
   <td class="milestone">Milestones matrix content is reproducible (stable hash across runs)</td>
-  <td class="current">stableHash run1=e45ac5f45584… run2=e45ac5f45584… identical=true</td>
+  <td class="current">stableHash run1=ccca64fafc97… run2=ccca64fafc97… identical=true</td>
   <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
 </tr>
       </tbody>
@@ -1565,7 +1615,7 @@
 </tr>
 <tr>
   <td class="milestone">Governed production gate report is content-addressed: carries a signature field and SHA-256 hashes of all inputs</td>
-  <td class="current">governed-production-gate.json signature=d99880c4d20b…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true</td>
+  <td class="current">governed-production-gate.json signature=f85468916858…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true</td>
   <td><span class="badge" style="color:#14532d;background:#bbf7d0">ACHIEVED</span></td>
 </tr>
 <tr>
