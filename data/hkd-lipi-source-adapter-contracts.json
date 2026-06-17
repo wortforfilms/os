@@ -1,0 +1,550 @@
+{
+  "schema": "hkd-lipi-source-adapter-contracts.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE6_FEDERATION_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+  "allowedFieldStatuses": [
+    "VERIFIED",
+    "BLOCKED",
+    "CONFLICT",
+    "UNKNOWN"
+  ],
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "sourceRegistry",
+      "path": "data/hkd-lipi-federated-source-registry.json",
+      "sha256": "d312a8276cad9048ff5703b2c9ff08de9cfdf0d9e29e214b49f62b148081719d"
+    },
+    {
+      "id": "phase6Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase6-federation.json",
+      "sha256": "10ba8272e75cec778d7e86feea1a30e1d3a62dc3c1413741fbe6b72940e8e88b"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-source-adapter-contracts.v1",
+    "sourceIds": [
+      "hkd-lipi-phase6-federation"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+    "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-federated-source-registry.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase6-federation.json"
+    ],
+    "reviewed": false,
+    "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "summary": {
+    "adapters": 5,
+    "validateOnlyAdapters": 5,
+    "writesRegistryAdapters": 0,
+    "registryMutationAdapters": 0,
+    "silentEnrichmentAdapters": 0,
+    "createsNewScriptClaims": 0,
+    "adapterFields": 20,
+    "fieldStatuses": {
+      "VERIFIED": 1,
+      "BLOCKED": 17,
+      "CONFLICT": 0,
+      "UNKNOWN": 2
+    }
+  },
+  "adapters": [
+    {
+      "id": "adapter:iso-15924",
+      "sourceId": "iso-15924",
+      "displayName": "ISO 15924 validate-only adapter contract",
+      "sourceLocalStatus": "PARTIAL_VIA_UCD_PROPERTY_VALUE_ALIASES",
+      "mode": "VALIDATE_ONLY",
+      "contractStatus": "BLOCKED_UNTIL_STANDALONE_CODE_LIST_SNAPSHOT",
+      "allowedFieldStatuses": [
+        "VERIFIED",
+        "BLOCKED",
+        "CONFLICT",
+        "UNKNOWN"
+      ],
+      "writesRegistry": false,
+      "registryMutationAllowed": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "runtimeEnablementAllowed": false,
+      "productionReadyAllowed": false,
+      "permittedOperations": [
+        "READ_LOCAL_SNAPSHOT",
+        "VALIDATE_EXISTING_FIELD",
+        "EMIT_FIELD_STATUS",
+        "EMIT_CONFLICT_REPORT"
+      ],
+      "forbiddenOperations": [
+        "CREATE_SCRIPT_ROW",
+        "ASSIGN_UNICODE",
+        "ASSIGN_ISO15924",
+        "ASSIGN_FONT_SUPPORT",
+        "ASSIGN_TRANSLITERATION",
+        "SET_RUNTIME_ENABLED",
+        "SET_PRODUCTION_READY",
+        "WRITE_REGISTRY_FIELD",
+        "SILENT_ENRICH_RECORD"
+      ],
+      "prerequisites": [
+        "Versioned local ISO 15924 code-list snapshot",
+        "Snapshot checksum",
+        "Explicit field-diff report against current registry",
+        "Human review before any verified field transition"
+      ],
+      "fields": [
+        {
+          "field": "unicode_script_alias_cross_check",
+          "status": "VERIFIED",
+          "validationScope": "existing_unicode_rows_only",
+          "authority": "unicode-ucd",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "EVIDENCE_ONLY",
+          "reason": "Current checkpoint can only cross-check aliases already present in UCD PropertyValueAliases; it cannot assign new ISO values."
+        },
+        {
+          "field": "iso15924_alpha_code",
+          "status": "BLOCKED",
+          "validationScope": "no_new_assignment",
+          "authority": "iso-15924",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No standalone ISO 15924 code-list snapshot is locally ingested."
+        },
+        {
+          "field": "iso15924_numeric_code",
+          "status": "BLOCKED",
+          "validationScope": "no_new_assignment",
+          "authority": "iso-15924",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "Numeric ISO 15924 codes are not represented in the registry seed and no local ISO snapshot exists."
+        },
+        {
+          "field": "new_script_code_assignment",
+          "status": "BLOCKED",
+          "validationScope": "no_new_script_claims",
+          "authority": "iso-15924",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "Adapters may not create or assign script codes."
+        }
+      ],
+      "provenance": {
+        "scope": "source_adapter_contract",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation",
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "adapter:cldr",
+      "sourceId": "cldr",
+      "displayName": "CLDR validate-only adapter contract",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "mode": "VALIDATE_ONLY",
+      "contractStatus": "BLOCKED_UNTIL_LOCAL_CLDR_SNAPSHOT",
+      "allowedFieldStatuses": [
+        "VERIFIED",
+        "BLOCKED",
+        "CONFLICT",
+        "UNKNOWN"
+      ],
+      "writesRegistry": false,
+      "registryMutationAllowed": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "runtimeEnablementAllowed": false,
+      "productionReadyAllowed": false,
+      "permittedOperations": [
+        "READ_LOCAL_SNAPSHOT",
+        "VALIDATE_EXISTING_FIELD",
+        "EMIT_FIELD_STATUS",
+        "EMIT_CONFLICT_REPORT"
+      ],
+      "forbiddenOperations": [
+        "CREATE_SCRIPT_ROW",
+        "ASSIGN_UNICODE",
+        "ASSIGN_ISO15924",
+        "ASSIGN_FONT_SUPPORT",
+        "ASSIGN_TRANSLITERATION",
+        "SET_RUNTIME_ENABLED",
+        "SET_PRODUCTION_READY",
+        "WRITE_REGISTRY_FIELD",
+        "SILENT_ENRICH_RECORD"
+      ],
+      "prerequisites": [
+        "Versioned local CLDR data snapshot",
+        "Locale-to-script field map",
+        "No write mode",
+        "Conflict report for exemplar, collation, transform, and numbering data"
+      ],
+      "fields": [
+        {
+          "field": "locale_exemplar_sets",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "cldr",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No CLDR snapshot is locally ingested."
+        },
+        {
+          "field": "collation_data",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "cldr",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No CLDR snapshot is locally ingested."
+        },
+        {
+          "field": "numbering_systems",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "cldr",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No CLDR snapshot is locally ingested."
+        },
+        {
+          "field": "transforms_transliteration",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "cldr",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No CLDR transform data is locally ingested; do not infer transliteration."
+        }
+      ],
+      "provenance": {
+        "scope": "source_adapter_contract",
+        "sourceIds": [
+          "cldr",
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "adapter:icu",
+      "sourceId": "icu",
+      "displayName": "ICU validate-only adapter contract",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "mode": "VALIDATE_ONLY",
+      "contractStatus": "BLOCKED_UNTIL_LOCAL_ICU_VERSIONED_SNAPSHOT",
+      "allowedFieldStatuses": [
+        "VERIFIED",
+        "BLOCKED",
+        "CONFLICT",
+        "UNKNOWN"
+      ],
+      "writesRegistry": false,
+      "registryMutationAllowed": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "runtimeEnablementAllowed": false,
+      "productionReadyAllowed": false,
+      "permittedOperations": [
+        "READ_LOCAL_SNAPSHOT",
+        "VALIDATE_EXISTING_FIELD",
+        "EMIT_FIELD_STATUS",
+        "EMIT_CONFLICT_REPORT"
+      ],
+      "forbiddenOperations": [
+        "CREATE_SCRIPT_ROW",
+        "ASSIGN_UNICODE",
+        "ASSIGN_ISO15924",
+        "ASSIGN_FONT_SUPPORT",
+        "ASSIGN_TRANSLITERATION",
+        "SET_RUNTIME_ENABLED",
+        "SET_PRODUCTION_READY",
+        "WRITE_REGISTRY_FIELD",
+        "SILENT_ENRICH_RECORD"
+      ],
+      "prerequisites": [
+        "Versioned ICU data/API snapshot",
+        "Deterministic test harness",
+        "Explicit mapping from implementation behavior to registry fields",
+        "No script-fact assignment from implementation behavior"
+      ],
+      "fields": [
+        {
+          "field": "normalization_behavior",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "icu",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No ICU snapshot or deterministic API trace is locally ingested."
+        },
+        {
+          "field": "collation_behavior",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "icu",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No ICU snapshot or deterministic API trace is locally ingested."
+        },
+        {
+          "field": "break_iterator_behavior",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "icu",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No ICU snapshot or deterministic API trace is locally ingested."
+        },
+        {
+          "field": "script_detection_behavior",
+          "status": "UNKNOWN",
+          "validationScope": "future_validation_only",
+          "authority": "icu",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "Implementation behavior may be testable later, but cannot create script identity claims."
+        }
+      ],
+      "provenance": {
+        "scope": "source_adapter_contract",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation",
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "adapter:harfbuzz",
+      "sourceId": "harfbuzz",
+      "displayName": "HarfBuzz validate-only adapter contract",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "mode": "VALIDATE_ONLY",
+      "contractStatus": "BLOCKED_UNTIL_SHAPING_CORPUS_AND_VERSIONED_BINARY",
+      "allowedFieldStatuses": [
+        "VERIFIED",
+        "BLOCKED",
+        "CONFLICT",
+        "UNKNOWN"
+      ],
+      "writesRegistry": false,
+      "registryMutationAllowed": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "runtimeEnablementAllowed": false,
+      "productionReadyAllowed": false,
+      "permittedOperations": [
+        "READ_LOCAL_SNAPSHOT",
+        "VALIDATE_EXISTING_FIELD",
+        "EMIT_FIELD_STATUS",
+        "EMIT_CONFLICT_REPORT"
+      ],
+      "forbiddenOperations": [
+        "CREATE_SCRIPT_ROW",
+        "ASSIGN_UNICODE",
+        "ASSIGN_ISO15924",
+        "ASSIGN_FONT_SUPPORT",
+        "ASSIGN_TRANSLITERATION",
+        "SET_RUNTIME_ENABLED",
+        "SET_PRODUCTION_READY",
+        "WRITE_REGISTRY_FIELD",
+        "SILENT_ENRICH_RECORD"
+      ],
+      "prerequisites": [
+        "Versioned HarfBuzz binary or source snapshot",
+        "Versioned font fixtures",
+        "Script-specific shaping corpus",
+        "Visual or glyph-run diff report"
+      ],
+      "fields": [
+        {
+          "field": "joining_behavior",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "harfbuzz",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No shaping corpus or versioned HarfBuzz snapshot is locally ingested."
+        },
+        {
+          "field": "complex_shaping_behavior",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "harfbuzz",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No shaping corpus or versioned HarfBuzz snapshot is locally ingested."
+        },
+        {
+          "field": "glyph_substitution_behavior",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "harfbuzz",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No font fixtures or glyph-run evidence is locally ingested."
+        },
+        {
+          "field": "font_support_status",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "harfbuzz",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "HarfBuzz shaping results cannot prove font availability without versioned font evidence."
+        }
+      ],
+      "provenance": {
+        "scope": "source_adapter_contract",
+        "sourceIds": [
+          "harfbuzz",
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "adapter:opentype-spec",
+      "sourceId": "opentype-spec",
+      "displayName": "OpenType specification validate-only adapter contract",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "mode": "VALIDATE_ONLY",
+      "contractStatus": "BLOCKED_UNTIL_LOCAL_SPEC_AND_FONT_FIXTURES",
+      "allowedFieldStatuses": [
+        "VERIFIED",
+        "BLOCKED",
+        "CONFLICT",
+        "UNKNOWN"
+      ],
+      "writesRegistry": false,
+      "registryMutationAllowed": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "runtimeEnablementAllowed": false,
+      "productionReadyAllowed": false,
+      "permittedOperations": [
+        "READ_LOCAL_SNAPSHOT",
+        "VALIDATE_EXISTING_FIELD",
+        "EMIT_FIELD_STATUS",
+        "EMIT_CONFLICT_REPORT"
+      ],
+      "forbiddenOperations": [
+        "CREATE_SCRIPT_ROW",
+        "ASSIGN_UNICODE",
+        "ASSIGN_ISO15924",
+        "ASSIGN_FONT_SUPPORT",
+        "ASSIGN_TRANSLITERATION",
+        "SET_RUNTIME_ENABLED",
+        "SET_PRODUCTION_READY",
+        "WRITE_REGISTRY_FIELD",
+        "SILENT_ENRICH_RECORD"
+      ],
+      "prerequisites": [
+        "Versioned local OpenType specification snapshot",
+        "Feature-tag policy map",
+        "Versioned font fixtures",
+        "Human-reviewed mapping from spec feature to registry field"
+      ],
+      "fields": [
+        {
+          "field": "opentype_feature_support",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "opentype-spec",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No local specification snapshot or font fixture evidence is ingested."
+        },
+        {
+          "field": "font_table_support",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "opentype-spec",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "No font fixture evidence is ingested."
+        },
+        {
+          "field": "font_support_status",
+          "status": "BLOCKED",
+          "validationScope": "future_validation_only",
+          "authority": "opentype-spec",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "The specification does not prove actual installed font support."
+        },
+        {
+          "field": "rendering_engine_support",
+          "status": "UNKNOWN",
+          "validationScope": "future_validation_only",
+          "authority": "opentype-spec",
+          "writePolicy": "NO_WRITE",
+          "failureMode": "FAIL_CLOSED",
+          "reason": "A spec relationship alone cannot verify runtime rendering support."
+        }
+      ],
+      "provenance": {
+        "scope": "source_adapter_contract",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation",
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "hkd-lipi-registry-phase7-ingestion-contracts.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE6_FEDERATION_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+  "allowedFieldStatuses": [
+    "VERIFIED",
+    "BLOCKED",
+    "CONFLICT",
+    "UNKNOWN"
+  ],
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "sourceRegistry",
+      "path": "data/hkd-lipi-federated-source-registry.json",
+      "sha256": "d312a8276cad9048ff5703b2c9ff08de9cfdf0d9e29e214b49f62b148081719d"
+    },
+    {
+      "id": "phase6Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase6-federation.json",
+      "sha256": "10ba8272e75cec778d7e86feea1a30e1d3a62dc3c1413741fbe6b72940e8e88b"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-registry-phase7-ingestion-contracts.v1",
+    "sourceIds": [
+      "hkd-lipi-phase6-federation"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+    "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-federated-source-registry.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase6-federation.json"
+    ],
+    "reviewed": false,
+    "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "counts": {
+    "seedRecords": 426,
+    "phase6Sources": 7,
+    "adapters": 5,
+    "policyForbiddenActions": 8,
+    "trustMatrixRows": 6,
+    "conflictRules": 5
+  },
+  "checks": {
+    "requestedAdaptersPresent": true,
+    "onlyAllowedFieldStatuses": true,
+    "allAdaptersValidateOnly": true,
+    "noAdaptersWriteRegistry": true,
+    "noSilentEnrichment": true,
+    "noNewScriptClaims": true,
+    "noRuntimeEnabledTrue": true,
+    "noProductionReadyTrue": true,
+    "conflictRulesDoNotAutoApply": true,
+    "everyOutputHasProvenance": true
+  },
+  "outputs": {
+    "adapterContracts": "data/hkd-lipi-source-adapter-contracts.json",
+    "ingestionPolicy": "data/hkd-lipi-ingestion-policy.json",
+    "trustMatrix": "data/hkd-lipi-source-trust-matrix.json",
+    "conflictRules": "data/hkd-lipi-conflict-resolution-rules.json",
+    "evidence": "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+  },
+  "limitations": [
+    "No source adapter ingests external data in Phase 7.",
+    "Adapters are contracts only and cannot silently enrich registry records.",
+    "ISO 15924 remains blocked for standalone code-list validation until a local official snapshot is added.",
+    "CLDR, ICU, HarfBuzz, and OpenType remain blocked until local versioned snapshots and tests exist."
+  ]
+}

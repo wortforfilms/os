@@ -1,0 +1,722 @@
+{
+  "schema": "hkd-lipi-source-trust-matrix.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE6_FEDERATION_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+  "allowedFieldStatuses": [
+    "VERIFIED",
+    "BLOCKED",
+    "CONFLICT",
+    "UNKNOWN"
+  ],
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "sourceRegistry",
+      "path": "data/hkd-lipi-federated-source-registry.json",
+      "sha256": "d312a8276cad9048ff5703b2c9ff08de9cfdf0d9e29e214b49f62b148081719d"
+    },
+    {
+      "id": "phase6Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase6-federation.json",
+      "sha256": "10ba8272e75cec778d7e86feea1a30e1d3a62dc3c1413741fbe6b72940e8e88b"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-source-trust-matrix.v1",
+    "sourceIds": [
+      "hkd-lipi-phase6-federation"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+    "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-federated-source-registry.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase6-federation.json"
+    ],
+    "reviewed": false,
+    "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "summary": {
+    "sources": 6,
+    "fieldGroups": 23,
+    "verifiedFieldGroups": 5,
+    "blockedFieldGroups": 16,
+    "conflictFieldGroups": 0,
+    "unknownFieldGroups": 2,
+    "writesRegistryRows": 0,
+    "silentEnrichmentRows": 0
+  },
+  "rows": [
+    {
+      "sourceId": "unicode-ucd",
+      "displayName": "Unicode Character Database",
+      "sourceLocalStatus": "LOCAL_INGESTED",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "fieldGroups": [
+        {
+          "fieldGroup": "unicode_script_property",
+          "status": "VERIFIED",
+          "trustUse": "trusted_current_input",
+          "blockedReason": "NONE",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "unicode-ucd"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "unicode_blocks",
+          "status": "VERIFIED",
+          "trustUse": "trusted_current_input",
+          "blockedReason": "NONE",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "unicode-ucd"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "unicode_ranges",
+          "status": "VERIFIED",
+          "trustUse": "trusted_current_input",
+          "blockedReason": "NONE",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "unicode-ucd"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "decimal_digits_and_zero",
+          "status": "VERIFIED",
+          "trustUse": "trusted_current_input",
+          "blockedReason": "NONE",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "unicode-ucd"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "font_support",
+          "status": "BLOCKED",
+          "trustUse": "not_authoritative_for_field",
+          "blockedReason": "UCD does not prove font support.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "unicode-ucd"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        }
+      ],
+      "provenance": {
+        "scope": "source_trust_matrix_row",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "sourceId": "iso-15924",
+      "displayName": "ISO 15924 Registration Authority",
+      "sourceLocalStatus": "PARTIAL_VIA_UCD_PROPERTY_VALUE_ALIASES",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "fieldGroups": [
+        {
+          "fieldGroup": "unicode_script_alias_cross_check",
+          "status": "VERIFIED",
+          "trustUse": "ucd_alias_only",
+          "blockedReason": "NONE",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "iso-15924"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "iso15924_alpha_code",
+          "status": "BLOCKED",
+          "trustUse": "future_iso_snapshot_validation",
+          "blockedReason": "Standalone ISO 15924 snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "iso-15924"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "iso15924_numeric_code",
+          "status": "BLOCKED",
+          "trustUse": "future_iso_snapshot_validation",
+          "blockedReason": "Standalone ISO 15924 snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "iso-15924"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "new_code_assignment",
+          "status": "BLOCKED",
+          "trustUse": "never_auto_assign",
+          "blockedReason": "Adapters cannot assign script codes.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "iso-15924"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        }
+      ],
+      "provenance": {
+        "scope": "source_trust_matrix_row",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation",
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "sourceId": "cldr",
+      "displayName": "Unicode CLDR",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "fieldGroups": [
+        {
+          "fieldGroup": "locale_exemplar_sets",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "CLDR snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "cldr",
+              "hkd-lipi-phase6-federation"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "collation",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "CLDR snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "cldr",
+              "hkd-lipi-phase6-federation"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "numbering_systems",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "CLDR snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "cldr",
+              "hkd-lipi-phase6-federation"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "transforms",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "CLDR snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "cldr",
+              "hkd-lipi-phase6-federation"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        }
+      ],
+      "provenance": {
+        "scope": "source_trust_matrix_row",
+        "sourceIds": [
+          "cldr",
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "sourceId": "icu",
+      "displayName": "ICU International Components for Unicode",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "fieldGroups": [
+        {
+          "fieldGroup": "normalization_behavior",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "ICU snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "icu"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "collation_behavior",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "ICU snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "icu"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "script_detection_behavior",
+          "status": "UNKNOWN",
+          "trustUse": "future_validation_only",
+          "blockedReason": "Implementation behavior cannot create script identity claims.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "icu"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        }
+      ],
+      "provenance": {
+        "scope": "source_trust_matrix_row",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation",
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "sourceId": "harfbuzz",
+      "displayName": "HarfBuzz",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "fieldGroups": [
+        {
+          "fieldGroup": "shaping_behavior",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "HarfBuzz snapshot and shaping corpus not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "harfbuzz",
+              "hkd-lipi-phase6-federation"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "glyph_run_behavior",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "Font fixtures and glyph-run evidence not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "harfbuzz",
+              "hkd-lipi-phase6-federation"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "font_support",
+          "status": "BLOCKED",
+          "trustUse": "not_authoritative_for_field",
+          "blockedReason": "HarfBuzz output cannot prove installed font availability by itself.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "harfbuzz",
+              "hkd-lipi-phase6-federation"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        }
+      ],
+      "provenance": {
+        "scope": "source_trust_matrix_row",
+        "sourceIds": [
+          "harfbuzz",
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "sourceId": "opentype-spec",
+      "displayName": "OpenType Specification",
+      "sourceLocalStatus": "NOT_INGESTED",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "fieldGroups": [
+        {
+          "fieldGroup": "feature_tags",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "OpenType spec snapshot not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "opentype-spec"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "font_table_support",
+          "status": "BLOCKED",
+          "trustUse": "future_validation_only",
+          "blockedReason": "Font fixtures not locally ingested.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "opentype-spec"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "font_support",
+          "status": "BLOCKED",
+          "trustUse": "not_authoritative_for_field",
+          "blockedReason": "Specification does not prove actual font support.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "opentype-spec"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        },
+        {
+          "fieldGroup": "rendering_engine_support",
+          "status": "UNKNOWN",
+          "trustUse": "future_validation_only",
+          "blockedReason": "Spec relationships cannot verify runtime behavior by themselves.",
+          "provenance": {
+            "scope": "source_trust_matrix_field_group",
+            "sourceIds": [
+              "hkd-lipi-phase6-federation",
+              "opentype-spec"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+            "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+            "trustedInputs": [
+              "data/hkd-lipi-federated-source-registry.json",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "release/evidence/hkd-lipi-registry-phase6-federation.json"
+            ],
+            "reviewed": false,
+            "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+          }
+        }
+      ],
+      "provenance": {
+        "scope": "source_trust_matrix_row",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation",
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    }
+  ]
+}

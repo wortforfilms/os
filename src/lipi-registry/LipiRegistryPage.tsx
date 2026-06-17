@@ -10,6 +10,7 @@ import {
   getLipiRegistryScript,
   getLipiRegistrySourceSummary,
   getLipiScriptKbsNeighborhood,
+  getLipiSourceIngestionContractsView,
   getLipiUnicodeCrosswalk,
   getLipiZeroRegistryView,
   listLipiRegistryScripts,
@@ -38,7 +39,11 @@ type ExplorerId =
   | "federation-sources"
   | "lineage"
   | "conflicts"
-  | "chains";
+  | "chains"
+  | "adapter-contracts"
+  | "ingestion-policy"
+  | "trust-matrix"
+  | "conflict-rules";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -59,6 +64,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const kbsView = useMemo(() => getLipiKbsGraphView(), []);
   const auditabilityView = useMemo(() => getLipiRegistryAuditabilityView(), []);
   const federationView = useMemo(() => getLipiEvidenceFederationView(), []);
+  const ingestionContractsView = useMemo(() => getLipiSourceIngestionContractsView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -110,7 +116,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
         </select>
       </div>
 
-      <div className="lipi-explorer-tabs" aria-label="Phase 3 explorers">
+      <div className="lipi-explorer-tabs" aria-label="Registry explorers">
         {[
           ["numerals", "Numeral Explorer"],
           ["zero", "Zero Registry"],
@@ -126,6 +132,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["lineage", "Evidence Lineage"],
           ["conflicts", "Source Conflicts"],
           ["chains", "Provenance Chains"],
+          ["adapter-contracts", "Adapter Contracts"],
+          ["ingestion-policy", "Ingestion Policy"],
+          ["trust-matrix", "Trust Matrix"],
+          ["conflict-rules", "Conflict Rules"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -147,6 +157,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "lineage" ? <EvidenceLineagePanel view={federationView} /> : null}
       {explorer === "conflicts" ? <SourceConflictPanel view={federationView} /> : null}
       {explorer === "chains" ? <ProvenanceChainPanel view={federationView} /> : null}
+      {explorer === "adapter-contracts" ? <AdapterContractsPanel view={ingestionContractsView} /> : null}
+      {explorer === "ingestion-policy" ? <IngestionPolicyPanel view={ingestionContractsView} /> : null}
+      {explorer === "trust-matrix" ? <SourceTrustMatrixPanel view={ingestionContractsView} /> : null}
+      {explorer === "conflict-rules" ? <ConflictRulesPanel view={ingestionContractsView} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -705,6 +719,127 @@ function ProvenanceChainPanel({ view }: { view: ReturnType<typeof getLipiEvidenc
   );
 }
 
+function AdapterContractsPanel({ view }: { view: ReturnType<typeof getLipiSourceIngestionContractsView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Source Adapter Contracts">
+      <header>
+        <h3>Adapter Contracts</h3>
+        <Badge label="adapters" value={String(view.adapterContracts.summary.adapters)} tone="verified" />
+        <Badge label="writes" value={String(view.adapterContracts.summary.writesRegistryAdapters)} tone={view.adapterContracts.summary.writesRegistryAdapters ? "blocked" : "verified"} />
+        <Badge label="silent enrich" value={String(view.adapterContracts.summary.silentEnrichmentAdapters)} tone={view.adapterContracts.summary.silentEnrichmentAdapters ? "blocked" : "verified"} />
+        <Badge label="PHKD" value={view.phkdVerdict} tone="blocked" />
+      </header>
+      <div className="lipi-result-list small">
+        {view.adapterContracts.adapters.map((adapter) => (
+          <article className="lipi-result-row" key={adapter.id}>
+            <div className="lipi-row-main static">
+              <span>{adapter.mode === "VALIDATE_ONLY" ? "VAL" : "NO"}</span>
+              <strong>{adapter.displayName}</strong>
+              <em>{adapter.sourceLocalStatus}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="write" value={String(adapter.writesRegistry)} tone={adapter.writesRegistry ? "blocked" : "verified"} />
+              <Badge label="silent" value={String(adapter.silentEnrichmentAllowed)} tone={adapter.silentEnrichmentAllowed ? "blocked" : "verified"} />
+              <Badge label="claims" value={String(adapter.createsNewScriptClaims)} tone={adapter.createsNewScriptClaims ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">
+              {adapter.fields.map((field) => `${field.field}:${field.status}`).join(" / ")}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IngestionPolicyPanel({ view }: { view: ReturnType<typeof getLipiSourceIngestionContractsView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Ingestion Policy">
+      <header>
+        <h3>Ingestion Policy</h3>
+        <Badge label="mode" value={view.ingestionPolicy.adapterMode} tone="blocked" />
+        <Badge label="production" value={String(view.productionReady)} tone="blocked" />
+        <Badge label="runtime" value="0" tone="blocked" />
+      </header>
+      <div className="lipi-blocked-grid">
+        {view.ingestionPolicy.forbiddenActions.map((action) => (
+          <article key={action}>
+            <strong>{action}</strong>
+            <Badge label="status" value="BLOCKED" tone="blocked" />
+            <p>Adapter contracts may validate and report only; this action cannot update a registry row.</p>
+          </article>
+        ))}
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Field Transitions</h4>
+        {view.ingestionPolicy.fieldTransitionPolicy.map((transition) => (
+          <div key={`${transition.from}:${transition.to}`}>
+            <span>
+              {transition.from} to {transition.to}
+            </span>
+            <strong>{transition.registryWriteAllowed ? "WRITE" : "NO WRITE"}</strong>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SourceTrustMatrixPanel({ view }: { view: ReturnType<typeof getLipiSourceIngestionContractsView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Source Trust Matrix">
+      <header>
+        <h3>Trust Matrix</h3>
+        <Badge label="sources" value={String(view.trustMatrix.summary.sources)} tone="verified" />
+        <Badge label="blocked" value={String(view.trustMatrix.summary.blockedFieldGroups)} tone="blocked" />
+        <Badge label="unknown" value={String(view.trustMatrix.summary.unknownFieldGroups)} tone="unknown" />
+      </header>
+      <div className="lipi-result-list small">
+        {view.trustMatrix.rows.map((row) => (
+          <article className="lipi-result-row" key={row.sourceId}>
+            <div className="lipi-row-main static">
+              <span>{row.sourceLocalStatus === "LOCAL_INGESTED" ? "IN" : row.sourceLocalStatus === "NOT_INGESTED" ? "NO" : "PART"}</span>
+              <strong>{row.displayName}</strong>
+              <em>{row.sourceId}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="write" value={String(row.writesRegistry)} tone={row.writesRegistry ? "blocked" : "verified"} />
+              <Badge label="silent" value={String(row.silentEnrichmentAllowed)} tone={row.silentEnrichmentAllowed ? "blocked" : "verified"} />
+              <Badge label="claims" value={String(row.createsNewScriptClaims)} tone={row.createsNewScriptClaims ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">
+              {row.fieldGroups.map((group) => `${group.fieldGroup}:${group.status}`).join(" / ")}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ConflictRulesPanel({ view }: { view: ReturnType<typeof getLipiSourceIngestionContractsView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Conflict Resolution Rules">
+      <header>
+        <h3>Conflict Rules</h3>
+        <Badge label="rules" value={String(view.conflictRules.summary.rules)} tone="verified" />
+        <Badge label="auto apply" value={String(view.conflictRules.summary.autoApplyRules)} tone={view.conflictRules.summary.autoApplyRules ? "blocked" : "verified"} />
+        <Badge label="mutations" value={String(view.conflictRules.summary.registryMutationRules)} tone={view.conflictRules.summary.registryMutationRules ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-blocked-grid">
+        {view.conflictRules.rules.map((rule) => (
+          <article key={rule.id}>
+            <strong>{rule.title}</strong>
+            <Badge label="field" value={rule.adapterFieldStatus} tone={toneForAdapterFieldStatus(rule.adapterFieldStatus)} />
+            <Badge label="auto" value={String(rule.autoApply)} tone={rule.autoApply ? "blocked" : "verified"} />
+            <p>{rule.action}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function NumeralZeroPanel({ view }: { view: ReturnType<typeof getLipiNumeralZeroView> }) {
   const visibleRows = view.rows.slice(0, 36);
   return (
@@ -857,4 +992,11 @@ function Badge({ label, value, tone }: LipiRegistryBadge) {
       {label}: {value}
     </span>
   );
+}
+
+function toneForAdapterFieldStatus(status: string): LipiRegistryBadge["tone"] {
+  if (status === "VERIFIED") return "verified";
+  if (status === "BLOCKED" || status === "CONFLICT") return "blocked";
+  if (status === "UNKNOWN") return "unknown";
+  return "neutral";
 }

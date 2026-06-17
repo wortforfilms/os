@@ -1,0 +1,205 @@
+{
+  "schema": "hkd-lipi-conflict-resolution-rules.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE6_FEDERATION_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+  "allowedFieldStatuses": [
+    "VERIFIED",
+    "BLOCKED",
+    "CONFLICT",
+    "UNKNOWN"
+  ],
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "sourceRegistry",
+      "path": "data/hkd-lipi-federated-source-registry.json",
+      "sha256": "d312a8276cad9048ff5703b2c9ff08de9cfdf0d9e29e214b49f62b148081719d"
+    },
+    {
+      "id": "phase6Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase6-federation.json",
+      "sha256": "10ba8272e75cec778d7e86feea1a30e1d3a62dc3c1413741fbe6b72940e8e88b"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-conflict-resolution-rules.v1",
+    "sourceIds": [
+      "hkd-lipi-phase6-federation"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+    "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-federated-source-registry.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase6-federation.json"
+    ],
+    "reviewed": false,
+    "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "summary": {
+    "rules": 5,
+    "autoApplyRules": 0,
+    "registryMutationRules": 0,
+    "allowedStatusesUsed": [
+      "BLOCKED",
+      "CONFLICT",
+      "UNKNOWN",
+      "VERIFIED"
+    ]
+  },
+  "rules": [
+    {
+      "id": "conflict-does-not-write-registry",
+      "title": "A conflict report cannot mutate registry fields",
+      "trigger": "any adapter emits CONFLICT",
+      "adapterFieldStatus": "CONFLICT",
+      "autoApply": false,
+      "registryMutationAllowed": false,
+      "resolutionRequires": [
+        "field-level evidence",
+        "source-chain review",
+        "explicit reviewer decision"
+      ],
+      "action": "emit_conflict_report_only",
+      "provenance": {
+        "scope": "conflict_resolution_rule",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "non-ingested-source-cannot-verify",
+      "title": "A non-ingested source cannot verify current registry facts",
+      "trigger": "sourceLocalStatus is NOT_INGESTED",
+      "adapterFieldStatus": "BLOCKED",
+      "autoApply": false,
+      "registryMutationAllowed": false,
+      "resolutionRequires": [
+        "versioned local source snapshot",
+        "checksum",
+        "adapter test"
+      ],
+      "action": "mark_field_BLOCKED",
+      "provenance": {
+        "scope": "conflict_resolution_rule",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "ucd-controls-unicode-fields-only",
+      "title": "UCD evidence is authoritative for Unicode fields, not fonts or transliteration",
+      "trigger": "adapter references Unicode assignment, range, block, decimal digit, or zero glyph",
+      "adapterFieldStatus": "VERIFIED",
+      "autoApply": false,
+      "registryMutationAllowed": false,
+      "resolutionRequires": [
+        "UCD provenance already present",
+        "no external conflict"
+      ],
+      "action": "emit_verified_evidence_status_without_write",
+      "provenance": {
+        "scope": "conflict_resolution_rule",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "iso-standalone-snapshot-required",
+      "title": "ISO 15924 assignments require a standalone ISO snapshot",
+      "trigger": "adapter attempts ISO alpha or numeric code validation",
+      "adapterFieldStatus": "BLOCKED",
+      "autoApply": false,
+      "registryMutationAllowed": false,
+      "resolutionRequires": [
+        "standalone ISO 15924 local snapshot",
+        "diff report",
+        "human review"
+      ],
+      "action": "mark_iso_field_BLOCKED",
+      "provenance": {
+        "scope": "conflict_resolution_rule",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "implementation-sources-do-not-create-script-claims",
+      "title": "ICU, HarfBuzz, and OpenType implementation/spec evidence cannot create script claims",
+      "trigger": "implementation or specification source references a missing registry field",
+      "adapterFieldStatus": "UNKNOWN",
+      "autoApply": false,
+      "registryMutationAllowed": false,
+      "resolutionRequires": [
+        "existing registry row",
+        "explicit field map",
+        "human review"
+      ],
+      "action": "mark_field_UNKNOWN_or_BLOCKED",
+      "provenance": {
+        "scope": "conflict_resolution_rule",
+        "sourceIds": [
+          "hkd-lipi-phase6-federation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+        "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    }
+  ]
+}

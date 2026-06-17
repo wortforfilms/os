@@ -1,0 +1,161 @@
+{
+  "schema": "hkd-lipi-ingestion-policy.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE6_FEDERATION_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+  "allowedFieldStatuses": [
+    "VERIFIED",
+    "BLOCKED",
+    "CONFLICT",
+    "UNKNOWN"
+  ],
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "sourceRegistry",
+      "path": "data/hkd-lipi-federated-source-registry.json",
+      "sha256": "d312a8276cad9048ff5703b2c9ff08de9cfdf0d9e29e214b49f62b148081719d"
+    },
+    {
+      "id": "phase6Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase6-federation.json",
+      "sha256": "10ba8272e75cec778d7e86feea1a30e1d3a62dc3c1413741fbe6b72940e8e88b"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-ingestion-policy.v1",
+    "sourceIds": [
+      "hkd-lipi-phase6-federation"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase7-ingestion-contracts.mjs",
+    "sourcePolicy": "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-federated-source-registry.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase6-federation.json"
+    ],
+    "reviewed": false,
+    "phkd": "CONTRACT_FACTS_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "policyId": "hkd-lipi-phase7-validate-only-ingestion-policy",
+  "scope": "source_adapter_contracts_before_claim_ingestion",
+  "adapterMode": "VALIDATE_ONLY",
+  "registryMutationAllowed": false,
+  "silentEnrichmentAllowed": false,
+  "createsNewScriptClaims": false,
+  "runtimeEnablementAllowed": false,
+  "productionReadyAllowed": false,
+  "allowedAdapterFieldStatuses": [
+    "VERIFIED",
+    "BLOCKED",
+    "CONFLICT",
+    "UNKNOWN"
+  ],
+  "allowedActions": [
+    "mark_field_VERIFIED_with_existing_evidence",
+    "mark_field_BLOCKED",
+    "mark_field_CONFLICT",
+    "mark_field_UNKNOWN",
+    "emit_audit_artifact"
+  ],
+  "forbiddenActions": [
+    "auto_apply_verified_field_to_registry",
+    "create_or_delete_script_record",
+    "invent_unicode_assignment",
+    "invent_iso15924_code",
+    "invent_font_support",
+    "invent_transliteration_mapping",
+    "set_runtime_enabled_true",
+    "set_production_ready_true"
+  ],
+  "fieldTransitionPolicy": [
+    {
+      "from": "UNKNOWN",
+      "to": "VERIFIED",
+      "registryWriteAllowed": false,
+      "requirements": [
+        "authoritative local snapshot",
+        "field-level provenance",
+        "conflict detector clean",
+        "human review"
+      ]
+    },
+    {
+      "from": "BLOCKED",
+      "to": "VERIFIED",
+      "registryWriteAllowed": false,
+      "requirements": [
+        "blocking prerequisite satisfied",
+        "field-level provenance",
+        "human review",
+        "review note"
+      ]
+    },
+    {
+      "from": "CONFLICT",
+      "to": "VERIFIED",
+      "registryWriteAllowed": false,
+      "requirements": [
+        "conflict-resolution rule applied",
+        "human review",
+        "review note",
+        "explicit evidence chain"
+      ]
+    }
+  ],
+  "adapterSummary": [
+    {
+      "id": "adapter:iso-15924",
+      "sourceId": "iso-15924",
+      "mode": "VALIDATE_ONLY",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "contractStatus": "BLOCKED_UNTIL_STANDALONE_CODE_LIST_SNAPSHOT"
+    },
+    {
+      "id": "adapter:cldr",
+      "sourceId": "cldr",
+      "mode": "VALIDATE_ONLY",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "contractStatus": "BLOCKED_UNTIL_LOCAL_CLDR_SNAPSHOT"
+    },
+    {
+      "id": "adapter:icu",
+      "sourceId": "icu",
+      "mode": "VALIDATE_ONLY",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "contractStatus": "BLOCKED_UNTIL_LOCAL_ICU_VERSIONED_SNAPSHOT"
+    },
+    {
+      "id": "adapter:harfbuzz",
+      "sourceId": "harfbuzz",
+      "mode": "VALIDATE_ONLY",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "contractStatus": "BLOCKED_UNTIL_SHAPING_CORPUS_AND_VERSIONED_BINARY"
+    },
+    {
+      "id": "adapter:opentype-spec",
+      "sourceId": "opentype-spec",
+      "mode": "VALIDATE_ONLY",
+      "writesRegistry": false,
+      "silentEnrichmentAllowed": false,
+      "createsNewScriptClaims": false,
+      "contractStatus": "BLOCKED_UNTIL_LOCAL_SPEC_AND_FONT_FIXTURES"
+    }
+  ]
+}

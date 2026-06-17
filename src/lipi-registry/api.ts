@@ -12,6 +12,11 @@ import evidenceLineageGraph from "../../data/hkd-lipi-evidence-lineage-graph.jso
 import sourceConflictDetector from "../../data/hkd-lipi-source-conflict-detector.json" with { type: "json" };
 import provenanceChainExplorer from "../../data/hkd-lipi-provenance-chain-explorer.json" with { type: "json" };
 import federationEvidence from "../../release/evidence/hkd-lipi-registry-phase6-federation.json" with { type: "json" };
+import sourceAdapterContracts from "../../data/hkd-lipi-source-adapter-contracts.json" with { type: "json" };
+import ingestionPolicy from "../../data/hkd-lipi-ingestion-policy.json" with { type: "json" };
+import sourceTrustMatrix from "../../data/hkd-lipi-source-trust-matrix.json" with { type: "json" };
+import conflictResolutionRules from "../../data/hkd-lipi-conflict-resolution-rules.json" with { type: "json" };
+import ingestionContractsEvidence from "../../release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -234,6 +239,40 @@ export type LipiEvidenceFederationView = {
   };
 };
 
+export type LipiSourceIngestionContractsView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  adapterContracts: {
+    summary: typeof sourceAdapterContracts.summary;
+    adapters: typeof sourceAdapterContracts.adapters;
+  };
+  ingestionPolicy: {
+    policyId: typeof ingestionPolicy.policyId;
+    adapterMode: typeof ingestionPolicy.adapterMode;
+    allowedAdapterFieldStatuses: typeof ingestionPolicy.allowedAdapterFieldStatuses;
+    allowedActions: typeof ingestionPolicy.allowedActions;
+    forbiddenActions: typeof ingestionPolicy.forbiddenActions;
+    fieldTransitionPolicy: typeof ingestionPolicy.fieldTransitionPolicy;
+    adapterSummary: typeof ingestionPolicy.adapterSummary;
+  };
+  trustMatrix: {
+    summary: typeof sourceTrustMatrix.summary;
+    rows: typeof sourceTrustMatrix.rows;
+  };
+  conflictRules: {
+    summary: typeof conflictResolutionRules.summary;
+    rules: typeof conflictResolutionRules.rules;
+  };
+  evidence: {
+    counts: typeof ingestionContractsEvidence.counts;
+    checks: typeof ingestionContractsEvidence.checks;
+    limitations: typeof ingestionContractsEvidence.limitations;
+  };
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -335,6 +374,30 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/federation/provenance-chains",
     handler: "getLipiEvidenceFederationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/contracts",
+    handler: "getLipiSourceIngestionContractsView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/policy",
+    handler: "getLipiSourceIngestionContractsView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/trust-matrix",
+    handler: "getLipiSourceIngestionContractsView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/conflict-rules",
+    handler: "getLipiSourceIngestionContractsView",
     status: "LOCAL_CONTRACT",
   },
 ] as const;
@@ -612,6 +675,42 @@ export function getLipiEvidenceFederationView(): LipiEvidenceFederationView {
   };
 }
 
+export function getLipiSourceIngestionContractsView(): LipiSourceIngestionContractsView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    adapterContracts: {
+      summary: sourceAdapterContracts.summary,
+      adapters: sourceAdapterContracts.adapters,
+    },
+    ingestionPolicy: {
+      policyId: ingestionPolicy.policyId,
+      adapterMode: ingestionPolicy.adapterMode,
+      allowedAdapterFieldStatuses: ingestionPolicy.allowedAdapterFieldStatuses,
+      allowedActions: ingestionPolicy.allowedActions,
+      forbiddenActions: ingestionPolicy.forbiddenActions,
+      fieldTransitionPolicy: ingestionPolicy.fieldTransitionPolicy,
+      adapterSummary: ingestionPolicy.adapterSummary,
+    },
+    trustMatrix: {
+      summary: sourceTrustMatrix.summary,
+      rows: sourceTrustMatrix.rows,
+    },
+    conflictRules: {
+      summary: conflictResolutionRules.summary,
+      rules: conflictResolutionRules.rules,
+    },
+    evidence: {
+      counts: ingestionContractsEvidence.counts,
+      checks: ingestionContractsEvidence.checks,
+      limitations: ingestionContractsEvidence.limitations,
+    },
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -650,11 +749,16 @@ export function getLipiRegistrySourceSummary() {
       federationLineage: evidenceLineageGraph.schema,
       federationConflicts: sourceConflictDetector.schema,
       federationChains: provenanceChainExplorer.schema,
+      adapterContracts: sourceAdapterContracts.schema,
+      ingestionPolicy: ingestionPolicy.schema,
+      trustMatrix: sourceTrustMatrix.schema,
+      conflictRules: conflictResolutionRules.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
     phase4SourcePolicy: "hkd_registry_seed_plus_phase3_ucd_artifacts_only",
     phase6SourcePolicy: "cross_reference_only_no_new_script_claims",
+    phase7SourcePolicy: "adapter_contracts_only_no_ingestion_no_silent_enrichment",
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,
