@@ -1,0 +1,225 @@
+{
+  "schema": "hkd-lipi-registry-runtime-activation.v1",
+  "generatedAt": "DETERMINISTIC_FROM_RUNTIME_ACTIVATION_INPUTS",
+  "reviewState": "CONTROLLED_PREVIEW_NO_GO",
+  "registryRuntimeActive": true,
+  "runtimeMode": "CONTROLLED_PREVIEW",
+  "readOnly": true,
+  "mutationAllowed": false,
+  "productionReady": false,
+  "governedProductionGo": false,
+  "productionGoApproved": false,
+  "humanApprovalPresent": false,
+  "runtimeEnabledRows": 0,
+  "releaseCandidate": false,
+  "enrichmentAutoApplyAllowed": false,
+  "enrichmentProposalsApplied": 0,
+  "registryMutations": 0,
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "sourcePolicy": "controlled_preview_runtime_read_only_no_registry_mutation_no_production_go",
+  "trustedInputs": [
+    {
+      "id": "phase14Proposals",
+      "path": "data/hkd-lipi-controlled-enrichment-proposals.json",
+      "sha256": "88e3978c0adaca08d7ce9d9da278bdffb5b0667a40dc8f96a190dc84f379cdc2"
+    },
+    {
+      "id": "phase19Gate",
+      "path": "data/hkd-lipi-production-go-approval-gate.json",
+      "sha256": "786200fc7acf6c8bf0c59f3d342f14c7645c5d6534a55e691e7ca50e6777e2aa"
+    },
+    {
+      "id": "phase15Gate",
+      "path": "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "sha256": "1d27b5689c2d04322432ff42f976af9d62e12ba166dce553e05194eede7146a1"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "phase16Bundle",
+      "path": "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json",
+      "sha256": "ba688c632e4129e2c213ee7b06a10443e47adefdd46023756244a37973af3772"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-registry-runtime-activation.v1",
+    "sourceIds": [
+      "hkd-lipi-phase14-controlled-enrichment",
+      "hkd-lipi-phase15-runtime-gate-review",
+      "hkd-lipi-phase16-evidence-bundle",
+      "hkd-lipi-phase19-production-go-gate",
+      "hkd-lipi-registry-seed-426"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-runtime-activation.mjs",
+    "sourcePolicy": "controlled_preview_runtime_read_only_no_registry_mutation_no_production_go",
+    "trustedInputs": [
+      "data/hkd-lipi-controlled-enrichment-proposals.json",
+      "data/hkd-lipi-production-go-approval-gate.json",
+      "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json"
+    ],
+    "reviewed": false,
+    "phkd": "CONTROLLED_PREVIEW_ONLY_READS_EXISTING_EVIDENCE"
+  },
+  "summary": {
+    "registryRows": 426,
+    "registryRuntimeActive": true,
+    "runtimeMode": "CONTROLLED_PREVIEW",
+    "readOnly": true,
+    "mutationAllowed": false,
+    "productionReady": false,
+    "governedProductionGo": false,
+    "productionGoApproved": false,
+    "humanApprovalPresent": false,
+    "runtimeEnabledRows": 0,
+    "enrichmentAutoApplyAllowed": false,
+    "enrichmentProposalsApplied": 0,
+    "releaseCandidate": false,
+    "activeProductionBlockers": 4
+  },
+  "runtimePolicy": {
+    "explorationAllowed": true,
+    "reviewAllowed": true,
+    "apiReadAllowed": true,
+    "registryMutationAllowed": false,
+    "rowRuntimeEnablementAllowed": false,
+    "enrichmentAutoApplyAllowed": false,
+    "releaseCandidateAllowed": false,
+    "productionGoAllowed": false
+  },
+  "checks": {
+    "registryRuntimeActiveTrue": true,
+    "runtimeModeControlledPreview": true,
+    "readOnlyTrue": true,
+    "mutationAllowedFalse": true,
+    "productionReadyFalse": true,
+    "governedProductionGoFalse": true,
+    "productionGoApprovedFalse": true,
+    "humanApprovalPresentFalse": true,
+    "runtimeEnabledRowsZero": true,
+    "noRegistryRowsChanged": true,
+    "noEnrichmentProposalApplied": true,
+    "releaseCandidateFalse": true,
+    "phkdVerdictControlledPreviewNoGo": true
+  },
+  "blockers": [
+    {
+      "id": "runtime-activation:blocker:read-only-preview",
+      "status": "BLOCKED_FOR_PRODUCTION_GO",
+      "severity": "HIGH",
+      "reason": "Registry runtime is active only for read-only exploration and review; mutationAllowed=false.",
+      "provenance": {
+        "scope": "runtime_activation_blocker",
+        "sourceIds": [
+          "hkd-lipi-runtime-activation"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-runtime-activation.mjs",
+        "sourcePolicy": "controlled_preview_runtime_read_only_no_registry_mutation_no_production_go",
+        "trustedInputs": [
+          "data/hkd-lipi-controlled-enrichment-proposals.json",
+          "data/hkd-lipi-production-go-approval-gate.json",
+          "data/hkd-lipi-runtime-enablement-gate-review.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTROLLED_PREVIEW_ONLY_READS_EXISTING_EVIDENCE"
+      }
+    },
+    {
+      "id": "runtime-activation:blocker:row-runtime-disabled",
+      "status": "BLOCKED_FOR_ROW_ENABLEMENT",
+      "severity": "HIGH",
+      "reason": "No script rows have explicit per-row approval; runtimeEnabledRows=0.",
+      "provenance": {
+        "scope": "runtime_activation_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase15-runtime-gate-review"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-runtime-activation.mjs",
+        "sourcePolicy": "controlled_preview_runtime_read_only_no_registry_mutation_no_production_go",
+        "trustedInputs": [
+          "data/hkd-lipi-controlled-enrichment-proposals.json",
+          "data/hkd-lipi-production-go-approval-gate.json",
+          "data/hkd-lipi-runtime-enablement-gate-review.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTROLLED_PREVIEW_ONLY_READS_EXISTING_EVIDENCE"
+      }
+    },
+    {
+      "id": "runtime-activation:blocker:production-go-missing-human-approval",
+      "status": "BLOCKED_FOR_PRODUCTION_GO",
+      "severity": "CRITICAL",
+      "reason": "No signed human approval artifact exists; productionGoApproved=false.",
+      "provenance": {
+        "scope": "runtime_activation_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase19-production-go-gate"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-runtime-activation.mjs",
+        "sourcePolicy": "controlled_preview_runtime_read_only_no_registry_mutation_no_production_go",
+        "trustedInputs": [
+          "data/hkd-lipi-controlled-enrichment-proposals.json",
+          "data/hkd-lipi-production-go-approval-gate.json",
+          "data/hkd-lipi-runtime-enablement-gate-review.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTROLLED_PREVIEW_ONLY_READS_EXISTING_EVIDENCE"
+      }
+    },
+    {
+      "id": "runtime-activation:blocker:not-release-candidate",
+      "status": "BLOCKED_FOR_RELEASE_CANDIDATE",
+      "severity": "HIGH",
+      "reason": "Phase 16 remains releaseCandidate=false.",
+      "provenance": {
+        "scope": "runtime_activation_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase16-evidence-bundle"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-runtime-activation.mjs",
+        "sourcePolicy": "controlled_preview_runtime_read_only_no_registry_mutation_no_production_go",
+        "trustedInputs": [
+          "data/hkd-lipi-controlled-enrichment-proposals.json",
+          "data/hkd-lipi-production-go-approval-gate.json",
+          "data/hkd-lipi-runtime-enablement-gate-review.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json"
+        ],
+        "reviewed": false,
+        "phkd": "CONTROLLED_PREVIEW_ONLY_READS_EXISTING_EVIDENCE"
+      }
+    }
+  ],
+  "outputHashes": [
+    {
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "path": "data/hkd-lipi-controlled-enrichment-proposals.json",
+      "sha256": "88e3978c0adaca08d7ce9d9da278bdffb5b0667a40dc8f96a190dc84f379cdc2"
+    },
+    {
+      "path": "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "sha256": "1d27b5689c2d04322432ff42f976af9d62e12ba166dce553e05194eede7146a1"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json",
+      "sha256": "ba688c632e4129e2c213ee7b06a10443e47adefdd46023756244a37973af3772"
+    },
+    {
+      "path": "data/hkd-lipi-production-go-approval-gate.json",
+      "sha256": "786200fc7acf6c8bf0c59f3d342f14c7645c5d6534a55e691e7ca50e6777e2aa"
+    }
+  ]
+}

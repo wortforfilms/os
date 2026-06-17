@@ -3,6 +3,7 @@ import { SovereignDashboard } from "../packages/maataa-ui/src/SovereignDashboard
 import { createAuthClient, type AuthClient } from "./auth/client";
 import type { AdminAnalyticsResult, AdminSummary, AuthSession, BillingSummaryResult } from "./auth/types";
 import { DomainRegistryPage } from "./domains/DomainRegistryPage";
+import { isLipiFullRoute, LipiFullPage } from "./lipi-full";
 import { LipiRegistryPage } from "./lipi-registry";
 import { PlaygroundPage, implementedPlaygroundRoutes, type PlaygroundRouteId } from "./playgrounds";
 import { CommandPalette } from "./search/CommandPalette";
@@ -19,6 +20,8 @@ type RouteId =
   | "/domains"
   | "/domains/status"
   | "/domains/runtime"
+  | "/lipi"
+  | `/lipi/${string}`
   | "/lipi-registry"
   | `/lipi-registry/${string}`
   | PlaygroundRouteId
@@ -43,6 +46,8 @@ function currentPath(): RouteId {
     path === "/domains" ||
     path === "/domains/status" ||
     path === "/domains/runtime" ||
+    path === "/lipi" ||
+    path.startsWith("/lipi/") ||
     path === "/lipi-registry" ||
     path.startsWith("/lipi-registry/") ||
     path === "/docs" ||
@@ -162,6 +167,14 @@ export function App() {
     );
   }
 
+  if (isLipiFullRoute(route)) {
+    return (
+      <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
+        <LipiFullPage route={route} navigate={navigate} />
+      </AuthShell>
+    );
+  }
+
   if (route === "/domains" || route === "/domains/status" || route === "/domains/runtime") {
     return (
       <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
@@ -224,6 +237,7 @@ function AuthShell({
           { path: "/dashboard", label: "Dashboard" },
           { path: "/admin", label: "Admin" },
           { path: "/domains", label: "Domains" },
+          { path: "/lipi", label: "Lipi Full" },
           { path: "/lipi-registry", label: "Lipi 426" },
           { path: "/search", label: "Search" },
           { path: "/maataa-ui/playground", label: "UI Lab" },
@@ -269,6 +283,7 @@ function normalizeRoute(path: string): RouteId | null {
     path === "/domains" ||
     path === "/domains/status" ||
     path === "/domains/runtime" ||
+    isLipiFullRoute(path) ||
     path === "/lipi-registry" ||
     path.startsWith("/lipi-registry/") ||
     path === "/docs" ||

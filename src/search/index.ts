@@ -6,6 +6,7 @@ import {
   hasDomainBlocker,
   isDomainRouteImplemented,
 } from "../domains/index.ts";
+import { lipiFullWorkspaces } from "../lipi-full/surface.ts";
 import { listLipiRegistryScripts } from "../lipi-registry/api.ts";
 import { playgroundRoutes } from "../playgrounds/data.ts";
 
@@ -15,6 +16,7 @@ const RUNTIME_STATES = [
   "PREVIEW_VERIFIED",
   "CONTROLLED_GO",
   "CONTROLLED_NO_GO",
+  "CONTROLLED_PREVIEW_NO_GO",
   "BLOCKED",
   "DEPRECATED",
 ] as const;
@@ -47,6 +49,7 @@ const implementedRoutes = new Set([
   "/domains",
   "/domains/status",
   "/domains/runtime",
+  ...lipiFullWorkspaces.map((workspace) => workspace.route),
   "/lipi-registry",
   "/docs",
   "/settings",
@@ -168,6 +171,16 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
       tags: ["route", "domain", "domains", route.state.toLowerCase()],
     }));
 
+  const lipiFullRouteResults = lipiFullWorkspaces.map((workspace) => ({
+    id: `route:${workspace.route}`,
+    title: workspace.title,
+    type: "route" as const,
+    path: workspace.route,
+    status: workspace.id === "runtime-status" ? "CONTROLLED_PREVIEW_NO_GO" as const : "CONTROLLED_NO_GO" as const,
+    description: workspace.summary,
+    tags: ["route", "lipi-full", "lipi", workspace.id, ...workspace.features, ...workspace.views].map((tag) => tag.toLowerCase()),
+  }));
+
   const domainResults = domainRegistry.domains.map((domain) => ({
     id: `domain:${domain.id}`,
     title: domain.domain,
@@ -259,6 +272,7 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
   return [
     ...routeResults,
     ...domainRouteResults,
+    ...lipiFullRouteResults,
     ...featureResults,
     ...stateResults,
     ...docResults,

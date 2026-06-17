@@ -62,6 +62,8 @@
     "runtime-html:generate": "node scripts/generate-runtime-html.mjs",
     "runtime-html:verify": "node scripts/verify-runtime-html.mjs",
     "playground:evidence": "node --experimental-strip-types scripts/playgrounds/capture-maataa-ui-playground-evidence.mjs",
+    "lipi:mahesh-flow": "node scripts/lipi-registry/capture-mahesh-user-flow-evidence.mjs",
+    "test:lipi-registry-extensive": "node --experimental-strip-types --test tests/hkd-lipi-registry-extensive-coverage.test.ts && node --test tests/hkd-lipi-registry-mahesh-user-flow.test.mjs",
     "evidence:generate": "node scripts/evidence-generate.mjs",
     "status:matrix": "node scripts/status-matrix.mjs",
     "milestones": "node scripts/milestones-cycle.mjs",

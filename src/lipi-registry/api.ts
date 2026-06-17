@@ -54,9 +54,11 @@ import externalReviewPackage from "../../data/hkd-lipi-external-review-package.j
 import externalReviewEvidence from "../../release/evidence/hkd-lipi-registry-phase18-external-review-package.json" with { type: "json" };
 import productionGoApprovalGate from "../../data/hkd-lipi-production-go-approval-gate.json" with { type: "json" };
 import productionGoApprovalEvidence from "../../release/evidence/hkd-lipi-registry-phase19-production-go-gate.json" with { type: "json" };
+import runtimeActivationEvidence from "../../release/evidence/hkd-lipi-registry-runtime-activation.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
+export type LipiRegistryRuntimeActivationStatus = "CONTROLLED_PREVIEW_NO_GO";
 export type LipiRegistryBadgeTone = "verified" | "blocked" | "draft" | "unknown" | "neutral";
 
 export type LipiRegistryBadge = {
@@ -568,6 +570,33 @@ export type LipiPhase17To19GovernanceView = {
   };
 };
 
+export type LipiRegistryRuntimeActivationView = {
+  ok: true;
+  schema: typeof runtimeActivationEvidence.schema;
+  reviewState: LipiRegistryRuntimeActivationStatus;
+  registryRuntimeActive: typeof runtimeActivationEvidence.registryRuntimeActive;
+  runtimeMode: typeof runtimeActivationEvidence.runtimeMode;
+  readOnly: typeof runtimeActivationEvidence.readOnly;
+  mutationAllowed: typeof runtimeActivationEvidence.mutationAllowed;
+  productionReady: typeof runtimeActivationEvidence.productionReady;
+  governedProductionGo: typeof runtimeActivationEvidence.governedProductionGo;
+  productionGoApproved: typeof runtimeActivationEvidence.productionGoApproved;
+  humanApprovalPresent: typeof runtimeActivationEvidence.humanApprovalPresent;
+  runtimeEnabledRows: typeof runtimeActivationEvidence.runtimeEnabledRows;
+  releaseCandidate: typeof runtimeActivationEvidence.releaseCandidate;
+  enrichmentAutoApplyAllowed: typeof runtimeActivationEvidence.enrichmentAutoApplyAllowed;
+  enrichmentProposalsApplied: typeof runtimeActivationEvidence.enrichmentProposalsApplied;
+  registryMutations: typeof runtimeActivationEvidence.registryMutations;
+  phkdVerdict: LipiRegistryRuntimeActivationStatus;
+  sourcePolicy: typeof runtimeActivationEvidence.sourcePolicy;
+  summary: typeof runtimeActivationEvidence.summary;
+  runtimePolicy: typeof runtimeActivationEvidence.runtimePolicy;
+  checks: typeof runtimeActivationEvidence.checks;
+  blockers: typeof runtimeActivationEvidence.blockers;
+  provenance: typeof runtimeActivationEvidence.provenance;
+  outputHashes: typeof runtimeActivationEvidence.outputHashes;
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -819,6 +848,12 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/runtime-enablement/gate-review",
     handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/runtime-activation",
+    handler: "getLipiRegistryRuntimeActivationView",
     status: "LOCAL_CONTRACT",
   },
   {
@@ -1426,6 +1461,35 @@ export function getLipiPhase17To19GovernanceView(): LipiPhase17To19GovernanceVie
   };
 }
 
+export function getLipiRegistryRuntimeActivationView(): LipiRegistryRuntimeActivationView {
+  return {
+    ok: true,
+    schema: runtimeActivationEvidence.schema,
+    reviewState: runtimeActivationEvidence.reviewState as LipiRegistryRuntimeActivationStatus,
+    registryRuntimeActive: runtimeActivationEvidence.registryRuntimeActive,
+    runtimeMode: runtimeActivationEvidence.runtimeMode,
+    readOnly: runtimeActivationEvidence.readOnly,
+    mutationAllowed: runtimeActivationEvidence.mutationAllowed,
+    productionReady: runtimeActivationEvidence.productionReady,
+    governedProductionGo: runtimeActivationEvidence.governedProductionGo,
+    productionGoApproved: runtimeActivationEvidence.productionGoApproved,
+    humanApprovalPresent: runtimeActivationEvidence.humanApprovalPresent,
+    runtimeEnabledRows: runtimeActivationEvidence.runtimeEnabledRows,
+    releaseCandidate: runtimeActivationEvidence.releaseCandidate,
+    enrichmentAutoApplyAllowed: runtimeActivationEvidence.enrichmentAutoApplyAllowed,
+    enrichmentProposalsApplied: runtimeActivationEvidence.enrichmentProposalsApplied,
+    registryMutations: runtimeActivationEvidence.registryMutations,
+    phkdVerdict: runtimeActivationEvidence.phkdVerdict as LipiRegistryRuntimeActivationStatus,
+    sourcePolicy: runtimeActivationEvidence.sourcePolicy,
+    summary: runtimeActivationEvidence.summary,
+    runtimePolicy: runtimeActivationEvidence.runtimePolicy,
+    checks: runtimeActivationEvidence.checks,
+    blockers: runtimeActivationEvidence.blockers,
+    provenance: runtimeActivationEvidence.provenance,
+    outputHashes: runtimeActivationEvidence.outputHashes,
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -1497,6 +1561,7 @@ export function getLipiRegistrySourceSummary() {
       externalReviewEvidence: externalReviewEvidence.schema,
       productionGoApprovalGate: productionGoApprovalGate.schema,
       productionGoApprovalEvidence: productionGoApprovalEvidence.schema,
+      runtimeActivationEvidence: runtimeActivationEvidence.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
@@ -1515,6 +1580,7 @@ export function getLipiRegistrySourceSummary() {
     phase17SourcePolicy: "operator_runbook_docs_only_no_registry_mutation",
     phase18SourcePolicy: "external_review_package_pending_no_approval_claim",
     phase19SourcePolicy: "production_go_only_after_human_approval_and_zero_blockers",
+    runtimeActivationSourcePolicy: runtimeActivationEvidence.sourcePolicy,
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,
