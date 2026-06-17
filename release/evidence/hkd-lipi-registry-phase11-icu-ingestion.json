@@ -1,0 +1,131 @@
+{
+  "schema": "hkd-lipi-registry-phase11-icu-ingestion.v1",
+  "generatedAt": "DETERMINISTIC_FROM_OFFICIAL_ICU_USCRIPT_SNAPSHOT",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+  "officialSource": {
+    "id": "icu-official-uscript-source",
+    "sourcePage": "https://github.com/unicode-org/icu",
+    "commit": "f23381d83cdd98199247adafc85851ce9c2e143f",
+    "files": [
+      {
+        "role": "ICU UScriptCode constants and short-name comments",
+        "url": "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+        "localPath": "data/icu/uscript.h",
+        "sha256": "293adf40390583c1c5394d3dc1794ed1669e8356cdf292ca5eaac145a2a5d1e0"
+      },
+      {
+        "role": "ICU script metadata source; flags are not ingested in Phase 11",
+        "url": "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp",
+        "localPath": "data/icu/uscript_props.cpp",
+        "sha256": "4818d95d126ab2c553f534e63c888a229d4fa609f609e57a1fd1ee7d48b66323"
+      }
+    ],
+    "note": "Phase 11 reads only ICU UScriptCode enum code/name/short-code metadata and source coverage; it does not ingest ICU locale inference, genealogy, rendering, fonts, normalization, collation, or shaping behavior."
+  },
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "unicodeCrosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "iso15924Crosswalk",
+      "path": "data/iso15924-script-code-crosswalk.json",
+      "sha256": "ce07ad4f7f080d9e22fc13f99d4b07703cc1a11bb5531b1492a858f88811a10c"
+    },
+    {
+      "id": "cldrCrosswalk",
+      "path": "data/cldr-script-locale-crosswalk.json",
+      "sha256": "92bab12eea5d2b5142dabe79d44cc596f5d6b8bab2924871b950585fd80aaba7"
+    },
+    {
+      "id": "icuScriptHeader",
+      "path": "data/icu/uscript.h",
+      "sha256": "293adf40390583c1c5394d3dc1794ed1669e8356cdf292ca5eaac145a2a5d1e0"
+    },
+    {
+      "id": "icuScriptProps",
+      "path": "data/icu/uscript_props.cpp",
+      "sha256": "4818d95d126ab2c553f534e63c888a229d4fa609f609e57a1fd1ee7d48b66323"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-registry-phase11-icu-ingestion.v1",
+    "sourceIds": [
+      "icu-official-uscript-source"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+    "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+    "officialSourceUrls": [
+      "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+      "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+    ],
+    "trustedInputs": [
+      "data/cldr-script-locale-crosswalk.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/icu/uscript.h",
+      "data/icu/uscript_props.cpp",
+      "data/iso15924-script-code-crosswalk.json"
+    ],
+    "reviewed": false,
+    "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+  },
+  "counts": {
+    "officialIcuScriptCodes": 213,
+    "officialIcuAliasConstants": 6,
+    "icuScriptPropsRows": 212,
+    "unicodeScriptRowsCompared": 176,
+    "verifiedRows": 168,
+    "unknownRows": 0,
+    "blockedRows": 8,
+    "blockers": 45,
+    "extraIcuCodesNotInUcdRegistry": 37,
+    "canonicalNameMismatches": 4,
+    "isoBlockedRows": 4,
+    "proposedFieldChanges": 0,
+    "rowsWritten": 0,
+    "enrichedRows": 0,
+    "runtimeEnablements": 0
+  },
+  "checks": {
+    "officialIcuSourceOnly": true,
+    "comparedExactly176UnicodeRows": true,
+    "everyUnicodeRowHasIcuCode": true,
+    "noRegistryMutation": true,
+    "previewOnlyDiffs": true,
+    "noEnrichedRows": true,
+    "noRuntimeEnablement": true,
+    "noProductionReadyTrue": true,
+    "noLocaleInferenceClaims": true,
+    "noGenealogyClaims": true,
+    "noFontClaims": true,
+    "noRenderingClaims": true,
+    "mismatchesBlocked": true,
+    "allOutputsHaveProvenance": true
+  },
+  "outputs": {
+    "report": "data/icu-ingestion-report.json",
+    "crosswalk": "data/icu-script-metadata-crosswalk.json",
+    "diffPreview": "data/icu-diff-preview.json",
+    "blockers": "data/icu-blockers.json",
+    "evidence": "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json"
+  },
+  "limitations": [
+    "ICU is used only for UScriptCode script-code/name/canonical metadata checks.",
+    "ICU script metadata flags from uscript_props.cpp are source-covered but not ingested as registry facts in Phase 11.",
+    "No ICU locale inference, genealogy, font, rendering, normalization, collation, transform, or shaping behavior is ingested.",
+    "ICU-only or ISO/CLDR language-tag codes outside the UCD Script property rows remain BLOCKED.",
+    "All output remains preview-only with PRODUCTION_READY=false and runtimeEnabled=0."
+  ]
+}

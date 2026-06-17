@@ -31,6 +31,11 @@ import cldrScriptLocaleCrosswalk from "../../data/cldr-script-locale-crosswalk.j
 import cldrDiffPreview from "../../data/cldr-diff-preview.json" with { type: "json" };
 import cldrBlockers from "../../data/cldr-blockers.json" with { type: "json" };
 import cldrIngestionEvidence from "../../release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json" with { type: "json" };
+import icuIngestionReport from "../../data/icu-ingestion-report.json" with { type: "json" };
+import icuScriptMetadataCrosswalk from "../../data/icu-script-metadata-crosswalk.json" with { type: "json" };
+import icuDiffPreview from "../../data/icu-diff-preview.json" with { type: "json" };
+import icuBlockers from "../../data/icu-blockers.json" with { type: "json" };
+import icuIngestionEvidence from "../../release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -377,6 +382,39 @@ export type LipiCldrIngestionView = {
   };
 };
 
+export type LipiIcuIngestionView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  report: {
+    ingestion: typeof icuIngestionReport.ingestion;
+    summary: typeof icuIngestionReport.summary;
+    officialSource: typeof icuIngestionReport.officialSource;
+  };
+  crosswalk: {
+    summary: typeof icuScriptMetadataCrosswalk.summary;
+    rows: typeof icuScriptMetadataCrosswalk.rows;
+    extraIcuCodesNotInUcdRegistry: typeof icuScriptMetadataCrosswalk.extraIcuCodesNotInUcdRegistry;
+    icuAliasConstants: typeof icuScriptMetadataCrosswalk.icuAliasConstants;
+  };
+  diffPreview: {
+    summary: typeof icuDiffPreview.summary;
+    diffs: typeof icuDiffPreview.diffs;
+  };
+  blockers: {
+    summary: typeof icuBlockers.summary;
+    mismatchPromotionPolicy: typeof icuBlockers.mismatchPromotionPolicy;
+    blockers: typeof icuBlockers.blockers;
+  };
+  evidence: {
+    counts: typeof icuIngestionEvidence.counts;
+    checks: typeof icuIngestionEvidence.checks;
+    limitations: typeof icuIngestionEvidence.limitations;
+  };
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -568,6 +606,30 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/ingestion/cldr/blockers",
     handler: "getLipiCldrIngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/icu/report",
+    handler: "getLipiIcuIngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/icu/crosswalk",
+    handler: "getLipiIcuIngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/icu/diff-preview",
+    handler: "getLipiIcuIngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/icu/blockers",
+    handler: "getLipiIcuIngestionView",
     status: "LOCAL_CONTRACT",
   },
 ] as const;
@@ -977,6 +1039,41 @@ export function getLipiCldrIngestionView(): LipiCldrIngestionView {
   };
 }
 
+export function getLipiIcuIngestionView(): LipiIcuIngestionView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    report: {
+      ingestion: icuIngestionReport.ingestion,
+      summary: icuIngestionReport.summary,
+      officialSource: icuIngestionReport.officialSource,
+    },
+    crosswalk: {
+      summary: icuScriptMetadataCrosswalk.summary,
+      rows: icuScriptMetadataCrosswalk.rows,
+      extraIcuCodesNotInUcdRegistry: icuScriptMetadataCrosswalk.extraIcuCodesNotInUcdRegistry,
+      icuAliasConstants: icuScriptMetadataCrosswalk.icuAliasConstants,
+    },
+    diffPreview: {
+      summary: icuDiffPreview.summary,
+      diffs: icuDiffPreview.diffs,
+    },
+    blockers: {
+      summary: icuBlockers.summary,
+      mismatchPromotionPolicy: icuBlockers.mismatchPromotionPolicy,
+      blockers: icuBlockers.blockers,
+    },
+    evidence: {
+      counts: icuIngestionEvidence.counts,
+      checks: icuIngestionEvidence.checks,
+      limitations: icuIngestionEvidence.limitations,
+    },
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -1030,6 +1127,10 @@ export function getLipiRegistrySourceSummary() {
       cldrCrosswalk: cldrScriptLocaleCrosswalk.schema,
       cldrDiffPreview: cldrDiffPreview.schema,
       cldrBlockers: cldrBlockers.schema,
+      icuIngestion: icuIngestionReport.schema,
+      icuCrosswalk: icuScriptMetadataCrosswalk.schema,
+      icuDiffPreview: icuDiffPreview.schema,
+      icuBlockers: icuBlockers.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
@@ -1039,6 +1140,7 @@ export function getLipiRegistrySourceSummary() {
     phase8SourcePolicy: "dry_run_only_no_registry_mutation_no_enrichment",
     phase9SourcePolicy: "iso15924_official_source_only_preview_no_registry_mutation",
     phase10SourcePolicy: "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+    phase11SourcePolicy: "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,

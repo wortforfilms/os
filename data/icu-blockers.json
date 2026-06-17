@@ -1,0 +1,2252 @@
+{
+  "schema": "icu-blockers.v1",
+  "generatedAt": "DETERMINISTIC_FROM_OFFICIAL_ICU_USCRIPT_SNAPSHOT",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+  "officialSource": {
+    "id": "icu-official-uscript-source",
+    "sourcePage": "https://github.com/unicode-org/icu",
+    "commit": "f23381d83cdd98199247adafc85851ce9c2e143f",
+    "files": [
+      {
+        "role": "ICU UScriptCode constants and short-name comments",
+        "url": "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+        "localPath": "data/icu/uscript.h",
+        "sha256": "293adf40390583c1c5394d3dc1794ed1669e8356cdf292ca5eaac145a2a5d1e0"
+      },
+      {
+        "role": "ICU script metadata source; flags are not ingested in Phase 11",
+        "url": "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp",
+        "localPath": "data/icu/uscript_props.cpp",
+        "sha256": "4818d95d126ab2c553f534e63c888a229d4fa609f609e57a1fd1ee7d48b66323"
+      }
+    ],
+    "note": "Phase 11 reads only ICU UScriptCode enum code/name/short-code metadata and source coverage; it does not ingest ICU locale inference, genealogy, rendering, fonts, normalization, collation, or shaping behavior."
+  },
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "unicodeCrosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "iso15924Crosswalk",
+      "path": "data/iso15924-script-code-crosswalk.json",
+      "sha256": "ce07ad4f7f080d9e22fc13f99d4b07703cc1a11bb5531b1492a858f88811a10c"
+    },
+    {
+      "id": "cldrCrosswalk",
+      "path": "data/cldr-script-locale-crosswalk.json",
+      "sha256": "92bab12eea5d2b5142dabe79d44cc596f5d6b8bab2924871b950585fd80aaba7"
+    },
+    {
+      "id": "icuScriptHeader",
+      "path": "data/icu/uscript.h",
+      "sha256": "293adf40390583c1c5394d3dc1794ed1669e8356cdf292ca5eaac145a2a5d1e0"
+    },
+    {
+      "id": "icuScriptProps",
+      "path": "data/icu/uscript_props.cpp",
+      "sha256": "4818d95d126ab2c553f534e63c888a229d4fa609f609e57a1fd1ee7d48b66323"
+    }
+  ],
+  "provenance": {
+    "scope": "icu-blockers.v1",
+    "sourceIds": [
+      "icu-official-uscript-source"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+    "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+    "officialSourceUrls": [
+      "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+      "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+    ],
+    "trustedInputs": [
+      "data/cldr-script-locale-crosswalk.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/icu/uscript.h",
+      "data/icu/uscript_props.cpp",
+      "data/iso15924-script-code-crosswalk.json"
+    ],
+    "reviewed": false,
+    "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+  },
+  "summary": {
+    "blockers": 45,
+    "ucdRowMetadataMismatches": 8,
+    "extraIcuCodesNotInUcdRegistry": 37,
+    "canonicalNameMismatches": 4,
+    "isoBlockedRows": 4,
+    "highSeverity": 6,
+    "promotionBlocked": true
+  },
+  "mismatchPromotionPolicy": {
+    "rule": "ANY_ICU_UCD_ISO_CLDR_METADATA_MISMATCH_BLOCKS_PROMOTION",
+    "promotionAllowedWhenMismatch": false,
+    "enforced": true,
+    "mismatchesDetected": 45
+  },
+  "blockers": [
+    {
+      "id": "phase11:blocker:ucd-row:beria-erfe",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Beria_Erfe",
+      "unicodeScriptAlias": "Berf",
+      "icuConstant": "USCRIPT_BERIA_ERFE",
+      "icuShortName": "Berf",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "blockers": [
+        "ISO15924_ROW_BLOCKED"
+      ],
+      "reason": "ICU metadata for Beria_Erfe cannot be promoted until ISO15924_ROW_BLOCKED is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:ucd-row:tai-tham",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Tai_Tham",
+      "unicodeScriptAlias": "Lana",
+      "icuConstant": "USCRIPT_LANNA",
+      "icuShortName": "Lana",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE"
+      ],
+      "reason": "ICU metadata for Tai_Tham cannot be promoted until ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:ucd-row:mende-kikakui",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Mende_Kikakui",
+      "unicodeScriptAlias": "Mend",
+      "icuConstant": "USCRIPT_MENDE",
+      "icuShortName": "Mend",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE"
+      ],
+      "reason": "ICU metadata for Mende_Kikakui cannot be promoted until ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:ucd-row:meetei-mayek",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Meetei_Mayek",
+      "unicodeScriptAlias": "Mtei",
+      "icuConstant": "USCRIPT_MEITEI_MAYEK",
+      "icuShortName": "Mtei",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE"
+      ],
+      "reason": "ICU metadata for Meetei_Mayek cannot be promoted until ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:ucd-row:old-turkic",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Old_Turkic",
+      "unicodeScriptAlias": "Orkh",
+      "icuConstant": "USCRIPT_ORKHON",
+      "icuShortName": "Orkh",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE"
+      ],
+      "reason": "ICU metadata for Old_Turkic cannot be promoted until ICU_CONSTANT_NAME_DIFFERS_FROM_UCD_CANONICAL_VALUE is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:ucd-row:sidetic",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Sidetic",
+      "unicodeScriptAlias": "Sidt",
+      "icuConstant": "USCRIPT_SIDETIC",
+      "icuShortName": "Sidt",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "blockers": [
+        "ISO15924_ROW_BLOCKED"
+      ],
+      "reason": "ICU metadata for Sidetic cannot be promoted until ISO15924_ROW_BLOCKED is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:ucd-row:tai-yo",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Tai_Yo",
+      "unicodeScriptAlias": "Tayo",
+      "icuConstant": "USCRIPT_TAI_YO",
+      "icuShortName": "Tayo",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "blockers": [
+        "ISO15924_ROW_BLOCKED"
+      ],
+      "reason": "ICU metadata for Tai_Yo cannot be promoted until ISO15924_ROW_BLOCKED is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:ucd-row:tolong-siki",
+      "blockerClass": "UCD_ROW_METADATA_MISMATCH",
+      "unicodeScriptValue": "Tolong_Siki",
+      "unicodeScriptAlias": "Tols",
+      "icuConstant": "USCRIPT_TOLONG_SIKI",
+      "icuShortName": "Tols",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "blockers": [
+        "ISO15924_ROW_BLOCKED"
+      ],
+      "reason": "ICU metadata for Tolong_Siki cannot be promoted until ISO15924_ROW_BLOCKED is resolved.",
+      "requiredToUnblock": [
+        "review ICU/UCD/ISO source disagreement",
+        "attach explicit mapping policy",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_ucd_row_metadata_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:blis",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_BLISSYMBOLS",
+      "icuNumericCode": 64,
+      "icuShortName": "Blis",
+      "icuNameFromConstant": "Blissymbols",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Blis is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:cirt",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_CIRTH",
+      "icuNumericCode": 67,
+      "icuShortName": "Cirt",
+      "icuNameFromConstant": "Cirth",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Cirt is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:cyrs",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_OLD_CHURCH_SLAVONIC_CYRILLIC",
+      "icuNumericCode": 68,
+      "icuShortName": "Cyrs",
+      "icuNameFromConstant": "Old_Church_Slavonic_Cyrillic",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Cyrs is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:egyd",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_DEMOTIC_EGYPTIAN",
+      "icuNumericCode": 69,
+      "icuShortName": "Egyd",
+      "icuNameFromConstant": "Demotic_Egyptian",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Egyd is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:egyh",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_HIERATIC_EGYPTIAN",
+      "icuNumericCode": 70,
+      "icuShortName": "Egyh",
+      "icuNameFromConstant": "Hieratic_Egyptian",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Egyh is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:geok",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_KHUTSURI",
+      "icuNumericCode": 72,
+      "icuShortName": "Geok",
+      "icuNameFromConstant": "Khutsuri",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Geok is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:hans",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_SIMPLIFIED_HAN",
+      "icuNumericCode": 73,
+      "icuShortName": "Hans",
+      "icuNameFromConstant": "Simplified_Han",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924",
+        "ICU_CODE_APPEARS_IN_CLDR_BUT_NOT_UCD"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": true,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Hans is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:hant",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_TRADITIONAL_HAN",
+      "icuNumericCode": 74,
+      "icuShortName": "Hant",
+      "icuNameFromConstant": "Traditional_Han",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924",
+        "ICU_CODE_APPEARS_IN_CLDR_BUT_NOT_UCD"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": true,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Hant is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:inds",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_HARAPPAN_INDUS",
+      "icuNumericCode": 77,
+      "icuShortName": "Inds",
+      "icuNameFromConstant": "Harappan_Indus",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Inds is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:latf",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_LATIN_FRAKTUR",
+      "icuNumericCode": 80,
+      "icuShortName": "Latf",
+      "icuNameFromConstant": "Latin_Fraktur",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Latf is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:latg",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_LATIN_GAELIC",
+      "icuNumericCode": 81,
+      "icuShortName": "Latg",
+      "icuNameFromConstant": "Latin_Gaelic",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Latg is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:maya",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_MAYAN_HIEROGLYPHS",
+      "icuNumericCode": 85,
+      "icuShortName": "Maya",
+      "icuNameFromConstant": "Mayan_Hieroglyphs",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Maya is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:roro",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_RONGORONGO",
+      "icuNumericCode": 93,
+      "icuShortName": "Roro",
+      "icuNameFromConstant": "Rongorongo",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Roro is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:sara",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_SARATI",
+      "icuNumericCode": 94,
+      "icuShortName": "Sara",
+      "icuNameFromConstant": "Sarati",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Sara is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:syre",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_ESTRANGELO_SYRIAC",
+      "icuNumericCode": 95,
+      "icuShortName": "Syre",
+      "icuNameFromConstant": "Estrangelo_Syriac",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Syre is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:syrj",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_WESTERN_SYRIAC",
+      "icuNumericCode": 96,
+      "icuShortName": "Syrj",
+      "icuNameFromConstant": "Western_Syriac",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Syrj is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:syrn",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_EASTERN_SYRIAC",
+      "icuNumericCode": 97,
+      "icuShortName": "Syrn",
+      "icuNameFromConstant": "Eastern_Syriac",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Syrn is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:teng",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_TENGWAR",
+      "icuNumericCode": 98,
+      "icuShortName": "Teng",
+      "icuNameFromConstant": "Tengwar",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Teng is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:visp",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_VISIBLE_SPEECH",
+      "icuNumericCode": 100,
+      "icuShortName": "Visp",
+      "icuNameFromConstant": "Visible_Speech",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Visp is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:zxxx",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_UNWRITTEN_LANGUAGES",
+      "icuNumericCode": 102,
+      "icuShortName": "Zxxx",
+      "icuNameFromConstant": "Unwritten_Languages",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Zxxx is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:jpan",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_JAPANESE",
+      "icuNumericCode": 105,
+      "icuShortName": "Jpan",
+      "icuNameFromConstant": "Japanese",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Jpan is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:moon",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_MOON",
+      "icuNumericCode": 114,
+      "icuShortName": "Moon",
+      "icuNameFromConstant": "Moon",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Moon is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:kore",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_KOREAN",
+      "icuNumericCode": 119,
+      "icuShortName": "Kore",
+      "icuNameFromConstant": "Korean",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Kore is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:phlv",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_BOOK_PAHLAVI",
+      "icuNumericCode": 124,
+      "icuShortName": "Phlv",
+      "icuNameFromConstant": "Book_Pahlavi",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Phlv is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:zmth",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_MATHEMATICAL_NOTATION",
+      "icuNumericCode": 128,
+      "icuShortName": "Zmth",
+      "icuNameFromConstant": "Mathematical_Notation",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Zmth is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:zsym",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_SYMBOLS",
+      "icuNumericCode": 129,
+      "icuShortName": "Zsym",
+      "icuNameFromConstant": "Symbols",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Zsym is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:nkgb",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_NAKHI_GEBA",
+      "icuNumericCode": 132,
+      "icuShortName": "Nkgb",
+      "icuNameFromConstant": "Nakhi_Geba",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Nkgb is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:kpel",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_KPELLE",
+      "icuNumericCode": 138,
+      "icuShortName": "Kpel",
+      "icuNameFromConstant": "Kpelle",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Kpel is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:loma",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_LOMA",
+      "icuNumericCode": 139,
+      "icuShortName": "Loma",
+      "icuNameFromConstant": "Loma",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Loma is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:afak",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_AFAKA",
+      "icuNumericCode": 147,
+      "icuShortName": "Afak",
+      "icuNameFromConstant": "Afaka",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Afak is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:jurc",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_JURCHEN",
+      "icuNumericCode": 148,
+      "icuShortName": "Jurc",
+      "icuNameFromConstant": "Jurchen",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Jurc is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:wole",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_WOLEAI",
+      "icuNumericCode": 155,
+      "icuShortName": "Wole",
+      "icuNameFromConstant": "Woleai",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Wole is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:hanb",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_HAN_WITH_BOPOMOFO",
+      "icuNumericCode": 172,
+      "icuShortName": "Hanb",
+      "icuNameFromConstant": "Han_With_Bopomofo",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Hanb is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:jamo",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_JAMO",
+      "icuNumericCode": 173,
+      "icuShortName": "Jamo",
+      "icuNameFromConstant": "Jamo",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Jamo is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:zsye",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_SYMBOLS_EMOJI",
+      "icuNumericCode": 174,
+      "icuShortName": "Zsye",
+      "icuNameFromConstant": "Symbols_Emoji",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Zsye is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:aran",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_ARABIC_NASTALIQ",
+      "icuNumericCode": 200,
+      "icuShortName": "Aran",
+      "icuNameFromConstant": "Arabic_Nastaliq",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Aran is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase11:blocker:extra-icu-code:hntl",
+      "blockerClass": "ICU_EXTRA_NON_UCD_SCRIPT_CODE",
+      "icuConstant": "USCRIPT_TRADITIONAL_HAN_WITH_LATIN",
+      "icuNumericCode": 212,
+      "icuShortName": "Hntl",
+      "icuNameFromConstant": "Traditional_Han_With_Latin",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "blockers": [
+        "ICU_CODE_NOT_UCD_SCRIPT_PROPERTY_ROW",
+        "ICU_CODE_NOT_FOUND_IN_ISO15924"
+      ],
+      "iso15924CodePresent": false,
+      "cldrExplicitLinkPresent": false,
+      "localeInferenceClaim": "NOT_ASSERTED",
+      "genealogyClaim": "NOT_ASSERTED",
+      "fontClaim": "NOT_ASSERTED",
+      "renderingClaim": "NOT_ASSERTED",
+      "reason": "ICU code Hntl is present in ICU but is not a UCD Script property row in the 176-row registry; no registry merge is allowed.",
+      "requiredToUnblock": [
+        "classify as non-UCD ICU/ISO code",
+        "attach explicit policy if a future registry partition should store it",
+        "rerun ICU dry ingestion"
+      ],
+      "provenance": {
+        "scope": "icu_extra_non_ucd_code_blocker",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase11-icu-ingestion.mjs",
+        "sourcePolicy": "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+        "officialSourceUrls": [
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/unicode/uscript.h",
+          "https://raw.githubusercontent.com/unicode-org/icu/f23381d83cdd98199247adafc85851ce9c2e143f/icu4c/source/common/uscript_props.cpp"
+        ],
+        "trustedInputs": [
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu/uscript.h",
+          "data/icu/uscript_props.cpp",
+          "data/iso15924-script-code-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "ICU_USCRIPT_METADATA_ONLY_NO_GENEALOGY_NO_FONT_NO_RENDERING_NO_LOCALE_INFERENCE"
+      }
+    }
+  ]
+}

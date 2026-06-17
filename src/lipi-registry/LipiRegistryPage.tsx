@@ -4,6 +4,7 @@ import {
   getLipiEvidenceBadges,
   getLipiEvidenceFederationView,
   getLipiFamilyGraphView,
+  getLipiIcuIngestionView,
   getLipiIngestionDryRunView,
   getLipiIso15924IngestionView,
   getLipiKbsGraphView,
@@ -57,7 +58,11 @@ type ExplorerId =
   | "cldr-report"
   | "cldr-crosswalk"
   | "cldr-diff"
-  | "cldr-blockers";
+  | "cldr-blockers"
+  | "icu-report"
+  | "icu-crosswalk"
+  | "icu-diff"
+  | "icu-blockers";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -82,6 +87,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const dryRunView = useMemo(() => getLipiIngestionDryRunView(), []);
   const iso15924View = useMemo(() => getLipiIso15924IngestionView(), []);
   const cldrView = useMemo(() => getLipiCldrIngestionView(), []);
+  const icuView = useMemo(() => getLipiIcuIngestionView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -164,6 +170,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["cldr-crosswalk", "CLDR Crosswalk"],
           ["cldr-diff", "CLDR Diff"],
           ["cldr-blockers", "CLDR Blockers"],
+          ["icu-report", "ICU Report"],
+          ["icu-crosswalk", "ICU Crosswalk"],
+          ["icu-diff", "ICU Diff"],
+          ["icu-blockers", "ICU Blockers"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -200,6 +210,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "cldr-crosswalk" ? <CldrCrosswalkPanel view={cldrView} /> : null}
       {explorer === "cldr-diff" ? <CldrDiffPanel view={cldrView} /> : null}
       {explorer === "cldr-blockers" ? <CldrBlockersPanel view={cldrView} /> : null}
+      {explorer === "icu-report" ? <IcuReportPanel view={icuView} /> : null}
+      {explorer === "icu-crosswalk" ? <IcuCrosswalkPanel view={icuView} /> : null}
+      {explorer === "icu-diff" ? <IcuDiffPanel view={icuView} /> : null}
+      {explorer === "icu-blockers" ? <IcuBlockersPanel view={icuView} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -1206,6 +1220,132 @@ function CldrBlockersPanel({ view }: { view: ReturnType<typeof getLipiCldrIngest
             <strong>{blocker.cldrScript}</strong>
             <Badge label="status" value={blocker.status} tone="blocked" />
             <Badge label="links" value={String(blocker.localeLinks.length)} tone="neutral" />
+            <p>{blocker.reason}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IcuReportPanel({ view }: { view: ReturnType<typeof getLipiIcuIngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="ICU Ingestion Report">
+      <header>
+        <h3>ICU Report</h3>
+        <Badge label="mode" value={view.report.ingestion.mode} tone="blocked" />
+        <Badge label="writes" value={String(view.report.ingestion.rowsWritten)} tone={view.report.ingestion.rowsWritten ? "blocked" : "verified"} />
+        <Badge label="promotion" value={view.report.ingestion.promotionStatus} tone={view.report.ingestion.promotionStatus === "BLOCKED" ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="ICU Codes" value={view.report.ingestion.officialIcuScriptCodes} />
+        <RegistryStat label="UCD Rows" value={view.report.ingestion.unicodeScriptRowsCompared} />
+        <RegistryStat label="Verified" value={view.report.summary.verifiedRows} />
+        <RegistryStat label="Blockers" value={view.report.ingestion.blockers} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Official Source</h4>
+        <div>
+          <span>Commit</span>
+          <strong>{view.report.officialSource.commit}</strong>
+        </div>
+        <div>
+          <span>Header SHA-256</span>
+          <strong>{view.report.officialSource.files[0]?.sha256.slice(0, 24) ?? "UNKNOWN"}</strong>
+        </div>
+        <div>
+          <span>Scope</span>
+          <strong>UScriptCode metadata only; no locale, genealogy, font, or rendering claims</strong>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function IcuCrosswalkPanel({ view }: { view: ReturnType<typeof getLipiIcuIngestionView> }) {
+  const blockedRows = view.crosswalk.rows.filter((row) => row.status === "BLOCKED");
+  return (
+    <section className="lipi-numeral-panel" aria-label="ICU Script Metadata Crosswalk">
+      <header>
+        <h3>ICU Crosswalk</h3>
+        <Badge label="rows" value={String(view.crosswalk.summary.unicodeScriptRowsCompared)} tone="verified" />
+        <Badge label="verified" value={String(view.crosswalk.summary.verifiedRows)} tone="verified" />
+        <Badge label="blocked" value={String(view.crosswalk.summary.blockedRows)} tone="blocked" />
+        <Badge label="extra ICU" value={String(view.crosswalk.summary.extraIcuCodesNotInUcdRegistry)} tone="blocked" />
+      </header>
+      <div className="lipi-result-list small">
+        {blockedRows.map((row) => (
+          <article className="lipi-result-row" key={row.id}>
+            <div className="lipi-row-main static">
+              <span>{row.icuShortName}</span>
+              <strong>{row.unicodeScriptValue}</strong>
+              <em>{row.icuConstant}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={row.status} tone="blocked" />
+              <Badge label="code" value={String(row.icuNumericCode)} tone="neutral" />
+              <Badge label="claims" value={row.genealogyClaim} tone="unknown" />
+            </div>
+            <div className="lipi-row-blocks">{row.blockers.join(", ")}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IcuDiffPanel({ view }: { view: ReturnType<typeof getLipiIcuIngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="ICU Diff Preview">
+      <header>
+        <h3>ICU Diff</h3>
+        <Badge label="diffs" value={String(view.diffPreview.summary.diffs)} tone="verified" />
+        <Badge label="changes" value={String(view.diffPreview.summary.proposedFieldChanges)} tone={view.diffPreview.summary.proposedFieldChanges ? "blocked" : "verified"} />
+        <Badge label="mutations" value={String(view.diffPreview.summary.registryMutations)} tone={view.diffPreview.summary.registryMutations ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Matches" value={view.diffPreview.summary.metadataMatchPreviews} />
+        <RegistryStat label="Blocked" value={view.diffPreview.summary.blockedMetadataPreviews} />
+        <RegistryStat label="Preview Rows" value={view.diffPreview.summary.previewOnlyRows} />
+        <RegistryStat label="Runtime Enables" value={view.diffPreview.summary.runtimeEnablements} />
+      </div>
+      <div className="lipi-result-list small">
+        {view.diffPreview.diffs.filter((diff) => diff.status === "BLOCKED").map((diff) => (
+          <article className="lipi-result-row" key={diff.id}>
+            <div className="lipi-row-main static">
+              <span>{diff.previewOnly ? "PV" : "NO"}</span>
+              <strong>{diff.unicodeScriptValue}</strong>
+              <em>{diff.diffKind}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={diff.status} tone="blocked" />
+              <Badge label="patches" value={String(diff.proposedRegistryPatch.length)} tone={diff.proposedRegistryPatch.length ? "blocked" : "verified"} />
+              <Badge label="runtime" value={String(diff.wouldEnableRuntime)} tone={diff.wouldEnableRuntime ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{diff.reason}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IcuBlockersPanel({ view }: { view: ReturnType<typeof getLipiIcuIngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="ICU Blockers">
+      <header>
+        <h3>ICU Blockers</h3>
+        <Badge label="blockers" value={String(view.blockers.summary.blockers)} tone="blocked" />
+        <Badge label="UCD row" value={String(view.blockers.summary.ucdRowMetadataMismatches)} tone="blocked" />
+        <Badge label="extra ICU" value={String(view.blockers.summary.extraIcuCodesNotInUcdRegistry)} tone="blocked" />
+        <Badge label="policy" value={view.blockers.mismatchPromotionPolicy.rule} tone="blocked" />
+      </header>
+      <div className="lipi-blocked-grid">
+        {view.blockers.blockers.slice(0, 48).map((blocker) => (
+          <article key={blocker.id}>
+            <strong>{"unicodeScriptValue" in blocker ? blocker.unicodeScriptValue : blocker.icuShortName}</strong>
+            <Badge label="class" value={blocker.blockerClass} tone="blocked" />
+            <Badge label="severity" value={blocker.severity} tone={blocker.severity === "HIGH" ? "blocked" : "draft"} />
             <p>{blocker.reason}</p>
           </article>
         ))}
