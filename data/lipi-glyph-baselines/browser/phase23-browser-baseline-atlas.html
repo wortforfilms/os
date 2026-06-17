@@ -1,0 +1,705 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>HKD Lipi Phase 23 Browser Baseline Atlas</title>
+<style>
+@font-face{font-family:"LipiPhase23_unicode-adlam";src:url("file:///System/Library/Fonts/Supplemental/NotoSansAdlam-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-caucasian-albanian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansCaucasianAlbanian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-ahom";src:url("file:///System/Library/Fonts/Supplemental/NotoSerifAhom-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-arabic";src:url("file:///System/Library/Fonts/NotoNastaliq.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-imperial-aramaic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansImperialAramaic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-armenian";src:url("file:///System/Library/Fonts/NotoSansArmenian.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-avestan";src:url("file:///System/Library/Fonts/Supplemental/NotoSansAvestan-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-balinese";src:url("file:///System/Library/Fonts/Supplemental/NotoSerifBalinese-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-bamum";src:url("file:///System/Library/Fonts/Supplemental/NotoSansBamum-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-bassa-vah";src:url("file:///System/Library/Fonts/Supplemental/NotoSansBassaVah-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-batak";src:url("file:///System/Library/Fonts/Supplemental/NotoSansBatak-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-bengali";src:url("file:///System/Library/Fonts/Supplemental/Bangla%20MN.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-bhaiksuki";src:url("file:///System/Library/Fonts/Supplemental/NotoSansBhaiksuki-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-bopomofo";src:url("file:///System/Library/Fonts/Supplemental/Arial%20Unicode.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-brahmi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansBrahmi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-braille";src:url("file:///System/Library/Fonts/Apple%20Braille%20Outline%206%20Dot.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-buginese";src:url("file:///System/Library/Fonts/Supplemental/NotoSansBuginese-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-buhid";src:url("file:///System/Library/Fonts/Supplemental/NotoSansBuhid-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-chakma";src:url("file:///System/Library/Fonts/Supplemental/NotoSansChakma-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-canadian-aboriginal";src:url("file:///System/Library/Fonts/Supplemental/NotoSansCanadianAboriginal-Regular.otf");}
+@font-face{font-family:"LipiPhase23_unicode-carian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansCarian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-cham";src:url("file:///System/Library/Fonts/Supplemental/NotoSansCham-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-cherokee";src:url("file:///System/Library/Fonts/Supplemental/PlantagenetCherokee.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-coptic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansCoptic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-cypriot";src:url("file:///System/Library/Fonts/Supplemental/NotoSansCypriot-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-cyrillic";src:url("file:///System/Library/Fonts/Supplemental/Arial.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-devanagari";src:url("file:///System/Library/Fonts/Supplemental/Devanagari%20Sangam%20MN.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-deseret";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-duployan";src:url("file:///System/Library/Fonts/Supplemental/NotoSansDuployan-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-egyptian-hieroglyphs";src:url("file:///System/Library/Fonts/Supplemental/NotoSansEgyptianHieroglyphs-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-elbasan";src:url("file:///System/Library/Fonts/Supplemental/NotoSansElbasan-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-georgian";src:url("file:///System/Library/Fonts/Supplemental/Arial%20Unicode.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-glagolitic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansGlagolitic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-gunjala-gondi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansGunjalaGondi-Regular.otf");}
+@font-face{font-family:"LipiPhase23_unicode-masaram-gondi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMasaramGondi-Regular.otf");}
+@font-face{font-family:"LipiPhase23_unicode-gothic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansGothic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-gujarati";src:url("file:///System/Library/Fonts/Supplemental/Gujarati%20Sangam%20MN.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-gurmukhi";src:url("file:///System/Library/Fonts/Supplemental/Gurmukhi.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-hangul";src:url("file:///System/Library/Fonts/AppleSDGothicNeo.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-hanunoo";src:url("file:///System/Library/Fonts/Supplemental/NotoSansHanunoo-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-hatran";src:url("file:///System/Library/Fonts/Supplemental/NotoSansHatran-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-hebrew";src:url("file:///System/Library/Fonts/Supplemental/Raanana.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-hiragana";src:url("file:///System/Library/Fonts/PingFang.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-pahawh-hmong";src:url("file:///System/Library/Fonts/Supplemental/NotoSansPahawhHmong-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-nyiakeng-puachue-hmong";src:url("file:///System/Library/Fonts/Supplemental/NotoSerifNyiakengPuachueHmong-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-old-hungarian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOldHungarian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-old-italic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOldItalic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-javanese";src:url("file:///System/Library/Fonts/Supplemental/NotoSansJavanese-Regular.otf");}
+@font-face{font-family:"LipiPhase23_unicode-kayah-li";src:url("file:///System/Library/Fonts/Supplemental/NotoSansKayahLi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-katakana";src:url("file:///System/Library/Fonts/PingFang.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-kharoshthi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansKharoshthi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-khmer";src:url("file:///System/Library/Fonts/Supplemental/Khmer%20MN.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-khojki";src:url("file:///System/Library/Fonts/Supplemental/NotoSansKhojki-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-kannada";src:url("file:///System/Library/Fonts/NotoSansKannada.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-kaithi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansKaithi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-tai-tham";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTaiTham-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-latin";src:url("file:///System/Library/Fonts/Supplemental/Arial.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-lepcha";src:url("file:///System/Library/Fonts/Supplemental/NotoSansLepcha-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-limbu";src:url("file:///System/Library/Fonts/Supplemental/NotoSansLimbu-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-linear-a";src:url("file:///System/Library/Fonts/Supplemental/NotoSansLinearA-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-linear-b";src:url("file:///System/Library/Fonts/Supplemental/NotoSansLinearB-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-lisu";src:url("file:///System/Library/Fonts/Supplemental/NotoSansLisu-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-lycian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansLycian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-lydian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansLydian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-mahajani";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMahajani-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-mandaic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMandaic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-manichaean";src:url("file:///System/Library/Fonts/Supplemental/NotoSansManichaean-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-marchen";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMarchen-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-mende-kikakui";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMendeKikakui-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-meroitic-cursive";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMeroitic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-meroitic-hieroglyphs";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMeroitic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-modi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansModi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-mongolian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMongolian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-mro";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMro-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-meetei-mayek";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMeeteiMayek-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-multani";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMultani-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-myanmar";src:url("file:///System/Library/Fonts/NotoSansMyanmar.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-old-north-arabian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOldNorthArabian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-nabataean";src:url("file:///System/Library/Fonts/Supplemental/NotoSansNabataean-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-newa";src:url("file:///System/Library/Fonts/Supplemental/NotoSansNewa-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-nko";src:url("file:///System/Library/Fonts/Supplemental/NotoSansNKo-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-ogham";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-ol-chiki";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOlChiki-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-old-turkic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOldTurkic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-oriya";src:url("file:///System/Library/Fonts/NotoSansOriya.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-osage";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOsage-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-osmanya";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOsmanya-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-palmyrene";src:url("file:///System/Library/Fonts/Supplemental/NotoSansPalmyrene-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-pau-cin-hau";src:url("file:///System/Library/Fonts/Supplemental/NotoSansPauCinHau-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-old-permic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOldPermic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-phags-pa";src:url("file:///System/Library/Fonts/Supplemental/NotoSansPhagsPa-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-inscriptional-pahlavi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansInscriptionalPahlavi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-psalter-pahlavi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansPsalterPahlavi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-phoenician";src:url("file:///System/Library/Fonts/Supplemental/NotoSansPhoenician-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-miao";src:url("file:///System/Library/Fonts/Supplemental/NotoSansMiao-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-inscriptional-parthian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansInscriptionalParthian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-rejang";src:url("file:///System/Library/Fonts/Supplemental/NotoSansRejang-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-hanifi-rohingya";src:url("file:///System/Library/Fonts/Supplemental/NotoSansHanifiRohingya-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-runic";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-samaritan";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSamaritan-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-old-south-arabian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOldSouthArabian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-saurashtra";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSaurashtra-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-shavian";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-sharada";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSharada-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-siddham";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSiddham-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-khudawadi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansKhudawadi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-sinhala";src:url("file:///System/Library/Fonts/Supplemental/Sinhala%20MN.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-sora-sompeng";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSoraSompeng-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-sundanese";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSundanese-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-syloti-nagri";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSylotiNagri-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-syriac";src:url("file:///System/Library/Fonts/Supplemental/NotoSansSyriac-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-tagbanwa";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTagbanwa-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-takri";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTakri-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-tai-le";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTaiLe-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-new-tai-lue";src:url("file:///System/Library/Fonts/Supplemental/NotoSansNewTaiLue-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-tamil";src:url("file:///System/Library/Fonts/Supplemental/Tamil%20MN.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-tai-viet";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTaiViet-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-telugu";src:url("file:///System/Library/Fonts/KohinoorTelugu.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-tifinagh";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTifinagh-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-tagalog";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTagalog-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-thaana";src:url("file:///System/Library/Fonts/Supplemental/NotoSansThaana-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-thai";src:url("file:///System/Library/Fonts/Supplemental/Ayuthaya.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-tibetan";src:url("file:///System/Library/Fonts/Supplemental/Kailasa.ttc");}
+@font-face{font-family:"LipiPhase23_unicode-tirhuta";src:url("file:///System/Library/Fonts/Supplemental/NotoSansTirhuta-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-ugaritic";src:url("file:///System/Library/Fonts/Supplemental/NotoSansUgaritic-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-vai";src:url("file:///System/Library/Fonts/Supplemental/NotoSansVai-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-warang-citi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansWarangCiti-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-wancho";src:url("file:///System/Library/Fonts/Supplemental/NotoSansWancho-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-old-persian";src:url("file:///System/Library/Fonts/Supplemental/NotoSansOldPersian-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-cuneiform";src:url("file:///System/Library/Fonts/Supplemental/NotoSansCuneiform-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-yezidi";src:url("file:///System/Library/Fonts/Supplemental/NotoSerifYezidi-Regular.otf");}
+@font-face{font-family:"LipiPhase23_unicode-yi";src:url("file:///System/Library/Fonts/Supplemental/NotoSansYi-Regular.ttf");}
+@font-face{font-family:"LipiPhase23_unicode-common";src:url("file:///System/Library/Fonts/Supplemental/Arial%20Unicode.ttf");}
+@font-face{font-family:"LipiPhase23_western-music-notation";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_astronomical-symbols";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_mathematical-notation";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_alchemical-symbols";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_astrological-symbols";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+@font-face{font-family:"LipiPhase23_cartographic-symbols";src:url("file:///System/Library/Fonts/Apple%20Symbols.ttf");}
+html,body{margin:0;background:#ffffff;color:#111827;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+body{width:1400px;height:13344px;overflow:hidden;}
+.row{position:absolute;left:0;width:1400px;height:96px;box-sizing:border-box;border-bottom:1px solid #e5e7eb;padding:10px 20px;background:#fff;}
+.meta{font-size:12px;line-height:16px;color:#4b5563;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sample{font-size:44px;line-height:64px;white-space:pre;overflow:hidden;color:#111827;}
+</style>
+<section class="row" id="unicode-adlam" style="top:0px">
+      <div class="meta">Adlam · unicode-adlam · NotoSansAdlam-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-adlam'">𞤀𞤁𞤂𞤃𞤄𞤅𞤆𞤇</div>
+    </section>
+<section class="row" id="unicode-caucasian-albanian" style="top:96px">
+      <div class="meta">Caucasian Albanian · unicode-caucasian-albanian · NotoSansCaucasianAlbanian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-caucasian-albanian'">𐔰𐔱𐔲𐔳𐔴𐔵𐔶𐔷</div>
+    </section>
+<section class="row" id="unicode-ahom" style="top:192px">
+      <div class="meta">Ahom · unicode-ahom · NotoSerifAhom-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-ahom'">𑜀𑜁𑜂𑜃𑜄𑜅𑜆𑜇</div>
+    </section>
+<section class="row" id="unicode-arabic" style="top:288px">
+      <div class="meta">Arabic · unicode-arabic · NotoNastaliq.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-arabic'">ؠءآأؤإئا</div>
+    </section>
+<section class="row" id="unicode-imperial-aramaic" style="top:384px">
+      <div class="meta">Imperial Aramaic · unicode-imperial-aramaic · NotoSansImperialAramaic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-imperial-aramaic'">𐡀𐡁𐡂𐡃𐡄𐡅𐡆𐡇</div>
+    </section>
+<section class="row" id="unicode-armenian" style="top:480px">
+      <div class="meta">Armenian · unicode-armenian · NotoSansArmenian.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-armenian'">ԱԲԳԴԵԶԷԸ</div>
+    </section>
+<section class="row" id="unicode-avestan" style="top:576px">
+      <div class="meta">Avestan · unicode-avestan · NotoSansAvestan-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-avestan'">𐬀𐬁𐬂𐬃𐬄𐬅𐬆𐬇</div>
+    </section>
+<section class="row" id="unicode-balinese" style="top:672px">
+      <div class="meta">Balinese · unicode-balinese · NotoSerifBalinese-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-balinese'">ᬅᬆᬇᬈᬉᬊᬋᬌ</div>
+    </section>
+<section class="row" id="unicode-bamum" style="top:768px">
+      <div class="meta">Bamum · unicode-bamum · NotoSansBamum-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-bamum'">ꚠꚡꚢꚣꚤꚥꚦꚧ</div>
+    </section>
+<section class="row" id="unicode-bassa-vah" style="top:864px">
+      <div class="meta">Bassa Vah · unicode-bassa-vah · NotoSansBassaVah-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-bassa-vah'">𖫐𖫑𖫒𖫓𖫔𖫕𖫖𖫗</div>
+    </section>
+<section class="row" id="unicode-batak" style="top:960px">
+      <div class="meta">Batak · unicode-batak · NotoSansBatak-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-batak'">ᯀᯁᯂᯃᯄᯅᯆᯇ</div>
+    </section>
+<section class="row" id="unicode-bengali" style="top:1056px">
+      <div class="meta">Bengali · unicode-bengali · Bangla MN.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-bengali'">ঀঅআইঈউঊঋ</div>
+    </section>
+<section class="row" id="unicode-bhaiksuki" style="top:1152px">
+      <div class="meta">Bhaiksuki · unicode-bhaiksuki · NotoSansBhaiksuki-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-bhaiksuki'">𑰀𑰁𑰂𑰃𑰄𑰅𑰆𑰇</div>
+    </section>
+<section class="row" id="unicode-bopomofo" style="top:1248px">
+      <div class="meta">Bopomofo · unicode-bopomofo · Arial Unicode.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-bopomofo'">ㄅㄆㄇㄈㄉㄊㄋㄌ</div>
+    </section>
+<section class="row" id="unicode-brahmi" style="top:1344px">
+      <div class="meta">Brahmi · unicode-brahmi · NotoSansBrahmi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-brahmi'">𑀃𑀄𑀅𑀆𑀇𑀈𑀉𑀊</div>
+    </section>
+<section class="row" id="unicode-braille" style="top:1440px">
+      <div class="meta">Braille · unicode-braille · Apple Braille Outline 6 Dot.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-braille'">⠀⠁⠂⠃⠄⠅⠆⠇</div>
+    </section>
+<section class="row" id="unicode-buginese" style="top:1536px">
+      <div class="meta">Buginese · unicode-buginese · NotoSansBuginese-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-buginese'">ᨀᨁᨂᨃᨄᨅᨆᨇ</div>
+    </section>
+<section class="row" id="unicode-buhid" style="top:1632px">
+      <div class="meta">Buhid · unicode-buhid · NotoSansBuhid-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-buhid'">ᝀᝁᝂᝃᝄᝅᝆᝇ</div>
+    </section>
+<section class="row" id="unicode-chakma" style="top:1728px">
+      <div class="meta">Chakma · unicode-chakma · NotoSansChakma-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-chakma'">𑄃𑄄𑄅𑄆𑄇𑄈𑄉𑄊</div>
+    </section>
+<section class="row" id="unicode-canadian-aboriginal" style="top:1824px">
+      <div class="meta">Canadian Aboriginal · unicode-canadian-aboriginal · NotoSansCanadianAboriginal-Regular.otf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-canadian-aboriginal'">ᐁᐂᐃᐄᐅᐆᐇᐈ</div>
+    </section>
+<section class="row" id="unicode-carian" style="top:1920px">
+      <div class="meta">Carian · unicode-carian · NotoSansCarian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-carian'">𐊠𐊡𐊢𐊣𐊤𐊥𐊦𐊧</div>
+    </section>
+<section class="row" id="unicode-cham" style="top:2016px">
+      <div class="meta">Cham · unicode-cham · NotoSansCham-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-cham'">ꨀꨁꨂꨃꨄꨅꨆꨇ</div>
+    </section>
+<section class="row" id="unicode-cherokee" style="top:2112px">
+      <div class="meta">Cherokee · unicode-cherokee · PlantagenetCherokee.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-cherokee'">ᎠᎡᎢᎣᎤᎥᎦᎧ</div>
+    </section>
+<section class="row" id="unicode-coptic" style="top:2208px">
+      <div class="meta">Coptic · unicode-coptic · NotoSansCoptic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-coptic'">ϢϣϤϥϦϧϨϩ</div>
+    </section>
+<section class="row" id="unicode-cypriot" style="top:2304px">
+      <div class="meta">Cypriot · unicode-cypriot · NotoSansCypriot-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-cypriot'">𐠀𐠁𐠂𐠃𐠄𐠅𐠈𐠊</div>
+    </section>
+<section class="row" id="unicode-cyrillic" style="top:2400px">
+      <div class="meta">Cyrillic · unicode-cyrillic · Arial.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-cyrillic'">ЀЁЂЃЄЅІЇ</div>
+    </section>
+<section class="row" id="unicode-devanagari" style="top:2496px">
+      <div class="meta">Devanagari · unicode-devanagari · Devanagari Sangam MN.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-devanagari'">ऄअआइईउऊऋ</div>
+    </section>
+<section class="row" id="unicode-deseret" style="top:2592px">
+      <div class="meta">Deseret · unicode-deseret · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-deseret'">𐐀𐐁𐐂𐐃𐐄𐐅𐐆𐐇</div>
+    </section>
+<section class="row" id="unicode-duployan" style="top:2688px">
+      <div class="meta">Duployan · unicode-duployan · NotoSansDuployan-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-duployan'">𛰀𛰁𛰂𛰃𛰄𛰅𛰆𛰇</div>
+    </section>
+<section class="row" id="unicode-egyptian-hieroglyphs" style="top:2784px">
+      <div class="meta">Egyptian Hieroglyphs · unicode-egyptian-hieroglyphs · NotoSansEgyptianHieroglyphs-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-egyptian-hieroglyphs'">𓀀𓀁𓀂𓀃𓀄𓀅𓀆𓀇</div>
+    </section>
+<section class="row" id="unicode-elbasan" style="top:2880px">
+      <div class="meta">Elbasan · unicode-elbasan · NotoSansElbasan-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-elbasan'">𐔀𐔁𐔂𐔃𐔄𐔅𐔆𐔇</div>
+    </section>
+<section class="row" id="unicode-georgian" style="top:2976px">
+      <div class="meta">Georgian · unicode-georgian · Arial Unicode.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-georgian'">ႠႡႢႣႤႥႦႧ</div>
+    </section>
+<section class="row" id="unicode-glagolitic" style="top:3072px">
+      <div class="meta">Glagolitic · unicode-glagolitic · NotoSansGlagolitic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-glagolitic'">ⰀⰁⰂⰃⰄⰅⰆⰇ</div>
+    </section>
+<section class="row" id="unicode-gunjala-gondi" style="top:3168px">
+      <div class="meta">Gunjala Gondi · unicode-gunjala-gondi · NotoSansGunjalaGondi-Regular.otf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-gunjala-gondi'">𑵠𑵡𑵢𑵣𑵤𑵥𑵧𑵨</div>
+    </section>
+<section class="row" id="unicode-masaram-gondi" style="top:3264px">
+      <div class="meta">Masaram Gondi · unicode-masaram-gondi · NotoSansMasaramGondi-Regular.otf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-masaram-gondi'">𑴀𑴁𑴂𑴃𑴄𑴅𑴆𑴈</div>
+    </section>
+<section class="row" id="unicode-gothic" style="top:3360px">
+      <div class="meta">Gothic · unicode-gothic · NotoSansGothic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-gothic'">𐌰𐌱𐌲𐌳𐌴𐌵𐌶𐌷</div>
+    </section>
+<section class="row" id="unicode-gujarati" style="top:3456px">
+      <div class="meta">Gujarati · unicode-gujarati · Gujarati Sangam MN.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-gujarati'">અઆઇઈઉઊઋઌ</div>
+    </section>
+<section class="row" id="unicode-gurmukhi" style="top:3552px">
+      <div class="meta">Gurmukhi · unicode-gurmukhi · Gurmukhi.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-gurmukhi'">ਅਆਇਈਉਊਏਐ</div>
+    </section>
+<section class="row" id="unicode-hangul" style="top:3648px">
+      <div class="meta">Hangul · unicode-hangul · AppleSDGothicNeo.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-hangul'">ᄀᄁᄂᄃᄄᄅᄆᄇ</div>
+    </section>
+<section class="row" id="unicode-hanunoo" style="top:3744px">
+      <div class="meta">Hanunoo · unicode-hanunoo · NotoSansHanunoo-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-hanunoo'">ᜠᜡᜢᜣᜤᜥᜦᜧ</div>
+    </section>
+<section class="row" id="unicode-hatran" style="top:3840px">
+      <div class="meta">Hatran · unicode-hatran · NotoSansHatran-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-hatran'">𐣠𐣡𐣢𐣣𐣤𐣥𐣦𐣧</div>
+    </section>
+<section class="row" id="unicode-hebrew" style="top:3936px">
+      <div class="meta">Hebrew · unicode-hebrew · Raanana.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-hebrew'">אבגדהוזח</div>
+    </section>
+<section class="row" id="unicode-hiragana" style="top:4032px">
+      <div class="meta">Hiragana · unicode-hiragana · PingFang.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-hiragana'">ぁあぃいぅうぇえ</div>
+    </section>
+<section class="row" id="unicode-pahawh-hmong" style="top:4128px">
+      <div class="meta">Pahawh Hmong · unicode-pahawh-hmong · NotoSansPahawhHmong-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-pahawh-hmong'">𖬀𖬁𖬂𖬃𖬄𖬅𖬆𖬇</div>
+    </section>
+<section class="row" id="unicode-nyiakeng-puachue-hmong" style="top:4224px">
+      <div class="meta">Nyiakeng Puachue Hmong · unicode-nyiakeng-puachue-hmong · NotoSerifNyiakengPuachueHmong-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-nyiakeng-puachue-hmong'">𞄀𞄁𞄂𞄃𞄄𞄅𞄆𞄇</div>
+    </section>
+<section class="row" id="unicode-old-hungarian" style="top:4320px">
+      <div class="meta">Old Hungarian · unicode-old-hungarian · NotoSansOldHungarian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-old-hungarian'">𐲀𐲁𐲂𐲃𐲄𐲅𐲆𐲇</div>
+    </section>
+<section class="row" id="unicode-old-italic" style="top:4416px">
+      <div class="meta">Old Italic · unicode-old-italic · NotoSansOldItalic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-old-italic'">𐌀𐌁𐌂𐌃𐌄𐌅𐌆𐌇</div>
+    </section>
+<section class="row" id="unicode-javanese" style="top:4512px">
+      <div class="meta">Javanese · unicode-javanese · NotoSansJavanese-Regular.otf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-javanese'">ꦄꦅꦆꦇꦈꦉꦊꦋ</div>
+    </section>
+<section class="row" id="unicode-kayah-li" style="top:4608px">
+      <div class="meta">Kayah Li · unicode-kayah-li · NotoSansKayahLi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-kayah-li'">ꤊꤋꤌꤍꤎꤏꤐꤑ</div>
+    </section>
+<section class="row" id="unicode-katakana" style="top:4704px">
+      <div class="meta">Katakana · unicode-katakana · PingFang.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-katakana'">ァアィイゥウェエ</div>
+    </section>
+<section class="row" id="unicode-kharoshthi" style="top:4800px">
+      <div class="meta">Kharoshthi · unicode-kharoshthi · NotoSansKharoshthi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-kharoshthi'">𐨀𐨐𐨑𐨒𐨓𐨕𐨖𐨗</div>
+    </section>
+<section class="row" id="unicode-khmer" style="top:4896px">
+      <div class="meta">Khmer · unicode-khmer · Khmer MN.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-khmer'">កខគឃងចឆជ</div>
+    </section>
+<section class="row" id="unicode-khojki" style="top:4992px">
+      <div class="meta">Khojki · unicode-khojki · NotoSansKhojki-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-khojki'">𑈀𑈁𑈂𑈃𑈄𑈅𑈆𑈇</div>
+    </section>
+<section class="row" id="unicode-kannada" style="top:5088px">
+      <div class="meta">Kannada · unicode-kannada · NotoSansKannada.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-kannada'">ಀಅಆಇಈಉಊಋ</div>
+    </section>
+<section class="row" id="unicode-kaithi" style="top:5184px">
+      <div class="meta">Kaithi · unicode-kaithi · NotoSansKaithi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-kaithi'">𑂃𑂄𑂅𑂆𑂇𑂈𑂉𑂊</div>
+    </section>
+<section class="row" id="unicode-tai-tham" style="top:5280px">
+      <div class="meta">Tai Tham · unicode-tai-tham · NotoSansTaiTham-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tai-tham'">ᨠᨡᨢᨣᨤᨥᨦᨧ</div>
+    </section>
+<section class="row" id="unicode-latin" style="top:5376px">
+      <div class="meta">Latin · unicode-latin · Arial.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-latin'">ABCDEFGH</div>
+    </section>
+<section class="row" id="unicode-lepcha" style="top:5472px">
+      <div class="meta">Lepcha · unicode-lepcha · NotoSansLepcha-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-lepcha'">ᰀᰁᰂᰃᰄᰅᰆᰇ</div>
+    </section>
+<section class="row" id="unicode-limbu" style="top:5568px">
+      <div class="meta">Limbu · unicode-limbu · NotoSansLimbu-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-limbu'">ᤀᤁᤂᤃᤄᤅᤆᤇ</div>
+    </section>
+<section class="row" id="unicode-linear-a" style="top:5664px">
+      <div class="meta">Linear A · unicode-linear-a · NotoSansLinearA-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-linear-a'">𐘀𐘁𐘂𐘃𐘄𐘅𐘆𐘇</div>
+    </section>
+<section class="row" id="unicode-linear-b" style="top:5760px">
+      <div class="meta">Linear B · unicode-linear-b · NotoSansLinearB-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-linear-b'">𐀀𐀁𐀂𐀃𐀄𐀅𐀆𐀇</div>
+    </section>
+<section class="row" id="unicode-lisu" style="top:5856px">
+      <div class="meta">Lisu · unicode-lisu · NotoSansLisu-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-lisu'">ꓐꓑꓒꓓꓔꓕꓖꓗ</div>
+    </section>
+<section class="row" id="unicode-lycian" style="top:5952px">
+      <div class="meta">Lycian · unicode-lycian · NotoSansLycian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-lycian'">𐊀𐊁𐊂𐊃𐊄𐊅𐊆𐊇</div>
+    </section>
+<section class="row" id="unicode-lydian" style="top:6048px">
+      <div class="meta">Lydian · unicode-lydian · NotoSansLydian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-lydian'">𐤠𐤡𐤢𐤣𐤤𐤥𐤦𐤧</div>
+    </section>
+<section class="row" id="unicode-mahajani" style="top:6144px">
+      <div class="meta">Mahajani · unicode-mahajani · NotoSansMahajani-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-mahajani'">𑅐𑅑𑅒𑅓𑅔𑅕𑅖𑅗</div>
+    </section>
+<section class="row" id="unicode-mandaic" style="top:6240px">
+      <div class="meta">Mandaic · unicode-mandaic · NotoSansMandaic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-mandaic'">ࡀࡁࡂࡃࡄࡅࡆࡇ</div>
+    </section>
+<section class="row" id="unicode-manichaean" style="top:6336px">
+      <div class="meta">Manichaean · unicode-manichaean · NotoSansManichaean-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-manichaean'">𐫀𐫁𐫂𐫃𐫄𐫅𐫆𐫇</div>
+    </section>
+<section class="row" id="unicode-marchen" style="top:6432px">
+      <div class="meta">Marchen · unicode-marchen · NotoSansMarchen-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-marchen'">𑱲𑱳𑱴𑱵𑱶𑱷𑱸𑱹</div>
+    </section>
+<section class="row" id="unicode-mende-kikakui" style="top:6528px">
+      <div class="meta">Mende Kikakui · unicode-mende-kikakui · NotoSansMendeKikakui-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-mende-kikakui'">𞠀𞠁𞠂𞠃𞠄𞠅𞠆𞠇</div>
+    </section>
+<section class="row" id="unicode-meroitic-cursive" style="top:6624px">
+      <div class="meta">Meroitic Cursive · unicode-meroitic-cursive · NotoSansMeroitic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-meroitic-cursive'">𐦠𐦡𐦢𐦣𐦤𐦥𐦦𐦧</div>
+    </section>
+<section class="row" id="unicode-meroitic-hieroglyphs" style="top:6720px">
+      <div class="meta">Meroitic Hieroglyphs · unicode-meroitic-hieroglyphs · NotoSansMeroitic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-meroitic-hieroglyphs'">𐦀𐦁𐦂𐦃𐦄𐦅𐦆𐦇</div>
+    </section>
+<section class="row" id="unicode-modi" style="top:6816px">
+      <div class="meta">Modi · unicode-modi · NotoSansModi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-modi'">𑘀𑘁𑘂𑘃𑘄𑘅𑘆𑘇</div>
+    </section>
+<section class="row" id="unicode-mongolian" style="top:6912px">
+      <div class="meta">Mongolian · unicode-mongolian · NotoSansMongolian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-mongolian'">ᠠᠡᠢᠣᠤᠥᠦᠧ</div>
+    </section>
+<section class="row" id="unicode-mro" style="top:7008px">
+      <div class="meta">Mro · unicode-mro · NotoSansMro-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-mro'">𖩀𖩁𖩂𖩃𖩄𖩅𖩆𖩇</div>
+    </section>
+<section class="row" id="unicode-meetei-mayek" style="top:7104px">
+      <div class="meta">Meetei Mayek · unicode-meetei-mayek · NotoSansMeeteiMayek-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-meetei-mayek'">ꫠꫡꫢꫣꫤꫥꫦꫧ</div>
+    </section>
+<section class="row" id="unicode-multani" style="top:7200px">
+      <div class="meta">Multani · unicode-multani · NotoSansMultani-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-multani'">𑊀𑊁𑊂𑊃𑊄𑊅𑊆𑊈</div>
+    </section>
+<section class="row" id="unicode-myanmar" style="top:7296px">
+      <div class="meta">Myanmar · unicode-myanmar · NotoSansMyanmar.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-myanmar'">ကခဂဃငစဆဇ</div>
+    </section>
+<section class="row" id="unicode-old-north-arabian" style="top:7392px">
+      <div class="meta">Old North Arabian · unicode-old-north-arabian · NotoSansOldNorthArabian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-old-north-arabian'">𐪀𐪁𐪂𐪃𐪄𐪅𐪆𐪇</div>
+    </section>
+<section class="row" id="unicode-nabataean" style="top:7488px">
+      <div class="meta">Nabataean · unicode-nabataean · NotoSansNabataean-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-nabataean'">𐢀𐢁𐢂𐢃𐢄𐢅𐢆𐢇</div>
+    </section>
+<section class="row" id="unicode-newa" style="top:7584px">
+      <div class="meta">Newa · unicode-newa · NotoSansNewa-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-newa'">𑐀𑐁𑐂𑐃𑐄𑐅𑐆𑐇</div>
+    </section>
+<section class="row" id="unicode-nko" style="top:7680px">
+      <div class="meta">Nko · unicode-nko · NotoSansNKo-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-nko'">ߊߋߌߍߎߏߐߑ</div>
+    </section>
+<section class="row" id="unicode-ogham" style="top:7776px">
+      <div class="meta">Ogham · unicode-ogham · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-ogham'">ᚁᚂᚃᚄᚅᚆᚇᚈ</div>
+    </section>
+<section class="row" id="unicode-ol-chiki" style="top:7872px">
+      <div class="meta">Ol Chiki · unicode-ol-chiki · NotoSansOlChiki-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-ol-chiki'">ᱚᱛᱜᱝᱞᱟᱠᱡ</div>
+    </section>
+<section class="row" id="unicode-old-turkic" style="top:7968px">
+      <div class="meta">Old Turkic · unicode-old-turkic · NotoSansOldTurkic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-old-turkic'">𐰀𐰁𐰂𐰃𐰄𐰅𐰆𐰇</div>
+    </section>
+<section class="row" id="unicode-oriya" style="top:8064px">
+      <div class="meta">Oriya · unicode-oriya · NotoSansOriya.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-oriya'">ଅଆଇଈଉଊଋଌ</div>
+    </section>
+<section class="row" id="unicode-osage" style="top:8160px">
+      <div class="meta">Osage · unicode-osage · NotoSansOsage-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-osage'">𐒰𐒱𐒲𐒳𐒴𐒵𐒶𐒷</div>
+    </section>
+<section class="row" id="unicode-osmanya" style="top:8256px">
+      <div class="meta">Osmanya · unicode-osmanya · NotoSansOsmanya-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-osmanya'">𐒀𐒁𐒂𐒃𐒄𐒅𐒆𐒇</div>
+    </section>
+<section class="row" id="unicode-palmyrene" style="top:8352px">
+      <div class="meta">Palmyrene · unicode-palmyrene · NotoSansPalmyrene-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-palmyrene'">𐡠𐡡𐡢𐡣𐡤𐡥𐡦𐡧</div>
+    </section>
+<section class="row" id="unicode-pau-cin-hau" style="top:8448px">
+      <div class="meta">Pau Cin Hau · unicode-pau-cin-hau · NotoSansPauCinHau-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-pau-cin-hau'">𑫀𑫁𑫂𑫃𑫄𑫅𑫆𑫇</div>
+    </section>
+<section class="row" id="unicode-old-permic" style="top:8544px">
+      <div class="meta">Old Permic · unicode-old-permic · NotoSansOldPermic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-old-permic'">𐍐𐍑𐍒𐍓𐍔𐍕𐍖𐍗</div>
+    </section>
+<section class="row" id="unicode-phags-pa" style="top:8640px">
+      <div class="meta">Phags Pa · unicode-phags-pa · NotoSansPhagsPa-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-phags-pa'">ꡀꡁꡂꡃꡄꡅꡆꡇ</div>
+    </section>
+<section class="row" id="unicode-inscriptional-pahlavi" style="top:8736px">
+      <div class="meta">Inscriptional Pahlavi · unicode-inscriptional-pahlavi · NotoSansInscriptionalPahlavi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-inscriptional-pahlavi'">𐭠𐭡𐭢𐭣𐭤𐭥𐭦𐭧</div>
+    </section>
+<section class="row" id="unicode-psalter-pahlavi" style="top:8832px">
+      <div class="meta">Psalter Pahlavi · unicode-psalter-pahlavi · NotoSansPsalterPahlavi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-psalter-pahlavi'">𐮀𐮁𐮂𐮃𐮄𐮅𐮆𐮇</div>
+    </section>
+<section class="row" id="unicode-phoenician" style="top:8928px">
+      <div class="meta">Phoenician · unicode-phoenician · NotoSansPhoenician-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-phoenician'">𐤀𐤁𐤂𐤃𐤄𐤅𐤆𐤇</div>
+    </section>
+<section class="row" id="unicode-miao" style="top:9024px">
+      <div class="meta">Miao · unicode-miao · NotoSansMiao-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-miao'">𖼀𖼁𖼂𖼃𖼄𖼅𖼆𖼇</div>
+    </section>
+<section class="row" id="unicode-inscriptional-parthian" style="top:9120px">
+      <div class="meta">Inscriptional Parthian · unicode-inscriptional-parthian · NotoSansInscriptionalParthian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-inscriptional-parthian'">𐭀𐭁𐭂𐭃𐭄𐭅𐭆𐭇</div>
+    </section>
+<section class="row" id="unicode-rejang" style="top:9216px">
+      <div class="meta">Rejang · unicode-rejang · NotoSansRejang-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-rejang'">ꤰꤱꤲꤳꤴꤵꤶꤷ</div>
+    </section>
+<section class="row" id="unicode-hanifi-rohingya" style="top:9312px">
+      <div class="meta">Hanifi Rohingya · unicode-hanifi-rohingya · NotoSansHanifiRohingya-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-hanifi-rohingya'">𐴀𐴁𐴂𐴃𐴄𐴅𐴆𐴇</div>
+    </section>
+<section class="row" id="unicode-runic" style="top:9408px">
+      <div class="meta">Runic · unicode-runic · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-runic'">ᚠᚡᚢᚣᚤᚥᚦᚧ</div>
+    </section>
+<section class="row" id="unicode-samaritan" style="top:9504px">
+      <div class="meta">Samaritan · unicode-samaritan · NotoSansSamaritan-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-samaritan'">ࠀࠁࠂࠃࠄࠅࠆࠇ</div>
+    </section>
+<section class="row" id="unicode-old-south-arabian" style="top:9600px">
+      <div class="meta">Old South Arabian · unicode-old-south-arabian · NotoSansOldSouthArabian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-old-south-arabian'">𐩠𐩡𐩢𐩣𐩤𐩥𐩦𐩧</div>
+    </section>
+<section class="row" id="unicode-saurashtra" style="top:9696px">
+      <div class="meta">Saurashtra · unicode-saurashtra · NotoSansSaurashtra-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-saurashtra'">ꢂꢃꢄꢅꢆꢇꢈꢉ</div>
+    </section>
+<section class="row" id="unicode-shavian" style="top:9792px">
+      <div class="meta">Shavian · unicode-shavian · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-shavian'">𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗</div>
+    </section>
+<section class="row" id="unicode-sharada" style="top:9888px">
+      <div class="meta">Sharada · unicode-sharada · NotoSansSharada-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-sharada'">𑆃𑆄𑆅𑆆𑆇𑆈𑆉𑆊</div>
+    </section>
+<section class="row" id="unicode-siddham" style="top:9984px">
+      <div class="meta">Siddham · unicode-siddham · NotoSansSiddham-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-siddham'">𑖀𑖁𑖂𑖃𑖄𑖅𑖆𑖇</div>
+    </section>
+<section class="row" id="unicode-khudawadi" style="top:10080px">
+      <div class="meta">Khudawadi · unicode-khudawadi · NotoSansKhudawadi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-khudawadi'">𑊰𑊱𑊲𑊳𑊴𑊵𑊶𑊷</div>
+    </section>
+<section class="row" id="unicode-sinhala" style="top:10176px">
+      <div class="meta">Sinhala · unicode-sinhala · Sinhala MN.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-sinhala'">අආඇඈඉඊඋඌ</div>
+    </section>
+<section class="row" id="unicode-sora-sompeng" style="top:10272px">
+      <div class="meta">Sora Sompeng · unicode-sora-sompeng · NotoSansSoraSompeng-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-sora-sompeng'">𑃐𑃑𑃒𑃓𑃔𑃕𑃖𑃗</div>
+    </section>
+<section class="row" id="unicode-sundanese" style="top:10368px">
+      <div class="meta">Sundanese · unicode-sundanese · NotoSansSundanese-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-sundanese'">ᮃᮄᮅᮆᮇᮈᮉᮊ</div>
+    </section>
+<section class="row" id="unicode-syloti-nagri" style="top:10464px">
+      <div class="meta">Syloti Nagri · unicode-syloti-nagri · NotoSansSylotiNagri-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-syloti-nagri'">ꠀꠁꠃꠄꠅꠇꠈꠉ</div>
+    </section>
+<section class="row" id="unicode-syriac" style="top:10560px">
+      <div class="meta">Syriac · unicode-syriac · NotoSansSyriac-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-syriac'">ܐܒܓܔܕܖܗܘ</div>
+    </section>
+<section class="row" id="unicode-tagbanwa" style="top:10656px">
+      <div class="meta">Tagbanwa · unicode-tagbanwa · NotoSansTagbanwa-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tagbanwa'">ᝠᝡᝢᝣᝤᝥᝦᝧ</div>
+    </section>
+<section class="row" id="unicode-takri" style="top:10752px">
+      <div class="meta">Takri · unicode-takri · NotoSansTakri-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-takri'">𑚀𑚁𑚂𑚃𑚄𑚅𑚆𑚇</div>
+    </section>
+<section class="row" id="unicode-tai-le" style="top:10848px">
+      <div class="meta">Tai Le · unicode-tai-le · NotoSansTaiLe-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tai-le'">ᥐᥑᥒᥓᥔᥕᥖᥗ</div>
+    </section>
+<section class="row" id="unicode-new-tai-lue" style="top:10944px">
+      <div class="meta">New Tai Lue · unicode-new-tai-lue · NotoSansNewTaiLue-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-new-tai-lue'">ᦀᦁᦂᦃᦄᦅᦆᦇ</div>
+    </section>
+<section class="row" id="unicode-tamil" style="top:11040px">
+      <div class="meta">Tamil · unicode-tamil · Tamil MN.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tamil'">ஃஅஆஇஈஉஊஎ</div>
+    </section>
+<section class="row" id="unicode-tai-viet" style="top:11136px">
+      <div class="meta">Tai Viet · unicode-tai-viet · NotoSansTaiViet-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tai-viet'">ꪀꪁꪂꪃꪄꪅꪆꪇ</div>
+    </section>
+<section class="row" id="unicode-telugu" style="top:11232px">
+      <div class="meta">Telugu · unicode-telugu · KohinoorTelugu.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-telugu'">అఆఇఈఉఊఋఌ</div>
+    </section>
+<section class="row" id="unicode-tifinagh" style="top:11328px">
+      <div class="meta">Tifinagh · unicode-tifinagh · NotoSansTifinagh-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tifinagh'">ⴰⴱⴲⴳⴴⴵⴶⴷ</div>
+    </section>
+<section class="row" id="unicode-tagalog" style="top:11424px">
+      <div class="meta">Tagalog · unicode-tagalog · NotoSansTagalog-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tagalog'">ᜀᜁᜂᜃᜄᜅᜆᜇ</div>
+    </section>
+<section class="row" id="unicode-thaana" style="top:11520px">
+      <div class="meta">Thaana · unicode-thaana · NotoSansThaana-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-thaana'">ހށނރބޅކއ</div>
+    </section>
+<section class="row" id="unicode-thai" style="top:11616px">
+      <div class="meta">Thai · unicode-thai · Ayuthaya.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-thai'">กขฃคฅฆงจ</div>
+    </section>
+<section class="row" id="unicode-tibetan" style="top:11712px">
+      <div class="meta">Tibetan · unicode-tibetan · Kailasa.ttc</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tibetan'">ༀཀཁགགྷངཅཆ</div>
+    </section>
+<section class="row" id="unicode-tirhuta" style="top:11808px">
+      <div class="meta">Tirhuta · unicode-tirhuta · NotoSansTirhuta-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-tirhuta'">𑒀𑒁𑒂𑒃𑒄𑒅𑒆𑒇</div>
+    </section>
+<section class="row" id="unicode-ugaritic" style="top:11904px">
+      <div class="meta">Ugaritic · unicode-ugaritic · NotoSansUgaritic-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-ugaritic'">𐎀𐎁𐎂𐎃𐎄𐎅𐎆𐎇</div>
+    </section>
+<section class="row" id="unicode-vai" style="top:12000px">
+      <div class="meta">Vai · unicode-vai · NotoSansVai-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-vai'">ꔀꔁꔂꔃꔄꔅꔆꔇ</div>
+    </section>
+<section class="row" id="unicode-warang-citi" style="top:12096px">
+      <div class="meta">Warang Citi · unicode-warang-citi · NotoSansWarangCiti-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-warang-citi'">𑢠𑢡𑢢𑢣𑢤𑢥𑢦𑢧</div>
+    </section>
+<section class="row" id="unicode-wancho" style="top:12192px">
+      <div class="meta">Wancho · unicode-wancho · NotoSansWancho-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-wancho'">𞋀𞋁𞋂𞋃𞋄𞋅𞋆𞋇</div>
+    </section>
+<section class="row" id="unicode-old-persian" style="top:12288px">
+      <div class="meta">Old Persian · unicode-old-persian · NotoSansOldPersian-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-old-persian'">𐎠𐎡𐎢𐎣𐎤𐎥𐎦𐎧</div>
+    </section>
+<section class="row" id="unicode-cuneiform" style="top:12384px">
+      <div class="meta">Cuneiform · unicode-cuneiform · NotoSansCuneiform-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-cuneiform'">𒀀𒀁𒀂𒀃𒀄𒀅𒀆𒀇</div>
+    </section>
+<section class="row" id="unicode-yezidi" style="top:12480px">
+      <div class="meta">Yezidi · unicode-yezidi · NotoSerifYezidi-Regular.otf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-yezidi'">𐺀𐺁𐺂𐺃𐺄𐺅𐺆𐺇</div>
+    </section>
+<section class="row" id="unicode-yi" style="top:12576px">
+      <div class="meta">Yi · unicode-yi · NotoSansYi-Regular.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-yi'">ꀀꀁꀂꀃꀄꀅꀆꀇ</div>
+    </section>
+<section class="row" id="unicode-common" style="top:12672px">
+      <div class="meta">Common · unicode-common · Arial Unicode.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_unicode-common'">µʹʺʻʼʽʾʿ</div>
+    </section>
+<section class="row" id="western-music-notation" style="top:12768px">
+      <div class="meta">Western Music Notation · western-music-notation · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_western-music-notation'">𝄀𝄁𝄂𝄃𝄄𝄅𝄆𝄇</div>
+    </section>
+<section class="row" id="astronomical-symbols" style="top:12864px">
+      <div class="meta">Astronomical Symbols · astronomical-symbols · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_astronomical-symbols'">☀☁☂☃☄★☆☇</div>
+    </section>
+<section class="row" id="mathematical-notation" style="top:12960px">
+      <div class="meta">Mathematical Notation · mathematical-notation · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_mathematical-notation'">∀∁∂∃∄∅∆∇</div>
+    </section>
+<section class="row" id="alchemical-symbols" style="top:13056px">
+      <div class="meta">Alchemical Symbols · alchemical-symbols · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_alchemical-symbols'">🜀🜁🜂🜃🜄🜅🜆🜇</div>
+    </section>
+<section class="row" id="astrological-symbols" style="top:13152px">
+      <div class="meta">Astrological Symbols · astrological-symbols · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_astrological-symbols'">☀☁☂☃☄★☆☇</div>
+    </section>
+<section class="row" id="cartographic-symbols" style="top:13248px">
+      <div class="meta">Cartographic Symbols · cartographic-symbols · Apple Symbols.ttf</div>
+      <div class="sample" style="font-family:'LipiPhase23_cartographic-symbols'">☀☁☂☃☄★☆☇</div>
+    </section>
