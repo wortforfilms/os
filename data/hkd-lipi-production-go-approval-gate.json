@@ -1,0 +1,219 @@
+{
+  "schema": "hkd-lipi-production-go-approval-gate.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE17_TO_PHASE19_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+  "trustedInputs": [
+    {
+      "id": "phase16Index",
+      "path": "data/hkd-lipi-release-candidate-evidence-index.json",
+      "sha256": "d3f727aa3f5d328b0da58385a925fbc489b1fe40945021544bedf98f4b79d0e6"
+    },
+    {
+      "id": "phase15Gate",
+      "path": "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "sha256": "1d27b5689c2d04322432ff42f976af9d62e12ba166dce553e05194eede7146a1"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "auditReport",
+      "path": "release/evidence/hkd-lipi-registry-audit-report.json",
+      "sha256": "6a95d81a033d1f6c4cffd0fa1c5adb1c107f69c739ec758655dcf5e6c31bd5ff"
+    },
+    {
+      "id": "phase12Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase12-harfbuzz-opentype.json",
+      "sha256": "e3cc2d28150fd8b25055b879452c6bb1bcb8f2694d74d14c8865359b2fa48dba"
+    },
+    {
+      "id": "phase13Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase13-authority-audit.json",
+      "sha256": "7bb8ea6cc138decdf69f15150a0aa48c6e1423086689ec6d04f5cd30d44f6f84"
+    },
+    {
+      "id": "phase14Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase14-controlled-enrichment.json",
+      "sha256": "ec04219612f682cbd615d07988e3fb96dda16eaca5d19bb2906d590577f0b353"
+    },
+    {
+      "id": "phase15Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase15-runtime-gate-review.json",
+      "sha256": "f8b1fb3fe85336078a02fb9c7fa863a37a5ecca2f1ea4a16707aae871be433a9"
+    },
+    {
+      "id": "phase16Bundle",
+      "path": "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json",
+      "sha256": "ba688c632e4129e2c213ee7b06a10443e47adefdd46023756244a37973af3772"
+    },
+    {
+      "id": "provenanceReport",
+      "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-production-go-approval-gate.v1",
+    "sourceIds": [
+      "hkd-lipi-phase16-evidence-bundle",
+      "human-approval-required"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phases17-19.mjs",
+    "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+    "trustedInputs": [
+      "data/hkd-lipi-release-candidate-evidence-index.json",
+      "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-audit-report.json",
+      "release/evidence/hkd-lipi-registry-phase12-harfbuzz-opentype.json",
+      "release/evidence/hkd-lipi-registry-phase13-authority-audit.json",
+      "release/evidence/hkd-lipi-registry-phase14-controlled-enrichment.json",
+      "release/evidence/hkd-lipi-registry-phase15-runtime-gate-review.json",
+      "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json",
+      "release/evidence/hkd-lipi-registry-provenance-report.json"
+    ],
+    "reviewed": false,
+    "phkd": "OPERATOR_GOVERNANCE_ONLY_NO_NEW_CLAIMS"
+  },
+  "summary": {
+    "productionGoApproved": false,
+    "productionReady": false,
+    "governedProductionGo": false,
+    "runtimeEnabled": 0,
+    "humanApprovalPresent": false,
+    "externalReviewComplete": false,
+    "unresolvedBlockers": 77,
+    "activeProductionGoBlockers": 4,
+    "registryMutations": 0,
+    "runtimeEnablements": 0
+  },
+  "requiredApproval": {
+    "approvalArtifactPath": "release/evidence/hkd-lipi-production-go-human-approval.json",
+    "humanApprovalPresent": false,
+    "approverName": "UNKNOWN",
+    "approverRole": "UNKNOWN",
+    "approvalDate": "UNKNOWN",
+    "approvalScope": "HKD Lipi Registry runtime enablement",
+    "approved": false,
+    "evidenceBundleSha256": "ba688c632e4129e2c213ee7b06a10443e47adefdd46023756244a37973af3772",
+    "gateReviewSha256": "1d27b5689c2d04322432ff42f976af9d62e12ba166dce553e05194eede7146a1"
+  },
+  "gatePolicy": {
+    "rule": "PRODUCTION_GO_ONLY_AFTER_HUMAN_APPROVAL_AND_ZERO_BLOCKERS",
+    "autoApprovalAllowed": false,
+    "aiApprovalAllowed": false,
+    "registryMutationAllowed": false,
+    "runtimeEnablementAllowed": false,
+    "productionReadyAllowed": false
+  },
+  "blockers": [
+    {
+      "id": "phase19:blocker:human-approval-missing",
+      "status": "BLOCKED",
+      "severity": "CRITICAL",
+      "blocksProductionGo": true,
+      "reason": "No human approval artifact exists for production GO.",
+      "requiredToUnblock": [
+        "create signed human approval artifact",
+        "rerun Phase 19 gate",
+        "verify all other blockers resolved"
+      ],
+      "provenance": {
+        "scope": "phase19_production_go_blocker",
+        "sourceIds": [
+          "human-approval-required"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases17-19.mjs",
+        "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+        "trustedInputs": [
+          "data/hkd-lipi-runtime-enablement-gate-review.json",
+          "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json"
+        ],
+        "reviewed": false,
+        "phkd": "OPERATOR_GOVERNANCE_ONLY_NO_NEW_CLAIMS"
+      }
+    },
+    {
+      "id": "phase19:blocker:external-review-incomplete",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksProductionGo": true,
+      "reason": "External review package has no reviewer sign-off.",
+      "requiredToUnblock": [
+        "assign external reviewers",
+        "capture sign-off",
+        "attach review provenance"
+      ],
+      "provenance": {
+        "scope": "phase19_production_go_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase18-external-review-package"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases17-19.mjs",
+        "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+        "trustedInputs": [
+          "data/hkd-lipi-external-review-package.json"
+        ],
+        "reviewed": false,
+        "phkd": "OPERATOR_GOVERNANCE_ONLY_NO_NEW_CLAIMS"
+      }
+    },
+    {
+      "id": "phase19:blocker:phase15-unresolved-blockers",
+      "status": "BLOCKED",
+      "severity": "CRITICAL",
+      "blocksProductionGo": true,
+      "reason": "Phase 15 still reports 77 unresolved blockers.",
+      "requiredToUnblock": [
+        "resolve Phase 15 blockers",
+        "rerun Phase 15 gate",
+        "rerun Phase 19 gate"
+      ],
+      "provenance": {
+        "scope": "phase19_production_go_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase15-runtime-gate-review"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases17-19.mjs",
+        "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+        "trustedInputs": [
+          "data/hkd-lipi-runtime-enablement-gate-review.json"
+        ],
+        "reviewed": false,
+        "phkd": "OPERATOR_GOVERNANCE_ONLY_NO_NEW_CLAIMS"
+      }
+    },
+    {
+      "id": "phase19:blocker:phase16-not-release-candidate",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksProductionGo": true,
+      "reason": "Phase 16 evidence bundle explicitly says releaseCandidate=false.",
+      "requiredToUnblock": [
+        "produce approved release-candidate evidence bundle",
+        "attach human approval",
+        "rerun gate"
+      ],
+      "provenance": {
+        "scope": "phase19_production_go_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase16-evidence-bundle"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases17-19.mjs",
+        "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+        "trustedInputs": [
+          "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json"
+        ],
+        "reviewed": false,
+        "phkd": "OPERATOR_GOVERNANCE_ONLY_NO_NEW_CLAIMS"
+      }
+    }
+  ]
+}

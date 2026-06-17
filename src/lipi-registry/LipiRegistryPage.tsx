@@ -10,6 +10,7 @@ import {
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiPhase12To16GovernanceView,
+  getLipiPhase17To19GovernanceView,
   getLipiPhase3ScriptEnrichment,
   getLipiRegistryAuditabilityView,
   getLipiRegistryScript,
@@ -70,7 +71,10 @@ type ExplorerId =
   | "authority-audit"
   | "enrichment-proposals"
   | "runtime-gate"
-  | "rc-bundle";
+  | "rc-bundle"
+  | "operator-runbook"
+  | "external-review"
+  | "production-go";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -97,6 +101,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const cldrView = useMemo(() => getLipiCldrIngestionView(), []);
   const icuView = useMemo(() => getLipiIcuIngestionView(), []);
   const phase12To16View = useMemo(() => getLipiPhase12To16GovernanceView(), []);
+  const phase17To19View = useMemo(() => getLipiPhase17To19GovernanceView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -190,6 +195,9 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["enrichment-proposals", "Enrichment Proposals"],
           ["runtime-gate", "Runtime Gate"],
           ["rc-bundle", "RC Evidence Bundle"],
+          ["operator-runbook", "Operator Runbook"],
+          ["external-review", "External Review"],
+          ["production-go", "Production GO"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -237,6 +245,9 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "enrichment-proposals" ? <EnrichmentProposalsPanel view={phase12To16View} /> : null}
       {explorer === "runtime-gate" ? <RuntimeGateReviewPanel view={phase12To16View} /> : null}
       {explorer === "rc-bundle" ? <ReleaseCandidateBundlePanel view={phase12To16View} /> : null}
+      {explorer === "operator-runbook" ? <OperatorRunbookPanel view={phase17To19View} /> : null}
+      {explorer === "external-review" ? <ExternalReviewPanel view={phase17To19View} /> : null}
+      {explorer === "production-go" ? <ProductionGoPanel view={phase17To19View} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -1619,6 +1630,140 @@ function ReleaseCandidateBundlePanel({ view }: { view: ReturnType<typeof getLipi
               <Badge label="exists" value={String(artifact.exists)} tone={artifact.exists ? "verified" : "blocked"} />
               <Badge label="required" value={String(artifact.requiredForReleaseCandidate)} tone="neutral" />
             </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function OperatorRunbookPanel({ view }: { view: ReturnType<typeof getLipiPhase17To19GovernanceView> }) {
+  const runbook = view.phase17.operatorRunbook;
+  return (
+    <section className="lipi-numeral-panel" aria-label="Operator Runbook">
+      <header>
+        <h3>Operator Runbook</h3>
+        <Badge label="production GO" value={String(runbook.summary.productionGoAllowed)} tone={runbook.summary.productionGoAllowed ? "blocked" : "verified"} />
+        <Badge label="runtime" value={String(runbook.summary.runtimeEnablements)} tone={runbook.summary.runtimeEnablements ? "blocked" : "verified"} />
+        <Badge label="blockers" value={String(runbook.summary.unresolvedBlockers)} tone="blocked" />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Seed Rows" value={runbook.summary.seedRows} />
+        <RegistryStat label="Run Steps" value={runbook.summary.runSequenceSteps} />
+        <RegistryStat label="Checks" value={runbook.summary.operatingChecks} />
+        <RegistryStat label="Stop Conditions" value={runbook.summary.stopConditions} />
+      </div>
+      <div className="lipi-result-list small">
+        {runbook.runSequence.map((step) => (
+          <article className="lipi-result-row" key={step.order}>
+            <div className="lipi-row-main static">
+              <span>{String(step.order).padStart(2, "0")}</span>
+              <strong>{step.title}</strong>
+              <em>{step.expectedResult}</em>
+            </div>
+            <div className="lipi-row-blocks">{step.command}</div>
+          </article>
+        ))}
+      </div>
+      <div className="lipi-blocked-grid">
+        {runbook.operatingChecks.map((check) => (
+          <article key={check.id}>
+            <strong>{check.id}</strong>
+            <Badge label="status" value={check.status} tone="blocked" />
+            <p>{check.description}</p>
+            <small>{check.evidence}</small>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ExternalReviewPanel({ view }: { view: ReturnType<typeof getLipiPhase17To19GovernanceView> }) {
+  const review = view.phase18.externalReviewPackage;
+  return (
+    <section className="lipi-numeral-panel" aria-label="External Review Package">
+      <header>
+        <h3>External Review</h3>
+        <Badge label="status" value={review.reviewPackage.status} tone="blocked" />
+        <Badge label="complete" value={String(review.reviewPackage.reviewComplete)} tone={review.reviewPackage.reviewComplete ? "verified" : "blocked"} />
+        <Badge label="signoffs" value={String(review.reviewPackage.reviewerSignoffs)} tone={review.reviewPackage.reviewerSignoffs ? "verified" : "blocked"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Artifacts" value={review.summary.artifacts} />
+        <RegistryStat label="Questions" value={review.summary.reviewerQuestions} />
+        <RegistryStat label="Reviewers" value={review.reviewPackage.reviewersAssigned} />
+        <RegistryStat label="Runtime Enables" value={review.reviewPackage.runtimeEnablements} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Non-Claims</h4>
+        {review.nonClaims.map((nonClaim) => (
+          <div key={nonClaim}>
+            <span>blocked</span>
+            <strong>{nonClaim}</strong>
+          </div>
+        ))}
+      </div>
+      <div className="lipi-result-list small">
+        {review.reviewPackage.artifacts.map((artifact) => (
+          <article className="lipi-result-row" key={artifact.path}>
+            <div className="lipi-row-main static">
+              <span>REV</span>
+              <strong>{artifact.path}</strong>
+              <em>{artifact.sha256.slice(0, 20)}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="hash" value="present" tone="verified" />
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProductionGoPanel({ view }: { view: ReturnType<typeof getLipiPhase17To19GovernanceView> }) {
+  const gate = view.phase19.productionGoGate;
+  return (
+    <section className="lipi-numeral-panel" aria-label="Production GO Approval Gate">
+      <header>
+        <h3>Production GO</h3>
+        <Badge label="approved" value={String(gate.summary.productionGoApproved)} tone={gate.summary.productionGoApproved ? "blocked" : "verified"} />
+        <Badge label="human approval" value={String(gate.summary.humanApprovalPresent)} tone={gate.summary.humanApprovalPresent ? "verified" : "blocked"} />
+        <Badge label="blockers" value={String(gate.summary.activeProductionGoBlockers)} tone="blocked" />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Production Ready" value={String(gate.summary.productionReady)} />
+        <RegistryStat label="Governed GO" value={String(gate.summary.governedProductionGo)} />
+        <RegistryStat label="Runtime Enabled" value={gate.summary.runtimeEnabled} />
+        <RegistryStat label="Unresolved" value={gate.summary.unresolvedBlockers} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Approval Requirement</h4>
+        <div>
+          <span>Rule</span>
+          <strong>{gate.gatePolicy.rule}</strong>
+        </div>
+        <div>
+          <span>Artifact</span>
+          <strong>{gate.requiredApproval.approvalArtifactPath}</strong>
+        </div>
+        <div>
+          <span>Approver</span>
+          <strong>{gate.requiredApproval.approverName}</strong>
+        </div>
+        <div>
+          <span>Scope</span>
+          <strong>{gate.requiredApproval.approvalScope}</strong>
+        </div>
+      </div>
+      <div className="lipi-blocked-grid">
+        {gate.blockers.map((blocker) => (
+          <article key={blocker.id}>
+            <strong>{blocker.id}</strong>
+            <Badge label="severity" value={blocker.severity} tone={blocker.severity === "CRITICAL" ? "blocked" : "draft"} />
+            <Badge label="blocks" value={String(blocker.blocksProductionGo)} tone={blocker.blocksProductionGo ? "blocked" : "verified"} />
+            <p>{blocker.reason}</p>
           </article>
         ))}
       </div>

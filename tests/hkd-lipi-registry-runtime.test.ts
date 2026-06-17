@@ -10,6 +10,7 @@ import {
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiPhase12To16GovernanceView,
+  getLipiPhase17To19GovernanceView,
   getLipiRegistryAuditabilityView,
   getLipiRegistryRecords,
   getLipiRegistryScript,
@@ -145,6 +146,9 @@ test("source summary carries local API contracts and keeps production blocked", 
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/controlled-enrichment/proposals"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/runtime-enablement/gate-review"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/release-candidate/evidence-bundle"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/operator/runbook"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/external-review/package"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/production-go/approval-gate"));
   assert.equal(sourceSummary.phase3SourcePolicy, "official_unicode_ucd_only");
   assert.equal(sourceSummary.phase4SourcePolicy, "hkd_registry_seed_plus_phase3_ucd_artifacts_only");
   assert.equal(sourceSummary.phase6SourcePolicy, "cross_reference_only_no_new_script_claims");
@@ -158,6 +162,9 @@ test("source summary carries local API contracts and keeps production blocked", 
   assert.equal(sourceSummary.phase14SourcePolicy, "controlled_enrichment_proposal_only_no_auto_apply");
   assert.equal(sourceSummary.phase15SourcePolicy, "runtime_enablement_gate_review_no_runtime_enablement");
   assert.equal(sourceSummary.phase16SourcePolicy, "release_candidate_evidence_bundle_no_release_candidate_go");
+  assert.equal(sourceSummary.phase17SourcePolicy, "operator_runbook_docs_only_no_registry_mutation");
+  assert.equal(sourceSummary.phase18SourcePolicy, "external_review_package_pending_no_approval_claim");
+  assert.equal(sourceSummary.phase19SourcePolicy, "production_go_only_after_human_approval_and_zero_blockers");
   assert.ok(sourceSummary.sourceRefs.length >= 5);
 });
 
@@ -325,6 +332,33 @@ test("Phases 12-16 governance API exposes dry-run, proposal-only, and gate-block
   assert.equal(governance.phase16.evidenceBundle.summary.releaseCandidate, false);
   assert.equal(governance.phase16.evidenceBundle.summary.productionReady, false);
   assert.equal(governance.phase16.evidenceBundle.checks.everyIndexedArtifactExists, true);
+});
+
+test("Phases 17-19 governance API exposes runbook, review package, and human approval gate", () => {
+  const governance = getLipiPhase17To19GovernanceView();
+
+  assert.equal(governance.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(governance.productionReady, false);
+  assert.equal(governance.governedProductionGo, false);
+  assert.equal(governance.phkdVerdict, "CONTROLLED_NO_GO");
+  assert.equal(governance.phase17.operatorRunbook.summary.seedRows, 426);
+  assert.equal(governance.phase17.operatorRunbook.summary.runSequenceSteps, 5);
+  assert.equal(governance.phase17.operatorRunbook.summary.productionGoAllowed, false);
+  assert.equal(governance.phase17.operatorRunbook.summary.runtimeEnablements, 0);
+  assert.equal(governance.phase17.evidence.checks.noRegistryMutation, true);
+  assert.equal(governance.phase18.externalReviewPackage.reviewPackage.status, "PENDING_EXTERNAL_REVIEW");
+  assert.equal(governance.phase18.externalReviewPackage.reviewPackage.reviewersAssigned, 0);
+  assert.equal(governance.phase18.externalReviewPackage.reviewPackage.reviewerSignoffs, 0);
+  assert.equal(governance.phase18.externalReviewPackage.reviewPackage.reviewComplete, false);
+  assert.equal(governance.phase18.externalReviewPackage.reviewPackage.createsNewClaims, false);
+  assert.equal(governance.phase18.externalReviewPackage.reviewPackage.mutatesRegistry, false);
+  assert.equal(governance.phase18.evidence.checks.noNewClaims, true);
+  assert.equal(governance.phase19.productionGoGate.summary.productionGoApproved, false);
+  assert.equal(governance.phase19.productionGoGate.summary.humanApprovalPresent, false);
+  assert.equal(governance.phase19.productionGoGate.summary.activeProductionGoBlockers, 4);
+  assert.equal(governance.phase19.productionGoGate.summary.runtimeEnablements, 0);
+  assert.equal(governance.phase19.productionGoGate.gatePolicy.rule, "PRODUCTION_GO_ONLY_AFTER_HUMAN_APPROVAL_AND_ZERO_BLOCKERS");
+  assert.equal(governance.phase19.evidence.checks.humanApprovalMissingBlocksGo, true);
 });
 
 test("auditability API exposes reproducible exports and provenance checks without new claims", () => {

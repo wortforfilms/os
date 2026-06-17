@@ -48,6 +48,12 @@ import runtimeGateReview from "../../data/hkd-lipi-runtime-enablement-gate-revie
 import runtimeGateEvidence from "../../release/evidence/hkd-lipi-registry-phase15-runtime-gate-review.json" with { type: "json" };
 import releaseCandidateEvidenceIndex from "../../data/hkd-lipi-release-candidate-evidence-index.json" with { type: "json" };
 import releaseCandidateEvidenceBundle from "../../release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json" with { type: "json" };
+import operatorRunbook from "../../data/hkd-lipi-operator-runbook.json" with { type: "json" };
+import operatorRunbookEvidence from "../../release/evidence/hkd-lipi-registry-phase17-operator-runbook.json" with { type: "json" };
+import externalReviewPackage from "../../data/hkd-lipi-external-review-package.json" with { type: "json" };
+import externalReviewEvidence from "../../release/evidence/hkd-lipi-registry-phase18-external-review-package.json" with { type: "json" };
+import productionGoApprovalGate from "../../data/hkd-lipi-production-go-approval-gate.json" with { type: "json" };
+import productionGoApprovalEvidence from "../../release/evidence/hkd-lipi-registry-phase19-production-go-gate.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -512,6 +518,56 @@ export type LipiPhase12To16GovernanceView = {
   };
 };
 
+export type LipiPhase17To19GovernanceView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  phase17: {
+    operatorRunbook: {
+      summary: typeof operatorRunbook.summary;
+      runSequence: typeof operatorRunbook.runSequence;
+      operatingChecks: typeof operatorRunbook.operatingChecks;
+      stopConditions: typeof operatorRunbook.stopConditions;
+      escalation: typeof operatorRunbook.escalation;
+      referencedEvidence: typeof operatorRunbook.referencedEvidence;
+    };
+    evidence: {
+      counts: typeof operatorRunbookEvidence.counts;
+      checks: typeof operatorRunbookEvidence.checks;
+      limitations: typeof operatorRunbookEvidence.limitations;
+    };
+  };
+  phase18: {
+    externalReviewPackage: {
+      summary: typeof externalReviewPackage.summary;
+      reviewPackage: typeof externalReviewPackage.reviewPackage;
+      reviewerQuestions: typeof externalReviewPackage.reviewerQuestions;
+      nonClaims: typeof externalReviewPackage.nonClaims;
+      runbookSummary: typeof externalReviewPackage.runbookSummary;
+    };
+    evidence: {
+      counts: typeof externalReviewEvidence.counts;
+      checks: typeof externalReviewEvidence.checks;
+      limitations: typeof externalReviewEvidence.limitations;
+    };
+  };
+  phase19: {
+    productionGoGate: {
+      summary: typeof productionGoApprovalGate.summary;
+      requiredApproval: typeof productionGoApprovalGate.requiredApproval;
+      gatePolicy: typeof productionGoApprovalGate.gatePolicy;
+      blockers: typeof productionGoApprovalGate.blockers;
+    };
+    evidence: {
+      counts: typeof productionGoApprovalEvidence.counts;
+      checks: typeof productionGoApprovalEvidence.checks;
+      limitations: typeof productionGoApprovalEvidence.limitations;
+    };
+  };
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -769,6 +825,24 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/release-candidate/evidence-bundle",
     handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/operator/runbook",
+    handler: "getLipiPhase17To19GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/external-review/package",
+    handler: "getLipiPhase17To19GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/production-go/approval-gate",
+    handler: "getLipiPhase17To19GovernanceView",
     status: "LOCAL_CONTRACT",
   },
 ] as const;
@@ -1300,6 +1374,58 @@ export function getLipiPhase12To16GovernanceView(): LipiPhase12To16GovernanceVie
   };
 }
 
+export function getLipiPhase17To19GovernanceView(): LipiPhase17To19GovernanceView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    phase17: {
+      operatorRunbook: {
+        summary: operatorRunbook.summary,
+        runSequence: operatorRunbook.runSequence,
+        operatingChecks: operatorRunbook.operatingChecks,
+        stopConditions: operatorRunbook.stopConditions,
+        escalation: operatorRunbook.escalation,
+        referencedEvidence: operatorRunbook.referencedEvidence,
+      },
+      evidence: {
+        counts: operatorRunbookEvidence.counts,
+        checks: operatorRunbookEvidence.checks,
+        limitations: operatorRunbookEvidence.limitations,
+      },
+    },
+    phase18: {
+      externalReviewPackage: {
+        summary: externalReviewPackage.summary,
+        reviewPackage: externalReviewPackage.reviewPackage,
+        reviewerQuestions: externalReviewPackage.reviewerQuestions,
+        nonClaims: externalReviewPackage.nonClaims,
+        runbookSummary: externalReviewPackage.runbookSummary,
+      },
+      evidence: {
+        counts: externalReviewEvidence.counts,
+        checks: externalReviewEvidence.checks,
+        limitations: externalReviewEvidence.limitations,
+      },
+    },
+    phase19: {
+      productionGoGate: {
+        summary: productionGoApprovalGate.summary,
+        requiredApproval: productionGoApprovalGate.requiredApproval,
+        gatePolicy: productionGoApprovalGate.gatePolicy,
+        blockers: productionGoApprovalGate.blockers,
+      },
+      evidence: {
+        counts: productionGoApprovalEvidence.counts,
+        checks: productionGoApprovalEvidence.checks,
+        limitations: productionGoApprovalEvidence.limitations,
+      },
+    },
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -1365,6 +1491,12 @@ export function getLipiRegistrySourceSummary() {
       runtimeEnablementGateReview: runtimeGateReview.schema,
       releaseCandidateEvidenceIndex: releaseCandidateEvidenceIndex.schema,
       releaseCandidateEvidenceBundle: releaseCandidateEvidenceBundle.schema,
+      operatorRunbook: operatorRunbook.schema,
+      operatorRunbookEvidence: operatorRunbookEvidence.schema,
+      externalReviewPackage: externalReviewPackage.schema,
+      externalReviewEvidence: externalReviewEvidence.schema,
+      productionGoApprovalGate: productionGoApprovalGate.schema,
+      productionGoApprovalEvidence: productionGoApprovalEvidence.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
@@ -1380,6 +1512,9 @@ export function getLipiRegistrySourceSummary() {
     phase14SourcePolicy: "controlled_enrichment_proposal_only_no_auto_apply",
     phase15SourcePolicy: "runtime_enablement_gate_review_no_runtime_enablement",
     phase16SourcePolicy: "release_candidate_evidence_bundle_no_release_candidate_go",
+    phase17SourcePolicy: "operator_runbook_docs_only_no_registry_mutation",
+    phase18SourcePolicy: "external_review_package_pending_no_approval_claim",
+    phase19SourcePolicy: "production_go_only_after_human_approval_and_zero_blockers",
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,

@@ -1,0 +1,170 @@
+{
+  "schema": "hkd-lipi-operator-runbook.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE17_TO_PHASE19_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+  "trustedInputs": [
+    {
+      "id": "phase16Index",
+      "path": "data/hkd-lipi-release-candidate-evidence-index.json",
+      "sha256": "d3f727aa3f5d328b0da58385a925fbc489b1fe40945021544bedf98f4b79d0e6"
+    },
+    {
+      "id": "phase15Gate",
+      "path": "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "sha256": "1d27b5689c2d04322432ff42f976af9d62e12ba166dce553e05194eede7146a1"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "auditReport",
+      "path": "release/evidence/hkd-lipi-registry-audit-report.json",
+      "sha256": "6a95d81a033d1f6c4cffd0fa1c5adb1c107f69c739ec758655dcf5e6c31bd5ff"
+    },
+    {
+      "id": "phase12Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase12-harfbuzz-opentype.json",
+      "sha256": "e3cc2d28150fd8b25055b879452c6bb1bcb8f2694d74d14c8865359b2fa48dba"
+    },
+    {
+      "id": "phase13Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase13-authority-audit.json",
+      "sha256": "7bb8ea6cc138decdf69f15150a0aa48c6e1423086689ec6d04f5cd30d44f6f84"
+    },
+    {
+      "id": "phase14Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase14-controlled-enrichment.json",
+      "sha256": "ec04219612f682cbd615d07988e3fb96dda16eaca5d19bb2906d590577f0b353"
+    },
+    {
+      "id": "phase15Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase15-runtime-gate-review.json",
+      "sha256": "f8b1fb3fe85336078a02fb9c7fa863a37a5ecca2f1ea4a16707aae871be433a9"
+    },
+    {
+      "id": "phase16Bundle",
+      "path": "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json",
+      "sha256": "ba688c632e4129e2c213ee7b06a10443e47adefdd46023756244a37973af3772"
+    },
+    {
+      "id": "provenanceReport",
+      "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-operator-runbook.v1",
+    "sourceIds": [
+      "hkd-lipi-phase16-evidence-bundle"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phases17-19.mjs",
+    "sourcePolicy": "operator_docs_external_review_human_approval_gate_no_production_go",
+    "trustedInputs": [
+      "data/hkd-lipi-release-candidate-evidence-index.json",
+      "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-audit-report.json",
+      "release/evidence/hkd-lipi-registry-phase12-harfbuzz-opentype.json",
+      "release/evidence/hkd-lipi-registry-phase13-authority-audit.json",
+      "release/evidence/hkd-lipi-registry-phase14-controlled-enrichment.json",
+      "release/evidence/hkd-lipi-registry-phase15-runtime-gate-review.json",
+      "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json",
+      "release/evidence/hkd-lipi-registry-provenance-report.json"
+    ],
+    "reviewed": false,
+    "phkd": "OPERATOR_GOVERNANCE_ONLY_NO_NEW_CLAIMS"
+  },
+  "summary": {
+    "seedRows": 426,
+    "runbookSections": 5,
+    "runSequenceSteps": 5,
+    "operatingChecks": 4,
+    "stopConditions": 6,
+    "productionGoAllowed": false,
+    "runtimeEnablements": 0,
+    "unresolvedBlockers": 77
+  },
+  "runSequence": [
+    {
+      "order": 1,
+      "title": "Regenerate phase 12-16 governance artifacts",
+      "command": "node scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+      "expectedResult": "seed hash unchanged; runtimeEnablements=0"
+    },
+    {
+      "order": 2,
+      "title": "Regenerate phase 17-19 governance artifacts",
+      "command": "node scripts/generate-hkd-lipi-registry-phases17-19.mjs",
+      "expectedResult": "operator docs and approval gate remain CONTROLLED_NO_GO"
+    },
+    {
+      "order": 3,
+      "title": "Run governance tests",
+      "command": "node --test tests/hkd-lipi-registry-phases17-19.test.mjs",
+      "expectedResult": "all tests pass; productionGoApproved=false"
+    },
+    {
+      "order": 4,
+      "title": "Run runtime API tests",
+      "command": "node --experimental-strip-types --test tests/hkd-lipi-registry-runtime.test.ts",
+      "expectedResult": "all tests pass; registry API reports productionReady=false"
+    },
+    {
+      "order": 5,
+      "title": "Run TypeScript check",
+      "command": "npx tsc --noEmit",
+      "expectedResult": "typecheck clean"
+    }
+  ],
+  "operatingChecks": [
+    {
+      "id": "operator-check:seed-immutable",
+      "status": "REQUIRED",
+      "description": "The 426-row seed must not be mutated by documentation, review, or approval-gate phases.",
+      "evidence": "data/hkd-lipi-script-registry-seed-426.json"
+    },
+    {
+      "id": "operator-check:no-runtime-enable",
+      "status": "REQUIRED",
+      "description": "No operator action may set hkd_runtime_enabled=true.",
+      "evidence": "tests/hkd-lipi-registry-runtime.test.ts"
+    },
+    {
+      "id": "operator-check:no-production-go-without-human-approval",
+      "status": "REQUIRED",
+      "description": "Production GO requires a human approval artifact and all Phase 15 blockers resolved.",
+      "evidence": "data/hkd-lipi-production-go-approval-gate.json"
+    },
+    {
+      "id": "operator-check:external-review-pending",
+      "status": "REQUIRED",
+      "description": "External review can be packaged but not treated as completed until reviewer sign-off exists.",
+      "evidence": "data/hkd-lipi-external-review-package.json"
+    }
+  ],
+  "stopConditions": [
+    "Any registry seed hash change outside an approved migration.",
+    "Any productionReady=true value in generated registry governance artifacts.",
+    "Any runtimeEnabled value greater than 0.",
+    "Any missing provenance on review, evidence, or approval artifacts.",
+    "Any external reviewer sign-off missing or ambiguous.",
+    "Any human approval artifact missing for production GO."
+  ],
+  "escalation": [
+    "Escalate source conflicts to the registry architect before enrichment.",
+    "Escalate HarfBuzz/OpenType fixture gaps to runtime owners before shaping claims.",
+    "Escalate production GO requests to human approvers with the Phase 16 bundle hash attached."
+  ],
+  "referencedEvidence": {
+    "phase15Gate": "data/hkd-lipi-runtime-enablement-gate-review.json",
+    "phase16Bundle": "release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json",
+    "phase16BundleHash": "ba688c632e4129e2c213ee7b06a10443e47adefdd46023756244a37973af3772"
+  }
+}
