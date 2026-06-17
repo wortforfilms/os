@@ -1,6 +1,6 @@
 {
   "schema": "maataa.ui-playground.visual-evidence.v1",
-  "generatedAt": "2026-06-10T20:16:27.880Z",
+  "generatedAt": "2026-06-15T12:31:36.110Z",
   "finalStatus": "CONTROLLED_NO_GO",
   "productionStatus": "PRODUCTION_READY_NO",
   "productionReady": false,
@@ -53,6 +53,66 @@
         "title": "ThemeLab Asset Sandbox",
         "status": "PREVIEW_VERIFIED",
         "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/overview",
+        "title": "Asset Overview Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__overview.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/library",
+        "title": "Asset Library Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__library.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/preview",
+        "title": "Live Preview Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__preview.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/icons",
+        "title": "Icon Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__icons.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/heroes",
+        "title": "Hero Asset Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__heroes.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/cards",
+        "title": "Card Asset Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__cards.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/avatars",
+        "title": "Avatar Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__avatars.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/metadata",
+        "title": "Asset Metadata Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__metadata.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/download",
+        "title": "Download Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__download.png"
+      },
+      {
+        "route": "/themelab/asset-sandbox/evidence",
+        "title": "Asset Evidence Review",
+        "status": "PREVIEW_VERIFIED",
+        "file": "release/evidence/maataa-ui-playground/screenshots/themelab__asset-sandbox__evidence.png"
       },
       {
         "route": "/themelab/sandboxes",
@@ -169,9 +229,199 @@
       "dataMode": "LOCAL_STATIC_REVIEW",
       "blockers": [
         {
+          "id": "source-counts",
+          "label": "Source Count Claims",
+          "blocker": "Imported HTML lists asset counts, but no generated repository asset registry backs those numbers."
+        },
+        {
+          "id": "downloads",
+          "label": "Download Controls",
+          "blocker": "Download controls are sandbox-only and do not grant purchased access."
+        },
+        {
           "id": "cdn",
           "label": "CDN Delivery",
           "blocker": "No CDN node, live delivery, or download count is asserted."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/overview",
+      "title": "Asset Overview Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "source-counts",
+          "label": "Asset Counts",
+          "blocker": "The 666 total asset claim is imported source text only until reconciled to a generated registry."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/library",
+      "title": "Asset Library Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "registry",
+          "label": "Asset Registry",
+          "blocker": "Family bins are imported review metadata; no repository asset manifest verifies per-family counts."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/preview",
+      "title": "Live Preview Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "live-rendering",
+          "label": "Live Rendering",
+          "blocker": "Preview controls do not load a production asset renderer or route context service."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/icons",
+      "title": "Icon Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "icon-count",
+          "label": "Icon Inventory",
+          "blocker": "The 273 icon-file claim is not backed by a generated repository icon manifest."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/heroes",
+      "title": "Hero Asset Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "hero-manifest",
+          "label": "Hero Manifest",
+          "blocker": "Hero files and variants are not reconciled to a versioned manifest."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/cards",
+      "title": "Card Asset Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "thumbnail-registry",
+          "label": "Thumbnail Registry",
+          "blocker": "Card and thumbnail entries are not connected to a generated asset registry."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/avatars",
+      "title": "Avatar Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "avatar-manifest",
+          "label": "Avatar Manifest",
+          "blocker": "The 30 avatar claim is imported source text only until file-backed."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/metadata",
+      "title": "Asset Metadata Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "metadata-validation",
+          "label": "Metadata Validation",
+          "blocker": "No automated asset metadata validator is attached yet."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/download",
+      "title": "Download Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "payments",
+          "label": "Real Payments",
+          "blocker": "No payment provider or entitlement grant is connected to this sandbox."
+        },
+        {
+          "id": "download",
+          "label": "Download Grant",
+          "blocker": "Download controls are simulated review UI and do not produce purchased access."
+        }
+      ]
+    },
+    {
+      "path": "/themelab/asset-sandbox/evidence",
+      "title": "Asset Evidence Review",
+      "family": "ThemeLab",
+      "status": "PREVIEW_VERIFIED",
+      "productionReady": false,
+      "runtimePromotion": false,
+      "paymentMode": "NONE",
+      "dataMode": "LOCAL_STATIC_REVIEW",
+      "blockers": [
+        {
+          "id": "playwright",
+          "label": "Visual Evidence",
+          "blocker": "Imported evidence labels require regenerated MAATAA-side screenshots for each review route."
+        },
+        {
+          "id": "registry-proof",
+          "label": "Registry Proof",
+          "blocker": "Asset registry and SVG metadata proofs are not independently generated from repository files."
         }
       ]
     },

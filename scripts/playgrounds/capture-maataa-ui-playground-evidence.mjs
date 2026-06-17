@@ -137,6 +137,5 @@ function renderMarkdown(report) {
   for (const route of report.routes) {
     lines.push(`- \`${route.path}\` — ${route.status}; blockers=${route.blockers.length}; screenshot captured`);
   }
-  lines.push("");
   return `${lines.join("\n")}\n`;
 }

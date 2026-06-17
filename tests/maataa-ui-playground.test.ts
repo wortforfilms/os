@@ -1,7 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
-import { playgroundRoutes, PLAYGROUND_FINAL_STATUS, PLAYGROUND_PRODUCTION_STATUS } from "../src/playgrounds/data.ts";
+import {
+  playgroundRoutes,
+  PLAYGROUND_FINAL_STATUS,
+  PLAYGROUND_PRODUCTION_STATUS,
+  themeLabAssetReviewRoutes,
+  themeLabAssetSandboxImport,
+} from "../src/playgrounds/data.ts";
 import { buildUnifiedSearchIndex, isNavigableSearchResult, searchUnifiedIndex } from "../src/search/index.ts";
 
 const appSource = readFileSync("src/App.tsx", "utf8");
@@ -17,6 +23,7 @@ test("all requested playground routes are registered", () => {
       "/maataa-ui/playground/layouts",
       "/themelab/theme-sandbox",
       "/themelab/asset-sandbox",
+      ...themeLabAssetReviewRoutes.map((route) => route.path),
       "/themelab/sandboxes",
     ],
   );
@@ -28,7 +35,7 @@ test("playground routes are PHKD-safe review surfaces", () => {
     assert.equal(route.runtimePromotion, false, `${route.path} must not promote runtime`);
     assert.equal(route.paymentMode, "NONE", `${route.path} must not expose payments`);
     assert.equal(route.dataMode, "LOCAL_STATIC_REVIEW", `${route.path} must stay local static review`);
-    assert.match(route.evidence, /release\/evidence|packages\/maataa-ui|docs\/theme-lab-runtime|assets\/README/);
+    assert.match(route.evidence, /release\/evidence|release\/imports|packages\/maataa-ui|docs\/theme-lab-runtime|assets\/README/);
   }
 });
 
@@ -56,6 +63,45 @@ test("unified search includes navigable playground routes", () => {
 
   const themeLab = searchUnifiedIndex("themelab sandbox");
   assert.ok(themeLab.some((result) => result.path === "/themelab/sandboxes"));
+});
+
+test("ThemeLab asset sandbox import is preserved as source evidence, not live inventory", () => {
+  const route = playgroundRoutes.find((item) => item.path === "/themelab/asset-sandbox");
+  assert.equal(route?.evidence, themeLabAssetSandboxImport.sourcePath);
+  assert.equal(existsSync(themeLabAssetSandboxImport.sourcePath), true);
+
+  const source = readFileSync(themeLabAssetSandboxImport.sourcePath, "utf8");
+  assert.match(source, /<title>ThemeLab Asset Sandbox<\/title>/);
+  assert.match(source, /666 Asset Files/);
+  assert.match(source, /No real payments/);
+  assert.equal(themeLabAssetSandboxImport.productionReady, false);
+  assert.equal(themeLabAssetSandboxImport.productionDatabase, false);
+  assert.equal(themeLabAssetSandboxImport.realPayments, false);
+  assert.equal(themeLabAssetSandboxImport.purchasedAccess, false);
+  assert.equal(themeLabAssetSandboxImport.runtimePromotion, false);
+  assert.equal(themeLabAssetSandboxImport.claimMode, "IMPORTED_SOURCE_CLAIMS_NOT_LIVE_METRICS");
+  assert.ok(themeLabAssetSandboxImport.sourceClaims.every((claim) => claim.state === "SOURCE_CLAIM_ONLY"));
+  assert.ok(route?.sections.some((section) => section.id === "source-counts" && section.status === "BLOCKED"));
+  assert.ok(route?.sections.some((section) => section.id === "downloads" && section.status === "BLOCKED"));
+});
+
+test("ThemeLab asset review routes are concrete navigable review surfaces", () => {
+  for (const reviewRoute of themeLabAssetReviewRoutes) {
+    const route = playgroundRoutes.find((item) => item.path === reviewRoute.path);
+    assert.equal(route?.title, reviewRoute.title);
+    assert.equal(route?.status, "PREVIEW_VERIFIED");
+    assert.equal(route?.productionReady, false);
+    assert.equal(route?.runtimePromotion, false);
+    assert.equal(route?.paymentMode, "NONE");
+    assert.equal(route?.dataMode, "LOCAL_STATIC_REVIEW");
+    assert.equal(route?.evidence, `${themeLabAssetSandboxImport.sourcePath}${reviewRoute.anchor}`);
+    assert.ok(route?.sections.some((section) => section.id === "source-section" && section.status === "PREVIEW_VERIFIED"));
+    assert.ok(route?.sections.some((section) => section.status === "BLOCKED" && section.blocker));
+
+    const result = buildUnifiedSearchIndex().find((item) => item.id === `route:${reviewRoute.path}`);
+    assert.equal(result?.status, "PREVIEW_VERIFIED");
+    assert.equal(isNavigableSearchResult(result!), true);
+  }
 });
 
 test("visual evidence report preserves no-go posture when present", () => {

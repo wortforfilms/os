@@ -4,6 +4,7 @@ import {
   PLAYGROUND_PRODUCTION_STATUS,
   getPlaygroundRoute,
   playgroundRoutes,
+  themeLabAssetSandboxImport,
   type PlaygroundRoute,
   type PlaygroundRouteId,
   type PlaygroundSection,
@@ -82,6 +83,8 @@ export function PlaygroundPage({ route, navigate }: { route: PlaygroundRouteId; 
         <TokenPanel />
       </section>
 
+      {selected.path.startsWith("/themelab/asset-sandbox") ? <ImportedAssetSandboxPanel route={selected} /> : null}
+
       <section className="review-grid" aria-label="Visible review routes">
         {visibleRoutes.length ? (
           visibleRoutes.map((item) => <RouteCard key={item.path} route={item} selected={item.path === selected.path} navigate={navigate} />)
@@ -93,6 +96,78 @@ export function PlaygroundPage({ route, navigate }: { route: PlaygroundRouteId; 
           </article>
         )}
       </section>
+    </section>
+  );
+}
+
+function ImportedAssetSandboxPanel({ route }: { route: PlaygroundRoute }) {
+  const imported = themeLabAssetSandboxImport;
+  return (
+    <section className="asset-import-panel" aria-label="Imported ThemeLab asset sandbox source">
+      <article className="review-card asset-source-card">
+        <header>
+          <StatusBadge status="CONTROLLED_NO_GO" />
+          <span>Imported Source</span>
+        </header>
+        <h2>{route.title}</h2>
+        <dl className="review-dl">
+          <div>
+            <dt>Review Route</dt>
+            <dd>{route.path}</dd>
+          </div>
+          <div>
+            <dt>Source</dt>
+            <dd>{imported.sourcePath}</dd>
+          </div>
+          <div>
+            <dt>Claim Mode</dt>
+            <dd>{imported.claimMode}</dd>
+          </div>
+          <div>
+            <dt>Production DB</dt>
+            <dd>{imported.productionDatabase ? "ENABLED" : "BLOCKED"}</dd>
+          </div>
+          <div>
+            <dt>Payments</dt>
+            <dd>{imported.realPayments ? "ENABLED" : "BLOCKED"}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article className="review-card asset-claims-card">
+        <header>
+          <StatusBadge status="BLOCKED" />
+          <span>Source Counts</span>
+        </header>
+        <h2>Imported Count Claims</h2>
+        <div className="asset-claim-grid">
+          {imported.sourceClaims.map((claim) => (
+            <div className="asset-claim" key={claim.id}>
+              <strong>{claim.value}</strong>
+              <span>{claim.label}</span>
+              <small>{claim.state}</small>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article className="review-card asset-boundary-card">
+        <header>
+          <StatusBadge status="BLOCKED" />
+          <span>Boundaries</span>
+        </header>
+        <h2>Sandbox Boundaries</h2>
+        <ul className="blocker-list">
+          {imported.sandboxBoundaries.map((boundary) => (
+            <li key={boundary.label}>
+              <strong>{boundary.label}</strong>
+              <span>
+                {boundary.state}: {boundary.evidence}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </article>
     </section>
   );
 }

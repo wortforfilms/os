@@ -1,3 +1,5 @@
+import { themeLabAssetReviewRoutes, type ImportedAssetReviewRoutePath } from "./themelabAssetSandboxImport.ts";
+
 export type PlaygroundRouteId =
   | "/maataa-ui/playground"
   | "/maataa-ui/playground/components"
@@ -6,6 +8,7 @@ export type PlaygroundRouteId =
   | "/maataa-ui/playground/layouts"
   | "/themelab/theme-sandbox"
   | "/themelab/asset-sandbox"
+  | ImportedAssetReviewRoutePath
   | "/themelab/sandboxes";
 
 export type PlaygroundStatus = "PREVIEW_VERIFIED" | "CONTROLLED_NO_GO" | "BLOCKED" | "UNKNOWN";
@@ -32,8 +35,38 @@ export type PlaygroundRoute = {
   sections: PlaygroundSection[];
 };
 
+export { themeLabAssetSandboxImport, themeLabAssetReviewRoutes } from "./themelabAssetSandboxImport.ts";
+
 export const PLAYGROUND_FINAL_STATUS = "CONTROLLED_NO_GO" as const;
 export const PLAYGROUND_PRODUCTION_STATUS = "PRODUCTION_READY_NO" as const;
+
+const importedAssetReviewPlaygroundRoutes: PlaygroundRoute[] = themeLabAssetReviewRoutes.map((review): PlaygroundRoute => ({
+  path: review.path,
+  title: review.title,
+  family: "ThemeLab",
+  summary: review.summary,
+  status: review.reviewState,
+  productionReady: false,
+  runtimePromotion: false,
+  paymentMode: "NONE",
+  dataMode: "LOCAL_STATIC_REVIEW",
+  evidence: `release/imports/themelab_asset_sandbox.html${review.anchor}`,
+  sections: [
+    {
+      id: "source-section",
+      label: "Imported HTML Section",
+      status: "PREVIEW_VERIFIED",
+      evidence: `release/imports/themelab_asset_sandbox.html${review.anchor}`,
+    },
+    ...review.blockers.map((blocker) => ({
+      id: blocker.id,
+      label: blocker.label,
+      status: "BLOCKED" as const,
+      evidence: "import review route",
+      blocker: blocker.blocker,
+    })),
+  ],
+}));
 
 export const playgroundRoutes: PlaygroundRoute[] = [
   {
@@ -147,19 +180,28 @@ export const playgroundRoutes: PlaygroundRoute[] = [
     path: "/themelab/asset-sandbox",
     title: "ThemeLab Asset Sandbox",
     family: "ThemeLab",
-    summary: "Asset review bins for local icons, media, and evidence thumbnails without CDN claims.",
+    summary: "Imported asset sandbox source reviewed as local-only evidence; source counts remain blocked until a real registry backs them.",
     status: "PREVIEW_VERIFIED",
     productionReady: false,
     runtimePromotion: false,
     paymentMode: "NONE",
     dataMode: "LOCAL_STATIC_REVIEW",
-    evidence: "assets/README.md",
+    evidence: "release/imports/themelab_asset_sandbox.html",
     sections: [
-      { id: "icons", label: "Icon Assets", status: "PREVIEW_VERIFIED", evidence: "local repository assets" },
+      { id: "source-import", label: "Imported Source", status: "PREVIEW_VERIFIED", evidence: "release/imports/themelab_asset_sandbox.html" },
+      {
+        id: "source-counts",
+        label: "Source Count Claims",
+        status: "BLOCKED",
+        evidence: "themelab_asset_sandbox.html",
+        blocker: "Imported HTML lists asset counts, but no generated repository asset registry backs those numbers.",
+      },
       { id: "screens", label: "Evidence Screens", status: "PREVIEW_VERIFIED", evidence: "release/evidence/maataa-ui-playground/screenshots" },
+      { id: "downloads", label: "Download Controls", status: "BLOCKED", evidence: "review-only source", blocker: "Download controls are sandbox-only and do not grant purchased access." },
       { id: "cdn", label: "CDN Delivery", status: "BLOCKED", evidence: "none", blocker: "No CDN node, live delivery, or download count is asserted." },
     ],
   },
+  ...importedAssetReviewPlaygroundRoutes,
   {
     path: "/themelab/sandboxes",
     title: "ThemeLab Sandboxes",
@@ -174,6 +216,7 @@ export const playgroundRoutes: PlaygroundRoute[] = [
     sections: [
       { id: "theme", label: "Theme Sandbox", status: "PREVIEW_VERIFIED", evidence: "/themelab/theme-sandbox" },
       { id: "asset", label: "Asset Sandbox", status: "PREVIEW_VERIFIED", evidence: "/themelab/asset-sandbox" },
+      { id: "asset-review-routes", label: "Asset Review Routes", status: "PREVIEW_VERIFIED", evidence: "/themelab/asset-sandbox/overview" },
       { id: "payments", label: "Paid Theme Sales", status: "BLOCKED", evidence: "none", blocker: "No real payments are available in ThemeLab review surfaces." },
     ],
   },

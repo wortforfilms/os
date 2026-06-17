@@ -26,7 +26,17 @@
     { "path": "/maataa-ui/playground/tokens", "state": "PREVIEW_VERIFIED", "evidence": "Token review surface renders local design-token swatches and unknown live sync blocker." },
     { "path": "/maataa-ui/playground/layouts", "state": "PREVIEW_VERIFIED", "evidence": "Layout review surface renders local layout inventory without production readiness claims." },
     { "path": "/themelab/theme-sandbox", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab theme sandbox renders local theme variants with publish controls blocked." },
-    { "path": "/themelab/asset-sandbox", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab asset sandbox renders local asset bins without CDN or download claims." },
+    { "path": "/themelab/asset-sandbox", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab asset sandbox imports release/imports/themelab_asset_sandbox.html as local source evidence; source count claims are blocked until backed by a generated asset registry." },
+    { "path": "/themelab/asset-sandbox/overview", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported ThemeLab asset overview; asset count claims remain source-only until registry-backed." },
+    { "path": "/themelab/asset-sandbox/library", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported asset library family bins; no live asset registry count is asserted." },
+    { "path": "/themelab/asset-sandbox/preview", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported preview controls; no production renderer or route context service is claimed." },
+    { "path": "/themelab/asset-sandbox/icons", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported icon cards; icon count remains blocked until manifest-backed." },
+    { "path": "/themelab/asset-sandbox/heroes", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported hero asset rows; variant counts remain source claims." },
+    { "path": "/themelab/asset-sandbox/cards", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported card and thumbnail entries; no generated thumbnail registry is claimed." },
+    { "path": "/themelab/asset-sandbox/avatars", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported avatar categories; avatar count remains source-only." },
+    { "path": "/themelab/asset-sandbox/metadata", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported metadata and color token declarations; automated metadata validation remains blocked." },
+    { "path": "/themelab/asset-sandbox/download", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported download controls; payments and purchased access remain blocked." },
+    { "path": "/themelab/asset-sandbox/evidence", "state": "PREVIEW_VERIFIED", "evidence": "Review route for imported evidence tiles; registry proof remains blocked until generated from repository files." },
     { "path": "/themelab/sandboxes", "state": "PREVIEW_VERIFIED", "evidence": "ThemeLab sandbox index links local theme and asset review surfaces." }
   ],
   "features": [
