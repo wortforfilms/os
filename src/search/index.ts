@@ -176,7 +176,7 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
     title: workspace.title,
     type: "route" as const,
     path: workspace.route,
-    status: workspace.id === "runtime-status" ? "CONTROLLED_PREVIEW_NO_GO" as const : "CONTROLLED_NO_GO" as const,
+    status: workspace.id === "runtime-status" || workspace.id === "rendering" ? "CONTROLLED_PREVIEW_NO_GO" as const : "CONTROLLED_NO_GO" as const,
     description: workspace.summary,
     tags: ["route", "lipi-full", "lipi", workspace.id, ...workspace.features, ...workspace.views].map((tag) => tag.toLowerCase()),
   }));
