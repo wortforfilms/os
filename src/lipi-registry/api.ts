@@ -74,6 +74,7 @@ import phase24CrossBrowserValidation from "../../release/evidence/hkd-lipi-regis
 import phase25CrossPlatformValidation from "../../release/evidence/hkd-lipi-registry-phase25-cross-platform-validation.json" with { type: "json" };
 import phase26ExternalReviewHumanApproval from "../../release/evidence/hkd-lipi-registry-phase26-external-review-human-approval.json" with { type: "json" };
 import phase27ProductionGoDecision from "../../release/evidence/hkd-lipi-registry-phase27-production-go-decision.json" with { type: "json" };
+import platformAttestation from "../../release/evidence/hkd-lipi-platform-attestation.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -1766,6 +1767,33 @@ export function getLipiPhase24To27GovernanceView(): LipiPhase24To27GovernanceVie
         blockers: phase27ProductionGoDecision.blockers,
         checks: phase27ProductionGoDecision.checks,
       },
+    },
+  };
+}
+
+export function getLipiPlatformAttestationView() {
+  // Read-only PHKD host-attestation view. A platform is VERIFIED only when its
+  // own captured metadata proves that platform; mismatches become CONFLICT.
+  // Never promotes production, never enables runtime rows.
+  const conflicts = platformAttestation.platforms.filter((p) => p.attestation === "CONFLICT");
+  return {
+    ok: true,
+    schema: platformAttestation.schema,
+    reviewState: platformAttestation.reviewState,
+    phkdVerdict: platformAttestation.phkdVerdict,
+    attestationPass: platformAttestation.attestationPass,
+    productionGo: "NO_GO" as const,
+    control: platformAttestation.control,
+    counts: platformAttestation.counts,
+    platforms: platformAttestation.platforms,
+    blockers: platformAttestation.blockers,
+    attestationSummary: {
+      id: conflicts.length > 0 ? "platform-attestation-conflict" : "platform-attestation-current",
+      severity: conflicts.length > 0 ? "CONFLICT" as const : "CONTROLLED_PREVIEW" as const,
+      summary:
+        conflicts.length > 0
+          ? `${conflicts.length} platform claim(s) have mismatched host metadata and are fail-closed.`
+          : "Current VERIFIED platform claims are host-attested; incomplete platforms remain blocked.",
     },
   };
 }

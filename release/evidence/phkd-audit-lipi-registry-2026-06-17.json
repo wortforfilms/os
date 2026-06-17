@@ -1,0 +1,117 @@
+{
+  "schema": "maataa.phkd-audit.lipi-registry.v1",
+  "auditDate": "2026-06-17",
+  "generatedAt": "2026-06-17T17:36:12.247Z",
+  "subject": "HKD Lipi Registry",
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "productionReady": false,
+  "controlFlags": {
+    "registryRuntimeActive": true,
+    "runtimeMode": "CONTROLLED_PREVIEW",
+    "readOnly": true,
+    "mutationAllowed": false,
+    "runtimeEnabledRows": 0,
+    "productionReady": false,
+    "governedProductionGo": false,
+    "productionGoApproved": false,
+    "humanApprovalPresent": false,
+    "releaseCandidate": false,
+    "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO"
+  },
+  "verifiedCounts": {
+    "registryRows": 426,
+    "unicodeScripts": 176,
+    "numeralSystems": 63,
+    "zeroGlyphSystems": 63,
+    "kbsNodes": 3372,
+    "kbsEdges": 5233,
+    "harfbuzz": {
+      "version": "11.2.1",
+      "verifiedRows": 139,
+      "failedWithEvidenceRows": 44,
+      "fontsUsed": 125
+    },
+    "glyphBaselines": {
+      "stableBaselineHashRows": 139,
+      "verifiedCaptureRows": 139,
+      "browserVsHarfBuzzComparisons": 139
+    },
+    "iso15924": {
+      "verifiedRows": 172,
+      "blockedRows": 4,
+      "conflictRows": 0
+    },
+    "cldr": {
+      "verifiedRows": 20,
+      "unknownRows": 156
+    },
+    "icu": {
+      "verifiedRows": 168,
+      "blockedRows": 8,
+      "extraIcuCodesNotInUcdRegistry": 37,
+      "canonicalNameMismatches": 4
+    },
+    "federation": {
+      "sources": 7,
+      "lineageNodes": 36,
+      "lineageEdges": 28,
+      "blockedComparisons": 4
+    }
+  },
+  "rendering": {
+    "phase24": {
+      "chrome": true,
+      "firefox": false,
+      "safari": false
+    },
+    "phase25": [
+      {
+        "id": "macos",
+        "claimed": "VERIFIED",
+        "attestation": "VERIFIED",
+        "reason": "host metadata proves macos (nodePlatform=darwin, uname~\"Darwin\", swVers=ProductName:\t\tmacOS\nProductVersion:\t\t14.6.1\nBuildVersion:\t\t23G93)"
+      },
+      {
+        "id": "linux",
+        "claimed": "BLOCKED",
+        "attestation": "BLOCKED",
+        "reason": "No Linux execution artifact exists for the Phase 23 rendering baseline."
+      },
+      {
+        "id": "windows",
+        "claimed": "BLOCKED",
+        "attestation": "BLOCKED",
+        "reason": "No Windows execution artifact exists for the Phase 23 rendering baseline."
+      }
+    ],
+    "phase26": {
+      "externalReviewComplete": false,
+      "humanApprovalPresent": false,
+      "validSignedHumanApproval": false
+    },
+    "phase27": {
+      "decision": "NO_GO"
+    }
+  },
+  "contradictions": [],
+  "blockers": [
+    "Firefox rendering unverified (phase24 firefoxCaptured=false)",
+    "Safari rendering unverified (phase24 safariCaptured=false)",
+    "Linux platform unverified (phase25 BLOCKED)",
+    "Windows platform unverified (phase25 BLOCKED)",
+    "External review incomplete (phase26 externalReviewComplete=false)",
+    "Human approval absent (phase26 humanApprovalPresent=false, validSignedHumanApproval=false)",
+    "CLDR mostly unknown (20 verified / 156 unknown)",
+    "ICU conflicts (37 extra codes, 4 name mismatches)",
+    "ISO 15924 blocked rows (4)"
+  ],
+  "recommendedNextActions": [
+    "Run the Phase 23 generator on Linux and Windows; attach platform reports to clear those two BLOCKED targets.",
+    "Capture Firefox and Safari baselines to clear the two browser blockers.",
+    "Adjudicate the ICU extras + canonical-name mismatches as documented decisions (no silent registry edits).",
+    "Advance CLDR verified rows with sourced locale-script links; keep the unknown rows fail-closed.",
+    "Obtain a signed human-approval artifact and complete external review before Phase 27 can be reconsidered.",
+    "Keep runtimeEnabledRows=0 and mutationAllowed=false until all blockers clear AND a human GO exists."
+  ],
+  "honesty": "Evidence-only. All counts read from committed evidence files. Mission/vision targets are excluded as non-facts. Fail closed."
+}

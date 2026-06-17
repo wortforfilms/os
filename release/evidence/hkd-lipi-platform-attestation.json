@@ -1,0 +1,64 @@
+{
+  "schema": "maataa.hkd-lipi.platform-attestation.v1",
+  "generatedAt": "2026-06-17T17:36:12.232Z",
+  "source": "release/evidence/hkd-lipi-registry-phase25-cross-platform-validation.json",
+  "sourcePolicy": "host_metadata_must_prove_platform_or_fail_closed_no_registry_mutation_no_runtime_enablement",
+  "honesty": "Phase 25 evidence is preserved unchanged. A platform is host-attested VERIFIED only when its own captured host metadata proves it. Mismatched host metadata is reclassified CONFLICT; missing platform evidence remains BLOCKED or UNKNOWN.",
+  "reviewState": "CONTROLLED_PREVIEW_NO_GO",
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "attestationPass": false,
+  "control": {
+    "registryRuntimeActive": true,
+    "runtimeMode": "CONTROLLED_PREVIEW",
+    "readOnly": true,
+    "mutationAllowed": false,
+    "runtimeEnabledRows": 0,
+    "productionReady": false,
+    "governedProductionGo": false,
+    "releaseCandidate": false
+  },
+  "counts": {
+    "targets": 3,
+    "verified": 1,
+    "conflict": 0,
+    "blocked": 2,
+    "unknown": 0
+  },
+  "platforms": [
+    {
+      "id": "macos",
+      "label": "macOS",
+      "claimedStatus": "VERIFIED",
+      "attestation": "VERIFIED",
+      "hostAttested": true,
+      "reason": "host metadata proves macos (nodePlatform=darwin, uname~\"Darwin\", swVers=ProductName:\t\tmacOS\nProductVersion:\t\t14.6.1\nBuildVersion:\t\t23G93)"
+    },
+    {
+      "id": "linux",
+      "label": "Linux",
+      "claimedStatus": "BLOCKED",
+      "attestation": "BLOCKED",
+      "hostAttested": false,
+      "reason": "No Linux execution artifact exists for the Phase 23 rendering baseline."
+    },
+    {
+      "id": "windows",
+      "label": "Windows",
+      "claimedStatus": "BLOCKED",
+      "attestation": "BLOCKED",
+      "hostAttested": false,
+      "reason": "No Windows execution artifact exists for the Phase 23 rendering baseline."
+    }
+  ],
+  "blockers": [
+    "linux: No Linux execution artifact exists for the Phase 23 rendering baseline.",
+    "windows: No Windows execution artifact exists for the Phase 23 rendering baseline."
+  ],
+  "invariants": {
+    "productionReadyFalse": true,
+    "governedProductionGoFalse": true,
+    "runtimeEnabledRowsZero": true,
+    "mutationNotAllowed": true,
+    "noPlatformVerifiedWithoutHostProof": true
+  }
+}

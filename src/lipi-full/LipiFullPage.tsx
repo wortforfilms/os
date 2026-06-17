@@ -10,6 +10,7 @@ import {
   getLipiPhase12To16GovernanceView,
   getLipiPhase17To19GovernanceView,
   getLipiPhase24To27GovernanceView,
+  getLipiPlatformAttestationView,
   getLipiRegistryAuditabilityView,
   getLipiRenderingValidationView,
   getLipiRegistryRuntimeActivationView,
@@ -37,6 +38,7 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
   const crosswalk = useMemo(() => getLipiUnicodeCrosswalk(), []);
   const graph = useMemo(() => getLipiKbsGraphView(), []);
   const audit = useMemo(() => getLipiRegistryAuditabilityView(), []);
+  const attestation = useMemo(() => getLipiPlatformAttestationView(), []);
   const federation = useMemo(() => getLipiEvidenceFederationView(), []);
   const contracts = useMemo(() => getLipiSourceIngestionContractsView(), []);
   const dryRun = useMemo(() => getLipiIngestionDryRunView(), []);
@@ -103,7 +105,7 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
           {workspace === "rendering" ? <RenderingValidationPanel rendering={rendering} phase24To27={phase24To27} /> : null}
           {workspace === "governance" ? <GovernancePanel phase12To16={phase12To16} phase17To19={phase17To19} phase24To27={phase24To27} /> : null}
           {workspace === "review" ? <ReviewPanel phase17To19={phase17To19} phase24To27={phase24To27} /> : null}
-          {workspace === "audit" ? <AuditPanel audit={audit} federation={federation} /> : null}
+          {workspace === "audit" ? <AuditPanel audit={audit} federation={federation} attestation={attestation} /> : null}
           {workspace === "export" ? <ExportPanel audit={audit} phase12To16={phase12To16} phase17To19={phase17To19} /> : null}
           {workspace === "release" ? <ReleasePanel phase12To16={phase12To16} phase17To19={phase17To19} phase24To27={phase24To27} /> : null}
           {workspace === "api" ? <ApiPanel sources={sources} /> : null}
@@ -577,14 +579,23 @@ function ReviewPanel({
 function AuditPanel({
   audit,
   federation,
+  attestation,
 }: {
   audit: ReturnType<typeof getLipiRegistryAuditabilityView>;
   federation: ReturnType<typeof getLipiEvidenceFederationView>;
+  attestation: ReturnType<typeof getLipiPlatformAttestationView>;
 }) {
   return (
     <Panel title="Audit Workspace" kicker="/lipi/audit">
       <StatGrid rows={[["Audit Failures", countFailureItems(audit.evidenceAudit.failures)], ["Orphan Evidence", audit.provenance.counts.orphanEvidenceReferences], ["Missing Provenance", audit.provenance.counts.nodesMissingProvenance], ["Source Conflicts", federation.conflictDetector.summary.conflicts]]} />
       <Rows rows={audit.exportCenter.outputHashes.map((artifact) => [artifact.path, artifact.sha256.slice(0, 18), "HASHED", "EXPORT"])} />
+
+      <h3 className="lipi-subhead">PHKD Host Attestation</h3>
+      <p className="lipi-note">
+        {attestation.attestationSummary.summary}
+      </p>
+      <StatGrid rows={[["macOS Attestation", attestation.platforms.find((p) => p.id === "macos")?.attestation ?? "UNKNOWN"], ["Host CONFLICTs", attestation.counts.conflict], ["Blocked Platforms", attestation.counts.blocked], ["Production GO", attestation.productionGo], ["PHKD Verdict", attestation.phkdVerdict]]} />
+      <Rows rows={attestation.platforms.map((p) => [p.id, p.claimedStatus, p.attestation, p.reason])} />
     </Panel>
   );
 }
