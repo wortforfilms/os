@@ -10,6 +10,7 @@ import {
   getLipiPhase12To16GovernanceView,
   getLipiPhase17To19GovernanceView,
   getLipiRegistryAuditabilityView,
+  getLipiRenderingValidationView,
   getLipiRegistryRuntimeActivationView,
   getLipiRegistryScript,
   getLipiRegistrySourceSummary,
@@ -44,6 +45,7 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
   const phase12To16 = useMemo(() => getLipiPhase12To16GovernanceView(), []);
   const phase17To19 = useMemo(() => getLipiPhase17To19GovernanceView(), []);
   const runtimeActivation = useMemo(() => getLipiRegistryRuntimeActivationView(), []);
+  const rendering = useMemo(() => getLipiRenderingValidationView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
   const scriptId = route.startsWith("/lipi/script/") ? decodeURIComponent(route.replace("/lipi/script/", "")) : null;
   const detail = scriptId ? getLipiRegistryScript(scriptId) : null;
@@ -96,6 +98,7 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
           {workspace === "federation" ? <FederationPanel federation={federation} /> : null}
           {workspace === "ingestion" ? <IngestionPanel contracts={contracts} dryRun={dryRun} iso={iso} cldr={cldr} icu={icu} phase12To16={phase12To16} /> : null}
           {workspace === "runtime-status" ? <RuntimeStatusPanel activation={runtimeActivation} /> : null}
+          {workspace === "rendering" ? <RenderingValidationPanel rendering={rendering} /> : null}
           {workspace === "governance" ? <GovernancePanel phase12To16={phase12To16} phase17To19={phase17To19} /> : null}
           {workspace === "review" ? <ReviewPanel phase17To19={phase17To19} /> : null}
           {workspace === "audit" ? <AuditPanel audit={audit} federation={federation} /> : null}
@@ -333,6 +336,54 @@ function RuntimeStatusPanel({ activation }: { activation: ReturnType<typeof getL
         ]}
       />
       <Rows rows={activation.blockers.map((blocker) => [blocker.id, blocker.severity, blocker.status, blocker.reason])} />
+    </Panel>
+  );
+}
+
+function RenderingValidationPanel({ rendering }: { rendering: ReturnType<typeof getLipiRenderingValidationView> }) {
+  return (
+    <Panel title="Rendering Validation" kicker="/lipi/rendering" badgeText={rendering.phkdVerdict}>
+      <div className="lipi-full-status-callout">
+        <strong>Rendering Corpus Present</strong>
+        <span>Font, shaping, browser, and glyph comparison validation blocked</span>
+      </div>
+      <StatGrid
+        rows={[
+          ["Corpus Records", rendering.corpus.summary.corpusRecords],
+          ["UCD Sample Rows", rendering.corpus.summary.sampleRows],
+          ["Digit Rows", rendering.corpus.summary.digitRows],
+          ["Zero Rows", rendering.corpus.summary.zeroRows],
+          ["Shaping Inputs", rendering.shapingEvidence.counts.sourceBackedShapingSamples],
+          ["Browser Canvas", rendering.engineEvidence.browser.counts.canvasCapturedRows],
+          ["Browser DOM", rendering.engineEvidence.browser.counts.domCapturedRows],
+          ["OpenType Pipeline", rendering.engineEvidence.openType.counts.pipelineCapturedRows],
+          ["Font Fixtures", rendering.fontFixtures.summary.fixtureCount],
+          ["HarfBuzz Shaped", rendering.engineEvidence.harfbuzz.counts.shapedRows],
+          ["Runtime Enabled", rendering.runtimeEnabledRows],
+        ]}
+      />
+      <div className="lipi-full-feature-strip">
+        <Badge text="expectedGlyphCount=null" />
+        <Badge text="no inferred glyph expectations" />
+        <Badge text="no registry mutation" tone="blocked" />
+        <Badge text="production blocked" tone="blocked" />
+      </div>
+      <Rows rows={rendering.renderingEvidence.targets.map((target) => [target.target, target.state, target.evidence, target.claim])} />
+      <Rows
+        rows={[
+          ["HarfBuzz", rendering.engineEvidence.harfbuzz.engine.available ? "AVAILABLE" : "BLOCKED", `shaped=${rendering.engineEvidence.harfbuzz.counts.shapedRows}`, rendering.engineEvidence.harfbuzz.engine.failure?.errorCode ?? "NO_FAILURE"],
+          ["Browser DOM", "CAPTURED", `rows=${rendering.engineEvidence.browser.counts.domCapturedRows}`, rendering.engineEvidence.browser.engine.version],
+          ["Browser Canvas", "CAPTURED", `rows=${rendering.engineEvidence.browser.counts.canvasCapturedRows}`, rendering.engineEvidence.browser.engine.userAgent],
+          ["OpenType Pipeline", "CAPTURED", `rows=${rendering.engineEvidence.openType.counts.pipelineCapturedRows}`, `css=${String(rendering.engineEvidence.openType.engine.cssSupports.fontFeatureSettings)}`],
+        ]}
+      />
+      <Rows
+        rows={[
+          ["Font Fixtures", rendering.fontEvidence.status, String(rendering.fontEvidence.counts.fixtureCount), rendering.fontFixtures.blockers[0]?.reason ?? "UNKNOWN"],
+          ["Glyph Baselines", rendering.shapingEvidence.status, String(rendering.shapingEvidence.counts.glyphBaselines), rendering.glyphBaselines.blockers[0]?.reason ?? "UNKNOWN"],
+          ["Production Ready", String(rendering.productionReady), "governedProductionGo=false", rendering.phkdVerdict],
+        ]}
+      />
     </Panel>
   );
 }

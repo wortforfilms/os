@@ -11,6 +11,7 @@ export const lipiFullRoutes = [
   "/lipi/federation",
   "/lipi/ingestion",
   "/lipi/runtime-status",
+  "/lipi/rendering",
   "/lipi/governance",
   "/lipi/review",
   "/lipi/audit",
@@ -34,6 +35,7 @@ export type LipiFullWorkspaceId =
   | "federation"
   | "ingestion"
   | "runtime-status"
+  | "rendering"
   | "governance"
   | "review"
   | "audit"
@@ -160,6 +162,15 @@ export const lipiFullWorkspaces: LipiFullWorkspace[] = [
     summary: "Controlled preview runtime is active for read-only exploration while row enablement and production GO remain blocked.",
     features: ["Controlled Preview Runtime Active", "Read Only", "Row Mutation Disabled", "Enrichment Auto-Apply Disabled", "Production GO Blocked"],
     views: ["Runtime", "Policy", "Blockers", "Evidence"],
+  },
+  {
+    id: "rendering",
+    route: "/lipi/rendering",
+    label: "Rendering",
+    title: "Rendering Validation",
+    summary: "Phase 20 rendering corpus coverage with font, shaping, browser, and glyph-baseline validation still blocked.",
+    features: ["Rendering Corpus", "Unicode Normalization", "Font Fixtures", "Glyph Baselines", "Shaping Blockers"],
+    views: ["Corpus", "Targets", "Fixtures", "Baselines", "Blockers"],
   },
   {
     id: "governance",

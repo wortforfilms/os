@@ -55,6 +55,15 @@ import externalReviewEvidence from "../../release/evidence/hkd-lipi-registry-pha
 import productionGoApprovalGate from "../../data/hkd-lipi-production-go-approval-gate.json" with { type: "json" };
 import productionGoApprovalEvidence from "../../release/evidence/hkd-lipi-registry-phase19-production-go-gate.json" with { type: "json" };
 import runtimeActivationEvidence from "../../release/evidence/hkd-lipi-registry-runtime-activation.json" with { type: "json" };
+import renderingCorpus from "../../data/lipi-rendering-corpus/index.json" with { type: "json" };
+import fontFixtureManifest from "../../data/lipi-font-fixtures/manifest.json" with { type: "json" };
+import glyphBaselineManifest from "../../data/lipi-glyph-baselines/manifest.json" with { type: "json" };
+import renderingValidationEvidence from "../../release/evidence/hkd-lipi-rendering-validation.json" with { type: "json" };
+import fontValidationEvidence from "../../release/evidence/hkd-lipi-font-validation.json" with { type: "json" };
+import shapingValidationEvidence from "../../release/evidence/hkd-lipi-shaping-validation.json" with { type: "json" };
+import harfbuzzRenderReport from "../../release/evidence/hkd-lipi-harfbuzz-render-report.json" with { type: "json" };
+import browserRenderReport from "../../release/evidence/hkd-lipi-browser-render-report.json" with { type: "json" };
+import openTypeRenderReport from "../../release/evidence/hkd-lipi-opentype-render-report.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -597,6 +606,74 @@ export type LipiRegistryRuntimeActivationView = {
   outputHashes: typeof runtimeActivationEvidence.outputHashes;
 };
 
+export type LipiRenderingValidationView = {
+  ok: true;
+  schema: typeof renderingValidationEvidence.schema;
+  reviewState: LipiRegistryRuntimeActivationStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  runtimeEnabledRows: typeof renderingValidationEvidence.runtimeEnabledRows;
+  mutationAllowed: typeof renderingValidationEvidence.mutationAllowed;
+  registryMutations: typeof renderingValidationEvidence.registryMutations;
+  phkdVerdict: LipiRegistryRuntimeActivationStatus;
+  corpus: {
+    schema: typeof renderingCorpus.schema;
+    summary: typeof renderingCorpus.summary;
+    records: typeof renderingCorpus.records;
+  };
+  fontFixtures: {
+    schema: typeof fontFixtureManifest.schema;
+    summary: typeof fontFixtureManifest.summary;
+    blockers: typeof fontFixtureManifest.blockers;
+  };
+  glyphBaselines: {
+    schema: typeof glyphBaselineManifest.schema;
+    summary: typeof glyphBaselineManifest.summary;
+    blockers: typeof glyphBaselineManifest.blockers;
+  };
+  renderingEvidence: {
+    counts: typeof renderingValidationEvidence.counts;
+    targets: typeof renderingValidationEvidence.targets;
+    checks: typeof renderingValidationEvidence.checks;
+    blockers: typeof renderingValidationEvidence.blockers;
+  };
+  fontEvidence: {
+    counts: typeof fontValidationEvidence.counts;
+    checks: typeof fontValidationEvidence.checks;
+    status: typeof fontValidationEvidence.status;
+    blockers: typeof fontValidationEvidence.blockers;
+  };
+  shapingEvidence: {
+    counts: typeof shapingValidationEvidence.counts;
+    checks: typeof shapingValidationEvidence.checks;
+    status: typeof shapingValidationEvidence.status;
+    blockers: typeof shapingValidationEvidence.blockers;
+  };
+  engineEvidence: {
+    harfbuzz: {
+      schema: typeof harfbuzzRenderReport.schema;
+      engine: typeof harfbuzzRenderReport.engine;
+      counts: typeof harfbuzzRenderReport.counts;
+      checks: typeof harfbuzzRenderReport.checks;
+      results: typeof harfbuzzRenderReport.results;
+    };
+    browser: {
+      schema: typeof browserRenderReport.schema;
+      engine: typeof browserRenderReport.engine;
+      counts: typeof browserRenderReport.counts;
+      checks: typeof browserRenderReport.checks;
+      results: typeof browserRenderReport.results;
+    };
+    openType: {
+      schema: typeof openTypeRenderReport.schema;
+      engine: typeof openTypeRenderReport.engine;
+      counts: typeof openTypeRenderReport.counts;
+      checks: typeof openTypeRenderReport.checks;
+      results: typeof openTypeRenderReport.results;
+    };
+  };
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -854,6 +931,18 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/runtime-activation",
     handler: "getLipiRegistryRuntimeActivationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/rendering-validation",
+    handler: "getLipiRenderingValidationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/rendering-engine-evidence",
+    handler: "getLipiRenderingValidationView",
     status: "LOCAL_CONTRACT",
   },
   {
@@ -1490,6 +1579,76 @@ export function getLipiRegistryRuntimeActivationView(): LipiRegistryRuntimeActiv
   };
 }
 
+export function getLipiRenderingValidationView(): LipiRenderingValidationView {
+  return {
+    ok: true,
+    schema: renderingValidationEvidence.schema,
+    reviewState: renderingValidationEvidence.reviewState as LipiRegistryRuntimeActivationStatus,
+    governedProductionGo: false,
+    productionReady: false,
+    runtimeEnabledRows: renderingValidationEvidence.runtimeEnabledRows,
+    mutationAllowed: renderingValidationEvidence.mutationAllowed,
+    registryMutations: renderingValidationEvidence.registryMutations,
+    phkdVerdict: renderingValidationEvidence.phkdVerdict as LipiRegistryRuntimeActivationStatus,
+    corpus: {
+      schema: renderingCorpus.schema,
+      summary: renderingCorpus.summary,
+      records: renderingCorpus.records,
+    },
+    fontFixtures: {
+      schema: fontFixtureManifest.schema,
+      summary: fontFixtureManifest.summary,
+      blockers: fontFixtureManifest.blockers,
+    },
+    glyphBaselines: {
+      schema: glyphBaselineManifest.schema,
+      summary: glyphBaselineManifest.summary,
+      blockers: glyphBaselineManifest.blockers,
+    },
+    renderingEvidence: {
+      counts: renderingValidationEvidence.counts,
+      targets: renderingValidationEvidence.targets,
+      checks: renderingValidationEvidence.checks,
+      blockers: renderingValidationEvidence.blockers,
+    },
+    fontEvidence: {
+      counts: fontValidationEvidence.counts,
+      checks: fontValidationEvidence.checks,
+      status: fontValidationEvidence.status,
+      blockers: fontValidationEvidence.blockers,
+    },
+    shapingEvidence: {
+      counts: shapingValidationEvidence.counts,
+      checks: shapingValidationEvidence.checks,
+      status: shapingValidationEvidence.status,
+      blockers: shapingValidationEvidence.blockers,
+    },
+    engineEvidence: {
+      harfbuzz: {
+        schema: harfbuzzRenderReport.schema,
+        engine: harfbuzzRenderReport.engine,
+        counts: harfbuzzRenderReport.counts,
+        checks: harfbuzzRenderReport.checks,
+        results: harfbuzzRenderReport.results,
+      },
+      browser: {
+        schema: browserRenderReport.schema,
+        engine: browserRenderReport.engine,
+        counts: browserRenderReport.counts,
+        checks: browserRenderReport.checks,
+        results: browserRenderReport.results,
+      },
+      openType: {
+        schema: openTypeRenderReport.schema,
+        engine: openTypeRenderReport.engine,
+        counts: openTypeRenderReport.counts,
+        checks: openTypeRenderReport.checks,
+        results: openTypeRenderReport.results,
+      },
+    },
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -1562,6 +1721,15 @@ export function getLipiRegistrySourceSummary() {
       productionGoApprovalGate: productionGoApprovalGate.schema,
       productionGoApprovalEvidence: productionGoApprovalEvidence.schema,
       runtimeActivationEvidence: runtimeActivationEvidence.schema,
+      renderingCorpus: renderingCorpus.schema,
+      fontFixtureManifest: fontFixtureManifest.schema,
+      glyphBaselineManifest: glyphBaselineManifest.schema,
+      renderingValidationEvidence: renderingValidationEvidence.schema,
+      fontValidationEvidence: fontValidationEvidence.schema,
+      shapingValidationEvidence: shapingValidationEvidence.schema,
+      harfbuzzRenderReport: harfbuzzRenderReport.schema,
+      browserRenderReport: browserRenderReport.schema,
+      openTypeRenderReport: openTypeRenderReport.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
@@ -1581,6 +1749,8 @@ export function getLipiRegistrySourceSummary() {
     phase18SourcePolicy: "external_review_package_pending_no_approval_claim",
     phase19SourcePolicy: "production_go_only_after_human_approval_and_zero_blockers",
     runtimeActivationSourcePolicy: runtimeActivationEvidence.sourcePolicy,
+    phase20SourcePolicy: renderingValidationEvidence.sourcePolicy,
+    phase21SourcePolicy: browserRenderReport.sourcePolicy,
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,
