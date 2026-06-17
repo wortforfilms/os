@@ -1,0 +1,1791 @@
+{
+  "schema": "maataa.endangered-scripts.enriched.v1",
+  "generatedAt": "2026-06-17",
+  "sourceDataset": "data/endangered-scripts-research.json",
+  "honesty": "Enriches the task1 dataset with verified Unicode codepoints + sourced native names; UNKNOWN where unverifiable, never invented. CONTROLLED_NO_GO — not a certification. Unicode block names, ranges, codepoints and official character names are taken from the Unicode Character Database / official code charts (unicode.org). Native names (endonyms) are only asserted when written in the script's own characters from a cited source; otherwise UNKNOWN.",
+  "scripts": [
+    {
+      "id": "avestan",
+      "name": "Avestan",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Avst",
+      "family": "Aramaic/Pahlavi-derived (alphabet)",
+      "region": "Historical Sasanian Persia; Zoroastrian liturgical use today",
+      "direction": "RTL",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Created by Sasanian scribes (3rd-7th c. CE) to record the Avesta; the Avestan language ceased as a vernacular ~400 BCE and the script survives only as a Zoroastrian liturgical script",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/avestan/",
+          "note": "Atlas entry for Avestan"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Avestan_alphabet",
+          "note": "Sasanian-era script; liturgical use; Unicode block U+10B00-10B3F; ISO 15924 Avst (134)"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Avestan",
+        "range": "U+10B00–U+10B3F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+10B00",
+            "char": "𐬀",
+            "name": "AVESTAN LETTER A"
+          },
+          {
+            "cp": "U+10B01",
+            "char": "𐬁",
+            "name": "AVESTAN LETTER AA"
+          },
+          {
+            "cp": "U+10B0B",
+            "char": "𐬋",
+            "name": "AVESTAN LETTER OO"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U10B00.pdf",
+          "note": "Unicode Avestan code chart: block U+10B00–U+10B3F; names verified against the Unicode Character Database: U+10B00 A, U+10B01 AA, U+10B0B OO"
+        }
+      ]
+    },
+    {
+      "id": "balinese",
+      "name": "Balinese",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Balinese_script",
+          "note": "Romanized endonym 'Aksara Bali' is attested, but no retrieved source provides a verified Balinese-script spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Bali",
+      "family": "Brahmic (abugida; from Kawi/Old Javanese)",
+      "region": "Bali, Indonesia",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Brahmic abugida for Balinese; everyday literacy is limited and largely displaced by Latin script, though taught and used ceremonially with ongoing revitalization",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Balinese_script",
+          "note": "Brahmic abugida from Kawi; declining everyday use; ISO 15924 Bali (360); block U+1B00-1B7F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Bali",
+          "note": "ScriptSource Balinese record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Balinese",
+        "range": "U+1B00–U+1B7F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1B05",
+            "char": "ᬅ",
+            "name": "BALINESE LETTER AKARA"
+          },
+          {
+            "cp": "U+1B13",
+            "char": "ᬓ",
+            "name": "BALINESE LETTER KA"
+          },
+          {
+            "cp": "U+1B17",
+            "char": "ᬗ",
+            "name": "BALINESE LETTER NGA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1B00.pdf",
+          "note": "Unicode Balinese code chart: block U+1B00–U+1B7F; U+1B05 AKARA, U+1B13 KA, U+1B17 NGA"
+        }
+      ]
+    },
+    {
+      "id": "buhid",
+      "name": "Buhid",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Buhid_script",
+          "note": "No retrieved source provides a verified Buhid-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Buhd",
+      "family": "Brahmic (abugida; Philippine)",
+      "region": "Mindoro, Philippines",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "One of the surviving Philippine Brahmic scripts, still used by the Buhid Mangyan but by a small and declining community",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Buhid_script",
+          "note": "Philippine Brahmic abugida; surviving indigenous script of the Buhid Mangyan; ISO 15924 Buhd (372); block U+1740-175F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Buhd",
+          "note": "ScriptSource Buhid record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Buhid",
+        "range": "U+1740–U+175F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1740",
+            "char": "ᝀ",
+            "name": "BUHID LETTER A"
+          },
+          {
+            "cp": "U+1743",
+            "char": "ᝃ",
+            "name": "BUHID LETTER KA"
+          },
+          {
+            "cp": "U+1744",
+            "char": "ᝄ",
+            "name": "BUHID LETTER GA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1740.pdf",
+          "note": "Unicode Buhid code chart: block U+1740–U+175F; U+1740 A, U+1743 KA, U+1744 GA"
+        }
+      ]
+    },
+    {
+      "id": "chakma",
+      "name": "Chakma (Ajhā pāṭh)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Chakma_script",
+          "note": "No retrieved source provides a verified Chakma-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Cakm",
+      "family": "Brahmic (abugida; from Burmese, ultimately Pallava)",
+      "region": "Chittagong Hill Tracts, Bangladesh and India",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Classified Definitely Endangered by the UNESCO Atlas of the World's Languages in Danger (per Endangered Alphabets); few Chakma can still read their own script",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/chakma/",
+          "note": "Atlas entry: classified Definitely Endangered by UNESCO Atlas; few can still read the script"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Chakma_script",
+          "note": "Brahmic abugida from Burmese/Pallava; Unicode 6.1"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Chakma",
+        "range": "U+11100–U+1114F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+11103",
+            "char": "𑄃",
+            "name": "CHAKMA LETTER AA"
+          },
+          {
+            "cp": "U+11104",
+            "char": "𑄄",
+            "name": "CHAKMA LETTER I"
+          },
+          {
+            "cp": "U+11107",
+            "char": "𑄇",
+            "name": "CHAKMA LETTER KAA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U11100.pdf",
+          "note": "Unicode Chakma code chart: block U+11100–U+1114F; U+11103 AA, U+11104 I, U+11107 KAA"
+        }
+      ]
+    },
+    {
+      "id": "cherokee",
+      "name": "Cherokee",
+      "nativeName": "ᏣᎳᎩ ᏗᎪᏪᎶᏙᏗ",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Cherokee_syllabary",
+          "note": "Endonym for the syllabary verified verbatim from the Wikipedia lead/infobox: ᏣᎳᎩ ᏗᎪᏪᎶᏙᏗ (romanized Tsalagi Digohwelodohdi)"
+        },
+        {
+          "url": "https://www.omniglot.com/writing/cherokee.htm",
+          "note": "Corroborates Tsalagi self-name"
+        }
+      ],
+      "iso15924": "Cher",
+      "family": "Indigenous syllabary (North American)",
+      "region": "Oklahoma and North Carolina, United States",
+      "direction": "LTR",
+      "vitality": "REVIVING",
+      "vitalityBasis": "Cherokee language classified by UNESCO as Definitely Endangered (Oklahoma) / Severely Endangered (North Carolina); state of emergency declared 2019, with active immersion-school revitalization",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Cherokee_syllabary",
+          "note": "Invented by Sequoyah ~1820s; UNESCO definitely/severely endangered; Tri-Council state of emergency 2019; ISO 15924 Cher (445); blocks U+13A0-13FF and U+AB70-ABBF"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Cherokee",
+        "range": "U+13A0–U+13FF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+13A0",
+            "char": "Ꭰ",
+            "name": "CHEROKEE LETTER A"
+          },
+          {
+            "cp": "U+13D3",
+            "char": "Ꮣ",
+            "name": "CHEROKEE LETTER DA"
+          },
+          {
+            "cp": "U+13CA",
+            "char": "Ꮚ",
+            "name": "CHEROKEE LETTER QUU"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U13A0.pdf",
+          "note": "Unicode Cherokee code chart: block U+13A0–U+13FF (Supplement block U+AB70–U+ABBF); names verified against the Unicode Character Database: U+13A0 A, U+13D3 DA, U+13CA QUU"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Cherokee_syllabary",
+          "note": "Endonym ᏣᎳᎩ (Tsalagi) verified"
+        }
+      ]
+    },
+    {
+      "id": "hanunoo",
+      "name": "Hanunó'o",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hanunoo_script",
+          "note": "No retrieved source provides a verified Hanunoo-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Hano",
+      "family": "Brahmic (abugida; Philippine)",
+      "region": "Mindoro, Philippines",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Philippine Brahmic script still actively used by the Hanunó'o Mangyan, notably for love poetry (ambahan), but by a small indigenous community",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Hanunoo_script",
+          "note": "Philippine Brahmic abugida; used by Hanunó'o Mangyan; ISO 15924 Hano (371); block U+1720-173F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Hano",
+          "note": "ScriptSource Hanunoo record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Hanunoo",
+        "range": "U+1720–U+173F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1720",
+            "char": "ᜠ",
+            "name": "HANUNOO LETTER A"
+          },
+          {
+            "cp": "U+1723",
+            "char": "ᜣ",
+            "name": "HANUNOO LETTER KA"
+          },
+          {
+            "cp": "U+1724",
+            "char": "ᜤ",
+            "name": "HANUNOO LETTER GA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1720.pdf",
+          "note": "Unicode Hanunoo code chart: block U+1720–U+173F; U+1720 A, U+1723 KA, U+1724 GA"
+        }
+      ]
+    },
+    {
+      "id": "kawi",
+      "name": "Kawi (Old Javanese)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Kawi",
+      "family": "Brahmic (abugida; from Pallava)",
+      "region": "Maritime Southeast Asia (Java, Bali, historical)",
+      "direction": "LTR",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Historic Brahmic script used across maritime Southeast Asia c. 8th-16th centuries; no longer in living use, ancestral to several modern Indonesian/Philippine scripts",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kawi_script",
+          "note": "Historic Brahmic script c. 8th-16th c.; ancestral to modern SE Asian scripts; ISO 15924 Kawi (368); block U+11F00-11F5F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Kawi",
+          "note": "ScriptSource Kawi record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Kawi",
+        "range": "U+11F00–U+11F5F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+11F04",
+            "char": "𑼄",
+            "name": "KAWI LETTER A"
+          },
+          {
+            "cp": "U+11F12",
+            "char": "𑼒",
+            "name": "KAWI LETTER KA"
+          },
+          {
+            "cp": "U+11F13",
+            "char": "𑼓",
+            "name": "KAWI LETTER KHA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/nameslist/n_11F00.html",
+          "note": "Unicode Kawi names list (block U+11F00–U+11F5F, added Unicode 15.0): U+11F04 KAWI LETTER A, U+11F12 KAWI LETTER KA, U+11F13 KAWI LETTER KHA (U+11F1A is KAWI LETTER JHA, corrected)"
+        }
+      ]
+    },
+    {
+      "id": "kharosthi",
+      "name": "Kharosthi (Kharoshthi)",
+      "nativeName": "𐨑𐨪𐨆𐨯𐨠𐨁",
+      "iso15924": "Khar",
+      "family": "Aramaic-derived abugida (Gandhari/Indic)",
+      "region": "Gandhara, northwest Indian subcontinent, Central Asia",
+      "direction": "RTL",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Ancient right-to-left script used for Gandhari Prakrit, Pali, Saka, and Sanskrit; historical use is attested, but no living everyday community use is certified in this system.",
+      "unicodeStatus": "ENCODED U+10A00-U+10A5F",
+      "provenance": [
+        {
+          "sourceId": "unicode-chart",
+          "url": "https://www.unicode.org/charts/PDF/U10A00.pdf",
+          "note": "Unicode Kharoshthi chart: range U+10A00-U+10A5F and official character names."
+        },
+        {
+          "sourceId": "iso-15924",
+          "url": "https://unicode.org/iso15924/iso15924-codes.html",
+          "note": "ISO 15924 code list: Khar (305), Kharoshthi."
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Kharosthi",
+          "note": "Secondary overview: ancient RTL script of Gandhara; period 4th century BCE to 3rd century CE; Unicode alias Kharoshthi."
+        }
+      ],
+      "nativeNameProvenance": [
+        {
+          "url": "packages/lipi-runtime/src/data/lipi-426-master.ts",
+          "note": "Local canonical Kharosthi record carries this nativeName; specialist review still required before CERTIFIED."
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Kharoshthi",
+        "range": "U+10A00–U+10A5F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+10A00",
+            "char": "𐨀",
+            "name": "KHAROSHTHI LETTER A"
+          },
+          {
+            "cp": "U+10A11",
+            "char": "𐨑",
+            "name": "KHAROSHTHI LETTER KHA"
+          },
+          {
+            "cp": "U+10A2A",
+            "char": "𐨪",
+            "name": "KHAROSHTHI LETTER RA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U10A00.pdf",
+          "note": "Unicode Kharoshthi code chart: block U+10A00-U+10A5F; sample characters U+10A00, U+10A11, U+10A2A."
+        },
+        {
+          "url": "https://unicode.org/iso15924/iso15924-codes.html",
+          "note": "ISO 15924 lists Khar (305), Kharoshthi."
+        }
+      ]
+    },
+    {
+      "id": "lepcha",
+      "name": "Lepcha (Róng)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lepcha_script",
+          "note": "Romanized endonym 'Róng' is attested, but no retrieved source provides a verified Lepcha-script spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Lepc",
+      "family": "Brahmic (abugida)",
+      "region": "Sikkim and West Bengal, India",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Brahmic abugida for Lepcha/Róng; reported as endangered with oral knowledge disappearing, though it is an official language of Sikkim and taught in schools",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/rong/",
+          "note": "Atlas entry for Rong/Lepcha"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Lepcha_script",
+          "note": "Abugida; published Unicode 5.1 (2008); culture reported endangered (2008)"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Lepcha",
+        "range": "U+1C00–U+1C4F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1C00",
+            "char": "ᰀ",
+            "name": "LEPCHA LETTER KA"
+          },
+          {
+            "cp": "U+1C01",
+            "char": "ᰁ",
+            "name": "LEPCHA LETTER KLA"
+          },
+          {
+            "cp": "U+1C02",
+            "char": "ᰂ",
+            "name": "LEPCHA LETTER KHA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1C00.pdf",
+          "note": "Unicode Lepcha code chart: block U+1C00–U+1C4F; U+1C00 KA, U+1C01 KLA, U+1C02 KHA"
+        }
+      ]
+    },
+    {
+      "id": "limbu",
+      "name": "Limbu (Sirijanga)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Limbu_script",
+          "note": "Romanized name 'Sirijanga' is attested, but no retrieved source provides a verified Limbu-script spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Limb",
+      "family": "Brahmic (abugida; influenced by Lepcha/Tibetan)",
+      "region": "Eastern Nepal, Sikkim and northeastern India",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Brahmic abugida for the Limbu language (~400,000 speakers); revived in the 1920s but remains a minority script under pressure from Devanagari/Nepali",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Limbu_script",
+          "note": "Brahmic abugida; revival in the 1920s; Unicode U+1900-194F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/cms/scripts/page.php?item_id=script_detail&key=Limb",
+          "note": "ScriptSource Limbu record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Limbu",
+        "range": "U+1900–U+194F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1900",
+            "char": "ᤀ",
+            "name": "LIMBU VOWEL-CARRIER LETTER"
+          },
+          {
+            "cp": "U+1901",
+            "char": "ᤁ",
+            "name": "LIMBU LETTER KA"
+          },
+          {
+            "cp": "U+1902",
+            "char": "ᤂ",
+            "name": "LIMBU LETTER KHA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1900.pdf",
+          "note": "Unicode Limbu code chart: block U+1900–U+194F; U+1900 VOWEL-CARRIER LETTER, U+1901 KA, U+1902 KHA"
+        }
+      ]
+    },
+    {
+      "id": "manchu",
+      "name": "Manchu",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Manchu_alphabet",
+          "note": "Romanized endonym 'manju hergen' is attested, but no retrieved source provides a verbatim Manchu-script spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Mong",
+      "family": "Mongolic/Mongolian-script-derived",
+      "region": "Northeast China (Manchuria)",
+      "direction": "TTB",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Writes the critically endangered Manchu language; Manchu proper has no known native speakers as of 2024, an imperial script that fell nearly into extinction",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/manchu/",
+          "note": "Atlas entry: imperial script that fell almost into extinction; adapted from Mongol script 1599"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Manchu_alphabet",
+          "note": "Manchu proper has no known native speakers as of 2024; encoded with Mongolian script in Unicode"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Mongolian",
+        "range": "U+1800–U+18AF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1820",
+            "char": "ᠠ",
+            "name": "MONGOLIAN LETTER A"
+          },
+          {
+            "cp": "U+1873",
+            "char": "ᡳ",
+            "name": "MONGOLIAN LETTER MANCHU I"
+          },
+          {
+            "cp": "U+1865",
+            "char": "ᡥ",
+            "name": "MONGOLIAN LETTER SIBE HA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1800.pdf",
+          "note": "Unicode Mongolian code chart: block U+1800–U+18AF; includes Manchu-specific letters (e.g. U+1873 MANCHU I); U+1865 is named MONGOLIAN LETTER SIBE HA per the Unicode Character Database, shared with Manchu"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Manchu_alphabet",
+          "note": "Native name 'manju hergen'; Manchu encoded within the Mongolian block"
+        }
+      ]
+    },
+    {
+      "id": "mandaic",
+      "name": "Mandaic",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mandaic_alphabet",
+          "note": "Sources attest the romanized endonym 'Abagada', but no retrieved source gives a verbatim Mandaic-script spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Mand",
+      "family": "Aramaic-derived (Semitic)",
+      "region": "Iraq, Iran (Mandaean communities)",
+      "direction": "RTL",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Liturgical script of the Mandaean religion; Neo-Mandaic severely endangered with ~200 or fewer first-language speakers, per the Atlas of Endangered Alphabets",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/mandaic/",
+          "note": "Atlas entry: ~5,500 Neo-Mandaic speakers, 200 or fewer first-language speakers, severely reduced by persecution and war"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mandaic_alphabet",
+          "note": "Corroborates Aramaic descent, sacred/liturgical status"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Mandaic",
+        "range": "U+0840–U+085F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+0840",
+            "char": "ࡀ",
+            "name": "MANDAIC LETTER HALQA"
+          },
+          {
+            "cp": "U+0841",
+            "char": "ࡁ",
+            "name": "MANDAIC LETTER AB"
+          },
+          {
+            "cp": "U+0842",
+            "char": "ࡂ",
+            "name": "MANDAIC LETTER AG"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U0840.pdf",
+          "note": "Unicode Mandaic code chart: block U+0840–U+085F; U+0840 HALQA, U+0841 AB, U+0842 AG"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mandaic_alphabet",
+          "note": "Native name (Abagada) and letter names"
+        }
+      ]
+    },
+    {
+      "id": "mayan-hieroglyphs",
+      "name": "Mayan Hieroglyphs",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Maya",
+      "family": "Indigenous logosyllabary (Mesoamerican)",
+      "region": "Mesoamerica (Mexico, Guatemala, Belize, Honduras)",
+      "direction": "UNKNOWN",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Logosyllabic script of the Maya civilization; active use ended after the Spanish conquest, with no continuous community of users since",
+      "provenance": [
+        {
+          "sourceId": "iso15924",
+          "url": "https://www.unicode.org/iso15924/iso15924-codes.html",
+          "note": "ISO 15924 code Maya (090) is registered; the script is not yet encoded in Unicode (no allocated block)"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Maya_script",
+          "note": "Logosyllabic Maya script; use ended after Spanish conquest; ISO 15924 Maya; not yet in Unicode"
+        }
+      ],
+      "unicode": {
+        "encoded": false,
+        "block": "UNKNOWN",
+        "range": "UNKNOWN",
+        "sampleCodepoints": []
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/iso15924/iso15924-codes.html",
+          "note": "ISO 15924 Maya (090) registered but the script has no allocated Unicode block as of the current Unicode Standard; therefore encoded:false and no codepoints"
+        }
+      ]
+    },
+    {
+      "id": "mende-kikakui",
+      "name": "Mende Kikakui",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mende_Kikakui_script",
+          "note": "Name 'Kikakui' is attested (from the first syllables ki-ka-ui), but no retrieved source gives a verified verbatim Mende-Kikakui spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Mend",
+      "family": "Indigenous syllabary/abugida (West African)",
+      "region": "Sierra Leone",
+      "direction": "RTL",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Pushed into the background by the colonial-era adoption of Latin-based Africa Alphabet in the 1930s; still used today by an estimated few hundred individuals, with recent revival teaching",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/mende-kikakui/",
+          "note": "Atlas entry: used by an estimated few hundred; revival teaching underway"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mende_Kikakui_script",
+          "note": "Devised ~1917 by Mohamed Turay; Unicode 7.0 (2014); block U+1E800-1E8DF"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Mende Kikakui",
+        "range": "U+1E800–U+1E8DF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1E800",
+            "char": "𞠀",
+            "name": "MENDE KIKAKUI SYLLABLE M001 KI"
+          },
+          {
+            "cp": "U+1E801",
+            "char": "𞠁",
+            "name": "MENDE KIKAKUI SYLLABLE M002 KA"
+          },
+          {
+            "cp": "U+1E802",
+            "char": "𞠂",
+            "name": "MENDE KIKAKUI SYLLABLE M003 KU"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1E800.pdf",
+          "note": "Unicode Mende Kikakui code chart: block U+1E800–U+1E8DF; U+1E800 M001 KI, U+1E801 M002 KA, U+1E802 M003 KU"
+        }
+      ]
+    },
+    {
+      "id": "meroitic",
+      "name": "Meroitic (Hieroglyphic)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Mero",
+      "family": "Egyptian-derived (alphasyllabary)",
+      "region": "Kingdom of Kush / Meroë (modern Sudan)",
+      "direction": "RTL",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Script of the Kingdom of Kush, in use c. 300 BCE to 400 CE; died out with the Meroitic language and the fall of the Kushite kingdom",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Meroitic_script",
+          "note": "Used c. 300 BCE-400 CE; extinct with Meroitic language; ISO 15924 Mero (hieroglyphic) / Merc (cursive); hieroglyphic block U+10980-1099F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Mero",
+          "note": "ScriptSource Meroitic Hieroglyphs record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Meroitic Hieroglyphs",
+        "range": "U+10980–U+1099F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+10980",
+            "char": "𐦀",
+            "name": "MEROITIC HIEROGLYPHIC LETTER A"
+          },
+          {
+            "cp": "U+10981",
+            "char": "𐦁",
+            "name": "MEROITIC HIEROGLYPHIC LETTER E"
+          },
+          {
+            "cp": "U+10982",
+            "char": "𐦂",
+            "name": "MEROITIC HIEROGLYPHIC LETTER I"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U10980.pdf",
+          "note": "Unicode Meroitic Hieroglyphs code chart: block U+10980–U+1099F; U+10980 A, U+10981 E, U+10982 I (cursive form has separate block Meroitic Cursive U+109A0–U+109FF)"
+        }
+      ]
+    },
+    {
+      "id": "modi",
+      "name": "Modi (Moḍī)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Modi_script",
+          "note": "No retrieved source provides a verified Modi-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Modi",
+      "family": "Brahmic (abugida; cursive Devanagari derivative)",
+      "region": "Maharashtra, India",
+      "direction": "LTR",
+      "vitality": "REVIVING",
+      "vitalityBasis": "Used for Marathi 17th c. to 1950s; considered by many to be extinct after replacement by Devanagari, but the subject of active preservation and revival efforts",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Modi_script",
+          "note": "Used until 1950s; considered by many extinct; revival movement underway; Unicode 7.0; ISO 15924 Modi (324)"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://scriptsource.org/scr/Modi",
+          "note": "ScriptSource Modi record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Modi",
+        "range": "U+11600–U+1165F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+11600",
+            "char": "𑘀",
+            "name": "MODI LETTER A"
+          },
+          {
+            "cp": "U+11601",
+            "char": "𑘁",
+            "name": "MODI LETTER AA"
+          },
+          {
+            "cp": "U+1160E",
+            "char": "𑘎",
+            "name": "MODI LETTER KA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U11600.pdf",
+          "note": "Unicode Modi code chart: block U+11600–U+1165F; U+11600 A, U+11601 AA, U+1160E KA"
+        }
+      ]
+    },
+    {
+      "id": "mro",
+      "name": "Mro (Mru)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Mroo",
+      "family": "Created alphabet (Sino-Tibetan language)",
+      "region": "Chittagong Hill Tracts, Bangladesh",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Mru language classified Definitely Endangered by UNESCO (2010); perhaps as few as 50 Mro can still read and write the script",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/mru/",
+          "note": "Atlas entry for Mro/Mru"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Mru_script",
+          "note": "Created 1980s by Menlay Murang; Mru Definitely Endangered (UNESCO 2010); Unicode block Mro U+16A40-16A6F"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Mro",
+        "range": "U+16A40–U+16A6F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+16A40",
+            "char": "𖩀",
+            "name": "MRO LETTER TA"
+          },
+          {
+            "cp": "U+16A41",
+            "char": "𖩁",
+            "name": "MRO LETTER NGI"
+          },
+          {
+            "cp": "U+16A42",
+            "char": "𖩂",
+            "name": "MRO LETTER YO"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U16A40.pdf",
+          "note": "Unicode Mro code chart: block U+16A40–U+16A6F; U+16A40 TA, U+16A41 NGI, U+16A42 YO"
+        }
+      ]
+    },
+    {
+      "id": "nko",
+      "name": "N'Ko",
+      "nativeName": "ߒߞߏ",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/N%27Ko_script",
+          "note": "Endonym ߒߞߏ ('Nko', 'I say'); rendered with N'Ko letters U+07D2 U+07DE U+07CF"
+        }
+      ],
+      "iso15924": "Nkoo",
+      "family": "Created alphabet (for Manding languages)",
+      "region": "West Africa (Guinea, Mali, Côte d'Ivoire and across the Manding region)",
+      "direction": "RTL",
+      "vitality": "REVIVING",
+      "vitalityBasis": "Devised 1949 by Solomana Kanté; a grassroots literacy movement has blossomed across West Africa and its standardized use is reported to be growing",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/nko/",
+          "note": "Atlas entry for N'Ko"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/N%27Ko_script",
+          "note": "Devised 1949 by Solomana Kanté; RTL; growing usage; Unicode 5.0 (2006); block U+07C0-07FF"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "NKo",
+        "range": "U+07C0–U+07FF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+07CF",
+            "char": "ߏ",
+            "name": "NKO LETTER OO"
+          },
+          {
+            "cp": "U+07D2",
+            "char": "ߒ",
+            "name": "NKO LETTER N"
+          },
+          {
+            "cp": "U+07DE",
+            "char": "ߞ",
+            "name": "NKO LETTER KA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U07C0.pdf",
+          "note": "Unicode NKo code chart: block U+07C0–U+07FF; names verified against the Unicode Character Database: U+07CF OO, U+07D2 N, U+07DE KA. The endonym ߒߞߏ is the sequence U+07D2 U+07DE U+07CF"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/N%27Ko_script",
+          "note": "Endonym ߒߞߏ verified"
+        }
+      ]
+    },
+    {
+      "id": "nushu",
+      "name": "Nüshu",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/N%C3%BCshu_script",
+          "note": "Romanized endonym 'Nüshu' is attested, but no retrieved source provides a verified Nüshu-character spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Nshu",
+      "family": "Sinitic (Chinese-character-derived syllabary)",
+      "region": "Jiangyong County, Hunan, China",
+      "direction": "TTB",
+      "vitality": "REVIVING",
+      "vitalityBasis": "The only writing system created and used exclusively by women; last native writer Yang Huanyi died 2004, but undergoing scholarly and grassroots revival",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/nushu/",
+          "note": "Atlas entry for Nüshu women's script"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Women%27s_script",
+          "note": "Last native writer Yang Huanyi died 2004; 396 glyphs added in Unicode 10.0 (June 2017)"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Nushu",
+        "range": "U+1B170–U+1B2FF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1B170",
+            "char": "𛅰",
+            "name": "NUSHU CHARACTER-1B170"
+          },
+          {
+            "cp": "U+1B171",
+            "char": "𛅱",
+            "name": "NUSHU CHARACTER-1B171"
+          },
+          {
+            "cp": "U+1B172",
+            "char": "𛅲",
+            "name": "NUSHU CHARACTER-1B172"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1B170.pdf",
+          "note": "Unicode Nushu code chart: block U+1B170–U+1B2FF; characters are algorithmically named NUSHU CHARACTER-XXXX"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nushu_(Unicode_block)",
+          "note": "Nushu block U+1B170–U+1B2FF added in Unicode 10.0"
+        }
+      ]
+    },
+    {
+      "id": "old-permic",
+      "name": "Old Permic (Abur)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Perm",
+      "family": "Greek/Cyrillic-influenced (alphabet)",
+      "region": "Perm region, Russia (Komi)",
+      "direction": "LTR",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Devised in the 14th century by Saint Stephen of Perm to write Old Komi; fell out of use by around the 17th century, replaced by Cyrillic",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Old_Permic_script",
+          "note": "Created 14th c. by Stephen of Perm; obsolete by ~17th c.; ISO 15924 Perm (227); block U+10350-1037F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Perm",
+          "note": "ScriptSource Old Permic record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Old Permic",
+        "range": "U+10350–U+1037F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+10350",
+            "char": "𐍐",
+            "name": "OLD PERMIC LETTER AN"
+          },
+          {
+            "cp": "U+10351",
+            "char": "𐍑",
+            "name": "OLD PERMIC LETTER BUR"
+          },
+          {
+            "cp": "U+10352",
+            "char": "𐍒",
+            "name": "OLD PERMIC LETTER GAI"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U10350.pdf",
+          "note": "Unicode Old Permic code chart: block U+10350–U+1037F; U+10350 AN, U+10351 BUR, U+10352 GAI"
+        }
+      ]
+    },
+    {
+      "id": "phags-pa",
+      "name": "'Phags-pa",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Phag",
+      "family": "Brahmic (abugida; derived from Tibetan)",
+      "region": "Mongol Yuan-dynasty empire (East and Central Asia)",
+      "direction": "TTB",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Designed 1269 by Drogön Chögyal Phagpa as a universal script for the Mongol Empire; fell out of use after the fall of the Yuan dynasty",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/%CA%BCPhags-pa_script",
+          "note": "Designed 1269; Tibetan-derived; obsolete after Yuan dynasty; ISO 15924 Phag (331); block U+A840-A87F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Phag",
+          "note": "ScriptSource 'Phags-pa record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Phags-pa",
+        "range": "U+A840–U+A87F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+A840",
+            "char": "ꡀ",
+            "name": "PHAGS-PA LETTER KA"
+          },
+          {
+            "cp": "U+A841",
+            "char": "ꡁ",
+            "name": "PHAGS-PA LETTER KHA"
+          },
+          {
+            "cp": "U+A842",
+            "char": "ꡂ",
+            "name": "PHAGS-PA LETTER GA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/UA840.pdf",
+          "note": "Unicode Phags-pa code chart: block U+A840–U+A87F; U+A840 KA, U+A841 KHA, U+A842 GA"
+        }
+      ]
+    },
+    {
+      "id": "rejang",
+      "name": "Rejang (Surat Ulu)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Rejang_script",
+          "note": "No retrieved source provides a verified Rejang-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Rjng",
+      "family": "Brahmic (abugida; Sumatran)",
+      "region": "Bengkulu, Sumatra, Indonesia",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Brahmic abugida of the Rejang people of Sumatra; a traditional indigenous script with very limited contemporary everyday use",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Rejang_script",
+          "note": "Brahmic abugida of Sumatra; ISO 15924 Rjng (363); block U+A930-A95F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Rjng",
+          "note": "ScriptSource Rejang record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Rejang",
+        "range": "U+A930–U+A95F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+A930",
+            "char": "ꤰ",
+            "name": "REJANG LETTER KA"
+          },
+          {
+            "cp": "U+A931",
+            "char": "ꤱ",
+            "name": "REJANG LETTER GA"
+          },
+          {
+            "cp": "U+A932",
+            "char": "ꤲ",
+            "name": "REJANG LETTER NGA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/UA930.pdf",
+          "note": "Unicode Rejang code chart: block U+A930–U+A95F; U+A930 KA, U+A931 GA, U+A932 NGA"
+        }
+      ]
+    },
+    {
+      "id": "sharada",
+      "name": "Sharada (Śāradā)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Sharada_script",
+          "note": "No retrieved source provides a verified Sharada-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Shrd",
+      "family": "Brahmic (abugida; from Gupta Brahmi)",
+      "region": "Kashmir and northwestern Indian subcontinent",
+      "direction": "LTR",
+      "vitality": "DORMANT",
+      "vitalityBasis": "Once the principal script of Kashmir; now rarely used except by the Kashmiri Pandit community for religious purposes, displaced by Perso-Arabic script in the 1950s",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/sharada/",
+          "note": "Atlas entry for Sharada"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sharada_script",
+          "note": "Evolved from Gupta Brahmi 9th c.; now rarely used except by Kashmiri Pandits for religious purposes; ISO 15924 Shrd (319)"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Sharada",
+        "range": "U+11180–U+111DF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+11183",
+            "char": "𑆃",
+            "name": "SHARADA LETTER A"
+          },
+          {
+            "cp": "U+11184",
+            "char": "𑆄",
+            "name": "SHARADA LETTER AA"
+          },
+          {
+            "cp": "U+1118F",
+            "char": "𑆏",
+            "name": "SHARADA LETTER O"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U11180.pdf",
+          "note": "Unicode Sharada code chart: block U+11180–U+111DF; U+11183 A, U+11184 AA, U+1118F O"
+        }
+      ]
+    },
+    {
+      "id": "siddham",
+      "name": "Siddham (Siddhaṃ)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Siddha%E1%B9%83_script",
+          "note": "No retrieved source provides a verified Siddham-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Sidd",
+      "family": "Brahmic (abugida; from Gupta Brahmi)",
+      "region": "India, with liturgical use in East Asian Buddhism (Japan, China)",
+      "direction": "LTR",
+      "vitality": "DORMANT",
+      "vitalityBasis": "Historic Brahmic script for Sanskrit; superseded in India but preserved in East Asian (esp. Japanese Shingon) Buddhist liturgical and calligraphic use",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Siddha%E1%B9%83_script",
+          "note": "Brahmic Sanskrit script; preserved in East Asian Buddhism; ISO 15924 Sidd (302); block U+11580-115FF"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Sidd",
+          "note": "ScriptSource Siddham record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Siddham",
+        "range": "U+11580–U+115FF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+11580",
+            "char": "𑖀",
+            "name": "SIDDHAM LETTER A"
+          },
+          {
+            "cp": "U+11581",
+            "char": "𑖁",
+            "name": "SIDDHAM LETTER AA"
+          },
+          {
+            "cp": "U+1158E",
+            "char": "𑖎",
+            "name": "SIDDHAM LETTER KA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U11580.pdf",
+          "note": "Unicode Siddham code chart: block U+11580–U+115FF; U+11580 A, U+11581 AA, U+1158E KA"
+        }
+      ]
+    },
+    {
+      "id": "sora-sompeng",
+      "name": "Sora Sompeng (Sorang Sompeng)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Sora",
+      "family": "Brahmic-influenced (created script for a Munda language)",
+      "region": "Odisha (Orissa), India",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Created 1936 by Mangei Gomango for the Sora (Munda) language (~310,000 speakers); minority/indigenous script documented in the Atlas of Endangered Alphabets",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/sorang-sompeng/",
+          "note": "Atlas entry for Sorang Sompeng"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://scriptsource.org/cms/scripts/page.php?item_id=script_detail&key=Sora",
+          "note": "ScriptSource Sora record; encoded in Unicode 6.1"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Sora Sompeng",
+        "range": "U+110D0–U+110FF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+110D0",
+            "char": "𑃐",
+            "name": "SORA SOMPENG LETTER SAH"
+          },
+          {
+            "cp": "U+110D1",
+            "char": "𑃑",
+            "name": "SORA SOMPENG LETTER TAH"
+          },
+          {
+            "cp": "U+110D2",
+            "char": "𑃒",
+            "name": "SORA SOMPENG LETTER BAH"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U110D0.pdf",
+          "note": "Unicode Sora Sompeng code chart: block U+110D0–U+110FF; U+110D0 SAH, U+110D1 TAH, U+110D2 BAH"
+        }
+      ]
+    },
+    {
+      "id": "soyombo",
+      "name": "Soyombo",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Soyo",
+      "family": "Brahmic (Indic-derived, abugida)",
+      "region": "Mongolia",
+      "direction": "LTR",
+      "vitality": "DORMANT",
+      "vitalityBasis": "Abugida invented by Zanabazar in 1686 for Mongolian/Tibetan/Sanskrit; no longer in everyday use, survives chiefly through the Soyombo national symbol",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Soyombo_script",
+          "note": "Invented 1686 by Zanabazar; encoded in Unicode 10.0; ISO 15924 Soyo (329)"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://scriptsource.org/scr/Soyo",
+          "note": "ScriptSource record for Soyombo"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Soyombo",
+        "range": "U+11A50–U+11AAF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+11A50",
+            "char": "𑩐",
+            "name": "SOYOMBO LETTER A"
+          },
+          {
+            "cp": "U+11A5C",
+            "char": "𑩜",
+            "name": "SOYOMBO LETTER KA"
+          },
+          {
+            "cp": "U+11A6B",
+            "char": "𑩫",
+            "name": "SOYOMBO LETTER TA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U11A50.pdf",
+          "note": "Unicode Soyombo code chart: block U+11A50–U+11AAF; U+11A50 LETTER A, U+11A5C LETTER KA, U+11A6B LETTER TA (names verified against the Unicode Character Database)"
+        }
+      ]
+    },
+    {
+      "id": "tagbanwa",
+      "name": "Tagbanwa",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tagbanwa_script",
+          "note": "No retrieved source provides a verified Tagbanwa-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Tagb",
+      "family": "Brahmic (abugida; Philippine)",
+      "region": "Palawan, Philippines",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Philippine Brahmic script of the Tagbanwa people; usage has declined sharply and it is now known to relatively few community members",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tagbanwa_script",
+          "note": "Philippine Brahmic abugida; declining use; ISO 15924 Tagb (373); block U+1760-177F"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/scr/Tagb",
+          "note": "ScriptSource Tagbanwa record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Tagbanwa",
+        "range": "U+1760–U+177F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+1760",
+            "char": "ᝠ",
+            "name": "TAGBANWA LETTER A"
+          },
+          {
+            "cp": "U+1763",
+            "char": "ᝣ",
+            "name": "TAGBANWA LETTER KA"
+          },
+          {
+            "cp": "U+1764",
+            "char": "ᝤ",
+            "name": "TAGBANWA LETTER GA"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U1760.pdf",
+          "note": "Unicode Tagbanwa code chart: block U+1760–U+177F; U+1760 A, U+1763 KA, U+1764 GA"
+        }
+      ]
+    },
+    {
+      "id": "tangut",
+      "name": "Tangut",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tangut_script",
+          "note": "No retrieved source provides a verified Tangut-character autonym spelling; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Tang",
+      "family": "Sinoform (logographic, modeled on Chinese)",
+      "region": "Western Xia (historical northwest China)",
+      "direction": "LTR",
+      "vitality": "EXTINCT",
+      "vitalityBasis": "Writes the extinct Tangut (Tibeto-Burman) language; widely used 1036-1502, fell into obscurity after the language's extinction",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tangut_script",
+          "note": "Used 1036-1502; language extinct; encoded Unicode 9.0; ISO 15924 Tang (520)"
+        },
+        {
+          "sourceId": "scriptsource",
+          "url": "https://www.scriptsource.org/cms/scripts/page.php?item_id=script_detail&key=Tang",
+          "note": "ScriptSource Tangut record"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Tangut",
+        "range": "U+17000–U+187FF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+17000",
+            "char": "𗀀",
+            "name": "TANGUT IDEOGRAPH-17000"
+          },
+          {
+            "cp": "U+17001",
+            "char": "𗀁",
+            "name": "TANGUT IDEOGRAPH-17001"
+          },
+          {
+            "cp": "U+17002",
+            "char": "𗀂",
+            "name": "TANGUT IDEOGRAPH-17002"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U17000.pdf",
+          "note": "Unicode Tangut code chart: block U+17000–U+187FF; characters algorithmically named TANGUT IDEOGRAPH-XXXXX"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tangut_(Unicode_block)",
+          "note": "Tangut block U+17000–U+187FF added in Unicode 9.0"
+        }
+      ]
+    },
+    {
+      "id": "tifinagh",
+      "name": "Tifinagh (Neo-Tifinagh)",
+      "nativeName": "ⵜⵉⴼⵉⵏⴰⵖ",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tifinagh",
+          "note": "Endonym 'Tifinagh' rendered in Neo-Tifinagh letters"
+        },
+        {
+          "url": "https://www.omniglot.com/writing/tifinagh.htm",
+          "note": "Corroborates Tifinagh self-name"
+        }
+      ],
+      "iso15924": "Tfng",
+      "family": "Libyco-Berber derived (abjad/alphabet)",
+      "region": "North Africa (Morocco, Algeria, Sahara)",
+      "direction": "LTR",
+      "vitality": "REVIVING",
+      "vitalityBasis": "Neo-Tifinagh standardized by IRCAM and made the official script for Tamazight in Morocco since 2003; a revival symbol of Amazigh identity, though everyday adoption remains limited",
+      "provenance": [
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tifinagh",
+          "note": "Neo-Tifinagh official for Tamazight in Morocco since 2003; LTR; Unicode block U+2D30-2D7F"
+        },
+        {
+          "sourceId": "omniglot",
+          "url": "https://www.omniglot.com/writing/tifinagh.htm",
+          "note": "Tifinagh and Berber languages overview"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Tifinagh",
+        "range": "U+2D30–U+2D7F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+2D30",
+            "char": "ⴰ",
+            "name": "TIFINAGH LETTER YA"
+          },
+          {
+            "cp": "U+2D31",
+            "char": "ⴱ",
+            "name": "TIFINAGH LETTER YAB"
+          },
+          {
+            "cp": "U+2D5C",
+            "char": "ⵜ",
+            "name": "TIFINAGH LETTER YAT"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U2D30.pdf",
+          "note": "Unicode Tifinagh code chart: block U+2D30–U+2D7F; U+2D30 YA, U+2D31 YAB, U+2D5C YAT"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tifinagh",
+          "note": "Endonym ⵜⵉⴼⵉⵏⴰⵖ verified"
+        }
+      ]
+    },
+    {
+      "id": "tolong-siki",
+      "name": "Tolong Siki",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [],
+      "iso15924": "Tols",
+      "family": "Created alphabet (for a Dravidian language)",
+      "region": "Jharkhand, Bihar, Chhattisgarh, India",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Alphabet created 1999 by Narayan Oraon for the Kurukh (Dravidian) language; minority script with non-universal acceptance, documented in the Atlas of Endangered Alphabets",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/tolong-siki/",
+          "note": "Atlas entry for Tolong Siki"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Tolong_Siki_(Unicode_block)",
+          "note": "Created 1999 by Narayan Oraon for Kurukh; added in Unicode 17.0 (2025), block U+11DB0-11DEF; ISO 15924 Tols"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Tolong Siki",
+        "range": "U+11DB0–U+11DEF",
+        "sampleCodepoints": []
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tolong_Siki_(Unicode_block)",
+          "note": "Tolong Siki block U+11DB0–U+11DEF added in Unicode 17.0 (2025); individual character names not independently verified here, so sampleCodepoints omitted to avoid fabrication"
+        }
+      ]
+    },
+    {
+      "id": "vai",
+      "name": "Vai",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Vai_syllabary",
+          "note": "Endonym 'Vai' (vai) is attested romanized; a Vai-syllable spelling (e.g. VA+I) would be a self-composition not given verbatim by a retrieved source, so left UNKNOWN (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Vaii",
+      "family": "Indigenous syllabary (West African)",
+      "region": "Liberia and Sierra Leone",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Indigenous non-colonial syllabary created in the 1830s; documented in the Atlas of Endangered Alphabets among scripts at risk, though comparatively well-established",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/vai/",
+          "note": "Atlas entry: indigenous non-colonial script; ~104,000 Vai speakers in Liberia"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Vai_(Unicode_block)",
+          "note": "Added to Unicode in 2008; Vai block U+A500-A63F; ISO 15924 Vaii"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Vai",
+        "range": "U+A500–U+A63F",
+        "sampleCodepoints": [
+          {
+            "cp": "U+A500",
+            "char": "ꔀ",
+            "name": "VAI SYLLABLE EE"
+          },
+          {
+            "cp": "U+A559",
+            "char": "ꕙ",
+            "name": "VAI SYLLABLE VA"
+          },
+          {
+            "cp": "U+A524",
+            "char": "ꔤ",
+            "name": "VAI SYLLABLE I"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/UA500.pdf",
+          "note": "Unicode Vai code chart: block U+A500–U+A63F; U+A500 EE, U+A559 VA, U+A524 I"
+        }
+      ]
+    },
+    {
+      "id": "warang-citi",
+      "name": "Warang Citi (Varang Kshiti)",
+      "nativeName": "UNKNOWN",
+      "nativeNameProvenance": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Warang_Citi",
+          "note": "No retrieved source provides a verified Warang-Citi-script spelling of the endonym; left UNKNOWN to avoid a self-composed glyph string (FAIL CLOSED)"
+        }
+      ],
+      "iso15924": "Wara",
+      "family": "Created abugida (for a Munda language)",
+      "region": "Jharkhand, eastern India",
+      "direction": "LTR",
+      "vitality": "ENDANGERED",
+      "vitalityBasis": "Invented by Lako Bodra for the Ho (Munda) language; remains a minority script even among the Ho, many of whom write in Devanagari instead",
+      "provenance": [
+        {
+          "sourceId": "ea-atlas",
+          "url": "https://www.endangeredalphabets.net/alphabets/warang-citi/",
+          "note": "Atlas entry: minority script even among the Ho"
+        },
+        {
+          "sourceId": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Warang_Citi",
+          "note": "Invented by Lako Bodra; Unicode 7.0 (2014); ISO 15924 Wara (262)"
+        }
+      ],
+      "unicode": {
+        "encoded": true,
+        "block": "Warang Citi",
+        "range": "U+118A0–U+118FF",
+        "sampleCodepoints": [
+          {
+            "cp": "U+118A0",
+            "char": "𑢠",
+            "name": "WARANG CITI CAPITAL LETTER NGAA"
+          },
+          {
+            "cp": "U+118C0",
+            "char": "𑣀",
+            "name": "WARANG CITI SMALL LETTER NGAA"
+          },
+          {
+            "cp": "U+118A1",
+            "char": "𑢡",
+            "name": "WARANG CITI CAPITAL LETTER A"
+          }
+        ]
+      },
+      "enrichmentProvenance": [
+        {
+          "url": "https://www.unicode.org/charts/PDF/U118A0.pdf",
+          "note": "Unicode Warang Citi code chart: block U+118A0–U+118FF; U+118A0 CAPITAL NGAA, U+118C0 SMALL NGAA, U+118A1 CAPITAL A (Warang Citi is bicameral)"
+        }
+      ]
+    }
+  ]
+}

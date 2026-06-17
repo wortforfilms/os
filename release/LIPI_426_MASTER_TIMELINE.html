@@ -1,0 +1,5185 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lipi 426 Master Timeline</title>
+  <style>
+    body{margin:0;background:#080b10;color:#e5e7eb;font-family:ui-sans-serif,system-ui;padding:24px}
+    h1{font-size:25px;margin:0 0 6px;letter-spacing:0}
+    .sub{color:#9ca3af;margin:0 0 18px;max-width:1120px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+    .stat{background:#111827;border:1px solid #263244;border-radius:8px;padding:12px}
+    .stat b{display:block;font-size:24px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+    .toolbar input,.toolbar select{background:#0f172a;color:#e5e7eb;border:1px solid #334155;border-radius:7px;padding:9px 10px;font:inherit}
+    .toolbar input{min-width:260px;flex:1}
+    table{width:100%;border-collapse:collapse;background:#101722;border:1px solid #263244;border-radius:8px;overflow:hidden}
+    th,td{text-align:left;vertical-align:top;border-bottom:1px solid #263244;padding:8px;font-size:12px}
+    th{position:sticky;top:0;background:#162033;color:#bfdbfe;z-index:1}
+    td:first-child{color:#94a3b8;width:46px}
+    code{color:#c4b5fd}
+    td span{color:#94a3b8}
+    tr.reserved{color:#94a3b8}
+    tr.reserved td{background:#0b1018}
+    tr.active td:nth-child(5){color:#86efac}
+    tr.historical td:nth-child(5){color:#fde68a}
+    tr.endangered td:nth-child(5){color:#fdba74}
+    footer{margin-top:16px;color:#64748b;font-size:12px}
+  </style>
+</head>
+<body>
+  <h1>Lipi 426 Master Timeline</h1>
+  <p class="sub">All 426 runtime master slots shown in slot order. The 381 extension rows are reserved evidence slots, and Indus remains research-blocked; no certification or revival claim is made.</p>
+  <section class="stats">
+    <div class="stat"><b>426/426</b>master slots</div>
+    <div class="stat"><b>5</b>ACTIVE</div>
+    <div class="stat"><b>7</b>HISTORICAL</div>
+    <div class="stat"><b>32</b>ENDANGERED source-claim</div>
+    <div class="stat"><b>382</b>BLOCKED total</div>
+    <div class="stat"><b>381</b>reserved extension slots</div>
+  </section>
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="Search name, id, ISO, region">
+    <select id="status">
+      <option value="">All statuses</option>
+      <option value="ACTIVE">ACTIVE</option><option value="HISTORICAL">HISTORICAL</option><option value="ENDANGERED">ENDANGERED</option><option value="BLOCKED">BLOCKED</option>
+      <option value="RESERVED">Reserved extension slots</option>
+    </select>
+  </div>
+  <table id="master">
+    <thead><tr><th>Slot</th><th>Name</th><th>ID</th><th>ISO</th><th>Status</th><th>Review</th><th>Unicode</th><th>Dir</th><th>Region</th><th>Purpose</th></tr></thead>
+    <tbody><tr class="historical">
+      <td>1</td>
+      <td>Brahmi</td>
+      <td><code>brahmi</code></td>
+      <td>Brah</td>
+      <td>HISTORICAL</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11000<br><span>U+11000-U+1107F</span></td>
+      <td>LTR</td>
+      <td>South Asia</td>
+      <td>Classical inscription and manuscript study</td>
+    </tr>
+<tr class="historical">
+      <td>2</td>
+      <td>Kharosthi</td>
+      <td><code>kharosthi</code></td>
+      <td>Khar</td>
+      <td>HISTORICAL</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+10A00<br><span>U+10A00-U+10A5F</span></td>
+      <td>RTL</td>
+      <td>Gandhara</td>
+      <td>Classical manuscript and coin legend study</td>
+    </tr>
+<tr class="historical">
+      <td>3</td>
+      <td>Siddham</td>
+      <td><code>siddham</code></td>
+      <td>Sidd</td>
+      <td>HISTORICAL</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11580<br><span>U+11580-U+115FF</span></td>
+      <td>LTR</td>
+      <td>North India and East Asia</td>
+      <td>Mantra, manuscript, and pedagogical preservation</td>
+    </tr>
+<tr class="blocked">
+      <td>4</td>
+      <td>Indus (Research)</td>
+      <td><code>indus</code></td>
+      <td>Inds</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Indus Valley</td>
+      <td>Research-only label for an undeciphered corpus; not transliteration, OCR, or translation ready</td>
+    </tr>
+<tr class="historical">
+      <td>5</td>
+      <td>Sharada</td>
+      <td><code>sharada</code></td>
+      <td>Shrd</td>
+      <td>HISTORICAL</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11180<br><span>U+11180-U+111DF</span></td>
+      <td>LTR</td>
+      <td>Kashmir</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="historical">
+      <td>6</td>
+      <td>Landa</td>
+      <td><code>landa</code></td>
+      <td>Lana</td>
+      <td>HISTORICAL</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>LTR</td>
+      <td>Punjab and Sindh</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="historical">
+      <td>7</td>
+      <td>Kaithi</td>
+      <td><code>kaithi</code></td>
+      <td>Kthi</td>
+      <td>HISTORICAL</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11080<br><span>U+11080-U+110CF</span></td>
+      <td>LTR</td>
+      <td>North India</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="historical">
+      <td>8</td>
+      <td>Mahajani</td>
+      <td><code>mahajani</code></td>
+      <td>Mahj</td>
+      <td>HISTORICAL</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11150<br><span>U+11150-U+1117F</span></td>
+      <td>LTR</td>
+      <td>North India</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="active">
+      <td>9</td>
+      <td>Devanagari</td>
+      <td><code>devanagari</code></td>
+      <td>Deva</td>
+      <td>ACTIVE</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+0900<br><span>U+0900-U+097F</span></td>
+      <td>LTR</td>
+      <td>India and Nepal</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="active">
+      <td>10</td>
+      <td>Gurmukhi</td>
+      <td><code>gurmukhi</code></td>
+      <td>Guru</td>
+      <td>ACTIVE</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+0A00<br><span>U+0A00-U+0A7F</span></td>
+      <td>LTR</td>
+      <td>Punjab</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="active">
+      <td>11</td>
+      <td>Shahmukhi</td>
+      <td><code>shahmukhi</code></td>
+      <td>Arab</td>
+      <td>ACTIVE</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+0600<br><span>U+0600-U+06FF</span></td>
+      <td>RTL</td>
+      <td>Punjab</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="active">
+      <td>12</td>
+      <td>Tamil</td>
+      <td><code>tamil</code></td>
+      <td>Taml</td>
+      <td>ACTIVE</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+0B80<br><span>U+0B80-U+0BFF</span></td>
+      <td>LTR</td>
+      <td>Tamilakam</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="active">
+      <td>13</td>
+      <td>Bengali</td>
+      <td><code>bengali</code></td>
+      <td>Beng</td>
+      <td>ACTIVE</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+0980<br><span>U+0980-U+09FF</span></td>
+      <td>LTR</td>
+      <td>Bengal</td>
+      <td>UNKNOWN</td>
+    </tr>
+<tr class="endangered">
+      <td>14</td>
+      <td>Mandaic</td>
+      <td><code>endangered-mandaic</code></td>
+      <td>Mand</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+0840<br><span>U+0840–U+085F</span></td>
+      <td>RTL</td>
+      <td>Iraq, Iran (Mandaean communities)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>15</td>
+      <td>Manchu</td>
+      <td><code>endangered-manchu</code></td>
+      <td>Mong</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1800<br><span>U+1800–U+18AF</span></td>
+      <td>TTB</td>
+      <td>Northeast China (Manchuria)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>16</td>
+      <td>Nüshu</td>
+      <td><code>endangered-nushu</code></td>
+      <td>Nshu</td>
+      <td>ENDANGERED / REVIVING</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1B170<br><span>U+1B170–U+1B2FF</span></td>
+      <td>TTB</td>
+      <td>Jiangyong County, Hunan, China</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>17</td>
+      <td>Soyombo</td>
+      <td><code>endangered-soyombo</code></td>
+      <td>Soyo</td>
+      <td>ENDANGERED / DORMANT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11A50<br><span>U+11A50–U+11AAF</span></td>
+      <td>LTR</td>
+      <td>Mongolia</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>18</td>
+      <td>Tangut</td>
+      <td><code>endangered-tangut</code></td>
+      <td>Tang</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+17000<br><span>U+17000–U+187FF</span></td>
+      <td>LTR</td>
+      <td>Western Xia (historical northwest China)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>19</td>
+      <td>Limbu (Sirijanga)</td>
+      <td><code>endangered-limbu</code></td>
+      <td>Limb</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1900<br><span>U+1900–U+194F</span></td>
+      <td>LTR</td>
+      <td>Eastern Nepal, Sikkim and northeastern India</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>20</td>
+      <td>Lepcha (Róng)</td>
+      <td><code>endangered-lepcha</code></td>
+      <td>Lepc</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1C00<br><span>U+1C00–U+1C4F</span></td>
+      <td>LTR</td>
+      <td>Sikkim and West Bengal, India</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>21</td>
+      <td>Chakma (Ajhā pāṭh)</td>
+      <td><code>endangered-chakma</code></td>
+      <td>Cakm</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11100<br><span>U+11100–U+1114F</span></td>
+      <td>LTR</td>
+      <td>Chittagong Hill Tracts, Bangladesh and India</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>22</td>
+      <td>Sharada (Śāradā)</td>
+      <td><code>endangered-sharada</code></td>
+      <td>Shrd</td>
+      <td>ENDANGERED / DORMANT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11180<br><span>U+11180–U+111DF</span></td>
+      <td>LTR</td>
+      <td>Kashmir and northwestern Indian subcontinent</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>23</td>
+      <td>Modi (Moḍī)</td>
+      <td><code>endangered-modi</code></td>
+      <td>Modi</td>
+      <td>ENDANGERED / REVIVING</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11600<br><span>U+11600–U+1165F</span></td>
+      <td>LTR</td>
+      <td>Maharashtra, India</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>24</td>
+      <td>Sora Sompeng (Sorang Sompeng)</td>
+      <td><code>endangered-sora-sompeng</code></td>
+      <td>Sora</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+110D0<br><span>U+110D0–U+110FF</span></td>
+      <td>LTR</td>
+      <td>Odisha (Orissa), India</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>25</td>
+      <td>Tolong Siki</td>
+      <td><code>endangered-tolong-siki</code></td>
+      <td>Tols</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11DB0<br><span>U+11DB0–U+11DEF</span></td>
+      <td>LTR</td>
+      <td>Jharkhand, Bihar, Chhattisgarh, India</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>26</td>
+      <td>Warang Citi (Varang Kshiti)</td>
+      <td><code>endangered-warang-citi</code></td>
+      <td>Wara</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+118A0<br><span>U+118A0–U+118FF</span></td>
+      <td>LTR</td>
+      <td>Jharkhand, eastern India</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>27</td>
+      <td>Mro (Mru)</td>
+      <td><code>endangered-mro</code></td>
+      <td>Mroo</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+16A40<br><span>U+16A40–U+16A6F</span></td>
+      <td>LTR</td>
+      <td>Chittagong Hill Tracts, Bangladesh</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>28</td>
+      <td>Vai</td>
+      <td><code>endangered-vai</code></td>
+      <td>Vaii</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+A500<br><span>U+A500–U+A63F</span></td>
+      <td>LTR</td>
+      <td>Liberia and Sierra Leone</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>29</td>
+      <td>Mende Kikakui</td>
+      <td><code>endangered-mende-kikakui</code></td>
+      <td>Mend</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1E800<br><span>U+1E800–U+1E8DF</span></td>
+      <td>RTL</td>
+      <td>Sierra Leone</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>30</td>
+      <td>N'Ko</td>
+      <td><code>endangered-nko</code></td>
+      <td>Nkoo</td>
+      <td>ENDANGERED / REVIVING</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+07C0<br><span>U+07C0–U+07FF</span></td>
+      <td>RTL</td>
+      <td>West Africa (Guinea, Mali, Côte d'Ivoire and across the Manding region)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>31</td>
+      <td>Tifinagh (Neo-Tifinagh)</td>
+      <td><code>endangered-tifinagh</code></td>
+      <td>Tfng</td>
+      <td>ENDANGERED / REVIVING</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+2D30<br><span>U+2D30–U+2D7F</span></td>
+      <td>LTR</td>
+      <td>North Africa (Morocco, Algeria, Sahara)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>32</td>
+      <td>Cherokee</td>
+      <td><code>endangered-cherokee</code></td>
+      <td>Cher</td>
+      <td>ENDANGERED / REVIVING</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+13A0<br><span>U+13A0–U+13FF</span></td>
+      <td>LTR</td>
+      <td>Oklahoma and North Carolina, United States</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>33</td>
+      <td>Avestan</td>
+      <td><code>endangered-avestan</code></td>
+      <td>Avst</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+10B00<br><span>U+10B00–U+10B3F</span></td>
+      <td>RTL</td>
+      <td>Historical Sasanian Persia; Zoroastrian liturgical use today</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>34</td>
+      <td>'Phags-pa</td>
+      <td><code>endangered-phags-pa</code></td>
+      <td>Phag</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+A840<br><span>U+A840–U+A87F</span></td>
+      <td>TTB</td>
+      <td>Mongol Yuan-dynasty empire (East and Central Asia)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>35</td>
+      <td>Siddham (Siddhaṃ)</td>
+      <td><code>endangered-siddham</code></td>
+      <td>Sidd</td>
+      <td>ENDANGERED / DORMANT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11580<br><span>U+11580–U+115FF</span></td>
+      <td>LTR</td>
+      <td>India, with liturgical use in East Asian Buddhism (Japan, China)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>36</td>
+      <td>Meroitic (Hieroglyphic)</td>
+      <td><code>endangered-meroitic</code></td>
+      <td>Mero</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+10980<br><span>U+10980–U+1099F</span></td>
+      <td>RTL</td>
+      <td>Kingdom of Kush / Meroë (modern Sudan)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>37</td>
+      <td>Old Permic (Abur)</td>
+      <td><code>endangered-old-permic</code></td>
+      <td>Perm</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+10350<br><span>U+10350–U+1037F</span></td>
+      <td>LTR</td>
+      <td>Perm region, Russia (Komi)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>38</td>
+      <td>Mayan Hieroglyphs</td>
+      <td><code>endangered-mayan-hieroglyphs</code></td>
+      <td>Maya</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Mesoamerica (Mexico, Guatemala, Belize, Honduras)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>39</td>
+      <td>Rejang (Surat Ulu)</td>
+      <td><code>endangered-rejang</code></td>
+      <td>Rjng</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+A930<br><span>U+A930–U+A95F</span></td>
+      <td>LTR</td>
+      <td>Bengkulu, Sumatra, Indonesia</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>40</td>
+      <td>Buhid</td>
+      <td><code>endangered-buhid</code></td>
+      <td>Buhd</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1740<br><span>U+1740–U+175F</span></td>
+      <td>LTR</td>
+      <td>Mindoro, Philippines</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>41</td>
+      <td>Hanunó'o</td>
+      <td><code>endangered-hanunoo</code></td>
+      <td>Hano</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1720<br><span>U+1720–U+173F</span></td>
+      <td>LTR</td>
+      <td>Mindoro, Philippines</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>42</td>
+      <td>Tagbanwa</td>
+      <td><code>endangered-tagbanwa</code></td>
+      <td>Tagb</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1760<br><span>U+1760–U+177F</span></td>
+      <td>LTR</td>
+      <td>Palawan, Philippines</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>43</td>
+      <td>Balinese</td>
+      <td><code>endangered-balinese</code></td>
+      <td>Bali</td>
+      <td>ENDANGERED / ENDANGERED</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+1B00<br><span>U+1B00–U+1B7F</span></td>
+      <td>LTR</td>
+      <td>Bali, Indonesia</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>44</td>
+      <td>Kawi (Old Javanese)</td>
+      <td><code>endangered-kawi</code></td>
+      <td>Kawi</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+11F00<br><span>U+11F00–U+11F5F</span></td>
+      <td>LTR</td>
+      <td>Maritime Southeast Asia (Java, Bali, historical)</td>
+      <td>Source-claim endangered/extinct script seeded for native review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="endangered">
+      <td>45</td>
+      <td>Kharosthi (Kharoshthi)</td>
+      <td><code>endangered-kharosthi</code></td>
+      <td>Khar</td>
+      <td>ENDANGERED / EXTINCT</td>
+      <td>CONTROLLED_NO_GO</td>
+      <td>U+10A00<br><span>U+10A00–U+10A5F</span></td>
+      <td>RTL</td>
+      <td>Gandhara, northwest Indian subcontinent, Central Asia</td>
+      <td>Source-claim extinct script seeded for specialist review; not certified, not revival-complete.</td>
+    </tr>
+<tr class="reserved">
+      <td>46</td>
+      <td>Lipi Evidence Slot 46</td>
+      <td><code>lipi-extension-046</code></td>
+      <td>X01A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>47</td>
+      <td>Lipi Evidence Slot 47</td>
+      <td><code>lipi-extension-047</code></td>
+      <td>X01B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>48</td>
+      <td>Lipi Evidence Slot 48</td>
+      <td><code>lipi-extension-048</code></td>
+      <td>X01C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>49</td>
+      <td>Lipi Evidence Slot 49</td>
+      <td><code>lipi-extension-049</code></td>
+      <td>X01D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>50</td>
+      <td>Lipi Evidence Slot 50</td>
+      <td><code>lipi-extension-050</code></td>
+      <td>X01E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>51</td>
+      <td>Lipi Evidence Slot 51</td>
+      <td><code>lipi-extension-051</code></td>
+      <td>X01F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>52</td>
+      <td>Lipi Evidence Slot 52</td>
+      <td><code>lipi-extension-052</code></td>
+      <td>X01G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>53</td>
+      <td>Lipi Evidence Slot 53</td>
+      <td><code>lipi-extension-053</code></td>
+      <td>X01H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>54</td>
+      <td>Lipi Evidence Slot 54</td>
+      <td><code>lipi-extension-054</code></td>
+      <td>X01I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>55</td>
+      <td>Lipi Evidence Slot 55</td>
+      <td><code>lipi-extension-055</code></td>
+      <td>X01J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>56</td>
+      <td>Lipi Evidence Slot 56</td>
+      <td><code>lipi-extension-056</code></td>
+      <td>X01K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>57</td>
+      <td>Lipi Evidence Slot 57</td>
+      <td><code>lipi-extension-057</code></td>
+      <td>X01L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>58</td>
+      <td>Lipi Evidence Slot 58</td>
+      <td><code>lipi-extension-058</code></td>
+      <td>X01M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>59</td>
+      <td>Lipi Evidence Slot 59</td>
+      <td><code>lipi-extension-059</code></td>
+      <td>X01N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>60</td>
+      <td>Lipi Evidence Slot 60</td>
+      <td><code>lipi-extension-060</code></td>
+      <td>X01O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>61</td>
+      <td>Lipi Evidence Slot 61</td>
+      <td><code>lipi-extension-061</code></td>
+      <td>X01P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>62</td>
+      <td>Lipi Evidence Slot 62</td>
+      <td><code>lipi-extension-062</code></td>
+      <td>X01Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>63</td>
+      <td>Lipi Evidence Slot 63</td>
+      <td><code>lipi-extension-063</code></td>
+      <td>X01R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>64</td>
+      <td>Lipi Evidence Slot 64</td>
+      <td><code>lipi-extension-064</code></td>
+      <td>X01S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>65</td>
+      <td>Lipi Evidence Slot 65</td>
+      <td><code>lipi-extension-065</code></td>
+      <td>X01T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>66</td>
+      <td>Lipi Evidence Slot 66</td>
+      <td><code>lipi-extension-066</code></td>
+      <td>X01U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>67</td>
+      <td>Lipi Evidence Slot 67</td>
+      <td><code>lipi-extension-067</code></td>
+      <td>X01V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>68</td>
+      <td>Lipi Evidence Slot 68</td>
+      <td><code>lipi-extension-068</code></td>
+      <td>X01W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>69</td>
+      <td>Lipi Evidence Slot 69</td>
+      <td><code>lipi-extension-069</code></td>
+      <td>X01X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>70</td>
+      <td>Lipi Evidence Slot 70</td>
+      <td><code>lipi-extension-070</code></td>
+      <td>X01Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>71</td>
+      <td>Lipi Evidence Slot 71</td>
+      <td><code>lipi-extension-071</code></td>
+      <td>X01Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>72</td>
+      <td>Lipi Evidence Slot 72</td>
+      <td><code>lipi-extension-072</code></td>
+      <td>X020</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>73</td>
+      <td>Lipi Evidence Slot 73</td>
+      <td><code>lipi-extension-073</code></td>
+      <td>X021</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>74</td>
+      <td>Lipi Evidence Slot 74</td>
+      <td><code>lipi-extension-074</code></td>
+      <td>X022</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>75</td>
+      <td>Lipi Evidence Slot 75</td>
+      <td><code>lipi-extension-075</code></td>
+      <td>X023</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>76</td>
+      <td>Lipi Evidence Slot 76</td>
+      <td><code>lipi-extension-076</code></td>
+      <td>X024</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>77</td>
+      <td>Lipi Evidence Slot 77</td>
+      <td><code>lipi-extension-077</code></td>
+      <td>X025</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>78</td>
+      <td>Lipi Evidence Slot 78</td>
+      <td><code>lipi-extension-078</code></td>
+      <td>X026</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>79</td>
+      <td>Lipi Evidence Slot 79</td>
+      <td><code>lipi-extension-079</code></td>
+      <td>X027</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>80</td>
+      <td>Lipi Evidence Slot 80</td>
+      <td><code>lipi-extension-080</code></td>
+      <td>X028</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>81</td>
+      <td>Lipi Evidence Slot 81</td>
+      <td><code>lipi-extension-081</code></td>
+      <td>X029</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>82</td>
+      <td>Lipi Evidence Slot 82</td>
+      <td><code>lipi-extension-082</code></td>
+      <td>X02A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>83</td>
+      <td>Lipi Evidence Slot 83</td>
+      <td><code>lipi-extension-083</code></td>
+      <td>X02B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>84</td>
+      <td>Lipi Evidence Slot 84</td>
+      <td><code>lipi-extension-084</code></td>
+      <td>X02C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>85</td>
+      <td>Lipi Evidence Slot 85</td>
+      <td><code>lipi-extension-085</code></td>
+      <td>X02D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>86</td>
+      <td>Lipi Evidence Slot 86</td>
+      <td><code>lipi-extension-086</code></td>
+      <td>X02E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>87</td>
+      <td>Lipi Evidence Slot 87</td>
+      <td><code>lipi-extension-087</code></td>
+      <td>X02F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>88</td>
+      <td>Lipi Evidence Slot 88</td>
+      <td><code>lipi-extension-088</code></td>
+      <td>X02G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>89</td>
+      <td>Lipi Evidence Slot 89</td>
+      <td><code>lipi-extension-089</code></td>
+      <td>X02H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>90</td>
+      <td>Lipi Evidence Slot 90</td>
+      <td><code>lipi-extension-090</code></td>
+      <td>X02I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>91</td>
+      <td>Lipi Evidence Slot 91</td>
+      <td><code>lipi-extension-091</code></td>
+      <td>X02J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>92</td>
+      <td>Lipi Evidence Slot 92</td>
+      <td><code>lipi-extension-092</code></td>
+      <td>X02K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>93</td>
+      <td>Lipi Evidence Slot 93</td>
+      <td><code>lipi-extension-093</code></td>
+      <td>X02L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>94</td>
+      <td>Lipi Evidence Slot 94</td>
+      <td><code>lipi-extension-094</code></td>
+      <td>X02M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>95</td>
+      <td>Lipi Evidence Slot 95</td>
+      <td><code>lipi-extension-095</code></td>
+      <td>X02N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>96</td>
+      <td>Lipi Evidence Slot 96</td>
+      <td><code>lipi-extension-096</code></td>
+      <td>X02O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>97</td>
+      <td>Lipi Evidence Slot 97</td>
+      <td><code>lipi-extension-097</code></td>
+      <td>X02P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>98</td>
+      <td>Lipi Evidence Slot 98</td>
+      <td><code>lipi-extension-098</code></td>
+      <td>X02Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>99</td>
+      <td>Lipi Evidence Slot 99</td>
+      <td><code>lipi-extension-099</code></td>
+      <td>X02R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>100</td>
+      <td>Lipi Evidence Slot 100</td>
+      <td><code>lipi-extension-100</code></td>
+      <td>X02S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>101</td>
+      <td>Lipi Evidence Slot 101</td>
+      <td><code>lipi-extension-101</code></td>
+      <td>X02T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>102</td>
+      <td>Lipi Evidence Slot 102</td>
+      <td><code>lipi-extension-102</code></td>
+      <td>X02U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>103</td>
+      <td>Lipi Evidence Slot 103</td>
+      <td><code>lipi-extension-103</code></td>
+      <td>X02V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>104</td>
+      <td>Lipi Evidence Slot 104</td>
+      <td><code>lipi-extension-104</code></td>
+      <td>X02W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>105</td>
+      <td>Lipi Evidence Slot 105</td>
+      <td><code>lipi-extension-105</code></td>
+      <td>X02X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>106</td>
+      <td>Lipi Evidence Slot 106</td>
+      <td><code>lipi-extension-106</code></td>
+      <td>X02Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>107</td>
+      <td>Lipi Evidence Slot 107</td>
+      <td><code>lipi-extension-107</code></td>
+      <td>X02Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>108</td>
+      <td>Lipi Evidence Slot 108</td>
+      <td><code>lipi-extension-108</code></td>
+      <td>X030</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>109</td>
+      <td>Lipi Evidence Slot 109</td>
+      <td><code>lipi-extension-109</code></td>
+      <td>X031</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>110</td>
+      <td>Lipi Evidence Slot 110</td>
+      <td><code>lipi-extension-110</code></td>
+      <td>X032</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>111</td>
+      <td>Lipi Evidence Slot 111</td>
+      <td><code>lipi-extension-111</code></td>
+      <td>X033</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>112</td>
+      <td>Lipi Evidence Slot 112</td>
+      <td><code>lipi-extension-112</code></td>
+      <td>X034</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>113</td>
+      <td>Lipi Evidence Slot 113</td>
+      <td><code>lipi-extension-113</code></td>
+      <td>X035</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>114</td>
+      <td>Lipi Evidence Slot 114</td>
+      <td><code>lipi-extension-114</code></td>
+      <td>X036</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>115</td>
+      <td>Lipi Evidence Slot 115</td>
+      <td><code>lipi-extension-115</code></td>
+      <td>X037</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>116</td>
+      <td>Lipi Evidence Slot 116</td>
+      <td><code>lipi-extension-116</code></td>
+      <td>X038</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>117</td>
+      <td>Lipi Evidence Slot 117</td>
+      <td><code>lipi-extension-117</code></td>
+      <td>X039</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>118</td>
+      <td>Lipi Evidence Slot 118</td>
+      <td><code>lipi-extension-118</code></td>
+      <td>X03A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>119</td>
+      <td>Lipi Evidence Slot 119</td>
+      <td><code>lipi-extension-119</code></td>
+      <td>X03B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>120</td>
+      <td>Lipi Evidence Slot 120</td>
+      <td><code>lipi-extension-120</code></td>
+      <td>X03C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>121</td>
+      <td>Lipi Evidence Slot 121</td>
+      <td><code>lipi-extension-121</code></td>
+      <td>X03D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>122</td>
+      <td>Lipi Evidence Slot 122</td>
+      <td><code>lipi-extension-122</code></td>
+      <td>X03E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>123</td>
+      <td>Lipi Evidence Slot 123</td>
+      <td><code>lipi-extension-123</code></td>
+      <td>X03F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>124</td>
+      <td>Lipi Evidence Slot 124</td>
+      <td><code>lipi-extension-124</code></td>
+      <td>X03G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>125</td>
+      <td>Lipi Evidence Slot 125</td>
+      <td><code>lipi-extension-125</code></td>
+      <td>X03H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>126</td>
+      <td>Lipi Evidence Slot 126</td>
+      <td><code>lipi-extension-126</code></td>
+      <td>X03I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>127</td>
+      <td>Lipi Evidence Slot 127</td>
+      <td><code>lipi-extension-127</code></td>
+      <td>X03J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>128</td>
+      <td>Lipi Evidence Slot 128</td>
+      <td><code>lipi-extension-128</code></td>
+      <td>X03K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>129</td>
+      <td>Lipi Evidence Slot 129</td>
+      <td><code>lipi-extension-129</code></td>
+      <td>X03L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>130</td>
+      <td>Lipi Evidence Slot 130</td>
+      <td><code>lipi-extension-130</code></td>
+      <td>X03M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>131</td>
+      <td>Lipi Evidence Slot 131</td>
+      <td><code>lipi-extension-131</code></td>
+      <td>X03N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>132</td>
+      <td>Lipi Evidence Slot 132</td>
+      <td><code>lipi-extension-132</code></td>
+      <td>X03O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>133</td>
+      <td>Lipi Evidence Slot 133</td>
+      <td><code>lipi-extension-133</code></td>
+      <td>X03P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>134</td>
+      <td>Lipi Evidence Slot 134</td>
+      <td><code>lipi-extension-134</code></td>
+      <td>X03Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>135</td>
+      <td>Lipi Evidence Slot 135</td>
+      <td><code>lipi-extension-135</code></td>
+      <td>X03R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>136</td>
+      <td>Lipi Evidence Slot 136</td>
+      <td><code>lipi-extension-136</code></td>
+      <td>X03S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>137</td>
+      <td>Lipi Evidence Slot 137</td>
+      <td><code>lipi-extension-137</code></td>
+      <td>X03T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>138</td>
+      <td>Lipi Evidence Slot 138</td>
+      <td><code>lipi-extension-138</code></td>
+      <td>X03U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>139</td>
+      <td>Lipi Evidence Slot 139</td>
+      <td><code>lipi-extension-139</code></td>
+      <td>X03V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>140</td>
+      <td>Lipi Evidence Slot 140</td>
+      <td><code>lipi-extension-140</code></td>
+      <td>X03W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>141</td>
+      <td>Lipi Evidence Slot 141</td>
+      <td><code>lipi-extension-141</code></td>
+      <td>X03X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>142</td>
+      <td>Lipi Evidence Slot 142</td>
+      <td><code>lipi-extension-142</code></td>
+      <td>X03Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>143</td>
+      <td>Lipi Evidence Slot 143</td>
+      <td><code>lipi-extension-143</code></td>
+      <td>X03Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>144</td>
+      <td>Lipi Evidence Slot 144</td>
+      <td><code>lipi-extension-144</code></td>
+      <td>X040</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>145</td>
+      <td>Lipi Evidence Slot 145</td>
+      <td><code>lipi-extension-145</code></td>
+      <td>X041</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>146</td>
+      <td>Lipi Evidence Slot 146</td>
+      <td><code>lipi-extension-146</code></td>
+      <td>X042</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>147</td>
+      <td>Lipi Evidence Slot 147</td>
+      <td><code>lipi-extension-147</code></td>
+      <td>X043</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>148</td>
+      <td>Lipi Evidence Slot 148</td>
+      <td><code>lipi-extension-148</code></td>
+      <td>X044</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>149</td>
+      <td>Lipi Evidence Slot 149</td>
+      <td><code>lipi-extension-149</code></td>
+      <td>X045</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>150</td>
+      <td>Lipi Evidence Slot 150</td>
+      <td><code>lipi-extension-150</code></td>
+      <td>X046</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>151</td>
+      <td>Lipi Evidence Slot 151</td>
+      <td><code>lipi-extension-151</code></td>
+      <td>X047</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>152</td>
+      <td>Lipi Evidence Slot 152</td>
+      <td><code>lipi-extension-152</code></td>
+      <td>X048</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>153</td>
+      <td>Lipi Evidence Slot 153</td>
+      <td><code>lipi-extension-153</code></td>
+      <td>X049</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>154</td>
+      <td>Lipi Evidence Slot 154</td>
+      <td><code>lipi-extension-154</code></td>
+      <td>X04A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>155</td>
+      <td>Lipi Evidence Slot 155</td>
+      <td><code>lipi-extension-155</code></td>
+      <td>X04B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>156</td>
+      <td>Lipi Evidence Slot 156</td>
+      <td><code>lipi-extension-156</code></td>
+      <td>X04C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>157</td>
+      <td>Lipi Evidence Slot 157</td>
+      <td><code>lipi-extension-157</code></td>
+      <td>X04D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>158</td>
+      <td>Lipi Evidence Slot 158</td>
+      <td><code>lipi-extension-158</code></td>
+      <td>X04E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>159</td>
+      <td>Lipi Evidence Slot 159</td>
+      <td><code>lipi-extension-159</code></td>
+      <td>X04F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>160</td>
+      <td>Lipi Evidence Slot 160</td>
+      <td><code>lipi-extension-160</code></td>
+      <td>X04G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>161</td>
+      <td>Lipi Evidence Slot 161</td>
+      <td><code>lipi-extension-161</code></td>
+      <td>X04H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>162</td>
+      <td>Lipi Evidence Slot 162</td>
+      <td><code>lipi-extension-162</code></td>
+      <td>X04I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>163</td>
+      <td>Lipi Evidence Slot 163</td>
+      <td><code>lipi-extension-163</code></td>
+      <td>X04J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>164</td>
+      <td>Lipi Evidence Slot 164</td>
+      <td><code>lipi-extension-164</code></td>
+      <td>X04K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>165</td>
+      <td>Lipi Evidence Slot 165</td>
+      <td><code>lipi-extension-165</code></td>
+      <td>X04L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>166</td>
+      <td>Lipi Evidence Slot 166</td>
+      <td><code>lipi-extension-166</code></td>
+      <td>X04M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>167</td>
+      <td>Lipi Evidence Slot 167</td>
+      <td><code>lipi-extension-167</code></td>
+      <td>X04N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>168</td>
+      <td>Lipi Evidence Slot 168</td>
+      <td><code>lipi-extension-168</code></td>
+      <td>X04O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>169</td>
+      <td>Lipi Evidence Slot 169</td>
+      <td><code>lipi-extension-169</code></td>
+      <td>X04P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>170</td>
+      <td>Lipi Evidence Slot 170</td>
+      <td><code>lipi-extension-170</code></td>
+      <td>X04Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>171</td>
+      <td>Lipi Evidence Slot 171</td>
+      <td><code>lipi-extension-171</code></td>
+      <td>X04R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>172</td>
+      <td>Lipi Evidence Slot 172</td>
+      <td><code>lipi-extension-172</code></td>
+      <td>X04S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>173</td>
+      <td>Lipi Evidence Slot 173</td>
+      <td><code>lipi-extension-173</code></td>
+      <td>X04T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>174</td>
+      <td>Lipi Evidence Slot 174</td>
+      <td><code>lipi-extension-174</code></td>
+      <td>X04U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>175</td>
+      <td>Lipi Evidence Slot 175</td>
+      <td><code>lipi-extension-175</code></td>
+      <td>X04V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>176</td>
+      <td>Lipi Evidence Slot 176</td>
+      <td><code>lipi-extension-176</code></td>
+      <td>X04W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>177</td>
+      <td>Lipi Evidence Slot 177</td>
+      <td><code>lipi-extension-177</code></td>
+      <td>X04X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>178</td>
+      <td>Lipi Evidence Slot 178</td>
+      <td><code>lipi-extension-178</code></td>
+      <td>X04Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>179</td>
+      <td>Lipi Evidence Slot 179</td>
+      <td><code>lipi-extension-179</code></td>
+      <td>X04Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>180</td>
+      <td>Lipi Evidence Slot 180</td>
+      <td><code>lipi-extension-180</code></td>
+      <td>X050</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>181</td>
+      <td>Lipi Evidence Slot 181</td>
+      <td><code>lipi-extension-181</code></td>
+      <td>X051</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>182</td>
+      <td>Lipi Evidence Slot 182</td>
+      <td><code>lipi-extension-182</code></td>
+      <td>X052</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>183</td>
+      <td>Lipi Evidence Slot 183</td>
+      <td><code>lipi-extension-183</code></td>
+      <td>X053</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>184</td>
+      <td>Lipi Evidence Slot 184</td>
+      <td><code>lipi-extension-184</code></td>
+      <td>X054</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>185</td>
+      <td>Lipi Evidence Slot 185</td>
+      <td><code>lipi-extension-185</code></td>
+      <td>X055</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>186</td>
+      <td>Lipi Evidence Slot 186</td>
+      <td><code>lipi-extension-186</code></td>
+      <td>X056</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>187</td>
+      <td>Lipi Evidence Slot 187</td>
+      <td><code>lipi-extension-187</code></td>
+      <td>X057</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>188</td>
+      <td>Lipi Evidence Slot 188</td>
+      <td><code>lipi-extension-188</code></td>
+      <td>X058</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>189</td>
+      <td>Lipi Evidence Slot 189</td>
+      <td><code>lipi-extension-189</code></td>
+      <td>X059</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>190</td>
+      <td>Lipi Evidence Slot 190</td>
+      <td><code>lipi-extension-190</code></td>
+      <td>X05A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>191</td>
+      <td>Lipi Evidence Slot 191</td>
+      <td><code>lipi-extension-191</code></td>
+      <td>X05B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>192</td>
+      <td>Lipi Evidence Slot 192</td>
+      <td><code>lipi-extension-192</code></td>
+      <td>X05C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>193</td>
+      <td>Lipi Evidence Slot 193</td>
+      <td><code>lipi-extension-193</code></td>
+      <td>X05D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>194</td>
+      <td>Lipi Evidence Slot 194</td>
+      <td><code>lipi-extension-194</code></td>
+      <td>X05E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>195</td>
+      <td>Lipi Evidence Slot 195</td>
+      <td><code>lipi-extension-195</code></td>
+      <td>X05F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>196</td>
+      <td>Lipi Evidence Slot 196</td>
+      <td><code>lipi-extension-196</code></td>
+      <td>X05G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>197</td>
+      <td>Lipi Evidence Slot 197</td>
+      <td><code>lipi-extension-197</code></td>
+      <td>X05H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>198</td>
+      <td>Lipi Evidence Slot 198</td>
+      <td><code>lipi-extension-198</code></td>
+      <td>X05I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>199</td>
+      <td>Lipi Evidence Slot 199</td>
+      <td><code>lipi-extension-199</code></td>
+      <td>X05J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>200</td>
+      <td>Lipi Evidence Slot 200</td>
+      <td><code>lipi-extension-200</code></td>
+      <td>X05K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>201</td>
+      <td>Lipi Evidence Slot 201</td>
+      <td><code>lipi-extension-201</code></td>
+      <td>X05L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>202</td>
+      <td>Lipi Evidence Slot 202</td>
+      <td><code>lipi-extension-202</code></td>
+      <td>X05M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>203</td>
+      <td>Lipi Evidence Slot 203</td>
+      <td><code>lipi-extension-203</code></td>
+      <td>X05N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>204</td>
+      <td>Lipi Evidence Slot 204</td>
+      <td><code>lipi-extension-204</code></td>
+      <td>X05O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>205</td>
+      <td>Lipi Evidence Slot 205</td>
+      <td><code>lipi-extension-205</code></td>
+      <td>X05P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>206</td>
+      <td>Lipi Evidence Slot 206</td>
+      <td><code>lipi-extension-206</code></td>
+      <td>X05Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>207</td>
+      <td>Lipi Evidence Slot 207</td>
+      <td><code>lipi-extension-207</code></td>
+      <td>X05R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>208</td>
+      <td>Lipi Evidence Slot 208</td>
+      <td><code>lipi-extension-208</code></td>
+      <td>X05S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>209</td>
+      <td>Lipi Evidence Slot 209</td>
+      <td><code>lipi-extension-209</code></td>
+      <td>X05T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>210</td>
+      <td>Lipi Evidence Slot 210</td>
+      <td><code>lipi-extension-210</code></td>
+      <td>X05U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>211</td>
+      <td>Lipi Evidence Slot 211</td>
+      <td><code>lipi-extension-211</code></td>
+      <td>X05V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>212</td>
+      <td>Lipi Evidence Slot 212</td>
+      <td><code>lipi-extension-212</code></td>
+      <td>X05W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>213</td>
+      <td>Lipi Evidence Slot 213</td>
+      <td><code>lipi-extension-213</code></td>
+      <td>X05X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>214</td>
+      <td>Lipi Evidence Slot 214</td>
+      <td><code>lipi-extension-214</code></td>
+      <td>X05Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>215</td>
+      <td>Lipi Evidence Slot 215</td>
+      <td><code>lipi-extension-215</code></td>
+      <td>X05Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>216</td>
+      <td>Lipi Evidence Slot 216</td>
+      <td><code>lipi-extension-216</code></td>
+      <td>X060</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>217</td>
+      <td>Lipi Evidence Slot 217</td>
+      <td><code>lipi-extension-217</code></td>
+      <td>X061</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>218</td>
+      <td>Lipi Evidence Slot 218</td>
+      <td><code>lipi-extension-218</code></td>
+      <td>X062</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>219</td>
+      <td>Lipi Evidence Slot 219</td>
+      <td><code>lipi-extension-219</code></td>
+      <td>X063</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>220</td>
+      <td>Lipi Evidence Slot 220</td>
+      <td><code>lipi-extension-220</code></td>
+      <td>X064</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>221</td>
+      <td>Lipi Evidence Slot 221</td>
+      <td><code>lipi-extension-221</code></td>
+      <td>X065</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>222</td>
+      <td>Lipi Evidence Slot 222</td>
+      <td><code>lipi-extension-222</code></td>
+      <td>X066</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>223</td>
+      <td>Lipi Evidence Slot 223</td>
+      <td><code>lipi-extension-223</code></td>
+      <td>X067</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>224</td>
+      <td>Lipi Evidence Slot 224</td>
+      <td><code>lipi-extension-224</code></td>
+      <td>X068</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>225</td>
+      <td>Lipi Evidence Slot 225</td>
+      <td><code>lipi-extension-225</code></td>
+      <td>X069</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>226</td>
+      <td>Lipi Evidence Slot 226</td>
+      <td><code>lipi-extension-226</code></td>
+      <td>X06A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>227</td>
+      <td>Lipi Evidence Slot 227</td>
+      <td><code>lipi-extension-227</code></td>
+      <td>X06B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>228</td>
+      <td>Lipi Evidence Slot 228</td>
+      <td><code>lipi-extension-228</code></td>
+      <td>X06C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>229</td>
+      <td>Lipi Evidence Slot 229</td>
+      <td><code>lipi-extension-229</code></td>
+      <td>X06D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>230</td>
+      <td>Lipi Evidence Slot 230</td>
+      <td><code>lipi-extension-230</code></td>
+      <td>X06E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>231</td>
+      <td>Lipi Evidence Slot 231</td>
+      <td><code>lipi-extension-231</code></td>
+      <td>X06F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>232</td>
+      <td>Lipi Evidence Slot 232</td>
+      <td><code>lipi-extension-232</code></td>
+      <td>X06G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>233</td>
+      <td>Lipi Evidence Slot 233</td>
+      <td><code>lipi-extension-233</code></td>
+      <td>X06H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>234</td>
+      <td>Lipi Evidence Slot 234</td>
+      <td><code>lipi-extension-234</code></td>
+      <td>X06I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>235</td>
+      <td>Lipi Evidence Slot 235</td>
+      <td><code>lipi-extension-235</code></td>
+      <td>X06J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>236</td>
+      <td>Lipi Evidence Slot 236</td>
+      <td><code>lipi-extension-236</code></td>
+      <td>X06K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>237</td>
+      <td>Lipi Evidence Slot 237</td>
+      <td><code>lipi-extension-237</code></td>
+      <td>X06L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>238</td>
+      <td>Lipi Evidence Slot 238</td>
+      <td><code>lipi-extension-238</code></td>
+      <td>X06M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>239</td>
+      <td>Lipi Evidence Slot 239</td>
+      <td><code>lipi-extension-239</code></td>
+      <td>X06N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>240</td>
+      <td>Lipi Evidence Slot 240</td>
+      <td><code>lipi-extension-240</code></td>
+      <td>X06O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>241</td>
+      <td>Lipi Evidence Slot 241</td>
+      <td><code>lipi-extension-241</code></td>
+      <td>X06P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>242</td>
+      <td>Lipi Evidence Slot 242</td>
+      <td><code>lipi-extension-242</code></td>
+      <td>X06Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>243</td>
+      <td>Lipi Evidence Slot 243</td>
+      <td><code>lipi-extension-243</code></td>
+      <td>X06R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>244</td>
+      <td>Lipi Evidence Slot 244</td>
+      <td><code>lipi-extension-244</code></td>
+      <td>X06S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>245</td>
+      <td>Lipi Evidence Slot 245</td>
+      <td><code>lipi-extension-245</code></td>
+      <td>X06T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>246</td>
+      <td>Lipi Evidence Slot 246</td>
+      <td><code>lipi-extension-246</code></td>
+      <td>X06U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>247</td>
+      <td>Lipi Evidence Slot 247</td>
+      <td><code>lipi-extension-247</code></td>
+      <td>X06V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>248</td>
+      <td>Lipi Evidence Slot 248</td>
+      <td><code>lipi-extension-248</code></td>
+      <td>X06W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>249</td>
+      <td>Lipi Evidence Slot 249</td>
+      <td><code>lipi-extension-249</code></td>
+      <td>X06X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>250</td>
+      <td>Lipi Evidence Slot 250</td>
+      <td><code>lipi-extension-250</code></td>
+      <td>X06Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>251</td>
+      <td>Lipi Evidence Slot 251</td>
+      <td><code>lipi-extension-251</code></td>
+      <td>X06Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>252</td>
+      <td>Lipi Evidence Slot 252</td>
+      <td><code>lipi-extension-252</code></td>
+      <td>X070</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>253</td>
+      <td>Lipi Evidence Slot 253</td>
+      <td><code>lipi-extension-253</code></td>
+      <td>X071</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>254</td>
+      <td>Lipi Evidence Slot 254</td>
+      <td><code>lipi-extension-254</code></td>
+      <td>X072</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>255</td>
+      <td>Lipi Evidence Slot 255</td>
+      <td><code>lipi-extension-255</code></td>
+      <td>X073</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>256</td>
+      <td>Lipi Evidence Slot 256</td>
+      <td><code>lipi-extension-256</code></td>
+      <td>X074</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>257</td>
+      <td>Lipi Evidence Slot 257</td>
+      <td><code>lipi-extension-257</code></td>
+      <td>X075</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>258</td>
+      <td>Lipi Evidence Slot 258</td>
+      <td><code>lipi-extension-258</code></td>
+      <td>X076</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>259</td>
+      <td>Lipi Evidence Slot 259</td>
+      <td><code>lipi-extension-259</code></td>
+      <td>X077</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>260</td>
+      <td>Lipi Evidence Slot 260</td>
+      <td><code>lipi-extension-260</code></td>
+      <td>X078</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>261</td>
+      <td>Lipi Evidence Slot 261</td>
+      <td><code>lipi-extension-261</code></td>
+      <td>X079</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>262</td>
+      <td>Lipi Evidence Slot 262</td>
+      <td><code>lipi-extension-262</code></td>
+      <td>X07A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>263</td>
+      <td>Lipi Evidence Slot 263</td>
+      <td><code>lipi-extension-263</code></td>
+      <td>X07B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>264</td>
+      <td>Lipi Evidence Slot 264</td>
+      <td><code>lipi-extension-264</code></td>
+      <td>X07C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>265</td>
+      <td>Lipi Evidence Slot 265</td>
+      <td><code>lipi-extension-265</code></td>
+      <td>X07D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>266</td>
+      <td>Lipi Evidence Slot 266</td>
+      <td><code>lipi-extension-266</code></td>
+      <td>X07E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>267</td>
+      <td>Lipi Evidence Slot 267</td>
+      <td><code>lipi-extension-267</code></td>
+      <td>X07F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>268</td>
+      <td>Lipi Evidence Slot 268</td>
+      <td><code>lipi-extension-268</code></td>
+      <td>X07G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>269</td>
+      <td>Lipi Evidence Slot 269</td>
+      <td><code>lipi-extension-269</code></td>
+      <td>X07H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>270</td>
+      <td>Lipi Evidence Slot 270</td>
+      <td><code>lipi-extension-270</code></td>
+      <td>X07I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>271</td>
+      <td>Lipi Evidence Slot 271</td>
+      <td><code>lipi-extension-271</code></td>
+      <td>X07J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>272</td>
+      <td>Lipi Evidence Slot 272</td>
+      <td><code>lipi-extension-272</code></td>
+      <td>X07K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>273</td>
+      <td>Lipi Evidence Slot 273</td>
+      <td><code>lipi-extension-273</code></td>
+      <td>X07L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>274</td>
+      <td>Lipi Evidence Slot 274</td>
+      <td><code>lipi-extension-274</code></td>
+      <td>X07M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>275</td>
+      <td>Lipi Evidence Slot 275</td>
+      <td><code>lipi-extension-275</code></td>
+      <td>X07N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>276</td>
+      <td>Lipi Evidence Slot 276</td>
+      <td><code>lipi-extension-276</code></td>
+      <td>X07O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>277</td>
+      <td>Lipi Evidence Slot 277</td>
+      <td><code>lipi-extension-277</code></td>
+      <td>X07P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>278</td>
+      <td>Lipi Evidence Slot 278</td>
+      <td><code>lipi-extension-278</code></td>
+      <td>X07Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>279</td>
+      <td>Lipi Evidence Slot 279</td>
+      <td><code>lipi-extension-279</code></td>
+      <td>X07R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>280</td>
+      <td>Lipi Evidence Slot 280</td>
+      <td><code>lipi-extension-280</code></td>
+      <td>X07S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>281</td>
+      <td>Lipi Evidence Slot 281</td>
+      <td><code>lipi-extension-281</code></td>
+      <td>X07T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>282</td>
+      <td>Lipi Evidence Slot 282</td>
+      <td><code>lipi-extension-282</code></td>
+      <td>X07U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>283</td>
+      <td>Lipi Evidence Slot 283</td>
+      <td><code>lipi-extension-283</code></td>
+      <td>X07V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>284</td>
+      <td>Lipi Evidence Slot 284</td>
+      <td><code>lipi-extension-284</code></td>
+      <td>X07W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>285</td>
+      <td>Lipi Evidence Slot 285</td>
+      <td><code>lipi-extension-285</code></td>
+      <td>X07X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>286</td>
+      <td>Lipi Evidence Slot 286</td>
+      <td><code>lipi-extension-286</code></td>
+      <td>X07Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>287</td>
+      <td>Lipi Evidence Slot 287</td>
+      <td><code>lipi-extension-287</code></td>
+      <td>X07Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>288</td>
+      <td>Lipi Evidence Slot 288</td>
+      <td><code>lipi-extension-288</code></td>
+      <td>X080</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>289</td>
+      <td>Lipi Evidence Slot 289</td>
+      <td><code>lipi-extension-289</code></td>
+      <td>X081</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>290</td>
+      <td>Lipi Evidence Slot 290</td>
+      <td><code>lipi-extension-290</code></td>
+      <td>X082</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>291</td>
+      <td>Lipi Evidence Slot 291</td>
+      <td><code>lipi-extension-291</code></td>
+      <td>X083</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>292</td>
+      <td>Lipi Evidence Slot 292</td>
+      <td><code>lipi-extension-292</code></td>
+      <td>X084</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>293</td>
+      <td>Lipi Evidence Slot 293</td>
+      <td><code>lipi-extension-293</code></td>
+      <td>X085</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>294</td>
+      <td>Lipi Evidence Slot 294</td>
+      <td><code>lipi-extension-294</code></td>
+      <td>X086</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>295</td>
+      <td>Lipi Evidence Slot 295</td>
+      <td><code>lipi-extension-295</code></td>
+      <td>X087</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>296</td>
+      <td>Lipi Evidence Slot 296</td>
+      <td><code>lipi-extension-296</code></td>
+      <td>X088</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>297</td>
+      <td>Lipi Evidence Slot 297</td>
+      <td><code>lipi-extension-297</code></td>
+      <td>X089</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>298</td>
+      <td>Lipi Evidence Slot 298</td>
+      <td><code>lipi-extension-298</code></td>
+      <td>X08A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>299</td>
+      <td>Lipi Evidence Slot 299</td>
+      <td><code>lipi-extension-299</code></td>
+      <td>X08B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>300</td>
+      <td>Lipi Evidence Slot 300</td>
+      <td><code>lipi-extension-300</code></td>
+      <td>X08C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>301</td>
+      <td>Lipi Evidence Slot 301</td>
+      <td><code>lipi-extension-301</code></td>
+      <td>X08D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>302</td>
+      <td>Lipi Evidence Slot 302</td>
+      <td><code>lipi-extension-302</code></td>
+      <td>X08E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>303</td>
+      <td>Lipi Evidence Slot 303</td>
+      <td><code>lipi-extension-303</code></td>
+      <td>X08F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>304</td>
+      <td>Lipi Evidence Slot 304</td>
+      <td><code>lipi-extension-304</code></td>
+      <td>X08G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>305</td>
+      <td>Lipi Evidence Slot 305</td>
+      <td><code>lipi-extension-305</code></td>
+      <td>X08H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>306</td>
+      <td>Lipi Evidence Slot 306</td>
+      <td><code>lipi-extension-306</code></td>
+      <td>X08I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>307</td>
+      <td>Lipi Evidence Slot 307</td>
+      <td><code>lipi-extension-307</code></td>
+      <td>X08J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>308</td>
+      <td>Lipi Evidence Slot 308</td>
+      <td><code>lipi-extension-308</code></td>
+      <td>X08K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>309</td>
+      <td>Lipi Evidence Slot 309</td>
+      <td><code>lipi-extension-309</code></td>
+      <td>X08L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>310</td>
+      <td>Lipi Evidence Slot 310</td>
+      <td><code>lipi-extension-310</code></td>
+      <td>X08M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>311</td>
+      <td>Lipi Evidence Slot 311</td>
+      <td><code>lipi-extension-311</code></td>
+      <td>X08N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>312</td>
+      <td>Lipi Evidence Slot 312</td>
+      <td><code>lipi-extension-312</code></td>
+      <td>X08O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>313</td>
+      <td>Lipi Evidence Slot 313</td>
+      <td><code>lipi-extension-313</code></td>
+      <td>X08P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>314</td>
+      <td>Lipi Evidence Slot 314</td>
+      <td><code>lipi-extension-314</code></td>
+      <td>X08Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>315</td>
+      <td>Lipi Evidence Slot 315</td>
+      <td><code>lipi-extension-315</code></td>
+      <td>X08R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>316</td>
+      <td>Lipi Evidence Slot 316</td>
+      <td><code>lipi-extension-316</code></td>
+      <td>X08S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>317</td>
+      <td>Lipi Evidence Slot 317</td>
+      <td><code>lipi-extension-317</code></td>
+      <td>X08T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>318</td>
+      <td>Lipi Evidence Slot 318</td>
+      <td><code>lipi-extension-318</code></td>
+      <td>X08U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>319</td>
+      <td>Lipi Evidence Slot 319</td>
+      <td><code>lipi-extension-319</code></td>
+      <td>X08V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>320</td>
+      <td>Lipi Evidence Slot 320</td>
+      <td><code>lipi-extension-320</code></td>
+      <td>X08W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>321</td>
+      <td>Lipi Evidence Slot 321</td>
+      <td><code>lipi-extension-321</code></td>
+      <td>X08X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>322</td>
+      <td>Lipi Evidence Slot 322</td>
+      <td><code>lipi-extension-322</code></td>
+      <td>X08Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>323</td>
+      <td>Lipi Evidence Slot 323</td>
+      <td><code>lipi-extension-323</code></td>
+      <td>X08Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>324</td>
+      <td>Lipi Evidence Slot 324</td>
+      <td><code>lipi-extension-324</code></td>
+      <td>X090</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>325</td>
+      <td>Lipi Evidence Slot 325</td>
+      <td><code>lipi-extension-325</code></td>
+      <td>X091</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>326</td>
+      <td>Lipi Evidence Slot 326</td>
+      <td><code>lipi-extension-326</code></td>
+      <td>X092</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>327</td>
+      <td>Lipi Evidence Slot 327</td>
+      <td><code>lipi-extension-327</code></td>
+      <td>X093</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>328</td>
+      <td>Lipi Evidence Slot 328</td>
+      <td><code>lipi-extension-328</code></td>
+      <td>X094</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>329</td>
+      <td>Lipi Evidence Slot 329</td>
+      <td><code>lipi-extension-329</code></td>
+      <td>X095</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>330</td>
+      <td>Lipi Evidence Slot 330</td>
+      <td><code>lipi-extension-330</code></td>
+      <td>X096</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>331</td>
+      <td>Lipi Evidence Slot 331</td>
+      <td><code>lipi-extension-331</code></td>
+      <td>X097</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>332</td>
+      <td>Lipi Evidence Slot 332</td>
+      <td><code>lipi-extension-332</code></td>
+      <td>X098</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>333</td>
+      <td>Lipi Evidence Slot 333</td>
+      <td><code>lipi-extension-333</code></td>
+      <td>X099</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>334</td>
+      <td>Lipi Evidence Slot 334</td>
+      <td><code>lipi-extension-334</code></td>
+      <td>X09A</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>335</td>
+      <td>Lipi Evidence Slot 335</td>
+      <td><code>lipi-extension-335</code></td>
+      <td>X09B</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>336</td>
+      <td>Lipi Evidence Slot 336</td>
+      <td><code>lipi-extension-336</code></td>
+      <td>X09C</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>337</td>
+      <td>Lipi Evidence Slot 337</td>
+      <td><code>lipi-extension-337</code></td>
+      <td>X09D</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>338</td>
+      <td>Lipi Evidence Slot 338</td>
+      <td><code>lipi-extension-338</code></td>
+      <td>X09E</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>339</td>
+      <td>Lipi Evidence Slot 339</td>
+      <td><code>lipi-extension-339</code></td>
+      <td>X09F</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>340</td>
+      <td>Lipi Evidence Slot 340</td>
+      <td><code>lipi-extension-340</code></td>
+      <td>X09G</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>341</td>
+      <td>Lipi Evidence Slot 341</td>
+      <td><code>lipi-extension-341</code></td>
+      <td>X09H</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>342</td>
+      <td>Lipi Evidence Slot 342</td>
+      <td><code>lipi-extension-342</code></td>
+      <td>X09I</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>343</td>
+      <td>Lipi Evidence Slot 343</td>
+      <td><code>lipi-extension-343</code></td>
+      <td>X09J</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>344</td>
+      <td>Lipi Evidence Slot 344</td>
+      <td><code>lipi-extension-344</code></td>
+      <td>X09K</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>345</td>
+      <td>Lipi Evidence Slot 345</td>
+      <td><code>lipi-extension-345</code></td>
+      <td>X09L</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>346</td>
+      <td>Lipi Evidence Slot 346</td>
+      <td><code>lipi-extension-346</code></td>
+      <td>X09M</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>347</td>
+      <td>Lipi Evidence Slot 347</td>
+      <td><code>lipi-extension-347</code></td>
+      <td>X09N</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>348</td>
+      <td>Lipi Evidence Slot 348</td>
+      <td><code>lipi-extension-348</code></td>
+      <td>X09O</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>349</td>
+      <td>Lipi Evidence Slot 349</td>
+      <td><code>lipi-extension-349</code></td>
+      <td>X09P</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>350</td>
+      <td>Lipi Evidence Slot 350</td>
+      <td><code>lipi-extension-350</code></td>
+      <td>X09Q</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>351</td>
+      <td>Lipi Evidence Slot 351</td>
+      <td><code>lipi-extension-351</code></td>
+      <td>X09R</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>352</td>
+      <td>Lipi Evidence Slot 352</td>
+      <td><code>lipi-extension-352</code></td>
+      <td>X09S</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>353</td>
+      <td>Lipi Evidence Slot 353</td>
+      <td><code>lipi-extension-353</code></td>
+      <td>X09T</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>354</td>
+      <td>Lipi Evidence Slot 354</td>
+      <td><code>lipi-extension-354</code></td>
+      <td>X09U</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>355</td>
+      <td>Lipi Evidence Slot 355</td>
+      <td><code>lipi-extension-355</code></td>
+      <td>X09V</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>356</td>
+      <td>Lipi Evidence Slot 356</td>
+      <td><code>lipi-extension-356</code></td>
+      <td>X09W</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>357</td>
+      <td>Lipi Evidence Slot 357</td>
+      <td><code>lipi-extension-357</code></td>
+      <td>X09X</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>358</td>
+      <td>Lipi Evidence Slot 358</td>
+      <td><code>lipi-extension-358</code></td>
+      <td>X09Y</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>359</td>
+      <td>Lipi Evidence Slot 359</td>
+      <td><code>lipi-extension-359</code></td>
+      <td>X09Z</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>360</td>
+      <td>Lipi Evidence Slot 360</td>
+      <td><code>lipi-extension-360</code></td>
+      <td>X0A0</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>361</td>
+      <td>Lipi Evidence Slot 361</td>
+      <td><code>lipi-extension-361</code></td>
+      <td>X0A1</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>362</td>
+      <td>Lipi Evidence Slot 362</td>
+      <td><code>lipi-extension-362</code></td>
+      <td>X0A2</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>363</td>
+      <td>Lipi Evidence Slot 363</td>
+      <td><code>lipi-extension-363</code></td>
+      <td>X0A3</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>364</td>
+      <td>Lipi Evidence Slot 364</td>
+      <td><code>lipi-extension-364</code></td>
+      <td>X0A4</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>365</td>
+      <td>Lipi Evidence Slot 365</td>
+      <td><code>lipi-extension-365</code></td>
+      <td>X0A5</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>366</td>
+      <td>Lipi Evidence Slot 366</td>
+      <td><code>lipi-extension-366</code></td>
+      <td>X0A6</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>367</td>
+      <td>Lipi Evidence Slot 367</td>
+      <td><code>lipi-extension-367</code></td>
+      <td>X0A7</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>368</td>
+      <td>Lipi Evidence Slot 368</td>
+      <td><code>lipi-extension-368</code></td>
+      <td>X0A8</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>369</td>
+      <td>Lipi Evidence Slot 369</td>
+      <td><code>lipi-extension-369</code></td>
+      <td>X0A9</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>370</td>
+      <td>Lipi Evidence Slot 370</td>
+      <td><code>lipi-extension-370</code></td>
+      <td>X0AA</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>371</td>
+      <td>Lipi Evidence Slot 371</td>
+      <td><code>lipi-extension-371</code></td>
+      <td>X0AB</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>372</td>
+      <td>Lipi Evidence Slot 372</td>
+      <td><code>lipi-extension-372</code></td>
+      <td>X0AC</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>373</td>
+      <td>Lipi Evidence Slot 373</td>
+      <td><code>lipi-extension-373</code></td>
+      <td>X0AD</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>374</td>
+      <td>Lipi Evidence Slot 374</td>
+      <td><code>lipi-extension-374</code></td>
+      <td>X0AE</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>375</td>
+      <td>Lipi Evidence Slot 375</td>
+      <td><code>lipi-extension-375</code></td>
+      <td>X0AF</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>376</td>
+      <td>Lipi Evidence Slot 376</td>
+      <td><code>lipi-extension-376</code></td>
+      <td>X0AG</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>377</td>
+      <td>Lipi Evidence Slot 377</td>
+      <td><code>lipi-extension-377</code></td>
+      <td>X0AH</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>378</td>
+      <td>Lipi Evidence Slot 378</td>
+      <td><code>lipi-extension-378</code></td>
+      <td>X0AI</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>379</td>
+      <td>Lipi Evidence Slot 379</td>
+      <td><code>lipi-extension-379</code></td>
+      <td>X0AJ</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>380</td>
+      <td>Lipi Evidence Slot 380</td>
+      <td><code>lipi-extension-380</code></td>
+      <td>X0AK</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>381</td>
+      <td>Lipi Evidence Slot 381</td>
+      <td><code>lipi-extension-381</code></td>
+      <td>X0AL</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>382</td>
+      <td>Lipi Evidence Slot 382</td>
+      <td><code>lipi-extension-382</code></td>
+      <td>X0AM</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>383</td>
+      <td>Lipi Evidence Slot 383</td>
+      <td><code>lipi-extension-383</code></td>
+      <td>X0AN</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>384</td>
+      <td>Lipi Evidence Slot 384</td>
+      <td><code>lipi-extension-384</code></td>
+      <td>X0AO</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>385</td>
+      <td>Lipi Evidence Slot 385</td>
+      <td><code>lipi-extension-385</code></td>
+      <td>X0AP</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>386</td>
+      <td>Lipi Evidence Slot 386</td>
+      <td><code>lipi-extension-386</code></td>
+      <td>X0AQ</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>387</td>
+      <td>Lipi Evidence Slot 387</td>
+      <td><code>lipi-extension-387</code></td>
+      <td>X0AR</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>388</td>
+      <td>Lipi Evidence Slot 388</td>
+      <td><code>lipi-extension-388</code></td>
+      <td>X0AS</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>389</td>
+      <td>Lipi Evidence Slot 389</td>
+      <td><code>lipi-extension-389</code></td>
+      <td>X0AT</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>390</td>
+      <td>Lipi Evidence Slot 390</td>
+      <td><code>lipi-extension-390</code></td>
+      <td>X0AU</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>391</td>
+      <td>Lipi Evidence Slot 391</td>
+      <td><code>lipi-extension-391</code></td>
+      <td>X0AV</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>392</td>
+      <td>Lipi Evidence Slot 392</td>
+      <td><code>lipi-extension-392</code></td>
+      <td>X0AW</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>393</td>
+      <td>Lipi Evidence Slot 393</td>
+      <td><code>lipi-extension-393</code></td>
+      <td>X0AX</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>394</td>
+      <td>Lipi Evidence Slot 394</td>
+      <td><code>lipi-extension-394</code></td>
+      <td>X0AY</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>395</td>
+      <td>Lipi Evidence Slot 395</td>
+      <td><code>lipi-extension-395</code></td>
+      <td>X0AZ</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>396</td>
+      <td>Lipi Evidence Slot 396</td>
+      <td><code>lipi-extension-396</code></td>
+      <td>X0B0</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>397</td>
+      <td>Lipi Evidence Slot 397</td>
+      <td><code>lipi-extension-397</code></td>
+      <td>X0B1</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>398</td>
+      <td>Lipi Evidence Slot 398</td>
+      <td><code>lipi-extension-398</code></td>
+      <td>X0B2</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>399</td>
+      <td>Lipi Evidence Slot 399</td>
+      <td><code>lipi-extension-399</code></td>
+      <td>X0B3</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>400</td>
+      <td>Lipi Evidence Slot 400</td>
+      <td><code>lipi-extension-400</code></td>
+      <td>X0B4</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>401</td>
+      <td>Lipi Evidence Slot 401</td>
+      <td><code>lipi-extension-401</code></td>
+      <td>X0B5</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>402</td>
+      <td>Lipi Evidence Slot 402</td>
+      <td><code>lipi-extension-402</code></td>
+      <td>X0B6</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>403</td>
+      <td>Lipi Evidence Slot 403</td>
+      <td><code>lipi-extension-403</code></td>
+      <td>X0B7</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>404</td>
+      <td>Lipi Evidence Slot 404</td>
+      <td><code>lipi-extension-404</code></td>
+      <td>X0B8</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>405</td>
+      <td>Lipi Evidence Slot 405</td>
+      <td><code>lipi-extension-405</code></td>
+      <td>X0B9</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>406</td>
+      <td>Lipi Evidence Slot 406</td>
+      <td><code>lipi-extension-406</code></td>
+      <td>X0BA</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>407</td>
+      <td>Lipi Evidence Slot 407</td>
+      <td><code>lipi-extension-407</code></td>
+      <td>X0BB</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>408</td>
+      <td>Lipi Evidence Slot 408</td>
+      <td><code>lipi-extension-408</code></td>
+      <td>X0BC</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>409</td>
+      <td>Lipi Evidence Slot 409</td>
+      <td><code>lipi-extension-409</code></td>
+      <td>X0BD</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>410</td>
+      <td>Lipi Evidence Slot 410</td>
+      <td><code>lipi-extension-410</code></td>
+      <td>X0BE</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>411</td>
+      <td>Lipi Evidence Slot 411</td>
+      <td><code>lipi-extension-411</code></td>
+      <td>X0BF</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>412</td>
+      <td>Lipi Evidence Slot 412</td>
+      <td><code>lipi-extension-412</code></td>
+      <td>X0BG</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>413</td>
+      <td>Lipi Evidence Slot 413</td>
+      <td><code>lipi-extension-413</code></td>
+      <td>X0BH</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>414</td>
+      <td>Lipi Evidence Slot 414</td>
+      <td><code>lipi-extension-414</code></td>
+      <td>X0BI</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>415</td>
+      <td>Lipi Evidence Slot 415</td>
+      <td><code>lipi-extension-415</code></td>
+      <td>X0BJ</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>416</td>
+      <td>Lipi Evidence Slot 416</td>
+      <td><code>lipi-extension-416</code></td>
+      <td>X0BK</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>417</td>
+      <td>Lipi Evidence Slot 417</td>
+      <td><code>lipi-extension-417</code></td>
+      <td>X0BL</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>418</td>
+      <td>Lipi Evidence Slot 418</td>
+      <td><code>lipi-extension-418</code></td>
+      <td>X0BM</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>419</td>
+      <td>Lipi Evidence Slot 419</td>
+      <td><code>lipi-extension-419</code></td>
+      <td>X0BN</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>420</td>
+      <td>Lipi Evidence Slot 420</td>
+      <td><code>lipi-extension-420</code></td>
+      <td>X0BO</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>421</td>
+      <td>Lipi Evidence Slot 421</td>
+      <td><code>lipi-extension-421</code></td>
+      <td>X0BP</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>422</td>
+      <td>Lipi Evidence Slot 422</td>
+      <td><code>lipi-extension-422</code></td>
+      <td>X0BQ</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>423</td>
+      <td>Lipi Evidence Slot 423</td>
+      <td><code>lipi-extension-423</code></td>
+      <td>X0BR</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>424</td>
+      <td>Lipi Evidence Slot 424</td>
+      <td><code>lipi-extension-424</code></td>
+      <td>X0BS</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>425</td>
+      <td>Lipi Evidence Slot 425</td>
+      <td><code>lipi-extension-425</code></td>
+      <td>X0BT</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr>
+<tr class="reserved">
+      <td>426</td>
+      <td>Lipi Evidence Slot 426</td>
+      <td><code>lipi-extension-426</code></td>
+      <td>X0BU</td>
+      <td>BLOCKED</td>
+      <td>BLOCKED</td>
+      <td>NO VERIFIED UNICODE RANGE<br><span>UNKNOWN</span></td>
+      <td>MIXED</td>
+      <td>Local evidence matrix</td>
+      <td>Reserved for verified script ingestion after source proof is attached</td>
+    </tr></tbody>
+  </table>
+  <footer>Generated 2026-06-17T00:04:39.975Z · governedProductionGo=false · blocked rows are visible by design.</footer>
+  <script>
+    const q = document.getElementById('q');
+    const status = document.getElementById('status');
+    const rows = [...document.querySelectorAll('#master tbody tr')];
+    function apply(){
+      const needle = q.value.trim().toLowerCase();
+      const st = status.value;
+      for (const row of rows) {
+        const text = row.innerText.toLowerCase();
+        const okText = !needle || text.includes(needle);
+        const statusText = row.children[4].innerText;
+        const okStatus = !st || (st === 'RESERVED' ? row.classList.contains('reserved') : statusText.includes(st));
+        row.style.display = okText && okStatus ? '' : 'none';
+      }
+    }
+    q.addEventListener('input', apply);
+    status.addEventListener('change', apply);
+  </script>
+</body>
+</html>

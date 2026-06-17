@@ -1,4 +1,4 @@
-import { lipi426Master } from "../data/lipi-426-master";
+import { lipi426Master } from "../data/lipi-426-master.ts";
 
 export const iso15924Registry = Object.freeze(
   lipi426Master.map((script) => ({

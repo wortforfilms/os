@@ -1,0 +1,58 @@
+{
+  "schema": "maataa.lipi-review-invitations.v1",
+  "generatedAt": "2026-06-16T23:55:17.494Z",
+  "governedProductionGo": false,
+  "reviewState": "CONTROLLED_NO_GO",
+  "honesty": "Invitation records are ready-to-send review packets. They do not certify scripts or texts; only accepted certification decisions in data/lipi-review-certifications.json can do that.",
+  "subject": {
+    "scriptId": "kharosthi",
+    "candidateRecordId": "endangered-kharosthi",
+    "candidateTextId": "kharosthi-wardak-vase-line-4"
+  },
+  "invitations": [
+    {
+      "id": "invite-kharosthi-epigraphy-wardak-vase",
+      "status": "READY_TO_SEND",
+      "deliveryStatus": "NOT_SENT_NO_CONTACT",
+      "reviewerRole": "Kharosthi / Gandhari epigraphy specialist",
+      "contact": "TO_BE_ASSIGNED",
+      "requestedDecision": "CERTIFY | REQUEST_CHANGES | REJECT",
+      "evidenceBundle": [
+        "data/endangered-scripts-enriched.json#kharosthi",
+        "data/lipi-corpus-texts.json#kharosthi-wardak-vase-line-4",
+        "release/evidence/lipi-endangerment-dashboard.json#endangered-kharosthi",
+        "release/evidence/indian-epigraphy-source-proof.json"
+      ],
+      "message": "Please review the Kharosthi candidate and Wardak Vase line for glyph accuracy, line segmentation, transliteration/translation alignment, and whether the text can be certified for the revival corpus."
+    },
+    {
+      "id": "invite-gandhari-philology-wardak-vase",
+      "status": "READY_TO_SEND",
+      "deliveryStatus": "NOT_SENT_NO_CONTACT",
+      "reviewerRole": "Gandhari / Prakrit philology reviewer",
+      "contact": "TO_BE_ASSIGNED",
+      "requestedDecision": "CERTIFY | REQUEST_CHANGES | REJECT",
+      "evidenceBundle": [
+        "data/lipi-corpus-texts.json#kharosthi-wardak-vase-line-4",
+        "https://gandhari.org/catalog",
+        "https://en.wikipedia.org/wiki/Wardak_Vase",
+        "release/evidence/indian-epigraphy-source-proof.json"
+      ],
+      "message": "Please verify the language tag, translation, and source alignment for the Wardak Vase Kharosthi line before any CERTIFIED corpus-text claim."
+    },
+    {
+      "id": "invite-kharosthi-source-rights-wardak-vase",
+      "status": "READY_TO_SEND",
+      "deliveryStatus": "NOT_SENT_NO_CONTACT",
+      "reviewerRole": "Source provenance / rights reviewer",
+      "contact": "TO_BE_ASSIGNED",
+      "requestedDecision": "CERTIFY_SOURCE_RIGHTS | REQUEST_CHANGES | REJECT",
+      "evidenceBundle": [
+        "data/lipi-corpus-texts.json#kharosthi-wardak-vase-line-4",
+        "https://en.wikipedia.org/wiki/Wardak_Vase",
+        "release/evidence/indian-epigraphy-source-proof.json"
+      ],
+      "message": "Please confirm source URL, license/rights statement, and attribution requirements for carrying this transcription in the certified corpus."
+    }
+  ]
+}

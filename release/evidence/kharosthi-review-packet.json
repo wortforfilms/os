@@ -1,0 +1,27 @@
+{
+  "schema": "maataa.kharosthi.review-packet.v1",
+  "generatedAt": "2026-06-16T23:55:17.494Z",
+  "governedProductionGo": false,
+  "reviewState": "CONTROLLED_NO_GO",
+  "scriptId": "kharosthi",
+  "candidateRecordId": "endangered-kharosthi",
+  "candidateTextId": "kharosthi-wardak-vase-line-4",
+  "candidateTextHash": "sha256:0e84de70432127d22d0a5401dbe3d5050d98f9d570603e2d53babd7ec02605cd",
+  "indianEpigraphySourceProof": "release/evidence/indian-epigraphy-source-proof.json",
+  "indianEpigraphyPdfPresent": true,
+  "rawKharosthiCorpusCandidates": 1,
+  "certifiedKharosthiCorpusTexts": 0,
+  "reviewInvitationsReadyToSend": 3,
+  "externalMessagesSent": 0,
+  "certificationStatus": "AWAITING_REVIEW",
+  "blockers": [
+    "No reviewer contacts are assigned, so invitations are READY_TO_SEND but not externally delivered.",
+    "No accepted certification decision exists in data/lipi-review-certifications.json.",
+    "Kharosthi corpus text remains CONTROLLED_NO_GO until specialist review signs it."
+  ],
+  "outputs": {
+    "invitations": "data/lipi-review-invitations.json",
+    "certifications": "data/lipi-review-certifications.json",
+    "corpus": "data/lipi-corpus-texts.json"
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "schema": "maataa.lipi.endangered.v1",
+  "generatedAt": "2026-06-16T23:32:53.938Z",
+  "sourceDataset": "data/endangered-scripts-research.json",
+  "honesty": "Source-claim endangered/extinct/dormant/reviving records only. Every record is CONTROLLED_NO_GO pending native/specialist review; not certified and not revival-complete.",
+  "counts": {
+    "total": 32,
+    "byVitality": {
+      "ENDANGERED": 16,
+      "REVIVING": 5,
+      "DORMANT": 3,
+      "EXTINCT": 8
+    }
+  },
+  "scripts": [
+    {
+      "id": "endangered-mandaic",
+      "name": "Mandaic",
+      "iso15924": "Mand",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-manchu",
+      "name": "Manchu",
+      "iso15924": "Mong",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-nushu",
+      "name": "Nüshu",
+      "iso15924": "Nshu",
+      "status": "ENDANGERED",
+      "vitality": "REVIVING",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-soyombo",
+      "name": "Soyombo",
+      "iso15924": "Soyo",
+      "status": "ENDANGERED",
+      "vitality": "DORMANT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-tangut",
+      "name": "Tangut",
+      "iso15924": "Tang",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-limbu",
+      "name": "Limbu (Sirijanga)",
+      "iso15924": "Limb",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-lepcha",
+      "name": "Lepcha (Róng)",
+      "iso15924": "Lepc",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-chakma",
+      "name": "Chakma (Ajhā pāṭh)",
+      "iso15924": "Cakm",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-sharada",
+      "name": "Sharada (Śāradā)",
+      "iso15924": "Shrd",
+      "status": "ENDANGERED",
+      "vitality": "DORMANT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-modi",
+      "name": "Modi (Moḍī)",
+      "iso15924": "Modi",
+      "status": "ENDANGERED",
+      "vitality": "REVIVING",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-sora-sompeng",
+      "name": "Sora Sompeng (Sorang Sompeng)",
+      "iso15924": "Sora",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-tolong-siki",
+      "name": "Tolong Siki",
+      "iso15924": "Tols",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-warang-citi",
+      "name": "Warang Citi (Varang Kshiti)",
+      "iso15924": "Wara",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-mro",
+      "name": "Mro (Mru)",
+      "iso15924": "Mroo",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-vai",
+      "name": "Vai",
+      "iso15924": "Vaii",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-mende-kikakui",
+      "name": "Mende Kikakui",
+      "iso15924": "Mend",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-nko",
+      "name": "N'Ko",
+      "iso15924": "Nkoo",
+      "status": "ENDANGERED",
+      "vitality": "REVIVING",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-tifinagh",
+      "name": "Tifinagh (Neo-Tifinagh)",
+      "iso15924": "Tfng",
+      "status": "ENDANGERED",
+      "vitality": "REVIVING",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-cherokee",
+      "name": "Cherokee",
+      "iso15924": "Cher",
+      "status": "ENDANGERED",
+      "vitality": "REVIVING",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 1
+    },
+    {
+      "id": "endangered-avestan",
+      "name": "Avestan",
+      "iso15924": "Avst",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-phags-pa",
+      "name": "'Phags-pa",
+      "iso15924": "Phag",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-siddham",
+      "name": "Siddham (Siddhaṃ)",
+      "iso15924": "Sidd",
+      "status": "ENDANGERED",
+      "vitality": "DORMANT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-meroitic",
+      "name": "Meroitic (Hieroglyphic)",
+      "iso15924": "Mero",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-old-permic",
+      "name": "Old Permic (Abur)",
+      "iso15924": "Perm",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-mayan-hieroglyphs",
+      "name": "Mayan Hieroglyphs",
+      "iso15924": "Maya",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-rejang",
+      "name": "Rejang (Surat Ulu)",
+      "iso15924": "Rjng",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-buhid",
+      "name": "Buhid",
+      "iso15924": "Buhd",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-hanunoo",
+      "name": "Hanunó'o",
+      "iso15924": "Hano",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-tagbanwa",
+      "name": "Tagbanwa",
+      "iso15924": "Tagb",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-balinese",
+      "name": "Balinese",
+      "iso15924": "Bali",
+      "status": "ENDANGERED",
+      "vitality": "ENDANGERED",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-kawi",
+      "name": "Kawi (Old Javanese)",
+      "iso15924": "Kawi",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 2
+    },
+    {
+      "id": "endangered-kharosthi",
+      "name": "Kharosthi (Kharoshthi)",
+      "iso15924": "Khar",
+      "status": "ENDANGERED",
+      "vitality": "EXTINCT",
+      "reviewState": "CONTROLLED_NO_GO",
+      "provenanceCount": 3
+    }
+  ]
+}

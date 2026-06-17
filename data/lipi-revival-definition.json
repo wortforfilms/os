@@ -1,0 +1,55 @@
+{
+  "schema": "maataa.lipi-revival.definition.v1",
+  "claim": "c-outcome-50-lipis-revived",
+  "honesty": "Operational definition so 'Revive 50+ lipis & 1000+ texts by 2030' can be measured honestly. A 2030 future commitment is NOT presented as achieved. A lipi counts as REVIVED only when every criterion below is met with provenance; until then it stays CONTROLLED_NO_GO.",
+  "targets": {
+    "revivedScripts": 50,
+    "corpusTexts": 1000,
+    "deadlineYear": 2030
+  },
+  "revivedScriptCriteria": [
+    { "id": "certified-review", "rule": "reviewState === 'CERTIFIED'", "note": "passed native-speaker / scholar review; source-claim CONTROLLED_NO_GO does NOT count" },
+    { "id": "verified-endonym", "rule": "nativeName !== 'UNKNOWN' with provenance", "note": "the script's own name in its own script, sourced" },
+    { "id": "unicode-encoded", "rule": "unicode.encoded === true with >=1 verified sample codepoint", "note": "machine-verified against the Unicode Character Database" },
+    { "id": "second-source", "rule": "provenance.length >= 2 distinct authorities", "note": "no single-source revival claims" },
+    { "id": "corpus-link", "rule": ">=1 CERTIFIED corpus text references this scriptId", "note": "a revived script must have at least one reviewed text; raw candidates do not count" }
+  ],
+  "corpusTextSchema": {
+    "schema": "maataa.lipi-corpus.text.v1",
+    "fields": {
+      "id": "kebab id",
+      "scriptId": "id of a script in the registry",
+      "title": "string",
+      "language": "BCP-47 or UNKNOWN",
+      "sourceUrl": "real URL",
+      "license": "SPDX or rights statement",
+      "provenance": "[{ sourceId, url, note }] (>=1)",
+      "reviewState": "CONTROLLED_NO_GO | CERTIFIED",
+      "certificationTarget": "boolean, optional",
+      "certificationStatus": "AWAITING_REVIEW | CERTIFIED | REJECTED, optional",
+      "reviewInvitationIds": "string[], optional",
+      "textHash": "sha256 of the normalized text"
+    },
+    "rules": [
+      "A text counts toward the 1000+ target only if reviewState === 'CERTIFIED' with provenance.",
+      "No fabricated texts; missing fields are UNKNOWN, never invented."
+    ]
+  },
+  "reviewInvitationSchema": {
+    "schema": "maataa.lipi-review-invitations.v1",
+    "fields": {
+      "id": "stable invitation id",
+      "status": "READY_TO_SEND | SENT | CLOSED",
+      "deliveryStatus": "NOT_SENT_NO_CONTACT | SENT | FAILED",
+      "reviewerRole": "required expertise",
+      "contact": "real contact, or TO_BE_ASSIGNED",
+      "requestedDecision": "CERTIFY | REQUEST_CHANGES | REJECT",
+      "evidenceBundle": "files and URLs to review"
+    },
+    "rules": [
+      "Invitation records do not certify anything by themselves.",
+      "Certification requires a named accepted decision in data/lipi-review-certifications.json."
+    ]
+  },
+  "verdictRule": "ACHIEVED only if revivedScripts >= 50 AND certifiedCorpusTexts >= 1000. Otherwise UNVERIFIED/BLOCKED with the measured gap."
+}

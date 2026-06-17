@@ -1,4 +1,5 @@
 import type { LipiScriptRecord } from "../types/script";
+import { endangeredScripts } from "./endangered-scripts.ts";
 
 const canonicalScripts: LipiScriptRecord[] = [
   {
@@ -66,8 +67,14 @@ const canonicalScripts: LipiScriptRecord[] = [
   { id: "bengali", isoCode: "Beng", name: "Bengali", nativeName: "বাংলা", direction: "LTR", family: "Brahmi", wave: "WAVE_2_REGIONAL", status: "ACTIVE", unicodeRange: "U+0980-U+09FF", region: "Bengal" },
 ];
 
-const extensionScripts: LipiScriptRecord[] = Array.from({ length: 426 - canonicalScripts.length }, (_, index) => {
-  const ordinal = index + canonicalScripts.length + 1;
+// The seeded ENDANGERED records CONSUME slots from the 412-slot extension pool
+// so the master total stays exactly 426. Each endangered record promoted out of
+// the BLOCKED reserve carries source-claim provenance (CONTROLLED_NO_GO) and is
+// not a certified script. The remaining reserved slots stay BLOCKED.
+const extensionFill = 426 - canonicalScripts.length - endangeredScripts.length;
+
+const extensionScripts: LipiScriptRecord[] = Array.from({ length: extensionFill }, (_, index) => {
+  const ordinal = index + canonicalScripts.length + endangeredScripts.length + 1;
   return {
     id: `lipi-extension-${ordinal.toString().padStart(3, "0")}`,
     isoCode: `X${ordinal.toString(36).toUpperCase().padStart(3, "0")}`,
@@ -82,5 +89,9 @@ const extensionScripts: LipiScriptRecord[] = Array.from({ length: 426 - canonica
   };
 });
 
-export const lipi426Master: readonly LipiScriptRecord[] = Object.freeze([...canonicalScripts, ...extensionScripts]);
+export const lipi426Master: readonly LipiScriptRecord[] = Object.freeze([
+  ...canonicalScripts,
+  ...endangeredScripts,
+  ...extensionScripts,
+]);
 export const LIPI_426_EXPECTED_COUNT = 426;

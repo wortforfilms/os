@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lipi Revival Queue</title>
+  <style>
+    body{margin:0;background:#090d14;color:#e5e7eb;font-family:ui-sans-serif,system-ui;padding:24px}
+    h1{margin:0 0 6px;font-size:25px;letter-spacing:0}
+    h2{font-size:17px;margin:24px 0 10px}
+    .sub{color:#94a3b8;margin-bottom:18px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+    .stat{background:#111827;border:1px solid #263244;border-radius:8px;padding:12px}
+    .stat b{font-size:24px;display:block}
+    .gate{border-left:5px solid #3b82f6}.bad{border-left-color:#ef4444}.ok{border-left-color:#22c55e}.warn{border-left-color:#f59e0b}
+    table{width:100%;border-collapse:collapse;background:#101722;border:1px solid #263244;border-radius:8px;overflow:hidden}
+    th,td{text-align:left;vertical-align:top;border-bottom:1px solid #263244;padding:9px;font-size:13px}
+    th{position:sticky;top:0;background:#162033;color:#bfdbfe}
+    td:nth-child(1){color:#94a3b8;width:42px}
+    .panel{margin:18px 0;padding:14px;border:1px solid #263244;background:#111827;border-radius:8px}
+    .panel li{margin:6px 0}
+    .note{color:#cbd5e1}
+    footer{margin-top:16px;color:#64748b;font-size:12px}
+  </style>
+</head>
+<body>
+  <h1>Revive 50+ Lipis &amp; 1000+ Texts</h1>
+  <div class="sub">Evidence-based queue generated from data/endangered-scripts-enriched.json, data/lipi-corpus-texts.json, and release/evidence/lipi-revival-progress.json. No revival claim yet.</div>
+  <section class="stats">
+    <div class="stat gate"><b>32/50</b>seeded script candidates</div>
+    <div class="stat bad"><b>0/50</b>revived scripts</div>
+    <div class="stat warn"><b>16</b>raw review-pending corpus texts</div>
+    <div class="stat bad"><b>0/1000</b>certified corpus texts</div>
+    <div class="stat warn"><b>3</b>Kharosthi review invites ready</div>
+    <div class="stat gate"><b>18</b>more sourced script slots needed</div>
+  </section>
+  <div class="panel">
+    <strong>Counts as REVIVED only when all 5 are true:</strong>
+    <ol>
+      <li>certified-review: reviewState === 'CERTIFIED'</li>
+      <li>verified-endonym: nativeName !== 'UNKNOWN' with provenance</li>
+      <li>unicode-encoded: unicode.encoded === true with &gt;=1 verified sample codepoint</li>
+      <li>second-source: provenance.length &gt;= 2 distinct authorities</li>
+      <li>corpus-link: &gt;=1 corpus text references this scriptId</li>
+    </ol>
+    <p class="note">Text allocation: 1000 certified corpus texts = 20 certified texts per 50 revived scripts. Raw imports are visible, but only CERTIFIED texts count toward the 1000.</p>
+  </div>
+  <div class="panel">
+    <strong>Panini source import</strong>
+    <p class="note">User-supplied PDF registered as source proof: The Ashtadhyayi Of Panini (https://archive.org/details/in.ernet.dli.2015.22683). Imported 15 Sanskrit/Devanagari teaching examples as CONTROLLED_NO_GO corpus candidates. The 3944 Ashtadhyayi placeholders remain excluded until each has aligned source text and a hash.</p>
+  </div>
+  <div class="panel">
+    <strong>Kharosthi review packet</strong>
+    <p class="note">Prepared 3 review invitations and 1 Kharosthi-linked corpus candidate. Certified Kharosthi corpus texts remain 0; no external invitation was sent because contacts are still TO_BE_ASSIGNED.</p>
+    <p class="note">Source proof added: Indian Epigraphy: A Guide to the Study of Inscriptions in Sanskrit, Prakrit, and Other Indo-Aryan Languages · pages 401 · hash d1096c745a2df3c6… · certification effect: NONE_BY_ITSELF.</p>
+  </div>
+  <h2>50 Lipi Queue</h2>
+  <table><thead><tr><th>#</th><th>Lipi</th><th>ISO</th><th>Vitality</th><th>Already evidenced</th><th>Still needed before REVIVED</th><th>Text target</th></tr></thead><tbody><tr><td>1</td><td>Avestan</td><td>Avst</td><td>EXTINCT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>2</td><td>Balinese</td><td>Bali</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>3</td><td>Buhid</td><td>Buhd</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>4</td><td>Chakma (Ajhā pāṭh)</td><td>Cakm</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>5</td><td>Cherokee</td><td>Cher</td><td>REVIVING</td><td>1 source, Unicode, endonym</td><td>CERTIFIED review, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>6</td><td>Hanunó'o</td><td>Hano</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>7</td><td>Kawi (Old Javanese)</td><td>Kawi</td><td>EXTINCT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>8</td><td>Kharosthi (Kharoshthi)</td><td>Khar</td><td>EXTINCT</td><td>2 sources, Unicode, endonym, 1 raw corpus text(s)</td><td>CERTIFIED review, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>9</td><td>Lepcha (Róng)</td><td>Lepc</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>10</td><td>Limbu (Sirijanga)</td><td>Limb</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>11</td><td>Manchu</td><td>Mong</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>12</td><td>Mandaic</td><td>Mand</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>13</td><td>Mayan Hieroglyphs</td><td>Maya</td><td>EXTINCT</td><td>2 sources</td><td>CERTIFIED review, verified endonym, Unicode sample, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>14</td><td>Mende Kikakui</td><td>Mend</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>15</td><td>Meroitic (Hieroglyphic)</td><td>Mero</td><td>EXTINCT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>16</td><td>Modi (Moḍī)</td><td>Modi</td><td>REVIVING</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>17</td><td>Mro (Mru)</td><td>Mroo</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>18</td><td>N'Ko</td><td>Nkoo</td><td>REVIVING</td><td>2 sources, Unicode, endonym</td><td>CERTIFIED review, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>19</td><td>Nüshu</td><td>Nshu</td><td>REVIVING</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>20</td><td>Old Permic (Abur)</td><td>Perm</td><td>EXTINCT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>21</td><td>'Phags-pa</td><td>Phag</td><td>EXTINCT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>22</td><td>Rejang (Surat Ulu)</td><td>Rjng</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>23</td><td>Sharada (Śāradā)</td><td>Shrd</td><td>DORMANT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>24</td><td>Siddham (Siddhaṃ)</td><td>Sidd</td><td>DORMANT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>25</td><td>Sora Sompeng (Sorang Sompeng)</td><td>Sora</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>26</td><td>Soyombo</td><td>Soyo</td><td>DORMANT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>27</td><td>Tagbanwa</td><td>Tagb</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>28</td><td>Tangut</td><td>Tang</td><td>EXTINCT</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>29</td><td>Tifinagh (Neo-Tifinagh)</td><td>Tfng</td><td>REVIVING</td><td>2 sources, Unicode, endonym</td><td>CERTIFIED review, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>30</td><td>Tolong Siki</td><td>Tols</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>31</td><td>Vai</td><td>Vaii</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr>
+<tr><td>32</td><td>Warang Citi (Varang Kshiti)</td><td>Wara</td><td>ENDANGERED</td><td>2 sources, Unicode</td><td>CERTIFIED review, verified endonym, &gt;=1 certified text</td><td>20 certified texts target</td></tr><tr><td>33</td><td>OPEN SCRIPT SLOT 01</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>34</td><td>OPEN SCRIPT SLOT 02</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>35</td><td>OPEN SCRIPT SLOT 03</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>36</td><td>OPEN SCRIPT SLOT 04</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>37</td><td>OPEN SCRIPT SLOT 05</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>38</td><td>OPEN SCRIPT SLOT 06</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>39</td><td>OPEN SCRIPT SLOT 07</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>40</td><td>OPEN SCRIPT SLOT 08</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>41</td><td>OPEN SCRIPT SLOT 09</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>42</td><td>OPEN SCRIPT SLOT 10</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>43</td><td>OPEN SCRIPT SLOT 11</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>44</td><td>OPEN SCRIPT SLOT 12</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>45</td><td>OPEN SCRIPT SLOT 13</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>46</td><td>OPEN SCRIPT SLOT 14</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>47</td><td>OPEN SCRIPT SLOT 15</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>48</td><td>OPEN SCRIPT SLOT 16</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>49</td><td>OPEN SCRIPT SLOT 17</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr>
+<tr><td>50</td><td>OPEN SCRIPT SLOT 18</td><td>UNKNOWN</td><td>NEEDS SOURCING</td><td>none yet</td><td>source record + 2 authorities + Unicode/endonym/review + text</td><td>20 certified texts target</td></tr></tbody></table>
+  <h2>Panini Corpus Candidates</h2>
+  <table><thead><tr><th>#</th><th>Text</th><th>Script</th><th>Lang</th><th>Content</th><th>Review</th><th>Hash</th></tr></thead><tbody><tr><td>1</td><td>Ashtadhyayi 1.1.1</td><td>devanagari</td><td>sa</td><td>वृद्धिरादैच्</td><td>CONTROLLED_NO_GO</td><td>sha256:cd3501399c74cd0768ea13e0a7981d4284d3f520dc53e1dc6f2913c75c0f9110</td></tr>
+<tr><td>2</td><td>Ashtadhyayi 1.1.2</td><td>devanagari</td><td>sa</td><td>अदेङ्गुणः</td><td>CONTROLLED_NO_GO</td><td>sha256:4c1ff98663eaace10b2b58d290cbc8c4e2cd80ec6a829c38d74d9277ba13f407</td></tr>
+<tr><td>3</td><td>Ashtadhyayi 1.1.3</td><td>devanagari</td><td>sa</td><td>इको गुणवृद्धी</td><td>CONTROLLED_NO_GO</td><td>sha256:69514c3f93086a8dc55f94d8c862bbf9152f911efb107047a8568d8af3f34f6b</td></tr>
+<tr><td>4</td><td>Ashtadhyayi 1.1.4</td><td>devanagari</td><td>sa</td><td>न धातुलोप आर्धधातुके</td><td>CONTROLLED_NO_GO</td><td>sha256:a12c374fdbbbd968567e8da9a290f7234bad049c1bc7cd7d9aeffe27a0445a9a</td></tr>
+<tr><td>5</td><td>Ashtadhyayi 1.1.5</td><td>devanagari</td><td>sa</td><td>क्ङिति च</td><td>CONTROLLED_NO_GO</td><td>sha256:8c77a52507e6453ba66f99ebf91fcf3b7122b893dc312993ce7b789af38ca568</td></tr>
+<tr><td>6</td><td>Ashtadhyayi 1.4.1</td><td>devanagari</td><td>sa</td><td>आ कडारात् एका संज्ञा</td><td>CONTROLLED_NO_GO</td><td>sha256:54670cb2ca43d57c1727b79db2d7b569e192967cbb1c2186ba0bed3804230e6d</td></tr>
+<tr><td>7</td><td>Ashtadhyayi 2.3.1</td><td>devanagari</td><td>sa</td><td>अनभिहिते</td><td>CONTROLLED_NO_GO</td><td>sha256:ea1bf0574c7187a69c7f2bc67f8c88ed411a6b0830f0385fec9ff74602b8838e</td></tr>
+<tr><td>8</td><td>Ashtadhyayi 3.1.68</td><td>devanagari</td><td>sa</td><td>कर्तरि शप्</td><td>CONTROLLED_NO_GO</td><td>sha256:04e061f784c6a40d1d9959a41f8ab509f4d1cec5e1258543e3fdb49a9d05a84b</td></tr>
+<tr><td>9</td><td>Ashtadhyayi 3.4.78</td><td>devanagari</td><td>sa</td><td>तिप्तस्झिसिप्थस्थमिब्वस्मस्</td><td>CONTROLLED_NO_GO</td><td>sha256:8cf857a869b8ad6ceaa52c98fe6d32e7c57b71e8bf5a08fe0645cffb6061c55e</td></tr>
+<tr><td>10</td><td>Ashtadhyayi 4.1.2</td><td>devanagari</td><td>sa</td><td>स्वौजसमौट्छष्टाभ्याम्भिस्ङेभ्याम्भ्यस्ङसिभ्याम्भ्यस्ङसोसाम्ङ्योस्सुप्</td><td>CONTROLLED_NO_GO</td><td>sha256:56ed78b0cf4258755ddaf03c6c53e5f594ffafb6fc7caf1abc87c9ca96312097</td></tr>
+<tr><td>11</td><td>Ashtadhyayi 6.1.101</td><td>devanagari</td><td>sa</td><td>अकः सवर्णे दीर्घः</td><td>CONTROLLED_NO_GO</td><td>sha256:553c5d095f4ac7bca1b60574d717e9af8d7ba044a706afb35ae0e0e0bc092ffe</td></tr>
+<tr><td>12</td><td>Ashtadhyayi 6.1.77</td><td>devanagari</td><td>sa</td><td>इको यणचि</td><td>CONTROLLED_NO_GO</td><td>sha256:2c7b340e7e7a7cd284858a553c03461c33c4f47ec3cc98880773736b5e9e3a32</td></tr>
+<tr><td>13</td><td>Ashtadhyayi 7.1.9</td><td>devanagari</td><td>sa</td><td>अतो भिस ऐस्</td><td>CONTROLLED_NO_GO</td><td>sha256:69cf19baf67a0aabf8f84a850d4aad28511b82414b3a9230ac23a12a5fd6fd02</td></tr>
+<tr><td>14</td><td>Ashtadhyayi 8.3.15</td><td>devanagari</td><td>sa</td><td>खरवसानयोर्विसर्जनीयः</td><td>CONTROLLED_NO_GO</td><td>sha256:6e21883d436073f02b346b12d327d387839979c171a7e7a41dd60d0119cbb515</td></tr>
+<tr><td>15</td><td>Ashtadhyayi 8.4.68</td><td>devanagari</td><td>sa</td><td>अ आ इ ई उ ऊ ऋ ॠ ऌ ए ऐ ओ औ</td><td>CONTROLLED_NO_GO</td><td>sha256:ec361531e82dc711f1363111665229ea44ccef8d9a5b578824be7de7952aaf28</td></tr></tbody></table>
+  <h2>Kharosthi Corpus Candidate</h2>
+  <table><thead><tr><th>#</th><th>Text</th><th>Lang</th><th>Content</th><th>Review</th><th>Certification</th><th>Hash</th></tr></thead><tbody><tr><td>1</td><td>Wardak Vase inscription line 4</td><td>pgd</td><td>𐨀𐨅𐨮 𐨬𐨁𐨱𐨪 𐨀𐨕𐨪𐨩𐨞 𐨨𐨱𐨯𐨎𐨓𐨁𐨒𐨞 𐨤𐨪𐨁𐨒𐨿𐨪𐨱</td><td>CONTROLLED_NO_GO</td><td>AWAITING_REVIEW</td><td>sha256:0e84de70432127d22d0a5401dbe3d5050d98f9d570603e2d53babd7ec02605cd</td></tr></tbody></table>
+  <h2>Kharosthi Review Invitations</h2>
+  <table><thead><tr><th>#</th><th>Reviewer role</th><th>Status</th><th>Delivery</th><th>Contact</th><th>Requested decision</th></tr></thead><tbody><tr><td>1</td><td>Kharosthi / Gandhari epigraphy specialist</td><td>READY_TO_SEND</td><td>NOT_SENT_NO_CONTACT</td><td>TO_BE_ASSIGNED</td><td>CERTIFY | REQUEST_CHANGES | REJECT</td></tr>
+<tr><td>2</td><td>Gandhari / Prakrit philology reviewer</td><td>READY_TO_SEND</td><td>NOT_SENT_NO_CONTACT</td><td>TO_BE_ASSIGNED</td><td>CERTIFY | REQUEST_CHANGES | REJECT</td></tr>
+<tr><td>3</td><td>Source provenance / rights reviewer</td><td>READY_TO_SEND</td><td>NOT_SENT_NO_CONTACT</td><td>TO_BE_ASSIGNED</td><td>CERTIFY_SOURCE_RIGHTS | REQUEST_CHANGES | REJECT</td></tr></tbody></table>
+  <footer>Current verdict: UNVERIFIED / CONTROLLED_NO_GO · governedProductionGo=false.</footer>
+</body>
+</html>

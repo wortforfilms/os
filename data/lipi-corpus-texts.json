@@ -1,0 +1,545 @@
+{
+  "schema": "maataa.lipi-corpus.text.v1",
+  "generatedAt": "2026-06-16T23:55:17.494Z",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "honesty": "Corpus entries are evidence-backed candidates. They count as raw corpus texts, but not as certified corpus texts until reviewState is CERTIFIED.",
+  "sourceProofs": [
+    {
+      "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+      "title": "The Ashtadhyayi Of Panini",
+      "author": "Panini",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "localPath": "/Users/vesahe/Downloads/2015.22683.The-Ashtadhyayi-Of-Panini_text.pdf",
+      "sha256": "8c7974312962a90e2a82d004d2323883548a703d6786ec25dd13538b516e6890",
+      "observedPages": 292,
+      "note": "User-supplied PDF source edition. Text extraction is OCR-noisy, so imported rows remain review-pending until aligned against the source."
+    },
+    {
+      "sourceId": "hemant-panini-teaching-complete",
+      "title": "Hemant Panini Teaching Completion Dataset",
+      "localPath": "/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+      "sha256": "1a87092b77778796f86f032c544cd86e11caa23fae67b66d8d8c96a53ebfb057",
+      "note": "Contains 15 real sutra teaching examples and a metadata-only declaration of 3,944 missing-source stubs."
+    },
+    {
+      "sourceId": "wardak-vase-kharosthi-source",
+      "title": "Wardak Vase inscription",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Wardak_Vase",
+      "relatedCatalog": "https://gandhari.org/catalog",
+      "note": "Review-pending Kharosthi corpus candidate; secondary transcription must be checked against the Gandhari catalog / specialist source before certification."
+    },
+    {
+      "sourceId": "indian-epigraphy-salomon-1998",
+      "title": "Indian Epigraphy: A Guide to the Study of Inscriptions in Sanskrit, Prakrit, and Other Indo-Aryan Languages",
+      "author": "Richard Salomon",
+      "publisher": "Oxford University Press",
+      "year": 1998,
+      "localPath": "/Users/vesahe/Downloads/Indian Epigraphy.pdf",
+      "localFilePresent": true,
+      "sha256": "d1096c745a2df3c68c2e94cca0b038bf3756c757e51b379e9a1e2958d6f0bcbe",
+      "observedPages": 401,
+      "extractedHits": [
+        {
+          "page": 65,
+          "term": "Kharosthi",
+          "note": "Section 2.3 introduces the Kharosthi script and cites standard Kharosthi inscription references."
+        },
+        {
+          "page": 67,
+          "term": "Wardak",
+          "note": "Geographical range discussion mentions specimens from Kabul River sites as far west as Wardak/Khawat."
+        },
+        {
+          "page": 209,
+          "term": "decipherment",
+          "note": "Table of contents marks section 6.2.2 on decipherment of the Kharosthi script."
+        }
+      ],
+      "note": "Reviewer-support source for Kharosthi epigraphy context. It strengthens the review packet but does not certify the Wardak line by itself."
+    }
+  ],
+  "texts": [
+    {
+      "id": "kharosthi-wardak-vase-line-4",
+      "scriptId": "kharosthi",
+      "title": "Wardak Vase inscription line 4",
+      "language": "pgd",
+      "text": "𐨀𐨅𐨮 𐨬𐨁𐨱𐨪 𐨀𐨕𐨪𐨩𐨞 𐨨𐨱𐨯𐨎𐨓𐨁𐨒𐨞 𐨤𐨪𐨁𐨒𐨿𐨪𐨱",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Wardak_Vase",
+      "license": "CC-BY-SA-4.0_TRANSCRIPTION_SOURCE_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "wardak-vase-wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Wardak_Vase",
+          "note": "Secondary source table gives Kharosthi original and translation for Wardak Vase line 4."
+        },
+        {
+          "sourceId": "gandhari-catalog",
+          "url": "https://gandhari.org/catalog",
+          "note": "Catalog of Gandhari Texts by Stefan Baums and Andrew Glass; Wardak Vase line requires specialist alignment against the catalog record before certification."
+        },
+        {
+          "sourceId": "unicode-kharoshthi-chart",
+          "url": "https://www.unicode.org/charts/PDF/U10A00.pdf",
+          "note": "Unicode Kharoshthi code chart confirms script encoding and character repertoire."
+        },
+        {
+          "sourceId": "indian-epigraphy-salomon-1998",
+          "url": "local:/Users/vesahe/Downloads/Indian Epigraphy.pdf",
+          "note": "Indian Epigraphy provides scholarly context for Kharosthi geography/history and mentions Wardak/Khawat in the geographical range discussion; specialist alignment still required."
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "certificationTarget": true,
+      "certificationStatus": "AWAITING_REVIEW",
+      "reviewInvitationIds": [
+        "invite-kharosthi-epigraphy-wardak-vase",
+        "invite-gandhari-philology-wardak-vase",
+        "invite-kharosthi-source-rights-wardak-vase"
+      ],
+      "textHash": "sha256:0e84de70432127d22d0a5401dbe3d5050d98f9d570603e2d53babd7ec02605cd",
+      "kharosthi": {
+        "object": "Wardak Vase",
+        "line": "4",
+        "translation": "This monastery is in the possession of Mahasanghika teachers.",
+        "certificationNeed": "Verify the Kharosthi glyph string, line segmentation, language tag, translation alignment, and source rights before any CERTIFIED claim."
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-1-1-1",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 1.1.1",
+      "language": "sa",
+      "text": "वृद्धिरादैच्",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-01; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:cd3501399c74cd0768ea13e0a7981d4284d3f520dc53e1dc6f2913c75c0f9110",
+      "panini": {
+        "number": "1.1.1",
+        "category": "SANJÑA",
+        "gloss": "Vriddhi: ā (आ), ai (ऐ), au (औ) are designated vṛddhi",
+        "example": "√कृ → kāra- (vṛddhi of a → ā)"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-1-1-2",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 1.1.2",
+      "language": "sa",
+      "text": "अदेङ्गुणः",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-02; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:4c1ff98663eaace10b2b58d290cbc8c4e2cd80ec6a829c38d74d9277ba13f407",
+      "panini": {
+        "number": "1.1.2",
+        "category": "SANJÑA",
+        "gloss": "Guṇa: a (अ), e (ए), o (ओ) are designated guṇa",
+        "example": "√कृ → kar- (guṇa of ṛ → ar)"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-1-1-3",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 1.1.3",
+      "language": "sa",
+      "text": "इको गुणवृद्धी",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-03; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:69514c3f93086a8dc55f94d8c862bbf9152f911efb107047a8568d8af3f34f6b",
+      "panini": {
+        "number": "1.1.3",
+        "category": "SANJÑA",
+        "gloss": "The sounds ik (इ ई उ ऊ ऋ ॠ ऌ) take guṇa and vṛddhi substitutes",
+        "example": "इ → ए (guṇa), इ → ऐ (vṛddhi)"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-1-1-4",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 1.1.4",
+      "language": "sa",
+      "text": "न धातुलोप आर्धधातुके",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-04; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:a12c374fdbbbd968567e8da9a290f7234bad049c1bc7cd7d9aeffe27a0445a9a",
+      "panini": {
+        "number": "1.1.4",
+        "category": "PARIBHASHA",
+        "gloss": "No dhātu-elision in ārdhadhātuka (secondary verb suffixes)",
+        "example": "Prevents unwanted deletion in perfect and conditional"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-1-1-5",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 1.1.5",
+      "language": "sa",
+      "text": "क्ङिति च",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-05; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:8c77a52507e6453ba66f99ebf91fcf3b7122b893dc312993ce7b789af38ca568",
+      "panini": {
+        "number": "1.1.5",
+        "category": "PARIBHASHA",
+        "gloss": "Also when a suffix marked with k or ṅ follows",
+        "example": "Blocks guṇa/vṛddhi before k/ṅ-marked suffixes"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-1-4-1",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 1.4.1",
+      "language": "sa",
+      "text": "आ कडारात् एका संज्ञा",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-06; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:54670cb2ca43d57c1727b79db2d7b569e192967cbb1c2186ba0bed3804230e6d",
+      "panini": {
+        "number": "1.4.1",
+        "category": "PARIBHASHA",
+        "gloss": "Up to kaḍāra, one designation (only one technical name applies)",
+        "example": "A term can hold only one grammatical sañjñā at a time"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-2-3-1",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 2.3.1",
+      "language": "sa",
+      "text": "अनभिहिते",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-07; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:ea1bf0574c7187a69c7f2bc67f8c88ed411a6b0830f0385fec9ff74602b8838e",
+      "panini": {
+        "number": "2.3.1",
+        "category": "KARAKA",
+        "gloss": "Case (kāraka) is expressed when not already expressed (by verbal ending)",
+        "example": "Use of vibhakti governed by un-expressed kārakas"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-3-1-68",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 3.1.68",
+      "language": "sa",
+      "text": "कर्तरि शप्",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-08; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:04e061f784c6a40d1d9959a41f8ab509f4d1cec5e1258543e3fdb49a9d05a84b",
+      "panini": {
+        "number": "3.1.68",
+        "category": "VIKARANA",
+        "gloss": "The vikaraṇa śap is introduced in the active (kartari) voice for bhvādi",
+        "example": "√भू + शप् + ति → भवति"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-3-4-78",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 3.4.78",
+      "language": "sa",
+      "text": "तिप्तस्झिसिप्थस्थमिब्वस्मस्",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-09; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:8cf857a869b8ad6ceaa52c98fe6d32e7c57b71e8bf5a08fe0645cffb6061c55e",
+      "panini": {
+        "number": "3.4.78",
+        "category": "VIBHAKTI",
+        "gloss": "The personal endings tiP, tas, jhi … for active verbs (parasmaipada)",
+        "example": "गच्छति (3sg), गच्छतः (3du), गच्छन्ति (3pl)"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-4-1-2",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 4.1.2",
+      "language": "sa",
+      "text": "स्वौजसमौट्छष्टाभ्याम्भिस्ङेभ्याम्भ्यस्ङसिभ्याम्भ्यस्ङसोसाम्ङ्योस्सुप्",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-10; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:56ed78b0cf4258755ddaf03c6c53e5f594ffafb6fc7caf1abc87c9ca96312097",
+      "panini": {
+        "number": "4.1.2",
+        "category": "SUP",
+        "gloss": "The nominal case-endings su, au, jas, am, auṭ, śas, ṭā, bhyām, bhis, ṅe, bhyām, bhyas, ṅasi, bhyām, bhyas, ṅas, os, ām, ṅi, os, sup",
+        "example": "Nominal declension paradigm base"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-6-1-101",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 6.1.101",
+      "language": "sa",
+      "text": "अकः सवर्णे दीर्घः",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-12; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:553c5d095f4ac7bca1b60574d717e9af8d7ba044a706afb35ae0e0e0bc092ffe",
+      "panini": {
+        "number": "6.1.101",
+        "category": "SANDHI",
+        "gloss": "Before a homogeneous (savarṇa) vowel, the preceding ak becomes long (dīrgha)",
+        "example": "राम + आगच्छ → रामागच्छ (a+ā → ā)"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-6-1-77",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 6.1.77",
+      "language": "sa",
+      "text": "इको यणचि",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-11; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:2c7b340e7e7a7cd284858a553c03461c33c4f47ec3cc98880773736b5e9e3a32",
+      "panini": {
+        "number": "6.1.77",
+        "category": "SANDHI",
+        "gloss": "Ik vowels (इ ई उ ऊ ऋ ॠ ऌ) become yaṇ (य व र ल) before vowels",
+        "example": "गण+इत → गण्यत, सु+अवधाम् → स्ववधाम्"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-7-1-9",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 7.1.9",
+      "language": "sa",
+      "text": "अतो भिस ऐस्",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-13; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:69cf19baf67a0aabf8f84a850d4aad28511b82414b3a9230ac23a12a5fd6fd02",
+      "panini": {
+        "number": "7.1.9",
+        "category": "VIBHAKTI",
+        "gloss": "After a-stems, the bhis ending becomes ais (→ -ais/-ebhis for certain stems)",
+        "example": "रामैः ← राम + भिस् → रामैस् → रामैः"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-8-3-15",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 8.3.15",
+      "language": "sa",
+      "text": "खरवसानयोर्विसर्जनीयः",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-14; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:6e21883d436073f02b346b12d327d387839979c171a7e7a41dd60d0119cbb515",
+      "panini": {
+        "number": "8.3.15",
+        "category": "SANDHI",
+        "gloss": "Before khar (hard consonants) or at pause (avasāna), s/r becomes visarga",
+        "example": "रामस् + k → रामः कृष्णः"
+      }
+    },
+    {
+      "id": "panini-ashtadhyayi-8-4-68",
+      "scriptId": "devanagari",
+      "title": "Ashtadhyayi 8.4.68",
+      "language": "sa",
+      "text": "अ आ इ ई उ ऊ ऋ ॠ ऌ ए ऐ ओ औ",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "license": "SOURCE_RIGHTS_REVIEW_REQUIRED",
+      "provenance": [
+        {
+          "sourceId": "hemant-panini-teaching-complete",
+          "url": "local:/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+          "note": "sutra_teaching row ST-15; not independently certified"
+        },
+        {
+          "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+          "url": "https://archive.org/details/in.ernet.dli.2015.22683",
+          "note": "source edition supplied for alignment and review"
+        }
+      ],
+      "reviewState": "CONTROLLED_NO_GO",
+      "textHash": "sha256:ec361531e82dc711f1363111665229ea44ccef8d9a5b578824be7de7952aaf28",
+      "panini": {
+        "number": "8.4.68",
+        "category": "AKSARA",
+        "gloss": "The phoneme inventory — the 13 vowel sounds (akṣara listing)",
+        "example": "Full vowel inventory for phonological operations"
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "maataa.panini-corpus-import.v1",
+  "generatedAt": "2026-06-16T23:20:36.383Z",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "sources": [
+    {
+      "sourceId": "panini-ashtadhyayi-pdf-2015-22683",
+      "title": "The Ashtadhyayi Of Panini",
+      "author": "Panini",
+      "sourceUrl": "https://archive.org/details/in.ernet.dli.2015.22683",
+      "localPath": "/Users/vesahe/Downloads/2015.22683.The-Ashtadhyayi-Of-Panini_text.pdf",
+      "sha256": "8c7974312962a90e2a82d004d2323883548a703d6786ec25dd13538b516e6890",
+      "observedPages": 292,
+      "note": "User-supplied PDF source edition. Text extraction is OCR-noisy, so imported rows remain review-pending until aligned against the source."
+    },
+    {
+      "sourceId": "hemant-panini-teaching-complete",
+      "title": "Hemant Panini Teaching Completion Dataset",
+      "localPath": "/Volumes/LaCie/pprm/hemant-samwat/apps/panini-engine/panini-teaching-complete.json",
+      "sha256": "1a87092b77778796f86f032c544cd86e11caa23fae67b66d8d8c96a53ebfb057",
+      "note": "Contains 15 real sutra teaching examples and a metadata-only declaration of 3,944 missing-source stubs."
+    }
+  ],
+  "importedTextRecords": 15,
+  "importedReviewState": "CONTROLLED_NO_GO",
+  "certifiedTextRecords": 0,
+  "declaredStubCandidates": 3944,
+  "stubSourceStatus": "MISSING — scholarly dataset not available",
+  "stubPolicy": "PREVIEW_ONLY",
+  "notImportedStubCandidates": 3944,
+  "notImportedReason": "The 3,944 Ashtadhyayi stubs are metadata-only placeholders; they have no per-sutra source text or textHash yet.",
+  "outputs": {
+    "corpus": "data/lipi-corpus-texts.json",
+    "evidence": "release/evidence/panini-corpus-import.json"
+  }
+}

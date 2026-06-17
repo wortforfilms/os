@@ -1,0 +1,41 @@
+{
+  "schema": "maataa.source-proof.pdf.v1",
+  "generatedAt": "2026-06-16T23:55:17.494Z",
+  "governedProductionGo": false,
+  "reviewState": "CONTROLLED_NO_GO",
+  "source": {
+    "sourceId": "indian-epigraphy-salomon-1998",
+    "title": "Indian Epigraphy: A Guide to the Study of Inscriptions in Sanskrit, Prakrit, and Other Indo-Aryan Languages",
+    "author": "Richard Salomon",
+    "publisher": "Oxford University Press",
+    "year": 1998,
+    "localPath": "/Users/vesahe/Downloads/Indian Epigraphy.pdf",
+    "localFilePresent": true,
+    "sha256": "d1096c745a2df3c68c2e94cca0b038bf3756c757e51b379e9a1e2958d6f0bcbe",
+    "observedPages": 401,
+    "extractedHits": [
+      {
+        "page": 65,
+        "term": "Kharosthi",
+        "note": "Section 2.3 introduces the Kharosthi script and cites standard Kharosthi inscription references."
+      },
+      {
+        "page": 67,
+        "term": "Wardak",
+        "note": "Geographical range discussion mentions specimens from Kabul River sites as far west as Wardak/Khawat."
+      },
+      {
+        "page": 209,
+        "term": "decipherment",
+        "note": "Table of contents marks section 6.2.2 on decipherment of the Kharosthi script."
+      }
+    ],
+    "note": "Reviewer-support source for Kharosthi epigraphy context. It strengthens the review packet but does not certify the Wardak line by itself."
+  },
+  "usedFor": [
+    "data/lipi-corpus-texts.json#kharosthi-wardak-vase-line-4",
+    "data/lipi-review-invitations.json#invite-kharosthi-epigraphy-wardak-vase",
+    "release/evidence/kharosthi-review-packet.json"
+  ],
+  "certificationEffect": "NONE_BY_ITSELF"
+}

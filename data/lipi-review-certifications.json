@@ -1,0 +1,20 @@
+{
+  "schema": "maataa.lipi-review-certifications.v1",
+  "generatedAt": "2026-06-16T23:55:17.494Z",
+  "governedProductionGo": false,
+  "honesty": "Empty by default. A corpus text is certified only after a named reviewer decision with evidenceHash and accepted status is recorded here.",
+  "certifications": [],
+  "pendingTargets": [
+    {
+      "id": "pending-kharosthi-wardak-vase-line-4",
+      "scriptId": "kharosthi",
+      "candidateTextId": "kharosthi-wardak-vase-line-4",
+      "requiredRoles": [
+        "Kharosthi / Gandhari epigraphy specialist",
+        "Gandhari / Prakrit philology reviewer",
+        "Source provenance / rights reviewer"
+      ],
+      "status": "AWAITING_REVIEW"
+    }
+  ]
+}

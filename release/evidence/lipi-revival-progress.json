@@ -1,0 +1,49 @@
+{
+  "schema": "maataa.lipi-revival.progress.v1",
+  "generatedAt": "2026-06-16T23:55:36.073Z",
+  "claim": "c-outcome-50-lipis-revived",
+  "definition": "data/lipi-revival-definition.json",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "achievement": "UNVERIFIED",
+  "honesty": "Future 2030 commitment. Measured against the operational definition; a script is REVIVED only if it meets all five criteria. Not achieved — kept UNVERIFIED with the measured gap.",
+  "measured": {
+    "scriptsSeeded": 32,
+    "scriptsTowardTarget": "32/50",
+    "revivedScripts": 0,
+    "perCriterion": {
+      "certified-review": 0,
+      "verified-endonym": 4,
+      "unicode-encoded": 30,
+      "second-source": 31,
+      "corpus-link": 0
+    },
+    "corpusTexts": 16,
+    "certifiedCorpusTexts": 0,
+    "rawCorpusLinks": [
+      {
+        "scriptId": "kharosthi",
+        "count": 1
+      },
+      {
+        "scriptId": "devanagari",
+        "count": 15
+      }
+    ],
+    "certifiedCorpusLinks": [],
+    "reviewInvitations": {
+      "total": 3,
+      "readyToSend": 3,
+      "notSentNoContact": 3
+    },
+    "targets": {
+      "revivedScripts": 50,
+      "corpusTexts": 1000,
+      "deadlineYear": 2030
+    }
+  },
+  "blockers": [
+    "revived scripts 0/50 (no script is CERTIFIED yet; all seeded records are CONTROLLED_NO_GO source-claims)",
+    "certified corpus texts 0/1000 (16 raw corpus texts are review-pending; certification still required)"
+  ]
+}

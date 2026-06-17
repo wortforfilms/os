@@ -1,4 +1,4 @@
-import { lipi426Master } from "../data/lipi-426-master";
+import { lipi426Master } from "../data/lipi-426-master.ts";
 
 export function summarizeScriptStatus() {
   return lipi426Master.reduce<Record<string, number>>((summary, script) => {
