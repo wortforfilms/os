@@ -1,12 +1,15 @@
 {
   "schema": "maataa.workers-agents.v1",
-  "generatedAt": "2026-06-14T10:49:38.084Z",
-  "honesty": "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). One-off authoring subagents are finished and are not listed as active.",
+  "generatedAt": "2026-06-17T00:41:42.656Z",
+  "honesty": "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). Rewarded subagents (permanent id + evidence-backed badges) are listed under 'rewards' from the agent-rewards ledger, including retired (pitra) agents.",
   "totals": {
     "workers": 17,
-    "totalProbes": 215,
-    "totalPassing": 182,
-    "agents": 1
+    "totalProbes": 217,
+    "totalPassing": 183,
+    "agents": 1,
+    "rewardedAgents": 2,
+    "rewardedTasks": 3,
+    "pitraAgents": 1
   },
   "workers": [
     {
@@ -18,7 +21,7 @@
     {
       "module": "knowledge-intelligence.mjs",
       "probes": 41,
-      "passing": 41,
+      "passing": 40,
       "resolvers": 0
     },
     {
@@ -35,9 +38,9 @@
     },
     {
       "module": "apps-experience.mjs",
-      "probes": 7,
-      "passing": 7,
-      "resolvers": 0
+      "probes": 9,
+      "passing": 9,
+      "resolvers": 2
     },
     {
       "module": "hkd-schema.mjs",
@@ -118,48 +121,48 @@
       "kind": "scheduled-runner",
       "cadence": "recurring (configured in scheduler)",
       "status": "active",
-      "lastRun": "2026-06-14T10:32:54.053Z",
-      "lastResult": "181/663 achieved · +0 new · 0 regressed",
+      "lastRun": "2026-06-16T23:32:47.551Z",
+      "lastResult": "183/664 achieved · +2 new · 0 regressed",
       "steps": [
         {
           "label": "build test cache",
           "status": "ok",
-          "ms": 7543
+          "ms": 5090
         },
         {
           "label": "verify honest achievements",
           "status": "ok",
-          "ms": 30142
+          "ms": 22075
         },
         {
           "label": "generate milestones matrix",
           "status": "ok",
-          "ms": 128
+          "ms": 73
         },
         {
           "label": "render milestones surface",
           "status": "ok",
-          "ms": 97
+          "ms": 55
         },
         {
           "label": "derive workers + agents",
           "status": "ok",
-          "ms": 63
+          "ms": 33
         },
         {
           "label": "derive next-in-line",
           "status": "ok",
-          "ms": 80
+          "ms": 26
         },
         {
           "label": "render kanban",
           "status": "ok",
-          "ms": 69
+          "ms": 34
         },
         {
           "label": "generate notice board",
           "status": "ok",
-          "ms": 225
+          "ms": 72
         },
         {
           "label": "honesty guard",
@@ -169,5 +172,76 @@
         }
       ]
     }
-  ]
+  ],
+  "rewards": {
+    "schema": "maataa.agent-rewards.v1",
+    "governedProductionGo": false,
+    "agents": [
+      {
+        "role": "agent1",
+        "permanentId": "agent:agent1:260fd8e37e6d",
+        "task": "task1",
+        "taskTitle": "Sourced real-world endangered-scripts dataset",
+        "badges": [
+          {
+            "id": "evidence-sourced",
+            "tier": "standard"
+          },
+          {
+            "id": "provenance-complete",
+            "tier": "standard"
+          },
+          {
+            "id": "broad-coverage",
+            "tier": "standard"
+          }
+        ],
+        "nextTasks": 2,
+        "lineage": null,
+        "retired": false
+      },
+      {
+        "role": "agent1",
+        "permanentId": "agent:agent1:260fd8e37e6d",
+        "task": "task3",
+        "taskTitle": "Enrich endangered records with verified Unicode codepoints + native names",
+        "badges": [
+          {
+            "id": "unicode-verified",
+            "tier": "standard"
+          },
+          {
+            "id": "native-names-sourced",
+            "tier": "standard"
+          }
+        ],
+        "nextTasks": 0,
+        "lineage": null,
+        "retired": false
+      },
+      {
+        "role": "agent0",
+        "permanentId": "agent:agent0:e192a4af58ba",
+        "task": "task2",
+        "taskTitle": "Seed ENDANGERED records into the Lipi runtime (foundational)",
+        "badges": [
+          {
+            "id": "pitra-foundational",
+            "tier": "pitra"
+          },
+          {
+            "id": "pitra-invariant-keeper",
+            "tier": "pitra"
+          },
+          {
+            "id": "pitra-green-retire",
+            "tier": "pitra"
+          }
+        ],
+        "nextTasks": 0,
+        "lineage": "pitra",
+        "retired": true
+      }
+    ]
+  }
 }

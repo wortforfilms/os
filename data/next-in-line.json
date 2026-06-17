@@ -1,12 +1,12 @@
 {
   "schema": "maataa.next-in-line.v1",
-  "generatedAt": "2026-06-14T10:49:38.140Z",
+  "generatedAt": "2026-06-17T00:41:42.700Z",
   "honesty": "real-build items are genuine engineering targets that require code + a passing test before they flip (no fabrication). in-progress-claim items are surfaced from the matrix and are mostly aspirational board claims.",
   "totals": {
     "realBuilds": 0,
     "completedRealBuilds": 5,
     "inProgressShown": 0,
-    "achieved": 182,
+    "achieved": 183,
     "milestones": 664
   },
   "completedRealBuilds": [

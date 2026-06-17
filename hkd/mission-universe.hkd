@@ -701,7 +701,7 @@
       "id": "c-outcome-50-lipis-revived",
       "text": "By 2030: Revive 50+ lipis & 1000+ texts",
       "status": "UNVERIFIED",
-      "blockedReason": "Future commitment; lipi-runtime's 426-slot registry could be the substrate. Operational definition of 'revived' is undefined.",
+      "blockedReason": "Future 2030 commitment. 'Revived' is now operationally defined (data/lipi-revival-definition.json: certified review + verified endonym + Unicode encoding + 2 sources + a corpus text). Measured gap (release/evidence/lipi-revival-progress.json): 0/50 scripts revived (31 seeded but all CONTROLLED_NO_GO source-claims, 0 CERTIFIED) and 0/1000 certified corpus texts (no corpus yet). Kept UNVERIFIED — fail-closed until real native review + a text corpus exist.",
       "sourceImage": "user-provided/2026-05-28/mission-universe-board.png",
       "sourceSectionId": "sec-outcomes-2030",
       "confidence": 0.85

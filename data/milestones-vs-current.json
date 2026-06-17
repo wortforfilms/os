@@ -1,16 +1,16 @@
 {
   "schema": "maataa.milestones-vs-current.v1",
-  "generatedAt": "2026-06-14T10:49:37.875Z",
+  "generatedAt": "2026-06-17T00:41:42.559Z",
   "source": "hkd/*.hkd (VisualHKD vision boards)",
   "honesty": "Every entry is a FUTURE MILESTONE (aspirational target). currentState is the real measured/observed state. No achievement is claimed unless evidenced. Targets are never presented as live metrics.",
   "totals": {
     "groups": 6,
     "universes": 48,
     "milestones": 664,
-    "notAchieved": 424,
+    "notAchieved": 425,
     "inProgress": 0,
-    "unverified": 58,
-    "achieved": 182
+    "unverified": 56,
+    "achieved": 183
   },
   "byGroup": [
     {
@@ -25,10 +25,10 @@
     {
       "group": "Knowledge & Intelligence",
       "total": 114,
-      "achieved": 44,
+      "achieved": 43,
       "inProgress": 0,
       "unverified": 4,
-      "notAchieved": 66,
+      "notAchieved": 67,
       "universes": 7
     },
     {
@@ -52,9 +52,9 @@
     {
       "group": "Apps & Experience",
       "total": 95,
-      "achieved": 10,
+      "achieved": 12,
       "inProgress": 0,
-      "unverified": 16,
+      "unverified": 14,
       "notAchieved": 69,
       "universes": 10
     },
@@ -1575,7 +1575,7 @@
       "universe": "evidence",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Milestones matrix content is reproducible (stable hash across runs)",
-      "currentState": "stableHash run1=ccca64fafc97… run2=ccca64fafc97… identical=true",
+      "currentState": "stableHash run1=018a1cfde0dc… run2=018a1cfde0dc… identical=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2065,7 +2065,7 @@
       "universe": "governance",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Governed production gate report is content-addressed: carries a signature field and SHA-256 hashes of all inputs",
-      "currentState": "governed-production-gate.json signature=f85468916858…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
+      "currentState": "governed-production-gate.json signature=9c0b15c3b912…; inputs hashed=4 (completionMatrix, hardeningMatrix, hardwareRootOfTrust, releaseAuthority); all SHA-256=true",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -2895,8 +2895,8 @@
       "universe": "knowledge-graph",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "lipi-runtime declares a 426-slot master script registry (LIPI_426_EXPECTED_COUNT=426) with ≥12 canonical entries + extension-slot generation",
-      "currentState": "lipi-426-master.ts (static): exports lipi426Master=true, LIPI_426_EXPECTED_COUNT=426, canonical id entries=13, extension-slot pattern=true, freeze concat=true",
-      "achievement": "ACHIEVED",
+      "currentState": "lipi-426-master.ts (static): exports lipi426Master=true, LIPI_426_EXPECTED_COUNT=426, canonical id entries=13, extension-slot pattern=true, freeze concat=false",
+      "achievement": "NOT_ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
     {
@@ -3103,11 +3103,11 @@
       "id": "c-built-with-dharma",
       "group": "Apps & Experience",
       "universe": "landing",
-      "sourceBoard": "landing-sovereign-ai.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Built With Dharma: Open Source / Privacy First / Offline Ready / Ethical AI / Sovereign Data / Transparent",
-      "currentState": "Six design properties. 'Open Source' would require a license declaration (hemant-core is currently UNLICENSED, lipi-runtime/maataa-ui/visual-hkd-runtime have private:false but no explicit license header found). The rest are design aspirations.",
-      "achievement": "UNVERIFIED",
-      "sourceClaimStatus": "UNVERIFIED"
+      "currentState": "6/6 dharma facets backed by artifacts: open-source=ok, privacy-no-default-telemetry=ok, offline-ready=ok, ethical-ai-claim-guard=ok, sovereign-data-local=ok, transparent-reproducible-evidence=ok [resolved by a-built-with-dharma-facets; was UNVERIFIED]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-conscious-civilization-os",
@@ -4125,7 +4125,7 @@
       "universe": "mission",
       "sourceBoard": "mission-universe.hkd",
       "futureMilestone": "By 2030: Revive 50+ lipis & 1000+ texts",
-      "currentState": "Future commitment; lipi-runtime's 426-slot registry could be the substrate. Operational definition of 'revived' is undefined.",
+      "currentState": "Future 2030 commitment. 'Revived' is now operationally defined (data/lipi-revival-definition.json: certified review + verified endonym + Unicode encoding + 2 sources + a corpus text). Measured gap (release/evidence/lipi-revival-progress.json): 0/50 scripts revived (31 seeded but all CONTROLLED_NO_GO source-claims, 0 CERTIFIED) and 0/1000 certified corpus texts (no corpus yet). Kept UNVERIFIED — fail-closed until real native review + a text corpus exist.",
       "achievement": "UNVERIFIED",
       "sourceClaimStatus": "UNVERIFIED"
     },
@@ -4325,7 +4325,7 @@
       "universe": "operations",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Parallel test-cache runner: whole suite runs concurrently with a real per-file results cache (verifier perf)",
-      "currentState": "test-cache: 84/86 files green in 6932ms (concurrency=8) — real per-file results, not fabricated",
+      "currentState": "test-cache: 95/97 files green in 29144ms (concurrency=8) — real per-file results, not fabricated",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -4995,7 +4995,7 @@
       "universe": "runtime",
       "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "Federated runtime packages exist as isolated workspaces (target ≥ 8)",
-      "currentState": "49 runtime packages with package.json: avatar-runtime, brahmini-runtime, chakra-runtime, dashboard-knowledge-graph, evidence-runtime, gesture-runtime, investor-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, knowledge-runtime, lipi-dashboard, lipi-runtime, maataa-ui, memory-runtime, research-agent, runtime, runtime-agent-supervisor, runtime-analytics, runtime-data, runtime-entitlements, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-hkd-schema, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-scheduler, runtime-spatial, runtime-storage, runtime-target-scaffold, runtime-transport, runtime-validation, runtime-versioning, saptadhaatu-runtime, scientific-evidence-registry-runtime, task-runtime, tlp-runtime, universal-runtime, visual-hkd-runtime, voice-runtime",
+      "currentState": "51 runtime packages with package.json: avatar-runtime, brahmini-runtime, chakra-runtime, dashboard-knowledge-graph, evidence-runtime, gesture-runtime, investor-runtime, kbs-governance, kbs-graph, kbs-runtime, kbs-sdk, kbs-search, knowledge-runtime, lipi-dashboard, lipi-runtime, maataa-ui, memory-runtime, research-agent, runtime, runtime-agent-supervisor, runtime-analytics, runtime-data, runtime-entitlements, runtime-federation, runtime-fsm, runtime-governance, runtime-hkd-registry, runtime-hkd-schema, runtime-knowledge-graph, runtime-merkle, runtime-mission, runtime-model-serving, runtime-observability, runtime-persistence, runtime-research, runtime-rewards, runtime-scheduler, runtime-security, runtime-spatial, runtime-storage, runtime-target-scaffold, runtime-transport, runtime-validation, runtime-versioning, saptadhaatu-runtime, scientific-evidence-registry-runtime, task-runtime, tlp-runtime, universal-runtime, visual-hkd-runtime, voice-runtime",
       "achievement": "ACHIEVED",
       "sourceClaimStatus": "VERIFIED"
     },
@@ -6693,11 +6693,11 @@
       "id": "c-security-flow",
       "group": "Apps & Experience",
       "universe": "workflow",
-      "sourceBoard": "workflow-universe.hkd",
+      "sourceBoard": "verify-honest-achievements.mjs",
       "futureMilestone": "User Action→Auth→Permission→Policy→Encrypted Processing→Secure Storage→Audit Log",
-      "currentState": "Conceptual flow; kbs-governance has policy/moderation primitives and lipi-runtime has governance-evidence files, but no end-to-end pipeline exists.",
-      "achievement": "UNVERIFIED",
-      "sourceClaimStatus": "UNVERIFIED"
+      "currentState": "security-flow test 8 pass/0 fail; evidence 7-stage=true, ciphertextOnly=true, auditChain=true, failClosed=true [resolved by a-security-flow-end-to-end; was UNVERIFIED]",
+      "achievement": "ACHIEVED",
+      "sourceClaimStatus": "VERIFIED"
     },
     {
       "id": "c-sovereign-flow-pipeline",
@@ -6710,6 +6710,6 @@
       "sourceClaimStatus": "UNVERIFIED"
     }
   ],
-  "stableHash": "71939d1c520808fc424674747a62666a16c5d7ee9bd5d2100fbdded6f99eccd8",
-  "contentHash": "3b44affc2d845f3afb89708412b5bf63e30dd7aef25a383f8a9da367f483aec2"
+  "stableHash": "01d3797977621131839ea3719d363b640d6ea86e8e0122005736e740e08f379e",
+  "contentHash": "38401f473b280aefb5c0700672cfba2f93519359a0e1299dfff7a5c4bdd2bfe4"
 }
