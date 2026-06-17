@@ -1,0 +1,109 @@
+{
+  "schema": "maataa.security-flow.v1",
+  "generatedAt": "2026-06-16T22:37:32.216Z",
+  "runtime": "@maataa/runtime-security",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "honesty": "Real end-to-end secure-action pipeline (in-memory tier). AES-256-GCM encryption, ciphertext-only storage, append-only hash-chained audit. Fail-closed at every stage. Not a production security certification.",
+  "stageOrder": [
+    "user-action",
+    "auth",
+    "permission",
+    "policy",
+    "encrypted-processing",
+    "secure-storage",
+    "audit-log"
+  ],
+  "happyPath": {
+    "decision": "allow",
+    "stages": [
+      "user-action",
+      "auth",
+      "permission",
+      "policy",
+      "encrypted-processing",
+      "secure-storage",
+      "audit-log"
+    ],
+    "recordId": "rec_59eea842d18b0cd5",
+    "storedAlgorithm": "aes-256-gcm",
+    "plaintextInStorage": false,
+    "decryptRoundtripOk": true,
+    "auditSeq": 1,
+    "auditHash": "d237819abc9b4d60de411d04699e3fe6dceabe9f001845a47df974e376772690"
+  },
+  "failClosed": {
+    "denials": [
+      {
+        "label": "invalid-session",
+        "expectedStage": "auth",
+        "denied": true,
+        "atStage": "auth",
+        "code": "E_NO_SESSION"
+      },
+      {
+        "label": "no-permission",
+        "expectedStage": "permission",
+        "denied": true,
+        "atStage": "permission",
+        "code": "E_FORBIDDEN"
+      },
+      {
+        "label": "policy-forbidden",
+        "expectedStage": "policy",
+        "denied": true,
+        "atStage": "policy",
+        "code": "E_POLICY"
+      }
+    ],
+    "wrongKeyDecryptDenied": true,
+    "wrongKeyCode": "E_DECRYPT"
+  },
+  "audit": {
+    "events": 4,
+    "chainOk": true,
+    "log": [
+      {
+        "seq": 1,
+        "actor": "u-hemant",
+        "action": "write-evidence",
+        "decision": "allow",
+        "stage": "audit-log",
+        "hash": "d237819abc9b4d60"
+      },
+      {
+        "seq": 2,
+        "actor": null,
+        "action": "write-evidence",
+        "decision": "deny",
+        "stage": "auth",
+        "hash": "12ce89ca5c5a1360"
+      },
+      {
+        "seq": 3,
+        "actor": "g",
+        "action": "write-evidence",
+        "decision": "deny",
+        "stage": "permission",
+        "hash": "517726c80e94703d"
+      },
+      {
+        "seq": 4,
+        "actor": "u-hemant",
+        "action": "write-evidence",
+        "decision": "deny",
+        "stage": "policy",
+        "hash": "37b2cc413875eebe"
+      }
+    ]
+  },
+  "health": {
+    "runtime": "runtime-security",
+    "version": "0.1.0-alpha.1",
+    "status": "ready",
+    "sessions": 2,
+    "records": 1,
+    "auditEvents": 4,
+    "governedProductionGo": false
+  }
+}

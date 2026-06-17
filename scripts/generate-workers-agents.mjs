@@ -49,19 +49,44 @@ const agents = [
   },
 ];
 
+// Rewards summary: derived from the agent-rewards ledger if present (evidence-only,
+// never invented). One-off authoring subagents that earned a permanent id + badges
+// appear here as a retired/active credit record, not as active cycle workers.
+const ledger = J("release/evidence/agent-rewards.json");
+const rewards = ledger
+  ? {
+      schema: ledger.schema,
+      governedProductionGo: ledger.__meta?.governedProductionGo ?? false,
+      agents: ledger.rewards.map((r) => ({
+        role: r.role,
+        permanentId: r.permanentId,
+        task: r.task,
+        taskTitle: r.taskTitle,
+        badges: r.badges.map((b) => ({ id: b.id, tier: b.tier })),
+        nextTasks: r.nextTasks.length,
+        lineage: r.lineage ?? null,
+        retired: r.retired,
+      })),
+    }
+  : null;
+
 const payload = {
   schema: "maataa.workers-agents.v1",
   generatedAt: new Date().toISOString(),
   honesty:
-    "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). One-off authoring subagents are finished and are not listed as active.",
+    "Workers are probe modules that run every cycle (probes/passing counted from honest-achievements.json). The agent is the scheduled cycle runner (last successful run from milestones-cycle-last.json). Rewarded subagents (permanent id + evidence-backed badges) are listed under 'rewards' from the agent-rewards ledger, including retired (pitra) agents.",
   totals: {
     workers: workers.length,
     totalProbes: workers.reduce((n, w) => n + w.probes, 0),
     totalPassing: workers.reduce((n, w) => n + w.passing, 0),
     agents: agents.length,
+    rewardedAgents: rewards ? new Set(rewards.agents.map((a) => a.permanentId)).size : 0,
+    rewardedTasks: rewards ? rewards.agents.length : 0,
+    pitraAgents: rewards ? new Set(rewards.agents.filter((a) => a.lineage === "pitra").map((a) => a.permanentId)).size : 0,
   },
   workers,
   agents,
+  rewards,
 };
 
 writeFileSync(join(root, "release/evidence/workers-agents.json"), `${JSON.stringify(payload, null, 2)}\n`, "utf8");

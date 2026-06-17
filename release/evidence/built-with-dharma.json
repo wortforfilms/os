@@ -1,0 +1,41 @@
+{
+  "schema": "maataa.built-with-dharma.v1",
+  "generatedAt": "2026-06-16T22:41:43.245Z",
+  "claim": "c-built-with-dharma",
+  "reviewState": "VERIFIED",
+  "governedProductionGo": false,
+  "honesty": "Six design properties checked against real artifacts. 'Open Source' is granted by a custom sovereign license (Tantrāṃśa Ājñāpatra) that confers the four software freedoms; this is not an OSI-certification claim. A facet passes only with a backing artifact; the claim is ACHIEVED only if all six pass.",
+  "overallPass": true,
+  "facets": [
+    {
+      "name": "open-source",
+      "pass": true,
+      "proof": "LICENSE four-freedoms=true, SPDX=true, root.license=LicenseRef-Tantramsha-Ajnapatra-1.0, packages declaring license=3"
+    },
+    {
+      "name": "privacy-no-default-telemetry",
+      "pass": true,
+      "proof": "telemetry/analytics SDK deps: none"
+    },
+    {
+      "name": "offline-ready",
+      "pass": true,
+      "proof": "7 app(s) ship a service worker with a cache name"
+    },
+    {
+      "name": "ethical-ai-claim-guard",
+      "pass": true,
+      "proof": "tests/milestones-matrix.test.mjs enforces no-ACHIEVED-without-VERIFIED=true"
+    },
+    {
+      "name": "sovereign-data-local",
+      "pass": true,
+      "proof": "runtime-persistence exposes persist/load/delete/snapshot/restore over local sqlite=true"
+    },
+    {
+      "name": "transparent-reproducible-evidence",
+      "pass": true,
+      "proof": "evidence generators present: 3/3"
+    }
+  ]
+}

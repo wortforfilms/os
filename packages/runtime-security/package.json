@@ -1,0 +1,8 @@
+{
+  "name": "@maataa/runtime-security",
+  "version": "0.1.0-alpha.1",
+  "private": false,
+  "license": "LicenseRef-Tantramsha-Ajnapatra-1.0",
+  "type": "module",
+  "main": "./src/index.ts"
+}

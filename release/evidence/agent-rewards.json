@@ -1,0 +1,200 @@
+{
+  "schema": "maataa.agent-rewards.v1",
+  "runtime": "runtime-rewards",
+  "version": "0.1.0-alpha.1",
+  "rewards": [
+    {
+      "role": "agent1",
+      "task": "task1",
+      "taskTitle": "Sourced real-world endangered-scripts dataset",
+      "artifacts": [
+        {
+          "path": "data/endangered-scripts-research.json",
+          "sha256": "ebf468cc074e26880aa00bbc84e87a9f52603fb5581bd2169b5efb3e3f5ed684"
+        }
+      ],
+      "badges": [
+        {
+          "id": "evidence-sourced",
+          "label": "Evidence Sourced",
+          "tier": "standard",
+          "evidence": [
+            {
+              "artifact": "data/endangered-scripts-research.json",
+              "sha256": "ebf468cc074e26880aa00bbc84e87a9f52603fb5581bd2169b5efb3e3f5ed684",
+              "verified": true,
+              "note": "every one of 31 records carries provenance"
+            }
+          ],
+          "awardedHash": "20d525420d20a6505443804d7ec1021633d186a4307be4f402d65789fab1f8f5"
+        },
+        {
+          "id": "provenance-complete",
+          "label": "Provenance Complete",
+          "tier": "standard",
+          "evidence": [
+            {
+              "artifact": "data/endangered-scripts-research.json",
+              "sha256": "ebf468cc074e26880aa00bbc84e87a9f52603fb5581bd2169b5efb3e3f5ed684",
+              "verified": true,
+              "note": "0 records missing provenance at generation time"
+            }
+          ],
+          "awardedHash": "6c0bf346d0b0be5e8686188efff22a9f0ca5e1eaa94318a6a20a34cd0fbb02b2"
+        },
+        {
+          "id": "broad-coverage",
+          "label": "Broad Coverage",
+          "tier": "standard",
+          "evidence": [
+            {
+              "artifact": "data/endangered-scripts-research.json",
+              "sha256": "ebf468cc074e26880aa00bbc84e87a9f52603fb5581bd2169b5efb3e3f5ed684",
+              "verified": true,
+              "note": "31 scripts across 7 authorities"
+            }
+          ],
+          "awardedHash": "39b6b429b11a8535009bec792d651d2953f3d067123139449cbae3228235d0ae"
+        }
+      ],
+      "nextTasks": [
+        "Expand the dataset to 50+ scripts, each with a second corroborating authority.",
+        "Add sourced native (endonym) names for the 28 records still UNKNOWN, with verbatim citations."
+      ],
+      "retired": false,
+      "permanentId": "agent:agent1:260fd8e37e6d",
+      "prevHash": null,
+      "hash": "6282665d5a663d46d1956adafa5dc0852ef506161330c6b1633113e85cf8bbeb"
+    },
+    {
+      "role": "agent1",
+      "task": "task3",
+      "taskTitle": "Enrich endangered records with verified Unicode codepoints + native names",
+      "artifacts": [
+        {
+          "path": "data/endangered-scripts-enriched.json",
+          "sha256": "d8a9d71f0df9efdfa6743a039b83dc9cac0823bf873a40bc8b1a4c7ae02c7d7b"
+        }
+      ],
+      "identityAnchor": {
+        "role": "agent1",
+        "task": "task1",
+        "artifacts": [
+          {
+            "path": "data/endangered-scripts-research.json",
+            "sha256": "ebf468cc074e26880aa00bbc84e87a9f52603fb5581bd2169b5efb3e3f5ed684"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "id": "unicode-verified",
+          "label": "Unicode Verified",
+          "tier": "standard",
+          "evidence": [
+            {
+              "artifact": "data/endangered-scripts-enriched.json",
+              "sha256": "d8a9d71f0df9efdfa6743a039b83dc9cac0823bf873a40bc8b1a4c7ae02c7d7b",
+              "verified": true,
+              "note": "29/31 records carry sample codepoints machine-verified against the Unicode Character Database"
+            }
+          ],
+          "awardedHash": "f321c1d461853c73cafcb210f5fb07bdd1d71c3de263f352a77cc335c07ae797"
+        },
+        {
+          "id": "native-names-sourced",
+          "label": "Native Names Sourced",
+          "tier": "standard",
+          "evidence": [
+            {
+              "artifact": "data/endangered-scripts-enriched.json",
+              "sha256": "d8a9d71f0df9efdfa6743a039b83dc9cac0823bf873a40bc8b1a4c7ae02c7d7b",
+              "verified": true,
+              "note": "3 endonyms verified with provenance; the rest honestly left UNKNOWN (fail-closed)"
+            }
+          ],
+          "awardedHash": "6b92a1d3a11e8703aab4a3257485a1f5edf1f77810828658f6f82963f7109dc0"
+        }
+      ],
+      "nextTasks": [],
+      "retired": false,
+      "permanentId": "agent:agent1:260fd8e37e6d",
+      "prevHash": "6282665d5a663d46d1956adafa5dc0852ef506161330c6b1633113e85cf8bbeb",
+      "hash": "f8f5a69f220390c7d267bdaab53a9f5061546c3846d29460c50906ee5a139211"
+    },
+    {
+      "role": "agent0",
+      "task": "task2",
+      "taskTitle": "Seed ENDANGERED records into the Lipi runtime (foundational)",
+      "artifacts": [
+        {
+          "path": "packages/lipi-runtime/src/data/endangered-scripts.ts",
+          "sha256": "a445db12a7d740036cdf94d0e2f98ebe62f0b03ebad277760e74a8fda7c25075"
+        },
+        {
+          "path": "packages/lipi-runtime/release/evidence/lipi-endangered-scripts.json",
+          "sha256": "33dbbf33d4adc3540d52b74166b22e1daf9ac447c5d5a7a988423ddc792f0b54"
+        },
+        {
+          "path": "packages/lipi-runtime/tests/endangered-scripts.test.mjs",
+          "sha256": "37d2f7bd3c22b80f1c2951b95cc2d78e10d9d4dd276e409bcaba760dfe3bfa67"
+        }
+      ],
+      "badges": [
+        {
+          "id": "pitra-foundational",
+          "label": "Pitra · Foundational",
+          "tier": "pitra",
+          "evidence": [
+            {
+              "artifact": "packages/lipi-runtime/src/data/endangered-scripts.ts",
+              "sha256": "a445db12a7d740036cdf94d0e2f98ebe62f0b03ebad277760e74a8fda7c25075",
+              "verified": true,
+              "note": "seeded 31 ENDANGERED records into the registry (0 → 31)"
+            }
+          ],
+          "awardedHash": "dbdce541d4d0f6e869d468798ef28bcccbb2792d9d0a4ee07c3a63ac0130566d"
+        },
+        {
+          "id": "pitra-invariant-keeper",
+          "label": "Pitra · Invariant Keeper",
+          "tier": "pitra",
+          "evidence": [
+            {
+              "artifact": "packages/lipi-runtime/release/evidence/lipi-endangered-scripts.json",
+              "sha256": "33dbbf33d4adc3540d52b74166b22e1daf9ac447c5d5a7a988423ddc792f0b54",
+              "verified": true,
+              "note": "preserved the 426-slot master invariant"
+            }
+          ],
+          "awardedHash": "f58866a41003ecc0332e4180a115d6de739de38f3a5c2ae710bec481229236f3"
+        },
+        {
+          "id": "pitra-green-retire",
+          "label": "Pitra · Green Retire",
+          "tier": "pitra",
+          "evidence": [
+            {
+              "artifact": "packages/lipi-runtime/tests/endangered-scripts.test.mjs",
+              "sha256": "37d2f7bd3c22b80f1c2951b95cc2d78e10d9d4dd276e409bcaba760dfe3bfa67",
+              "verified": true,
+              "note": "retired with lipi tests + typecheck green"
+            }
+          ],
+          "awardedHash": "6a0c172e954e626f8e868fb72f160b60b3c3310b589e9f48b3233f72d083905e"
+        }
+      ],
+      "nextTasks": [],
+      "retired": true,
+      "lineage": "pitra",
+      "permanentId": "agent:agent0:e192a4af58ba",
+      "prevHash": "f8f5a69f220390c7d267bdaab53a9f5061546c3846d29460c50906ee5a139211",
+      "hash": "8d3c5ac133183dd7d7a47cda5b112a6173240cdd4e32e5c07ac8329776879f9d"
+    }
+  ],
+  "__meta": {
+    "governedProductionGo": false,
+    "honesty": "Permanent IDs are content-addressed from verified artifact hashes; badges require backing evidence (fail-closed). This ledger records honest credit only — it grants no production-GO, release authority, or trust."
+  },
+  "generatedAt": "2026-06-16T21:24:18.288Z"
+}

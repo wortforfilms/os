@@ -1,4 +1,6 @@
 // Group: Apps & Experience — probes for per-app PWA isolation.
+import { evaluateDharma } from "../lib/dharma-facets.mjs";
+
 const appDirs = (root, join, readdirSync) =>
   readdirSync(join(root, "apps"), { withFileTypes: true })
     .filter((e) => e.isDirectory() && e.name !== "electron")
@@ -195,6 +197,64 @@ export const probes = [
         pass: apps.length > 0 && ok === apps.length && invalid.length === 0,
         evidence: `${ok}/${apps.length} apps ship a favicon.svg that opens with <svg` +
           (invalid.length ? `; invalid: ${invalid.join(", ")}` : ""),
+      };
+    },
+  },
+  // ── RESOLVE PROBES (upgrade UNVERIFIED board claims when evidenced) ──────────
+  {
+    id: "a-built-with-dharma-facets",
+    universe: "civilization",
+    futureMilestone: "Built With Dharma: all six properties (open-source, privacy, offline, ethical-AI guard, sovereign data, transparent) backed by real artifacts",
+    resolves: "c-built-with-dharma",
+    probe(ctx) {
+      const { facets, overallPass } = evaluateDharma(ctx);
+      const passed = facets.filter((f) => f.pass).length;
+      return {
+        pass: overallPass,
+        evidence: `${passed}/${facets.length} dharma facets backed by artifacts: ${facets.map((f) => `${f.name}=${f.pass ? "ok" : "FAIL"}`).join(", ")}`,
+      };
+    },
+  },
+  {
+    id: "a-security-flow-end-to-end",
+    universe: "workflow",
+    futureMilestone: "Security flow runs end to end: User Action→Auth→Permission→Policy→Encrypted Processing→Secure Storage→Audit Log, fail-closed",
+    resolves: "c-security-flow",
+    probe({ root, join, existsSync, readFileSync, execFileSync }) {
+      const testFile = "tests/security-flow.test.mjs";
+      if (!existsSync(join(root, testFile))) return { pass: false, evidence: "tests/security-flow.test.mjs not found" };
+      let out = "";
+      try {
+        out = execFileSync(process.execPath, ["--experimental-strip-types", "--test", testFile], { cwd: root, stdio: "pipe" }).toString();
+      } catch (e) {
+        out = `${(e.stdout || "").toString()}${(e.stderr || "").toString()}`;
+      }
+      const pass = Number((out.match(/# pass (\d+)/) || [])[1] || 0);
+      const fail = Number((out.match(/# fail (\d+)/) || [])[1] || 1);
+      const evPath = join(root, "release/evidence/security-flow.json");
+      let evOk = false;
+      let detail = "no evidence file";
+      if (existsSync(evPath)) {
+        try {
+          const ev = JSON.parse(readFileSync(evPath, "utf8"));
+          evOk =
+            ev.happyPath?.stages?.length === 7 &&
+            ev.happyPath?.plaintextInStorage === false &&
+            ev.happyPath?.decryptRoundtripOk === true &&
+            ev.audit?.chainOk === true &&
+            ev.governedProductionGo === false &&
+            Array.isArray(ev.failClosed?.denials) &&
+            ev.failClosed.denials.length >= 3 &&
+            ev.failClosed.denials.every((d) => d.denied) &&
+            ev.failClosed.wrongKeyDecryptDenied === true;
+          detail = `7-stage=${ev.happyPath?.stages?.length === 7}, ciphertextOnly=${ev.happyPath?.plaintextInStorage === false}, auditChain=${ev.audit?.chainOk === true}, failClosed=${evOk}`;
+        } catch (e) {
+          detail = `evidence parse error: ${e.message}`;
+        }
+      }
+      return {
+        pass: fail === 0 && pass > 0 && evOk,
+        evidence: `security-flow test ${pass} pass/${fail} fail; evidence ${detail}`,
       };
     },
   },

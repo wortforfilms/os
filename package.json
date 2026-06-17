@@ -2,6 +2,7 @@
   "name": "maataa-os",
   "version": "0.1.0-alpha.1",
   "private": true,
+  "license": "LicenseRef-Tantramsha-Ajnapatra-1.0",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "npm run build:web",

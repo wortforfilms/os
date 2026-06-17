@@ -1,0 +1,63 @@
+TANTRĀṂŚA ĀJÑĀPATRA — SOVEREIGN COMPONENT CHARTER
+(तन्त्रांश आज्ञापत्र — Sovereign Open License for MAATAA OS)
+SPDX-License-Identifier: LicenseRef-Tantramsha-Ajnapatra-1.0
+Version 1.0
+
+Copyright (c) 2026 Hemant / MAATAA OS contributors.
+
+PREAMBLE
+
+MAATAA OS is a sovereign runtime federation. This charter ("Ājñāpatra")
+governs each component ("tantrāṃśa") of the work. It is a sovereign license
+authored for this project rather than a stock template, but it deliberately
+GRANTS THE FOUR SOFTWARE FREEDOMS in full so that the work is, in substance,
+open source. This document does not claim certification by the Open Source
+Initiative; it claims only that the freedoms below are granted unconditionally
+except for the reciprocal and attribution terms stated.
+
+1. GRANT OF FREEDOMS
+
+Permission is hereby granted, free of charge, to any person or sovereign
+entity obtaining a copy of this work and associated files (the "Work"), to:
+
+  (a) USE the Work for any purpose, private or public, without royalty;
+  (b) STUDY how the Work operates and inspect its complete source;
+  (c) MODIFY the Work and adapt it to any need; and
+  (d) REDISTRIBUTE copies, original or modified, to anyone.
+
+2. SOURCE AVAILABILITY (transparency)
+
+Any conveyed binary or hosted/network service built from the Work must make
+the complete corresponding source — including modifications — available to its
+recipients or users under this same charter. Evidence and provenance files
+shipped with the Work must not be stripped when redistributed.
+
+3. SHARE-ALIKE (reciprocity)
+
+Redistributions and derivative works must be licensed, as a whole, under this
+same TANTRĀṂŚA ĀJÑĀPATRA v1.0 (or a later version published for MAATAA OS).
+You may add your own notices but may not impose terms that revoke the freedoms
+in Section 1 for downstream recipients.
+
+4. ATTRIBUTION
+
+Retain this charter, the copyright line, and existing attribution and
+provenance notices in all copies and substantial portions of the Work.
+
+5. SOVEREIGNTY & NO-FALSE-CLAIM
+
+Nothing in this charter authorizes use of the Work to misrepresent its
+verification status. Redistributors must not present unverified capabilities
+as production-ready, certified, or sovereign-complete. The Work's own honest
+status (CONTROLLED_NO_GO unless evidenced) must be preserved when conveyed.
+
+6. NO WARRANTY
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
+CONNECTION WITH THE WORK OR THE USE OR OTHER DEALINGS IN THE WORK.
+
+END OF CHARTER
