@@ -1,0 +1,299 @@
+{
+  "schema": "hkd-lipi-registry-phase24-cross-browser-validation.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE24_TO_PHASE27_INPUTS",
+  "reviewState": "CONTROLLED_PREVIEW_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabledRows": 0,
+  "runtimeEnabled": 0,
+  "mutationAllowed": false,
+  "registryMutations": 0,
+  "releaseCandidate": false,
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "sourcePolicy": "cross_browser_cross_platform_review_and_production_decision_no_registry_mutation_no_runtime_enablement",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "fontCoverageReport",
+      "path": "release/evidence/hkd-lipi-font-coverage-report.json",
+      "sha256": "0379570795300fc9e4293b1f7613c9d23b85e718f3cd459b1e963859fc4a2759"
+    },
+    {
+      "id": "glyphBaselineCaptures",
+      "path": "release/evidence/hkd-lipi-glyph-baseline-captures.json",
+      "sha256": "7b6fec6c073886992cb3a0f14ebd8a503e7a5cb63fa16fc12a4f91236c07cc6c"
+    },
+    {
+      "id": "phase18ReviewPackage",
+      "path": "release/evidence/hkd-lipi-registry-phase18-external-review-package.json",
+      "sha256": "40a4294b20d62ee0cd834c00aa0e4c4009b27962f701bc63f06215c5b71f1482"
+    },
+    {
+      "id": "phase19ProductionGate",
+      "path": "release/evidence/hkd-lipi-registry-phase19-production-go-gate.json",
+      "sha256": "01ed6373a2164b0d8d5e6a7867d724f327f183ce84ff394458327c2ef4ec6076"
+    },
+    {
+      "id": "runtimeActivation",
+      "path": "release/evidence/hkd-lipi-registry-runtime-activation.json",
+      "sha256": "f8ce697522f13d42aa63324caf2d44a6ca15a6422a0658ba1bc80253cfc79135"
+    },
+    {
+      "id": "renderDiffReport",
+      "path": "release/evidence/hkd-lipi-render-diff-report.json",
+      "sha256": "d46cbbce94c002d92407d46594163117a1eea6a95a555a6e6161cb288bc5ed91"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-registry-phase24-cross-browser-validation.v1",
+    "sourceIds": [
+      "browser-canvas",
+      "harfbuzz"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phases24-27.mjs",
+    "sourcePolicy": "cross_browser_cross_platform_review_and_production_decision_no_registry_mutation_no_runtime_enablement",
+    "trustedInputs": [
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-font-coverage-report.json",
+      "release/evidence/hkd-lipi-glyph-baseline-captures.json",
+      "release/evidence/hkd-lipi-registry-phase18-external-review-package.json",
+      "release/evidence/hkd-lipi-registry-phase19-production-go-gate.json",
+      "release/evidence/hkd-lipi-registry-runtime-activation.json",
+      "release/evidence/hkd-lipi-render-diff-report.json"
+    ],
+    "reviewed": false,
+    "phkd": "FACTS_FROM_LOCAL_EXECUTION_OR_BLOCKED"
+  },
+  "status": "BLOCKED",
+  "phase": 24,
+  "goal": "Cross-browser validation for Chrome, Firefox, and Safari without registry mutation.",
+  "summary": {
+    "registryRows": 426,
+    "targetBrowsers": 3,
+    "verifiedBrowsers": 1,
+    "blockedBrowsers": 2,
+    "verifiedBaselineRows": 139,
+    "browserAtlasImages": 1,
+    "renderComparisons": 139,
+    "productionReady": false,
+    "runtimeEnabledRows": 0
+  },
+  "targets": [
+    {
+      "id": "chrome",
+      "label": "Google Chrome",
+      "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "installed": true,
+      "versionStatus": "VERIFIED",
+      "versionOutput": "Google Chrome 149.0.7827.103",
+      "headlessCaptureStatus": "CAPTURED",
+      "baselineEvidence": {
+        "atlasImagePath": "data/lipi-glyph-baselines/browser/phase23-browser-baseline-atlas.png",
+        "atlasSha256": "f6c861ce6f748ee9036c23fd6482f4fab5f27ed9e43e9d417a52bea33a56b903",
+        "capturedRows": 139,
+        "renderDiffComparisons": 139
+      },
+      "validationStatus": "VERIFIED",
+      "blocker": null,
+      "provenance": {
+        "scope": "phase24_browser_target",
+        "sourceIds": [
+          "chrome",
+          "hkd-lipi-phase23-glyph-baselines"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases24-27.mjs",
+        "sourcePolicy": "cross_browser_cross_platform_review_and_production_decision_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-font-coverage-report.json",
+          "release/evidence/hkd-lipi-glyph-baseline-captures.json",
+          "release/evidence/hkd-lipi-registry-phase18-external-review-package.json",
+          "release/evidence/hkd-lipi-registry-phase19-production-go-gate.json",
+          "release/evidence/hkd-lipi-registry-runtime-activation.json",
+          "release/evidence/hkd-lipi-render-diff-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_LOCAL_EXECUTION_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "firefox",
+      "label": "Mozilla Firefox",
+      "executable": "/Applications/Firefox.app/Contents/MacOS/firefox",
+      "installed": false,
+      "versionStatus": "MISSING",
+      "versionOutput": "UNKNOWN",
+      "headlessCaptureStatus": "NOT_EXECUTED",
+      "baselineEvidence": null,
+      "validationStatus": "BLOCKED",
+      "blocker": {
+        "id": "phase24:blocker:firefox-not-available",
+        "status": "BLOCKED",
+        "severity": "HIGH",
+        "reason": "Firefox is not installed in /Applications and no Firefox render capture artifact exists.",
+        "requiredToUnblock": [
+          "install Firefox",
+          "run a source-backed Firefox baseline capture harness",
+          "compare against Phase 23 baseline hashes"
+        ]
+      },
+      "provenance": {
+        "scope": "phase24_browser_target",
+        "sourceIds": [
+          "firefox",
+          "hkd-lipi-phase23-glyph-baselines"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases24-27.mjs",
+        "sourcePolicy": "cross_browser_cross_platform_review_and_production_decision_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-font-coverage-report.json",
+          "release/evidence/hkd-lipi-glyph-baseline-captures.json",
+          "release/evidence/hkd-lipi-registry-phase18-external-review-package.json",
+          "release/evidence/hkd-lipi-registry-phase19-production-go-gate.json",
+          "release/evidence/hkd-lipi-registry-runtime-activation.json",
+          "release/evidence/hkd-lipi-render-diff-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_LOCAL_EXECUTION_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "safari",
+      "label": "Safari",
+      "executable": "/Applications/Safari.app/Contents/MacOS/Safari",
+      "installed": true,
+      "versionStatus": "BLOCKED",
+      "versionOutput": "UNKNOWN",
+      "headlessCaptureStatus": "NOT_EXECUTED",
+      "baselineEvidence": null,
+      "validationStatus": "BLOCKED",
+      "blocker": {
+        "id": "phase24:blocker:safari-headless-not-captured",
+        "status": "BLOCKED",
+        "severity": "HIGH",
+        "reason": "Safari is installed, but no WebKit/Safari baseline capture artifact exists in the evidence graph.",
+        "requiredToUnblock": [
+          "configure a Safari/WebKit capture harness",
+          "capture baseline atlas",
+          "compare against Chrome and HarfBuzz evidence"
+        ]
+      },
+      "provenance": {
+        "scope": "phase24_browser_target",
+        "sourceIds": [
+          "hkd-lipi-phase23-glyph-baselines",
+          "safari"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases24-27.mjs",
+        "sourcePolicy": "cross_browser_cross_platform_review_and_production_decision_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-font-coverage-report.json",
+          "release/evidence/hkd-lipi-glyph-baseline-captures.json",
+          "release/evidence/hkd-lipi-registry-phase18-external-review-package.json",
+          "release/evidence/hkd-lipi-registry-phase19-production-go-gate.json",
+          "release/evidence/hkd-lipi-registry-runtime-activation.json",
+          "release/evidence/hkd-lipi-render-diff-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_LOCAL_EXECUTION_OR_BLOCKED"
+      }
+    }
+  ],
+  "blockers": [
+    {
+      "id": "phase24:blocker:firefox-not-available",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "reason": "Firefox is not installed in /Applications and no Firefox render capture artifact exists.",
+      "requiredToUnblock": [
+        "install Firefox",
+        "run a source-backed Firefox baseline capture harness",
+        "compare against Phase 23 baseline hashes"
+      ],
+      "provenance": {
+        "scope": "phase24_browser_target",
+        "sourceIds": [
+          "firefox",
+          "hkd-lipi-phase23-glyph-baselines"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases24-27.mjs",
+        "sourcePolicy": "cross_browser_cross_platform_review_and_production_decision_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-font-coverage-report.json",
+          "release/evidence/hkd-lipi-glyph-baseline-captures.json",
+          "release/evidence/hkd-lipi-registry-phase18-external-review-package.json",
+          "release/evidence/hkd-lipi-registry-phase19-production-go-gate.json",
+          "release/evidence/hkd-lipi-registry-runtime-activation.json",
+          "release/evidence/hkd-lipi-render-diff-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_LOCAL_EXECUTION_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "phase24:blocker:safari-headless-not-captured",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "reason": "Safari is installed, but no WebKit/Safari baseline capture artifact exists in the evidence graph.",
+      "requiredToUnblock": [
+        "configure a Safari/WebKit capture harness",
+        "capture baseline atlas",
+        "compare against Chrome and HarfBuzz evidence"
+      ],
+      "provenance": {
+        "scope": "phase24_browser_target",
+        "sourceIds": [
+          "hkd-lipi-phase23-glyph-baselines",
+          "safari"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases24-27.mjs",
+        "sourcePolicy": "cross_browser_cross_platform_review_and_production_decision_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-font-coverage-report.json",
+          "release/evidence/hkd-lipi-glyph-baseline-captures.json",
+          "release/evidence/hkd-lipi-registry-phase18-external-review-package.json",
+          "release/evidence/hkd-lipi-registry-phase19-production-go-gate.json",
+          "release/evidence/hkd-lipi-registry-runtime-activation.json",
+          "release/evidence/hkd-lipi-render-diff-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_LOCAL_EXECUTION_OR_BLOCKED"
+      }
+    }
+  ],
+  "checks": {
+    "chromeBaselineCaptured": true,
+    "firefoxCaptured": false,
+    "safariCaptured": false,
+    "allTargetBrowsersVerified": false,
+    "noRegistryMutation": true,
+    "noRuntimeEnablement": true,
+    "productionReadyFalse": true
+  },
+  "outputHashes": [
+    {
+      "path": "release/evidence/hkd-lipi-registry-phase24-cross-browser-validation.json",
+      "sha256": "91ac7c2a45832b2e8a9d2787f52dfdbb801668d125aee7dc9ea35391fb83f8c1"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-phase25-cross-platform-validation.json",
+      "sha256": "4618957234f19c13dfafbd5fb7210e1bd5805e9d8caf235536e95e52a57ada01"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-phase26-external-review-human-approval.json",
+      "sha256": "e2d892878d301e2e25466a50db5fbe6e9d48838982685f345634526c7af2c009"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-phase27-production-go-decision.json",
+      "sha256": "97e3ea33c6b40e8cb1d1e139b3ce82436bdffe920108a9e7fd9fac94a1a05118"
+    }
+  ]
+}

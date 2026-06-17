@@ -1,0 +1,71 @@
+{
+  "schema": "hkd-lipi-glyph-baseline-manifest.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE20_RENDERING_INPUTS",
+  "reviewState": "CONTROLLED_PREVIEW_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabledRows": 0,
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "sourcePolicy": "phase20_rendering_corpus_from_registry_seed_and_unicode_ucd_only_no_registry_mutation",
+  "summary": {
+    "baselineCount": 0,
+    "glyphComparisonEvidence": 0,
+    "browserSnapshots": 0,
+    "osRenderingSnapshots": 0,
+    "status": "BLOCKED"
+  },
+  "baselines": [],
+  "blockers": [
+    {
+      "id": "phase20:blocker:glyph-baselines-missing",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "reason": "No glyph-run or image baselines exist yet; browser, OS, and font rendering remain unvalidated.",
+      "requiredToUnblock": [
+        "run HarfBuzz with versioned fonts",
+        "capture browser/OS render snapshots",
+        "record glyph-run diff baselines"
+      ],
+      "provenance": {
+        "scope": "phase20_glyph_baseline_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase12-harfbuzz-opentype-blockers"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-rendering-validation.mjs",
+        "sourcePolicy": "phase20_rendering_corpus_from_registry_seed_and_unicode_ucd_only_no_registry_mutation",
+        "trustedInputs": [
+          "data/hkd-lipi-harfbuzz-opentype-blockers.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-runtime-enablement-gate-review.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "data/unicode/ucd-latest/UnicodeData.txt",
+          "release/evidence/hkd-lipi-registry-runtime-activation.json"
+        ],
+        "reviewed": false,
+        "phkd": "SOURCE_BACKED_OR_BLOCKED_NO_RENDERING_CLAIM"
+      }
+    }
+  ],
+  "provenance": {
+    "scope": "phase20_glyph_baseline_manifest",
+    "sourceIds": [
+      "hkd-lipi-phase12-harfbuzz-opentype-blockers"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-rendering-validation.mjs",
+    "sourcePolicy": "phase20_rendering_corpus_from_registry_seed_and_unicode_ucd_only_no_registry_mutation",
+    "trustedInputs": [
+      "data/hkd-lipi-harfbuzz-opentype-blockers.json",
+      "data/hkd-lipi-numeral-registry.json",
+      "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/hkd-lipi-zero-registry.json",
+      "data/unicode/ucd-latest/UnicodeData.txt",
+      "release/evidence/hkd-lipi-registry-runtime-activation.json"
+    ],
+    "reviewed": false,
+    "phkd": "SOURCE_BACKED_OR_BLOCKED_NO_RENDERING_CLAIM"
+  }
+}

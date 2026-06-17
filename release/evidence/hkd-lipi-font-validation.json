@@ -1,0 +1,133 @@
+{
+  "schema": "hkd-lipi-font-validation.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE20_RENDERING_INPUTS",
+  "reviewState": "CONTROLLED_PREVIEW_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabledRows": 0,
+  "registryRuntimeActive": true,
+  "runtimeMode": "CONTROLLED_PREVIEW",
+  "runtimeEnabled": 0,
+  "mutationAllowed": false,
+  "registryMutations": 0,
+  "releaseCandidate": false,
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "sourcePolicy": "phase20_rendering_corpus_from_registry_seed_and_unicode_ucd_only_no_registry_mutation",
+  "trustedInputs": [
+    {
+      "path": "data/hkd-lipi-harfbuzz-opentype-blockers.json",
+      "sha256": "802a9b16f54e4a7f1737aef7ca2d94fa4ce8efb4d9797b650a058b0a63ff7371"
+    },
+    {
+      "path": "data/hkd-lipi-numeral-registry.json",
+      "sha256": "f338fe217030c3df988f0d0d8c3714d38b0c74bfe3cbdfe04e22c08e1fb4a1eb"
+    },
+    {
+      "path": "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "sha256": "1d27b5689c2d04322432ff42f976af9d62e12ba166dce553e05194eede7146a1"
+    },
+    {
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "path": "data/hkd-lipi-zero-registry.json",
+      "sha256": "7589ebe1e1bda3286ced8a5d860bcc34808addf81924362825f66a7a2011968c"
+    },
+    {
+      "path": "data/unicode/ucd-latest/UnicodeData.txt",
+      "sha256": "2e1efc1dcb59c575eedf5ccae60f95229f706ee6d031835247d843c11d96470c"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-runtime-activation.json",
+      "sha256": "f8ce697522f13d42aa63324caf2d44a6ca15a6422a0658ba1bc80253cfc79135"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-font-validation.v1",
+    "sourceIds": [
+      "hkd-lipi-font-fixture-manifest",
+      "hkd-lipi-phase12-harfbuzz-opentype-blockers"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-rendering-validation.mjs",
+    "sourcePolicy": "phase20_rendering_corpus_from_registry_seed_and_unicode_ucd_only_no_registry_mutation",
+    "trustedInputs": [
+      "data/hkd-lipi-harfbuzz-opentype-blockers.json",
+      "data/hkd-lipi-numeral-registry.json",
+      "data/hkd-lipi-runtime-enablement-gate-review.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/hkd-lipi-zero-registry.json",
+      "data/unicode/ucd-latest/UnicodeData.txt",
+      "release/evidence/hkd-lipi-registry-runtime-activation.json"
+    ],
+    "reviewed": false,
+    "phkd": "SOURCE_BACKED_OR_BLOCKED_NO_RENDERING_CLAIM"
+  },
+  "counts": {
+    "fixtureCount": 0,
+    "versionedFontFixtures": 0,
+    "verifiedFontFamilies": 0,
+    "fontRenderingClaimsAsserted": 0,
+    "registryRows": 426
+  },
+  "checks": {
+    "manifestExists": true,
+    "noFontClaimsAsserted": true,
+    "noRuntimeEnablement": true,
+    "productionReadyFalse": true,
+    "governedProductionGoFalse": true
+  },
+  "status": "BLOCKED",
+  "blockers": [
+    {
+      "id": "phase20:blocker:font-fixtures-missing",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "reason": "No versioned local font fixtures have been attached for registry-wide rendering validation.",
+      "requiredToUnblock": [
+        "attach versioned font files",
+        "record licenses and hashes",
+        "run glyph-baseline capture"
+      ],
+      "provenance": {
+        "scope": "phase20_font_fixture_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase12-harfbuzz-opentype-blockers"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-rendering-validation.mjs",
+        "sourcePolicy": "phase20_rendering_corpus_from_registry_seed_and_unicode_ucd_only_no_registry_mutation",
+        "trustedInputs": [
+          "data/hkd-lipi-harfbuzz-opentype-blockers.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-runtime-enablement-gate-review.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "data/unicode/ucd-latest/UnicodeData.txt",
+          "release/evidence/hkd-lipi-registry-runtime-activation.json"
+        ],
+        "reviewed": false,
+        "phkd": "SOURCE_BACKED_OR_BLOCKED_NO_RENDERING_CLAIM"
+      }
+    }
+  ],
+  "outputHashes": [
+    {
+      "path": "data/lipi-font-fixtures/manifest.json",
+      "sha256": "71a4c9cabba0765173b6b51d68861fda617404ca779dfc80d7bd6efc882d9ad5"
+    },
+    {
+      "path": "data/lipi-glyph-baselines/manifest.json",
+      "sha256": "46529b1358c845cb79e9fcb658c53d31e3e842818492764e9b54697fd666490d"
+    },
+    {
+      "path": "data/lipi-rendering-corpus/index.json",
+      "sha256": "0c9b881af598e4c7a376e27906e3bdd902415d0d521d181a4a34b208f96260c5"
+    }
+  ]
+}

@@ -1,0 +1,1254 @@
+{
+  "schema": "hkd-lipi-font-coverage-report.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE23_GLYPH_BASELINE_CAPTURE",
+  "reviewState": "CONTROLLED_PREVIEW_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabledRows": 0,
+  "runtimeEnabled": 0,
+  "mutationAllowed": false,
+  "registryMutations": 0,
+  "releaseCandidate": false,
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "sourcePolicy": "phase23_glyph_baseline_capture_from_phase22_verified_shaping_and_phase21_browser_outputs_no_registry_mutation",
+  "trustedInputs": [
+    {
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "path": "data/lipi-rendering-corpus/index.json",
+      "sha256": "0c9b881af598e4c7a376e27906e3bdd902415d0d521d181a4a34b208f96260c5"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-browser-render-report.json",
+      "sha256": "a18d116a053a1c4035301bfa81f58d8aa5f8f20b408538d08151ac1212d828b5"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-availability.json",
+      "sha256": "c14087498a2b11bd7670d8725a3bd4bfedd2baacf3f0937b6bad720626fb845f"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-environment.json",
+      "sha256": "fdd744e5bcc6a45de7b7c11740e8cc4f0763f7f55e376297d1a01d9a7506048f"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-shaping-evidence.json",
+      "sha256": "f13b98f21aebb23f78bf136fa6efd14b778c9fc2b0251bf3588c099c135d8ec3"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-opentype-render-report.json",
+      "sha256": "777c366eb96f5f93d35220a7a20e7ae0b7f0714ee631ff9bd3574fea9d7fb7c5"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-runtime-activation.json",
+      "sha256": "f8ce697522f13d42aa63324caf2d44a6ca15a6422a0658ba1bc80253cfc79135"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-font-coverage-report.v1",
+    "sourceIds": [
+      "browser-canvas",
+      "harfbuzz",
+      "local-font"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-glyph-baseline-captures.mjs",
+    "sourcePolicy": "phase23_glyph_baseline_capture_from_phase22_verified_shaping_and_phase21_browser_outputs_no_registry_mutation",
+    "trustedInputs": [
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/lipi-rendering-corpus/index.json",
+      "release/evidence/hkd-lipi-browser-render-report.json",
+      "release/evidence/hkd-lipi-harfbuzz-availability.json",
+      "release/evidence/hkd-lipi-harfbuzz-environment.json",
+      "release/evidence/hkd-lipi-harfbuzz-shaping-evidence.json",
+      "release/evidence/hkd-lipi-opentype-render-report.json",
+      "release/evidence/hkd-lipi-registry-runtime-activation.json"
+    ],
+    "reviewed": false,
+    "phkd": "VISUAL_BASELINE_CAPTURE_RECORDED_WITHOUT_REGISTRY_MUTATION"
+  },
+  "status": "VERIFIED",
+  "counts": {
+    "verifiedShapingRows": 139,
+    "failedWithEvidenceRows": 44,
+    "fontsUsed": 125,
+    "harfbuzzImageRows": 139,
+    "browserAtlasImages": 1,
+    "unsupportedNoSampleRows": 243,
+    "registryMutations": 0,
+    "runtimeEnabledRows": 0
+  },
+  "checks": [
+    {
+      "id": "font_coverage_measured_for_verified_shapes",
+      "status": "PASS",
+      "expected": 139,
+      "actual": 139
+    },
+    {
+      "id": "failed_shapes_remain_failed_with_evidence",
+      "status": "PASS",
+      "expected": 44,
+      "actual": 44
+    },
+    {
+      "id": "no_font_support_claim_inferred",
+      "status": "PASS",
+      "expected": "MEASURED_LOCAL_FONT_USAGE_ONLY",
+      "actual": "MEASURED_LOCAL_FONT_USAGE_ONLY"
+    }
+  ],
+  "coverageByFont": [
+    {
+      "path": "/System/Library/Fonts/Apple Symbols.ttf",
+      "fileName": "Apple Symbols.ttf",
+      "sha256": "99b1a177669c568bcb157c107ea4ba0f1f60c77021df990cc5c1d7afa3863b92",
+      "verifiedRows": 10,
+      "scripts": [
+        "Alchemical Symbols",
+        "Astrological Symbols",
+        "Astronomical Symbols",
+        "Cartographic Symbols",
+        "Deseret",
+        "Mathematical Notation",
+        "Ogham",
+        "Runic",
+        "Shavian",
+        "Western Music Notation"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+      "fileName": "Arial Unicode.ttf",
+      "sha256": "876af2cd4854644e7f3e7feb2f688997fdb3343c6df6693611209c9dfb47ccec",
+      "verifiedRows": 3,
+      "scripts": [
+        "Bopomofo",
+        "Common",
+        "Georgian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Arial.ttf",
+      "fileName": "Arial.ttf",
+      "sha256": "525979822591a3447cfc49d943d6f7683508e25543407871c0ed8fed05fd2bd9",
+      "verifiedRows": 2,
+      "scripts": [
+        "Cyrillic",
+        "Latin"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMeroitic-Regular.ttf",
+      "fileName": "NotoSansMeroitic-Regular.ttf",
+      "sha256": "b3158127a35076b87deac06b13a29df6c397fb2d2562f5d40f7e47a389b43be1",
+      "verifiedRows": 2,
+      "scripts": [
+        "Meroitic Cursive",
+        "Meroitic Hieroglyphs"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/PingFang.ttc",
+      "fileName": "PingFang.ttc",
+      "sha256": "8320b6e1abb8e82da13109ae91d74854fd800a320f62f8b5c038a4a3635dacdc",
+      "verifiedRows": 2,
+      "scripts": [
+        "Hiragana",
+        "Katakana"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Apple Braille Outline 6 Dot.ttf",
+      "fileName": "Apple Braille Outline 6 Dot.ttf",
+      "sha256": "aa7570d12d0bd44ef0d736683b600efa0c6eb28ab118a9261009cce1aa06aa1a",
+      "verifiedRows": 1,
+      "scripts": [
+        "Braille"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/AppleSDGothicNeo.ttc",
+      "fileName": "AppleSDGothicNeo.ttc",
+      "sha256": "0452cde17bbdfe71106680879df943034a003c537c95a4137bab124b3cfa4b66",
+      "verifiedRows": 1,
+      "scripts": [
+        "Hangul"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Ayuthaya.ttf",
+      "fileName": "Ayuthaya.ttf",
+      "sha256": "96a974a13a8737931a343eb8cef7d0bfb534b2fcafeab9482dbed70f2d8662fe",
+      "verifiedRows": 1,
+      "scripts": [
+        "Thai"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Bangla MN.ttc",
+      "fileName": "Bangla MN.ttc",
+      "sha256": "2badaccfe36d2b61a4a801d4bb6758e6847d733ecd58e73f05b4cb6bddfef381",
+      "verifiedRows": 1,
+      "scripts": [
+        "Bengali"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Devanagari Sangam MN.ttc",
+      "fileName": "Devanagari Sangam MN.ttc",
+      "sha256": "ff0ecc152f129b2eeac811347b13cd956da3ef38e6d2822e087f8c0d1ef818b2",
+      "verifiedRows": 1,
+      "scripts": [
+        "Devanagari"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Gujarati Sangam MN.ttc",
+      "fileName": "Gujarati Sangam MN.ttc",
+      "sha256": "2b4501cb1773fddb1297e8536c13fd95e954dd869b34891cafc356414ff05a66",
+      "verifiedRows": 1,
+      "scripts": [
+        "Gujarati"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Gurmukhi.ttf",
+      "fileName": "Gurmukhi.ttf",
+      "sha256": "31640e84d9936ed4dcb2bd95cc1604a6f105d450cab41c2a9dd812f9bf5067b8",
+      "verifiedRows": 1,
+      "scripts": [
+        "Gurmukhi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Kailasa.ttc",
+      "fileName": "Kailasa.ttc",
+      "sha256": "1f97f782da61a3329fd7aaa889dea8a6468b58cb4128bea083e0e540e3c9e551",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tibetan"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Khmer MN.ttc",
+      "fileName": "Khmer MN.ttc",
+      "sha256": "79769f359056867e8ae0d64d8e911452f0a70a3bf996a4f182f84463a7407cff",
+      "verifiedRows": 1,
+      "scripts": [
+        "Khmer"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/KohinoorTelugu.ttc",
+      "fileName": "KohinoorTelugu.ttc",
+      "sha256": "150cb8b036846b2792882b1ad9e275489e322816263b331fa356c97a3b267c1b",
+      "verifiedRows": 1,
+      "scripts": [
+        "Telugu"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/NotoNastaliq.ttc",
+      "fileName": "NotoNastaliq.ttc",
+      "sha256": "d80d7b39eba96c211e96b90c5f4a9dc02dedea7aab8e517e176f1559bf2c7175",
+      "verifiedRows": 1,
+      "scripts": [
+        "Arabic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansAdlam-Regular.ttf",
+      "fileName": "NotoSansAdlam-Regular.ttf",
+      "sha256": "4ca58c4f467db4ca8df06ce40f7cc8b27ded41963984f8a4d441285335626dab",
+      "verifiedRows": 1,
+      "scripts": [
+        "Adlam"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/NotoSansArmenian.ttc",
+      "fileName": "NotoSansArmenian.ttc",
+      "sha256": "2780f67be4688ae6a3e0810c400b5f489ce1a51cc8dfe2672bc27180520450b2",
+      "verifiedRows": 1,
+      "scripts": [
+        "Armenian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansAvestan-Regular.ttf",
+      "fileName": "NotoSansAvestan-Regular.ttf",
+      "sha256": "2a7dc1aba3bc403fa830c90d5755583ae6bdec8284ad6b5309001f16e00a4bbc",
+      "verifiedRows": 1,
+      "scripts": [
+        "Avestan"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansBamum-Regular.ttf",
+      "fileName": "NotoSansBamum-Regular.ttf",
+      "sha256": "ac11fedc2a73d0a9bfc3fc72ecd2e3e833107a1156797f3677945e320fd499d7",
+      "verifiedRows": 1,
+      "scripts": [
+        "Bamum"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansBassaVah-Regular.ttf",
+      "fileName": "NotoSansBassaVah-Regular.ttf",
+      "sha256": "b2cb12dafa67d0a4aca432aa598b2e947361a3738d79cf9652c25b599e985f7d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Bassa Vah"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansBatak-Regular.ttf",
+      "fileName": "NotoSansBatak-Regular.ttf",
+      "sha256": "a32831ffc38301991b631bb0fb1aa9dc5dd96f4047c84635bb031dd682d3c594",
+      "verifiedRows": 1,
+      "scripts": [
+        "Batak"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansBhaiksuki-Regular.ttf",
+      "fileName": "NotoSansBhaiksuki-Regular.ttf",
+      "sha256": "ab4dd380c621508d510b80309fd2ecde63818fc4dee9140e36e70d118db18beb",
+      "verifiedRows": 1,
+      "scripts": [
+        "Bhaiksuki"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansBrahmi-Regular.ttf",
+      "fileName": "NotoSansBrahmi-Regular.ttf",
+      "sha256": "c13211e5b1738428afbab18e77a21d859888738e75246891dae51641253db487",
+      "verifiedRows": 1,
+      "scripts": [
+        "Brahmi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansBuginese-Regular.ttf",
+      "fileName": "NotoSansBuginese-Regular.ttf",
+      "sha256": "1ade06c5d328f0978d173c18a061ec3b157ba7ced3f4449ad73e16add4f24eef",
+      "verifiedRows": 1,
+      "scripts": [
+        "Buginese"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansBuhid-Regular.ttf",
+      "fileName": "NotoSansBuhid-Regular.ttf",
+      "sha256": "ce3f9e3c785f84fa29246e690e7ccccfe8daf07eb727f1feddec5fa10465a256",
+      "verifiedRows": 1,
+      "scripts": [
+        "Buhid"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansCanadianAboriginal-Regular.otf",
+      "fileName": "NotoSansCanadianAboriginal-Regular.otf",
+      "sha256": "b7f8287bb749f2a1ff4910e3ddbe2c7a8b22cb3947d8ac7b80f9b6d7e483a117",
+      "verifiedRows": 1,
+      "scripts": [
+        "Canadian Aboriginal"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansCarian-Regular.ttf",
+      "fileName": "NotoSansCarian-Regular.ttf",
+      "sha256": "d1631100e9b431e672401397465f00300acf1002a10e35d08d4fd0e7a416abae",
+      "verifiedRows": 1,
+      "scripts": [
+        "Carian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansCaucasianAlbanian-Regular.ttf",
+      "fileName": "NotoSansCaucasianAlbanian-Regular.ttf",
+      "sha256": "6c83cbe4540aed2e976169674e0dcdcee9d6aa7d4dc286fb2559cf4a4e46d418",
+      "verifiedRows": 1,
+      "scripts": [
+        "Caucasian Albanian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansChakma-Regular.ttf",
+      "fileName": "NotoSansChakma-Regular.ttf",
+      "sha256": "69a99548a7a1f36ec3ba6fe93f88749b66cf091087eba7a0d1934d27784dba91",
+      "verifiedRows": 1,
+      "scripts": [
+        "Chakma"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansCham-Regular.ttf",
+      "fileName": "NotoSansCham-Regular.ttf",
+      "sha256": "a02e3a71a31f6e38f504976ebbca80add502006a04d3ad62833ffc4e59142b4d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Cham"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansCoptic-Regular.ttf",
+      "fileName": "NotoSansCoptic-Regular.ttf",
+      "sha256": "28b6686a032e98205dfec91dcfe196eb4169ad758696b7c2932968b7cd5b6f66",
+      "verifiedRows": 1,
+      "scripts": [
+        "Coptic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansCuneiform-Regular.ttf",
+      "fileName": "NotoSansCuneiform-Regular.ttf",
+      "sha256": "bae49e30a541479cdc8040d6ed2aefe2e75570b3ac303ebece0f25d90fe25e1d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Cuneiform"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansCypriot-Regular.ttf",
+      "fileName": "NotoSansCypriot-Regular.ttf",
+      "sha256": "3e2f2c2a051547937876ca00f43544450489e16e24501d0362c621dae9923b8b",
+      "verifiedRows": 1,
+      "scripts": [
+        "Cypriot"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansDuployan-Regular.ttf",
+      "fileName": "NotoSansDuployan-Regular.ttf",
+      "sha256": "081cfdc3be05bf0280aebf360723d0606ae4b571fa3f1fde12058cc63f3eb24c",
+      "verifiedRows": 1,
+      "scripts": [
+        "Duployan"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansEgyptianHieroglyphs-Regular.ttf",
+      "fileName": "NotoSansEgyptianHieroglyphs-Regular.ttf",
+      "sha256": "93889bf8a5563f87f70269fc546ca51cbbda6c617c6f3b417792bfe65d6b1165",
+      "verifiedRows": 1,
+      "scripts": [
+        "Egyptian Hieroglyphs"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansElbasan-Regular.ttf",
+      "fileName": "NotoSansElbasan-Regular.ttf",
+      "sha256": "15489bca9803de2a8777c1f478d41dd6de1f81703af34abfb1275afae4857478",
+      "verifiedRows": 1,
+      "scripts": [
+        "Elbasan"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansGlagolitic-Regular.ttf",
+      "fileName": "NotoSansGlagolitic-Regular.ttf",
+      "sha256": "fce75abc3b73e537d92e0bef60dc93d65a5cf9ae4d5b8bbb77222b30dc8125c4",
+      "verifiedRows": 1,
+      "scripts": [
+        "Glagolitic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansGothic-Regular.ttf",
+      "fileName": "NotoSansGothic-Regular.ttf",
+      "sha256": "8638a2c56f231dddb5c4a5be06cd62855718913275f5bc0af5113a87f227f3b5",
+      "verifiedRows": 1,
+      "scripts": [
+        "Gothic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansGunjalaGondi-Regular.otf",
+      "fileName": "NotoSansGunjalaGondi-Regular.otf",
+      "sha256": "896b11b131c7edd23ae97765c16f0c9abb78a9aa322338bacd296ea81357899c",
+      "verifiedRows": 1,
+      "scripts": [
+        "Gunjala Gondi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansHanifiRohingya-Regular.ttf",
+      "fileName": "NotoSansHanifiRohingya-Regular.ttf",
+      "sha256": "2c3b37dbaf80f240b432a5805160add5a4307a9d3adb4a632a1ce52a3e53f894",
+      "verifiedRows": 1,
+      "scripts": [
+        "Hanifi Rohingya"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansHanunoo-Regular.ttf",
+      "fileName": "NotoSansHanunoo-Regular.ttf",
+      "sha256": "3f54af33b23863e6cbccdbadc206d3e1c8f3d04ac7154442b8635df5468d9cc4",
+      "verifiedRows": 1,
+      "scripts": [
+        "Hanunoo"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansHatran-Regular.ttf",
+      "fileName": "NotoSansHatran-Regular.ttf",
+      "sha256": "3b72a1ced0b9a018dbe77408f3fa505f65dad5682ba81f9a560af1f3d1b2dec7",
+      "verifiedRows": 1,
+      "scripts": [
+        "Hatran"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansImperialAramaic-Regular.ttf",
+      "fileName": "NotoSansImperialAramaic-Regular.ttf",
+      "sha256": "1d8dec133932014d3baceae6ece503aa52ecce3b17c64b2dff6ccd691d81c478",
+      "verifiedRows": 1,
+      "scripts": [
+        "Imperial Aramaic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansInscriptionalPahlavi-Regular.ttf",
+      "fileName": "NotoSansInscriptionalPahlavi-Regular.ttf",
+      "sha256": "e571797e882fd8a93874f6a75810dd8016120f8112d6ffb469c5d45e56c2da5a",
+      "verifiedRows": 1,
+      "scripts": [
+        "Inscriptional Pahlavi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansInscriptionalParthian-Regular.ttf",
+      "fileName": "NotoSansInscriptionalParthian-Regular.ttf",
+      "sha256": "1a9c98df07720413e51fd29bec966a4e0c9edcc0fba8e45038ef4974b255c074",
+      "verifiedRows": 1,
+      "scripts": [
+        "Inscriptional Parthian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansJavanese-Regular.otf",
+      "fileName": "NotoSansJavanese-Regular.otf",
+      "sha256": "18254c5855aa9ec145cbcbf3c2db69daf52f323e3ac2b049d137b6ec85c50a28",
+      "verifiedRows": 1,
+      "scripts": [
+        "Javanese"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansKaithi-Regular.ttf",
+      "fileName": "NotoSansKaithi-Regular.ttf",
+      "sha256": "75b74f45f121e9fc7cf4a3b5fb765101d51d74a8b321f755b938c9f6f2bdc58e",
+      "verifiedRows": 1,
+      "scripts": [
+        "Kaithi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/NotoSansKannada.ttc",
+      "fileName": "NotoSansKannada.ttc",
+      "sha256": "4d7a71f1b2e2005e1514732686b317f9dd2669ef8e71e8f0a40f819d42531880",
+      "verifiedRows": 1,
+      "scripts": [
+        "Kannada"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansKayahLi-Regular.ttf",
+      "fileName": "NotoSansKayahLi-Regular.ttf",
+      "sha256": "8e3a92a485f062923f221f043c292d7bb8b0715617aabc5e4c88591f865a2307",
+      "verifiedRows": 1,
+      "scripts": [
+        "Kayah Li"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansKharoshthi-Regular.ttf",
+      "fileName": "NotoSansKharoshthi-Regular.ttf",
+      "sha256": "bfe057992a0f4e60b61a4cc977d10badb9036b635f184b28307192df1a1a4b76",
+      "verifiedRows": 1,
+      "scripts": [
+        "Kharoshthi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansKhojki-Regular.ttf",
+      "fileName": "NotoSansKhojki-Regular.ttf",
+      "sha256": "d743510e9c5a045f14890e694e98b623beb36294a9a10420e6d4ef3723f8dcfc",
+      "verifiedRows": 1,
+      "scripts": [
+        "Khojki"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansKhudawadi-Regular.ttf",
+      "fileName": "NotoSansKhudawadi-Regular.ttf",
+      "sha256": "37406ba2413ad4753fba389822a203e55359e32eb028ac15be587b2541d11090",
+      "verifiedRows": 1,
+      "scripts": [
+        "Khudawadi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansLepcha-Regular.ttf",
+      "fileName": "NotoSansLepcha-Regular.ttf",
+      "sha256": "6019ed0497ddf6d07bd9310976e591898f46ea3f4a45782b6e3e901ab3a53bdc",
+      "verifiedRows": 1,
+      "scripts": [
+        "Lepcha"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansLimbu-Regular.ttf",
+      "fileName": "NotoSansLimbu-Regular.ttf",
+      "sha256": "2c225a605c5a8aae3c05cf4e8aa710eedf3fa20d59578b1facb127e08ee47191",
+      "verifiedRows": 1,
+      "scripts": [
+        "Limbu"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansLinearA-Regular.ttf",
+      "fileName": "NotoSansLinearA-Regular.ttf",
+      "sha256": "a133c2e91206a17e5354f5ea16656a6d8ecb46dcf29a1d17dba62653eee8c51e",
+      "verifiedRows": 1,
+      "scripts": [
+        "Linear A"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansLinearB-Regular.ttf",
+      "fileName": "NotoSansLinearB-Regular.ttf",
+      "sha256": "23275e2c7aacf0740c08e184525aa50d8312f9d3235be582549114e2ae2c506e",
+      "verifiedRows": 1,
+      "scripts": [
+        "Linear B"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansLisu-Regular.ttf",
+      "fileName": "NotoSansLisu-Regular.ttf",
+      "sha256": "f78f3387e505fa6fbbe19fa1c6d20f2d96c141b17dacab33b9dfd45a5289ecd1",
+      "verifiedRows": 1,
+      "scripts": [
+        "Lisu"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansLycian-Regular.ttf",
+      "fileName": "NotoSansLycian-Regular.ttf",
+      "sha256": "1a06d8d62b5d7e616c1caed04e2351f7d03d7e691f9a0ee9f4b5bf529014149d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Lycian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansLydian-Regular.ttf",
+      "fileName": "NotoSansLydian-Regular.ttf",
+      "sha256": "1ccad3ff44c94446a65e5c15be2714acf12487d4e11a3dd39481f62667f43173",
+      "verifiedRows": 1,
+      "scripts": [
+        "Lydian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMahajani-Regular.ttf",
+      "fileName": "NotoSansMahajani-Regular.ttf",
+      "sha256": "87b29271c0485e5ded2b65e15bea5ff205e4a2e12b61c0c9678cb41d45c790a9",
+      "verifiedRows": 1,
+      "scripts": [
+        "Mahajani"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMandaic-Regular.ttf",
+      "fileName": "NotoSansMandaic-Regular.ttf",
+      "sha256": "4d17d30a0c47a4b2dc87a61f4751e9e54740d4fb3631a991e1c0369ee38c4f73",
+      "verifiedRows": 1,
+      "scripts": [
+        "Mandaic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansManichaean-Regular.ttf",
+      "fileName": "NotoSansManichaean-Regular.ttf",
+      "sha256": "f30038aeca2c7d0f44c085df4c7ecb598e04732b70daab8219ae29be6861011d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Manichaean"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMarchen-Regular.ttf",
+      "fileName": "NotoSansMarchen-Regular.ttf",
+      "sha256": "6b55b9e8bc50d2f71e211821840c02d29675419608ed981cb1907e50c3fc1e2c",
+      "verifiedRows": 1,
+      "scripts": [
+        "Marchen"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMasaramGondi-Regular.otf",
+      "fileName": "NotoSansMasaramGondi-Regular.otf",
+      "sha256": "ea4a6ecb03bf46fd3b8ceb79c8aef5cadcd23d4bc0fd2da9aedea87ab0501bd1",
+      "verifiedRows": 1,
+      "scripts": [
+        "Masaram Gondi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMeeteiMayek-Regular.ttf",
+      "fileName": "NotoSansMeeteiMayek-Regular.ttf",
+      "sha256": "cb3bf6030dfeaa765fc0b97469a98444ae6eff937162c1221b3cb368f7c6388a",
+      "verifiedRows": 1,
+      "scripts": [
+        "Meetei Mayek"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMendeKikakui-Regular.ttf",
+      "fileName": "NotoSansMendeKikakui-Regular.ttf",
+      "sha256": "04ee7b18ca85d6d7e5d093e2c9c5494994a7d8ce1bddfeee8712490e4a8f08ed",
+      "verifiedRows": 1,
+      "scripts": [
+        "Mende Kikakui"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMiao-Regular.ttf",
+      "fileName": "NotoSansMiao-Regular.ttf",
+      "sha256": "e66141c65237edecb22a32e4051516e33ea32548d5aa83a5c70edde9ff5f6be6",
+      "verifiedRows": 1,
+      "scripts": [
+        "Miao"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansModi-Regular.ttf",
+      "fileName": "NotoSansModi-Regular.ttf",
+      "sha256": "be1dbe9c189e98ac2df4dc497148b81585865457c8c8f53f1698cc3fac6e0a27",
+      "verifiedRows": 1,
+      "scripts": [
+        "Modi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMongolian-Regular.ttf",
+      "fileName": "NotoSansMongolian-Regular.ttf",
+      "sha256": "82b5916a72f3f8dfb915f0da176da216c2346c1dfcd54728cfa1d64bc7557d3e",
+      "verifiedRows": 1,
+      "scripts": [
+        "Mongolian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMro-Regular.ttf",
+      "fileName": "NotoSansMro-Regular.ttf",
+      "sha256": "611858696f30b442bf6405f4bad0a8dfc0810763441d804890a736aa6f902a2d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Mro"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansMultani-Regular.ttf",
+      "fileName": "NotoSansMultani-Regular.ttf",
+      "sha256": "fce81e8f9a463f40793136cc446653085a46aa82e635d9520e31a70ee6f629f3",
+      "verifiedRows": 1,
+      "scripts": [
+        "Multani"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/NotoSansMyanmar.ttc",
+      "fileName": "NotoSansMyanmar.ttc",
+      "sha256": "52189a3758c54cb0f37d6452d029d24a866fb1ef89bab970e320fe72cd7b0741",
+      "verifiedRows": 1,
+      "scripts": [
+        "Myanmar"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansNabataean-Regular.ttf",
+      "fileName": "NotoSansNabataean-Regular.ttf",
+      "sha256": "f4c55f60942c3b21d7e449b96ac240e19a1e5510618ef310b20ea97a079c8d5a",
+      "verifiedRows": 1,
+      "scripts": [
+        "Nabataean"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansNewa-Regular.ttf",
+      "fileName": "NotoSansNewa-Regular.ttf",
+      "sha256": "6eb7557d0b7b40f22556c1d90afe011e628df457191830355577da6157ea443e",
+      "verifiedRows": 1,
+      "scripts": [
+        "Newa"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansNewTaiLue-Regular.ttf",
+      "fileName": "NotoSansNewTaiLue-Regular.ttf",
+      "sha256": "f622c16e1e452905bbe8d94347b9bcec071a49cdc187e1a74e4dffc6d526dbeb",
+      "verifiedRows": 1,
+      "scripts": [
+        "New Tai Lue"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansNKo-Regular.ttf",
+      "fileName": "NotoSansNKo-Regular.ttf",
+      "sha256": "72107ca6885331147fb0ca4d7a71f96e6b3e989a75d66ef979a96966b28f8526",
+      "verifiedRows": 1,
+      "scripts": [
+        "Nko"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOlChiki-Regular.ttf",
+      "fileName": "NotoSansOlChiki-Regular.ttf",
+      "sha256": "42020ef6e4bb0ebde8ecea0c85877fac817a49b69670d5ab755ac6cc16a351f1",
+      "verifiedRows": 1,
+      "scripts": [
+        "Ol Chiki"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOldHungarian-Regular.ttf",
+      "fileName": "NotoSansOldHungarian-Regular.ttf",
+      "sha256": "9a926369d7e44450c9c4e211f38829f880ecce16f6325e699eb29ce3851bfc7b",
+      "verifiedRows": 1,
+      "scripts": [
+        "Old Hungarian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOldItalic-Regular.ttf",
+      "fileName": "NotoSansOldItalic-Regular.ttf",
+      "sha256": "411ef5004b1978f51878394bec0971811e28f81cd4184ac2282dcb6996b27c87",
+      "verifiedRows": 1,
+      "scripts": [
+        "Old Italic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOldNorthArabian-Regular.ttf",
+      "fileName": "NotoSansOldNorthArabian-Regular.ttf",
+      "sha256": "6d4e0f32ab4bc7bee8954e21ee80c3e20dc50b7b0961668a9455e7a809e78cf0",
+      "verifiedRows": 1,
+      "scripts": [
+        "Old North Arabian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOldPermic-Regular.ttf",
+      "fileName": "NotoSansOldPermic-Regular.ttf",
+      "sha256": "8897b1d76fa4d872add20b23244ec351e80cb8df1e2a9434aabfc778a1a247e8",
+      "verifiedRows": 1,
+      "scripts": [
+        "Old Permic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOldPersian-Regular.ttf",
+      "fileName": "NotoSansOldPersian-Regular.ttf",
+      "sha256": "fd46d52e32b296b6f2db73ed02c423d4384f3ae5c2f7e1de4f2df3ff4dbf0eb1",
+      "verifiedRows": 1,
+      "scripts": [
+        "Old Persian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOldSouthArabian-Regular.ttf",
+      "fileName": "NotoSansOldSouthArabian-Regular.ttf",
+      "sha256": "5d0b9191b80d23fbc22b4ea48d50e6cd53ffb6cbeea86644127ebe836ab96bb3",
+      "verifiedRows": 1,
+      "scripts": [
+        "Old South Arabian"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOldTurkic-Regular.ttf",
+      "fileName": "NotoSansOldTurkic-Regular.ttf",
+      "sha256": "02f35911c7249d2412f819b013a4705a5477fa44d0912e70212313ec7f7ae2a2",
+      "verifiedRows": 1,
+      "scripts": [
+        "Old Turkic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/NotoSansOriya.ttc",
+      "fileName": "NotoSansOriya.ttc",
+      "sha256": "fe46df8e6b792b1e83b1af49b150ea1cb570a99b6716a05862f82af15afab8b4",
+      "verifiedRows": 1,
+      "scripts": [
+        "Oriya"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOsage-Regular.ttf",
+      "fileName": "NotoSansOsage-Regular.ttf",
+      "sha256": "93b97cbfe440cdedc69014b775faab9b44f9cf4a3cf801851278486d15e9cfe3",
+      "verifiedRows": 1,
+      "scripts": [
+        "Osage"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansOsmanya-Regular.ttf",
+      "fileName": "NotoSansOsmanya-Regular.ttf",
+      "sha256": "42b8ef4101c6cb45c85ea98c69d75be5838b6f86622bf8449e07312f9fa5db62",
+      "verifiedRows": 1,
+      "scripts": [
+        "Osmanya"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansPahawhHmong-Regular.ttf",
+      "fileName": "NotoSansPahawhHmong-Regular.ttf",
+      "sha256": "6033e882e304ab204b55bbf75032c87f7cce516e59a26df7633264bfa077c545",
+      "verifiedRows": 1,
+      "scripts": [
+        "Pahawh Hmong"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansPalmyrene-Regular.ttf",
+      "fileName": "NotoSansPalmyrene-Regular.ttf",
+      "sha256": "0303c0e1a6653b05035a74255423e812529f89b8ef3d006513ce48b1756a2365",
+      "verifiedRows": 1,
+      "scripts": [
+        "Palmyrene"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansPauCinHau-Regular.ttf",
+      "fileName": "NotoSansPauCinHau-Regular.ttf",
+      "sha256": "e0850630f6affd48b4d077b55ed7160e80616bf8ff69c62c6d873245cfffac2b",
+      "verifiedRows": 1,
+      "scripts": [
+        "Pau Cin Hau"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansPhagsPa-Regular.ttf",
+      "fileName": "NotoSansPhagsPa-Regular.ttf",
+      "sha256": "dc6975773e7c2707d36cd1018ec1c93a396a19d68ae484360b551ec5157dac2d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Phags Pa"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansPhoenician-Regular.ttf",
+      "fileName": "NotoSansPhoenician-Regular.ttf",
+      "sha256": "47709d5c78988406ccada0d83d60a3dd58eb292e21bf0ef58d0212d20802d1b7",
+      "verifiedRows": 1,
+      "scripts": [
+        "Phoenician"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansPsalterPahlavi-Regular.ttf",
+      "fileName": "NotoSansPsalterPahlavi-Regular.ttf",
+      "sha256": "08553bb6205276d6e96ecee2c31b626f3f3e5774dbfb83011fdd1095ec3d68cd",
+      "verifiedRows": 1,
+      "scripts": [
+        "Psalter Pahlavi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansRejang-Regular.ttf",
+      "fileName": "NotoSansRejang-Regular.ttf",
+      "sha256": "d4692c20ee33dadb2d1187dd2a6022e087dec011ccef869ab6553ff5771fb6fe",
+      "verifiedRows": 1,
+      "scripts": [
+        "Rejang"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSamaritan-Regular.ttf",
+      "fileName": "NotoSansSamaritan-Regular.ttf",
+      "sha256": "4740b58fe07816db1fc838a3004b62dd978b6ac20dbb43a792bef7f28debe0c5",
+      "verifiedRows": 1,
+      "scripts": [
+        "Samaritan"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSaurashtra-Regular.ttf",
+      "fileName": "NotoSansSaurashtra-Regular.ttf",
+      "sha256": "892db68ca8f826b6af8d13c8a4249e1fd74598c8dba73a478d6c3ad0efb23cb3",
+      "verifiedRows": 1,
+      "scripts": [
+        "Saurashtra"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSharada-Regular.ttf",
+      "fileName": "NotoSansSharada-Regular.ttf",
+      "sha256": "0ad26fc89ef2be580c1e6ae10450878f2fddbe2c3b3c9e6bb3dd11ff1c9cbeb2",
+      "verifiedRows": 1,
+      "scripts": [
+        "Sharada"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSiddham-Regular.ttf",
+      "fileName": "NotoSansSiddham-Regular.ttf",
+      "sha256": "027af86f9a9059390575a84e2d8ede3e50a650faf7b9b2a5391465a223804c59",
+      "verifiedRows": 1,
+      "scripts": [
+        "Siddham"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSoraSompeng-Regular.ttf",
+      "fileName": "NotoSansSoraSompeng-Regular.ttf",
+      "sha256": "84db8313949e266e43740eab6a93c69f6deaf090aa9fa01739a0ad99b63f6cbd",
+      "verifiedRows": 1,
+      "scripts": [
+        "Sora Sompeng"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSundanese-Regular.ttf",
+      "fileName": "NotoSansSundanese-Regular.ttf",
+      "sha256": "44116238e4f55dedf5a0232f6d6eadbeedd8896b8bee6a63fe949e4c2ec1cf29",
+      "verifiedRows": 1,
+      "scripts": [
+        "Sundanese"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSylotiNagri-Regular.ttf",
+      "fileName": "NotoSansSylotiNagri-Regular.ttf",
+      "sha256": "e45262b5d2a31db47cc177ddd1c466e241a8ccd5bbff6ba6166e1bd97d9c0635",
+      "verifiedRows": 1,
+      "scripts": [
+        "Syloti Nagri"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansSyriac-Regular.ttf",
+      "fileName": "NotoSansSyriac-Regular.ttf",
+      "sha256": "138462bae10e5011c90a3d5fcd470dd841c77a07945320636a2545a8ac0155e2",
+      "verifiedRows": 1,
+      "scripts": [
+        "Syriac"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTagalog-Regular.ttf",
+      "fileName": "NotoSansTagalog-Regular.ttf",
+      "sha256": "69087a0b8ad9a405b065aefefe0c298d9aa7f61b0de345566baf282c9e8282e0",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tagalog"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTagbanwa-Regular.ttf",
+      "fileName": "NotoSansTagbanwa-Regular.ttf",
+      "sha256": "7dedb32bfc8dc5ef05a222bc05ad4fc8f72e0e3fca2a9eb9841591102c040c48",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tagbanwa"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTaiLe-Regular.ttf",
+      "fileName": "NotoSansTaiLe-Regular.ttf",
+      "sha256": "396016aacf92e480f369ba41ed9958bcceb002eaf057da65647ae9250d02b491",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tai Le"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTaiTham-Regular.ttf",
+      "fileName": "NotoSansTaiTham-Regular.ttf",
+      "sha256": "8b58452015baffee6ba520dcd3396f79d23cdc39392a13f5e784e72ac29d0d22",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tai Tham"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTaiViet-Regular.ttf",
+      "fileName": "NotoSansTaiViet-Regular.ttf",
+      "sha256": "4d3bd3ab7a8f0dd7276f8f8020a1f628098cd27f95a02966d4959af2cb50a8e3",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tai Viet"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTakri-Regular.ttf",
+      "fileName": "NotoSansTakri-Regular.ttf",
+      "sha256": "a541ceccf0b2f3c733f362373e3cc2ad4b7b834160a889b4ad44bf0d2ddbbab9",
+      "verifiedRows": 1,
+      "scripts": [
+        "Takri"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansThaana-Regular.ttf",
+      "fileName": "NotoSansThaana-Regular.ttf",
+      "sha256": "d518c8161d9ae68470c9ef5080f9c9aae887dd93bf3c1529a9913ba059ae60e4",
+      "verifiedRows": 1,
+      "scripts": [
+        "Thaana"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTifinagh-Regular.ttf",
+      "fileName": "NotoSansTifinagh-Regular.ttf",
+      "sha256": "1321ffc603c1c2f828937b7a24496437d83caee3d961daa979618b1e55c38e92",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tifinagh"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansTirhuta-Regular.ttf",
+      "fileName": "NotoSansTirhuta-Regular.ttf",
+      "sha256": "a4fed705f990f3cc11403d41a673941def5e65f211dcc7871b13d27bf089ed22",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tirhuta"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansUgaritic-Regular.ttf",
+      "fileName": "NotoSansUgaritic-Regular.ttf",
+      "sha256": "4cab9c4e616e162fef49211db26dcd2d4452a6bf945770330d8571c4e7e6841e",
+      "verifiedRows": 1,
+      "scripts": [
+        "Ugaritic"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansVai-Regular.ttf",
+      "fileName": "NotoSansVai-Regular.ttf",
+      "sha256": "8730386f446879e610c2aa0cc1b98c56031594fbe94c07f26e515cf7c07a32b2",
+      "verifiedRows": 1,
+      "scripts": [
+        "Vai"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansWancho-Regular.ttf",
+      "fileName": "NotoSansWancho-Regular.ttf",
+      "sha256": "7a736f363686f9e88a38a1cc0ba8d68f6cba3da4149f320d91a1a42b2896d2e3",
+      "verifiedRows": 1,
+      "scripts": [
+        "Wancho"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansWarangCiti-Regular.ttf",
+      "fileName": "NotoSansWarangCiti-Regular.ttf",
+      "sha256": "e9f7e9f0c581c467f6f0f942c8dfb494c87a1373cc1aea0d6ed93727804bad47",
+      "verifiedRows": 1,
+      "scripts": [
+        "Warang Citi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansYi-Regular.ttf",
+      "fileName": "NotoSansYi-Regular.ttf",
+      "sha256": "1744f6ebb56f63c9c2276362bf3fcad69d15afcdd199018238ff39558eadf06e",
+      "verifiedRows": 1,
+      "scripts": [
+        "Yi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSerifAhom-Regular.ttf",
+      "fileName": "NotoSerifAhom-Regular.ttf",
+      "sha256": "635cd17bfcbd37457c98f0f9e70c7a0aa520f7f202a2b267b09f18fe5e80223d",
+      "verifiedRows": 1,
+      "scripts": [
+        "Ahom"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSerifBalinese-Regular.ttf",
+      "fileName": "NotoSerifBalinese-Regular.ttf",
+      "sha256": "009f6471b5d2f95172cf3e186d497386f1d2499d69daa6b188e04ced3def8aa1",
+      "verifiedRows": 1,
+      "scripts": [
+        "Balinese"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSerifNyiakengPuachueHmong-Regular.ttf",
+      "fileName": "NotoSerifNyiakengPuachueHmong-Regular.ttf",
+      "sha256": "4727ad21c1c9e520ab244399c93014062856009c25fc4154066d9e5e3626b579",
+      "verifiedRows": 1,
+      "scripts": [
+        "Nyiakeng Puachue Hmong"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/NotoSerifYezidi-Regular.otf",
+      "fileName": "NotoSerifYezidi-Regular.otf",
+      "sha256": "f8a3c04d1a0a872e2a522d07f1280369c30c680c40099eaf4471ee7c389ebde9",
+      "verifiedRows": 1,
+      "scripts": [
+        "Yezidi"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/PlantagenetCherokee.ttf",
+      "fileName": "PlantagenetCherokee.ttf",
+      "sha256": "0a73a09a449ec38e6ca0a5d7ff0e0378ecfcf2a01fed9300218e8fbbb706e8d5",
+      "verifiedRows": 1,
+      "scripts": [
+        "Cherokee"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Raanana.ttc",
+      "fileName": "Raanana.ttc",
+      "sha256": "c191a61cc9091eaaa2301a788cf33dfc203d6a7999760f5fa338f0d56779b821",
+      "verifiedRows": 1,
+      "scripts": [
+        "Hebrew"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Sinhala MN.ttc",
+      "fileName": "Sinhala MN.ttc",
+      "sha256": "78b9b9cda70b8bf33e7dd62225c8004e741bbbebb6b3ab4a94bf57a585dbf1b7",
+      "verifiedRows": 1,
+      "scripts": [
+        "Sinhala"
+      ]
+    },
+    {
+      "path": "/System/Library/Fonts/Supplemental/Tamil MN.ttc",
+      "fileName": "Tamil MN.ttc",
+      "sha256": "c5052d25babc420858e309a2e303a4eee92136be40599f54f538899c7aada823",
+      "verifiedRows": 1,
+      "scripts": [
+        "Tamil"
+      ]
+    }
+  ],
+  "failedWithEvidenceByReason": [
+    {
+      "reason": "All candidate fonts failed to produce valid glyph output.",
+      "count": 44
+    }
+  ],
+  "outputHashes": {
+    "release/evidence/hkd-lipi-glyph-baseline-captures.json": "5a160a3f9dbf79d4b9105048da2197000ade811ee1c5f6c223eac5a0102e55d5",
+    "release/evidence/hkd-lipi-render-diff-report.json": "2ffe32c237695bf833664857c135dbc2978d32f0b91ff1cbd3583412d42f662b",
+    "release/evidence/hkd-lipi-font-coverage-report.json": "3af8a7d2c9f3e0e8770de92bf6ce7243c8825c77185e99e66f1e231c2b1faadf",
+    "data/lipi-glyph-baselines/browser/phase23-browser-baseline-atlas.png": "f6c861ce6f748ee9036c23fd6482f4fab5f27ed9e43e9d417a52bea33a56b903"
+  }
+}

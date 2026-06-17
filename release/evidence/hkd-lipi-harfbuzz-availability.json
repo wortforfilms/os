@@ -1,0 +1,204 @@
+{
+  "schema": "hkd-lipi-harfbuzz-availability.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE22_HARFBUZZ_EXECUTION",
+  "reviewState": "CONTROLLED_PREVIEW_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabledRows": 0,
+  "runtimeEnabled": 0,
+  "mutationAllowed": false,
+  "registryMutations": 0,
+  "releaseCandidate": false,
+  "phkdVerdict": "CONTROLLED_PREVIEW_NO_GO",
+  "sourcePolicy": "phase22_harfbuzz_execution_environment_no_registry_mutation_no_runtime_enablement",
+  "trustedInputs": [
+    {
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "path": "data/lipi-font-fixtures/manifest.json",
+      "sha256": "71a4c9cabba0765173b6b51d68861fda617404ca779dfc80d7bd6efc882d9ad5"
+    },
+    {
+      "path": "data/lipi-rendering-corpus/index.json",
+      "sha256": "0c9b881af598e4c7a376e27906e3bdd902415d0d521d181a4a34b208f96260c5"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-render-report.json",
+      "sha256": "44d97e5a1987e8be8462bd8c055122de21d93421fecb1275b8f06a653e3335b6"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-runtime-activation.json",
+      "sha256": "f8ce697522f13d42aa63324caf2d44a6ca15a6422a0658ba1bc80253cfc79135"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-harfbuzz-availability.v1",
+    "sourceIds": [
+      "harfbuzz"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-harfbuzz-execution-environment.mjs",
+    "sourcePolicy": "phase22_harfbuzz_execution_environment_no_registry_mutation_no_runtime_enablement",
+    "trustedInputs": [
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/lipi-font-fixtures/manifest.json",
+      "data/lipi-rendering-corpus/index.json",
+      "release/evidence/hkd-lipi-harfbuzz-render-report.json",
+      "release/evidence/hkd-lipi-registry-runtime-activation.json"
+    ],
+    "reviewed": false,
+    "phkd": "HARFBUZZ_EXECUTION_OUTPUT_OR_FAILURE_RECORDED"
+  },
+  "status": "VERIFIED",
+  "executable": {
+    "name": "hb-shape",
+    "selectedPath": "/opt/homebrew/bin/hb-shape",
+    "available": true,
+    "version": "11.2.1",
+    "versionOutput": "hb-shape (HarfBuzz) 11.2.1",
+    "candidates": [
+      {
+        "available": true,
+        "path": "/opt/homebrew/bin/hb-shape",
+        "status": 0,
+        "stdout": "hb-shape (HarfBuzz) 11.2.1",
+        "stderr": "",
+        "errorCode": null
+      },
+      {
+        "available": false,
+        "path": "/usr/local/bin/hb-shape",
+        "status": null,
+        "stdout": "",
+        "stderr": "",
+        "errorCode": "MISSING"
+      },
+      {
+        "available": false,
+        "path": "/usr/bin/hb-shape",
+        "status": null,
+        "stdout": "",
+        "stderr": "",
+        "errorCode": "MISSING"
+      }
+    ]
+  },
+  "smokeTest": {
+    "id": "unicode-adlam",
+    "script": "Adlam",
+    "unicodeScriptValue": "Adlam",
+    "status": "VERIFIED",
+    "reason": "hb-shape returned parseable glyph output with no .notdef or LastResort glyphs.",
+    "sampleTextHash": "eb408786a97b3656d569f5faa585648991cb49df1b00c72e123fcf4d963e0438",
+    "selectedFont": {
+      "path": "/System/Library/Fonts/Supplemental/NotoSansAdlam-Regular.ttf",
+      "fileName": "NotoSansAdlam-Regular.ttf",
+      "sha256": "4ca58c4f467db4ca8df06ce40f7cc8b27ded41963984f8a4d441285335626dab"
+    },
+    "glyphCount": 8,
+    "glyphNames": [
+      "u1E907.fina",
+      "u1E906.medi",
+      "u1E905.medi",
+      "u1E904.medi",
+      "u1E903.medi",
+      "u1E902.medi",
+      "u1E901.medi",
+      "u1E900.init"
+    ],
+    "totalAdvance": 5979,
+    "rawOutput": "[{\"g\":\"u1E907.fina\",\"cl\":7,\"dx\":0,\"dy\":0,\"ax\":671,\"ay\":0},{\"g\":\"u1E906.medi\",\"cl\":6,\"dx\":0,\"dy\":0,\"ax\":629,\"ay\":0},{\"g\":\"u1E905.medi\",\"cl\":5,\"dx\":0,\"dy\":0,\"ax\":925,\"ay\":0},{\"g\":\"u1E904.medi\",\"cl\":4,\"dx\":0,\"dy\":0,\"ax\":768,\"ay\":0},{\"g\":\"u1E903.medi\",\"cl\":3,\"dx\":0,\"dy\":0,\"ax\":819,\"ay\":0},{\"g\":\"u1E902.medi\",\"cl\":2,\"dx\":0,\"dy\":0,\"ax\":816,\"ay\":0},{\"g\":\"u1E901.medi\",\"cl\":1,\"dx\":0,\"dy\":0,\"ax\":636,\"ay\":0},{\"g\":\"u1E900.init\",\"cl\":0,\"dx\":0,\"dy\":0,\"ax\":715,\"ay\":0}]",
+    "attempts": [
+      {
+        "fontPath": "/System/Library/Fonts/Supplemental/NotoSansAdlam-Regular.ttf",
+        "fontFileName": "NotoSansAdlam-Regular.ttf",
+        "fontSha256": "4ca58c4f467db4ca8df06ce40f7cc8b27ded41963984f8a4d441285335626dab",
+        "command": "/opt/homebrew/bin/hb-shape -O json /System/Library/Fonts/Supplemental/NotoSansAdlam-Regular.ttf <sampleText>",
+        "exitStatus": 0,
+        "signal": null,
+        "stdout": "[{\"g\":\"u1E907.fina\",\"cl\":7,\"dx\":0,\"dy\":0,\"ax\":671,\"ay\":0},{\"g\":\"u1E906.medi\",\"cl\":6,\"dx\":0,\"dy\":0,\"ax\":629,\"ay\":0},{\"g\":\"u1E905.medi\",\"cl\":5,\"dx\":0,\"dy\":0,\"ax\":925,\"ay\":0},{\"g\":\"u1E904.medi\",\"cl\":4,\"dx\":0,\"dy\":0,\"ax\":768,\"ay\":0},{\"g\":\"u1E903.medi\",\"cl\":3,\"dx\":0,\"dy\":0,\"ax\":819,\"ay\":0},{\"g\":\"u1E902.medi\",\"cl\":2,\"dx\":0,\"dy\":0,\"ax\":816,\"ay\":0},{\"g\":\"u1E901.medi\",\"cl\":1,\"dx\":0,\"dy\":0,\"ax\":636,\"ay\":0},{\"g\":\"u1E900.init\",\"cl\":0,\"dx\":0,\"dy\":0,\"ax\":715,\"ay\":0}]",
+        "stderr": "",
+        "errorCode": null,
+        "parsed": true,
+        "parseError": null,
+        "glyphCount": 8,
+        "glyphNames": [
+          "u1E907.fina",
+          "u1E906.medi",
+          "u1E905.medi",
+          "u1E904.medi",
+          "u1E903.medi",
+          "u1E902.medi",
+          "u1E901.medi",
+          "u1E900.init"
+        ],
+        "invalidGlyphCount": 0,
+        "totalAdvance": 5979,
+        "status": "VERIFIED"
+      }
+    ],
+    "provenance": {
+      "scope": "phase22_harfbuzz_shaping_result",
+      "sourceIds": [
+        "harfbuzz",
+        "hkd-lipi-rendering-corpus",
+        "local-font"
+      ],
+      "generatedBy": "scripts/generate-hkd-lipi-harfbuzz-execution-environment.mjs",
+      "sourcePolicy": "phase22_harfbuzz_execution_environment_no_registry_mutation_no_runtime_enablement",
+      "trustedInputs": [
+        "data/hkd-lipi-script-registry-seed-426.json",
+        "data/lipi-font-fixtures/manifest.json",
+        "data/lipi-rendering-corpus/index.json",
+        "release/evidence/hkd-lipi-harfbuzz-render-report.json",
+        "release/evidence/hkd-lipi-registry-runtime-activation.json"
+      ],
+      "reviewed": false,
+      "phkd": "HARFBUZZ_EXECUTION_OUTPUT_OR_FAILURE_RECORDED"
+    }
+  },
+  "checks": {
+    "hbShapeAvailable": true,
+    "versionRecorded": true,
+    "utf8ExecutionWorks": true,
+    "noRegistryMutation": true,
+    "noRuntimeEnablement": true,
+    "productionReadyFalse": true,
+    "governedProductionGoFalse": true
+  },
+  "outputHashes": [
+    {
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "path": "data/lipi-font-fixtures/manifest.json",
+      "sha256": "71a4c9cabba0765173b6b51d68861fda617404ca779dfc80d7bd6efc882d9ad5"
+    },
+    {
+      "path": "data/lipi-rendering-corpus/index.json",
+      "sha256": "0c9b881af598e4c7a376e27906e3bdd902415d0d521d181a4a34b208f96260c5"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-availability.json",
+      "sha256": "32ccc09259aa19074febfaa8afc9cd7bde327584edfd2ee3f095dacc5dafc437"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-environment.json",
+      "sha256": "f36fb1e38f8c449efe4741cfee964638030842adb8988fc5eb27a277caa71f78"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-render-report.json",
+      "sha256": "44d97e5a1987e8be8462bd8c055122de21d93421fecb1275b8f06a653e3335b6"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-harfbuzz-shaping-evidence.json",
+      "sha256": "e3975284cbd2182b17892a66cdeb4d8e519764e6e46ddcabf6f23881f98aedd5"
+    },
+    {
+      "path": "release/evidence/hkd-lipi-registry-runtime-activation.json",
+      "sha256": "f8ce697522f13d42aa63324caf2d44a6ca15a6422a0658ba1bc80253cfc79135"
+    }
+  ]
+}

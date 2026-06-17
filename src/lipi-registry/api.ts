@@ -64,6 +64,16 @@ import shapingValidationEvidence from "../../release/evidence/hkd-lipi-shaping-v
 import harfbuzzRenderReport from "../../release/evidence/hkd-lipi-harfbuzz-render-report.json" with { type: "json" };
 import browserRenderReport from "../../release/evidence/hkd-lipi-browser-render-report.json" with { type: "json" };
 import openTypeRenderReport from "../../release/evidence/hkd-lipi-opentype-render-report.json" with { type: "json" };
+import harfbuzzEnvironment from "../../release/evidence/hkd-lipi-harfbuzz-environment.json" with { type: "json" };
+import harfbuzzAvailability from "../../release/evidence/hkd-lipi-harfbuzz-availability.json" with { type: "json" };
+import harfbuzzShapingEvidence from "../../release/evidence/hkd-lipi-harfbuzz-shaping-evidence.json" with { type: "json" };
+import glyphBaselineCaptures from "../../release/evidence/hkd-lipi-glyph-baseline-captures.json" with { type: "json" };
+import renderDiffReport from "../../release/evidence/hkd-lipi-render-diff-report.json" with { type: "json" };
+import fontCoverageReport from "../../release/evidence/hkd-lipi-font-coverage-report.json" with { type: "json" };
+import phase24CrossBrowserValidation from "../../release/evidence/hkd-lipi-registry-phase24-cross-browser-validation.json" with { type: "json" };
+import phase25CrossPlatformValidation from "../../release/evidence/hkd-lipi-registry-phase25-cross-platform-validation.json" with { type: "json" };
+import phase26ExternalReviewHumanApproval from "../../release/evidence/hkd-lipi-registry-phase26-external-review-human-approval.json" with { type: "json" };
+import phase27ProductionGoDecision from "../../release/evidence/hkd-lipi-registry-phase27-production-go-decision.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -579,6 +589,56 @@ export type LipiPhase17To19GovernanceView = {
   };
 };
 
+export type LipiPhase24To27GovernanceView = {
+  ok: true;
+  reviewState: LipiRegistryRuntimeActivationStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: LipiRegistryRuntimeActivationStatus;
+  phase24: {
+    crossBrowserValidation: {
+      schema: typeof phase24CrossBrowserValidation.schema;
+      status: typeof phase24CrossBrowserValidation.status;
+      summary: typeof phase24CrossBrowserValidation.summary;
+      targets: typeof phase24CrossBrowserValidation.targets;
+      blockers: typeof phase24CrossBrowserValidation.blockers;
+      checks: typeof phase24CrossBrowserValidation.checks;
+    };
+  };
+  phase25: {
+    crossPlatformValidation: {
+      schema: typeof phase25CrossPlatformValidation.schema;
+      status: typeof phase25CrossPlatformValidation.status;
+      summary: typeof phase25CrossPlatformValidation.summary;
+      platforms: typeof phase25CrossPlatformValidation.platforms;
+      blockers: typeof phase25CrossPlatformValidation.blockers;
+      checks: typeof phase25CrossPlatformValidation.checks;
+    };
+  };
+  phase26: {
+    externalReviewHumanApproval: {
+      schema: typeof phase26ExternalReviewHumanApproval.schema;
+      status: typeof phase26ExternalReviewHumanApproval.status;
+      summary: typeof phase26ExternalReviewHumanApproval.summary;
+      approvalArtifact: typeof phase26ExternalReviewHumanApproval.approvalArtifact;
+      reviewPackage: typeof phase26ExternalReviewHumanApproval.reviewPackage;
+      blockers: typeof phase26ExternalReviewHumanApproval.blockers;
+      checks: typeof phase26ExternalReviewHumanApproval.checks;
+    };
+  };
+  phase27: {
+    productionGoDecision: {
+      schema: typeof phase27ProductionGoDecision.schema;
+      status: typeof phase27ProductionGoDecision.status;
+      decision: typeof phase27ProductionGoDecision.decision;
+      summary: typeof phase27ProductionGoDecision.summary;
+      decisionPolicy: typeof phase27ProductionGoDecision.decisionPolicy;
+      blockers: typeof phase27ProductionGoDecision.blockers;
+      checks: typeof phase27ProductionGoDecision.checks;
+    };
+  };
+};
+
 export type LipiRegistryRuntimeActivationView = {
   ok: true;
   schema: typeof runtimeActivationEvidence.schema;
@@ -670,6 +730,54 @@ export type LipiRenderingValidationView = {
       counts: typeof openTypeRenderReport.counts;
       checks: typeof openTypeRenderReport.checks;
       results: typeof openTypeRenderReport.results;
+    };
+  };
+  harfbuzzExecution: {
+    environment: {
+      schema: typeof harfbuzzEnvironment.schema;
+      status: typeof harfbuzzEnvironment.status;
+      harfbuzz: typeof harfbuzzEnvironment.harfbuzz;
+      fontEnvironment: typeof harfbuzzEnvironment.fontEnvironment;
+      checks: typeof harfbuzzEnvironment.checks;
+    };
+    availability: {
+      schema: typeof harfbuzzAvailability.schema;
+      status: typeof harfbuzzAvailability.status;
+      executable: typeof harfbuzzAvailability.executable;
+      smokeTest: typeof harfbuzzAvailability.smokeTest;
+      checks: typeof harfbuzzAvailability.checks;
+    };
+    shapingEvidence: {
+      schema: typeof harfbuzzShapingEvidence.schema;
+      status: typeof harfbuzzShapingEvidence.status;
+      counts: typeof harfbuzzShapingEvidence.counts;
+      execution: typeof harfbuzzShapingEvidence.execution;
+      checks: typeof harfbuzzShapingEvidence.checks;
+      results: typeof harfbuzzShapingEvidence.results;
+    };
+  };
+  glyphBaselineEvidence: {
+    captures: {
+      schema: typeof glyphBaselineCaptures.schema;
+      status: typeof glyphBaselineCaptures.status;
+      counts: typeof glyphBaselineCaptures.counts;
+      browserAtlas: typeof glyphBaselineCaptures.browserAtlas;
+      checks: typeof glyphBaselineCaptures.checks;
+      captures: typeof glyphBaselineCaptures.captures;
+    };
+    renderDiff: {
+      schema: typeof renderDiffReport.schema;
+      status: typeof renderDiffReport.status;
+      counts: typeof renderDiffReport.counts;
+      checks: typeof renderDiffReport.checks;
+      comparisons: typeof renderDiffReport.comparisons;
+    };
+    fontCoverage: {
+      schema: typeof fontCoverageReport.schema;
+      status: typeof fontCoverageReport.status;
+      counts: typeof fontCoverageReport.counts;
+      checks: typeof fontCoverageReport.checks;
+      coverageByFont: typeof fontCoverageReport.coverageByFont;
     };
   };
 };
@@ -947,6 +1055,42 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
   },
   {
     method: "GET",
+    path: "/api/lipi-registry/harfbuzz/environment",
+    handler: "getLipiRenderingValidationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/harfbuzz/availability",
+    handler: "getLipiRenderingValidationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/harfbuzz/shaping-evidence",
+    handler: "getLipiRenderingValidationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/glyph-baselines/captures",
+    handler: "getLipiRenderingValidationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/render-diff-report",
+    handler: "getLipiRenderingValidationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/font-coverage-report",
+    handler: "getLipiRenderingValidationView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
     path: "/api/lipi-registry/release-candidate/evidence-bundle",
     handler: "getLipiPhase12To16GovernanceView",
     status: "LOCAL_CONTRACT",
@@ -967,6 +1111,30 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/production-go/approval-gate",
     handler: "getLipiPhase17To19GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/cross-browser-validation",
+    handler: "getLipiPhase24To27GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/cross-platform-validation",
+    handler: "getLipiPhase24To27GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/external-review/human-approval",
+    handler: "getLipiPhase24To27GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/production-go/decision",
+    handler: "getLipiPhase24To27GovernanceView",
     status: "LOCAL_CONTRACT",
   },
 ] as const;
@@ -1550,6 +1718,58 @@ export function getLipiPhase17To19GovernanceView(): LipiPhase17To19GovernanceVie
   };
 }
 
+export function getLipiPhase24To27GovernanceView(): LipiPhase24To27GovernanceView {
+  return {
+    ok: true,
+    reviewState: phase27ProductionGoDecision.reviewState as LipiRegistryRuntimeActivationStatus,
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: phase27ProductionGoDecision.phkdVerdict as LipiRegistryRuntimeActivationStatus,
+    phase24: {
+      crossBrowserValidation: {
+        schema: phase24CrossBrowserValidation.schema,
+        status: phase24CrossBrowserValidation.status,
+        summary: phase24CrossBrowserValidation.summary,
+        targets: phase24CrossBrowserValidation.targets,
+        blockers: phase24CrossBrowserValidation.blockers,
+        checks: phase24CrossBrowserValidation.checks,
+      },
+    },
+    phase25: {
+      crossPlatformValidation: {
+        schema: phase25CrossPlatformValidation.schema,
+        status: phase25CrossPlatformValidation.status,
+        summary: phase25CrossPlatformValidation.summary,
+        platforms: phase25CrossPlatformValidation.platforms,
+        blockers: phase25CrossPlatformValidation.blockers,
+        checks: phase25CrossPlatformValidation.checks,
+      },
+    },
+    phase26: {
+      externalReviewHumanApproval: {
+        schema: phase26ExternalReviewHumanApproval.schema,
+        status: phase26ExternalReviewHumanApproval.status,
+        summary: phase26ExternalReviewHumanApproval.summary,
+        approvalArtifact: phase26ExternalReviewHumanApproval.approvalArtifact,
+        reviewPackage: phase26ExternalReviewHumanApproval.reviewPackage,
+        blockers: phase26ExternalReviewHumanApproval.blockers,
+        checks: phase26ExternalReviewHumanApproval.checks,
+      },
+    },
+    phase27: {
+      productionGoDecision: {
+        schema: phase27ProductionGoDecision.schema,
+        status: phase27ProductionGoDecision.status,
+        decision: phase27ProductionGoDecision.decision,
+        summary: phase27ProductionGoDecision.summary,
+        decisionPolicy: phase27ProductionGoDecision.decisionPolicy,
+        blockers: phase27ProductionGoDecision.blockers,
+        checks: phase27ProductionGoDecision.checks,
+      },
+    },
+  };
+}
+
 export function getLipiRegistryRuntimeActivationView(): LipiRegistryRuntimeActivationView {
   return {
     ok: true,
@@ -1646,6 +1866,54 @@ export function getLipiRenderingValidationView(): LipiRenderingValidationView {
         results: openTypeRenderReport.results,
       },
     },
+    harfbuzzExecution: {
+      environment: {
+        schema: harfbuzzEnvironment.schema,
+        status: harfbuzzEnvironment.status,
+        harfbuzz: harfbuzzEnvironment.harfbuzz,
+        fontEnvironment: harfbuzzEnvironment.fontEnvironment,
+        checks: harfbuzzEnvironment.checks,
+      },
+      availability: {
+        schema: harfbuzzAvailability.schema,
+        status: harfbuzzAvailability.status,
+        executable: harfbuzzAvailability.executable,
+        smokeTest: harfbuzzAvailability.smokeTest,
+        checks: harfbuzzAvailability.checks,
+      },
+      shapingEvidence: {
+        schema: harfbuzzShapingEvidence.schema,
+        status: harfbuzzShapingEvidence.status,
+        counts: harfbuzzShapingEvidence.counts,
+        execution: harfbuzzShapingEvidence.execution,
+        checks: harfbuzzShapingEvidence.checks,
+        results: harfbuzzShapingEvidence.results,
+      },
+    },
+    glyphBaselineEvidence: {
+      captures: {
+        schema: glyphBaselineCaptures.schema,
+        status: glyphBaselineCaptures.status,
+        counts: glyphBaselineCaptures.counts,
+        browserAtlas: glyphBaselineCaptures.browserAtlas,
+        checks: glyphBaselineCaptures.checks,
+        captures: glyphBaselineCaptures.captures,
+      },
+      renderDiff: {
+        schema: renderDiffReport.schema,
+        status: renderDiffReport.status,
+        counts: renderDiffReport.counts,
+        checks: renderDiffReport.checks,
+        comparisons: renderDiffReport.comparisons,
+      },
+      fontCoverage: {
+        schema: fontCoverageReport.schema,
+        status: fontCoverageReport.status,
+        counts: fontCoverageReport.counts,
+        checks: fontCoverageReport.checks,
+        coverageByFont: fontCoverageReport.coverageByFont,
+      },
+    },
   };
 }
 
@@ -1730,6 +1998,16 @@ export function getLipiRegistrySourceSummary() {
       harfbuzzRenderReport: harfbuzzRenderReport.schema,
       browserRenderReport: browserRenderReport.schema,
       openTypeRenderReport: openTypeRenderReport.schema,
+      harfbuzzEnvironment: harfbuzzEnvironment.schema,
+      harfbuzzAvailability: harfbuzzAvailability.schema,
+      harfbuzzShapingEvidence: harfbuzzShapingEvidence.schema,
+      glyphBaselineCaptures: glyphBaselineCaptures.schema,
+      renderDiffReport: renderDiffReport.schema,
+      fontCoverageReport: fontCoverageReport.schema,
+      phase24CrossBrowserValidation: phase24CrossBrowserValidation.schema,
+      phase25CrossPlatformValidation: phase25CrossPlatformValidation.schema,
+      phase26ExternalReviewHumanApproval: phase26ExternalReviewHumanApproval.schema,
+      phase27ProductionGoDecision: phase27ProductionGoDecision.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
@@ -1751,6 +2029,12 @@ export function getLipiRegistrySourceSummary() {
     runtimeActivationSourcePolicy: runtimeActivationEvidence.sourcePolicy,
     phase20SourcePolicy: renderingValidationEvidence.sourcePolicy,
     phase21SourcePolicy: browserRenderReport.sourcePolicy,
+    phase22SourcePolicy: harfbuzzShapingEvidence.sourcePolicy,
+    phase23SourcePolicy: glyphBaselineCaptures.sourcePolicy,
+    phase24SourcePolicy: phase24CrossBrowserValidation.sourcePolicy,
+    phase25SourcePolicy: phase25CrossPlatformValidation.sourcePolicy,
+    phase26SourcePolicy: phase26ExternalReviewHumanApproval.sourcePolicy,
+    phase27SourcePolicy: phase27ProductionGoDecision.sourcePolicy,
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,

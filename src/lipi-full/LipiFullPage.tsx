@@ -9,6 +9,7 @@ import {
   getLipiNumeralZeroView,
   getLipiPhase12To16GovernanceView,
   getLipiPhase17To19GovernanceView,
+  getLipiPhase24To27GovernanceView,
   getLipiRegistryAuditabilityView,
   getLipiRenderingValidationView,
   getLipiRegistryRuntimeActivationView,
@@ -44,6 +45,7 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
   const icu = useMemo(() => getLipiIcuIngestionView(), []);
   const phase12To16 = useMemo(() => getLipiPhase12To16GovernanceView(), []);
   const phase17To19 = useMemo(() => getLipiPhase17To19GovernanceView(), []);
+  const phase24To27 = useMemo(() => getLipiPhase24To27GovernanceView(), []);
   const runtimeActivation = useMemo(() => getLipiRegistryRuntimeActivationView(), []);
   const rendering = useMemo(() => getLipiRenderingValidationView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
@@ -56,7 +58,7 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
         <div>
           <p className="dashboard-kicker">Lipi Full</p>
           <h2>Lipi Knowledge System</h2>
-          <p>Phase 1-19 registry intelligence, evidence graph, ingestion governance, review, audit, export, and release gating.</p>
+          <p>Phase 1-27 registry intelligence, rendering evidence, cross-environment validation, review, audit, export, and release gating.</p>
         </div>
         <div className="lipi-full-gate">
           <strong>{runtimeActivation.registryRuntimeActive ? "Controlled Preview Runtime Active" : all.reviewState}</strong>
@@ -85,7 +87,7 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
           ))}
         </aside>
         <main className="lipi-full-main">
-          {workspace === "home" ? <HomePanel navigate={navigate} /> : null}
+          {workspace === "home" ? <HomePanel navigate={navigate} list={all} numerals={numerals} zero={zero} graph={graph} rendering={rendering} runtimeActivation={runtimeActivation} phase24To27={phase24To27} /> : null}
           {workspace === "explorer" ? <ExplorerPanel query={query} setQuery={setQuery} list={list} navigate={navigate} /> : null}
           {workspace === "scripts" ? <ScriptsPanel list={all} navigate={navigate} /> : null}
           {workspace === "script-detail" ? <ScriptDetailPanel detail={detail} navigate={navigate} /> : null}
@@ -98,12 +100,12 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
           {workspace === "federation" ? <FederationPanel federation={federation} /> : null}
           {workspace === "ingestion" ? <IngestionPanel contracts={contracts} dryRun={dryRun} iso={iso} cldr={cldr} icu={icu} phase12To16={phase12To16} /> : null}
           {workspace === "runtime-status" ? <RuntimeStatusPanel activation={runtimeActivation} /> : null}
-          {workspace === "rendering" ? <RenderingValidationPanel rendering={rendering} /> : null}
-          {workspace === "governance" ? <GovernancePanel phase12To16={phase12To16} phase17To19={phase17To19} /> : null}
-          {workspace === "review" ? <ReviewPanel phase17To19={phase17To19} /> : null}
+          {workspace === "rendering" ? <RenderingValidationPanel rendering={rendering} phase24To27={phase24To27} /> : null}
+          {workspace === "governance" ? <GovernancePanel phase12To16={phase12To16} phase17To19={phase17To19} phase24To27={phase24To27} /> : null}
+          {workspace === "review" ? <ReviewPanel phase17To19={phase17To19} phase24To27={phase24To27} /> : null}
           {workspace === "audit" ? <AuditPanel audit={audit} federation={federation} /> : null}
           {workspace === "export" ? <ExportPanel audit={audit} phase12To16={phase12To16} phase17To19={phase17To19} /> : null}
-          {workspace === "release" ? <ReleasePanel phase12To16={phase12To16} phase17To19={phase17To19} /> : null}
+          {workspace === "release" ? <ReleasePanel phase12To16={phase12To16} phase17To19={phase17To19} phase24To27={phase24To27} /> : null}
           {workspace === "api" ? <ApiPanel sources={sources} /> : null}
         </main>
       </div>
@@ -111,9 +113,44 @@ export function LipiFullPage({ route, navigate }: LipiFullPageProps) {
   );
 }
 
-function HomePanel({ navigate }: { navigate: (route: string) => void }) {
+function HomePanel({
+  navigate,
+  list,
+  numerals,
+  zero,
+  graph,
+  rendering,
+  runtimeActivation,
+  phase24To27,
+}: {
+  navigate: (route: string) => void;
+  list: ReturnType<typeof listLipiRegistryScripts>;
+  numerals: ReturnType<typeof getLipiNumeralZeroView>;
+  zero: ReturnType<typeof getLipiZeroRegistryView>;
+  graph: ReturnType<typeof getLipiKbsGraphView>;
+  rendering: ReturnType<typeof getLipiRenderingValidationView>;
+  runtimeActivation: ReturnType<typeof getLipiRegistryRuntimeActivationView>;
+  phase24To27: ReturnType<typeof getLipiPhase24To27GovernanceView>;
+}) {
+  const missions = getLipiExplorerMissions(list, numerals, zero, graph, rendering, runtimeActivation, phase24To27);
   return (
     <Panel title="Home" kicker="Lipi Full Surface Map">
+      <div className="lipi-full-status-callout">
+        <strong>Verified Registry Stats</strong>
+        <span>Imported mock claims are preserved as missions, not facts</span>
+      </div>
+      <StatGrid
+        rows={[
+          ["Registry Rows", list.stats.total],
+          ["Unicode Scripts", list.stats.byClass.unicode ?? 0],
+          ["Numeral Systems", numerals.summary.rowsWithDigitInventory],
+          ["Zero Glyphs", zero.summary.zeroGlyphScripts],
+          ["KBS Nodes", graph.summary.totalNodes],
+          ["KBS Edges", graph.summary.totalEdges],
+          ["Glyph Baselines", rendering.glyphBaselineEvidence.captures.counts.verifiedCaptureRows],
+          ["Runtime Enabled", runtimeActivation.runtimeEnabledRows],
+        ]}
+      />
       <div className="lipi-full-map" aria-label="Lipi Full Surface Map">
         <strong>Lipi</strong>
         {lipiFullWorkspaces.slice(1).map((item) => (
@@ -123,7 +160,91 @@ function HomePanel({ navigate }: { navigate: (route: string) => void }) {
           </button>
         ))}
       </div>
+      <MissionClaimsBoard missions={missions} />
     </Panel>
+  );
+}
+
+type LipiExplorerMission = {
+  title: string;
+  importedClaim: string;
+  realStat: string;
+  mission: string;
+  status: string;
+};
+
+function getLipiExplorerMissions(
+  list: ReturnType<typeof listLipiRegistryScripts>,
+  numerals: ReturnType<typeof getLipiNumeralZeroView>,
+  zero: ReturnType<typeof getLipiZeroRegistryView>,
+  graph: ReturnType<typeof getLipiKbsGraphView>,
+  rendering: ReturnType<typeof getLipiRenderingValidationView>,
+  runtimeActivation: ReturnType<typeof getLipiRegistryRuntimeActivationView>,
+  phase24To27: ReturnType<typeof getLipiPhase24To27GovernanceView>,
+): LipiExplorerMission[] {
+  const livingSeedRows = list.records.filter((record) => record.cultural_status === "living").length;
+  const historicClassRows = list.records.filter((record) => record.registry_class === "historic" || record.cultural_status === "historic").length;
+  const knownPrimaryRegions = new Set(
+    list.records
+      .map((record) => record.region_primary)
+      .filter((region): region is string => Boolean(region && region !== "UNKNOWN")),
+  ).size;
+  const productionDecision = phase24To27.phase27.productionGoDecision;
+
+  return [
+    {
+      title: "Script Explorer Coverage",
+      importedClaim: "Mock claim: 298 scripts, 142 active, 98 historic, 42 regions.",
+      realStat: `${list.stats.total} registry rows, ${list.stats.byClass.unicode ?? 0} Unicode rows, ${livingSeedRows} living seed labels, ${historicClassRows} historic rows, ${knownPrimaryRegions} known primary regions.`,
+      mission: "Convert active-use and region counts into review-backed evidence instead of headline claims.",
+      status: "MISSION_REVIEW_REQUIRED",
+    },
+    {
+      title: "Glyph Library",
+      importedClaim: "Mock claim: 18,742 glyphs and symbols.",
+      realStat: `${rendering.glyphBaselineEvidence.captures.counts.verifiedCaptureRows} verified glyph baselines, ${numerals.summary.rowsWithDigitInventory} digit inventories, ${zero.summary.zeroGlyphScripts} zero glyphs.`,
+      mission: "Ingest source-backed glyph inventories and font fixtures before any large glyph-library count is claimed.",
+      status: "MISSION_BLOCKED",
+    },
+    {
+      title: "Evidence Vault",
+      importedClaim: "Mock claim: 4,321 evidence records and 9 starter scripts reviewed.",
+      realStat: `${graph.summary.totalNodes} KBS nodes, ${graph.summary.totalEdges} KBS edges, ${graph.summary.evidenceSourceNodes} evidence sources, ${rendering.glyphBaselineEvidence.renderDiff.counts.browserVsHarfBuzzComparisons} render comparisons.`,
+      mission: "Define one evidence-record counting rule, then regenerate a reproducible evidence total from the graph.",
+      status: "MISSION_NEEDS_COUNTING_RULE",
+    },
+    {
+      title: "Runtime Operationality",
+      importedClaim: "Mock claim: runtime operational and preview-safe.",
+      realStat: `Runtime active=${String(runtimeActivation.registryRuntimeActive)}, mode=${runtimeActivation.runtimeMode}, runtimeEnabledRows=${runtimeActivation.runtimeEnabledRows}, productionReady=${String(productionDecision.summary.productionReady)}.`,
+      mission: "Keep exploration read-only until per-row approvals, cross-browser/platform evidence, review, and signed human approval exist.",
+      status: "CONTROLLED_PREVIEW_NO_GO",
+    },
+  ];
+}
+
+function MissionClaimsBoard({ missions }: { missions: LipiExplorerMission[] }) {
+  return (
+    <section className="lipi-full-mission-board" aria-label="Lipi mission claims">
+      <header>
+        <div>
+          <p className="dashboard-kicker">Imported Claims → Missions</p>
+          <h4>Mission Claims</h4>
+        </div>
+        <Badge text="claims are not facts" tone="blocked" />
+      </header>
+      <div className="lipi-full-mission-grid">
+        {missions.map((mission) => (
+          <article key={mission.title}>
+            <strong>{mission.title}</strong>
+            <span>{mission.status}</span>
+            <p>{mission.realStat}</p>
+            <small>{mission.importedClaim}</small>
+            <em>{mission.mission}</em>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -340,12 +461,20 @@ function RuntimeStatusPanel({ activation }: { activation: ReturnType<typeof getL
   );
 }
 
-function RenderingValidationPanel({ rendering }: { rendering: ReturnType<typeof getLipiRenderingValidationView> }) {
+function RenderingValidationPanel({
+  rendering,
+  phase24To27,
+}: {
+  rendering: ReturnType<typeof getLipiRenderingValidationView>;
+  phase24To27: ReturnType<typeof getLipiPhase24To27GovernanceView>;
+}) {
+  const crossBrowser = phase24To27.phase24.crossBrowserValidation;
+  const crossPlatform = phase24To27.phase25.crossPlatformValidation;
   return (
     <Panel title="Rendering Validation" kicker="/lipi/rendering" badgeText={rendering.phkdVerdict}>
       <div className="lipi-full-status-callout">
         <strong>Rendering Corpus Present</strong>
-        <span>Font, shaping, browser, and glyph comparison validation blocked</span>
+        <span>Glyph baselines captured; cross-browser and cross-platform validation still blocked</span>
       </div>
       <StatGrid
         rows={[
@@ -357,8 +486,15 @@ function RenderingValidationPanel({ rendering }: { rendering: ReturnType<typeof 
           ["Browser Canvas", rendering.engineEvidence.browser.counts.canvasCapturedRows],
           ["Browser DOM", rendering.engineEvidence.browser.counts.domCapturedRows],
           ["OpenType Pipeline", rendering.engineEvidence.openType.counts.pipelineCapturedRows],
+          ["HarfBuzz Verified", rendering.harfbuzzExecution.shapingEvidence.counts.verifiedRows],
+          ["HB Failed Evidence", rendering.harfbuzzExecution.shapingEvidence.counts.failedWithEvidenceRows],
+          ["Glyph Baselines", rendering.glyphBaselineEvidence.captures.counts.verifiedCaptureRows],
+          ["Browser Atlas", rendering.glyphBaselineEvidence.captures.counts.browserAtlasImages],
+          ["Render Diffs", rendering.glyphBaselineEvidence.renderDiff.counts.comparedRows],
+          ["Fonts Measured", rendering.glyphBaselineEvidence.fontCoverage.counts.fontsUsed],
+          ["Browsers Verified", `${crossBrowser.summary.verifiedBrowsers}/${crossBrowser.summary.targetBrowsers}`],
+          ["Platforms Verified", `${crossPlatform.summary.verifiedPlatforms}/${crossPlatform.summary.targetPlatforms}`],
           ["Font Fixtures", rendering.fontFixtures.summary.fixtureCount],
-          ["HarfBuzz Shaped", rendering.engineEvidence.harfbuzz.counts.shapedRows],
           ["Runtime Enabled", rendering.runtimeEnabledRows],
         ]}
       />
@@ -371,16 +507,23 @@ function RenderingValidationPanel({ rendering }: { rendering: ReturnType<typeof 
       <Rows rows={rendering.renderingEvidence.targets.map((target) => [target.target, target.state, target.evidence, target.claim])} />
       <Rows
         rows={[
-          ["HarfBuzz", rendering.engineEvidence.harfbuzz.engine.available ? "AVAILABLE" : "BLOCKED", `shaped=${rendering.engineEvidence.harfbuzz.counts.shapedRows}`, rendering.engineEvidence.harfbuzz.engine.failure?.errorCode ?? "NO_FAILURE"],
+          ["HarfBuzz Environment", rendering.harfbuzzExecution.environment.status, rendering.harfbuzzExecution.environment.harfbuzz.selectedPath, rendering.harfbuzzExecution.environment.harfbuzz.version],
+          ["HarfBuzz Shaping", rendering.harfbuzzExecution.shapingEvidence.status, `verified=${rendering.harfbuzzExecution.shapingEvidence.counts.verifiedRows}`, `failed=${rendering.harfbuzzExecution.shapingEvidence.counts.failedWithEvidenceRows}`],
           ["Browser DOM", "CAPTURED", `rows=${rendering.engineEvidence.browser.counts.domCapturedRows}`, rendering.engineEvidence.browser.engine.version],
           ["Browser Canvas", "CAPTURED", `rows=${rendering.engineEvidence.browser.counts.canvasCapturedRows}`, rendering.engineEvidence.browser.engine.userAgent],
           ["OpenType Pipeline", "CAPTURED", `rows=${rendering.engineEvidence.openType.counts.pipelineCapturedRows}`, `css=${String(rendering.engineEvidence.openType.engine.cssSupports.fontFeatureSettings)}`],
+          ["Glyph Baseline Capture", rendering.glyphBaselineEvidence.captures.status, `rows=${rendering.glyphBaselineEvidence.captures.counts.captureRows}`, `hashes=${rendering.glyphBaselineEvidence.captures.counts.stableBaselineHashRows}`],
+          ["Browser Atlas", rendering.glyphBaselineEvidence.captures.browserAtlas.capture.status, `rows=${rendering.glyphBaselineEvidence.captures.browserAtlas.rowCount}`, rendering.glyphBaselineEvidence.captures.browserAtlas.imagePath],
+          ["Render Diff", rendering.glyphBaselineEvidence.renderDiff.status, `comparisons=${rendering.glyphBaselineEvidence.renderDiff.counts.browserVsHarfBuzzComparisons}`, "no direct hash-equivalence claim"],
+          ["Font Coverage", rendering.glyphBaselineEvidence.fontCoverage.status, `fonts=${rendering.glyphBaselineEvidence.fontCoverage.counts.fontsUsed}`, `failed=${rendering.glyphBaselineEvidence.fontCoverage.counts.failedWithEvidenceRows}`],
+          ["Cross Browser", crossBrowser.status, `verified=${crossBrowser.summary.verifiedBrowsers}`, `blocked=${crossBrowser.summary.blockedBrowsers}`],
+          ["Cross Platform", crossPlatform.status, `verified=${crossPlatform.summary.verifiedPlatforms}`, `blocked=${crossPlatform.summary.blockedPlatforms}`],
         ]}
       />
       <Rows
         rows={[
           ["Font Fixtures", rendering.fontEvidence.status, String(rendering.fontEvidence.counts.fixtureCount), rendering.fontFixtures.blockers[0]?.reason ?? "UNKNOWN"],
-          ["Glyph Baselines", rendering.shapingEvidence.status, String(rendering.shapingEvidence.counts.glyphBaselines), rendering.glyphBaselines.blockers[0]?.reason ?? "UNKNOWN"],
+          ["Glyph Baseline Manifest", rendering.shapingEvidence.status, String(rendering.shapingEvidence.counts.glyphBaselines), rendering.glyphBaselines.blockers[0]?.reason ?? "UNKNOWN"],
           ["Production Ready", String(rendering.productionReady), "governedProductionGo=false", rendering.phkdVerdict],
         ]}
       />
@@ -391,25 +534,42 @@ function RenderingValidationPanel({ rendering }: { rendering: ReturnType<typeof 
 function GovernancePanel({
   phase12To16,
   phase17To19,
+  phase24To27,
 }: {
   phase12To16: ReturnType<typeof getLipiPhase12To16GovernanceView>;
   phase17To19: ReturnType<typeof getLipiPhase17To19GovernanceView>;
+  phase24To27: ReturnType<typeof getLipiPhase24To27GovernanceView>;
 }) {
   const gate = phase17To19.phase19.productionGoGate;
+  const decision = phase24To27.phase27.productionGoDecision;
   return (
     <Panel title="Governance Workspace" kicker="/lipi/governance">
-      <StatGrid rows={[["Runtime Enabled", gate.summary.runtimeEnabled], ["Production Ready", String(gate.summary.productionReady)], ["Human Approval", String(gate.summary.humanApprovalPresent)], ["Production Blockers", gate.summary.activeProductionGoBlockers]]} />
+      <StatGrid rows={[["Runtime Enabled", gate.summary.runtimeEnabled], ["Production Ready", String(decision.summary.productionReady)], ["Human Approval", String(decision.summary.humanApprovalPresent)], ["Production Blockers", decision.summary.activeProductionGoBlockers]]} />
       <Rows rows={phase12To16.phase15.gateReview.criteria.map((criterion) => [criterion.label, criterion.status, criterion.blocksEnablement ? "BLOCKS" : "CLEAR", criterion.evidence])} />
+      <Rows rows={[
+        ["Phase 24 Cross Browser", phase24To27.phase24.crossBrowserValidation.status, `verified=${phase24To27.phase24.crossBrowserValidation.summary.verifiedBrowsers}`, `blocked=${phase24To27.phase24.crossBrowserValidation.summary.blockedBrowsers}`],
+        ["Phase 25 Cross Platform", phase24To27.phase25.crossPlatformValidation.status, `verified=${phase24To27.phase25.crossPlatformValidation.summary.verifiedPlatforms}`, `blocked=${phase24To27.phase25.crossPlatformValidation.summary.blockedPlatforms}`],
+        ["Phase 26 Human Approval", phase24To27.phase26.externalReviewHumanApproval.status, `approval=${String(phase24To27.phase26.externalReviewHumanApproval.summary.validSignedHumanApproval)}`, `review=${String(phase24To27.phase26.externalReviewHumanApproval.summary.externalReviewComplete)}`],
+        ["Phase 27 Production Decision", decision.decision, decision.status, `blockers=${decision.summary.activeProductionGoBlockers}`],
+      ]} />
     </Panel>
   );
 }
 
-function ReviewPanel({ phase17To19 }: { phase17To19: ReturnType<typeof getLipiPhase17To19GovernanceView> }) {
+function ReviewPanel({
+  phase17To19,
+  phase24To27,
+}: {
+  phase17To19: ReturnType<typeof getLipiPhase17To19GovernanceView>;
+  phase24To27: ReturnType<typeof getLipiPhase24To27GovernanceView>;
+}) {
   const review = phase17To19.phase18.externalReviewPackage;
+  const approval = phase24To27.phase26.externalReviewHumanApproval;
   return (
     <Panel title="Review Workspace" kicker="/lipi/review">
-      <StatGrid rows={[["Runbook Steps", phase17To19.phase17.operatorRunbook.summary.runSequenceSteps], ["Review Status", review.reviewPackage.status], ["Signoffs", review.reviewPackage.reviewerSignoffs], ["Production GO", String(phase17To19.phase19.productionGoGate.summary.productionGoApproved)]]} />
+      <StatGrid rows={[["Runbook Steps", phase17To19.phase17.operatorRunbook.summary.runSequenceSteps], ["Review Status", review.reviewPackage.status], ["Signoffs", approval.summary.reviewerSignoffs], ["Human Approval", String(approval.summary.validSignedHumanApproval)]]} />
       <Rows rows={phase17To19.phase17.operatorRunbook.runSequence.map((step) => [String(step.order), step.title, step.command, step.expectedResult])} />
+      <Rows rows={approval.blockers.map((blocker) => [blocker.id, blocker.severity, blocker.status, blocker.reason])} />
     </Panel>
   );
 }
@@ -449,16 +609,19 @@ function ExportPanel({
 function ReleasePanel({
   phase12To16,
   phase17To19,
+  phase24To27,
 }: {
   phase12To16: ReturnType<typeof getLipiPhase12To16GovernanceView>;
   phase17To19: ReturnType<typeof getLipiPhase17To19GovernanceView>;
+  phase24To27: ReturnType<typeof getLipiPhase24To27GovernanceView>;
 }) {
   const bundle = phase12To16.phase16.evidenceBundle;
   const gate = phase17To19.phase19.productionGoGate;
+  const decision = phase24To27.phase27.productionGoDecision;
   return (
     <Panel title="Release Center" kicker="/lipi/release">
-      <StatGrid rows={[["Release Candidate", String(bundle.summary.releaseCandidate)], ["Production Ready", String(bundle.summary.productionReady)], ["Runtime Enabled", bundle.summary.runtimeEnabled], ["Gate Blockers", gate.summary.activeProductionGoBlockers]]} />
-      <Rows rows={gate.blockers.map((blocker) => [blocker.id, blocker.severity, blocker.status, blocker.reason])} />
+      <StatGrid rows={[["Release Candidate", String(decision.summary.releaseCandidate)], ["Production Ready", String(decision.summary.productionReady)], ["Runtime Enabled", decision.summary.runtimeEnabledRows], ["Decision", decision.decision]]} />
+      <Rows rows={[...gate.blockers, ...decision.blockers].map((blocker) => [blocker.id, blocker.severity, blocker.status, blocker.reason])} />
     </Panel>
   );
 }
