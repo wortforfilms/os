@@ -1,0 +1,1492 @@
+{
+  "schema": "hkd-lipi-zero-registry.v1",
+  "generatedAt": "2026-06-17T01:07:16.195Z",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "official_unicode_ucd_only",
+  "sourceFiles": [
+    {
+      "id": "propertyValueAliases",
+      "path": "data/unicode/ucd-latest/PropertyValueAliases.txt",
+      "sha256": "64e9a5f76f7a1e8b5a47d6a1f9a26522a251208f5276bdfa1559dac7cf2e827a"
+    },
+    {
+      "id": "scripts",
+      "path": "data/unicode/ucd-latest/Scripts.txt",
+      "sha256": "9f5e50d3abaee7d6ce09480f325c706f485ae3240912527e651954d2d6b035bf"
+    },
+    {
+      "id": "blocks",
+      "path": "data/unicode/ucd-latest/Blocks.txt",
+      "sha256": "c0edefaf1a19771e830a82735472716af6bf3c3975f6c2a23ffbe2580fbbcb15"
+    },
+    {
+      "id": "unicodeData",
+      "path": "data/unicode/ucd-latest/UnicodeData.txt",
+      "sha256": "2e1efc1dcb59c575eedf5ccae60f95229f706ee6d031835247d843c11d96470c"
+    },
+    {
+      "id": "readme",
+      "path": "data/unicode/ucd-latest/ReadMe.txt",
+      "sha256": "9fe1a90bd32659d7953616283dc2bffaa165518aae9ace026040c42c559ba606"
+    }
+  ],
+  "summary": {
+    "zeroGlyphScripts": 63,
+    "missingZeroGlyphScripts": []
+  },
+  "records": [
+    {
+      "scriptValue": "Adlam",
+      "zeroGlyph": "𞥐",
+      "zeroCodePoint": "U+1E950",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Ahom",
+      "zeroGlyph": "𑜰",
+      "zeroCodePoint": "U+11730",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Arabic",
+      "zeroGlyph": "٠",
+      "zeroCodePoint": "U+0660",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Balinese",
+      "zeroGlyph": "᭐",
+      "zeroCodePoint": "U+1B50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Bengali",
+      "zeroGlyph": "০",
+      "zeroCodePoint": "U+09E6",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Bhaiksuki",
+      "zeroGlyph": "𑱐",
+      "zeroCodePoint": "U+11C50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Brahmi",
+      "zeroGlyph": "𑁦",
+      "zeroCodePoint": "U+11066",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Chakma",
+      "zeroGlyph": "𑄶",
+      "zeroCodePoint": "U+11136",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Cham",
+      "zeroGlyph": "꩐",
+      "zeroCodePoint": "U+AA50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Common",
+      "zeroGlyph": "0",
+      "zeroCodePoint": "U+0030",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Devanagari",
+      "zeroGlyph": "०",
+      "zeroCodePoint": "U+0966",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Dives_Akuru",
+      "zeroGlyph": "𑥐",
+      "zeroCodePoint": "U+11950",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Garay",
+      "zeroGlyph": "𐵀",
+      "zeroCodePoint": "U+10D40",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Gujarati",
+      "zeroGlyph": "૦",
+      "zeroCodePoint": "U+0AE6",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Gunjala_Gondi",
+      "zeroGlyph": "𑶠",
+      "zeroCodePoint": "U+11DA0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Gurmukhi",
+      "zeroGlyph": "੦",
+      "zeroCodePoint": "U+0A66",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Gurung_Khema",
+      "zeroGlyph": "𖄰",
+      "zeroCodePoint": "U+16130",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Hanifi_Rohingya",
+      "zeroGlyph": "𐴰",
+      "zeroCodePoint": "U+10D30",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Javanese",
+      "zeroGlyph": "꧐",
+      "zeroCodePoint": "U+A9D0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Kannada",
+      "zeroGlyph": "೦",
+      "zeroCodePoint": "U+0CE6",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Kawi",
+      "zeroGlyph": "𑽐",
+      "zeroCodePoint": "U+11F50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Kayah_Li",
+      "zeroGlyph": "꤀",
+      "zeroCodePoint": "U+A900",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Khmer",
+      "zeroGlyph": "០",
+      "zeroCodePoint": "U+17E0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Khudawadi",
+      "zeroGlyph": "𑋰",
+      "zeroCodePoint": "U+112F0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Kirat_Rai",
+      "zeroGlyph": "𖵰",
+      "zeroCodePoint": "U+16D70",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Lao",
+      "zeroGlyph": "໐",
+      "zeroCodePoint": "U+0ED0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Lepcha",
+      "zeroGlyph": "᱀",
+      "zeroCodePoint": "U+1C40",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Limbu",
+      "zeroGlyph": "᥆",
+      "zeroCodePoint": "U+1946",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Malayalam",
+      "zeroGlyph": "൦",
+      "zeroCodePoint": "U+0D66",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Masaram_Gondi",
+      "zeroGlyph": "𑵐",
+      "zeroCodePoint": "U+11D50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Meetei_Mayek",
+      "zeroGlyph": "꯰",
+      "zeroCodePoint": "U+ABF0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Modi",
+      "zeroGlyph": "𑙐",
+      "zeroCodePoint": "U+11650",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Mongolian",
+      "zeroGlyph": "᠐",
+      "zeroCodePoint": "U+1810",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Mro",
+      "zeroGlyph": "𖩠",
+      "zeroCodePoint": "U+16A60",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Myanmar",
+      "zeroGlyph": "၀",
+      "zeroCodePoint": "U+1040",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Nag_Mundari",
+      "zeroGlyph": "𞓰",
+      "zeroCodePoint": "U+1E4F0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "New_Tai_Lue",
+      "zeroGlyph": "᧐",
+      "zeroCodePoint": "U+19D0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Newa",
+      "zeroGlyph": "𑑐",
+      "zeroCodePoint": "U+11450",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Nko",
+      "zeroGlyph": "߀",
+      "zeroCodePoint": "U+07C0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Nyiakeng_Puachue_Hmong",
+      "zeroGlyph": "𞅀",
+      "zeroCodePoint": "U+1E140",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Ol_Chiki",
+      "zeroGlyph": "᱐",
+      "zeroCodePoint": "U+1C50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Ol_Onal",
+      "zeroGlyph": "𞗱",
+      "zeroCodePoint": "U+1E5F1",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Oriya",
+      "zeroGlyph": "୦",
+      "zeroCodePoint": "U+0B66",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Osmanya",
+      "zeroGlyph": "𐒠",
+      "zeroCodePoint": "U+104A0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Pahawh_Hmong",
+      "zeroGlyph": "𖭐",
+      "zeroCodePoint": "U+16B50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Saurashtra",
+      "zeroGlyph": "꣐",
+      "zeroCodePoint": "U+A8D0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Sharada",
+      "zeroGlyph": "𑇐",
+      "zeroCodePoint": "U+111D0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Sinhala",
+      "zeroGlyph": "෦",
+      "zeroCodePoint": "U+0DE6",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Sora_Sompeng",
+      "zeroGlyph": "𑃰",
+      "zeroCodePoint": "U+110F0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Sundanese",
+      "zeroGlyph": "᮰",
+      "zeroCodePoint": "U+1BB0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Sunuwar",
+      "zeroGlyph": "𑯰",
+      "zeroCodePoint": "U+11BF0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Tai_Tham",
+      "zeroGlyph": "᪀",
+      "zeroCodePoint": "U+1A80",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Takri",
+      "zeroGlyph": "𑛀",
+      "zeroCodePoint": "U+116C0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Tamil",
+      "zeroGlyph": "௦",
+      "zeroCodePoint": "U+0BE6",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Tangsa",
+      "zeroGlyph": "𖫀",
+      "zeroCodePoint": "U+16AC0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Telugu",
+      "zeroGlyph": "౦",
+      "zeroCodePoint": "U+0C66",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Thai",
+      "zeroGlyph": "๐",
+      "zeroCodePoint": "U+0E50",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Tibetan",
+      "zeroGlyph": "༠",
+      "zeroCodePoint": "U+0F20",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Tirhuta",
+      "zeroGlyph": "𑓐",
+      "zeroCodePoint": "U+114D0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Tolong_Siki",
+      "zeroGlyph": "𑷠",
+      "zeroCodePoint": "U+11DE0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Vai",
+      "zeroGlyph": "꘠",
+      "zeroCodePoint": "U+A620",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Wancho",
+      "zeroGlyph": "𞋰",
+      "zeroCodePoint": "U+1E2F0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    },
+    {
+      "scriptValue": "Warang_Citi",
+      "zeroGlyph": "𑣠",
+      "zeroCodePoint": "U+118E0",
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "zero_glyph_registry",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase3-enrichment.mjs",
+        "sourcePolicy": "official_unicode_ucd_only",
+        "reviewed": false
+      }
+    }
+  ]
+}

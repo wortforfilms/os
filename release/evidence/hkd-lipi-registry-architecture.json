@@ -1,0 +1,116 @@
+{
+  "schema": "hkd-lipi-registry-architecture-evidence.v1",
+  "generatedAt": "2026-06-17T00:31:50.727Z",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "phkdRules": [
+    "Never invent Unicode assignments.",
+    "Never invent ISO 15924 codes.",
+    "Mark uncertain information as UNKNOWN.",
+    "Mark unencoded systems as UNENCODED.",
+    "Mark disputed systems as DISPUTED.",
+    "Separate verified facts from research hypotheses.",
+    "Every record must contain provenance.",
+    "Fail closed rather than hallucinate."
+  ],
+  "artifacts": {
+    "architecture": "data/hkd-lipi-registry-architecture.json",
+    "seed": "data/hkd-lipi-script-registry-seed-426.json",
+    "evidence": "release/evidence/hkd-lipi-registry-architecture.json",
+    "markdown": "release/HKD_LIPI_REGISTRY_ARCHITECTURE.md",
+    "html": "release/HKD_LIPI_REGISTRY_ARCHITECTURE.html",
+    "jsonSchema": "schemas/hkd-lipi-script-registry.schema.json",
+    "tsTypes": "packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts",
+    "prisma": "packages/lipi-runtime/prisma/hkd-lipi-registry.prisma",
+    "sqlite": "migrations/sqlite/010_hkd_lipi_registry.sql",
+    "postgres": "migrations/postgresql/010_hkd_lipi_registry.sql"
+  },
+  "sourceRefs": [
+    {
+      "id": "unicode-ucd-17-property-value-aliases",
+      "label": "Unicode 17.0.0 PropertyValueAliases.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt",
+      "localPath": "data/unicode/ucd-latest/PropertyValueAliases.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "64e9a5f76f7a1e8b5a47d6a1f9a26522a251208f5276bdfa1559dac7cf2e827a"
+    },
+    {
+      "id": "unicode-ucd-17-scripts",
+      "label": "Unicode 17.0.0 Scripts.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/Scripts.txt",
+      "localPath": "data/unicode/ucd-latest/Scripts.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "9f5e50d3abaee7d6ce09480f325c706f485ae3240912527e651954d2d6b035bf"
+    },
+    {
+      "id": "unicode-ucd-17-script-extensions",
+      "label": "Unicode 17.0.0 ScriptExtensions.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/ScriptExtensions.txt",
+      "localPath": "data/unicode/ucd-latest/ScriptExtensions.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "ec2107e58825a1586acee8e0911ce18260394ac8b87e535ca325f1ccbeb06bc6"
+    },
+    {
+      "id": "unicode-ucd-17-blocks",
+      "label": "Unicode 17.0.0 Blocks.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt",
+      "localPath": "data/unicode/ucd-latest/Blocks.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "c0edefaf1a19771e830a82735472716af6bf3c3975f6c2a23ffbe2580fbbcb15"
+    },
+    {
+      "id": "unicode-ucd-17-derived-age",
+      "label": "Unicode 17.0.0 DerivedAge.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/DerivedAge.txt",
+      "localPath": "data/unicode/ucd-latest/DerivedAge.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "f8ecdf768bdc210f201abd271d9bc587825618a86a7046a8146cc816393f1998"
+    },
+    {
+      "id": "maataa-lipi-426-master-timeline",
+      "label": "MAATAA Lipi 426 master timeline evidence",
+      "localPath": "release/evidence/lipi-426-master-timeline.json",
+      "sourceKind": "local_runtime_evidence"
+    },
+    {
+      "id": "hkd-registry-architect-user-prompt",
+      "label": "HKD Lipi Registry Architect prompt, 2026-06-17",
+      "sourceKind": "user_requested_research_scope"
+    }
+  ],
+  "checks": {
+    "unicodeScriptPropertyValuesFromUcd": 176,
+    "seedRecords": 426,
+    "everyRecordHasProvenance": true,
+    "runtimeEnabledRows": 0,
+    "noProductionClaim": true
+  },
+  "stats": {
+    "total": 426,
+    "byClass": {
+      "unicode": 176,
+      "undeciphered": 5,
+      "symbol": 7,
+      "shorthand": 4,
+      "notation": 7,
+      "hkd_private": 227
+    },
+    "byUnicodeStatus": {
+      "encoded": 175,
+      "unencoded": 238,
+      "partially_encoded": 9,
+      "private": 4
+    },
+    "byEvidenceStatus": {
+      "verified": 183,
+      "disputed": 3,
+      "scholarly": 3,
+      "draft": 13,
+      "unknown": 224
+    },
+    "unicodeScriptProperties": 176,
+    "nonUnicodeResearch": 27,
+    "reserved": 223,
+    "runtimeEnabled": 0
+  }
+}

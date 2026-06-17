@@ -6,6 +6,7 @@ import {
   hasDomainBlocker,
   isDomainRouteImplemented,
 } from "../domains/index.ts";
+import { listLipiRegistryScripts } from "../lipi-registry/api.ts";
 import { playgroundRoutes } from "../playgrounds/data.ts";
 
 const RUNTIME_STATES = [
@@ -20,7 +21,7 @@ const RUNTIME_STATES = [
 
 type RuntimeState = (typeof RUNTIME_STATES)[number];
 
-export type SearchResultType = "route" | "feature" | "state" | "doc" | "evidence" | "domain" | "package" | "app" | "crate" | "blocker";
+export type SearchResultType = "route" | "feature" | "state" | "doc" | "evidence" | "domain" | "lipi" | "package" | "app" | "crate" | "blocker";
 
 export type SearchResult = {
   id: string;
@@ -46,6 +47,7 @@ const implementedRoutes = new Set([
   "/domains",
   "/domains/status",
   "/domains/runtime",
+  "/lipi-registry",
   "/docs",
   "/settings",
   "/search",
@@ -185,6 +187,27 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
     ],
   }));
 
+  const lipiResults = listLipiRegistryScripts({ limit: 426 }).records.map((record) => ({
+    id: `lipi:${record.id}`,
+    title: record.display_name,
+    type: "lipi" as const,
+    path: `/lipi-registry/${encodeURIComponent(record.id)}`,
+    status: "CONTROLLED_NO_GO" as const,
+    description: `${record.registry_class} / ${record.unicode_status} / ${record.evidence_status}; ISO ${record.iso15924}; ${record.unicode_blocks.length ? record.unicode_blocks.join(", ") : "NO VERIFIED BLOCK"}`,
+    tags: [
+      "lipi",
+      "script-registry",
+      "controlled-no-go",
+      record.registry_class,
+      record.unicode_status,
+      record.evidence_status,
+      record.script_family,
+      record.iso15924,
+      record.unicode_script_value,
+      ...record.unicode_blocks,
+    ].map((tag) => tag.toLowerCase()),
+  }));
+
   const surfaceResults = Object.entries(surfaces).flatMap(([type, paths]) =>
     paths.map((path) => ({
       id: `${type}:${path}`,
@@ -241,6 +264,7 @@ export function buildUnifiedSearchIndex(): SearchResult[] {
     ...docResults,
     ...evidenceResults,
     ...domainResults,
+    ...lipiResults,
     ...surfaceResults,
     ...blockerResults,
     ...hardeningBlockerResults,
@@ -274,6 +298,9 @@ export function isNavigableSearchResult(result: SearchResult): boolean {
   if (result.type === "domain") {
     return isDomainRouteImplemented(result.path) && result.status !== "BLOCKED";
   }
+  if (result.type === "lipi") {
+    return result.path.startsWith("/lipi-registry/") && result.status !== "BLOCKED";
+  }
   return result.type === "route" && implementedRoutes.has(result.path) && result.status !== "BLOCKED";
 }
 
@@ -285,6 +312,7 @@ export const SEARCH_RESULT_TYPES: ReadonlyArray<SearchResultType | "all"> = [
   "doc",
   "evidence",
   "domain",
+  "lipi",
   "package",
   "app",
   "crate",

@@ -1,0 +1,367 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tlps.in/schemas/hkd-lipi-script-registry.schema.json",
+  "title": "HKD Lipi Script Registry Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "registry_index",
+    "display_name",
+    "native_name",
+    "alternate_names",
+    "registry_class",
+    "script_family",
+    "parent_script",
+    "region_primary",
+    "regions",
+    "languages",
+    "unicode_script_value",
+    "unicode_script_alias",
+    "iso15924",
+    "unicode_version_added",
+    "unicode_status",
+    "unicode_blocks",
+    "unicode_ranges",
+    "script_property_kind",
+    "script_extensions",
+    "writing_system_type",
+    "direction",
+    "joining_behavior",
+    "casing_behavior",
+    "has_decimal_digits",
+    "zero_glyph",
+    "digits_0_9",
+    "numeral_system_type",
+    "vowels",
+    "consonants",
+    "matras",
+    "ligatures",
+    "punctuation",
+    "symbols",
+    "font_support_status",
+    "recommended_fonts",
+    "transliteration_systems",
+    "normalization_notes",
+    "collation_notes",
+    "cultural_status",
+    "evidence_status",
+    "source_refs",
+    "provenance",
+    "hkd_runtime_enabled",
+    "lipi_ai_priority",
+    "kbs_node_id",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "registry_index": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 426
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "native_name": {
+      "type": "string"
+    },
+    "alternate_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "registry_class": {
+      "enum": [
+        "unicode",
+        "historic",
+        "liturgical",
+        "undeciphered",
+        "shorthand",
+        "notation",
+        "symbol",
+        "hkd_private"
+      ]
+    },
+    "script_family": {
+      "enum": [
+        "brahmic",
+        "semitic",
+        "cjk",
+        "latin",
+        "cyrillic",
+        "greek",
+        "african",
+        "american",
+        "oceanic",
+        "artificial",
+        "notation",
+        "symbolic",
+        "shorthand",
+        "iranian",
+        "aegean",
+        "UNKNOWN"
+      ]
+    },
+    "parent_script": {
+      "type": "string"
+    },
+    "region_primary": {
+      "type": "string"
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unicode_script_value": {
+      "type": "string"
+    },
+    "unicode_script_alias": {
+      "type": "string"
+    },
+    "iso15924": {
+      "type": "string"
+    },
+    "unicode_version_added": {
+      "type": "string"
+    },
+    "unicode_status": {
+      "enum": [
+        "encoded",
+        "partially_encoded",
+        "unencoded",
+        "proposed",
+        "private"
+      ]
+    },
+    "unicode_blocks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unicode_ranges": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "script_property_kind": {
+      "enum": [
+        "explicit",
+        "common",
+        "inherited",
+        "unknown",
+        "non_unicode"
+      ]
+    },
+    "script_extensions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "writing_system_type": {
+      "enum": [
+        "abugida",
+        "alphabet",
+        "abjad",
+        "syllabary",
+        "logographic",
+        "ideographic",
+        "mixed",
+        "notation",
+        "symbolic",
+        "shorthand",
+        "UNKNOWN"
+      ]
+    },
+    "direction": {
+      "enum": [
+        "ltr",
+        "rtl",
+        "ttb",
+        "btt",
+        "boustrophedon",
+        "variable",
+        "UNKNOWN"
+      ]
+    },
+    "joining_behavior": {
+      "enum": [
+        "none",
+        "cursive",
+        "contextual",
+        "complex",
+        "UNKNOWN"
+      ]
+    },
+    "casing_behavior": {
+      "enum": [
+        "none",
+        "upper_lower",
+        "titlecase",
+        "UNKNOWN"
+      ]
+    },
+    "has_decimal_digits": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "const": "UNKNOWN"
+        }
+      ]
+    },
+    "zero_glyph": {
+      "type": "string"
+    },
+    "digits_0_9": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "numeral_system_type": {
+      "enum": [
+        "decimal",
+        "additive",
+        "positional",
+        "acrophonic",
+        "none",
+        "UNKNOWN"
+      ]
+    },
+    "vowels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "consonants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "matras": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ligatures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "punctuation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "symbols": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "font_support_status": {
+      "enum": [
+        "native",
+        "noto",
+        "partial",
+        "rare",
+        "missing",
+        "UNKNOWN"
+      ]
+    },
+    "recommended_fonts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "transliteration_systems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "normalization_notes": {
+      "type": "string"
+    },
+    "collation_notes": {
+      "type": "string"
+    },
+    "cultural_status": {
+      "enum": [
+        "living",
+        "revived",
+        "liturgical",
+        "extinct",
+        "undeciphered",
+        "fictional",
+        "research",
+        "UNKNOWN"
+      ]
+    },
+    "evidence_status": {
+      "enum": [
+        "verified",
+        "scholarly",
+        "disputed",
+        "draft",
+        "unknown"
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "hkd_runtime_enabled": {
+      "type": "boolean"
+    },
+    "lipi_ai_priority": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "review",
+        "blocked"
+      ]
+    },
+    "kbs_node_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    }
+  }
+}

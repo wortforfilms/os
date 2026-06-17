@@ -3,6 +3,7 @@ import { SovereignDashboard } from "../packages/maataa-ui/src/SovereignDashboard
 import { createAuthClient, type AuthClient } from "./auth/client";
 import type { AdminAnalyticsResult, AdminSummary, AuthSession, BillingSummaryResult } from "./auth/types";
 import { DomainRegistryPage } from "./domains/DomainRegistryPage";
+import { LipiRegistryPage } from "./lipi-registry";
 import { PlaygroundPage, implementedPlaygroundRoutes, type PlaygroundRouteId } from "./playgrounds";
 import { CommandPalette } from "./search/CommandPalette";
 import { SearchPage } from "./search/SearchPage";
@@ -18,6 +19,8 @@ type RouteId =
   | "/domains"
   | "/domains/status"
   | "/domains/runtime"
+  | "/lipi-registry"
+  | `/lipi-registry/${string}`
   | PlaygroundRouteId
   | "/docs"
   | "/settings"
@@ -40,11 +43,13 @@ function currentPath(): RouteId {
     path === "/domains" ||
     path === "/domains/status" ||
     path === "/domains/runtime" ||
+    path === "/lipi-registry" ||
+    path.startsWith("/lipi-registry/") ||
     path === "/docs" ||
     path === "/search" ||
     path === "/settings"
   ) {
-    return path;
+    return path as RouteId;
   }
   return "/";
 }
@@ -149,6 +154,14 @@ export function App() {
     );
   }
 
+  if (route === "/lipi-registry" || route.startsWith("/lipi-registry/")) {
+    return (
+      <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
+        <LipiRegistryPage route={route} navigate={navigate} />
+      </AuthShell>
+    );
+  }
+
   if (route === "/domains" || route === "/domains/status" || route === "/domains/runtime") {
     return (
       <AuthShell route={route} navigate={navigate} session={session} logout={logout}>
@@ -211,6 +224,7 @@ function AuthShell({
           { path: "/dashboard", label: "Dashboard" },
           { path: "/admin", label: "Admin" },
           { path: "/domains", label: "Domains" },
+          { path: "/lipi-registry", label: "Lipi 426" },
           { path: "/search", label: "Search" },
           { path: "/maataa-ui/playground", label: "UI Lab" },
           { path: "/themelab/sandboxes", label: "ThemeLab" },
@@ -255,11 +269,13 @@ function normalizeRoute(path: string): RouteId | null {
     path === "/domains" ||
     path === "/domains/status" ||
     path === "/domains/runtime" ||
+    path === "/lipi-registry" ||
+    path.startsWith("/lipi-registry/") ||
     path === "/docs" ||
     path === "/search" ||
     path === "/settings"
   ) {
-    return path;
+    return path as RouteId;
   }
   return null;
 }

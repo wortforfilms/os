@@ -1,0 +1,56 @@
+{
+  "schema": "hkd-lipi-registry-phase2-runtime-evidence.v1",
+  "generatedAt": "2026-06-17T00:55:50.575Z",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "sourceOfTruth": {
+    "seed": "data/hkd-lipi-script-registry-seed-426.json",
+    "jsonSchema": "schemas/hkd-lipi-script-registry.schema.json",
+    "architecture": "data/hkd-lipi-registry-architecture.json"
+  },
+  "runtimeIntegration": {
+    "uiRoutes": [
+      "/lipi-registry",
+      "/lipi-registry/{id}"
+    ],
+    "localApiContracts": [
+      "GET /api/lipi-registry/scripts",
+      "GET /api/lipi-registry/scripts/{id}",
+      "GET /api/lipi-registry/unicode/crosswalk",
+      "GET /api/lipi-registry/numerals-zero"
+    ],
+    "unifiedSearchType": "lipi",
+    "detailPages": true,
+    "evidenceBadges": [
+      "Evidence",
+      "Unicode",
+      "Runtime",
+      "ISO 15924",
+      "Sources"
+    ],
+    "numeralZeroView": true
+  },
+  "counts": {
+    "records": 426,
+    "unicodeRows": 176,
+    "runtimeEnabledRows": 0,
+    "rowsWithKnownZeroGlyph": 0,
+    "rowsWithDigitInventory": 0,
+    "rowsWithUnknownZeroGlyph": 426,
+    "architectureUnicodeScriptProperties": 176
+  },
+  "phkdChecks": {
+    "everyRecordHasProvenance": true,
+    "noProductionReadyRows": true,
+    "noInventedNonUnicodeAssignments": true,
+    "numeralViewDoesNotFillUnknownDigits": true
+  },
+  "validation": {
+    "tests": [
+      "node --experimental-strip-types --test tests/hkd-lipi-registry-runtime.test.ts",
+      "node --test tests/hkd-lipi-registry-architecture.test.mjs",
+      "npx tsc --noEmit"
+    ]
+  }
+}

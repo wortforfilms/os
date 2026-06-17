@@ -1,0 +1,100 @@
+// Generated companion Prisma models for the HKD Lipi Registry.
+// Keep separate from the current runtime schema until migration is accepted.
+
+model HkdLipiScriptRegistry {
+  id                   String   @id
+  registryIndex        Int      @unique
+  displayName          String
+  nativeName           String
+  registryClass        String
+  scriptFamily         String
+  parentScript         String
+  regionPrimary        String
+  unicodeScriptValue   String
+  unicodeScriptAlias   String
+  iso15924             String
+  unicodeVersionAdded  String
+  unicodeStatus        String
+  scriptPropertyKind   String
+  writingSystemType    String
+  direction            String
+  joiningBehavior      String
+  casingBehavior       String
+  hasDecimalDigits     String
+  zeroGlyph            String
+  numeralSystemType    String
+  fontSupportStatus    String
+  culturalStatus       String
+  evidenceStatus       String
+  hkdRuntimeEnabled    Boolean  @default(false)
+  lipiAiPriority       String
+  kbsNodeId            String   @unique
+  normalizationNotes   String
+  collationNotes       String
+  provenanceJson       String
+  createdAt            DateTime
+  updatedAt            DateTime
+
+  alternateNames       HkdLipiScriptAlternateName[]
+  regions              HkdLipiScriptRegion[]
+  languages            HkdLipiScriptLanguage[]
+  unicodeBlocks        HkdLipiUnicodeBlock[]
+  unicodeRanges        HkdLipiUnicodeRange[]
+  evidenceRefs         HkdLipiEvidenceRef[]
+  provenanceEvents     HkdLipiProvenanceEvent[]
+}
+
+model HkdLipiScriptAlternateName {
+  id        String @id
+  scriptId  String
+  name      String
+  script    HkdLipiScriptRegistry @relation(fields: [scriptId], references: [id])
+}
+
+model HkdLipiScriptRegion {
+  id        String @id
+  scriptId  String
+  region    String
+  script    HkdLipiScriptRegistry @relation(fields: [scriptId], references: [id])
+}
+
+model HkdLipiScriptLanguage {
+  id        String @id
+  scriptId  String
+  language  String
+  script    HkdLipiScriptRegistry @relation(fields: [scriptId], references: [id])
+}
+
+model HkdLipiUnicodeBlock {
+  id        String @id
+  scriptId  String
+  blockName String
+  script    HkdLipiScriptRegistry @relation(fields: [scriptId], references: [id])
+}
+
+model HkdLipiUnicodeRange {
+  id         String @id
+  scriptId   String
+  rangeLabel String
+  script     HkdLipiScriptRegistry @relation(fields: [scriptId], references: [id])
+}
+
+model HkdLipiEvidenceRef {
+  id          String @id
+  scriptId    String
+  sourceRefId String
+  claimScope  String
+  script      HkdLipiScriptRegistry @relation(fields: [scriptId], references: [id])
+}
+
+model HkdLipiProvenanceEvent {
+  id           String   @id
+  scriptId     String
+  eventType    String
+  fieldName    String
+  sourceRefs   String
+  previousHash String
+  eventHash    String
+  createdAt    DateTime
+  script       HkdLipiScriptRegistry @relation(fields: [scriptId], references: [id])
+}

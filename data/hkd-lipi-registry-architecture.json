@@ -1,0 +1,6750 @@
+{
+  "schema": "hkd-lipi-registry-architecture.v1",
+  "generatedAt": "2026-06-17T00:31:50.727Z",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "sourceRefs": [
+    {
+      "id": "unicode-ucd-17-property-value-aliases",
+      "label": "Unicode 17.0.0 PropertyValueAliases.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt",
+      "localPath": "data/unicode/ucd-latest/PropertyValueAliases.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "64e9a5f76f7a1e8b5a47d6a1f9a26522a251208f5276bdfa1559dac7cf2e827a"
+    },
+    {
+      "id": "unicode-ucd-17-scripts",
+      "label": "Unicode 17.0.0 Scripts.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/Scripts.txt",
+      "localPath": "data/unicode/ucd-latest/Scripts.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "9f5e50d3abaee7d6ce09480f325c706f485ae3240912527e651954d2d6b035bf"
+    },
+    {
+      "id": "unicode-ucd-17-script-extensions",
+      "label": "Unicode 17.0.0 ScriptExtensions.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/ScriptExtensions.txt",
+      "localPath": "data/unicode/ucd-latest/ScriptExtensions.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "ec2107e58825a1586acee8e0911ce18260394ac8b87e535ca325f1ccbeb06bc6"
+    },
+    {
+      "id": "unicode-ucd-17-blocks",
+      "label": "Unicode 17.0.0 Blocks.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt",
+      "localPath": "data/unicode/ucd-latest/Blocks.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "c0edefaf1a19771e830a82735472716af6bf3c3975f6c2a23ffbe2580fbbcb15"
+    },
+    {
+      "id": "unicode-ucd-17-derived-age",
+      "label": "Unicode 17.0.0 DerivedAge.txt",
+      "url": "https://www.unicode.org/Public/UCD/latest/ucd/DerivedAge.txt",
+      "localPath": "data/unicode/ucd-latest/DerivedAge.txt",
+      "sourceKind": "primary_unicode_data",
+      "sha256": "f8ecdf768bdc210f201abd271d9bc587825618a86a7046a8146cc816393f1998"
+    },
+    {
+      "id": "maataa-lipi-426-master-timeline",
+      "label": "MAATAA Lipi 426 master timeline evidence",
+      "localPath": "release/evidence/lipi-426-master-timeline.json",
+      "sourceKind": "local_runtime_evidence"
+    },
+    {
+      "id": "hkd-registry-architect-user-prompt",
+      "label": "HKD Lipi Registry Architect prompt, 2026-06-17",
+      "sourceKind": "user_requested_research_scope"
+    }
+  ],
+  "registryTaxonomy": {
+    "phkdRules": [
+      "Never invent Unicode assignments.",
+      "Never invent ISO 15924 codes.",
+      "Mark uncertain information as UNKNOWN.",
+      "Mark unencoded systems as UNENCODED.",
+      "Mark disputed systems as DISPUTED.",
+      "Separate verified facts from research hypotheses.",
+      "Every record must contain provenance.",
+      "Fail closed rather than hallucinate."
+    ],
+    "partitions": [
+      {
+        "id": "A",
+        "name": "Unicode Scripts",
+        "registry_class": "unicode",
+        "rule": "Rows generated from UCD Script property values only."
+      },
+      {
+        "id": "B",
+        "name": "Historic Scripts",
+        "registry_class": "historic",
+        "rule": "Encoded historic scripts use UCD; unencoded historic scripts stay UNENCODED with scholarly evidence."
+      },
+      {
+        "id": "C",
+        "name": "Liturgical Scripts",
+        "registry_class": "liturgical",
+        "rule": "Liturgical status is cultural metadata, separate from Unicode encoding."
+      },
+      {
+        "id": "D",
+        "name": "Undeciphered Systems",
+        "registry_class": "undeciphered",
+        "rule": "DISPUTED or SCHOLARLY; no OCR/transliteration/runtime claims."
+      },
+      {
+        "id": "E",
+        "name": "Shorthand Systems",
+        "registry_class": "shorthand",
+        "rule": "Encoded systems use UCD; unencoded systems remain UNENCODED."
+      },
+      {
+        "id": "F",
+        "name": "Notation Systems",
+        "registry_class": "notation",
+        "rule": "Notation blocks are symbol/notation records, not Script property inventions."
+      },
+      {
+        "id": "G",
+        "name": "Symbol Systems",
+        "registry_class": "symbol",
+        "rule": "Symbol systems require block/provenance boundaries."
+      },
+      {
+        "id": "H",
+        "name": "HKD Extensions",
+        "registry_class": "hkd_private",
+        "rule": "Private/research rows cannot claim Unicode or ISO assignment."
+      }
+    ],
+    "enums": {
+      "registry_class": [
+        "unicode",
+        "historic",
+        "liturgical",
+        "undeciphered",
+        "shorthand",
+        "notation",
+        "symbol",
+        "hkd_private"
+      ],
+      "script_family": [
+        "brahmic",
+        "semitic",
+        "cjk",
+        "latin",
+        "cyrillic",
+        "greek",
+        "african",
+        "american",
+        "oceanic",
+        "artificial",
+        "notation",
+        "symbolic",
+        "shorthand",
+        "iranian",
+        "aegean",
+        "UNKNOWN"
+      ],
+      "unicode_status": [
+        "encoded",
+        "partially_encoded",
+        "unencoded",
+        "proposed",
+        "private"
+      ],
+      "script_property_kind": [
+        "explicit",
+        "common",
+        "inherited",
+        "unknown",
+        "non_unicode"
+      ],
+      "writing_system_type": [
+        "abugida",
+        "alphabet",
+        "abjad",
+        "syllabary",
+        "logographic",
+        "ideographic",
+        "mixed",
+        "notation",
+        "symbolic",
+        "shorthand",
+        "UNKNOWN"
+      ],
+      "direction": [
+        "ltr",
+        "rtl",
+        "ttb",
+        "btt",
+        "boustrophedon",
+        "variable",
+        "UNKNOWN"
+      ],
+      "joining_behavior": [
+        "none",
+        "cursive",
+        "contextual",
+        "complex",
+        "UNKNOWN"
+      ],
+      "casing_behavior": [
+        "none",
+        "upper_lower",
+        "titlecase",
+        "UNKNOWN"
+      ],
+      "numeral_system_type": [
+        "decimal",
+        "additive",
+        "positional",
+        "acrophonic",
+        "none",
+        "UNKNOWN"
+      ],
+      "font_support_status": [
+        "native",
+        "noto",
+        "partial",
+        "rare",
+        "missing",
+        "UNKNOWN"
+      ],
+      "cultural_status": [
+        "living",
+        "revived",
+        "liturgical",
+        "extinct",
+        "undeciphered",
+        "fictional",
+        "research",
+        "UNKNOWN"
+      ],
+      "evidence_status": [
+        "verified",
+        "scholarly",
+        "disputed",
+        "draft",
+        "unknown"
+      ]
+    }
+  },
+  "databaseSchema": {
+    "tables": [
+      {
+        "name": "script_registry",
+        "purpose": "Canonical 426-row script-system registry; PHKD fact fields stay UNKNOWN unless sourced.",
+        "primaryKey": "id",
+        "columns": [
+          "id",
+          "registry_index",
+          "display_name",
+          "native_name",
+          "registry_class",
+          "script_family",
+          "parent_script",
+          "region_primary",
+          "unicode_script_value",
+          "unicode_script_alias",
+          "iso15924",
+          "unicode_version_added",
+          "unicode_status",
+          "script_property_kind",
+          "writing_system_type",
+          "direction",
+          "joining_behavior",
+          "casing_behavior",
+          "has_decimal_digits",
+          "zero_glyph",
+          "numeral_system_type",
+          "font_support_status",
+          "cultural_status",
+          "evidence_status",
+          "hkd_runtime_enabled",
+          "lipi_ai_priority",
+          "kbs_node_id",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      {
+        "name": "script_alternate_name",
+        "purpose": "Alternate script names, aliases, source spellings."
+      },
+      {
+        "name": "script_region",
+        "purpose": "Many-to-many region coverage."
+      },
+      {
+        "name": "script_language",
+        "purpose": "Many-to-many language coverage."
+      },
+      {
+        "name": "script_unicode_block",
+        "purpose": "Script-to-Unicode-block crosswalk."
+      },
+      {
+        "name": "script_unicode_range",
+        "purpose": "Script-to-code-point-range crosswalk."
+      },
+      {
+        "name": "script_extension_value",
+        "purpose": "Script_Extensions aliases from UCD where applicable."
+      },
+      {
+        "name": "script_character_inventory",
+        "purpose": "Vowels, consonants, matras, ligatures, punctuation, symbols."
+      },
+      {
+        "name": "script_digit_inventory",
+        "purpose": "Digits 0-9 and zero glyph per source."
+      },
+      {
+        "name": "script_font_support",
+        "purpose": "Font registry join with support posture."
+      },
+      {
+        "name": "script_transliteration",
+        "purpose": "Script-to-transliteration system join."
+      },
+      {
+        "name": "script_lineage_edge",
+        "purpose": "Family tree and hypothesis lineage edges with evidence status."
+      },
+      {
+        "name": "script_evidence_ref",
+        "purpose": "Evidence bundle references and claim boundaries."
+      },
+      {
+        "name": "script_provenance_event",
+        "purpose": "Immutable provenance events for field-level changes."
+      },
+      {
+        "name": "script_search_document",
+        "purpose": "Flattened search index row."
+      },
+      {
+        "name": "script_kbs_edge",
+        "purpose": "KBS graph edge export."
+      }
+    ]
+  },
+  "typeScriptTypes": {
+    "path": "packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts",
+    "exports": [
+      "HkdLipiScriptRegistryRecord",
+      "HkdLipiRegistryListResponse"
+    ]
+  },
+  "prismaModels": {
+    "path": "packages/lipi-runtime/prisma/hkd-lipi-registry.prisma",
+    "modelCount": 8
+  },
+  "sqliteDdl": {
+    "path": "migrations/sqlite/010_hkd_lipi_registry.sql"
+  },
+  "postgresqlDdl": {
+    "path": "migrations/postgresql/010_hkd_lipi_registry.sql"
+  },
+  "jsonSchema": {
+    "path": "schemas/hkd-lipi-script-registry.schema.json"
+  },
+  "graphSchema": {
+    "nodes": [
+      "Script",
+      "Language",
+      "Region",
+      "Dynasty",
+      "Manuscript",
+      "Inscription",
+      "Font",
+      "UnicodeBlock",
+      "UnicodeRange",
+      "NumeralSystem",
+      "TransliterationSystem",
+      "EvidenceSource",
+      "ProvenanceEvent"
+    ],
+    "edges": [
+      "SCRIPT_USES_LANGUAGE",
+      "SCRIPT_ATTESTED_IN_REGION",
+      "SCRIPT_DERIVES_FROM_SCRIPT",
+      "SCRIPT_HAS_UNICODE_BLOCK",
+      "SCRIPT_HAS_UNICODE_RANGE",
+      "SCRIPT_HAS_NUMERAL_SYSTEM",
+      "SCRIPT_SUPPORTS_TRANSLITERATION",
+      "SCRIPT_RENDERED_BY_FONT",
+      "SCRIPT_HAS_EVIDENCE",
+      "EVIDENCE_HAS_PROVENANCE",
+      "INSCRIPTION_WRITTEN_IN_SCRIPT",
+      "MANUSCRIPT_WRITTEN_IN_SCRIPT",
+      "DYNASTY_PATRONIZED_SCRIPT"
+    ],
+    "invariants": [
+      "Every Script node must have at least one EvidenceSource edge.",
+      "Research hypotheses must use evidence_status DISPUTED or DRAFT, never VERIFIED.",
+      "No UnicodeBlock edge may exist unless the block name exists in Blocks.txt or the edge is marked UNKNOWN."
+    ]
+  },
+  "searchIndexSchema": {
+    "indexName": "hkd_lipi_script_registry",
+    "primaryKey": "id",
+    "fields": [
+      {
+        "name": "display_name",
+        "type": "text",
+        "weight": 8
+      },
+      {
+        "name": "native_name",
+        "type": "text",
+        "weight": 6
+      },
+      {
+        "name": "alternate_names",
+        "type": "text[]",
+        "weight": 6
+      },
+      {
+        "name": "iso15924",
+        "type": "keyword",
+        "weight": 8
+      },
+      {
+        "name": "unicode_script_value",
+        "type": "keyword",
+        "weight": 8
+      },
+      {
+        "name": "unicode_blocks",
+        "type": "keyword[]",
+        "weight": 5
+      },
+      {
+        "name": "regions",
+        "type": "keyword[]",
+        "weight": 4
+      },
+      {
+        "name": "languages",
+        "type": "keyword[]",
+        "weight": 4
+      },
+      {
+        "name": "registry_class",
+        "type": "facet",
+        "weight": 3
+      },
+      {
+        "name": "evidence_status",
+        "type": "facet",
+        "weight": 3
+      },
+      {
+        "name": "unicode_status",
+        "type": "facet",
+        "weight": 3
+      },
+      {
+        "name": "cultural_status",
+        "type": "facet",
+        "weight": 3
+      }
+    ],
+    "failClosedFilters": [
+      "exclude records where evidence_status=unknown unless includeResearch=true",
+      "exclude hkd_runtime_enabled=false from runtime selectors"
+    ]
+  },
+  "kbsOntology": {
+    "namespace": "hkd.lipi.registry",
+    "classes": [
+      "Script",
+      "Language",
+      "Region",
+      "Dynasty",
+      "Manuscript",
+      "Inscription",
+      "Font",
+      "UnicodeBlock",
+      "UnicodeRange",
+      "NumeralSystem",
+      "TransliterationSystem",
+      "EvidenceSource",
+      "ProvenanceEvent"
+    ],
+    "predicates": [
+      "SCRIPT_USES_LANGUAGE",
+      "SCRIPT_ATTESTED_IN_REGION",
+      "SCRIPT_DERIVES_FROM_SCRIPT",
+      "SCRIPT_HAS_UNICODE_BLOCK",
+      "SCRIPT_HAS_UNICODE_RANGE",
+      "SCRIPT_HAS_NUMERAL_SYSTEM",
+      "SCRIPT_SUPPORTS_TRANSLITERATION",
+      "SCRIPT_RENDERED_BY_FONT",
+      "SCRIPT_HAS_EVIDENCE",
+      "EVIDENCE_HAS_PROVENANCE",
+      "INSCRIPTION_WRITTEN_IN_SCRIPT",
+      "MANUSCRIPT_WRITTEN_IN_SCRIPT",
+      "DYNASTY_PATRONIZED_SCRIPT"
+    ],
+    "evidenceModel": "Every assertion is a claim edge with source_ref, provenance_event, evidence_status, review_state, and generated_at.",
+    "controlledNoGoDefault": true
+  },
+  "apiContracts": {
+    "basePath": "/api/lipi-registry",
+    "contracts": [
+      {
+        "method": "GET",
+        "path": "/scripts",
+        "query": [
+          "class",
+          "family",
+          "unicodeStatus",
+          "evidenceStatus",
+          "q",
+          "includeResearch"
+        ],
+        "response": "ScriptRegistryListResponse"
+      },
+      {
+        "method": "GET",
+        "path": "/scripts/{id}",
+        "response": "ScriptRegistryRecordResponse"
+      },
+      {
+        "method": "GET",
+        "path": "/unicode/crosswalk",
+        "response": "UnicodeCrosswalkResponse"
+      },
+      {
+        "method": "GET",
+        "path": "/families/{family}/tree",
+        "response": "ScriptFamilyTreeResponse"
+      },
+      {
+        "method": "GET",
+        "path": "/scripts/{id}/evidence",
+        "response": "EvidenceBundleResponse"
+      },
+      {
+        "method": "POST",
+        "path": "/scripts/{id}/review",
+        "request": "ReviewDecisionRequest",
+        "response": "ReviewDecisionResponse",
+        "guard": "requiresReviewerRole"
+      },
+      {
+        "method": "POST",
+        "path": "/scripts/{id}/runtime-enable",
+        "request": "RuntimeEnableRequest",
+        "response": "RuntimeEnableResponse",
+        "guard": "requires verified evidence and render/transliteration coverage"
+      }
+    ],
+    "errorShape": {
+      "code": "string",
+      "message": "string",
+      "phkdStatus": "BLOCKED|CONTROLLED_NO_GO|PASS",
+      "evidenceRequired": "string[]"
+    }
+  },
+  "unicodeMappingTables": {
+    "unicodeVersion": "17.0.0",
+    "scriptPropertyValues": [
+      {
+        "unicode_script_alias": "Adlm",
+        "unicode_script_value": "Adlam",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Aghb",
+        "unicode_script_value": "Caucasian_Albanian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Ahom",
+        "unicode_script_value": "Ahom",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Arab",
+        "unicode_script_value": "Arabic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Armi",
+        "unicode_script_value": "Imperial_Aramaic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Armn",
+        "unicode_script_value": "Armenian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Avst",
+        "unicode_script_value": "Avestan",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Bali",
+        "unicode_script_value": "Balinese",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Bamu",
+        "unicode_script_value": "Bamum",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Bass",
+        "unicode_script_value": "Bassa_Vah",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Batk",
+        "unicode_script_value": "Batak",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Beng",
+        "unicode_script_value": "Bengali",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Berf",
+        "unicode_script_value": "Beria_Erfe",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Bhks",
+        "unicode_script_value": "Bhaiksuki",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Bopo",
+        "unicode_script_value": "Bopomofo",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Brah",
+        "unicode_script_value": "Brahmi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Brai",
+        "unicode_script_value": "Braille",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Bugi",
+        "unicode_script_value": "Buginese",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Buhd",
+        "unicode_script_value": "Buhid",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Cakm",
+        "unicode_script_value": "Chakma",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Cans",
+        "unicode_script_value": "Canadian_Aboriginal",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Cari",
+        "unicode_script_value": "Carian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Cham",
+        "unicode_script_value": "Cham",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Cher",
+        "unicode_script_value": "Cherokee",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Chrs",
+        "unicode_script_value": "Chorasmian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Copt",
+        "unicode_script_value": "Coptic",
+        "alternateAliases": [
+          "Qaac"
+        ]
+      },
+      {
+        "unicode_script_alias": "Cpmn",
+        "unicode_script_value": "Cypro_Minoan",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Cprt",
+        "unicode_script_value": "Cypriot",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Cyrl",
+        "unicode_script_value": "Cyrillic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Deva",
+        "unicode_script_value": "Devanagari",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Diak",
+        "unicode_script_value": "Dives_Akuru",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Dogr",
+        "unicode_script_value": "Dogra",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Dsrt",
+        "unicode_script_value": "Deseret",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Dupl",
+        "unicode_script_value": "Duployan",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Egyp",
+        "unicode_script_value": "Egyptian_Hieroglyphs",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Elba",
+        "unicode_script_value": "Elbasan",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Elym",
+        "unicode_script_value": "Elymaic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Ethi",
+        "unicode_script_value": "Ethiopic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Gara",
+        "unicode_script_value": "Garay",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Geor",
+        "unicode_script_value": "Georgian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Glag",
+        "unicode_script_value": "Glagolitic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Gong",
+        "unicode_script_value": "Gunjala_Gondi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Gonm",
+        "unicode_script_value": "Masaram_Gondi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Goth",
+        "unicode_script_value": "Gothic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Gran",
+        "unicode_script_value": "Grantha",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Grek",
+        "unicode_script_value": "Greek",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Gujr",
+        "unicode_script_value": "Gujarati",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Gukh",
+        "unicode_script_value": "Gurung_Khema",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Guru",
+        "unicode_script_value": "Gurmukhi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hang",
+        "unicode_script_value": "Hangul",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hani",
+        "unicode_script_value": "Han",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hano",
+        "unicode_script_value": "Hanunoo",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hatr",
+        "unicode_script_value": "Hatran",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hebr",
+        "unicode_script_value": "Hebrew",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hira",
+        "unicode_script_value": "Hiragana",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hluw",
+        "unicode_script_value": "Anatolian_Hieroglyphs",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hmng",
+        "unicode_script_value": "Pahawh_Hmong",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hmnp",
+        "unicode_script_value": "Nyiakeng_Puachue_Hmong",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hrkt",
+        "unicode_script_value": "Katakana_Or_Hiragana",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Hung",
+        "unicode_script_value": "Old_Hungarian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Ital",
+        "unicode_script_value": "Old_Italic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Java",
+        "unicode_script_value": "Javanese",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Kali",
+        "unicode_script_value": "Kayah_Li",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Kana",
+        "unicode_script_value": "Katakana",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Kawi",
+        "unicode_script_value": "Kawi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Khar",
+        "unicode_script_value": "Kharoshthi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Khmr",
+        "unicode_script_value": "Khmer",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Khoj",
+        "unicode_script_value": "Khojki",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Kits",
+        "unicode_script_value": "Khitan_Small_Script",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Knda",
+        "unicode_script_value": "Kannada",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Krai",
+        "unicode_script_value": "Kirat_Rai",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Kthi",
+        "unicode_script_value": "Kaithi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Lana",
+        "unicode_script_value": "Tai_Tham",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Laoo",
+        "unicode_script_value": "Lao",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Latn",
+        "unicode_script_value": "Latin",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Lepc",
+        "unicode_script_value": "Lepcha",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Limb",
+        "unicode_script_value": "Limbu",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Lina",
+        "unicode_script_value": "Linear_A",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Linb",
+        "unicode_script_value": "Linear_B",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Lisu",
+        "unicode_script_value": "Lisu",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Lyci",
+        "unicode_script_value": "Lycian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Lydi",
+        "unicode_script_value": "Lydian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mahj",
+        "unicode_script_value": "Mahajani",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Maka",
+        "unicode_script_value": "Makasar",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mand",
+        "unicode_script_value": "Mandaic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mani",
+        "unicode_script_value": "Manichaean",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Marc",
+        "unicode_script_value": "Marchen",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Medf",
+        "unicode_script_value": "Medefaidrin",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mend",
+        "unicode_script_value": "Mende_Kikakui",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Merc",
+        "unicode_script_value": "Meroitic_Cursive",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mero",
+        "unicode_script_value": "Meroitic_Hieroglyphs",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mlym",
+        "unicode_script_value": "Malayalam",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Modi",
+        "unicode_script_value": "Modi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mong",
+        "unicode_script_value": "Mongolian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mroo",
+        "unicode_script_value": "Mro",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mtei",
+        "unicode_script_value": "Meetei_Mayek",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mult",
+        "unicode_script_value": "Multani",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Mymr",
+        "unicode_script_value": "Myanmar",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Nagm",
+        "unicode_script_value": "Nag_Mundari",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Nand",
+        "unicode_script_value": "Nandinagari",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Narb",
+        "unicode_script_value": "Old_North_Arabian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Nbat",
+        "unicode_script_value": "Nabataean",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Newa",
+        "unicode_script_value": "Newa",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Nkoo",
+        "unicode_script_value": "Nko",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Nshu",
+        "unicode_script_value": "Nushu",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Ogam",
+        "unicode_script_value": "Ogham",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Olck",
+        "unicode_script_value": "Ol_Chiki",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Onao",
+        "unicode_script_value": "Ol_Onal",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Orkh",
+        "unicode_script_value": "Old_Turkic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Orya",
+        "unicode_script_value": "Oriya",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Osge",
+        "unicode_script_value": "Osage",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Osma",
+        "unicode_script_value": "Osmanya",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Ougr",
+        "unicode_script_value": "Old_Uyghur",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Palm",
+        "unicode_script_value": "Palmyrene",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Pauc",
+        "unicode_script_value": "Pau_Cin_Hau",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Perm",
+        "unicode_script_value": "Old_Permic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Phag",
+        "unicode_script_value": "Phags_Pa",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Phli",
+        "unicode_script_value": "Inscriptional_Pahlavi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Phlp",
+        "unicode_script_value": "Psalter_Pahlavi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Phnx",
+        "unicode_script_value": "Phoenician",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Plrd",
+        "unicode_script_value": "Miao",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Prti",
+        "unicode_script_value": "Inscriptional_Parthian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Rjng",
+        "unicode_script_value": "Rejang",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Rohg",
+        "unicode_script_value": "Hanifi_Rohingya",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Runr",
+        "unicode_script_value": "Runic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Samr",
+        "unicode_script_value": "Samaritan",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sarb",
+        "unicode_script_value": "Old_South_Arabian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Saur",
+        "unicode_script_value": "Saurashtra",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sgnw",
+        "unicode_script_value": "SignWriting",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Shaw",
+        "unicode_script_value": "Shavian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Shrd",
+        "unicode_script_value": "Sharada",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sidd",
+        "unicode_script_value": "Siddham",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sidt",
+        "unicode_script_value": "Sidetic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sind",
+        "unicode_script_value": "Khudawadi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sinh",
+        "unicode_script_value": "Sinhala",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sogd",
+        "unicode_script_value": "Sogdian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sogo",
+        "unicode_script_value": "Old_Sogdian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sora",
+        "unicode_script_value": "Sora_Sompeng",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Soyo",
+        "unicode_script_value": "Soyombo",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sund",
+        "unicode_script_value": "Sundanese",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sunu",
+        "unicode_script_value": "Sunuwar",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Sylo",
+        "unicode_script_value": "Syloti_Nagri",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Syrc",
+        "unicode_script_value": "Syriac",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tagb",
+        "unicode_script_value": "Tagbanwa",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Takr",
+        "unicode_script_value": "Takri",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tale",
+        "unicode_script_value": "Tai_Le",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Talu",
+        "unicode_script_value": "New_Tai_Lue",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Taml",
+        "unicode_script_value": "Tamil",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tang",
+        "unicode_script_value": "Tangut",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tavt",
+        "unicode_script_value": "Tai_Viet",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tayo",
+        "unicode_script_value": "Tai_Yo",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Telu",
+        "unicode_script_value": "Telugu",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tfng",
+        "unicode_script_value": "Tifinagh",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tglg",
+        "unicode_script_value": "Tagalog",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Thaa",
+        "unicode_script_value": "Thaana",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Thai",
+        "unicode_script_value": "Thai",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tibt",
+        "unicode_script_value": "Tibetan",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tirh",
+        "unicode_script_value": "Tirhuta",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tnsa",
+        "unicode_script_value": "Tangsa",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Todr",
+        "unicode_script_value": "Todhri",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tols",
+        "unicode_script_value": "Tolong_Siki",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Toto",
+        "unicode_script_value": "Toto",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Tutg",
+        "unicode_script_value": "Tulu_Tigalari",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Ugar",
+        "unicode_script_value": "Ugaritic",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Vaii",
+        "unicode_script_value": "Vai",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Vith",
+        "unicode_script_value": "Vithkuqi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Wara",
+        "unicode_script_value": "Warang_Citi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Wcho",
+        "unicode_script_value": "Wancho",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Xpeo",
+        "unicode_script_value": "Old_Persian",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Xsux",
+        "unicode_script_value": "Cuneiform",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Yezi",
+        "unicode_script_value": "Yezidi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Yiii",
+        "unicode_script_value": "Yi",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Zanb",
+        "unicode_script_value": "Zanabazar_Square",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Zinh",
+        "unicode_script_value": "Inherited",
+        "alternateAliases": [
+          "Qaai"
+        ]
+      },
+      {
+        "unicode_script_alias": "Zyyy",
+        "unicode_script_value": "Common",
+        "alternateAliases": []
+      },
+      {
+        "unicode_script_alias": "Zzzz",
+        "unicode_script_value": "Unknown",
+        "alternateAliases": []
+      }
+    ],
+    "unicodeCrosswalk": [
+      {
+        "id": "unicode-adlam",
+        "unicode_script_value": "Adlam",
+        "unicode_script_alias": "Adlm",
+        "iso15924": "Adlm",
+        "unicode_blocks": [
+          "Adlam"
+        ],
+        "unicode_ranges": [
+          "U+1E900-U+1E943",
+          "U+1E944-U+1E94A",
+          "U+1E94B",
+          "U+1E950-U+1E959",
+          "U+1E95E-U+1E95F"
+        ],
+        "unicode_version_added": "9.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-caucasian-albanian",
+        "unicode_script_value": "Caucasian_Albanian",
+        "unicode_script_alias": "Aghb",
+        "iso15924": "Aghb",
+        "unicode_blocks": [
+          "Caucasian Albanian"
+        ],
+        "unicode_ranges": [
+          "U+10530-U+10563",
+          "U+1056F"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-ahom",
+        "unicode_script_value": "Ahom",
+        "unicode_script_alias": "Ahom",
+        "iso15924": "Ahom",
+        "unicode_blocks": [
+          "Ahom"
+        ],
+        "unicode_ranges": [
+          "U+11700-U+1171A",
+          "U+1171D",
+          "U+1171E",
+          "U+1171F",
+          "U+11720-U+11721",
+          "U+11722-U+11725",
+          "U+11726",
+          "U+11727-U+1172B",
+          "U+11730-U+11739",
+          "U+1173A-U+1173B",
+          "U+1173C-U+1173E",
+          "U+1173F",
+          "U+11740-U+11746"
+        ],
+        "unicode_version_added": "8.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-arabic",
+        "unicode_script_value": "Arabic",
+        "unicode_script_alias": "Arab",
+        "iso15924": "Arab",
+        "unicode_blocks": [
+          "Arabic",
+          "Arabic Supplement",
+          "Arabic Extended-B",
+          "Arabic Extended-A",
+          "Arabic Presentation Forms-A",
+          "Arabic Presentation Forms-B",
+          "Rumi Numeral Symbols",
+          "Arabic Extended-C",
+          "Arabic Mathematical Alphabetic Symbols"
+        ],
+        "unicode_ranges": [
+          "U+0600-U+0604",
+          "U+0606-U+0608",
+          "U+0609-U+060A",
+          "U+060B",
+          "U+060D",
+          "U+060E-U+060F",
+          "U+0610-U+061A",
+          "U+061C",
+          "U+061D-U+061E",
+          "U+0620-U+063F",
+          "U+0641-U+064A",
+          "U+0656-U+065F",
+          "U+0660-U+0669",
+          "U+066A-U+066D",
+          "U+066E-U+066F",
+          "U+0671-U+06D3",
+          "U+06D4",
+          "U+06D5",
+          "U+06D6-U+06DC",
+          "U+06DE",
+          "U+06DF-U+06E4",
+          "U+06E5-U+06E6",
+          "U+06E7-U+06E8",
+          "U+06E9",
+          "U+06EA-U+06ED",
+          "U+06EE-U+06EF",
+          "U+06F0-U+06F9",
+          "U+06FA-U+06FC",
+          "U+06FD-U+06FE",
+          "U+06FF",
+          "U+0750-U+077F",
+          "U+0870-U+0887",
+          "U+0888",
+          "U+0889-U+088F",
+          "U+0890-U+0891",
+          "U+0897-U+089F",
+          "U+08A0-U+08C8",
+          "U+08C9",
+          "U+08CA-U+08E1",
+          "U+08E3-U+08FF",
+          "U+FB50-U+FBB1",
+          "U+FBB2-U+FBC2",
+          "U+FBC3-U+FBD2",
+          "U+FBD3-U+FD3D",
+          "U+FD40-U+FD4F",
+          "U+FD50-U+FD8F",
+          "U+FD90-U+FD91",
+          "U+FD92-U+FDC7",
+          "U+FDC8-U+FDCF",
+          "U+FDF0-U+FDFB",
+          "U+FDFC",
+          "U+FDFD-U+FDFF",
+          "U+FE70-U+FE74",
+          "U+FE76-U+FEFC",
+          "U+10E60-U+10E7E",
+          "U+10EC2-U+10EC4",
+          "U+10EC5",
+          "U+10EC6-U+10EC7",
+          "U+10ED0",
+          "U+10ED1-U+10ED8",
+          "U+10EFA-U+10EFF",
+          "U+1EE00-U+1EE03",
+          "U+1EE05-U+1EE1F",
+          "U+1EE21-U+1EE22",
+          "U+1EE24",
+          "U+1EE27",
+          "U+1EE29-U+1EE32",
+          "U+1EE34-U+1EE37",
+          "U+1EE39",
+          "U+1EE3B",
+          "U+1EE42",
+          "U+1EE47",
+          "U+1EE49",
+          "U+1EE4B",
+          "U+1EE4D-U+1EE4F",
+          "U+1EE51-U+1EE52",
+          "U+1EE54",
+          "U+1EE57",
+          "U+1EE59",
+          "U+1EE5B",
+          "U+1EE5D",
+          "U+1EE5F",
+          "U+1EE61-U+1EE62",
+          "U+1EE64",
+          "U+1EE67-U+1EE6A",
+          "U+1EE6C-U+1EE72",
+          "U+1EE74-U+1EE77",
+          "U+1EE79-U+1EE7C",
+          "U+1EE7E",
+          "U+1EE80-U+1EE89",
+          "U+1EE8B-U+1EE9B",
+          "U+1EEA1-U+1EEA3",
+          "U+1EEA5-U+1EEA9",
+          "U+1EEAB-U+1EEBB",
+          "U+1EEF0-U+1EEF1"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-imperial-aramaic",
+        "unicode_script_value": "Imperial_Aramaic",
+        "unicode_script_alias": "Armi",
+        "iso15924": "Armi",
+        "unicode_blocks": [
+          "Imperial Aramaic"
+        ],
+        "unicode_ranges": [
+          "U+10840-U+10855",
+          "U+10857",
+          "U+10858-U+1085F"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-armenian",
+        "unicode_script_value": "Armenian",
+        "unicode_script_alias": "Armn",
+        "iso15924": "Armn",
+        "unicode_blocks": [
+          "Armenian",
+          "Alphabetic Presentation Forms"
+        ],
+        "unicode_ranges": [
+          "U+0531-U+0556",
+          "U+0559",
+          "U+055A-U+055F",
+          "U+0560-U+0588",
+          "U+0589",
+          "U+058A",
+          "U+058D-U+058E",
+          "U+058F",
+          "U+FB13-U+FB17"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-avestan",
+        "unicode_script_value": "Avestan",
+        "unicode_script_alias": "Avst",
+        "iso15924": "Avst",
+        "unicode_blocks": [
+          "Avestan"
+        ],
+        "unicode_ranges": [
+          "U+10B00-U+10B35",
+          "U+10B39-U+10B3F"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-balinese",
+        "unicode_script_value": "Balinese",
+        "unicode_script_alias": "Bali",
+        "iso15924": "Bali",
+        "unicode_blocks": [
+          "Balinese"
+        ],
+        "unicode_ranges": [
+          "U+1B00-U+1B03",
+          "U+1B04",
+          "U+1B05-U+1B33",
+          "U+1B34",
+          "U+1B35",
+          "U+1B36-U+1B3A",
+          "U+1B3B",
+          "U+1B3C",
+          "U+1B3D-U+1B41",
+          "U+1B42",
+          "U+1B43-U+1B44",
+          "U+1B45-U+1B4C",
+          "U+1B4E-U+1B4F",
+          "U+1B50-U+1B59",
+          "U+1B5A-U+1B60",
+          "U+1B61-U+1B6A",
+          "U+1B6B-U+1B73",
+          "U+1B74-U+1B7C",
+          "U+1B7D-U+1B7F"
+        ],
+        "unicode_version_added": "5.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-bamum",
+        "unicode_script_value": "Bamum",
+        "unicode_script_alias": "Bamu",
+        "iso15924": "Bamu",
+        "unicode_blocks": [
+          "Bamum",
+          "Bamum Supplement"
+        ],
+        "unicode_ranges": [
+          "U+A6A0-U+A6E5",
+          "U+A6E6-U+A6EF",
+          "U+A6F0-U+A6F1",
+          "U+A6F2-U+A6F7",
+          "U+16800-U+16A38"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-bassa-vah",
+        "unicode_script_value": "Bassa_Vah",
+        "unicode_script_alias": "Bass",
+        "iso15924": "Bass",
+        "unicode_blocks": [
+          "Bassa Vah"
+        ],
+        "unicode_ranges": [
+          "U+16AD0-U+16AED",
+          "U+16AF0-U+16AF4",
+          "U+16AF5"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-batak",
+        "unicode_script_value": "Batak",
+        "unicode_script_alias": "Batk",
+        "iso15924": "Batk",
+        "unicode_blocks": [
+          "Batak"
+        ],
+        "unicode_ranges": [
+          "U+1BC0-U+1BE5",
+          "U+1BE6",
+          "U+1BE7",
+          "U+1BE8-U+1BE9",
+          "U+1BEA-U+1BEC",
+          "U+1BED",
+          "U+1BEE",
+          "U+1BEF-U+1BF1",
+          "U+1BF2-U+1BF3",
+          "U+1BFC-U+1BFF"
+        ],
+        "unicode_version_added": "6.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-bengali",
+        "unicode_script_value": "Bengali",
+        "unicode_script_alias": "Beng",
+        "iso15924": "Beng",
+        "unicode_blocks": [
+          "Bengali"
+        ],
+        "unicode_ranges": [
+          "U+0980",
+          "U+0981",
+          "U+0982-U+0983",
+          "U+0985-U+098C",
+          "U+098F-U+0990",
+          "U+0993-U+09A8",
+          "U+09AA-U+09B0",
+          "U+09B2",
+          "U+09B6-U+09B9",
+          "U+09BC",
+          "U+09BD",
+          "U+09BE-U+09C0",
+          "U+09C1-U+09C4",
+          "U+09C7-U+09C8",
+          "U+09CB-U+09CC",
+          "U+09CD",
+          "U+09CE",
+          "U+09D7",
+          "U+09DC-U+09DD",
+          "U+09DF-U+09E1",
+          "U+09E2-U+09E3",
+          "U+09E6-U+09EF",
+          "U+09F0-U+09F1",
+          "U+09F2-U+09F3",
+          "U+09F4-U+09F9",
+          "U+09FA",
+          "U+09FB",
+          "U+09FC",
+          "U+09FD",
+          "U+09FE"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-beria-erfe",
+        "unicode_script_value": "Beria_Erfe",
+        "unicode_script_alias": "Berf",
+        "iso15924": "Berf",
+        "unicode_blocks": [
+          "Beria Erfe"
+        ],
+        "unicode_ranges": [
+          "U+16EA0-U+16EB8",
+          "U+16EBB-U+16ED3"
+        ],
+        "unicode_version_added": "17.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-bhaiksuki",
+        "unicode_script_value": "Bhaiksuki",
+        "unicode_script_alias": "Bhks",
+        "iso15924": "Bhks",
+        "unicode_blocks": [
+          "Bhaiksuki"
+        ],
+        "unicode_ranges": [
+          "U+11C00-U+11C08",
+          "U+11C0A-U+11C2E",
+          "U+11C2F",
+          "U+11C30-U+11C36",
+          "U+11C38-U+11C3D",
+          "U+11C3E",
+          "U+11C3F",
+          "U+11C40",
+          "U+11C41-U+11C45",
+          "U+11C50-U+11C59",
+          "U+11C5A-U+11C6C"
+        ],
+        "unicode_version_added": "9.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-bopomofo",
+        "unicode_script_value": "Bopomofo",
+        "unicode_script_alias": "Bopo",
+        "iso15924": "Bopo",
+        "unicode_blocks": [
+          "Spacing Modifier Letters",
+          "Bopomofo",
+          "Bopomofo Extended"
+        ],
+        "unicode_ranges": [
+          "U+02EA-U+02EB",
+          "U+3105-U+312F",
+          "U+31A0-U+31BF"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-brahmi",
+        "unicode_script_value": "Brahmi",
+        "unicode_script_alias": "Brah",
+        "iso15924": "Brah",
+        "unicode_blocks": [
+          "Brahmi"
+        ],
+        "unicode_ranges": [
+          "U+11000",
+          "U+11001",
+          "U+11002",
+          "U+11003-U+11037",
+          "U+11038-U+11046",
+          "U+11047-U+1104D",
+          "U+11052-U+11065",
+          "U+11066-U+1106F",
+          "U+11070",
+          "U+11071-U+11072",
+          "U+11073-U+11074",
+          "U+11075",
+          "U+1107F"
+        ],
+        "unicode_version_added": "6.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-braille",
+        "unicode_script_value": "Braille",
+        "unicode_script_alias": "Brai",
+        "iso15924": "Brai",
+        "unicode_blocks": [
+          "Braille Patterns"
+        ],
+        "unicode_ranges": [
+          "U+2800-U+28FF"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-buginese",
+        "unicode_script_value": "Buginese",
+        "unicode_script_alias": "Bugi",
+        "iso15924": "Bugi",
+        "unicode_blocks": [
+          "Buginese"
+        ],
+        "unicode_ranges": [
+          "U+1A00-U+1A16",
+          "U+1A17-U+1A18",
+          "U+1A19-U+1A1A",
+          "U+1A1B",
+          "U+1A1E-U+1A1F"
+        ],
+        "unicode_version_added": "4.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-buhid",
+        "unicode_script_value": "Buhid",
+        "unicode_script_alias": "Buhd",
+        "iso15924": "Buhd",
+        "unicode_blocks": [
+          "Buhid"
+        ],
+        "unicode_ranges": [
+          "U+1740-U+1751",
+          "U+1752-U+1753"
+        ],
+        "unicode_version_added": "3.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-chakma",
+        "unicode_script_value": "Chakma",
+        "unicode_script_alias": "Cakm",
+        "iso15924": "Cakm",
+        "unicode_blocks": [
+          "Chakma"
+        ],
+        "unicode_ranges": [
+          "U+11100-U+11102",
+          "U+11103-U+11126",
+          "U+11127-U+1112B",
+          "U+1112C",
+          "U+1112D-U+11134",
+          "U+11136-U+1113F",
+          "U+11140-U+11143",
+          "U+11144",
+          "U+11145-U+11146",
+          "U+11147"
+        ],
+        "unicode_version_added": "6.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-canadian-aboriginal",
+        "unicode_script_value": "Canadian_Aboriginal",
+        "unicode_script_alias": "Cans",
+        "iso15924": "Cans",
+        "unicode_blocks": [
+          "Unified Canadian Aboriginal Syllabics",
+          "Unified Canadian Aboriginal Syllabics Extended",
+          "Unified Canadian Aboriginal Syllabics Extended-A"
+        ],
+        "unicode_ranges": [
+          "U+1400",
+          "U+1401-U+166C",
+          "U+166D",
+          "U+166E",
+          "U+166F-U+167F",
+          "U+18B0-U+18F5",
+          "U+11AB0-U+11ABF"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-carian",
+        "unicode_script_value": "Carian",
+        "unicode_script_alias": "Cari",
+        "iso15924": "Cari",
+        "unicode_blocks": [
+          "Carian"
+        ],
+        "unicode_ranges": [
+          "U+102A0-U+102D0"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-cham",
+        "unicode_script_value": "Cham",
+        "unicode_script_alias": "Cham",
+        "iso15924": "Cham",
+        "unicode_blocks": [
+          "Cham"
+        ],
+        "unicode_ranges": [
+          "U+AA00-U+AA28",
+          "U+AA29-U+AA2E",
+          "U+AA2F-U+AA30",
+          "U+AA31-U+AA32",
+          "U+AA33-U+AA34",
+          "U+AA35-U+AA36",
+          "U+AA40-U+AA42",
+          "U+AA43",
+          "U+AA44-U+AA4B",
+          "U+AA4C",
+          "U+AA4D",
+          "U+AA50-U+AA59",
+          "U+AA5C-U+AA5F"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-cherokee",
+        "unicode_script_value": "Cherokee",
+        "unicode_script_alias": "Cher",
+        "iso15924": "Cher",
+        "unicode_blocks": [
+          "Cherokee",
+          "Cherokee Supplement"
+        ],
+        "unicode_ranges": [
+          "U+13A0-U+13F5",
+          "U+13F8-U+13FD",
+          "U+AB70-U+ABBF"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-chorasmian",
+        "unicode_script_value": "Chorasmian",
+        "unicode_script_alias": "Chrs",
+        "iso15924": "Chrs",
+        "unicode_blocks": [
+          "Chorasmian"
+        ],
+        "unicode_ranges": [
+          "U+10FB0-U+10FC4",
+          "U+10FC5-U+10FCB"
+        ],
+        "unicode_version_added": "13.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-coptic",
+        "unicode_script_value": "Coptic",
+        "unicode_script_alias": "Copt",
+        "iso15924": "Copt",
+        "unicode_blocks": [
+          "Greek and Coptic",
+          "Coptic"
+        ],
+        "unicode_ranges": [
+          "U+03E2-U+03EF",
+          "U+2C80-U+2CE4",
+          "U+2CE5-U+2CEA",
+          "U+2CEB-U+2CEE",
+          "U+2CEF-U+2CF1",
+          "U+2CF2-U+2CF3",
+          "U+2CF9-U+2CFC",
+          "U+2CFD",
+          "U+2CFE-U+2CFF"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-cypro-minoan",
+        "unicode_script_value": "Cypro_Minoan",
+        "unicode_script_alias": "Cpmn",
+        "iso15924": "Cpmn",
+        "unicode_blocks": [
+          "Cypro-Minoan"
+        ],
+        "unicode_ranges": [
+          "U+12F90-U+12FF0",
+          "U+12FF1-U+12FF2"
+        ],
+        "unicode_version_added": "14.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-cypriot",
+        "unicode_script_value": "Cypriot",
+        "unicode_script_alias": "Cprt",
+        "iso15924": "Cprt",
+        "unicode_blocks": [
+          "Cypriot Syllabary"
+        ],
+        "unicode_ranges": [
+          "U+10800-U+10805",
+          "U+10808",
+          "U+1080A-U+10835",
+          "U+10837-U+10838",
+          "U+1083C",
+          "U+1083F"
+        ],
+        "unicode_version_added": "4.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-cyrillic",
+        "unicode_script_value": "Cyrillic",
+        "unicode_script_alias": "Cyrl",
+        "iso15924": "Cyrl",
+        "unicode_blocks": [
+          "Cyrillic",
+          "Cyrillic Supplement",
+          "Cyrillic Extended-C",
+          "Phonetic Extensions",
+          "Cyrillic Extended-A",
+          "Cyrillic Extended-B",
+          "Combining Half Marks",
+          "Cyrillic Extended-D"
+        ],
+        "unicode_ranges": [
+          "U+0400-U+0481",
+          "U+0482",
+          "U+0483-U+0484",
+          "U+0487",
+          "U+0488-U+0489",
+          "U+048A-U+052F",
+          "U+1C80-U+1C8A",
+          "U+1D2B",
+          "U+1D78",
+          "U+2DE0-U+2DFF",
+          "U+A640-U+A66D",
+          "U+A66E",
+          "U+A66F",
+          "U+A670-U+A672",
+          "U+A673",
+          "U+A674-U+A67D",
+          "U+A67E",
+          "U+A67F",
+          "U+A680-U+A69B",
+          "U+A69C-U+A69D",
+          "U+A69E-U+A69F",
+          "U+FE2E-U+FE2F",
+          "U+1E030-U+1E06D",
+          "U+1E08F"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-devanagari",
+        "unicode_script_value": "Devanagari",
+        "unicode_script_alias": "Deva",
+        "iso15924": "Deva",
+        "unicode_blocks": [
+          "Devanagari",
+          "Devanagari Extended",
+          "Devanagari Extended-A"
+        ],
+        "unicode_ranges": [
+          "U+0900-U+0902",
+          "U+0903",
+          "U+0904-U+0939",
+          "U+093A",
+          "U+093B",
+          "U+093C",
+          "U+093D",
+          "U+093E-U+0940",
+          "U+0941-U+0948",
+          "U+0949-U+094C",
+          "U+094D",
+          "U+094E-U+094F",
+          "U+0950",
+          "U+0955-U+0957",
+          "U+0958-U+0961",
+          "U+0962-U+0963",
+          "U+0966-U+096F",
+          "U+0970",
+          "U+0971",
+          "U+0972-U+097F",
+          "U+A8E0-U+A8F1",
+          "U+A8F2-U+A8F7",
+          "U+A8F8-U+A8FA",
+          "U+A8FB",
+          "U+A8FC",
+          "U+A8FD-U+A8FE",
+          "U+A8FF",
+          "U+11B00-U+11B09"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-dives-akuru",
+        "unicode_script_value": "Dives_Akuru",
+        "unicode_script_alias": "Diak",
+        "iso15924": "Diak",
+        "unicode_blocks": [
+          "Dives Akuru"
+        ],
+        "unicode_ranges": [
+          "U+11900-U+11906",
+          "U+11909",
+          "U+1190C-U+11913",
+          "U+11915-U+11916",
+          "U+11918-U+1192F",
+          "U+11930-U+11935",
+          "U+11937-U+11938",
+          "U+1193B-U+1193C",
+          "U+1193D",
+          "U+1193E",
+          "U+1193F",
+          "U+11940",
+          "U+11941",
+          "U+11942",
+          "U+11943",
+          "U+11944-U+11946",
+          "U+11950-U+11959"
+        ],
+        "unicode_version_added": "13.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-dogra",
+        "unicode_script_value": "Dogra",
+        "unicode_script_alias": "Dogr",
+        "iso15924": "Dogr",
+        "unicode_blocks": [
+          "Dogra"
+        ],
+        "unicode_ranges": [
+          "U+11800-U+1182B",
+          "U+1182C-U+1182E",
+          "U+1182F-U+11837",
+          "U+11838",
+          "U+11839-U+1183A",
+          "U+1183B"
+        ],
+        "unicode_version_added": "11.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-deseret",
+        "unicode_script_value": "Deseret",
+        "unicode_script_alias": "Dsrt",
+        "iso15924": "Dsrt",
+        "unicode_blocks": [
+          "Deseret"
+        ],
+        "unicode_ranges": [
+          "U+10400-U+1044F"
+        ],
+        "unicode_version_added": "3.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-duployan",
+        "unicode_script_value": "Duployan",
+        "unicode_script_alias": "Dupl",
+        "iso15924": "Dupl",
+        "unicode_blocks": [
+          "Duployan"
+        ],
+        "unicode_ranges": [
+          "U+1BC00-U+1BC6A",
+          "U+1BC70-U+1BC7C",
+          "U+1BC80-U+1BC88",
+          "U+1BC90-U+1BC99",
+          "U+1BC9C",
+          "U+1BC9D-U+1BC9E",
+          "U+1BC9F"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-egyptian-hieroglyphs",
+        "unicode_script_value": "Egyptian_Hieroglyphs",
+        "unicode_script_alias": "Egyp",
+        "iso15924": "Egyp",
+        "unicode_blocks": [
+          "Egyptian Hieroglyphs",
+          "Egyptian Hieroglyph Format Controls",
+          "Egyptian Hieroglyphs Extended-A"
+        ],
+        "unicode_ranges": [
+          "U+13000-U+1342F",
+          "U+13430-U+1343F",
+          "U+13440",
+          "U+13441-U+13446",
+          "U+13447-U+13455",
+          "U+13460-U+143FA"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-elbasan",
+        "unicode_script_value": "Elbasan",
+        "unicode_script_alias": "Elba",
+        "iso15924": "Elba",
+        "unicode_blocks": [
+          "Elbasan"
+        ],
+        "unicode_ranges": [
+          "U+10500-U+10527"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-elymaic",
+        "unicode_script_value": "Elymaic",
+        "unicode_script_alias": "Elym",
+        "iso15924": "Elym",
+        "unicode_blocks": [
+          "Elymaic"
+        ],
+        "unicode_ranges": [
+          "U+10FE0-U+10FF6"
+        ],
+        "unicode_version_added": "12.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-ethiopic",
+        "unicode_script_value": "Ethiopic",
+        "unicode_script_alias": "Ethi",
+        "iso15924": "Ethi",
+        "unicode_blocks": [
+          "Ethiopic",
+          "Ethiopic Supplement",
+          "Ethiopic Extended",
+          "Ethiopic Extended-A",
+          "Ethiopic Extended-B"
+        ],
+        "unicode_ranges": [
+          "U+1200-U+1248",
+          "U+124A-U+124D",
+          "U+1250-U+1256",
+          "U+1258",
+          "U+125A-U+125D",
+          "U+1260-U+1288",
+          "U+128A-U+128D",
+          "U+1290-U+12B0",
+          "U+12B2-U+12B5",
+          "U+12B8-U+12BE",
+          "U+12C0",
+          "U+12C2-U+12C5",
+          "U+12C8-U+12D6",
+          "U+12D8-U+1310",
+          "U+1312-U+1315",
+          "U+1318-U+135A",
+          "U+135D-U+135F",
+          "U+1360-U+1368",
+          "U+1369-U+137C",
+          "U+1380-U+138F",
+          "U+1390-U+1399",
+          "U+2D80-U+2D96",
+          "U+2DA0-U+2DA6",
+          "U+2DA8-U+2DAE",
+          "U+2DB0-U+2DB6",
+          "U+2DB8-U+2DBE",
+          "U+2DC0-U+2DC6",
+          "U+2DC8-U+2DCE",
+          "U+2DD0-U+2DD6",
+          "U+2DD8-U+2DDE",
+          "U+AB01-U+AB06",
+          "U+AB09-U+AB0E",
+          "U+AB11-U+AB16",
+          "U+AB20-U+AB26",
+          "U+AB28-U+AB2E",
+          "U+1E7E0-U+1E7E6",
+          "U+1E7E8-U+1E7EB",
+          "U+1E7ED-U+1E7EE",
+          "U+1E7F0-U+1E7FE"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-garay",
+        "unicode_script_value": "Garay",
+        "unicode_script_alias": "Gara",
+        "iso15924": "Gara",
+        "unicode_blocks": [
+          "Garay"
+        ],
+        "unicode_ranges": [
+          "U+10D40-U+10D49",
+          "U+10D4A-U+10D4D",
+          "U+10D4E",
+          "U+10D4F",
+          "U+10D50-U+10D65",
+          "U+10D69-U+10D6D",
+          "U+10D6E",
+          "U+10D6F",
+          "U+10D70-U+10D85",
+          "U+10D8E-U+10D8F"
+        ],
+        "unicode_version_added": "16.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-georgian",
+        "unicode_script_value": "Georgian",
+        "unicode_script_alias": "Geor",
+        "iso15924": "Geor",
+        "unicode_blocks": [
+          "Georgian",
+          "Georgian Extended",
+          "Georgian Supplement"
+        ],
+        "unicode_ranges": [
+          "U+10A0-U+10C5",
+          "U+10C7",
+          "U+10CD",
+          "U+10D0-U+10FA",
+          "U+10FC",
+          "U+10FD-U+10FF",
+          "U+1C90-U+1CBA",
+          "U+1CBD-U+1CBF",
+          "U+2D00-U+2D25",
+          "U+2D27",
+          "U+2D2D"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-glagolitic",
+        "unicode_script_value": "Glagolitic",
+        "unicode_script_alias": "Glag",
+        "iso15924": "Glag",
+        "unicode_blocks": [
+          "Glagolitic",
+          "Glagolitic Supplement"
+        ],
+        "unicode_ranges": [
+          "U+2C00-U+2C5F",
+          "U+1E000-U+1E006",
+          "U+1E008-U+1E018",
+          "U+1E01B-U+1E021",
+          "U+1E023-U+1E024",
+          "U+1E026-U+1E02A"
+        ],
+        "unicode_version_added": "4.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-gunjala-gondi",
+        "unicode_script_value": "Gunjala_Gondi",
+        "unicode_script_alias": "Gong",
+        "iso15924": "Gong",
+        "unicode_blocks": [
+          "Gunjala Gondi"
+        ],
+        "unicode_ranges": [
+          "U+11D60-U+11D65",
+          "U+11D67-U+11D68",
+          "U+11D6A-U+11D89",
+          "U+11D8A-U+11D8E",
+          "U+11D90-U+11D91",
+          "U+11D93-U+11D94",
+          "U+11D95",
+          "U+11D96",
+          "U+11D97",
+          "U+11D98",
+          "U+11DA0-U+11DA9"
+        ],
+        "unicode_version_added": "11.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-masaram-gondi",
+        "unicode_script_value": "Masaram_Gondi",
+        "unicode_script_alias": "Gonm",
+        "iso15924": "Gonm",
+        "unicode_blocks": [
+          "Masaram Gondi"
+        ],
+        "unicode_ranges": [
+          "U+11D00-U+11D06",
+          "U+11D08-U+11D09",
+          "U+11D0B-U+11D30",
+          "U+11D31-U+11D36",
+          "U+11D3A",
+          "U+11D3C-U+11D3D",
+          "U+11D3F-U+11D45",
+          "U+11D46",
+          "U+11D47",
+          "U+11D50-U+11D59"
+        ],
+        "unicode_version_added": "10.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-gothic",
+        "unicode_script_value": "Gothic",
+        "unicode_script_alias": "Goth",
+        "iso15924": "Goth",
+        "unicode_blocks": [
+          "Gothic"
+        ],
+        "unicode_ranges": [
+          "U+10330-U+10340",
+          "U+10341",
+          "U+10342-U+10349",
+          "U+1034A"
+        ],
+        "unicode_version_added": "3.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-grantha",
+        "unicode_script_value": "Grantha",
+        "unicode_script_alias": "Gran",
+        "iso15924": "Gran",
+        "unicode_blocks": [
+          "Grantha"
+        ],
+        "unicode_ranges": [
+          "U+11300-U+11301",
+          "U+11302-U+11303",
+          "U+11305-U+1130C",
+          "U+1130F-U+11310",
+          "U+11313-U+11328",
+          "U+1132A-U+11330",
+          "U+11332-U+11333",
+          "U+11335-U+11339",
+          "U+1133C",
+          "U+1133D",
+          "U+1133E-U+1133F",
+          "U+11340",
+          "U+11341-U+11344",
+          "U+11347-U+11348",
+          "U+1134B-U+1134D",
+          "U+11350",
+          "U+11357",
+          "U+1135D-U+11361",
+          "U+11362-U+11363",
+          "U+11366-U+1136C",
+          "U+11370-U+11374"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-greek",
+        "unicode_script_value": "Greek",
+        "unicode_script_alias": "Grek",
+        "iso15924": "Grek",
+        "unicode_blocks": [
+          "Greek and Coptic",
+          "Phonetic Extensions",
+          "Phonetic Extensions Supplement",
+          "Greek Extended",
+          "Letterlike Symbols",
+          "Latin Extended-E",
+          "Ancient Greek Numbers",
+          "Ancient Symbols",
+          "Ancient Greek Musical Notation"
+        ],
+        "unicode_ranges": [
+          "U+0370-U+0373",
+          "U+0375",
+          "U+0376-U+0377",
+          "U+037A",
+          "U+037B-U+037D",
+          "U+037F",
+          "U+0384",
+          "U+0386",
+          "U+0388-U+038A",
+          "U+038C",
+          "U+038E-U+03A1",
+          "U+03A3-U+03E1",
+          "U+03F0-U+03F5",
+          "U+03F6",
+          "U+03F7-U+03FF",
+          "U+1D26-U+1D2A",
+          "U+1D5D-U+1D61",
+          "U+1D66-U+1D6A",
+          "U+1DBF",
+          "U+1F00-U+1F15",
+          "U+1F18-U+1F1D",
+          "U+1F20-U+1F45",
+          "U+1F48-U+1F4D",
+          "U+1F50-U+1F57",
+          "U+1F59",
+          "U+1F5B",
+          "U+1F5D",
+          "U+1F5F-U+1F7D",
+          "U+1F80-U+1FB4",
+          "U+1FB6-U+1FBC",
+          "U+1FBD",
+          "U+1FBE",
+          "U+1FBF-U+1FC1",
+          "U+1FC2-U+1FC4",
+          "U+1FC6-U+1FCC",
+          "U+1FCD-U+1FCF",
+          "U+1FD0-U+1FD3",
+          "U+1FD6-U+1FDB",
+          "U+1FDD-U+1FDF",
+          "U+1FE0-U+1FEC",
+          "U+1FED-U+1FEF",
+          "U+1FF2-U+1FF4",
+          "U+1FF6-U+1FFC",
+          "U+1FFD-U+1FFE",
+          "U+2126",
+          "U+AB65",
+          "U+10140-U+10174",
+          "U+10175-U+10178",
+          "U+10179-U+10189",
+          "U+1018A-U+1018B",
+          "U+1018C-U+1018E",
+          "U+101A0",
+          "U+1D200-U+1D241",
+          "U+1D242-U+1D244",
+          "U+1D245"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-gujarati",
+        "unicode_script_value": "Gujarati",
+        "unicode_script_alias": "Gujr",
+        "iso15924": "Gujr",
+        "unicode_blocks": [
+          "Gujarati"
+        ],
+        "unicode_ranges": [
+          "U+0A81-U+0A82",
+          "U+0A83",
+          "U+0A85-U+0A8D",
+          "U+0A8F-U+0A91",
+          "U+0A93-U+0AA8",
+          "U+0AAA-U+0AB0",
+          "U+0AB2-U+0AB3",
+          "U+0AB5-U+0AB9",
+          "U+0ABC",
+          "U+0ABD",
+          "U+0ABE-U+0AC0",
+          "U+0AC1-U+0AC5",
+          "U+0AC7-U+0AC8",
+          "U+0AC9",
+          "U+0ACB-U+0ACC",
+          "U+0ACD",
+          "U+0AD0",
+          "U+0AE0-U+0AE1",
+          "U+0AE2-U+0AE3",
+          "U+0AE6-U+0AEF",
+          "U+0AF0",
+          "U+0AF1",
+          "U+0AF9",
+          "U+0AFA-U+0AFF"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-gurung-khema",
+        "unicode_script_value": "Gurung_Khema",
+        "unicode_script_alias": "Gukh",
+        "iso15924": "Gukh",
+        "unicode_blocks": [
+          "Gurung Khema"
+        ],
+        "unicode_ranges": [
+          "U+16100-U+1611D",
+          "U+1611E-U+16129",
+          "U+1612A-U+1612C",
+          "U+1612D-U+1612F",
+          "U+16130-U+16139"
+        ],
+        "unicode_version_added": "16.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-gurmukhi",
+        "unicode_script_value": "Gurmukhi",
+        "unicode_script_alias": "Guru",
+        "iso15924": "Guru",
+        "unicode_blocks": [
+          "Gurmukhi"
+        ],
+        "unicode_ranges": [
+          "U+0A01-U+0A02",
+          "U+0A03",
+          "U+0A05-U+0A0A",
+          "U+0A0F-U+0A10",
+          "U+0A13-U+0A28",
+          "U+0A2A-U+0A30",
+          "U+0A32-U+0A33",
+          "U+0A35-U+0A36",
+          "U+0A38-U+0A39",
+          "U+0A3C",
+          "U+0A3E-U+0A40",
+          "U+0A41-U+0A42",
+          "U+0A47-U+0A48",
+          "U+0A4B-U+0A4D",
+          "U+0A51",
+          "U+0A59-U+0A5C",
+          "U+0A5E",
+          "U+0A66-U+0A6F",
+          "U+0A70-U+0A71",
+          "U+0A72-U+0A74",
+          "U+0A75",
+          "U+0A76"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-hangul",
+        "unicode_script_value": "Hangul",
+        "unicode_script_alias": "Hang",
+        "iso15924": "Hang",
+        "unicode_blocks": [
+          "Hangul Jamo",
+          "CJK Symbols and Punctuation",
+          "Hangul Compatibility Jamo",
+          "Enclosed CJK Letters and Months",
+          "Hangul Jamo Extended-A",
+          "Hangul Syllables",
+          "Hangul Jamo Extended-B",
+          "Halfwidth and Fullwidth Forms"
+        ],
+        "unicode_ranges": [
+          "U+1100-U+11FF",
+          "U+302E-U+302F",
+          "U+3131-U+318E",
+          "U+3200-U+321E",
+          "U+3260-U+327E",
+          "U+A960-U+A97C",
+          "U+AC00-U+D7A3",
+          "U+D7B0-U+D7C6",
+          "U+D7CB-U+D7FB",
+          "U+FFA0-U+FFBE",
+          "U+FFC2-U+FFC7",
+          "U+FFCA-U+FFCF",
+          "U+FFD2-U+FFD7",
+          "U+FFDA-U+FFDC"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-han",
+        "unicode_script_value": "Han",
+        "unicode_script_alias": "Hani",
+        "iso15924": "Hani",
+        "unicode_blocks": [
+          "CJK Radicals Supplement",
+          "Kangxi Radicals",
+          "CJK Symbols and Punctuation",
+          "CJK Unified Ideographs Extension A",
+          "CJK Unified Ideographs",
+          "CJK Compatibility Ideographs",
+          "Ideographic Symbols and Punctuation",
+          "CJK Unified Ideographs Extension B",
+          "CJK Unified Ideographs Extension C",
+          "CJK Unified Ideographs Extension D",
+          "CJK Unified Ideographs Extension E",
+          "CJK Unified Ideographs Extension F",
+          "CJK Unified Ideographs Extension I",
+          "CJK Compatibility Ideographs Supplement",
+          "CJK Unified Ideographs Extension G",
+          "CJK Unified Ideographs Extension H",
+          "CJK Unified Ideographs Extension J"
+        ],
+        "unicode_ranges": [
+          "U+2E80-U+2E99",
+          "U+2E9B-U+2EF3",
+          "U+2F00-U+2FD5",
+          "U+3005",
+          "U+3007",
+          "U+3021-U+3029",
+          "U+3038-U+303A",
+          "U+303B",
+          "U+3400-U+4DBF",
+          "U+4E00-U+9FFF",
+          "U+F900-U+FA6D",
+          "U+FA70-U+FAD9",
+          "U+16FE2",
+          "U+16FE3",
+          "U+16FF0-U+16FF1",
+          "U+16FF2-U+16FF3",
+          "U+16FF4-U+16FF6",
+          "U+20000-U+2A6DF",
+          "U+2A700-U+2B81D",
+          "U+2B820-U+2CEAD",
+          "U+2CEB0-U+2EBE0",
+          "U+2EBF0-U+2EE5D",
+          "U+2F800-U+2FA1D",
+          "U+30000-U+3134A",
+          "U+31350-U+33479"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-hanunoo",
+        "unicode_script_value": "Hanunoo",
+        "unicode_script_alias": "Hano",
+        "iso15924": "Hano",
+        "unicode_blocks": [
+          "Hanunoo"
+        ],
+        "unicode_ranges": [
+          "U+1720-U+1731",
+          "U+1732-U+1733",
+          "U+1734"
+        ],
+        "unicode_version_added": "3.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-hatran",
+        "unicode_script_value": "Hatran",
+        "unicode_script_alias": "Hatr",
+        "iso15924": "Hatr",
+        "unicode_blocks": [
+          "Hatran"
+        ],
+        "unicode_ranges": [
+          "U+108E0-U+108F2",
+          "U+108F4-U+108F5",
+          "U+108FB-U+108FF"
+        ],
+        "unicode_version_added": "8.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-hebrew",
+        "unicode_script_value": "Hebrew",
+        "unicode_script_alias": "Hebr",
+        "iso15924": "Hebr",
+        "unicode_blocks": [
+          "Hebrew",
+          "Alphabetic Presentation Forms"
+        ],
+        "unicode_ranges": [
+          "U+0591-U+05BD",
+          "U+05BE",
+          "U+05BF",
+          "U+05C0",
+          "U+05C1-U+05C2",
+          "U+05C3",
+          "U+05C4-U+05C5",
+          "U+05C6",
+          "U+05C7",
+          "U+05D0-U+05EA",
+          "U+05EF-U+05F2",
+          "U+05F3-U+05F4",
+          "U+FB1D",
+          "U+FB1E",
+          "U+FB1F-U+FB28",
+          "U+FB29",
+          "U+FB2A-U+FB36",
+          "U+FB38-U+FB3C",
+          "U+FB3E",
+          "U+FB40-U+FB41",
+          "U+FB43-U+FB44",
+          "U+FB46-U+FB4F"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-hiragana",
+        "unicode_script_value": "Hiragana",
+        "unicode_script_alias": "Hira",
+        "iso15924": "Hira",
+        "unicode_blocks": [
+          "Hiragana",
+          "Kana Supplement",
+          "Kana Extended-A",
+          "Small Kana Extension",
+          "Enclosed Ideographic Supplement"
+        ],
+        "unicode_ranges": [
+          "U+3041-U+3096",
+          "U+309D-U+309E",
+          "U+309F",
+          "U+1B001-U+1B11F",
+          "U+1B132",
+          "U+1B150-U+1B152",
+          "U+1F200"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-anatolian-hieroglyphs",
+        "unicode_script_value": "Anatolian_Hieroglyphs",
+        "unicode_script_alias": "Hluw",
+        "iso15924": "Hluw",
+        "unicode_blocks": [
+          "Anatolian Hieroglyphs"
+        ],
+        "unicode_ranges": [
+          "U+14400-U+14646"
+        ],
+        "unicode_version_added": "8.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-pahawh-hmong",
+        "unicode_script_value": "Pahawh_Hmong",
+        "unicode_script_alias": "Hmng",
+        "iso15924": "Hmng",
+        "unicode_blocks": [
+          "Pahawh Hmong"
+        ],
+        "unicode_ranges": [
+          "U+16B00-U+16B2F",
+          "U+16B30-U+16B36",
+          "U+16B37-U+16B3B",
+          "U+16B3C-U+16B3F",
+          "U+16B40-U+16B43",
+          "U+16B44",
+          "U+16B45",
+          "U+16B50-U+16B59",
+          "U+16B5B-U+16B61",
+          "U+16B63-U+16B77",
+          "U+16B7D-U+16B8F"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-nyiakeng-puachue-hmong",
+        "unicode_script_value": "Nyiakeng_Puachue_Hmong",
+        "unicode_script_alias": "Hmnp",
+        "iso15924": "Hmnp",
+        "unicode_blocks": [
+          "Nyiakeng Puachue Hmong"
+        ],
+        "unicode_ranges": [
+          "U+1E100-U+1E12C",
+          "U+1E130-U+1E136",
+          "U+1E137-U+1E13D",
+          "U+1E140-U+1E149",
+          "U+1E14E",
+          "U+1E14F"
+        ],
+        "unicode_version_added": "12.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-katakana-or-hiragana",
+        "unicode_script_value": "Katakana_Or_Hiragana",
+        "unicode_script_alias": "Hrkt",
+        "iso15924": "Hrkt",
+        "unicode_blocks": [],
+        "unicode_ranges": [],
+        "unicode_version_added": "UNKNOWN",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-hungarian",
+        "unicode_script_value": "Old_Hungarian",
+        "unicode_script_alias": "Hung",
+        "iso15924": "Hung",
+        "unicode_blocks": [
+          "Old Hungarian"
+        ],
+        "unicode_ranges": [
+          "U+10C80-U+10CB2",
+          "U+10CC0-U+10CF2",
+          "U+10CFA-U+10CFF"
+        ],
+        "unicode_version_added": "8.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-italic",
+        "unicode_script_value": "Old_Italic",
+        "unicode_script_alias": "Ital",
+        "iso15924": "Ital",
+        "unicode_blocks": [
+          "Old Italic"
+        ],
+        "unicode_ranges": [
+          "U+10300-U+1031F",
+          "U+10320-U+10323",
+          "U+1032D-U+1032F"
+        ],
+        "unicode_version_added": "3.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-javanese",
+        "unicode_script_value": "Javanese",
+        "unicode_script_alias": "Java",
+        "iso15924": "Java",
+        "unicode_blocks": [
+          "Javanese"
+        ],
+        "unicode_ranges": [
+          "U+A980-U+A982",
+          "U+A983",
+          "U+A984-U+A9B2",
+          "U+A9B3",
+          "U+A9B4-U+A9B5",
+          "U+A9B6-U+A9B9",
+          "U+A9BA-U+A9BB",
+          "U+A9BC-U+A9BD",
+          "U+A9BE-U+A9C0",
+          "U+A9C1-U+A9CD",
+          "U+A9D0-U+A9D9",
+          "U+A9DE-U+A9DF"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-kayah-li",
+        "unicode_script_value": "Kayah_Li",
+        "unicode_script_alias": "Kali",
+        "iso15924": "Kali",
+        "unicode_blocks": [
+          "Kayah Li"
+        ],
+        "unicode_ranges": [
+          "U+A900-U+A909",
+          "U+A90A-U+A925",
+          "U+A926-U+A92D",
+          "U+A92F"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-katakana",
+        "unicode_script_value": "Katakana",
+        "unicode_script_alias": "Kana",
+        "iso15924": "Kana",
+        "unicode_blocks": [
+          "Katakana",
+          "Katakana Phonetic Extensions",
+          "Enclosed CJK Letters and Months",
+          "CJK Compatibility",
+          "Halfwidth and Fullwidth Forms",
+          "Kana Extended-B",
+          "Kana Supplement",
+          "Kana Extended-A",
+          "Small Kana Extension"
+        ],
+        "unicode_ranges": [
+          "U+30A1-U+30FA",
+          "U+30FD-U+30FE",
+          "U+30FF",
+          "U+31F0-U+31FF",
+          "U+32D0-U+32FE",
+          "U+3300-U+3357",
+          "U+FF66-U+FF6F",
+          "U+FF71-U+FF9D",
+          "U+1AFF0-U+1AFF3",
+          "U+1AFF5-U+1AFFB",
+          "U+1AFFD-U+1AFFE",
+          "U+1B000",
+          "U+1B120-U+1B122",
+          "U+1B155",
+          "U+1B164-U+1B167"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-kawi",
+        "unicode_script_value": "Kawi",
+        "unicode_script_alias": "Kawi",
+        "iso15924": "Kawi",
+        "unicode_blocks": [
+          "Kawi"
+        ],
+        "unicode_ranges": [
+          "U+11F00-U+11F01",
+          "U+11F02",
+          "U+11F03",
+          "U+11F04-U+11F10",
+          "U+11F12-U+11F33",
+          "U+11F34-U+11F35",
+          "U+11F36-U+11F3A",
+          "U+11F3E-U+11F3F",
+          "U+11F40",
+          "U+11F41",
+          "U+11F42",
+          "U+11F43-U+11F4F",
+          "U+11F50-U+11F59",
+          "U+11F5A"
+        ],
+        "unicode_version_added": "15.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-kharoshthi",
+        "unicode_script_value": "Kharoshthi",
+        "unicode_script_alias": "Khar",
+        "iso15924": "Khar",
+        "unicode_blocks": [
+          "Kharoshthi"
+        ],
+        "unicode_ranges": [
+          "U+10A00",
+          "U+10A01-U+10A03",
+          "U+10A05-U+10A06",
+          "U+10A0C-U+10A0F",
+          "U+10A10-U+10A13",
+          "U+10A15-U+10A17",
+          "U+10A19-U+10A35",
+          "U+10A38-U+10A3A",
+          "U+10A3F",
+          "U+10A40-U+10A48",
+          "U+10A50-U+10A58"
+        ],
+        "unicode_version_added": "4.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-khmer",
+        "unicode_script_value": "Khmer",
+        "unicode_script_alias": "Khmr",
+        "iso15924": "Khmr",
+        "unicode_blocks": [
+          "Khmer",
+          "Khmer Symbols"
+        ],
+        "unicode_ranges": [
+          "U+1780-U+17B3",
+          "U+17B4-U+17B5",
+          "U+17B6",
+          "U+17B7-U+17BD",
+          "U+17BE-U+17C5",
+          "U+17C6",
+          "U+17C7-U+17C8",
+          "U+17C9-U+17D3",
+          "U+17D4-U+17D6",
+          "U+17D7",
+          "U+17D8-U+17DA",
+          "U+17DB",
+          "U+17DC",
+          "U+17DD",
+          "U+17E0-U+17E9",
+          "U+17F0-U+17F9",
+          "U+19E0-U+19FF"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-khojki",
+        "unicode_script_value": "Khojki",
+        "unicode_script_alias": "Khoj",
+        "iso15924": "Khoj",
+        "unicode_blocks": [
+          "Khojki"
+        ],
+        "unicode_ranges": [
+          "U+11200-U+11211",
+          "U+11213-U+1122B",
+          "U+1122C-U+1122E",
+          "U+1122F-U+11231",
+          "U+11232-U+11233",
+          "U+11234",
+          "U+11235",
+          "U+11236-U+11237",
+          "U+11238-U+1123D",
+          "U+1123E",
+          "U+1123F-U+11240",
+          "U+11241"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-khitan-small-script",
+        "unicode_script_value": "Khitan_Small_Script",
+        "unicode_script_alias": "Kits",
+        "iso15924": "Kits",
+        "unicode_blocks": [
+          "Ideographic Symbols and Punctuation",
+          "Khitan Small Script"
+        ],
+        "unicode_ranges": [
+          "U+16FE4",
+          "U+18B00-U+18CD5",
+          "U+18CFF"
+        ],
+        "unicode_version_added": "13.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-kannada",
+        "unicode_script_value": "Kannada",
+        "unicode_script_alias": "Knda",
+        "iso15924": "Knda",
+        "unicode_blocks": [
+          "Kannada"
+        ],
+        "unicode_ranges": [
+          "U+0C80",
+          "U+0C81",
+          "U+0C82-U+0C83",
+          "U+0C84",
+          "U+0C85-U+0C8C",
+          "U+0C8E-U+0C90",
+          "U+0C92-U+0CA8",
+          "U+0CAA-U+0CB3",
+          "U+0CB5-U+0CB9",
+          "U+0CBC",
+          "U+0CBD",
+          "U+0CBE",
+          "U+0CBF",
+          "U+0CC0-U+0CC4",
+          "U+0CC6",
+          "U+0CC7-U+0CC8",
+          "U+0CCA-U+0CCB",
+          "U+0CCC-U+0CCD",
+          "U+0CD5-U+0CD6",
+          "U+0CDC-U+0CDE",
+          "U+0CE0-U+0CE1",
+          "U+0CE2-U+0CE3",
+          "U+0CE6-U+0CEF",
+          "U+0CF1-U+0CF2",
+          "U+0CF3"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-kirat-rai",
+        "unicode_script_value": "Kirat_Rai",
+        "unicode_script_alias": "Krai",
+        "iso15924": "Krai",
+        "unicode_blocks": [
+          "Kirat Rai"
+        ],
+        "unicode_ranges": [
+          "U+16D40-U+16D42",
+          "U+16D43-U+16D6A",
+          "U+16D6B-U+16D6C",
+          "U+16D6D-U+16D6F",
+          "U+16D70-U+16D79"
+        ],
+        "unicode_version_added": "16.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-kaithi",
+        "unicode_script_value": "Kaithi",
+        "unicode_script_alias": "Kthi",
+        "iso15924": "Kthi",
+        "unicode_blocks": [
+          "Kaithi"
+        ],
+        "unicode_ranges": [
+          "U+11080-U+11081",
+          "U+11082",
+          "U+11083-U+110AF",
+          "U+110B0-U+110B2",
+          "U+110B3-U+110B6",
+          "U+110B7-U+110B8",
+          "U+110B9-U+110BA",
+          "U+110BB-U+110BC",
+          "U+110BD",
+          "U+110BE-U+110C1",
+          "U+110C2",
+          "U+110CD"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tai-tham",
+        "unicode_script_value": "Tai_Tham",
+        "unicode_script_alias": "Lana",
+        "iso15924": "Lana",
+        "unicode_blocks": [
+          "Tai Tham"
+        ],
+        "unicode_ranges": [
+          "U+1A20-U+1A54",
+          "U+1A55",
+          "U+1A56",
+          "U+1A57",
+          "U+1A58-U+1A5E",
+          "U+1A60",
+          "U+1A61",
+          "U+1A62",
+          "U+1A63-U+1A64",
+          "U+1A65-U+1A6C",
+          "U+1A6D-U+1A72",
+          "U+1A73-U+1A7C",
+          "U+1A7F",
+          "U+1A80-U+1A89",
+          "U+1A90-U+1A99",
+          "U+1AA0-U+1AA6",
+          "U+1AA7",
+          "U+1AA8-U+1AAD"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-lao",
+        "unicode_script_value": "Lao",
+        "unicode_script_alias": "Laoo",
+        "iso15924": "Laoo",
+        "unicode_blocks": [
+          "Lao"
+        ],
+        "unicode_ranges": [
+          "U+0E81-U+0E82",
+          "U+0E84",
+          "U+0E86-U+0E8A",
+          "U+0E8C-U+0EA3",
+          "U+0EA5",
+          "U+0EA7-U+0EB0",
+          "U+0EB1",
+          "U+0EB2-U+0EB3",
+          "U+0EB4-U+0EBC",
+          "U+0EBD",
+          "U+0EC0-U+0EC4",
+          "U+0EC6",
+          "U+0EC8-U+0ECE",
+          "U+0ED0-U+0ED9",
+          "U+0EDC-U+0EDF"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-latin",
+        "unicode_script_value": "Latin",
+        "unicode_script_alias": "Latn",
+        "iso15924": "Latn",
+        "unicode_blocks": [
+          "Basic Latin",
+          "Latin-1 Supplement",
+          "Latin Extended-A",
+          "Latin Extended-B",
+          "IPA Extensions",
+          "Spacing Modifier Letters",
+          "Phonetic Extensions",
+          "Phonetic Extensions Supplement",
+          "Latin Extended Additional",
+          "Superscripts and Subscripts",
+          "Letterlike Symbols",
+          "Number Forms",
+          "Latin Extended-C",
+          "Latin Extended-D",
+          "Latin Extended-E",
+          "Alphabetic Presentation Forms",
+          "Halfwidth and Fullwidth Forms",
+          "Latin Extended-F",
+          "Latin Extended-G"
+        ],
+        "unicode_ranges": [
+          "U+0041-U+005A",
+          "U+0061-U+007A",
+          "U+00AA",
+          "U+00BA",
+          "U+00C0-U+00D6",
+          "U+00D8-U+00F6",
+          "U+00F8-U+01BA",
+          "U+01BB",
+          "U+01BC-U+01BF",
+          "U+01C0-U+01C3",
+          "U+01C4-U+0293",
+          "U+0294-U+0295",
+          "U+0296-U+02AF",
+          "U+02B0-U+02B8",
+          "U+02E0-U+02E4",
+          "U+1D00-U+1D25",
+          "U+1D2C-U+1D5C",
+          "U+1D62-U+1D65",
+          "U+1D6B-U+1D77",
+          "U+1D79-U+1D9A",
+          "U+1D9B-U+1DBE",
+          "U+1E00-U+1EFF",
+          "U+2071",
+          "U+207F",
+          "U+2090-U+209C",
+          "U+212A-U+212B",
+          "U+2132",
+          "U+214E",
+          "U+2160-U+2182",
+          "U+2183-U+2184",
+          "U+2185-U+2188",
+          "U+2C60-U+2C7B",
+          "U+2C7C-U+2C7D",
+          "U+2C7E-U+2C7F",
+          "U+A722-U+A76F",
+          "U+A770",
+          "U+A771-U+A787",
+          "U+A78B-U+A78E",
+          "U+A78F",
+          "U+A790-U+A7DC",
+          "U+A7F1-U+A7F4",
+          "U+A7F5-U+A7F6",
+          "U+A7F7",
+          "U+A7F8-U+A7F9",
+          "U+A7FA",
+          "U+A7FB-U+A7FF",
+          "U+AB30-U+AB5A",
+          "U+AB5C-U+AB5F",
+          "U+AB60-U+AB64",
+          "U+AB66-U+AB68",
+          "U+AB69",
+          "U+FB00-U+FB06",
+          "U+FF21-U+FF3A",
+          "U+FF41-U+FF5A",
+          "U+10780-U+10785",
+          "U+10787-U+107B0",
+          "U+107B2-U+107BA",
+          "U+1DF00-U+1DF09",
+          "U+1DF0A",
+          "U+1DF0B-U+1DF1E",
+          "U+1DF25-U+1DF2A"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-lepcha",
+        "unicode_script_value": "Lepcha",
+        "unicode_script_alias": "Lepc",
+        "iso15924": "Lepc",
+        "unicode_blocks": [
+          "Lepcha"
+        ],
+        "unicode_ranges": [
+          "U+1C00-U+1C23",
+          "U+1C24-U+1C2B",
+          "U+1C2C-U+1C33",
+          "U+1C34-U+1C35",
+          "U+1C36-U+1C37",
+          "U+1C3B-U+1C3F",
+          "U+1C40-U+1C49",
+          "U+1C4D-U+1C4F"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-limbu",
+        "unicode_script_value": "Limbu",
+        "unicode_script_alias": "Limb",
+        "iso15924": "Limb",
+        "unicode_blocks": [
+          "Limbu"
+        ],
+        "unicode_ranges": [
+          "U+1900-U+191E",
+          "U+1920-U+1922",
+          "U+1923-U+1926",
+          "U+1927-U+1928",
+          "U+1929-U+192B",
+          "U+1930-U+1931",
+          "U+1932",
+          "U+1933-U+1938",
+          "U+1939-U+193B",
+          "U+1940",
+          "U+1944-U+1945",
+          "U+1946-U+194F"
+        ],
+        "unicode_version_added": "4.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-linear-a",
+        "unicode_script_value": "Linear_A",
+        "unicode_script_alias": "Lina",
+        "iso15924": "Lina",
+        "unicode_blocks": [
+          "Linear A"
+        ],
+        "unicode_ranges": [
+          "U+10600-U+10736",
+          "U+10740-U+10755",
+          "U+10760-U+10767"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-linear-b",
+        "unicode_script_value": "Linear_B",
+        "unicode_script_alias": "Linb",
+        "iso15924": "Linb",
+        "unicode_blocks": [
+          "Linear B Syllabary",
+          "Linear B Ideograms"
+        ],
+        "unicode_ranges": [
+          "U+10000-U+1000B",
+          "U+1000D-U+10026",
+          "U+10028-U+1003A",
+          "U+1003C-U+1003D",
+          "U+1003F-U+1004D",
+          "U+10050-U+1005D",
+          "U+10080-U+100FA"
+        ],
+        "unicode_version_added": "4.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-lisu",
+        "unicode_script_value": "Lisu",
+        "unicode_script_alias": "Lisu",
+        "iso15924": "Lisu",
+        "unicode_blocks": [
+          "Lisu",
+          "Lisu Supplement"
+        ],
+        "unicode_ranges": [
+          "U+A4D0-U+A4F7",
+          "U+A4F8-U+A4FD",
+          "U+A4FE-U+A4FF",
+          "U+11FB0"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-lycian",
+        "unicode_script_value": "Lycian",
+        "unicode_script_alias": "Lyci",
+        "iso15924": "Lyci",
+        "unicode_blocks": [
+          "Lycian"
+        ],
+        "unicode_ranges": [
+          "U+10280-U+1029C"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-lydian",
+        "unicode_script_value": "Lydian",
+        "unicode_script_alias": "Lydi",
+        "iso15924": "Lydi",
+        "unicode_blocks": [
+          "Lydian"
+        ],
+        "unicode_ranges": [
+          "U+10920-U+10939",
+          "U+1093F"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-mahajani",
+        "unicode_script_value": "Mahajani",
+        "unicode_script_alias": "Mahj",
+        "iso15924": "Mahj",
+        "unicode_blocks": [
+          "Mahajani"
+        ],
+        "unicode_ranges": [
+          "U+11150-U+11172",
+          "U+11173",
+          "U+11174-U+11175",
+          "U+11176"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-makasar",
+        "unicode_script_value": "Makasar",
+        "unicode_script_alias": "Maka",
+        "iso15924": "Maka",
+        "unicode_blocks": [
+          "Makasar"
+        ],
+        "unicode_ranges": [
+          "U+11EE0-U+11EF2",
+          "U+11EF3-U+11EF4",
+          "U+11EF5-U+11EF6",
+          "U+11EF7-U+11EF8"
+        ],
+        "unicode_version_added": "11.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-mandaic",
+        "unicode_script_value": "Mandaic",
+        "unicode_script_alias": "Mand",
+        "iso15924": "Mand",
+        "unicode_blocks": [
+          "Mandaic"
+        ],
+        "unicode_ranges": [
+          "U+0840-U+0858",
+          "U+0859-U+085B",
+          "U+085E"
+        ],
+        "unicode_version_added": "6.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-manichaean",
+        "unicode_script_value": "Manichaean",
+        "unicode_script_alias": "Mani",
+        "iso15924": "Mani",
+        "unicode_blocks": [
+          "Manichaean"
+        ],
+        "unicode_ranges": [
+          "U+10AC0-U+10AC7",
+          "U+10AC8",
+          "U+10AC9-U+10AE4",
+          "U+10AE5-U+10AE6",
+          "U+10AEB-U+10AEF",
+          "U+10AF0-U+10AF6"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-marchen",
+        "unicode_script_value": "Marchen",
+        "unicode_script_alias": "Marc",
+        "iso15924": "Marc",
+        "unicode_blocks": [
+          "Marchen"
+        ],
+        "unicode_ranges": [
+          "U+11C70-U+11C71",
+          "U+11C72-U+11C8F",
+          "U+11C92-U+11CA7",
+          "U+11CA9",
+          "U+11CAA-U+11CB0",
+          "U+11CB1",
+          "U+11CB2-U+11CB3",
+          "U+11CB4",
+          "U+11CB5-U+11CB6"
+        ],
+        "unicode_version_added": "9.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-medefaidrin",
+        "unicode_script_value": "Medefaidrin",
+        "unicode_script_alias": "Medf",
+        "iso15924": "Medf",
+        "unicode_blocks": [
+          "Medefaidrin"
+        ],
+        "unicode_ranges": [
+          "U+16E40-U+16E7F",
+          "U+16E80-U+16E96",
+          "U+16E97-U+16E9A"
+        ],
+        "unicode_version_added": "11.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-mende-kikakui",
+        "unicode_script_value": "Mende_Kikakui",
+        "unicode_script_alias": "Mend",
+        "iso15924": "Mend",
+        "unicode_blocks": [
+          "Mende Kikakui"
+        ],
+        "unicode_ranges": [
+          "U+1E800-U+1E8C4",
+          "U+1E8C7-U+1E8CF",
+          "U+1E8D0-U+1E8D6"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-meroitic-cursive",
+        "unicode_script_value": "Meroitic_Cursive",
+        "unicode_script_alias": "Merc",
+        "iso15924": "Merc",
+        "unicode_blocks": [
+          "Meroitic Cursive"
+        ],
+        "unicode_ranges": [
+          "U+109A0-U+109B7",
+          "U+109BC-U+109BD",
+          "U+109BE-U+109BF",
+          "U+109C0-U+109CF",
+          "U+109D2-U+109FF"
+        ],
+        "unicode_version_added": "6.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-meroitic-hieroglyphs",
+        "unicode_script_value": "Meroitic_Hieroglyphs",
+        "unicode_script_alias": "Mero",
+        "iso15924": "Mero",
+        "unicode_blocks": [
+          "Meroitic Hieroglyphs"
+        ],
+        "unicode_ranges": [
+          "U+10980-U+1099F"
+        ],
+        "unicode_version_added": "6.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-malayalam",
+        "unicode_script_value": "Malayalam",
+        "unicode_script_alias": "Mlym",
+        "iso15924": "Mlym",
+        "unicode_blocks": [
+          "Malayalam"
+        ],
+        "unicode_ranges": [
+          "U+0D00-U+0D01",
+          "U+0D02-U+0D03",
+          "U+0D04-U+0D0C",
+          "U+0D0E-U+0D10",
+          "U+0D12-U+0D3A",
+          "U+0D3B-U+0D3C",
+          "U+0D3D",
+          "U+0D3E-U+0D40",
+          "U+0D41-U+0D44",
+          "U+0D46-U+0D48",
+          "U+0D4A-U+0D4C",
+          "U+0D4D",
+          "U+0D4E",
+          "U+0D4F",
+          "U+0D54-U+0D56",
+          "U+0D57",
+          "U+0D58-U+0D5E",
+          "U+0D5F-U+0D61",
+          "U+0D62-U+0D63",
+          "U+0D66-U+0D6F",
+          "U+0D70-U+0D78",
+          "U+0D79",
+          "U+0D7A-U+0D7F"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-modi",
+        "unicode_script_value": "Modi",
+        "unicode_script_alias": "Modi",
+        "iso15924": "Modi",
+        "unicode_blocks": [
+          "Modi"
+        ],
+        "unicode_ranges": [
+          "U+11600-U+1162F",
+          "U+11630-U+11632",
+          "U+11633-U+1163A",
+          "U+1163B-U+1163C",
+          "U+1163D",
+          "U+1163E",
+          "U+1163F-U+11640",
+          "U+11641-U+11643",
+          "U+11644",
+          "U+11650-U+11659"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-mongolian",
+        "unicode_script_value": "Mongolian",
+        "unicode_script_alias": "Mong",
+        "iso15924": "Mong",
+        "unicode_blocks": [
+          "Mongolian",
+          "Mongolian Supplement"
+        ],
+        "unicode_ranges": [
+          "U+1800-U+1801",
+          "U+1804",
+          "U+1806",
+          "U+1807-U+180A",
+          "U+180B-U+180D",
+          "U+180E",
+          "U+180F",
+          "U+1810-U+1819",
+          "U+1820-U+1842",
+          "U+1843",
+          "U+1844-U+1878",
+          "U+1880-U+1884",
+          "U+1885-U+1886",
+          "U+1887-U+18A8",
+          "U+18A9",
+          "U+18AA",
+          "U+11660-U+1166C"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-mro",
+        "unicode_script_value": "Mro",
+        "unicode_script_alias": "Mroo",
+        "iso15924": "Mroo",
+        "unicode_blocks": [
+          "Mro"
+        ],
+        "unicode_ranges": [
+          "U+16A40-U+16A5E",
+          "U+16A60-U+16A69",
+          "U+16A6E-U+16A6F"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-meetei-mayek",
+        "unicode_script_value": "Meetei_Mayek",
+        "unicode_script_alias": "Mtei",
+        "iso15924": "Mtei",
+        "unicode_blocks": [
+          "Meetei Mayek Extensions",
+          "Meetei Mayek"
+        ],
+        "unicode_ranges": [
+          "U+AAE0-U+AAEA",
+          "U+AAEB",
+          "U+AAEC-U+AAED",
+          "U+AAEE-U+AAEF",
+          "U+AAF0-U+AAF1",
+          "U+AAF2",
+          "U+AAF3-U+AAF4",
+          "U+AAF5",
+          "U+AAF6",
+          "U+ABC0-U+ABE2",
+          "U+ABE3-U+ABE4",
+          "U+ABE5",
+          "U+ABE6-U+ABE7",
+          "U+ABE8",
+          "U+ABE9-U+ABEA",
+          "U+ABEB",
+          "U+ABEC",
+          "U+ABED",
+          "U+ABF0-U+ABF9"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-multani",
+        "unicode_script_value": "Multani",
+        "unicode_script_alias": "Mult",
+        "iso15924": "Mult",
+        "unicode_blocks": [
+          "Multani"
+        ],
+        "unicode_ranges": [
+          "U+11280-U+11286",
+          "U+11288",
+          "U+1128A-U+1128D",
+          "U+1128F-U+1129D",
+          "U+1129F-U+112A8",
+          "U+112A9"
+        ],
+        "unicode_version_added": "8.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-myanmar",
+        "unicode_script_value": "Myanmar",
+        "unicode_script_alias": "Mymr",
+        "iso15924": "Mymr",
+        "unicode_blocks": [
+          "Myanmar",
+          "Myanmar Extended-B",
+          "Myanmar Extended-A",
+          "Myanmar Extended-C"
+        ],
+        "unicode_ranges": [
+          "U+1000-U+102A",
+          "U+102B-U+102C",
+          "U+102D-U+1030",
+          "U+1031",
+          "U+1032-U+1037",
+          "U+1038",
+          "U+1039-U+103A",
+          "U+103B-U+103C",
+          "U+103D-U+103E",
+          "U+103F",
+          "U+1040-U+1049",
+          "U+104A-U+104F",
+          "U+1050-U+1055",
+          "U+1056-U+1057",
+          "U+1058-U+1059",
+          "U+105A-U+105D",
+          "U+105E-U+1060",
+          "U+1061",
+          "U+1062-U+1064",
+          "U+1065-U+1066",
+          "U+1067-U+106D",
+          "U+106E-U+1070",
+          "U+1071-U+1074",
+          "U+1075-U+1081",
+          "U+1082",
+          "U+1083-U+1084",
+          "U+1085-U+1086",
+          "U+1087-U+108C",
+          "U+108D",
+          "U+108E",
+          "U+108F",
+          "U+1090-U+1099",
+          "U+109A-U+109C",
+          "U+109D",
+          "U+109E-U+109F",
+          "U+A9E0-U+A9E4",
+          "U+A9E5",
+          "U+A9E6",
+          "U+A9E7-U+A9EF",
+          "U+A9F0-U+A9F9",
+          "U+A9FA-U+A9FE",
+          "U+AA60-U+AA6F",
+          "U+AA70",
+          "U+AA71-U+AA76",
+          "U+AA77-U+AA79",
+          "U+AA7A",
+          "U+AA7B",
+          "U+AA7C",
+          "U+AA7D",
+          "U+AA7E-U+AA7F",
+          "U+116D0-U+116E3"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-nag-mundari",
+        "unicode_script_value": "Nag_Mundari",
+        "unicode_script_alias": "Nagm",
+        "iso15924": "Nagm",
+        "unicode_blocks": [
+          "Nag Mundari"
+        ],
+        "unicode_ranges": [
+          "U+1E4D0-U+1E4EA",
+          "U+1E4EB",
+          "U+1E4EC-U+1E4EF",
+          "U+1E4F0-U+1E4F9"
+        ],
+        "unicode_version_added": "15.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-nandinagari",
+        "unicode_script_value": "Nandinagari",
+        "unicode_script_alias": "Nand",
+        "iso15924": "Nand",
+        "unicode_blocks": [
+          "Nandinagari"
+        ],
+        "unicode_ranges": [
+          "U+119A0-U+119A7",
+          "U+119AA-U+119D0",
+          "U+119D1-U+119D3",
+          "U+119D4-U+119D7",
+          "U+119DA-U+119DB",
+          "U+119DC-U+119DF",
+          "U+119E0",
+          "U+119E1",
+          "U+119E2",
+          "U+119E3",
+          "U+119E4"
+        ],
+        "unicode_version_added": "12.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-north-arabian",
+        "unicode_script_value": "Old_North_Arabian",
+        "unicode_script_alias": "Narb",
+        "iso15924": "Narb",
+        "unicode_blocks": [
+          "Old North Arabian"
+        ],
+        "unicode_ranges": [
+          "U+10A80-U+10A9C",
+          "U+10A9D-U+10A9F"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-nabataean",
+        "unicode_script_value": "Nabataean",
+        "unicode_script_alias": "Nbat",
+        "iso15924": "Nbat",
+        "unicode_blocks": [
+          "Nabataean"
+        ],
+        "unicode_ranges": [
+          "U+10880-U+1089E",
+          "U+108A7-U+108AF"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-newa",
+        "unicode_script_value": "Newa",
+        "unicode_script_alias": "Newa",
+        "iso15924": "Newa",
+        "unicode_blocks": [
+          "Newa"
+        ],
+        "unicode_ranges": [
+          "U+11400-U+11434",
+          "U+11435-U+11437",
+          "U+11438-U+1143F",
+          "U+11440-U+11441",
+          "U+11442-U+11444",
+          "U+11445",
+          "U+11446",
+          "U+11447-U+1144A",
+          "U+1144B-U+1144F",
+          "U+11450-U+11459",
+          "U+1145A-U+1145B",
+          "U+1145D",
+          "U+1145E",
+          "U+1145F-U+11461"
+        ],
+        "unicode_version_added": "9.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-nko",
+        "unicode_script_value": "Nko",
+        "unicode_script_alias": "Nkoo",
+        "iso15924": "Nkoo",
+        "unicode_blocks": [
+          "NKo"
+        ],
+        "unicode_ranges": [
+          "U+07C0-U+07C9",
+          "U+07CA-U+07EA",
+          "U+07EB-U+07F3",
+          "U+07F4-U+07F5",
+          "U+07F6",
+          "U+07F7-U+07F9",
+          "U+07FA",
+          "U+07FD",
+          "U+07FE-U+07FF"
+        ],
+        "unicode_version_added": "5.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-nushu",
+        "unicode_script_value": "Nushu",
+        "unicode_script_alias": "Nshu",
+        "iso15924": "Nshu",
+        "unicode_blocks": [
+          "Ideographic Symbols and Punctuation",
+          "Nushu"
+        ],
+        "unicode_ranges": [
+          "U+16FE1",
+          "U+1B170-U+1B2FB"
+        ],
+        "unicode_version_added": "10.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-ogham",
+        "unicode_script_value": "Ogham",
+        "unicode_script_alias": "Ogam",
+        "iso15924": "Ogam",
+        "unicode_blocks": [
+          "Ogham"
+        ],
+        "unicode_ranges": [
+          "U+1680",
+          "U+1681-U+169A",
+          "U+169B",
+          "U+169C"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-ol-chiki",
+        "unicode_script_value": "Ol_Chiki",
+        "unicode_script_alias": "Olck",
+        "iso15924": "Olck",
+        "unicode_blocks": [
+          "Ol Chiki"
+        ],
+        "unicode_ranges": [
+          "U+1C50-U+1C59",
+          "U+1C5A-U+1C77",
+          "U+1C78-U+1C7D",
+          "U+1C7E-U+1C7F"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-ol-onal",
+        "unicode_script_value": "Ol_Onal",
+        "unicode_script_alias": "Onao",
+        "iso15924": "Onao",
+        "unicode_blocks": [
+          "Ol Onal"
+        ],
+        "unicode_ranges": [
+          "U+1E5D0-U+1E5ED",
+          "U+1E5EE-U+1E5EF",
+          "U+1E5F0",
+          "U+1E5F1-U+1E5FA",
+          "U+1E5FF"
+        ],
+        "unicode_version_added": "16.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-turkic",
+        "unicode_script_value": "Old_Turkic",
+        "unicode_script_alias": "Orkh",
+        "iso15924": "Orkh",
+        "unicode_blocks": [
+          "Old Turkic"
+        ],
+        "unicode_ranges": [
+          "U+10C00-U+10C48"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-oriya",
+        "unicode_script_value": "Oriya",
+        "unicode_script_alias": "Orya",
+        "iso15924": "Orya",
+        "unicode_blocks": [
+          "Oriya"
+        ],
+        "unicode_ranges": [
+          "U+0B01",
+          "U+0B02-U+0B03",
+          "U+0B05-U+0B0C",
+          "U+0B0F-U+0B10",
+          "U+0B13-U+0B28",
+          "U+0B2A-U+0B30",
+          "U+0B32-U+0B33",
+          "U+0B35-U+0B39",
+          "U+0B3C",
+          "U+0B3D",
+          "U+0B3E",
+          "U+0B3F",
+          "U+0B40",
+          "U+0B41-U+0B44",
+          "U+0B47-U+0B48",
+          "U+0B4B-U+0B4C",
+          "U+0B4D",
+          "U+0B55-U+0B56",
+          "U+0B57",
+          "U+0B5C-U+0B5D",
+          "U+0B5F-U+0B61",
+          "U+0B62-U+0B63",
+          "U+0B66-U+0B6F",
+          "U+0B70",
+          "U+0B71",
+          "U+0B72-U+0B77"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-osage",
+        "unicode_script_value": "Osage",
+        "unicode_script_alias": "Osge",
+        "iso15924": "Osge",
+        "unicode_blocks": [
+          "Osage"
+        ],
+        "unicode_ranges": [
+          "U+104B0-U+104D3",
+          "U+104D8-U+104FB"
+        ],
+        "unicode_version_added": "9.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-osmanya",
+        "unicode_script_value": "Osmanya",
+        "unicode_script_alias": "Osma",
+        "iso15924": "Osma",
+        "unicode_blocks": [
+          "Osmanya"
+        ],
+        "unicode_ranges": [
+          "U+10480-U+1049D",
+          "U+104A0-U+104A9"
+        ],
+        "unicode_version_added": "4.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-uyghur",
+        "unicode_script_value": "Old_Uyghur",
+        "unicode_script_alias": "Ougr",
+        "iso15924": "Ougr",
+        "unicode_blocks": [
+          "Old Uyghur"
+        ],
+        "unicode_ranges": [
+          "U+10F70-U+10F81",
+          "U+10F82-U+10F85",
+          "U+10F86-U+10F89"
+        ],
+        "unicode_version_added": "14.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-palmyrene",
+        "unicode_script_value": "Palmyrene",
+        "unicode_script_alias": "Palm",
+        "iso15924": "Palm",
+        "unicode_blocks": [
+          "Palmyrene"
+        ],
+        "unicode_ranges": [
+          "U+10860-U+10876",
+          "U+10877-U+10878",
+          "U+10879-U+1087F"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-pau-cin-hau",
+        "unicode_script_value": "Pau_Cin_Hau",
+        "unicode_script_alias": "Pauc",
+        "iso15924": "Pauc",
+        "unicode_blocks": [
+          "Pau Cin Hau"
+        ],
+        "unicode_ranges": [
+          "U+11AC0-U+11AF8"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-permic",
+        "unicode_script_value": "Old_Permic",
+        "unicode_script_alias": "Perm",
+        "iso15924": "Perm",
+        "unicode_blocks": [
+          "Old Permic"
+        ],
+        "unicode_ranges": [
+          "U+10350-U+10375",
+          "U+10376-U+1037A"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-phags-pa",
+        "unicode_script_value": "Phags_Pa",
+        "unicode_script_alias": "Phag",
+        "iso15924": "Phag",
+        "unicode_blocks": [
+          "Phags-pa"
+        ],
+        "unicode_ranges": [
+          "U+A840-U+A873",
+          "U+A874-U+A877"
+        ],
+        "unicode_version_added": "5.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-inscriptional-pahlavi",
+        "unicode_script_value": "Inscriptional_Pahlavi",
+        "unicode_script_alias": "Phli",
+        "iso15924": "Phli",
+        "unicode_blocks": [
+          "Inscriptional Pahlavi"
+        ],
+        "unicode_ranges": [
+          "U+10B60-U+10B72",
+          "U+10B78-U+10B7F"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-psalter-pahlavi",
+        "unicode_script_value": "Psalter_Pahlavi",
+        "unicode_script_alias": "Phlp",
+        "iso15924": "Phlp",
+        "unicode_blocks": [
+          "Psalter Pahlavi"
+        ],
+        "unicode_ranges": [
+          "U+10B80-U+10B91",
+          "U+10B99-U+10B9C",
+          "U+10BA9-U+10BAF"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-phoenician",
+        "unicode_script_value": "Phoenician",
+        "unicode_script_alias": "Phnx",
+        "iso15924": "Phnx",
+        "unicode_blocks": [
+          "Phoenician"
+        ],
+        "unicode_ranges": [
+          "U+10900-U+10915",
+          "U+10916-U+1091B",
+          "U+1091F"
+        ],
+        "unicode_version_added": "5.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-miao",
+        "unicode_script_value": "Miao",
+        "unicode_script_alias": "Plrd",
+        "iso15924": "Plrd",
+        "unicode_blocks": [
+          "Miao"
+        ],
+        "unicode_ranges": [
+          "U+16F00-U+16F4A",
+          "U+16F4F",
+          "U+16F50",
+          "U+16F51-U+16F87",
+          "U+16F8F-U+16F92",
+          "U+16F93-U+16F9F"
+        ],
+        "unicode_version_added": "6.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-inscriptional-parthian",
+        "unicode_script_value": "Inscriptional_Parthian",
+        "unicode_script_alias": "Prti",
+        "iso15924": "Prti",
+        "unicode_blocks": [
+          "Inscriptional Parthian"
+        ],
+        "unicode_ranges": [
+          "U+10B40-U+10B55",
+          "U+10B58-U+10B5F"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-rejang",
+        "unicode_script_value": "Rejang",
+        "unicode_script_alias": "Rjng",
+        "iso15924": "Rjng",
+        "unicode_blocks": [
+          "Rejang"
+        ],
+        "unicode_ranges": [
+          "U+A930-U+A946",
+          "U+A947-U+A951",
+          "U+A952-U+A953",
+          "U+A95F"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-hanifi-rohingya",
+        "unicode_script_value": "Hanifi_Rohingya",
+        "unicode_script_alias": "Rohg",
+        "iso15924": "Rohg",
+        "unicode_blocks": [
+          "Hanifi Rohingya"
+        ],
+        "unicode_ranges": [
+          "U+10D00-U+10D23",
+          "U+10D24-U+10D27",
+          "U+10D30-U+10D39"
+        ],
+        "unicode_version_added": "11.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-runic",
+        "unicode_script_value": "Runic",
+        "unicode_script_alias": "Runr",
+        "iso15924": "Runr",
+        "unicode_blocks": [
+          "Runic"
+        ],
+        "unicode_ranges": [
+          "U+16A0-U+16EA",
+          "U+16EE-U+16F0",
+          "U+16F1-U+16F8"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-samaritan",
+        "unicode_script_value": "Samaritan",
+        "unicode_script_alias": "Samr",
+        "iso15924": "Samr",
+        "unicode_blocks": [
+          "Samaritan"
+        ],
+        "unicode_ranges": [
+          "U+0800-U+0815",
+          "U+0816-U+0819",
+          "U+081A",
+          "U+081B-U+0823",
+          "U+0824",
+          "U+0825-U+0827",
+          "U+0828",
+          "U+0829-U+082D",
+          "U+0830-U+083E"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-south-arabian",
+        "unicode_script_value": "Old_South_Arabian",
+        "unicode_script_alias": "Sarb",
+        "iso15924": "Sarb",
+        "unicode_blocks": [
+          "Old South Arabian"
+        ],
+        "unicode_ranges": [
+          "U+10A60-U+10A7C",
+          "U+10A7D-U+10A7E",
+          "U+10A7F"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-saurashtra",
+        "unicode_script_value": "Saurashtra",
+        "unicode_script_alias": "Saur",
+        "iso15924": "Saur",
+        "unicode_blocks": [
+          "Saurashtra"
+        ],
+        "unicode_ranges": [
+          "U+A880-U+A881",
+          "U+A882-U+A8B3",
+          "U+A8B4-U+A8C3",
+          "U+A8C4-U+A8C5",
+          "U+A8CE-U+A8CF",
+          "U+A8D0-U+A8D9"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sign-writing",
+        "unicode_script_value": "SignWriting",
+        "unicode_script_alias": "Sgnw",
+        "iso15924": "Sgnw",
+        "unicode_blocks": [
+          "Sutton SignWriting"
+        ],
+        "unicode_ranges": [
+          "U+1D800-U+1D9FF",
+          "U+1DA00-U+1DA36",
+          "U+1DA37-U+1DA3A",
+          "U+1DA3B-U+1DA6C",
+          "U+1DA6D-U+1DA74",
+          "U+1DA75",
+          "U+1DA76-U+1DA83",
+          "U+1DA84",
+          "U+1DA85-U+1DA86",
+          "U+1DA87-U+1DA8B",
+          "U+1DA9B-U+1DA9F",
+          "U+1DAA1-U+1DAAF"
+        ],
+        "unicode_version_added": "8.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-shavian",
+        "unicode_script_value": "Shavian",
+        "unicode_script_alias": "Shaw",
+        "iso15924": "Shaw",
+        "unicode_blocks": [
+          "Shavian"
+        ],
+        "unicode_ranges": [
+          "U+10450-U+1047F"
+        ],
+        "unicode_version_added": "4.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sharada",
+        "unicode_script_value": "Sharada",
+        "unicode_script_alias": "Shrd",
+        "iso15924": "Shrd",
+        "unicode_blocks": [
+          "Sharada",
+          "Sharada Supplement"
+        ],
+        "unicode_ranges": [
+          "U+11180-U+11181",
+          "U+11182",
+          "U+11183-U+111B2",
+          "U+111B3-U+111B5",
+          "U+111B6-U+111BE",
+          "U+111BF-U+111C0",
+          "U+111C1-U+111C4",
+          "U+111C5-U+111C8",
+          "U+111C9-U+111CC",
+          "U+111CD",
+          "U+111CE",
+          "U+111CF",
+          "U+111D0-U+111D9",
+          "U+111DA",
+          "U+111DB",
+          "U+111DC",
+          "U+111DD-U+111DF",
+          "U+11B60",
+          "U+11B61",
+          "U+11B62-U+11B64",
+          "U+11B65",
+          "U+11B66",
+          "U+11B67"
+        ],
+        "unicode_version_added": "6.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-siddham",
+        "unicode_script_value": "Siddham",
+        "unicode_script_alias": "Sidd",
+        "iso15924": "Sidd",
+        "unicode_blocks": [
+          "Siddham"
+        ],
+        "unicode_ranges": [
+          "U+11580-U+115AE",
+          "U+115AF-U+115B1",
+          "U+115B2-U+115B5",
+          "U+115B8-U+115BB",
+          "U+115BC-U+115BD",
+          "U+115BE",
+          "U+115BF-U+115C0",
+          "U+115C1-U+115D7",
+          "U+115D8-U+115DB",
+          "U+115DC-U+115DD"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sidetic",
+        "unicode_script_value": "Sidetic",
+        "unicode_script_alias": "Sidt",
+        "iso15924": "Sidt",
+        "unicode_blocks": [
+          "Sidetic"
+        ],
+        "unicode_ranges": [
+          "U+10940-U+10959"
+        ],
+        "unicode_version_added": "17.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-khudawadi",
+        "unicode_script_value": "Khudawadi",
+        "unicode_script_alias": "Sind",
+        "iso15924": "Sind",
+        "unicode_blocks": [
+          "Khudawadi"
+        ],
+        "unicode_ranges": [
+          "U+112B0-U+112DE",
+          "U+112DF",
+          "U+112E0-U+112E2",
+          "U+112E3-U+112EA",
+          "U+112F0-U+112F9"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sinhala",
+        "unicode_script_value": "Sinhala",
+        "unicode_script_alias": "Sinh",
+        "iso15924": "Sinh",
+        "unicode_blocks": [
+          "Sinhala",
+          "Sinhala Archaic Numbers"
+        ],
+        "unicode_ranges": [
+          "U+0D81",
+          "U+0D82-U+0D83",
+          "U+0D85-U+0D96",
+          "U+0D9A-U+0DB1",
+          "U+0DB3-U+0DBB",
+          "U+0DBD",
+          "U+0DC0-U+0DC6",
+          "U+0DCA",
+          "U+0DCF-U+0DD1",
+          "U+0DD2-U+0DD4",
+          "U+0DD6",
+          "U+0DD8-U+0DDF",
+          "U+0DE6-U+0DEF",
+          "U+0DF2-U+0DF3",
+          "U+0DF4",
+          "U+111E1-U+111F4"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sogdian",
+        "unicode_script_value": "Sogdian",
+        "unicode_script_alias": "Sogd",
+        "iso15924": "Sogd",
+        "unicode_blocks": [
+          "Sogdian"
+        ],
+        "unicode_ranges": [
+          "U+10F30-U+10F45",
+          "U+10F46-U+10F50",
+          "U+10F51-U+10F54",
+          "U+10F55-U+10F59"
+        ],
+        "unicode_version_added": "11.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-sogdian",
+        "unicode_script_value": "Old_Sogdian",
+        "unicode_script_alias": "Sogo",
+        "iso15924": "Sogo",
+        "unicode_blocks": [
+          "Old Sogdian"
+        ],
+        "unicode_ranges": [
+          "U+10F00-U+10F1C",
+          "U+10F1D-U+10F26",
+          "U+10F27"
+        ],
+        "unicode_version_added": "11.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sora-sompeng",
+        "unicode_script_value": "Sora_Sompeng",
+        "unicode_script_alias": "Sora",
+        "iso15924": "Sora",
+        "unicode_blocks": [
+          "Sora Sompeng"
+        ],
+        "unicode_ranges": [
+          "U+110D0-U+110E8",
+          "U+110F0-U+110F9"
+        ],
+        "unicode_version_added": "6.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-soyombo",
+        "unicode_script_value": "Soyombo",
+        "unicode_script_alias": "Soyo",
+        "iso15924": "Soyo",
+        "unicode_blocks": [
+          "Soyombo"
+        ],
+        "unicode_ranges": [
+          "U+11A50",
+          "U+11A51-U+11A56",
+          "U+11A57-U+11A58",
+          "U+11A59-U+11A5B",
+          "U+11A5C-U+11A89",
+          "U+11A8A-U+11A96",
+          "U+11A97",
+          "U+11A98-U+11A99",
+          "U+11A9A-U+11A9C",
+          "U+11A9D",
+          "U+11A9E-U+11AA2"
+        ],
+        "unicode_version_added": "10.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sundanese",
+        "unicode_script_value": "Sundanese",
+        "unicode_script_alias": "Sund",
+        "iso15924": "Sund",
+        "unicode_blocks": [
+          "Sundanese",
+          "Sundanese Supplement"
+        ],
+        "unicode_ranges": [
+          "U+1B80-U+1B81",
+          "U+1B82",
+          "U+1B83-U+1BA0",
+          "U+1BA1",
+          "U+1BA2-U+1BA5",
+          "U+1BA6-U+1BA7",
+          "U+1BA8-U+1BA9",
+          "U+1BAA",
+          "U+1BAB-U+1BAD",
+          "U+1BAE-U+1BAF",
+          "U+1BB0-U+1BB9",
+          "U+1BBA-U+1BBF",
+          "U+1CC0-U+1CC7"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-sunuwar",
+        "unicode_script_value": "Sunuwar",
+        "unicode_script_alias": "Sunu",
+        "iso15924": "Sunu",
+        "unicode_blocks": [
+          "Sunuwar"
+        ],
+        "unicode_ranges": [
+          "U+11BC0-U+11BE0",
+          "U+11BE1",
+          "U+11BF0-U+11BF9"
+        ],
+        "unicode_version_added": "16.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-syloti-nagri",
+        "unicode_script_value": "Syloti_Nagri",
+        "unicode_script_alias": "Sylo",
+        "iso15924": "Sylo",
+        "unicode_blocks": [
+          "Syloti Nagri"
+        ],
+        "unicode_ranges": [
+          "U+A800-U+A801",
+          "U+A802",
+          "U+A803-U+A805",
+          "U+A806",
+          "U+A807-U+A80A",
+          "U+A80B",
+          "U+A80C-U+A822",
+          "U+A823-U+A824",
+          "U+A825-U+A826",
+          "U+A827",
+          "U+A828-U+A82B",
+          "U+A82C"
+        ],
+        "unicode_version_added": "4.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-syriac",
+        "unicode_script_value": "Syriac",
+        "unicode_script_alias": "Syrc",
+        "iso15924": "Syrc",
+        "unicode_blocks": [
+          "Syriac",
+          "Syriac Supplement"
+        ],
+        "unicode_ranges": [
+          "U+0700-U+070D",
+          "U+070F",
+          "U+0710",
+          "U+0711",
+          "U+0712-U+072F",
+          "U+0730-U+074A",
+          "U+074D-U+074F",
+          "U+0860-U+086A"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tagbanwa",
+        "unicode_script_value": "Tagbanwa",
+        "unicode_script_alias": "Tagb",
+        "iso15924": "Tagb",
+        "unicode_blocks": [
+          "Tagbanwa"
+        ],
+        "unicode_ranges": [
+          "U+1760-U+176C",
+          "U+176E-U+1770",
+          "U+1772-U+1773"
+        ],
+        "unicode_version_added": "3.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-takri",
+        "unicode_script_value": "Takri",
+        "unicode_script_alias": "Takr",
+        "iso15924": "Takr",
+        "unicode_blocks": [
+          "Takri"
+        ],
+        "unicode_ranges": [
+          "U+11680-U+116AA",
+          "U+116AB",
+          "U+116AC",
+          "U+116AD",
+          "U+116AE-U+116AF",
+          "U+116B0-U+116B5",
+          "U+116B6",
+          "U+116B7",
+          "U+116B8",
+          "U+116B9",
+          "U+116C0-U+116C9"
+        ],
+        "unicode_version_added": "6.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tai-le",
+        "unicode_script_value": "Tai_Le",
+        "unicode_script_alias": "Tale",
+        "iso15924": "Tale",
+        "unicode_blocks": [
+          "Tai Le"
+        ],
+        "unicode_ranges": [
+          "U+1950-U+196D",
+          "U+1970-U+1974"
+        ],
+        "unicode_version_added": "4.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-new-tai-lue",
+        "unicode_script_value": "New_Tai_Lue",
+        "unicode_script_alias": "Talu",
+        "iso15924": "Talu",
+        "unicode_blocks": [
+          "New Tai Lue"
+        ],
+        "unicode_ranges": [
+          "U+1980-U+19AB",
+          "U+19B0-U+19C9",
+          "U+19D0-U+19D9",
+          "U+19DA",
+          "U+19DE-U+19DF"
+        ],
+        "unicode_version_added": "4.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tamil",
+        "unicode_script_value": "Tamil",
+        "unicode_script_alias": "Taml",
+        "iso15924": "Taml",
+        "unicode_blocks": [
+          "Tamil",
+          "Tamil Supplement"
+        ],
+        "unicode_ranges": [
+          "U+0B82",
+          "U+0B83",
+          "U+0B85-U+0B8A",
+          "U+0B8E-U+0B90",
+          "U+0B92-U+0B95",
+          "U+0B99-U+0B9A",
+          "U+0B9C",
+          "U+0B9E-U+0B9F",
+          "U+0BA3-U+0BA4",
+          "U+0BA8-U+0BAA",
+          "U+0BAE-U+0BB9",
+          "U+0BBE-U+0BBF",
+          "U+0BC0",
+          "U+0BC1-U+0BC2",
+          "U+0BC6-U+0BC8",
+          "U+0BCA-U+0BCC",
+          "U+0BCD",
+          "U+0BD0",
+          "U+0BD7",
+          "U+0BE6-U+0BEF",
+          "U+0BF0-U+0BF2",
+          "U+0BF3-U+0BF8",
+          "U+0BF9",
+          "U+0BFA",
+          "U+11FC0-U+11FD4",
+          "U+11FD5-U+11FDC",
+          "U+11FDD-U+11FE0",
+          "U+11FE1-U+11FF1",
+          "U+11FFF"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tangut",
+        "unicode_script_value": "Tangut",
+        "unicode_script_alias": "Tang",
+        "iso15924": "Tang",
+        "unicode_blocks": [
+          "Ideographic Symbols and Punctuation",
+          "Tangut",
+          "Tangut Components",
+          "Tangut Supplement",
+          "Tangut Components Supplement"
+        ],
+        "unicode_ranges": [
+          "U+16FE0",
+          "U+17000-U+18AFF",
+          "U+18D00-U+18D1E",
+          "U+18D80-U+18DF2"
+        ],
+        "unicode_version_added": "9.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tai-viet",
+        "unicode_script_value": "Tai_Viet",
+        "unicode_script_alias": "Tavt",
+        "iso15924": "Tavt",
+        "unicode_blocks": [
+          "Tai Viet"
+        ],
+        "unicode_ranges": [
+          "U+AA80-U+AAAF",
+          "U+AAB0",
+          "U+AAB1",
+          "U+AAB2-U+AAB4",
+          "U+AAB5-U+AAB6",
+          "U+AAB7-U+AAB8",
+          "U+AAB9-U+AABD",
+          "U+AABE-U+AABF",
+          "U+AAC0",
+          "U+AAC1",
+          "U+AAC2",
+          "U+AADB-U+AADC",
+          "U+AADD",
+          "U+AADE-U+AADF"
+        ],
+        "unicode_version_added": "5.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tai-yo",
+        "unicode_script_value": "Tai_Yo",
+        "unicode_script_alias": "Tayo",
+        "iso15924": "Tayo",
+        "unicode_blocks": [
+          "Tai Yo"
+        ],
+        "unicode_ranges": [
+          "U+1E6C0-U+1E6DE",
+          "U+1E6E0-U+1E6E2",
+          "U+1E6E3",
+          "U+1E6E4-U+1E6E5",
+          "U+1E6E6",
+          "U+1E6E7-U+1E6ED",
+          "U+1E6EE-U+1E6EF",
+          "U+1E6F0-U+1E6F4",
+          "U+1E6F5",
+          "U+1E6FE",
+          "U+1E6FF"
+        ],
+        "unicode_version_added": "17.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-telugu",
+        "unicode_script_value": "Telugu",
+        "unicode_script_alias": "Telu",
+        "iso15924": "Telu",
+        "unicode_blocks": [
+          "Telugu"
+        ],
+        "unicode_ranges": [
+          "U+0C00",
+          "U+0C01-U+0C03",
+          "U+0C04",
+          "U+0C05-U+0C0C",
+          "U+0C0E-U+0C10",
+          "U+0C12-U+0C28",
+          "U+0C2A-U+0C39",
+          "U+0C3C",
+          "U+0C3D",
+          "U+0C3E-U+0C40",
+          "U+0C41-U+0C44",
+          "U+0C46-U+0C48",
+          "U+0C4A-U+0C4D",
+          "U+0C55-U+0C56",
+          "U+0C58-U+0C5A",
+          "U+0C5C-U+0C5D",
+          "U+0C60-U+0C61",
+          "U+0C62-U+0C63",
+          "U+0C66-U+0C6F",
+          "U+0C77",
+          "U+0C78-U+0C7E",
+          "U+0C7F"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tifinagh",
+        "unicode_script_value": "Tifinagh",
+        "unicode_script_alias": "Tfng",
+        "iso15924": "Tfng",
+        "unicode_blocks": [
+          "Tifinagh"
+        ],
+        "unicode_ranges": [
+          "U+2D30-U+2D67",
+          "U+2D6F",
+          "U+2D70",
+          "U+2D7F"
+        ],
+        "unicode_version_added": "4.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tagalog",
+        "unicode_script_value": "Tagalog",
+        "unicode_script_alias": "Tglg",
+        "iso15924": "Tglg",
+        "unicode_blocks": [
+          "Tagalog"
+        ],
+        "unicode_ranges": [
+          "U+1700-U+1711",
+          "U+1712-U+1714",
+          "U+1715",
+          "U+171F"
+        ],
+        "unicode_version_added": "3.2",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-thaana",
+        "unicode_script_value": "Thaana",
+        "unicode_script_alias": "Thaa",
+        "iso15924": "Thaa",
+        "unicode_blocks": [
+          "Thaana"
+        ],
+        "unicode_ranges": [
+          "U+0780-U+07A5",
+          "U+07A6-U+07B0",
+          "U+07B1"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-thai",
+        "unicode_script_value": "Thai",
+        "unicode_script_alias": "Thai",
+        "iso15924": "Thai",
+        "unicode_blocks": [
+          "Thai"
+        ],
+        "unicode_ranges": [
+          "U+0E01-U+0E30",
+          "U+0E31",
+          "U+0E32-U+0E33",
+          "U+0E34-U+0E3A",
+          "U+0E40-U+0E45",
+          "U+0E46",
+          "U+0E47-U+0E4E",
+          "U+0E4F",
+          "U+0E50-U+0E59",
+          "U+0E5A-U+0E5B"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tibetan",
+        "unicode_script_value": "Tibetan",
+        "unicode_script_alias": "Tibt",
+        "iso15924": "Tibt",
+        "unicode_blocks": [
+          "Tibetan"
+        ],
+        "unicode_ranges": [
+          "U+0F00",
+          "U+0F01-U+0F03",
+          "U+0F04-U+0F12",
+          "U+0F13",
+          "U+0F14",
+          "U+0F15-U+0F17",
+          "U+0F18-U+0F19",
+          "U+0F1A-U+0F1F",
+          "U+0F20-U+0F29",
+          "U+0F2A-U+0F33",
+          "U+0F34",
+          "U+0F35",
+          "U+0F36",
+          "U+0F37",
+          "U+0F38",
+          "U+0F39",
+          "U+0F3A",
+          "U+0F3B",
+          "U+0F3C",
+          "U+0F3D",
+          "U+0F3E-U+0F3F",
+          "U+0F40-U+0F47",
+          "U+0F49-U+0F6C",
+          "U+0F71-U+0F7E",
+          "U+0F7F",
+          "U+0F80-U+0F84",
+          "U+0F85",
+          "U+0F86-U+0F87",
+          "U+0F88-U+0F8C",
+          "U+0F8D-U+0F97",
+          "U+0F99-U+0FBC",
+          "U+0FBE-U+0FC5",
+          "U+0FC6",
+          "U+0FC7-U+0FCC",
+          "U+0FCE-U+0FCF",
+          "U+0FD0-U+0FD4",
+          "U+0FD9-U+0FDA"
+        ],
+        "unicode_version_added": "2.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tirhuta",
+        "unicode_script_value": "Tirhuta",
+        "unicode_script_alias": "Tirh",
+        "iso15924": "Tirh",
+        "unicode_blocks": [
+          "Tirhuta"
+        ],
+        "unicode_ranges": [
+          "U+11480-U+114AF",
+          "U+114B0-U+114B2",
+          "U+114B3-U+114B8",
+          "U+114B9",
+          "U+114BA",
+          "U+114BB-U+114BE",
+          "U+114BF-U+114C0",
+          "U+114C1",
+          "U+114C2-U+114C3",
+          "U+114C4-U+114C5",
+          "U+114C6",
+          "U+114C7",
+          "U+114D0-U+114D9"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tangsa",
+        "unicode_script_value": "Tangsa",
+        "unicode_script_alias": "Tnsa",
+        "iso15924": "Tnsa",
+        "unicode_blocks": [
+          "Tangsa"
+        ],
+        "unicode_ranges": [
+          "U+16A70-U+16ABE",
+          "U+16AC0-U+16AC9"
+        ],
+        "unicode_version_added": "14.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-todhri",
+        "unicode_script_value": "Todhri",
+        "unicode_script_alias": "Todr",
+        "iso15924": "Todr",
+        "unicode_blocks": [
+          "Todhri"
+        ],
+        "unicode_ranges": [
+          "U+105C0-U+105F3"
+        ],
+        "unicode_version_added": "16.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tolong-siki",
+        "unicode_script_value": "Tolong_Siki",
+        "unicode_script_alias": "Tols",
+        "iso15924": "Tols",
+        "unicode_blocks": [
+          "Tolong Siki"
+        ],
+        "unicode_ranges": [
+          "U+11DB0-U+11DD8",
+          "U+11DD9",
+          "U+11DDA-U+11DDB",
+          "U+11DE0-U+11DE9"
+        ],
+        "unicode_version_added": "17.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-toto",
+        "unicode_script_value": "Toto",
+        "unicode_script_alias": "Toto",
+        "iso15924": "Toto",
+        "unicode_blocks": [
+          "Toto"
+        ],
+        "unicode_ranges": [
+          "U+1E290-U+1E2AD",
+          "U+1E2AE"
+        ],
+        "unicode_version_added": "14.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-tulu-tigalari",
+        "unicode_script_value": "Tulu_Tigalari",
+        "unicode_script_alias": "Tutg",
+        "iso15924": "Tutg",
+        "unicode_blocks": [
+          "Tulu-Tigalari"
+        ],
+        "unicode_ranges": [
+          "U+11380-U+11389",
+          "U+1138B",
+          "U+1138E",
+          "U+11390-U+113B5",
+          "U+113B7",
+          "U+113B8-U+113BA",
+          "U+113BB-U+113C0",
+          "U+113C2",
+          "U+113C5",
+          "U+113C7-U+113CA",
+          "U+113CC-U+113CD",
+          "U+113CE",
+          "U+113CF",
+          "U+113D0",
+          "U+113D1",
+          "U+113D2",
+          "U+113D3",
+          "U+113D4-U+113D5",
+          "U+113D7-U+113D8",
+          "U+113E1-U+113E2"
+        ],
+        "unicode_version_added": "16.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-ugaritic",
+        "unicode_script_value": "Ugaritic",
+        "unicode_script_alias": "Ugar",
+        "iso15924": "Ugar",
+        "unicode_blocks": [
+          "Ugaritic"
+        ],
+        "unicode_ranges": [
+          "U+10380-U+1039D",
+          "U+1039F"
+        ],
+        "unicode_version_added": "4.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-vai",
+        "unicode_script_value": "Vai",
+        "unicode_script_alias": "Vaii",
+        "iso15924": "Vaii",
+        "unicode_blocks": [
+          "Vai"
+        ],
+        "unicode_ranges": [
+          "U+A500-U+A60B",
+          "U+A60C",
+          "U+A60D-U+A60F",
+          "U+A610-U+A61F",
+          "U+A620-U+A629",
+          "U+A62A-U+A62B"
+        ],
+        "unicode_version_added": "5.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-vithkuqi",
+        "unicode_script_value": "Vithkuqi",
+        "unicode_script_alias": "Vith",
+        "iso15924": "Vith",
+        "unicode_blocks": [
+          "Vithkuqi"
+        ],
+        "unicode_ranges": [
+          "U+10570-U+1057A",
+          "U+1057C-U+1058A",
+          "U+1058C-U+10592",
+          "U+10594-U+10595",
+          "U+10597-U+105A1",
+          "U+105A3-U+105B1",
+          "U+105B3-U+105B9",
+          "U+105BB-U+105BC"
+        ],
+        "unicode_version_added": "14.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-warang-citi",
+        "unicode_script_value": "Warang_Citi",
+        "unicode_script_alias": "Wara",
+        "iso15924": "Wara",
+        "unicode_blocks": [
+          "Warang Citi"
+        ],
+        "unicode_ranges": [
+          "U+118A0-U+118DF",
+          "U+118E0-U+118E9",
+          "U+118EA-U+118F2",
+          "U+118FF"
+        ],
+        "unicode_version_added": "7.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-wancho",
+        "unicode_script_value": "Wancho",
+        "unicode_script_alias": "Wcho",
+        "iso15924": "Wcho",
+        "unicode_blocks": [
+          "Wancho"
+        ],
+        "unicode_ranges": [
+          "U+1E2C0-U+1E2EB",
+          "U+1E2EC-U+1E2EF",
+          "U+1E2F0-U+1E2F9",
+          "U+1E2FF"
+        ],
+        "unicode_version_added": "12.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-old-persian",
+        "unicode_script_value": "Old_Persian",
+        "unicode_script_alias": "Xpeo",
+        "iso15924": "Xpeo",
+        "unicode_blocks": [
+          "Old Persian"
+        ],
+        "unicode_ranges": [
+          "U+103A0-U+103C3",
+          "U+103C8-U+103CF",
+          "U+103D0",
+          "U+103D1-U+103D5"
+        ],
+        "unicode_version_added": "4.1",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-cuneiform",
+        "unicode_script_value": "Cuneiform",
+        "unicode_script_alias": "Xsux",
+        "iso15924": "Xsux",
+        "unicode_blocks": [
+          "Cuneiform",
+          "Cuneiform Numbers and Punctuation",
+          "Early Dynastic Cuneiform"
+        ],
+        "unicode_ranges": [
+          "U+12000-U+12399",
+          "U+12400-U+1246E",
+          "U+12470-U+12474",
+          "U+12480-U+12543"
+        ],
+        "unicode_version_added": "5.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-yezidi",
+        "unicode_script_value": "Yezidi",
+        "unicode_script_alias": "Yezi",
+        "iso15924": "Yezi",
+        "unicode_blocks": [
+          "Yezidi"
+        ],
+        "unicode_ranges": [
+          "U+10E80-U+10EA9",
+          "U+10EAB-U+10EAC",
+          "U+10EAD",
+          "U+10EB0-U+10EB1"
+        ],
+        "unicode_version_added": "13.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-yi",
+        "unicode_script_value": "Yi",
+        "unicode_script_alias": "Yiii",
+        "iso15924": "Yiii",
+        "unicode_blocks": [
+          "Yi Syllables",
+          "Yi Radicals"
+        ],
+        "unicode_ranges": [
+          "U+A000-U+A014",
+          "U+A015",
+          "U+A016-U+A48C",
+          "U+A490-U+A4C6"
+        ],
+        "unicode_version_added": "3.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-zanabazar-square",
+        "unicode_script_value": "Zanabazar_Square",
+        "unicode_script_alias": "Zanb",
+        "iso15924": "Zanb",
+        "unicode_blocks": [
+          "Zanabazar Square"
+        ],
+        "unicode_ranges": [
+          "U+11A00",
+          "U+11A01-U+11A0A",
+          "U+11A0B-U+11A32",
+          "U+11A33-U+11A38",
+          "U+11A39",
+          "U+11A3A",
+          "U+11A3B-U+11A3E",
+          "U+11A3F-U+11A46",
+          "U+11A47"
+        ],
+        "unicode_version_added": "10.0",
+        "script_property_kind": "explicit"
+      },
+      {
+        "id": "unicode-inherited",
+        "unicode_script_value": "Inherited",
+        "unicode_script_alias": "Zinh",
+        "iso15924": "Zinh",
+        "unicode_blocks": [
+          "Combining Diacritical Marks",
+          "Cyrillic",
+          "Arabic",
+          "Devanagari",
+          "Combining Diacritical Marks Extended",
+          "Vedic Extensions",
+          "Combining Diacritical Marks Supplement",
+          "General Punctuation",
+          "Combining Diacritical Marks for Symbols",
+          "CJK Symbols and Punctuation",
+          "Hiragana",
+          "Variation Selectors",
+          "Combining Half Marks",
+          "Phaistos Disc",
+          "Coptic Epact Numbers",
+          "Grantha",
+          "Znamenny Musical Notation",
+          "Musical Symbols",
+          "Variation Selectors Supplement"
+        ],
+        "unicode_ranges": [
+          "U+0300-U+036F",
+          "U+0485-U+0486",
+          "U+064B-U+0655",
+          "U+0670",
+          "U+0951-U+0954",
+          "U+1AB0-U+1ABD",
+          "U+1ABE",
+          "U+1ABF-U+1ADD",
+          "U+1AE0-U+1AEB",
+          "U+1CD0-U+1CD2",
+          "U+1CD4-U+1CE0",
+          "U+1CE2-U+1CE8",
+          "U+1CED",
+          "U+1CF4",
+          "U+1CF8-U+1CF9",
+          "U+1DC0-U+1DFF",
+          "U+200C-U+200D",
+          "U+20D0-U+20DC",
+          "U+20DD-U+20E0",
+          "U+20E1",
+          "U+20E2-U+20E4",
+          "U+20E5-U+20F0",
+          "U+302A-U+302D",
+          "U+3099-U+309A",
+          "U+FE00-U+FE0F",
+          "U+FE20-U+FE2D",
+          "U+101FD",
+          "U+102E0",
+          "U+1133B",
+          "U+1CF00-U+1CF2D",
+          "U+1CF30-U+1CF46",
+          "U+1D167-U+1D169",
+          "U+1D17B-U+1D182",
+          "U+1D185-U+1D18B",
+          "U+1D1AA-U+1D1AD",
+          "U+E0100-U+E01EF"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "inherited"
+      },
+      {
+        "id": "unicode-common",
+        "unicode_script_value": "Common",
+        "unicode_script_alias": "Zyyy",
+        "iso15924": "Zyyy",
+        "unicode_blocks": [
+          "Basic Latin",
+          "Latin-1 Supplement",
+          "Spacing Modifier Letters",
+          "Greek and Coptic",
+          "Arabic",
+          "Arabic Extended-A",
+          "Devanagari",
+          "Thai",
+          "Tibetan",
+          "Georgian",
+          "Runic",
+          "Hanunoo",
+          "Mongolian",
+          "Vedic Extensions",
+          "General Punctuation",
+          "Superscripts and Subscripts",
+          "Currency Symbols",
+          "Letterlike Symbols",
+          "Number Forms",
+          "Arrows",
+          "Mathematical Operators",
+          "Miscellaneous Technical",
+          "Control Pictures",
+          "Optical Character Recognition",
+          "Enclosed Alphanumerics",
+          "Box Drawing",
+          "Block Elements",
+          "Geometric Shapes",
+          "Miscellaneous Symbols",
+          "Dingbats",
+          "Miscellaneous Mathematical Symbols-A",
+          "Supplemental Arrows-A",
+          "Supplemental Arrows-B",
+          "Miscellaneous Mathematical Symbols-B",
+          "Supplemental Mathematical Operators",
+          "Miscellaneous Symbols and Arrows",
+          "Supplemental Punctuation",
+          "Ideographic Description Characters",
+          "CJK Symbols and Punctuation",
+          "Hiragana",
+          "Katakana",
+          "Kanbun",
+          "CJK Strokes",
+          "Enclosed CJK Letters and Months",
+          "CJK Compatibility",
+          "Yijing Hexagram Symbols",
+          "Modifier Tone Letters",
+          "Latin Extended-D",
+          "Common Indic Number Forms",
+          "Kayah Li",
+          "Javanese",
+          "Latin Extended-E",
+          "Arabic Presentation Forms-A",
+          "Vertical Forms",
+          "CJK Compatibility Forms",
+          "Small Form Variants",
+          "Arabic Presentation Forms-B",
+          "Halfwidth and Fullwidth Forms",
+          "Specials",
+          "Aegean Numbers",
+          "Ancient Symbols",
+          "Phaistos Disc",
+          "Coptic Epact Numbers",
+          "Shorthand Format Controls",
+          "Symbols for Legacy Computing Supplement",
+          "Miscellaneous Symbols Supplement",
+          "Znamenny Musical Notation",
+          "Byzantine Musical Symbols",
+          "Musical Symbols",
+          "Kaktovik Numerals",
+          "Mayan Numerals",
+          "Tai Xuan Jing Symbols",
+          "Counting Rod Numerals",
+          "Mathematical Alphanumeric Symbols",
+          "Indic Siyaq Numbers",
+          "Ottoman Siyaq Numbers",
+          "Mahjong Tiles",
+          "Domino Tiles",
+          "Playing Cards",
+          "Enclosed Alphanumeric Supplement",
+          "Enclosed Ideographic Supplement",
+          "Miscellaneous Symbols and Pictographs",
+          "Emoticons",
+          "Ornamental Dingbats",
+          "Transport and Map Symbols",
+          "Alchemical Symbols",
+          "Geometric Shapes Extended",
+          "Supplemental Arrows-C",
+          "Supplemental Symbols and Pictographs",
+          "Chess Symbols",
+          "Symbols and Pictographs Extended-A",
+          "Symbols for Legacy Computing",
+          "Tags"
+        ],
+        "unicode_ranges": [
+          "U+0000-U+001F",
+          "U+0020",
+          "U+0021-U+0023",
+          "U+0024",
+          "U+0025-U+0027",
+          "U+0028",
+          "U+0029",
+          "U+002A",
+          "U+002B",
+          "U+002C",
+          "U+002D",
+          "U+002E-U+002F",
+          "U+0030-U+0039",
+          "U+003A-U+003B",
+          "U+003C-U+003E",
+          "U+003F-U+0040",
+          "U+005B",
+          "U+005C",
+          "U+005D",
+          "U+005E",
+          "U+005F",
+          "U+0060",
+          "U+007B",
+          "U+007C",
+          "U+007D",
+          "U+007E",
+          "U+007F-U+009F",
+          "U+00A0",
+          "U+00A1",
+          "U+00A2-U+00A5",
+          "U+00A6",
+          "U+00A7",
+          "U+00A8",
+          "U+00A9",
+          "U+00AB",
+          "U+00AC",
+          "U+00AD",
+          "U+00AE",
+          "U+00AF",
+          "U+00B0",
+          "U+00B1",
+          "U+00B2-U+00B3",
+          "U+00B4",
+          "U+00B5",
+          "U+00B6-U+00B7",
+          "U+00B8",
+          "U+00B9",
+          "U+00BB",
+          "U+00BC-U+00BE",
+          "U+00BF",
+          "U+00D7",
+          "U+00F7",
+          "U+02B9-U+02C1",
+          "U+02C2-U+02C5",
+          "U+02C6-U+02D1",
+          "U+02D2-U+02DF",
+          "U+02E5-U+02E9",
+          "U+02EC",
+          "U+02ED",
+          "U+02EE",
+          "U+02EF-U+02FF",
+          "U+0374",
+          "U+037E",
+          "U+0385",
+          "U+0387",
+          "U+0605",
+          "U+060C",
+          "U+061B",
+          "U+061F",
+          "U+0640",
+          "U+06DD",
+          "U+08E2",
+          "U+0964-U+0965",
+          "U+0E3F",
+          "U+0FD5-U+0FD8",
+          "U+10FB",
+          "U+16EB-U+16ED",
+          "U+1735-U+1736",
+          "U+1802-U+1803",
+          "U+1805",
+          "U+1CD3",
+          "U+1CE1",
+          "U+1CE9-U+1CEC",
+          "U+1CEE-U+1CF3",
+          "U+1CF5-U+1CF6",
+          "U+1CF7",
+          "U+1CFA",
+          "U+2000-U+200A",
+          "U+200B",
+          "U+200E-U+200F",
+          "U+2010-U+2015",
+          "U+2016-U+2017",
+          "U+2018",
+          "U+2019",
+          "U+201A",
+          "U+201B-U+201C",
+          "U+201D",
+          "U+201E",
+          "U+201F",
+          "U+2020-U+2027",
+          "U+2028",
+          "U+2029",
+          "U+202A-U+202E",
+          "U+202F",
+          "U+2030-U+2038",
+          "U+2039",
+          "U+203A",
+          "U+203B-U+203E",
+          "U+203F-U+2040",
+          "U+2041-U+2043",
+          "U+2044",
+          "U+2045",
+          "U+2046",
+          "U+2047-U+2051",
+          "U+2052",
+          "U+2053",
+          "U+2054",
+          "U+2055-U+205E",
+          "U+205F",
+          "U+2060-U+2064",
+          "U+2066-U+206F",
+          "U+2070",
+          "U+2074-U+2079",
+          "U+207A-U+207C",
+          "U+207D",
+          "U+207E",
+          "U+2080-U+2089",
+          "U+208A-U+208C",
+          "U+208D",
+          "U+208E",
+          "U+20A0-U+20C1",
+          "U+2100-U+2101",
+          "U+2102",
+          "U+2103-U+2106",
+          "U+2107",
+          "U+2108-U+2109",
+          "U+210A-U+2113",
+          "U+2114",
+          "U+2115",
+          "U+2116-U+2117",
+          "U+2118",
+          "U+2119-U+211D",
+          "U+211E-U+2123",
+          "U+2124",
+          "U+2125",
+          "U+2127",
+          "U+2128",
+          "U+2129",
+          "U+212C-U+212D",
+          "U+212E",
+          "U+212F-U+2131",
+          "U+2133-U+2134",
+          "U+2135-U+2138",
+          "U+2139",
+          "U+213A-U+213B",
+          "U+213C-U+213F",
+          "U+2140-U+2144",
+          "U+2145-U+2149",
+          "U+214A",
+          "U+214B",
+          "U+214C-U+214D",
+          "U+214F",
+          "U+2150-U+215F",
+          "U+2189",
+          "U+218A-U+218B",
+          "U+2190-U+2194",
+          "U+2195-U+2199",
+          "U+219A-U+219B",
+          "U+219C-U+219F",
+          "U+21A0",
+          "U+21A1-U+21A2",
+          "U+21A3",
+          "U+21A4-U+21A5",
+          "U+21A6",
+          "U+21A7-U+21AD",
+          "U+21AE",
+          "U+21AF-U+21CD",
+          "U+21CE-U+21CF",
+          "U+21D0-U+21D1",
+          "U+21D2",
+          "U+21D3",
+          "U+21D4",
+          "U+21D5-U+21F3",
+          "U+21F4-U+22FF",
+          "U+2300-U+2307",
+          "U+2308",
+          "U+2309",
+          "U+230A",
+          "U+230B",
+          "U+230C-U+231F",
+          "U+2320-U+2321",
+          "U+2322-U+2328",
+          "U+2329",
+          "U+232A",
+          "U+232B-U+237B",
+          "U+237C",
+          "U+237D-U+239A",
+          "U+239B-U+23B3",
+          "U+23B4-U+23DB",
+          "U+23DC-U+23E1",
+          "U+23E2-U+2429",
+          "U+2440-U+244A",
+          "U+2460-U+249B",
+          "U+249C-U+24E9",
+          "U+24EA-U+24FF",
+          "U+2500-U+25B6",
+          "U+25B7",
+          "U+25B8-U+25C0",
+          "U+25C1",
+          "U+25C2-U+25F7",
+          "U+25F8-U+25FF",
+          "U+2600-U+266E",
+          "U+266F",
+          "U+2670-U+2767",
+          "U+2768",
+          "U+2769",
+          "U+276A",
+          "U+276B",
+          "U+276C",
+          "U+276D",
+          "U+276E",
+          "U+276F",
+          "U+2770",
+          "U+2771",
+          "U+2772",
+          "U+2773",
+          "U+2774",
+          "U+2775",
+          "U+2776-U+2793",
+          "U+2794-U+27BF",
+          "U+27C0-U+27C4",
+          "U+27C5",
+          "U+27C6",
+          "U+27C7-U+27E5",
+          "U+27E6",
+          "U+27E7",
+          "U+27E8",
+          "U+27E9",
+          "U+27EA",
+          "U+27EB",
+          "U+27EC",
+          "U+27ED",
+          "U+27EE",
+          "U+27EF",
+          "U+27F0-U+27FF",
+          "U+2900-U+2982",
+          "U+2983",
+          "U+2984",
+          "U+2985",
+          "U+2986",
+          "U+2987",
+          "U+2988",
+          "U+2989",
+          "U+298A",
+          "U+298B",
+          "U+298C",
+          "U+298D",
+          "U+298E",
+          "U+298F",
+          "U+2990",
+          "U+2991",
+          "U+2992",
+          "U+2993",
+          "U+2994",
+          "U+2995",
+          "U+2996",
+          "U+2997",
+          "U+2998",
+          "U+2999-U+29D7",
+          "U+29D8",
+          "U+29D9",
+          "U+29DA",
+          "U+29DB",
+          "U+29DC-U+29FB",
+          "U+29FC",
+          "U+29FD",
+          "U+29FE-U+2AFF",
+          "U+2B00-U+2B2F",
+          "U+2B30-U+2B44",
+          "U+2B45-U+2B46",
+          "U+2B47-U+2B4C",
+          "U+2B4D-U+2B73",
+          "U+2B76-U+2BFF",
+          "U+2E00-U+2E01",
+          "U+2E02",
+          "U+2E03",
+          "U+2E04",
+          "U+2E05",
+          "U+2E06-U+2E08",
+          "U+2E09",
+          "U+2E0A",
+          "U+2E0B",
+          "U+2E0C",
+          "U+2E0D",
+          "U+2E0E-U+2E16",
+          "U+2E17",
+          "U+2E18-U+2E19",
+          "U+2E1A",
+          "U+2E1B",
+          "U+2E1C",
+          "U+2E1D",
+          "U+2E1E-U+2E1F",
+          "U+2E20",
+          "U+2E21",
+          "U+2E22",
+          "U+2E23",
+          "U+2E24",
+          "U+2E25",
+          "U+2E26",
+          "U+2E27",
+          "U+2E28",
+          "U+2E29",
+          "U+2E2A-U+2E2E",
+          "U+2E2F",
+          "U+2E30-U+2E39",
+          "U+2E3A-U+2E3B",
+          "U+2E3C-U+2E3F",
+          "U+2E40",
+          "U+2E41",
+          "U+2E42",
+          "U+2E43-U+2E4F",
+          "U+2E50-U+2E51",
+          "U+2E52-U+2E54",
+          "U+2E55",
+          "U+2E56",
+          "U+2E57",
+          "U+2E58",
+          "U+2E59",
+          "U+2E5A",
+          "U+2E5B",
+          "U+2E5C",
+          "U+2E5D",
+          "U+2FF0-U+2FFF",
+          "U+3000",
+          "U+3001-U+3003",
+          "U+3004",
+          "U+3006",
+          "U+3008",
+          "U+3009",
+          "U+300A",
+          "U+300B",
+          "U+300C",
+          "U+300D",
+          "U+300E",
+          "U+300F",
+          "U+3010",
+          "U+3011",
+          "U+3012-U+3013",
+          "U+3014",
+          "U+3015",
+          "U+3016",
+          "U+3017",
+          "U+3018",
+          "U+3019",
+          "U+301A",
+          "U+301B",
+          "U+301C",
+          "U+301D",
+          "U+301E-U+301F",
+          "U+3020",
+          "U+3030",
+          "U+3031-U+3035",
+          "U+3036-U+3037",
+          "U+303C",
+          "U+303D",
+          "U+303E-U+303F",
+          "U+309B-U+309C",
+          "U+30A0",
+          "U+30FB",
+          "U+30FC",
+          "U+3190-U+3191",
+          "U+3192-U+3195",
+          "U+3196-U+319F",
+          "U+31C0-U+31E5",
+          "U+31EF",
+          "U+3220-U+3229",
+          "U+322A-U+3247",
+          "U+3248-U+324F",
+          "U+3250",
+          "U+3251-U+325F",
+          "U+327F",
+          "U+3280-U+3289",
+          "U+328A-U+32B0",
+          "U+32B1-U+32BF",
+          "U+32C0-U+32CF",
+          "U+32FF",
+          "U+3358-U+33FF",
+          "U+4DC0-U+4DFF",
+          "U+A700-U+A716",
+          "U+A717-U+A71F",
+          "U+A720-U+A721",
+          "U+A788",
+          "U+A789-U+A78A",
+          "U+A830-U+A835",
+          "U+A836-U+A837",
+          "U+A838",
+          "U+A839",
+          "U+A92E",
+          "U+A9CF",
+          "U+AB5B",
+          "U+AB6A-U+AB6B",
+          "U+FD3E",
+          "U+FD3F",
+          "U+FE10-U+FE16",
+          "U+FE17",
+          "U+FE18",
+          "U+FE19",
+          "U+FE30",
+          "U+FE31-U+FE32",
+          "U+FE33-U+FE34",
+          "U+FE35",
+          "U+FE36",
+          "U+FE37",
+          "U+FE38",
+          "U+FE39",
+          "U+FE3A",
+          "U+FE3B",
+          "U+FE3C",
+          "U+FE3D",
+          "U+FE3E",
+          "U+FE3F",
+          "U+FE40",
+          "U+FE41",
+          "U+FE42",
+          "U+FE43",
+          "U+FE44",
+          "U+FE45-U+FE46",
+          "U+FE47",
+          "U+FE48",
+          "U+FE49-U+FE4C",
+          "U+FE4D-U+FE4F",
+          "U+FE50-U+FE52",
+          "U+FE54-U+FE57",
+          "U+FE58",
+          "U+FE59",
+          "U+FE5A",
+          "U+FE5B",
+          "U+FE5C",
+          "U+FE5D",
+          "U+FE5E",
+          "U+FE5F-U+FE61",
+          "U+FE62",
+          "U+FE63",
+          "U+FE64-U+FE66",
+          "U+FE68",
+          "U+FE69",
+          "U+FE6A-U+FE6B",
+          "U+FEFF",
+          "U+FF01-U+FF03",
+          "U+FF04",
+          "U+FF05-U+FF07",
+          "U+FF08",
+          "U+FF09",
+          "U+FF0A",
+          "U+FF0B",
+          "U+FF0C",
+          "U+FF0D",
+          "U+FF0E-U+FF0F",
+          "U+FF10-U+FF19",
+          "U+FF1A-U+FF1B",
+          "U+FF1C-U+FF1E",
+          "U+FF1F-U+FF20",
+          "U+FF3B",
+          "U+FF3C",
+          "U+FF3D",
+          "U+FF3E",
+          "U+FF3F",
+          "U+FF40",
+          "U+FF5B",
+          "U+FF5C",
+          "U+FF5D",
+          "U+FF5E",
+          "U+FF5F",
+          "U+FF60",
+          "U+FF61",
+          "U+FF62",
+          "U+FF63",
+          "U+FF64-U+FF65",
+          "U+FF70",
+          "U+FF9E-U+FF9F",
+          "U+FFE0-U+FFE1",
+          "U+FFE2",
+          "U+FFE3",
+          "U+FFE4",
+          "U+FFE5-U+FFE6",
+          "U+FFE8",
+          "U+FFE9-U+FFEC",
+          "U+FFED-U+FFEE",
+          "U+FFF9-U+FFFB",
+          "U+FFFC-U+FFFD",
+          "U+10100-U+10102",
+          "U+10107-U+10133",
+          "U+10137-U+1013F",
+          "U+10190-U+1019C",
+          "U+101D0-U+101FC",
+          "U+102E1-U+102FB",
+          "U+1BCA0-U+1BCA3",
+          "U+1CC00-U+1CCEF",
+          "U+1CCF0-U+1CCF9",
+          "U+1CCFA-U+1CCFC",
+          "U+1CD00-U+1CEB3",
+          "U+1CEBA-U+1CED0",
+          "U+1CEE0-U+1CEEF",
+          "U+1CEF0",
+          "U+1CF50-U+1CFC3",
+          "U+1D000-U+1D0F5",
+          "U+1D100-U+1D126",
+          "U+1D129-U+1D164",
+          "U+1D165-U+1D166",
+          "U+1D16A-U+1D16C",
+          "U+1D16D-U+1D172",
+          "U+1D173-U+1D17A",
+          "U+1D183-U+1D184",
+          "U+1D18C-U+1D1A9",
+          "U+1D1AE-U+1D1EA",
+          "U+1D2C0-U+1D2D3",
+          "U+1D2E0-U+1D2F3",
+          "U+1D300-U+1D356",
+          "U+1D360-U+1D378",
+          "U+1D400-U+1D454",
+          "U+1D456-U+1D49C",
+          "U+1D49E-U+1D49F",
+          "U+1D4A2",
+          "U+1D4A5-U+1D4A6",
+          "U+1D4A9-U+1D4AC",
+          "U+1D4AE-U+1D4B9",
+          "U+1D4BB",
+          "U+1D4BD-U+1D4C3",
+          "U+1D4C5-U+1D505",
+          "U+1D507-U+1D50A",
+          "U+1D50D-U+1D514",
+          "U+1D516-U+1D51C",
+          "U+1D51E-U+1D539",
+          "U+1D53B-U+1D53E",
+          "U+1D540-U+1D544",
+          "U+1D546",
+          "U+1D54A-U+1D550",
+          "U+1D552-U+1D6A5",
+          "U+1D6A8-U+1D6C0",
+          "U+1D6C1",
+          "U+1D6C2-U+1D6DA",
+          "U+1D6DB",
+          "U+1D6DC-U+1D6FA",
+          "U+1D6FB",
+          "U+1D6FC-U+1D714",
+          "U+1D715",
+          "U+1D716-U+1D734",
+          "U+1D735",
+          "U+1D736-U+1D74E",
+          "U+1D74F",
+          "U+1D750-U+1D76E",
+          "U+1D76F",
+          "U+1D770-U+1D788",
+          "U+1D789",
+          "U+1D78A-U+1D7A8",
+          "U+1D7A9",
+          "U+1D7AA-U+1D7C2",
+          "U+1D7C3",
+          "U+1D7C4-U+1D7CB",
+          "U+1D7CE-U+1D7FF",
+          "U+1EC71-U+1ECAB",
+          "U+1ECAC",
+          "U+1ECAD-U+1ECAF",
+          "U+1ECB0",
+          "U+1ECB1-U+1ECB4",
+          "U+1ED01-U+1ED2D",
+          "U+1ED2E",
+          "U+1ED2F-U+1ED3D",
+          "U+1F000-U+1F02B",
+          "U+1F030-U+1F093",
+          "U+1F0A0-U+1F0AE",
+          "U+1F0B1-U+1F0BF",
+          "U+1F0C1-U+1F0CF",
+          "U+1F0D1-U+1F0F5",
+          "U+1F100-U+1F10C",
+          "U+1F10D-U+1F1AD",
+          "U+1F1E6-U+1F1FF",
+          "U+1F201-U+1F202",
+          "U+1F210-U+1F23B",
+          "U+1F240-U+1F248",
+          "U+1F250-U+1F251",
+          "U+1F260-U+1F265",
+          "U+1F300-U+1F3FA",
+          "U+1F3FB-U+1F3FF",
+          "U+1F400-U+1F6D8",
+          "U+1F6DC-U+1F6EC",
+          "U+1F6F0-U+1F6FC",
+          "U+1F700-U+1F7D9",
+          "U+1F7E0-U+1F7EB",
+          "U+1F7F0",
+          "U+1F800-U+1F80B",
+          "U+1F810-U+1F847",
+          "U+1F850-U+1F859",
+          "U+1F860-U+1F887",
+          "U+1F890-U+1F8AD",
+          "U+1F8B0-U+1F8BB",
+          "U+1F8C0-U+1F8C1",
+          "U+1F8D0-U+1F8D8",
+          "U+1F900-U+1FA57",
+          "U+1FA60-U+1FA6D",
+          "U+1FA70-U+1FA7C",
+          "U+1FA80-U+1FA8A",
+          "U+1FA8E-U+1FAC6",
+          "U+1FAC8",
+          "U+1FACD-U+1FADC",
+          "U+1FADF-U+1FAEA",
+          "U+1FAEF-U+1FAF8",
+          "U+1FB00-U+1FB92",
+          "U+1FB94-U+1FBEF",
+          "U+1FBF0-U+1FBF9",
+          "U+1FBFA",
+          "U+E0001",
+          "U+E0020-U+E007F"
+        ],
+        "unicode_version_added": "1.1",
+        "script_property_kind": "common"
+      },
+      {
+        "id": "unicode-unknown",
+        "unicode_script_value": "Unknown",
+        "unicode_script_alias": "Zzzz",
+        "iso15924": "Zzzz",
+        "unicode_blocks": [],
+        "unicode_ranges": [],
+        "unicode_version_added": "UNKNOWN",
+        "script_property_kind": "unknown"
+      }
+    ],
+    "scriptExtensionsRows": [
+      {
+        "alias": "Avst",
+        "rangeCount": 3
+      },
+      {
+        "alias": "Beng",
+        "rangeCount": 18
+      },
+      {
+        "alias": "Bopo",
+        "rangeCount": 37
+      },
+      {
+        "alias": "Latn",
+        "rangeCount": 11
+      },
+      {
+        "alias": "Cher",
+        "rangeCount": 8
+      },
+      {
+        "alias": "Glag",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Aghb",
+        "rangeCount": 3
+      },
+      {
+        "alias": "Copt",
+        "rangeCount": 5
+      },
+      {
+        "alias": "Cyrl",
+        "rangeCount": 9
+      },
+      {
+        "alias": "Armn",
+        "rangeCount": 2
+      },
+      {
+        "alias": "Dupl",
+        "rangeCount": 3
+      },
+      {
+        "alias": "Ethi",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Grek",
+        "rangeCount": 4
+      },
+      {
+        "alias": "Arab",
+        "rangeCount": 13
+      },
+      {
+        "alias": "Adlm",
+        "rangeCount": 4
+      },
+      {
+        "alias": "Deva",
+        "rangeCount": 27
+      },
+      {
+        "alias": "Guru",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Gujr",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Gran",
+        "rangeCount": 8
+      },
+      {
+        "alias": "Knda",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Cakm",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Geor",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Runr",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Buhd",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Mong",
+        "rangeCount": 2
+      },
+      {
+        "alias": "Nand",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Syrc",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Cari",
+        "rangeCount": 2
+      },
+      {
+        "alias": "Hani",
+        "rangeCount": 22
+      },
+      {
+        "alias": "Hira",
+        "rangeCount": 7
+      },
+      {
+        "alias": "Kali",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Bugi",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Cpmn",
+        "rangeCount": 1
+      },
+      {
+        "alias": "Cprt",
+        "rangeCount": 3
+      },
+      {
+        "alias": "Mani",
+        "rangeCount": 1
+      }
+    ]
+  },
+  "scriptFamilyTrees": [
+    {
+      "id": "brahmi-family-core",
+      "root": "Brahmi",
+      "evidence_status": "draft",
+      "children": [
+        "Gupta",
+        "Sharada",
+        "Takri",
+        "Devanagari",
+        "Bengali",
+        "Gujarati",
+        "Gurmukhi",
+        "Odia",
+        "Telugu",
+        "Kannada",
+        "Malayalam",
+        "Tamil"
+      ],
+      "graph": [
+        [
+          "Brahmi",
+          "Gupta"
+        ],
+        [
+          "Brahmi",
+          "Sharada"
+        ],
+        [
+          "Brahmi",
+          "Takri"
+        ],
+        [
+          "Brahmi",
+          "Devanagari"
+        ],
+        [
+          "Brahmi",
+          "Bengali"
+        ],
+        [
+          "Brahmi",
+          "Gujarati"
+        ],
+        [
+          "Brahmi",
+          "Gurmukhi"
+        ],
+        [
+          "Brahmi",
+          "Odia"
+        ],
+        [
+          "Brahmi",
+          "Telugu"
+        ],
+        [
+          "Brahmi",
+          "Kannada"
+        ],
+        [
+          "Brahmi",
+          "Malayalam"
+        ],
+        [
+          "Brahmi",
+          "Tamil"
+        ]
+      ],
+      "note": "Required family graph from user prompt; remains draft until edge-level scholarly sources are attached."
+    }
+  ],
+  "numeralEvolutionGraph": {
+    "id": "brahmi-to-modern-indic-numerals",
+    "nodes": [
+      "Brahmi Numerals",
+      "Gupta",
+      "Nagari",
+      "Modern Indic Numerals"
+    ],
+    "edges": [
+      [
+        "Brahmi Numerals",
+        "Gupta"
+      ],
+      [
+        "Gupta",
+        "Nagari"
+      ],
+      [
+        "Nagari",
+        "Modern Indic Numerals"
+      ]
+    ],
+    "evidence_status": "draft"
+  },
+  "transliterationRegistry": [
+    {
+      "id": "iast",
+      "name": "IAST",
+      "scope": "Indic/Sanskrit",
+      "status": "supported_candidate",
+      "evidence_required": true
+    },
+    {
+      "id": "iso-15919",
+      "name": "ISO 15919",
+      "scope": "Indic transliteration",
+      "status": "supported_candidate",
+      "evidence_required": true
+    },
+    {
+      "id": "harvard-kyoto",
+      "name": "Harvard-Kyoto",
+      "scope": "Sanskrit ASCII",
+      "status": "supported_candidate",
+      "evidence_required": true
+    },
+    {
+      "id": "itrans",
+      "name": "ITRANS",
+      "scope": "Indic ASCII",
+      "status": "supported_candidate",
+      "evidence_required": true
+    },
+    {
+      "id": "velthuis",
+      "name": "Velthuis",
+      "scope": "Devanagari/Sanskrit ASCII",
+      "status": "supported_candidate",
+      "evidence_required": true
+    },
+    {
+      "id": "wx",
+      "name": "WX",
+      "scope": "Indian languages",
+      "status": "supported_candidate",
+      "evidence_required": true
+    },
+    {
+      "id": "slp1",
+      "name": "SLP1",
+      "scope": "Sanskrit computational",
+      "status": "supported_candidate",
+      "evidence_required": true
+    }
+  ],
+  "numeralRegistry": [
+    {
+      "id": "brahmi-numerals",
+      "name": "Brahmi Numerals",
+      "type": "additive",
+      "evidence_status": "draft"
+    },
+    {
+      "id": "gupta-numerals",
+      "name": "Gupta Numerals",
+      "type": "positional",
+      "evidence_status": "draft"
+    },
+    {
+      "id": "nagari-numerals",
+      "name": "Nagari Numerals",
+      "type": "decimal",
+      "evidence_status": "draft"
+    },
+    {
+      "id": "modern-indic-numerals",
+      "name": "Modern Indic Numerals",
+      "type": "decimal",
+      "evidence_status": "draft"
+    }
+  ],
+  "glyphRegistry": {
+    "model": "Glyph records are separated from script records; glyphs require code point/provenance/font-render proof before runtime use.",
+    "tables": [
+      "script_glyph",
+      "glyph_variant",
+      "glyph_attestation",
+      "glyph_render_test"
+    ],
+    "requiredFields": [
+      "glyph_id",
+      "script_id",
+      "glyph",
+      "code_point_or_unencoded_id",
+      "category",
+      "evidence_status",
+      "source_refs"
+    ]
+  },
+  "fontRegistry": [
+    {
+      "id": "noto",
+      "name": "Noto",
+      "support_status": "noto",
+      "scope": "multi-script",
+      "evidence_required": true
+    },
+    {
+      "id": "lohit",
+      "name": "Lohit",
+      "support_status": "partial",
+      "scope": "Indic",
+      "evidence_required": true
+    },
+    {
+      "id": "sanskrit2003",
+      "name": "Sanskrit2003",
+      "support_status": "partial",
+      "scope": "Sanskrit/Devanagari",
+      "evidence_required": true
+    },
+    {
+      "id": "chandas",
+      "name": "Chandas",
+      "support_status": "partial",
+      "scope": "Vedic/Sanskrit",
+      "evidence_required": true
+    },
+    {
+      "id": "mukta",
+      "name": "Mukta",
+      "support_status": "partial",
+      "scope": "Indic UI",
+      "evidence_required": true
+    },
+    {
+      "id": "adishila",
+      "name": "Adishila",
+      "support_status": "rare",
+      "scope": "Indic epigraphy candidate",
+      "evidence_required": true
+    }
+  ],
+  "renderingRegistry": [
+    {
+      "id": "opentype",
+      "name": "OpenType",
+      "role": "font shaping tables",
+      "runtime_gate": "requires font proof"
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "role": "smart font behavior",
+      "runtime_gate": "optional source-backed engine"
+    },
+    {
+      "id": "harfbuzz",
+      "name": "HarfBuzz",
+      "role": "complex text shaping",
+      "runtime_gate": "preferred shaping engine"
+    },
+    {
+      "id": "icu",
+      "name": "ICU",
+      "role": "segmentation, collation, transforms",
+      "runtime_gate": "preferred Unicode service layer"
+    },
+    {
+      "id": "unicode-normalization",
+      "name": "Unicode Normalization",
+      "role": "NFC/NFD/NFKC/NFKD policy",
+      "runtime_gate": "requires script notes"
+    }
+  ],
+  "evidenceRegistry": {
+    "evidenceTypes": [
+      "unicode_data_file",
+      "iso_registry",
+      "inscription",
+      "manuscript",
+      "font_test",
+      "native_review",
+      "scholarly_reference",
+      "runtime_test",
+      "corpus_text"
+    ],
+    "states": [
+      "verified",
+      "scholarly",
+      "disputed",
+      "draft",
+      "unknown"
+    ],
+    "rule": "A record can be search-visible in draft, but runtime-enabled only after verified evidence and required render/transliteration checks pass."
+  },
+  "provenanceRegistry": {
+    "eventTypes": [
+      "source_ingested",
+      "field_asserted",
+      "field_changed",
+      "review_requested",
+      "review_accepted",
+      "review_rejected",
+      "runtime_enabled",
+      "runtime_disabled"
+    ],
+    "immutableFields": [
+      "event_id",
+      "record_id",
+      "field_name",
+      "previous_hash",
+      "event_hash",
+      "source_refs",
+      "actor",
+      "created_at"
+    ],
+    "hashPolicy": "sha256(canonical event body + previous_hash)"
+  },
+  "migrationPlan": [
+    "Create read-only architecture artifacts and PHKD validation tests.",
+    "Ingest official Unicode UCD files into data/unicode/ucd-latest with sha256 provenance.",
+    "Create script_registry and companion tables in SQLite/PostgreSQL.",
+    "Backfill all Unicode Script property rows from PropertyValueAliases/Scripts/Blocks/DerivedAge.",
+    "Load non-Unicode research rows as draft/unknown/unencoded records.",
+    "Reserve remaining capacity as hkd_private evidence slots with no runtime claims.",
+    "Attach field-level provenance and source_refs for every row.",
+    "Keep hkd_runtime_enabled=false until evidence, rendering, font, transliteration, and review gates pass.",
+    "Expose API/search/KBS surfaces behind includeResearch and evidence-status filters.",
+    "Only then migrate selected verified records into active Lipi runtime surfaces."
+  ],
+  "validationRules": [
+    "registry_index must be unique and between 1 and 426.",
+    "id must be unique and stable.",
+    "source_refs must contain at least one source id.",
+    "provenance must be present for every row.",
+    "unicode_status=encoded or partially_encoded requires either unicode_ranges or a non-Unicode symbol/notation block source.",
+    "unicode_status=unencoded requires empty unicode_script_alias or UNKNOWN unless a Unicode property row has no assigned range.",
+    "iso15924 must be UNKNOWN unless copied from an authoritative source field.",
+    "evidence_status=verified requires primary source_refs.",
+    "hkd_runtime_enabled=true requires evidence_status=verified and no UNKNOWN in required rendering/transliteration gates.",
+    "undeciphered systems must not expose transliteration/OCR/translation runtime claims."
+  ],
+  "seedDatasetStructure": {
+    "targetCount": 426,
+    "path": "data/hkd-lipi-script-registry-seed-426.json",
+    "stats": {
+      "total": 426,
+      "byClass": {
+        "unicode": 176,
+        "undeciphered": 5,
+        "symbol": 7,
+        "shorthand": 4,
+        "notation": 7,
+        "hkd_private": 227
+      },
+      "byUnicodeStatus": {
+        "encoded": 175,
+        "unencoded": 238,
+        "partially_encoded": 9,
+        "private": 4
+      },
+      "byEvidenceStatus": {
+        "verified": 183,
+        "disputed": 3,
+        "scholarly": 3,
+        "draft": 13,
+        "unknown": 224
+      },
+      "unicodeScriptProperties": 176,
+      "nonUnicodeResearch": 27,
+      "reserved": 223,
+      "runtimeEnabled": 0
+    }
+  }
+}

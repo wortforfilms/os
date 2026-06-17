@@ -25,7 +25,7 @@ export function SearchPage({ navigate }: { navigate: (route: string) => void }) 
           ))}
         </select>
         <select value={status} onChange={(event) => setStatus(event.target.value)}>
-          {["all", "PREVIEW_VERIFIED", "STAGED", "BLOCKED", "CONTROLLED_GO"].map((state) => (
+          {["all", "PREVIEW_VERIFIED", "STAGED", "BLOCKED", "CONTROLLED_GO", "CONTROLLED_NO_GO"].map((state) => (
             <option key={state} value={state}>
               {state}
             </option>
@@ -56,7 +56,7 @@ export function SearchPage({ navigate }: { navigate: (route: string) => void }) 
                 ))}
               </div>
               <button disabled={!navigable} onClick={() => navigate(result.path)}>
-                {navigable ? "Open Route" : routeBlocked ? "ROUTE BLOCKED" : result.status === "BLOCKED" ? "BLOCKED" : "Select Only"}
+                {navigable ? (result.type === "lipi" ? "Open Script" : "Open Route") : routeBlocked ? "ROUTE BLOCKED" : result.status === "BLOCKED" ? "BLOCKED" : "Select Only"}
               </button>
             </article>
           );

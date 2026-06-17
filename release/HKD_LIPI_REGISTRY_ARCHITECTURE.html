@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HKD Lipi Registry Architecture</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f7f4ed; color: #1d2426; }
+    body { margin: 0; }
+    header { padding: 32px 40px 22px; background: #17312e; color: #f7f4ed; }
+    h1 { margin: 0 0 10px; font-size: 34px; letter-spacing: 0; }
+    header p { max-width: 980px; margin: 0; color: #d7e2dd; line-height: 1.5; }
+    main { padding: 28px 40px 44px; }
+    .banner { padding: 14px 16px; border-left: 5px solid #b54708; background: #fff7ed; margin-bottom: 22px; font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 22px; }
+    .card { background: #ffffff; border: 1px solid #d8d2c6; border-radius: 8px; padding: 14px; }
+    .card strong { display: block; font-size: 28px; }
+    .card span { color: #52605f; text-transform: uppercase; font-size: 12px; letter-spacing: .04em; }
+    section { margin: 26px 0; }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    table { width: 100%; border-collapse: collapse; background: #ffffff; border: 1px solid #d8d2c6; }
+    th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid #ebe6dc; font-size: 14px; }
+    th { background: #e9efe9; font-size: 12px; text-transform: uppercase; color: #334341; }
+    code { background: #eee8dc; padding: 2px 5px; border-radius: 4px; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    ul { margin-top: 8px; padding-left: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HKD Lipi Registry Architecture</h1>
+    <p>Complete evidence-first registry contract for 426 script-system records, generated from Unicode 17.0.0 UCD files and the MAATAA Lipi evidence pipeline.</p>
+  </header>
+  <main>
+    <div class="banner">CONTROLLED_NO_GO - architecture and seed structure only. No certification, revival, or production runtime claim.</div>
+    <div class="grid">
+      <div class="card"><strong>426</strong><span>registry rows</span></div>
+      <div class="card"><strong>176</strong><span>Unicode script properties</span></div>
+      <div class="card"><strong>223</strong><span>reserved evidence slots</span></div>
+      <div class="card"><strong>0</strong><span>runtime enabled</span></div>
+      <div class="card"><strong>176</strong><span>unicode</span></div><div class="card"><strong>5</strong><span>undeciphered</span></div><div class="card"><strong>7</strong><span>symbol</span></div><div class="card"><strong>4</strong><span>shorthand</span></div><div class="card"><strong>7</strong><span>notation</span></div><div class="card"><strong>227</strong><span>hkd_private</span></div>
+    </div>
+    <section class="cols">
+      <div>
+        <h2>Generated Artifacts</h2>
+        <ul>
+          <li><code>data/hkd-lipi-registry-architecture.json</code></li>
+          <li><code>data/hkd-lipi-script-registry-seed-426.json</code></li>
+          <li><code>packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts</code></li>
+          <li><code>packages/lipi-runtime/prisma/hkd-lipi-registry.prisma</code></li>
+          <li><code>migrations/sqlite/010_hkd_lipi_registry.sql</code></li>
+          <li><code>migrations/postgresql/010_hkd_lipi_registry.sql</code></li>
+          <li><code>schemas/hkd-lipi-script-registry.schema.json</code></li>
+        </ul>
+      </div>
+      <div>
+        <h2>PHKD Rules</h2>
+        <ul><li>Never invent Unicode assignments.</li><li>Never invent ISO 15924 codes.</li><li>Mark uncertain information as UNKNOWN.</li><li>Mark unencoded systems as UNENCODED.</li><li>Mark disputed systems as DISPUTED.</li><li>Separate verified facts from research hypotheses.</li><li>Every record must contain provenance.</li><li>Fail closed rather than hallucinate.</li></ul>
+      </div>
+    </section>
+    <section>
+      <h2>First 80 Seed Rows</h2>
+      <table>
+        <thead><tr><th>#</th><th>Name</th><th>Class</th><th>Unicode alias</th><th>Unicode status</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td>1</td><td>Adlam</td><td>unicode</td><td>Adlm</td><td>encoded</td><td>verified</td></tr><tr><td>2</td><td>Caucasian Albanian</td><td>unicode</td><td>Aghb</td><td>encoded</td><td>verified</td></tr><tr><td>3</td><td>Ahom</td><td>unicode</td><td>Ahom</td><td>encoded</td><td>verified</td></tr><tr><td>4</td><td>Arabic</td><td>unicode</td><td>Arab</td><td>encoded</td><td>verified</td></tr><tr><td>5</td><td>Imperial Aramaic</td><td>unicode</td><td>Armi</td><td>encoded</td><td>verified</td></tr><tr><td>6</td><td>Armenian</td><td>unicode</td><td>Armn</td><td>encoded</td><td>verified</td></tr><tr><td>7</td><td>Avestan</td><td>unicode</td><td>Avst</td><td>encoded</td><td>verified</td></tr><tr><td>8</td><td>Balinese</td><td>unicode</td><td>Bali</td><td>encoded</td><td>verified</td></tr><tr><td>9</td><td>Bamum</td><td>unicode</td><td>Bamu</td><td>encoded</td><td>verified</td></tr><tr><td>10</td><td>Bassa Vah</td><td>unicode</td><td>Bass</td><td>encoded</td><td>verified</td></tr><tr><td>11</td><td>Batak</td><td>unicode</td><td>Batk</td><td>encoded</td><td>verified</td></tr><tr><td>12</td><td>Bengali</td><td>unicode</td><td>Beng</td><td>encoded</td><td>verified</td></tr><tr><td>13</td><td>Beria Erfe</td><td>unicode</td><td>Berf</td><td>encoded</td><td>verified</td></tr><tr><td>14</td><td>Bhaiksuki</td><td>unicode</td><td>Bhks</td><td>encoded</td><td>verified</td></tr><tr><td>15</td><td>Bopomofo</td><td>unicode</td><td>Bopo</td><td>encoded</td><td>verified</td></tr><tr><td>16</td><td>Brahmi</td><td>unicode</td><td>Brah</td><td>encoded</td><td>verified</td></tr><tr><td>17</td><td>Braille</td><td>unicode</td><td>Brai</td><td>encoded</td><td>verified</td></tr><tr><td>18</td><td>Buginese</td><td>unicode</td><td>Bugi</td><td>encoded</td><td>verified</td></tr><tr><td>19</td><td>Buhid</td><td>unicode</td><td>Buhd</td><td>encoded</td><td>verified</td></tr><tr><td>20</td><td>Chakma</td><td>unicode</td><td>Cakm</td><td>encoded</td><td>verified</td></tr><tr><td>21</td><td>Canadian Aboriginal</td><td>unicode</td><td>Cans</td><td>encoded</td><td>verified</td></tr><tr><td>22</td><td>Carian</td><td>unicode</td><td>Cari</td><td>encoded</td><td>verified</td></tr><tr><td>23</td><td>Cham</td><td>unicode</td><td>Cham</td><td>encoded</td><td>verified</td></tr><tr><td>24</td><td>Cherokee</td><td>unicode</td><td>Cher</td><td>encoded</td><td>verified</td></tr><tr><td>25</td><td>Chorasmian</td><td>unicode</td><td>Chrs</td><td>encoded</td><td>verified</td></tr><tr><td>26</td><td>Coptic</td><td>unicode</td><td>Copt</td><td>encoded</td><td>verified</td></tr><tr><td>27</td><td>Cypro Minoan</td><td>unicode</td><td>Cpmn</td><td>encoded</td><td>verified</td></tr><tr><td>28</td><td>Cypriot</td><td>unicode</td><td>Cprt</td><td>encoded</td><td>verified</td></tr><tr><td>29</td><td>Cyrillic</td><td>unicode</td><td>Cyrl</td><td>encoded</td><td>verified</td></tr><tr><td>30</td><td>Devanagari</td><td>unicode</td><td>Deva</td><td>encoded</td><td>verified</td></tr><tr><td>31</td><td>Dives Akuru</td><td>unicode</td><td>Diak</td><td>encoded</td><td>verified</td></tr><tr><td>32</td><td>Dogra</td><td>unicode</td><td>Dogr</td><td>encoded</td><td>verified</td></tr><tr><td>33</td><td>Deseret</td><td>unicode</td><td>Dsrt</td><td>encoded</td><td>verified</td></tr><tr><td>34</td><td>Duployan</td><td>unicode</td><td>Dupl</td><td>encoded</td><td>verified</td></tr><tr><td>35</td><td>Egyptian Hieroglyphs</td><td>unicode</td><td>Egyp</td><td>encoded</td><td>verified</td></tr><tr><td>36</td><td>Elbasan</td><td>unicode</td><td>Elba</td><td>encoded</td><td>verified</td></tr><tr><td>37</td><td>Elymaic</td><td>unicode</td><td>Elym</td><td>encoded</td><td>verified</td></tr><tr><td>38</td><td>Ethiopic</td><td>unicode</td><td>Ethi</td><td>encoded</td><td>verified</td></tr><tr><td>39</td><td>Garay</td><td>unicode</td><td>Gara</td><td>encoded</td><td>verified</td></tr><tr><td>40</td><td>Georgian</td><td>unicode</td><td>Geor</td><td>encoded</td><td>verified</td></tr><tr><td>41</td><td>Glagolitic</td><td>unicode</td><td>Glag</td><td>encoded</td><td>verified</td></tr><tr><td>42</td><td>Gunjala Gondi</td><td>unicode</td><td>Gong</td><td>encoded</td><td>verified</td></tr><tr><td>43</td><td>Masaram Gondi</td><td>unicode</td><td>Gonm</td><td>encoded</td><td>verified</td></tr><tr><td>44</td><td>Gothic</td><td>unicode</td><td>Goth</td><td>encoded</td><td>verified</td></tr><tr><td>45</td><td>Grantha</td><td>unicode</td><td>Gran</td><td>encoded</td><td>verified</td></tr><tr><td>46</td><td>Greek</td><td>unicode</td><td>Grek</td><td>encoded</td><td>verified</td></tr><tr><td>47</td><td>Gujarati</td><td>unicode</td><td>Gujr</td><td>encoded</td><td>verified</td></tr><tr><td>48</td><td>Gurung Khema</td><td>unicode</td><td>Gukh</td><td>encoded</td><td>verified</td></tr><tr><td>49</td><td>Gurmukhi</td><td>unicode</td><td>Guru</td><td>encoded</td><td>verified</td></tr><tr><td>50</td><td>Hangul</td><td>unicode</td><td>Hang</td><td>encoded</td><td>verified</td></tr><tr><td>51</td><td>Han</td><td>unicode</td><td>Hani</td><td>encoded</td><td>verified</td></tr><tr><td>52</td><td>Hanunoo</td><td>unicode</td><td>Hano</td><td>encoded</td><td>verified</td></tr><tr><td>53</td><td>Hatran</td><td>unicode</td><td>Hatr</td><td>encoded</td><td>verified</td></tr><tr><td>54</td><td>Hebrew</td><td>unicode</td><td>Hebr</td><td>encoded</td><td>verified</td></tr><tr><td>55</td><td>Hiragana</td><td>unicode</td><td>Hira</td><td>encoded</td><td>verified</td></tr><tr><td>56</td><td>Anatolian Hieroglyphs</td><td>unicode</td><td>Hluw</td><td>encoded</td><td>verified</td></tr><tr><td>57</td><td>Pahawh Hmong</td><td>unicode</td><td>Hmng</td><td>encoded</td><td>verified</td></tr><tr><td>58</td><td>Nyiakeng Puachue Hmong</td><td>unicode</td><td>Hmnp</td><td>encoded</td><td>verified</td></tr><tr><td>59</td><td>Katakana Or Hiragana</td><td>unicode</td><td>Hrkt</td><td>unencoded</td><td>verified</td></tr><tr><td>60</td><td>Old Hungarian</td><td>unicode</td><td>Hung</td><td>encoded</td><td>verified</td></tr><tr><td>61</td><td>Old Italic</td><td>unicode</td><td>Ital</td><td>encoded</td><td>verified</td></tr><tr><td>62</td><td>Javanese</td><td>unicode</td><td>Java</td><td>encoded</td><td>verified</td></tr><tr><td>63</td><td>Kayah Li</td><td>unicode</td><td>Kali</td><td>encoded</td><td>verified</td></tr><tr><td>64</td><td>Katakana</td><td>unicode</td><td>Kana</td><td>encoded</td><td>verified</td></tr><tr><td>65</td><td>Kawi</td><td>unicode</td><td>Kawi</td><td>encoded</td><td>verified</td></tr><tr><td>66</td><td>Kharoshthi</td><td>unicode</td><td>Khar</td><td>encoded</td><td>verified</td></tr><tr><td>67</td><td>Khmer</td><td>unicode</td><td>Khmr</td><td>encoded</td><td>verified</td></tr><tr><td>68</td><td>Khojki</td><td>unicode</td><td>Khoj</td><td>encoded</td><td>verified</td></tr><tr><td>69</td><td>Khitan Small Script</td><td>unicode</td><td>Kits</td><td>encoded</td><td>verified</td></tr><tr><td>70</td><td>Kannada</td><td>unicode</td><td>Knda</td><td>encoded</td><td>verified</td></tr><tr><td>71</td><td>Kirat Rai</td><td>unicode</td><td>Krai</td><td>encoded</td><td>verified</td></tr><tr><td>72</td><td>Kaithi</td><td>unicode</td><td>Kthi</td><td>encoded</td><td>verified</td></tr><tr><td>73</td><td>Tai Tham</td><td>unicode</td><td>Lana</td><td>encoded</td><td>verified</td></tr><tr><td>74</td><td>Lao</td><td>unicode</td><td>Laoo</td><td>encoded</td><td>verified</td></tr><tr><td>75</td><td>Latin</td><td>unicode</td><td>Latn</td><td>encoded</td><td>verified</td></tr><tr><td>76</td><td>Lepcha</td><td>unicode</td><td>Lepc</td><td>encoded</td><td>verified</td></tr><tr><td>77</td><td>Limbu</td><td>unicode</td><td>Limb</td><td>encoded</td><td>verified</td></tr><tr><td>78</td><td>Linear A</td><td>unicode</td><td>Lina</td><td>encoded</td><td>verified</td></tr><tr><td>79</td><td>Linear B</td><td>unicode</td><td>Linb</td><td>encoded</td><td>verified</td></tr><tr><td>80</td><td>Lisu</td><td>unicode</td><td>Lisu</td><td>encoded</td><td>verified</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
