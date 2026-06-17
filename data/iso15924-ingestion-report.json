@@ -1,0 +1,77 @@
+{
+  "schema": "iso15924-ingestion-report.v1",
+  "generatedAt": "DETERMINISTIC_FROM_OFFICIAL_ISO15924_SNAPSHOT",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+  "officialSource": {
+    "id": "iso15924-official-plain-text",
+    "url": "https://www.unicode.org/iso15924/iso15924.txt",
+    "codeListPage": "https://www.unicode.org/iso15924/codelists.html",
+    "localPath": "data/iso15924/iso15924.txt",
+    "sha256": "98a9be293c706f7e6302e9a54ed959c36f15f53e4ca618356d80c10be2928426",
+    "format": "Code;Nº;English Name;Nom français;PVA;Unicode Version;Date",
+    "note": "The ISO 15924 codelists page marks Table 5 as the normative UTF-8 plain-text data file."
+  },
+  "trustedInputs": [
+    {
+      "id": "unicodeCrosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "iso15924OfficialText",
+      "path": "data/iso15924/iso15924.txt",
+      "sha256": "98a9be293c706f7e6302e9a54ed959c36f15f53e4ca618356d80c10be2928426"
+    }
+  ],
+  "provenance": {
+    "scope": "iso15924-ingestion-report.v1",
+    "sourceIds": [
+      "iso15924-official-plain-text"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase9-iso15924-ingestion.mjs",
+    "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+    "officialSourceUrl": "https://www.unicode.org/iso15924/iso15924.txt",
+    "trustedInputs": [
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/iso15924/iso15924.txt"
+    ],
+    "reviewed": false,
+    "phkd": "ISO15924_PREVIEW_ONLY_NO_RECORD_MUTATION"
+  },
+  "ingestion": {
+    "mode": "ISO15924_REAL_SOURCE_DRY_RUN_ONLY",
+    "adapter": "iso-15924",
+    "officialRowsRead": 226,
+    "unicodeScriptRowsCompared": 176,
+    "rowsWritten": 0,
+    "enrichedRows": 0,
+    "runtimeEnablements": 0,
+    "proposedFieldChanges": 0,
+    "blockers": 4,
+    "conflicts": 0,
+    "promotionStatus": "BLOCKED",
+    "conflictsBlockPromotion": true,
+    "seedHashBefore": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f",
+    "seedHashAfter": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+  },
+  "summary": {
+    "verifiedRows": 172,
+    "blockedRows": 4,
+    "conflictRows": 0,
+    "codeMatches": 176,
+    "pvaMatches": 172,
+    "missingOfficialCodes": 0,
+    "ambiguousOrMissingPvaRows": 4
+  }
+}

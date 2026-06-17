@@ -1,0 +1,196 @@
+{
+  "schema": "iso15924-blockers.v1",
+  "generatedAt": "DETERMINISTIC_FROM_OFFICIAL_ISO15924_SNAPSHOT",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+  "officialSource": {
+    "id": "iso15924-official-plain-text",
+    "url": "https://www.unicode.org/iso15924/iso15924.txt",
+    "codeListPage": "https://www.unicode.org/iso15924/codelists.html",
+    "localPath": "data/iso15924/iso15924.txt",
+    "sha256": "98a9be293c706f7e6302e9a54ed959c36f15f53e4ca618356d80c10be2928426",
+    "format": "Code;Nº;English Name;Nom français;PVA;Unicode Version;Date",
+    "note": "The ISO 15924 codelists page marks Table 5 as the normative UTF-8 plain-text data file."
+  },
+  "trustedInputs": [
+    {
+      "id": "unicodeCrosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "iso15924OfficialText",
+      "path": "data/iso15924/iso15924.txt",
+      "sha256": "98a9be293c706f7e6302e9a54ed959c36f15f53e4ca618356d80c10be2928426"
+    }
+  ],
+  "provenance": {
+    "scope": "iso15924-blockers.v1",
+    "sourceIds": [
+      "iso15924-official-plain-text"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase9-iso15924-ingestion.mjs",
+    "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+    "officialSourceUrl": "https://www.unicode.org/iso15924/iso15924.txt",
+    "trustedInputs": [
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/iso15924/iso15924.txt"
+    ],
+    "reviewed": false,
+    "phkd": "ISO15924_PREVIEW_ONLY_NO_RECORD_MUTATION"
+  },
+  "summary": {
+    "blockers": 4,
+    "blockedRows": 4,
+    "conflictRows": 0,
+    "missingOfficialCodes": 0,
+    "ambiguousOrMissingPvaRows": 4,
+    "promotionBlocked": true
+  },
+  "conflictPromotionPolicy": {
+    "conflictsDetected": 0,
+    "promotionAllowedWhenConflict": false,
+    "enforced": true,
+    "rule": "ANY_ISO15924_CONFLICT_BLOCKS_PROMOTION"
+  },
+  "blockers": [
+    {
+      "id": "phase9:blocker:beria-erfe",
+      "unicodeScriptValue": "Beria_Erfe",
+      "registryIso15924": "Berf",
+      "officialIso15924": "Berf",
+      "officialPva": "UNKNOWN",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "reason": "Official ISO code Berf has no PVA for registry script Beria_Erfe.",
+      "requiredToUnblock": [
+        "official ISO PVA available or reviewed mapping policy",
+        "attach provenance",
+        "rerun ISO dry ingestion"
+      ],
+      "provenance": {
+        "scope": "iso15924_blocker",
+        "sourceIds": [
+          "iso15924-official-plain-text"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase9-iso15924-ingestion.mjs",
+        "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+        "officialSourceUrl": "https://www.unicode.org/iso15924/iso15924.txt",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/iso15924/iso15924.txt"
+        ],
+        "reviewed": false,
+        "phkd": "ISO15924_PREVIEW_ONLY_NO_RECORD_MUTATION"
+      }
+    },
+    {
+      "id": "phase9:blocker:sidetic",
+      "unicodeScriptValue": "Sidetic",
+      "registryIso15924": "Sidt",
+      "officialIso15924": "Sidt",
+      "officialPva": "UNKNOWN",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "reason": "Official ISO code Sidt has no PVA for registry script Sidetic.",
+      "requiredToUnblock": [
+        "official ISO PVA available or reviewed mapping policy",
+        "attach provenance",
+        "rerun ISO dry ingestion"
+      ],
+      "provenance": {
+        "scope": "iso15924_blocker",
+        "sourceIds": [
+          "iso15924-official-plain-text"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase9-iso15924-ingestion.mjs",
+        "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+        "officialSourceUrl": "https://www.unicode.org/iso15924/iso15924.txt",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/iso15924/iso15924.txt"
+        ],
+        "reviewed": false,
+        "phkd": "ISO15924_PREVIEW_ONLY_NO_RECORD_MUTATION"
+      }
+    },
+    {
+      "id": "phase9:blocker:tai-yo",
+      "unicodeScriptValue": "Tai_Yo",
+      "registryIso15924": "Tayo",
+      "officialIso15924": "Tayo",
+      "officialPva": "UNKNOWN",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "reason": "Official ISO code Tayo has no PVA for registry script Tai_Yo.",
+      "requiredToUnblock": [
+        "official ISO PVA available or reviewed mapping policy",
+        "attach provenance",
+        "rerun ISO dry ingestion"
+      ],
+      "provenance": {
+        "scope": "iso15924_blocker",
+        "sourceIds": [
+          "iso15924-official-plain-text"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase9-iso15924-ingestion.mjs",
+        "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+        "officialSourceUrl": "https://www.unicode.org/iso15924/iso15924.txt",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/iso15924/iso15924.txt"
+        ],
+        "reviewed": false,
+        "phkd": "ISO15924_PREVIEW_ONLY_NO_RECORD_MUTATION"
+      }
+    },
+    {
+      "id": "phase9:blocker:tolong-siki",
+      "unicodeScriptValue": "Tolong_Siki",
+      "registryIso15924": "Tols",
+      "officialIso15924": "Tols",
+      "officialPva": "UNKNOWN",
+      "status": "BLOCKED",
+      "severity": "MEDIUM",
+      "blocksPromotion": true,
+      "reason": "Official ISO code Tols has no PVA for registry script Tolong_Siki.",
+      "requiredToUnblock": [
+        "official ISO PVA available or reviewed mapping policy",
+        "attach provenance",
+        "rerun ISO dry ingestion"
+      ],
+      "provenance": {
+        "scope": "iso15924_blocker",
+        "sourceIds": [
+          "iso15924-official-plain-text"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase9-iso15924-ingestion.mjs",
+        "sourcePolicy": "iso15924_official_source_only_preview_no_registry_mutation",
+        "officialSourceUrl": "https://www.unicode.org/iso15924/iso15924.txt",
+        "trustedInputs": [
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/iso15924/iso15924.txt"
+        ],
+        "reviewed": false,
+        "phkd": "ISO15924_PREVIEW_ONLY_NO_RECORD_MUTATION"
+      }
+    }
+  ]
+}

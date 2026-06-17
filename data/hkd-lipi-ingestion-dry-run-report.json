@@ -1,0 +1,267 @@
+{
+  "schema": "hkd-lipi-ingestion-dry-run-report.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE7_CONTRACT_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "adapterContracts",
+      "path": "data/hkd-lipi-source-adapter-contracts.json",
+      "sha256": "850e620a1d25ca69f65ad089c444d9d170a1525169c3dc3066cf993772966d09"
+    },
+    {
+      "id": "ingestionPolicy",
+      "path": "data/hkd-lipi-ingestion-policy.json",
+      "sha256": "4b1e4f1a61ff35d2fa4708830a6a2223811eb6de15ed60861171e1e9f33ca090"
+    },
+    {
+      "id": "trustMatrix",
+      "path": "data/hkd-lipi-source-trust-matrix.json",
+      "sha256": "0074f967ddb95059bb75221f3a11384611506372af99d7b5c83ea27cb56b77c4"
+    },
+    {
+      "id": "conflictRules",
+      "path": "data/hkd-lipi-conflict-resolution-rules.json",
+      "sha256": "0e46f99c9da9e733c66ab2d363856ef7c8540f4f014b969f97aa86e25cbdaccb"
+    },
+    {
+      "id": "phase7Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+      "sha256": "4597a101c020f101d98ab559a0516b0955b5e210951e2d0f7acd21f34a6dfaff"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-ingestion-dry-run-report.v1",
+    "sourceIds": [
+      "hkd-lipi-phase7-ingestion-contracts"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+    "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-conflict-resolution-rules.json",
+      "data/hkd-lipi-ingestion-policy.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-source-adapter-contracts.json",
+      "data/hkd-lipi-source-trust-matrix.json",
+      "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+    ],
+    "reviewed": false,
+    "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "dryRun": {
+    "mode": "DRY_RUN_ONLY",
+    "inputSeedRows": 426,
+    "adaptersRun": 5,
+    "rowsRead": 426,
+    "rowsWritten": 0,
+    "enrichedRows": 0,
+    "runtimeEnabledRowsBefore": 0,
+    "runtimeEnabledRowsAfterPreview": 0,
+    "proposedFieldChanges": 0,
+    "fieldDiffPreviews": 20,
+    "blockers": 21,
+    "conflicts": 0,
+    "promotionStatus": "BLOCKED",
+    "promotionBlockedBy": [
+      "DRY_RUN_ONLY",
+      "BLOCKED_OR_UNKNOWN_FIELD_PREVIEWS",
+      "NO_REGISTRY_WRITE_POLICY"
+    ],
+    "conflictsBlockPromotion": true,
+    "seedHashBefore": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f",
+    "seedHashAfter": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+  },
+  "policySnapshot": {
+    "adapterMode": "VALIDATE_ONLY",
+    "registryMutationAllowed": false,
+    "silentEnrichmentAllowed": false,
+    "conflictRulesAutoApply": 0,
+    "trustMatrixWritesRegistryRows": 0
+  },
+  "adapterRuns": [
+    {
+      "id": "phase8:run:iso-15924",
+      "adapterId": "adapter:iso-15924",
+      "sourceId": "iso-15924",
+      "mode": "DRY_RUN_ONLY",
+      "status": "DRY_RUN_COMPLETE",
+      "rowsRead": 426,
+      "rowsWritten": 0,
+      "enrichedRows": 0,
+      "runtimeEnablements": 0,
+      "fieldPreviewCount": 4,
+      "proposedFieldChanges": 0,
+      "blockers": 3,
+      "conflicts": 0,
+      "promotionStatus": "BLOCKED",
+      "provenance": {
+        "scope": "dry_run_adapter_execution",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:run:cldr",
+      "adapterId": "adapter:cldr",
+      "sourceId": "cldr",
+      "mode": "DRY_RUN_ONLY",
+      "status": "DRY_RUN_COMPLETE",
+      "rowsRead": 426,
+      "rowsWritten": 0,
+      "enrichedRows": 0,
+      "runtimeEnablements": 0,
+      "fieldPreviewCount": 4,
+      "proposedFieldChanges": 0,
+      "blockers": 4,
+      "conflicts": 0,
+      "promotionStatus": "BLOCKED",
+      "provenance": {
+        "scope": "dry_run_adapter_execution",
+        "sourceIds": [
+          "cldr",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:run:icu",
+      "adapterId": "adapter:icu",
+      "sourceId": "icu",
+      "mode": "DRY_RUN_ONLY",
+      "status": "DRY_RUN_COMPLETE",
+      "rowsRead": 426,
+      "rowsWritten": 0,
+      "enrichedRows": 0,
+      "runtimeEnablements": 0,
+      "fieldPreviewCount": 4,
+      "proposedFieldChanges": 0,
+      "blockers": 4,
+      "conflicts": 0,
+      "promotionStatus": "BLOCKED",
+      "provenance": {
+        "scope": "dry_run_adapter_execution",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:run:harfbuzz",
+      "adapterId": "adapter:harfbuzz",
+      "sourceId": "harfbuzz",
+      "mode": "DRY_RUN_ONLY",
+      "status": "DRY_RUN_COMPLETE",
+      "rowsRead": 426,
+      "rowsWritten": 0,
+      "enrichedRows": 0,
+      "runtimeEnablements": 0,
+      "fieldPreviewCount": 4,
+      "proposedFieldChanges": 0,
+      "blockers": 4,
+      "conflicts": 0,
+      "promotionStatus": "BLOCKED",
+      "provenance": {
+        "scope": "dry_run_adapter_execution",
+        "sourceIds": [
+          "harfbuzz",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:run:opentype-spec",
+      "adapterId": "adapter:opentype-spec",
+      "sourceId": "opentype-spec",
+      "mode": "DRY_RUN_ONLY",
+      "status": "DRY_RUN_COMPLETE",
+      "rowsRead": 426,
+      "rowsWritten": 0,
+      "enrichedRows": 0,
+      "runtimeEnablements": 0,
+      "fieldPreviewCount": 4,
+      "proposedFieldChanges": 0,
+      "blockers": 4,
+      "conflicts": 0,
+      "promotionStatus": "BLOCKED",
+      "provenance": {
+        "scope": "dry_run_adapter_execution",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    }
+  ]
+}

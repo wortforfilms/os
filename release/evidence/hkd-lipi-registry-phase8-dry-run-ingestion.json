@@ -1,0 +1,95 @@
+{
+  "schema": "hkd-lipi-registry-phase8-dry-run-ingestion.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE7_CONTRACT_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "adapterContracts",
+      "path": "data/hkd-lipi-source-adapter-contracts.json",
+      "sha256": "850e620a1d25ca69f65ad089c444d9d170a1525169c3dc3066cf993772966d09"
+    },
+    {
+      "id": "ingestionPolicy",
+      "path": "data/hkd-lipi-ingestion-policy.json",
+      "sha256": "4b1e4f1a61ff35d2fa4708830a6a2223811eb6de15ed60861171e1e9f33ca090"
+    },
+    {
+      "id": "trustMatrix",
+      "path": "data/hkd-lipi-source-trust-matrix.json",
+      "sha256": "0074f967ddb95059bb75221f3a11384611506372af99d7b5c83ea27cb56b77c4"
+    },
+    {
+      "id": "conflictRules",
+      "path": "data/hkd-lipi-conflict-resolution-rules.json",
+      "sha256": "0e46f99c9da9e733c66ab2d363856ef7c8540f4f014b969f97aa86e25cbdaccb"
+    },
+    {
+      "id": "phase7Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+      "sha256": "4597a101c020f101d98ab559a0516b0955b5e210951e2d0f7acd21f34a6dfaff"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-registry-phase8-dry-run-ingestion.v1",
+    "sourceIds": [
+      "hkd-lipi-phase7-ingestion-contracts"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+    "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-conflict-resolution-rules.json",
+      "data/hkd-lipi-ingestion-policy.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-source-adapter-contracts.json",
+      "data/hkd-lipi-source-trust-matrix.json",
+      "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+    ],
+    "reviewed": false,
+    "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "counts": {
+    "seedRecords": 426,
+    "adaptersRun": 5,
+    "fieldDiffPreviews": 20,
+    "proposedFieldChanges": 0,
+    "blockers": 21,
+    "conflicts": 0,
+    "rowsWritten": 0,
+    "enrichedRows": 0,
+    "runtimeEnablements": 0
+  },
+  "checks": {
+    "phase7ContractsPassed": true,
+    "dryRunModeOnly": true,
+    "noRegistryMutation": true,
+    "noEnrichedRows": true,
+    "noRuntimeEnablement": true,
+    "everyProposedFieldChangePreviewOnly": true,
+    "conflictsBlockPromotion": true,
+    "promotionBlocked": true,
+    "noProductionReadyTrue": true,
+    "allOutputsHaveProvenance": true
+  },
+  "outputs": {
+    "dryRunReport": "data/hkd-lipi-ingestion-dry-run-report.json",
+    "fieldDiffPreview": "data/hkd-lipi-ingestion-field-diff-preview.json",
+    "blockers": "data/hkd-lipi-ingestion-blockers.json",
+    "evidence": "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json"
+  },
+  "limitations": [
+    "Phase 8 runs adapter contracts in dry-run mode only.",
+    "Field previews are status/evidence previews, not registry value writes.",
+    "No enriched registry rows are emitted.",
+    "Any future conflict must block promotion until reviewed."
+  ]
+}

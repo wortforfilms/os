@@ -1,0 +1,790 @@
+{
+  "schema": "hkd-lipi-ingestion-blockers.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE7_CONTRACT_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "adapterContracts",
+      "path": "data/hkd-lipi-source-adapter-contracts.json",
+      "sha256": "850e620a1d25ca69f65ad089c444d9d170a1525169c3dc3066cf993772966d09"
+    },
+    {
+      "id": "ingestionPolicy",
+      "path": "data/hkd-lipi-ingestion-policy.json",
+      "sha256": "4b1e4f1a61ff35d2fa4708830a6a2223811eb6de15ed60861171e1e9f33ca090"
+    },
+    {
+      "id": "trustMatrix",
+      "path": "data/hkd-lipi-source-trust-matrix.json",
+      "sha256": "0074f967ddb95059bb75221f3a11384611506372af99d7b5c83ea27cb56b77c4"
+    },
+    {
+      "id": "conflictRules",
+      "path": "data/hkd-lipi-conflict-resolution-rules.json",
+      "sha256": "0e46f99c9da9e733c66ab2d363856ef7c8540f4f014b969f97aa86e25cbdaccb"
+    },
+    {
+      "id": "phase7Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+      "sha256": "4597a101c020f101d98ab559a0516b0955b5e210951e2d0f7acd21f34a6dfaff"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-ingestion-blockers.v1",
+    "sourceIds": [
+      "hkd-lipi-phase7-ingestion-contracts"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+    "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+    "trustedInputs": [
+      "data/hkd-lipi-conflict-resolution-rules.json",
+      "data/hkd-lipi-ingestion-policy.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-source-adapter-contracts.json",
+      "data/hkd-lipi-source-trust-matrix.json",
+      "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+    ],
+    "reviewed": false,
+    "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+  },
+  "summary": {
+    "blockers": 21,
+    "fieldBlockers": 19,
+    "globalBlockers": 2,
+    "conflictBlockers": 0,
+    "blockedStatusBlockers": 19,
+    "unknownStatusBlockers": 2,
+    "highSeverity": 2,
+    "promotionBlocked": true
+  },
+  "conflictPromotionPolicy": {
+    "conflictsDetected": 0,
+    "promotionAllowedWhenConflict": false,
+    "enforced": true,
+    "rule": "ANY_CONFLICT_BLOCKS_PROMOTION"
+  },
+  "blockers": [
+    {
+      "id": "phase8:blocker:dry-run-only",
+      "sourceId": "hkd-lipi-phase8-harness",
+      "adapterId": "dry-run-harness",
+      "field": "registry_mutation",
+      "severity": "HIGH",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "Phase 8 is dry-run only; registry mutation is out of scope.",
+      "requiredToUnblock": [
+        "new approved phase",
+        "write-mode policy",
+        "reviewed migration plan"
+      ],
+      "provenance": {
+        "scope": "dry_run_global_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:conflicts-block-promotion",
+      "sourceId": "hkd-lipi-phase8-harness",
+      "adapterId": "dry-run-harness",
+      "field": "promotion_gate",
+      "severity": "HIGH",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "Conflict-resolution rules require every conflict to block promotion and never auto-apply.",
+      "requiredToUnblock": [
+        "field-level evidence",
+        "source-chain review",
+        "explicit reviewer decision"
+      ],
+      "provenance": {
+        "scope": "dry_run_global_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:iso-15924:iso15924-alpha-code",
+      "sourceId": "iso-15924",
+      "adapterId": "adapter:iso-15924",
+      "field": "iso15924_alpha_code",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No standalone ISO 15924 code-list snapshot is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:iso-15924:iso15924-numeric-code",
+      "sourceId": "iso-15924",
+      "adapterId": "adapter:iso-15924",
+      "field": "iso15924_numeric_code",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "Numeric ISO 15924 codes are not represented in the registry seed and no local ISO snapshot exists.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:iso-15924:new-script-code-assignment",
+      "sourceId": "iso-15924",
+      "adapterId": "adapter:iso-15924",
+      "field": "new_script_code_assignment",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "Adapters may not create or assign script codes.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:cldr:locale-exemplar-sets",
+      "sourceId": "cldr",
+      "adapterId": "adapter:cldr",
+      "field": "locale_exemplar_sets",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No CLDR snapshot is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "cldr",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:cldr:collation-data",
+      "sourceId": "cldr",
+      "adapterId": "adapter:cldr",
+      "field": "collation_data",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No CLDR snapshot is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "cldr",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:cldr:numbering-systems",
+      "sourceId": "cldr",
+      "adapterId": "adapter:cldr",
+      "field": "numbering_systems",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No CLDR snapshot is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "cldr",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:cldr:transforms-transliteration",
+      "sourceId": "cldr",
+      "adapterId": "adapter:cldr",
+      "field": "transforms_transliteration",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No CLDR transform data is locally ingested; do not infer transliteration.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "cldr",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:icu:normalization-behavior",
+      "sourceId": "icu",
+      "adapterId": "adapter:icu",
+      "field": "normalization_behavior",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No ICU snapshot or deterministic API trace is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:icu:collation-behavior",
+      "sourceId": "icu",
+      "adapterId": "adapter:icu",
+      "field": "collation_behavior",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No ICU snapshot or deterministic API trace is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:icu:break-iterator-behavior",
+      "sourceId": "icu",
+      "adapterId": "adapter:icu",
+      "field": "break_iterator_behavior",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No ICU snapshot or deterministic API trace is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:icu:script-detection-behavior",
+      "sourceId": "icu",
+      "adapterId": "adapter:icu",
+      "field": "script_detection_behavior",
+      "severity": "LOW",
+      "status": "UNKNOWN",
+      "blocksPromotion": true,
+      "reason": "Implementation behavior may be testable later, but cannot create script identity claims.",
+      "requiredToUnblock": [
+        "attach authoritative local snapshot",
+        "map source field to registry field",
+        "human review"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:harfbuzz:joining-behavior",
+      "sourceId": "harfbuzz",
+      "adapterId": "adapter:harfbuzz",
+      "field": "joining_behavior",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No shaping corpus or versioned HarfBuzz snapshot is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "harfbuzz",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:harfbuzz:complex-shaping-behavior",
+      "sourceId": "harfbuzz",
+      "adapterId": "adapter:harfbuzz",
+      "field": "complex_shaping_behavior",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No shaping corpus or versioned HarfBuzz snapshot is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "harfbuzz",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:harfbuzz:glyph-substitution-behavior",
+      "sourceId": "harfbuzz",
+      "adapterId": "adapter:harfbuzz",
+      "field": "glyph_substitution_behavior",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No font fixtures or glyph-run evidence is locally ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "harfbuzz",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:harfbuzz:font-support-status",
+      "sourceId": "harfbuzz",
+      "adapterId": "adapter:harfbuzz",
+      "field": "font_support_status",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "HarfBuzz shaping results cannot prove font availability without versioned font evidence.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "harfbuzz",
+          "hkd-lipi-phase7-ingestion-contracts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:opentype-spec:opentype-feature-support",
+      "sourceId": "opentype-spec",
+      "adapterId": "adapter:opentype-spec",
+      "field": "opentype_feature_support",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No local specification snapshot or font fixture evidence is ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:opentype-spec:font-table-support",
+      "sourceId": "opentype-spec",
+      "adapterId": "adapter:opentype-spec",
+      "field": "font_table_support",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "No font fixture evidence is ingested.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:opentype-spec:font-support-status",
+      "sourceId": "opentype-spec",
+      "adapterId": "adapter:opentype-spec",
+      "field": "font_support_status",
+      "severity": "MEDIUM",
+      "status": "BLOCKED",
+      "blocksPromotion": true,
+      "reason": "The specification does not prove actual installed font support.",
+      "requiredToUnblock": [
+        "satisfy adapter prerequisite",
+        "attach field-level provenance",
+        "rerun dry-run harness"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    },
+    {
+      "id": "phase8:blocker:opentype-spec:rendering-engine-support",
+      "sourceId": "opentype-spec",
+      "adapterId": "adapter:opentype-spec",
+      "field": "rendering_engine_support",
+      "severity": "LOW",
+      "status": "UNKNOWN",
+      "blocksPromotion": true,
+      "reason": "A spec relationship alone cannot verify runtime rendering support.",
+      "requiredToUnblock": [
+        "attach authoritative local snapshot",
+        "map source field to registry field",
+        "human review"
+      ],
+      "provenance": {
+        "scope": "dry_run_ingestion_blocker",
+        "sourceIds": [
+          "hkd-lipi-phase7-ingestion-contracts",
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase8-dry-run-ingestion.mjs",
+        "sourcePolicy": "dry_run_only_no_registry_mutation_no_enrichment",
+        "trustedInputs": [
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json"
+        ],
+        "reviewed": false,
+        "phkd": "DRY_RUN_PREVIEW_ONLY_NO_RECORD_ENRICHMENT"
+      }
+    }
+  ]
+}

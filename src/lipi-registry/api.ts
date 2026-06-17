@@ -17,6 +17,15 @@ import ingestionPolicy from "../../data/hkd-lipi-ingestion-policy.json" with { t
 import sourceTrustMatrix from "../../data/hkd-lipi-source-trust-matrix.json" with { type: "json" };
 import conflictResolutionRules from "../../data/hkd-lipi-conflict-resolution-rules.json" with { type: "json" };
 import ingestionContractsEvidence from "../../release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json" with { type: "json" };
+import ingestionDryRunReport from "../../data/hkd-lipi-ingestion-dry-run-report.json" with { type: "json" };
+import ingestionFieldDiffPreview from "../../data/hkd-lipi-ingestion-field-diff-preview.json" with { type: "json" };
+import ingestionBlockers from "../../data/hkd-lipi-ingestion-blockers.json" with { type: "json" };
+import dryRunIngestionEvidence from "../../release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json" with { type: "json" };
+import iso15924IngestionReport from "../../data/iso15924-ingestion-report.json" with { type: "json" };
+import iso15924ScriptCodeCrosswalk from "../../data/iso15924-script-code-crosswalk.json" with { type: "json" };
+import iso15924DiffPreview from "../../data/iso15924-diff-preview.json" with { type: "json" };
+import iso15924Blockers from "../../data/iso15924-blockers.json" with { type: "json" };
+import iso15924IngestionEvidence from "../../release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -273,6 +282,64 @@ export type LipiSourceIngestionContractsView = {
   };
 };
 
+export type LipiIngestionDryRunView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  dryRunReport: {
+    dryRun: typeof ingestionDryRunReport.dryRun;
+    policySnapshot: typeof ingestionDryRunReport.policySnapshot;
+    adapterRuns: typeof ingestionDryRunReport.adapterRuns;
+  };
+  fieldDiffPreview: {
+    summary: typeof ingestionFieldDiffPreview.summary;
+    previews: typeof ingestionFieldDiffPreview.previews;
+  };
+  blockers: {
+    summary: typeof ingestionBlockers.summary;
+    conflictPromotionPolicy: typeof ingestionBlockers.conflictPromotionPolicy;
+    blockers: typeof ingestionBlockers.blockers;
+  };
+  evidence: {
+    counts: typeof dryRunIngestionEvidence.counts;
+    checks: typeof dryRunIngestionEvidence.checks;
+    limitations: typeof dryRunIngestionEvidence.limitations;
+  };
+};
+
+export type LipiIso15924IngestionView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  report: {
+    ingestion: typeof iso15924IngestionReport.ingestion;
+    summary: typeof iso15924IngestionReport.summary;
+    officialSource: typeof iso15924IngestionReport.officialSource;
+  };
+  crosswalk: {
+    summary: typeof iso15924ScriptCodeCrosswalk.summary;
+    rows: typeof iso15924ScriptCodeCrosswalk.rows;
+  };
+  diffPreview: {
+    summary: typeof iso15924DiffPreview.summary;
+    diffs: typeof iso15924DiffPreview.diffs;
+  };
+  blockers: {
+    summary: typeof iso15924Blockers.summary;
+    conflictPromotionPolicy: typeof iso15924Blockers.conflictPromotionPolicy;
+    blockers: typeof iso15924Blockers.blockers;
+  };
+  evidence: {
+    counts: typeof iso15924IngestionEvidence.counts;
+    checks: typeof iso15924IngestionEvidence.checks;
+    limitations: typeof iso15924IngestionEvidence.limitations;
+  };
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -398,6 +465,48 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/ingestion/conflict-rules",
     handler: "getLipiSourceIngestionContractsView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/dry-run",
+    handler: "getLipiIngestionDryRunView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/field-diff-preview",
+    handler: "getLipiIngestionDryRunView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/blockers",
+    handler: "getLipiIngestionDryRunView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/iso15924/report",
+    handler: "getLipiIso15924IngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/iso15924/crosswalk",
+    handler: "getLipiIso15924IngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/iso15924/diff-preview",
+    handler: "getLipiIso15924IngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/iso15924/blockers",
+    handler: "getLipiIso15924IngestionView",
     status: "LOCAL_CONTRACT",
   },
 ] as const;
@@ -711,6 +820,68 @@ export function getLipiSourceIngestionContractsView(): LipiSourceIngestionContra
   };
 }
 
+export function getLipiIngestionDryRunView(): LipiIngestionDryRunView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    dryRunReport: {
+      dryRun: ingestionDryRunReport.dryRun,
+      policySnapshot: ingestionDryRunReport.policySnapshot,
+      adapterRuns: ingestionDryRunReport.adapterRuns,
+    },
+    fieldDiffPreview: {
+      summary: ingestionFieldDiffPreview.summary,
+      previews: ingestionFieldDiffPreview.previews,
+    },
+    blockers: {
+      summary: ingestionBlockers.summary,
+      conflictPromotionPolicy: ingestionBlockers.conflictPromotionPolicy,
+      blockers: ingestionBlockers.blockers,
+    },
+    evidence: {
+      counts: dryRunIngestionEvidence.counts,
+      checks: dryRunIngestionEvidence.checks,
+      limitations: dryRunIngestionEvidence.limitations,
+    },
+  };
+}
+
+export function getLipiIso15924IngestionView(): LipiIso15924IngestionView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    report: {
+      ingestion: iso15924IngestionReport.ingestion,
+      summary: iso15924IngestionReport.summary,
+      officialSource: iso15924IngestionReport.officialSource,
+    },
+    crosswalk: {
+      summary: iso15924ScriptCodeCrosswalk.summary,
+      rows: iso15924ScriptCodeCrosswalk.rows,
+    },
+    diffPreview: {
+      summary: iso15924DiffPreview.summary,
+      diffs: iso15924DiffPreview.diffs,
+    },
+    blockers: {
+      summary: iso15924Blockers.summary,
+      conflictPromotionPolicy: iso15924Blockers.conflictPromotionPolicy,
+      blockers: iso15924Blockers.blockers,
+    },
+    evidence: {
+      counts: iso15924IngestionEvidence.counts,
+      checks: iso15924IngestionEvidence.checks,
+      limitations: iso15924IngestionEvidence.limitations,
+    },
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -753,12 +924,21 @@ export function getLipiRegistrySourceSummary() {
       ingestionPolicy: ingestionPolicy.schema,
       trustMatrix: sourceTrustMatrix.schema,
       conflictRules: conflictResolutionRules.schema,
+      ingestionDryRun: ingestionDryRunReport.schema,
+      fieldDiffPreview: ingestionFieldDiffPreview.schema,
+      ingestionBlockers: ingestionBlockers.schema,
+      iso15924Ingestion: iso15924IngestionReport.schema,
+      iso15924Crosswalk: iso15924ScriptCodeCrosswalk.schema,
+      iso15924DiffPreview: iso15924DiffPreview.schema,
+      iso15924Blockers: iso15924Blockers.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
     phase4SourcePolicy: "hkd_registry_seed_plus_phase3_ucd_artifacts_only",
     phase6SourcePolicy: "cross_reference_only_no_new_script_claims",
     phase7SourcePolicy: "adapter_contracts_only_no_ingestion_no_silent_enrichment",
+    phase8SourcePolicy: "dry_run_only_no_registry_mutation_no_enrichment",
+    phase9SourcePolicy: "iso15924_official_source_only_preview_no_registry_mutation",
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,

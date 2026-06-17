@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import {
   getLipiEvidenceFederationView,
+  getLipiIngestionDryRunView,
+  getLipiIso15924IngestionView,
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiRegistryAuditabilityView,
@@ -10,6 +12,7 @@ import {
   getLipiRegistryScript,
   getLipiRegistrySourceSummary,
   getLipiScriptKbsNeighborhood,
+  getLipiSourceIngestionContractsView,
   getLipiUnicodeCrosswalk,
   listLipiRegistryScripts,
 } from "../src/lipi-registry/api.ts";
@@ -113,9 +116,23 @@ test("source summary carries local API contracts and keeps production blocked", 
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/federation/lineage"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/federation/conflicts"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/federation/provenance-chains"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/contracts"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/policy"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/trust-matrix"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/conflict-rules"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/dry-run"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/field-diff-preview"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/blockers"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/iso15924/report"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/iso15924/crosswalk"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/iso15924/diff-preview"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/iso15924/blockers"));
   assert.equal(sourceSummary.phase3SourcePolicy, "official_unicode_ucd_only");
   assert.equal(sourceSummary.phase4SourcePolicy, "hkd_registry_seed_plus_phase3_ucd_artifacts_only");
   assert.equal(sourceSummary.phase6SourcePolicy, "cross_reference_only_no_new_script_claims");
+  assert.equal(sourceSummary.phase7SourcePolicy, "adapter_contracts_only_no_ingestion_no_silent_enrichment");
+  assert.equal(sourceSummary.phase8SourcePolicy, "dry_run_only_no_registry_mutation_no_enrichment");
+  assert.equal(sourceSummary.phase9SourcePolicy, "iso15924_official_source_only_preview_no_registry_mutation");
   assert.ok(sourceSummary.sourceRefs.length >= 5);
 });
 
@@ -134,6 +151,70 @@ test("Phase 6 federation API registers sources without creating claims", () => {
   assert.equal(federation.provenanceChains.summary.scriptChains, 426);
   assert.equal(federation.provenanceChains.summary.orphanScriptChains, 0);
   assert.equal(federation.evidence.checks.noNewScriptClaimsCreated, true);
+});
+
+test("Phase 7 ingestion contracts API is validate-only and cannot enrich rows", () => {
+  const ingestion = getLipiSourceIngestionContractsView();
+  const adapterSourceIds = ingestion.adapterContracts.adapters.map((adapter) => adapter.sourceId).sort();
+
+  assert.deepEqual(adapterSourceIds, ["cldr", "harfbuzz", "icu", "iso-15924", "opentype-spec"]);
+  assert.equal(ingestion.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(ingestion.productionReady, false);
+  assert.equal(ingestion.governedProductionGo, false);
+  assert.equal(ingestion.phkdVerdict, "CONTROLLED_NO_GO");
+  assert.equal(ingestion.adapterContracts.summary.validateOnlyAdapters, 5);
+  assert.equal(ingestion.adapterContracts.summary.writesRegistryAdapters, 0);
+  assert.equal(ingestion.adapterContracts.summary.silentEnrichmentAdapters, 0);
+  assert.equal(ingestion.ingestionPolicy.adapterMode, "VALIDATE_ONLY");
+  assert.equal(ingestion.ingestionPolicy.forbiddenActions.includes("invent_unicode_assignment"), true);
+  assert.equal(ingestion.ingestionPolicy.forbiddenActions.includes("invent_iso15924_code"), true);
+  assert.equal(ingestion.trustMatrix.summary.writesRegistryRows, 0);
+  assert.equal(ingestion.trustMatrix.summary.silentEnrichmentRows, 0);
+  assert.equal(ingestion.conflictRules.summary.autoApplyRules, 0);
+  assert.equal(ingestion.conflictRules.summary.registryMutationRules, 0);
+  assert.equal(ingestion.evidence.checks.noSilentEnrichment, true);
+  assert.equal(ingestion.evidence.checks.noAdaptersWriteRegistry, true);
+  assert.equal(ingestion.evidence.checks.onlyAllowedFieldStatuses, true);
+});
+
+test("Phase 8 dry-run API exposes previews without mutation or enrichment", () => {
+  const dryRun = getLipiIngestionDryRunView();
+
+  assert.equal(dryRun.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(dryRun.productionReady, false);
+  assert.equal(dryRun.governedProductionGo, false);
+  assert.equal(dryRun.dryRunReport.dryRun.mode, "DRY_RUN_ONLY");
+  assert.equal(dryRun.dryRunReport.dryRun.rowsWritten, 0);
+  assert.equal(dryRun.dryRunReport.dryRun.enrichedRows, 0);
+  assert.equal(dryRun.dryRunReport.dryRun.runtimeEnabledRowsAfterPreview, 0);
+  assert.equal(dryRun.fieldDiffPreview.summary.proposedFieldChanges, 0);
+  assert.equal(dryRun.fieldDiffPreview.summary.registryMutations, 0);
+  assert.equal(dryRun.blockers.summary.promotionBlocked, true);
+  assert.equal(dryRun.evidence.checks.noRegistryMutation, true);
+  assert.equal(dryRun.evidence.checks.everyProposedFieldChangePreviewOnly, true);
+});
+
+test("Phase 9 ISO 15924 API compares official source without registry mutation", () => {
+  const iso = getLipiIso15924IngestionView();
+
+  assert.equal(iso.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(iso.productionReady, false);
+  assert.equal(iso.governedProductionGo, false);
+  assert.equal(iso.report.officialSource.id, "iso15924-official-plain-text");
+  assert.equal(iso.report.ingestion.mode, "ISO15924_REAL_SOURCE_DRY_RUN_ONLY");
+  assert.equal(iso.report.ingestion.rowsWritten, 0);
+  assert.equal(iso.report.ingestion.enrichedRows, 0);
+  assert.equal(iso.report.ingestion.runtimeEnablements, 0);
+  assert.equal(iso.crosswalk.summary.unicodeScriptRowsCompared, 176);
+  assert.equal(iso.crosswalk.summary.verifiedRows, 172);
+  assert.equal(iso.crosswalk.summary.blockedRows, 4);
+  assert.equal(iso.diffPreview.summary.proposedFieldChanges, 0);
+  assert.equal(iso.diffPreview.summary.registryMutations, 0);
+  assert.equal(iso.blockers.summary.blockers, 4);
+  assert.equal(iso.blockers.summary.promotionBlocked, true);
+  assert.equal(iso.evidence.checks.officialIsoSourceOnly, true);
+  assert.equal(iso.evidence.checks.missingOrAmbiguousCodesBlocked, true);
+  assert.equal(iso.evidence.checks.noRegistryMutation, true);
 });
 
 test("auditability API exposes reproducible exports and provenance checks without new claims", () => {

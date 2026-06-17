@@ -3,6 +3,8 @@ import {
   getLipiEvidenceBadges,
   getLipiEvidenceFederationView,
   getLipiFamilyGraphView,
+  getLipiIngestionDryRunView,
+  getLipiIso15924IngestionView,
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiPhase3ScriptEnrichment,
@@ -43,7 +45,14 @@ type ExplorerId =
   | "adapter-contracts"
   | "ingestion-policy"
   | "trust-matrix"
-  | "conflict-rules";
+  | "conflict-rules"
+  | "dry-run"
+  | "field-diff"
+  | "ingestion-blockers"
+  | "iso15924-report"
+  | "iso15924-crosswalk"
+  | "iso15924-diff"
+  | "iso15924-blockers";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -65,6 +74,8 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const auditabilityView = useMemo(() => getLipiRegistryAuditabilityView(), []);
   const federationView = useMemo(() => getLipiEvidenceFederationView(), []);
   const ingestionContractsView = useMemo(() => getLipiSourceIngestionContractsView(), []);
+  const dryRunView = useMemo(() => getLipiIngestionDryRunView(), []);
+  const iso15924View = useMemo(() => getLipiIso15924IngestionView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -136,6 +147,13 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["ingestion-policy", "Ingestion Policy"],
           ["trust-matrix", "Trust Matrix"],
           ["conflict-rules", "Conflict Rules"],
+          ["dry-run", "Dry-Run Harness"],
+          ["field-diff", "Field Diff Preview"],
+          ["ingestion-blockers", "Ingestion Blockers"],
+          ["iso15924-report", "ISO 15924 Report"],
+          ["iso15924-crosswalk", "ISO 15924 Crosswalk"],
+          ["iso15924-diff", "ISO 15924 Diff"],
+          ["iso15924-blockers", "ISO 15924 Blockers"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -161,6 +179,13 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "ingestion-policy" ? <IngestionPolicyPanel view={ingestionContractsView} /> : null}
       {explorer === "trust-matrix" ? <SourceTrustMatrixPanel view={ingestionContractsView} /> : null}
       {explorer === "conflict-rules" ? <ConflictRulesPanel view={ingestionContractsView} /> : null}
+      {explorer === "dry-run" ? <DryRunHarnessPanel view={dryRunView} /> : null}
+      {explorer === "field-diff" ? <FieldDiffPreviewPanel view={dryRunView} /> : null}
+      {explorer === "ingestion-blockers" ? <IngestionBlockersPanel view={dryRunView} /> : null}
+      {explorer === "iso15924-report" ? <Iso15924ReportPanel view={iso15924View} /> : null}
+      {explorer === "iso15924-crosswalk" ? <Iso15924CrosswalkPanel view={iso15924View} /> : null}
+      {explorer === "iso15924-diff" ? <Iso15924DiffPanel view={iso15924View} /> : null}
+      {explorer === "iso15924-blockers" ? <Iso15924BlockersPanel view={iso15924View} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -833,6 +858,215 @@ function ConflictRulesPanel({ view }: { view: ReturnType<typeof getLipiSourceIng
             <Badge label="field" value={rule.adapterFieldStatus} tone={toneForAdapterFieldStatus(rule.adapterFieldStatus)} />
             <Badge label="auto" value={String(rule.autoApply)} tone={rule.autoApply ? "blocked" : "verified"} />
             <p>{rule.action}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function DryRunHarnessPanel({ view }: { view: ReturnType<typeof getLipiIngestionDryRunView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Dry-Run Ingestion Harness">
+      <header>
+        <h3>Dry-Run Harness</h3>
+        <Badge label="mode" value={view.dryRunReport.dryRun.mode} tone="blocked" />
+        <Badge label="writes" value={String(view.dryRunReport.dryRun.rowsWritten)} tone={view.dryRunReport.dryRun.rowsWritten ? "blocked" : "verified"} />
+        <Badge label="enriched" value={String(view.dryRunReport.dryRun.enrichedRows)} tone={view.dryRunReport.dryRun.enrichedRows ? "blocked" : "verified"} />
+        <Badge label="promotion" value={view.dryRunReport.dryRun.promotionStatus} tone="blocked" />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Adapters Run" value={view.dryRunReport.dryRun.adaptersRun} />
+        <RegistryStat label="Field Previews" value={view.dryRunReport.dryRun.fieldDiffPreviews} />
+        <RegistryStat label="Proposed Changes" value={view.dryRunReport.dryRun.proposedFieldChanges} />
+        <RegistryStat label="Blockers" value={view.dryRunReport.dryRun.blockers} />
+      </div>
+      <div className="lipi-result-list small">
+        {view.dryRunReport.adapterRuns.map((run) => (
+          <article className="lipi-result-row" key={run.id}>
+            <div className="lipi-row-main static">
+              <span>{run.mode === "DRY_RUN_ONLY" ? "DRY" : "NO"}</span>
+              <strong>{run.sourceId}</strong>
+              <em>{run.status}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="writes" value={String(run.rowsWritten)} tone={run.rowsWritten ? "blocked" : "verified"} />
+              <Badge label="enriched" value={String(run.enrichedRows)} tone={run.enrichedRows ? "blocked" : "verified"} />
+              <Badge label="runtime" value={String(run.runtimeEnablements)} tone={run.runtimeEnablements ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">
+              {run.fieldPreviewCount} previews / {run.blockers} blockers / {run.promotionStatus}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FieldDiffPreviewPanel({ view }: { view: ReturnType<typeof getLipiIngestionDryRunView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Field Diff Preview">
+      <header>
+        <h3>Field Diff Preview</h3>
+        <Badge label="previews" value={String(view.fieldDiffPreview.summary.previews)} tone="verified" />
+        <Badge label="changes" value={String(view.fieldDiffPreview.summary.proposedFieldChanges)} tone={view.fieldDiffPreview.summary.proposedFieldChanges ? "blocked" : "verified"} />
+        <Badge label="mutations" value={String(view.fieldDiffPreview.summary.registryMutations)} tone={view.fieldDiffPreview.summary.registryMutations ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-result-list small">
+        {view.fieldDiffPreview.previews.map((preview) => (
+          <article className="lipi-result-row" key={preview.id}>
+            <div className="lipi-row-main static">
+              <span>{preview.previewOnly ? "PV" : "NO"}</span>
+              <strong>{preview.field}</strong>
+              <em>{preview.sourceId}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={preview.adapterFieldStatus} tone={toneForAdapterFieldStatus(preview.adapterFieldStatus)} />
+              <Badge label="write" value={String(preview.wouldMutateRegistry)} tone={preview.wouldMutateRegistry ? "blocked" : "verified"} />
+              <Badge label="enrich" value={String(preview.wouldEnrichRow)} tone={preview.wouldEnrichRow ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{preview.diffKind}: {preview.proposedRegistryValue}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IngestionBlockersPanel({ view }: { view: ReturnType<typeof getLipiIngestionDryRunView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Ingestion Blockers">
+      <header>
+        <h3>Ingestion Blockers</h3>
+        <Badge label="blockers" value={String(view.blockers.summary.blockers)} tone="blocked" />
+        <Badge label="promotion" value={view.blockers.summary.promotionBlocked ? "BLOCKED" : "OPEN"} tone={view.blockers.summary.promotionBlocked ? "blocked" : "verified"} />
+        <Badge label="conflict policy" value={view.blockers.conflictPromotionPolicy.rule} tone="blocked" />
+      </header>
+      <div className="lipi-blocked-grid">
+        {view.blockers.blockers.map((blocker) => (
+          <article key={blocker.id}>
+            <strong>{blocker.field}</strong>
+            <Badge label="status" value={blocker.status} tone={toneForAdapterFieldStatus(blocker.status)} />
+            <Badge label="severity" value={blocker.severity} tone={blocker.severity === "HIGH" ? "blocked" : "draft"} />
+            <p>{blocker.reason}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Iso15924ReportPanel({ view }: { view: ReturnType<typeof getLipiIso15924IngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="ISO 15924 Ingestion Report">
+      <header>
+        <h3>ISO 15924 Report</h3>
+        <Badge label="mode" value={view.report.ingestion.mode} tone="blocked" />
+        <Badge label="writes" value={String(view.report.ingestion.rowsWritten)} tone={view.report.ingestion.rowsWritten ? "blocked" : "verified"} />
+        <Badge label="promotion" value={view.report.ingestion.promotionStatus} tone={view.report.ingestion.promotionStatus === "BLOCKED" ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Official ISO Rows" value={view.report.ingestion.officialRowsRead} />
+        <RegistryStat label="Unicode Rows" value={view.report.ingestion.unicodeScriptRowsCompared} />
+        <RegistryStat label="Verified" value={view.report.summary.verifiedRows} />
+        <RegistryStat label="Blocked" value={view.report.summary.blockedRows} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Official Source</h4>
+        <div>
+          <span>URL</span>
+          <strong>{view.report.officialSource.url}</strong>
+        </div>
+        <div>
+          <span>Local snapshot</span>
+          <strong>{view.report.officialSource.localPath}</strong>
+        </div>
+        <div>
+          <span>SHA-256</span>
+          <strong>{view.report.officialSource.sha256.slice(0, 24)}</strong>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Iso15924CrosswalkPanel({ view }: { view: ReturnType<typeof getLipiIso15924IngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="ISO 15924 Script Code Crosswalk">
+      <header>
+        <h3>ISO 15924 Crosswalk</h3>
+        <Badge label="rows" value={String(view.crosswalk.summary.unicodeScriptRowsCompared)} tone="verified" />
+        <Badge label="verified" value={String(view.crosswalk.summary.verifiedRows)} tone="verified" />
+        <Badge label="blocked" value={String(view.crosswalk.summary.blockedRows)} tone={view.crosswalk.summary.blockedRows ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-result-list small">
+        {view.crosswalk.rows.slice(0, 96).map((row) => (
+          <article className="lipi-result-row" key={row.id}>
+            <div className="lipi-row-main static">
+              <span>{row.officialIso15924}</span>
+              <strong>{row.unicodeScriptValue}</strong>
+              <em>{row.officialEnglishName}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={row.status} tone={toneForAdapterFieldStatus(row.status)} />
+              <Badge label="numeric" value={row.officialNumericCode} tone={row.officialNumericCode === "UNKNOWN" ? "unknown" : "neutral"} />
+              <Badge label="pva" value={row.officialPva} tone={row.pvaMatch ? "verified" : "blocked"} />
+            </div>
+            <div className="lipi-row-blocks">{row.blockers.length ? row.blockers.join(", ") : "Official ISO code and PVA match; no registry change proposed."}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Iso15924DiffPanel({ view }: { view: ReturnType<typeof getLipiIso15924IngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="ISO 15924 Diff Preview">
+      <header>
+        <h3>ISO 15924 Diff</h3>
+        <Badge label="diffs" value={String(view.diffPreview.summary.diffs)} tone="verified" />
+        <Badge label="changes" value={String(view.diffPreview.summary.proposedFieldChanges)} tone={view.diffPreview.summary.proposedFieldChanges ? "blocked" : "verified"} />
+        <Badge label="mutations" value={String(view.diffPreview.summary.registryMutations)} tone={view.diffPreview.summary.registryMutations ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-result-list small">
+        {view.diffPreview.diffs.slice(0, 96).map((diff) => (
+          <article className="lipi-result-row" key={diff.id}>
+            <div className="lipi-row-main static">
+              <span>{diff.previewOnly ? "PV" : "NO"}</span>
+              <strong>{diff.unicodeScriptValue}</strong>
+              <em>{diff.diffKind}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={diff.status} tone={toneForAdapterFieldStatus(diff.status)} />
+              <Badge label="patches" value={String(diff.proposedRegistryPatch.length)} tone={diff.proposedRegistryPatch.length ? "blocked" : "verified"} />
+              <Badge label="runtime" value={String(diff.wouldEnableRuntime)} tone={diff.wouldEnableRuntime ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{diff.reason}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Iso15924BlockersPanel({ view }: { view: ReturnType<typeof getLipiIso15924IngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="ISO 15924 Blockers">
+      <header>
+        <h3>ISO 15924 Blockers</h3>
+        <Badge label="blockers" value={String(view.blockers.summary.blockers)} tone={view.blockers.summary.blockers ? "blocked" : "verified"} />
+        <Badge label="conflicts" value={String(view.blockers.summary.conflictRows)} tone={view.blockers.summary.conflictRows ? "blocked" : "verified"} />
+        <Badge label="policy" value={view.blockers.conflictPromotionPolicy.rule} tone="blocked" />
+      </header>
+      <div className="lipi-blocked-grid">
+        {view.blockers.blockers.map((blocker) => (
+          <article key={blocker.id}>
+            <strong>{blocker.unicodeScriptValue}</strong>
+            <Badge label="iso" value={blocker.officialIso15924} tone="neutral" />
+            <Badge label="pva" value={blocker.officialPva} tone="blocked" />
+            <p>{blocker.reason}</p>
           </article>
         ))}
       </div>
