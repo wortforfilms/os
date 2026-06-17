@@ -2,10 +2,12 @@ import { useMemo, useState } from "react";
 import {
   getLipiEvidenceBadges,
   getLipiFamilyGraphView,
+  getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiPhase3ScriptEnrichment,
   getLipiRegistryScript,
   getLipiRegistrySourceSummary,
+  getLipiScriptKbsNeighborhood,
   getLipiUnicodeCrosswalk,
   getLipiZeroRegistryView,
   listLipiRegistryScripts,
@@ -20,7 +22,7 @@ type LipiRegistryPageProps = {
 const registryClasses = ["all", "unicode", "undeciphered", "shorthand", "notation", "symbol", "hkd_private"] as const;
 const unicodeStatuses = ["all", "encoded", "partially_encoded", "unencoded", "proposed", "private"] as const;
 const evidenceStatuses = ["all", "verified", "scholarly", "disputed", "draft", "unknown"] as const;
-type ExplorerId = "numerals" | "zero" | "family" | "crosswalk";
+type ExplorerId = "numerals" | "zero" | "family" | "crosswalk" | "kbs";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -38,6 +40,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const zeroView = useMemo(() => getLipiZeroRegistryView(), []);
   const familyView = useMemo(() => getLipiFamilyGraphView(), []);
   const crosswalkView = useMemo(() => getLipiUnicodeCrosswalk(), []);
+  const kbsView = useMemo(() => getLipiKbsGraphView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -60,6 +63,8 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
         <RegistryStat label="Zero Glyphs" value={zeroView.summary.zeroGlyphScripts} />
         <RegistryStat label="Crosswalk Ranges" value={list.stats.rowsWithUnicodeRanges} />
         <RegistryStat label="Runtime On" value={list.stats.runtimeEnabled} />
+        <RegistryStat label="KBS Nodes" value={list.stats.kbsNodes} />
+        <RegistryStat label="KBS Edges" value={list.stats.kbsEdges} />
       </div>
 
       <div className="lipi-registry-controls" aria-label="Registry controls">
@@ -93,6 +98,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["zero", "Zero Registry"],
           ["family", "Family Tree"],
           ["crosswalk", "Unicode Crosswalk"],
+          ["kbs", "KBS Graph"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -104,6 +110,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "zero" ? <ZeroRegistryPanel view={zeroView} /> : null}
       {explorer === "family" ? <FamilyTreePanel view={familyView} /> : null}
       {explorer === "crosswalk" ? <UnicodeCrosswalkPanel view={crosswalkView} /> : null}
+      {explorer === "kbs" ? <KbsGraphPanel view={kbsView} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -165,6 +172,7 @@ function ScriptDetail({
 }) {
   const { record } = detail;
   const phase3 = getLipiPhase3ScriptEnrichment(record);
+  const kbs = getLipiScriptKbsNeighborhood(record.id);
   const phase3Digits = phase3.numeral?.digits_0_9 ?? [];
   const phase3Blocks = phase3.crosswalk?.unicodeBlocks ?? [];
   return (
@@ -232,12 +240,17 @@ function ScriptDetail({
             ["Provenance", record.provenance.stance],
           ]}
         />
+        <DetailBlock
+          title="Blocked Fields"
+          rows={(kbs?.blockedFields ?? []).map((field) => [field.field, `${field.status}: ${field.reason}`])}
+        />
       </div>
       <div className="lipi-contract-grid compact">
         {detail.apiLinks.map((link) => (
           <code key={link.path}>{link.label}</code>
         ))}
       </div>
+      {kbs ? <ScriptGraphNeighborhood graph={kbs} /> : null}
       {detail.relatedRecords.length ? (
         <div className="lipi-related">
           <h4>Related family rows</h4>
@@ -249,6 +262,107 @@ function ScriptDetail({
         </div>
       ) : null}
     </section>
+  );
+}
+
+function KbsGraphPanel({ view }: { view: ReturnType<typeof getLipiKbsGraphView> }) {
+  const edgeRows = view.edges.slice(0, 96);
+  const nodeTypeRows = Object.entries(view.summary.nodeTypes);
+  const edgeTypeRows = Object.entries(view.summary.edgeTypes);
+  return (
+    <section className="lipi-numeral-panel" aria-label="KBS graph explorer">
+      <header>
+        <h3>KBS Graph Explorer</h3>
+        <Badge label="nodes" value={String(view.summary.totalNodes)} tone="verified" />
+        <Badge label="edges" value={String(view.summary.totalEdges)} tone="verified" />
+        <Badge label="PHKD" value={view.phkdVerdict} tone="blocked" />
+      </header>
+      <div className="lipi-graph-summary" aria-label="KBS graph summary cards">
+        <RegistryStat label="Script Nodes" value={view.summary.scriptNodes} />
+        <RegistryStat label="Unicode Scripts" value={view.summary.unicodeScriptNodes} />
+        <RegistryStat label="Digit Nodes" value={view.summary.decimalDigitInventories} />
+        <RegistryStat label="Zero Nodes" value={view.summary.zeroGlyphNodes} />
+        <RegistryStat label="Runtime On" value={view.summary.runtimeEnabledRows} />
+        <RegistryStat label="Evidence Sources" value={view.summary.evidenceSourceNodes} />
+      </div>
+      <div className="lipi-kbs-columns">
+        <div className="lipi-kbs-card">
+          <h4>Node Types</h4>
+          {nodeTypeRows.map(([label, count]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <strong>{count}</strong>
+            </div>
+          ))}
+        </div>
+        <div className="lipi-kbs-card">
+          <h4>Edge Types</h4>
+          {edgeTypeRows.map(([label, count]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <strong>{count}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="lipi-blocked-grid" aria-label="Blocked graph fields">
+        {view.summary.blockedFields.map((field) => (
+          <article key={field.field}>
+            <strong>{field.field}</strong>
+            <Badge label="status" value={field.status} tone={field.status === "UNKNOWN" ? "unknown" : "blocked"} />
+            <p>{field.reason}</p>
+          </article>
+        ))}
+      </div>
+      <div className="lipi-result-list small">
+        {edgeRows.map((edge) => (
+          <article className="lipi-result-row" key={edge.id}>
+            <div className="lipi-row-main static">
+              <span>-&gt;</span>
+              <strong>{edge.type}</strong>
+              <em>{edge.fields.registry_id ?? edge.fields.script_value ?? "graph"}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="from" value={edge.from.replace("kbs:", "")} tone="neutral" />
+              <Badge label="to" value={edge.to.replace("kbs:", "")} tone="neutral" />
+            </div>
+            <div className="lipi-row-blocks">{edge.sourceRefs.join(", ")}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ScriptGraphNeighborhood({ graph }: { graph: NonNullable<ReturnType<typeof getLipiScriptKbsNeighborhood>> }) {
+  const nodeById = new Map(graph.neighbors.map((node) => [node.id, node]));
+  return (
+    <div className="lipi-kbs-neighborhood" aria-label="Script detail graph neighborhood">
+      <header>
+        <h4>KBS Graph Neighborhood</h4>
+        <Badge label="edges" value={String(graph.summary.edgeCount)} tone="verified" />
+        <Badge label="neighbors" value={String(graph.summary.neighborCount)} tone="verified" />
+      </header>
+      <div className="lipi-result-list small">
+        {graph.edges.slice(0, 32).map((edge) => {
+          const neighborId = edge.from === graph.record.kbs_node_id ? edge.to : edge.from;
+          const neighbor = nodeById.get(neighborId);
+          return (
+            <article className="lipi-result-row" key={edge.id}>
+              <div className="lipi-row-main static">
+                <span>-&gt;</span>
+                <strong>{edge.type}</strong>
+                <em>{neighbor?.type ?? "KBS"}</em>
+              </div>
+              <div className="lipi-row-meta">
+                <Badge label="neighbor" value={neighbor?.label ?? neighborId} tone="neutral" />
+              </div>
+              <div className="lipi-row-blocks">{edge.sourceRefs.join(", ")}</div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 

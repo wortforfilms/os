@@ -1764,7 +1764,7 @@ textarea {
 
 .lipi-stat-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 10px;
 }
 
@@ -1820,7 +1820,7 @@ textarea {
 
 .lipi-explorer-tabs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -2050,6 +2050,88 @@ textarea {
   overflow-wrap: anywhere;
 }
 
+.lipi-graph-summary,
+.lipi-kbs-columns,
+.lipi-blocked-grid {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.lipi-graph-summary {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+}
+
+.lipi-kbs-columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.lipi-kbs-card,
+.lipi-blocked-grid article,
+.lipi-kbs-neighborhood {
+  min-width: 0;
+  border: 1px solid rgba(197, 198, 199, 0.12);
+  border-radius: 8px;
+  background: rgba(5, 8, 22, 0.52);
+  padding: 12px;
+}
+
+.lipi-kbs-card h4,
+.lipi-kbs-neighborhood h4 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.lipi-kbs-card div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  border-top: 1px solid rgba(197, 198, 199, 0.1);
+  padding: 8px 0;
+}
+
+.lipi-kbs-card span,
+.lipi-blocked-grid p {
+  color: #b7c5c1;
+  font-size: 12px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.lipi-kbs-card strong,
+.lipi-blocked-grid strong {
+  color: #e5efed;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.lipi-blocked-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.lipi-blocked-grid article {
+  display: grid;
+  gap: 8px;
+}
+
+.lipi-blocked-grid p {
+  margin: 0;
+}
+
+.lipi-kbs-neighborhood {
+  margin-top: 12px;
+}
+
+.lipi-kbs-neighborhood > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
 .lipi-related {
   display: flex;
   flex-wrap: wrap;
@@ -2100,14 +2182,14 @@ textarea {
   .dashboard-band,
   .status-strip,
   .production-readiness-grid,
-  .lipi-stat-grid,
-  .lipi-detail-grid {
+    .lipi-detail-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lipi-registry-controls,
   .lipi-result-row,
-  .lipi-explorer-tabs {
+  .lipi-explorer-tabs,
+  .lipi-kbs-columns {
     grid-template-columns: 1fr;
   }
 

@@ -2,10 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import {
+  getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiRegistryRecords,
   getLipiRegistryScript,
   getLipiRegistrySourceSummary,
+  getLipiScriptKbsNeighborhood,
   getLipiUnicodeCrosswalk,
   listLipiRegistryScripts,
 } from "../src/lipi-registry/api.ts";
@@ -98,8 +100,34 @@ test("source summary carries local API contracts and keeps production blocked", 
   assert.equal(sourceSummary.productionReady, false);
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/numerals-zero"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/phase3/family-graph"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/kbs/graph"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/scripts/{id}/kbs"));
   assert.equal(sourceSummary.phase3SourcePolicy, "official_unicode_ucd_only");
+  assert.equal(sourceSummary.phase4SourcePolicy, "hkd_registry_seed_plus_phase3_ucd_artifacts_only");
   assert.ok(sourceSummary.sourceRefs.length >= 5);
+});
+
+test("Phase 4 KBS graph API exposes evidence graph without enabling runtime", () => {
+  const graph = getLipiKbsGraphView();
+  const detail = getLipiScriptKbsNeighborhood("unicode-devanagari");
+
+  assert.equal(graph.summary.scriptNodes, 426);
+  assert.equal(graph.summary.nodeTypes.Script, 426);
+  assert.equal(graph.summary.edgeTypes.SCRIPT_BACKED_BY_EVIDENCE > 0, true);
+  assert.equal(graph.summary.edgeTypes.SCRIPT_HAS_ZERO_GLYPH, 63);
+  assert.equal(graph.productionReady, false);
+  assert.equal(graph.governedProductionGo, false);
+  assert.equal(graph.phkdVerdict, "CONTROLLED_NO_GO");
+  assert.equal(graph.summary.runtimeEnabledRows, 0);
+  assert.ok(graph.summary.blockedFields.some((field) => field.field === "font_support_status" && field.status === "UNKNOWN"));
+  assert.ok(graph.summary.blockedFields.some((field) => field.field === "genealogical_family_descent" && field.status === "BLOCKED"));
+
+  assert.ok(detail);
+  assert.equal(detail?.productionReady, false);
+  assert.equal(detail?.record.id, "unicode-devanagari");
+  assert.ok(detail?.edges.some((edge) => edge.type === "SCRIPT_HAS_UNICODE_VALUE"));
+  assert.ok(detail?.edges.some((edge) => edge.type === "SCRIPT_HAS_DECIMAL_DIGITS"));
+  assert.ok(detail?.edges.some((edge) => edge.type === "SCRIPT_HAS_ZERO_GLYPH"));
 });
 
 test("Phase 2 evidence artifact records the runtime integration without production claims", () => {

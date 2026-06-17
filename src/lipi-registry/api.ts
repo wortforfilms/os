@@ -4,6 +4,7 @@ import numeralRegistry from "../../data/hkd-lipi-numeral-registry.json" with { t
 import zeroRegistry from "../../data/hkd-lipi-zero-registry.json" with { type: "json" };
 import familyGraph from "../../data/hkd-lipi-script-family-graph.json" with { type: "json" };
 import unicodeCrosswalk from "../../data/hkd-lipi-unicode-crosswalk.json" with { type: "json" };
+import kbsGraph from "../../data/hkd-lipi-kbs-graph.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -33,6 +34,8 @@ export type LipiRegistryStats = {
   rowsWithUnicodeRanges: number;
   rowsWithKnownZeroGlyph: number;
   rowsWithDigitInventory: number;
+  kbsNodes: number;
+  kbsEdges: number;
 };
 
 export type LipiRegistryListResponse = {
@@ -125,6 +128,38 @@ export type LipiFamilyGraphView = {
   blockedGenealogicalFamilyRelationships: typeof familyGraph.edges.blockedGenealogicalFamilyRelationships;
 };
 
+export type LipiKbsNode = (typeof kbsGraph.nodes)[number];
+export type LipiKbsEdge = (typeof kbsGraph.edges)[number];
+
+export type LipiKbsGraphView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  summary: typeof kbsGraph.summary;
+  nodes: readonly LipiKbsNode[];
+  edges: readonly LipiKbsEdge[];
+};
+
+export type LipiKbsScriptNeighborhood = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  record: HkdLipiScriptRegistryRecord;
+  scriptNode: LipiKbsNode | null;
+  edges: LipiKbsEdge[];
+  neighbors: LipiKbsNode[];
+  blockedFields: typeof kbsGraph.summary.blockedFields;
+  summary: {
+    edgeCount: number;
+    neighborCount: number;
+    byEdgeType: Record<string, number>;
+  };
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -162,9 +197,24 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     handler: "getLipiFamilyGraphView",
     status: "LOCAL_CONTRACT",
   },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/kbs/graph",
+    handler: "getLipiKbsGraphView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/scripts/{id}/kbs",
+    handler: "getLipiScriptKbsNeighborhood",
+    status: "LOCAL_CONTRACT",
+  },
 ] as const;
 
 const records = Object.freeze((seedDataset.records as HkdLipiScriptRegistryRecord[]).map((record) => Object.freeze(record)));
+const kbsNodes: readonly LipiKbsNode[] = Object.freeze((kbsGraph.nodes as LipiKbsNode[]).map((node: LipiKbsNode) => Object.freeze(node)));
+const kbsEdges: readonly LipiKbsEdge[] = Object.freeze((kbsGraph.edges as LipiKbsEdge[]).map((edge: LipiKbsEdge) => Object.freeze(edge)));
+const kbsNodeById = new Map<string, LipiKbsNode>(kbsNodes.map((node) => [node.id, node]));
 
 export function getLipiRegistryRecords(): readonly HkdLipiScriptRegistryRecord[] {
   return records;
@@ -180,6 +230,8 @@ export function getLipiRegistryStats(sourceRecords: readonly HkdLipiScriptRegist
     rowsWithUnicodeRanges: unicodeCrosswalk.summary.rowsWithRanges,
     rowsWithKnownZeroGlyph: zeroRegistry.summary.zeroGlyphScripts,
     rowsWithDigitInventory: numeralRegistry.summary.completeDigitSetScripts,
+    kbsNodes: kbsGraph.summary.totalNodes,
+    kbsEdges: kbsGraph.summary.totalEdges,
   };
 }
 
@@ -319,6 +371,48 @@ export function getLipiFamilyGraphView(): LipiFamilyGraphView {
   };
 }
 
+export function getLipiKbsGraphView(): LipiKbsGraphView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    summary: kbsGraph.summary,
+    nodes: kbsNodes,
+    edges: kbsEdges,
+  };
+}
+
+export function getLipiScriptKbsNeighborhood(scriptId: string): LipiKbsScriptNeighborhood | null {
+  const record = records.find((candidate) => candidate.id === scriptId);
+  if (!record) return null;
+  const scriptNode = kbsNodeById.get(record.kbs_node_id) ?? null;
+  const edges = kbsEdges.filter((edge: LipiKbsEdge) => edge.from === record.kbs_node_id || edge.to === record.kbs_node_id);
+  const neighbors = edges
+    .map((edge) => (edge.from === record.kbs_node_id ? edge.to : edge.from))
+    .map((nodeId) => kbsNodeById.get(nodeId))
+    .filter((node): node is LipiKbsNode => Boolean(node));
+
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    record,
+    scriptNode,
+    edges,
+    neighbors,
+    blockedFields: kbsGraph.summary.blockedFields,
+    summary: {
+      edgeCount: edges.length,
+      neighborCount: neighbors.length,
+      byEdgeType: countBy(edges, (edge) => edge.type),
+    },
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -350,9 +444,11 @@ export function getLipiRegistrySourceSummary() {
       zero: zeroRegistry.schema,
       family: familyGraph.schema,
       crosswalk: unicodeCrosswalk.schema,
+      kbs: kbsGraph.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
+    phase4SourcePolicy: "hkd_registry_seed_plus_phase3_ucd_artifacts_only",
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,
