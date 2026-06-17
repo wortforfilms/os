@@ -1,0 +1,657 @@
+{
+  "schema": "cldr-blockers.v1",
+  "generatedAt": "DETERMINISTIC_FROM_OFFICIAL_CLDR_CORE_SNAPSHOT",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+  "officialSource": {
+    "id": "cldr-official-core-zip",
+    "url": "https://unicode.org/Public/cldr/latest/core.zip",
+    "sourcePage": "https://cldr.unicode.org/index/downloads",
+    "localPath": "data/cldr/cldr-core.zip",
+    "sha256": "06c7c698d6fd8d67cefac15a0206b0109b00e0ef1636f86f84449fa959561f74",
+    "format": "CLDR core.zip with LDML XML under common/main/*.xml",
+    "note": "Phase 10 reads only explicit LDML locale identity script subtags; it does not use likelySubtags, languageData, genealogy, fonts, or transforms."
+  },
+  "trustedInputs": [
+    {
+      "id": "unicodeCrosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "cldrCoreZip",
+      "path": "data/cldr/cldr-core.zip",
+      "sha256": "06c7c698d6fd8d67cefac15a0206b0109b00e0ef1636f86f84449fa959561f74"
+    }
+  ],
+  "provenance": {
+    "scope": "cldr-blockers.v1",
+    "sourceIds": [
+      "cldr-official-core-zip"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+    "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+    "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+    "trustedInputs": [
+      "data/cldr/cldr-core.zip",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json"
+    ],
+    "reviewed": false,
+    "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+  },
+  "summary": {
+    "blockers": 2,
+    "ambiguousScriptLocaleRelations": 2,
+    "highSeverity": 2,
+    "promotionBlocked": true
+  },
+  "ambiguousRelationPolicy": {
+    "ambiguousRelationsDetected": 2,
+    "promotionAllowedWhenAmbiguous": false,
+    "enforced": true,
+    "rule": "ANY_AMBIGUOUS_CLDR_SCRIPT_LOCALE_RELATION_BLOCKS_PROMOTION"
+  },
+  "blockers": [
+    {
+      "id": "phase10:blocker:unmatched-cldr-script:hans",
+      "cldrScript": "Hans",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+      "localeLinks": [
+        {
+          "id": "phase10:cldr-locale-script:zh-hans-my",
+          "localeId": "zh_Hans_MY",
+          "language": "zh",
+          "script": "Hans",
+          "territory": "MY",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hans_MY.xml",
+          "sourceSha256": "47a9da6e573d39205974119bcc962834901a669acd36e8fe3cdc6512502534cb",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:yue-hans",
+          "localeId": "yue_Hans",
+          "language": "yue",
+          "script": "Hans",
+          "territory": "UNKNOWN",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/yue_Hans.xml",
+          "sourceSha256": "5c5e33f30f4e3e6eb0a8b85f7315ad92e56b693583de6dffe130c4a254f92be2",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hans-mo",
+          "localeId": "zh_Hans_MO",
+          "language": "zh",
+          "script": "Hans",
+          "territory": "MO",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hans_MO.xml",
+          "sourceSha256": "a249ab17e00a7f26dff626bedc3ac27c82020f18b08cf6646bdcd0fc5ac8624e",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hans",
+          "localeId": "zh_Hans",
+          "language": "zh",
+          "script": "Hans",
+          "territory": "UNKNOWN",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hans.xml",
+          "sourceSha256": "138d8d3b9b646ab10d30628911ce79426ed86d308b13e988fc69f57bc16c91e2",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:yue-hans-cn",
+          "localeId": "yue_Hans_CN",
+          "language": "yue",
+          "script": "Hans",
+          "territory": "CN",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/yue_Hans_CN.xml",
+          "sourceSha256": "6c88dfbafd75f43248a39b02f1d1265aee22511134f5470af0d482c2acd7e1ee",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hans-sg",
+          "localeId": "zh_Hans_SG",
+          "language": "zh",
+          "script": "Hans",
+          "territory": "SG",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hans_SG.xml",
+          "sourceSha256": "f5f4ca4c0375bd34c5675306bc6aa3759a818db68fc6039a7f28148391cff05f",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hans-cn",
+          "localeId": "zh_Hans_CN",
+          "language": "zh",
+          "script": "Hans",
+          "territory": "CN",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hans_CN.xml",
+          "sourceSha256": "0a531ee82fcc7e4bfcb4dd2307d9f49ed5221491d178aa71c0d08037df042d0a",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hans-hk",
+          "localeId": "zh_Hans_HK",
+          "language": "zh",
+          "script": "Hans",
+          "territory": "HK",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hans_HK.xml",
+          "sourceSha256": "86a1d7aa745641be4d1e5b482747655ac645de3c4ed5e2ed5a2535ef6459f991",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        }
+      ],
+      "reason": "CLDR script Hans appears in explicit locale identities but does not map to a Unicode Script property row in the 176-row registry; no merge or genealogy inference is allowed.",
+      "requiredToUnblock": [
+        "review CLDR script code class",
+        "attach mapping policy",
+        "rerun CLDR dry ingestion"
+      ],
+      "provenance": {
+        "scope": "cldr_ambiguous_script_locale_blocker",
+        "sourceIds": [
+          "cldr-official-core-zip"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+        "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+        "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+        "trustedInputs": [
+          "data/cldr/cldr-core.zip",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+      }
+    },
+    {
+      "id": "phase10:blocker:unmatched-cldr-script:hant",
+      "cldrScript": "Hant",
+      "status": "BLOCKED",
+      "severity": "HIGH",
+      "blocksPromotion": true,
+      "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+      "localeLinks": [
+        {
+          "id": "phase10:cldr-locale-script:yue-hant-hk",
+          "localeId": "yue_Hant_HK",
+          "language": "yue",
+          "script": "Hant",
+          "territory": "HK",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/yue_Hant_HK.xml",
+          "sourceSha256": "c6c7b1f503956723b451c01fd7bbbfd8ed794c0a50fbfd0257788114f2428546",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:yue-hant-mo",
+          "localeId": "yue_Hant_MO",
+          "language": "yue",
+          "script": "Hant",
+          "territory": "MO",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/yue_Hant_MO.xml",
+          "sourceSha256": "385a246739ce6c0ff774a9351a8422e82397644bbf9f97ad3b09684226a61cdf",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:yue-hant",
+          "localeId": "yue_Hant",
+          "language": "yue",
+          "script": "Hant",
+          "territory": "UNKNOWN",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/yue_Hant.xml",
+          "sourceSha256": "dac354743578ff21567c2b906b0438aebed07630e47c9f17909aa9a3478e1dd7",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:yue-hant-cn",
+          "localeId": "yue_Hant_CN",
+          "language": "yue",
+          "script": "Hant",
+          "territory": "CN",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/yue_Hant_CN.xml",
+          "sourceSha256": "aa6ebf581a80094994c0e27154a733c7d389f4e2ebe4a901a068e6a7d65b1ee3",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hant-tw",
+          "localeId": "zh_Hant_TW",
+          "language": "zh",
+          "script": "Hant",
+          "territory": "TW",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hant_TW.xml",
+          "sourceSha256": "b4caff023dae1663820c6eb8be3728748d3552e5d9f499279ca9d9e36903d64b",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hant-mo",
+          "localeId": "zh_Hant_MO",
+          "language": "zh",
+          "script": "Hant",
+          "territory": "MO",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hant_MO.xml",
+          "sourceSha256": "f4de35cc0da9ca019bceaf6a8d44c69f0da85613705c7f2a5446d59b30ec3439",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hant-my",
+          "localeId": "zh_Hant_MY",
+          "language": "zh",
+          "script": "Hant",
+          "territory": "MY",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hant_MY.xml",
+          "sourceSha256": "7e57a4549cef442c11376bd3ccfde34fc0b674301bd4ca5145bf2a3ec32f7f51",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hant-hk",
+          "localeId": "zh_Hant_HK",
+          "language": "zh",
+          "script": "Hant",
+          "territory": "HK",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hant_HK.xml",
+          "sourceSha256": "162fb36c3d738301572465ddddaf058721b73113aa581889c345e8ce01b42484",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        },
+        {
+          "id": "phase10:cldr-locale-script:zh-hant",
+          "localeId": "zh_Hant",
+          "language": "zh",
+          "script": "Hant",
+          "territory": "UNKNOWN",
+          "variant": "UNKNOWN",
+          "relationType": "EXPLICIT_LDML_IDENTITY_SCRIPT",
+          "sourcePath": "common/main/zh_Hant.xml",
+          "sourceSha256": "70bad49ead97b9f269751b3bca81c3b72e70b8eac1f4e6f54319dc285cee1f97",
+          "sourceBacked": true,
+          "languageUsageClaim": "NOT_ASSERTED",
+          "genealogyClaim": "NOT_ASSERTED",
+          "fontClaim": "NOT_ASSERTED",
+          "provenance": {
+            "scope": "cldr_locale_script_link",
+            "sourceIds": [
+              "cldr-official-core-zip"
+            ],
+            "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+            "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+            "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+            "trustedInputs": [
+              "data/cldr/cldr-core.zip",
+              "data/hkd-lipi-script-registry-seed-426.json",
+              "data/hkd-lipi-unicode-crosswalk.json"
+            ],
+            "reviewed": false,
+            "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+          }
+        }
+      ],
+      "reason": "CLDR script Hant appears in explicit locale identities but does not map to a Unicode Script property row in the 176-row registry; no merge or genealogy inference is allowed.",
+      "requiredToUnblock": [
+        "review CLDR script code class",
+        "attach mapping policy",
+        "rerun CLDR dry ingestion"
+      ],
+      "provenance": {
+        "scope": "cldr_ambiguous_script_locale_blocker",
+        "sourceIds": [
+          "cldr-official-core-zip"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+        "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+        "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+        "trustedInputs": [
+          "data/cldr/cldr-core.zip",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json"
+        ],
+        "reviewed": false,
+        "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+      }
+    }
+  ]
+}

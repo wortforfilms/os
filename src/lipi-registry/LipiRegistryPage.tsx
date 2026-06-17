@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import {
+  getLipiCldrIngestionView,
   getLipiEvidenceBadges,
   getLipiEvidenceFederationView,
   getLipiFamilyGraphView,
@@ -52,7 +53,11 @@ type ExplorerId =
   | "iso15924-report"
   | "iso15924-crosswalk"
   | "iso15924-diff"
-  | "iso15924-blockers";
+  | "iso15924-blockers"
+  | "cldr-report"
+  | "cldr-crosswalk"
+  | "cldr-diff"
+  | "cldr-blockers";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -76,6 +81,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const ingestionContractsView = useMemo(() => getLipiSourceIngestionContractsView(), []);
   const dryRunView = useMemo(() => getLipiIngestionDryRunView(), []);
   const iso15924View = useMemo(() => getLipiIso15924IngestionView(), []);
+  const cldrView = useMemo(() => getLipiCldrIngestionView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -154,6 +160,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["iso15924-crosswalk", "ISO 15924 Crosswalk"],
           ["iso15924-diff", "ISO 15924 Diff"],
           ["iso15924-blockers", "ISO 15924 Blockers"],
+          ["cldr-report", "CLDR Report"],
+          ["cldr-crosswalk", "CLDR Crosswalk"],
+          ["cldr-diff", "CLDR Diff"],
+          ["cldr-blockers", "CLDR Blockers"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -186,6 +196,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "iso15924-crosswalk" ? <Iso15924CrosswalkPanel view={iso15924View} /> : null}
       {explorer === "iso15924-diff" ? <Iso15924DiffPanel view={iso15924View} /> : null}
       {explorer === "iso15924-blockers" ? <Iso15924BlockersPanel view={iso15924View} /> : null}
+      {explorer === "cldr-report" ? <CldrReportPanel view={cldrView} /> : null}
+      {explorer === "cldr-crosswalk" ? <CldrCrosswalkPanel view={cldrView} /> : null}
+      {explorer === "cldr-diff" ? <CldrDiffPanel view={cldrView} /> : null}
+      {explorer === "cldr-blockers" ? <CldrBlockersPanel view={cldrView} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -1066,6 +1080,132 @@ function Iso15924BlockersPanel({ view }: { view: ReturnType<typeof getLipiIso159
             <strong>{blocker.unicodeScriptValue}</strong>
             <Badge label="iso" value={blocker.officialIso15924} tone="neutral" />
             <Badge label="pva" value={blocker.officialPva} tone="blocked" />
+            <p>{blocker.reason}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CldrReportPanel({ view }: { view: ReturnType<typeof getLipiCldrIngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="CLDR Ingestion Report">
+      <header>
+        <h3>CLDR Report</h3>
+        <Badge label="mode" value={view.report.ingestion.mode} tone="blocked" />
+        <Badge label="writes" value={String(view.report.ingestion.rowsWritten)} tone={view.report.ingestion.rowsWritten ? "blocked" : "verified"} />
+        <Badge label="promotion" value={view.report.ingestion.promotionStatus} tone={view.report.ingestion.promotionStatus === "BLOCKED" ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="CLDR Files" value={view.report.ingestion.cldrMainLocaleFiles} />
+        <RegistryStat label="Locale Links" value={view.report.ingestion.explicitLocaleScriptLinks} />
+        <RegistryStat label="Verified" value={view.report.summary.verifiedRows} />
+        <RegistryStat label="Blockers" value={view.report.ingestion.blockers} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Official Source</h4>
+        <div>
+          <span>URL</span>
+          <strong>{view.report.officialSource.url}</strong>
+        </div>
+        <div>
+          <span>Local snapshot</span>
+          <strong>{view.report.officialSource.localPath}</strong>
+        </div>
+        <div>
+          <span>SHA-256</span>
+          <strong>{view.report.officialSource.sha256.slice(0, 24)}</strong>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CldrCrosswalkPanel({ view }: { view: ReturnType<typeof getLipiCldrIngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="CLDR Script Locale Crosswalk">
+      <header>
+        <h3>CLDR Crosswalk</h3>
+        <Badge label="rows" value={String(view.crosswalk.summary.unicodeScriptRowsCompared)} tone="verified" />
+        <Badge label="verified" value={String(view.crosswalk.summary.verifiedRows)} tone="verified" />
+        <Badge label="unknown" value={String(view.crosswalk.summary.unknownRows)} tone="unknown" />
+        <Badge label="unmatched" value={view.crosswalk.unmatchedCldrScripts.join(", ")} tone="blocked" />
+      </header>
+      <div className="lipi-result-list small">
+        {view.crosswalk.rows.filter((row) => row.status === "VERIFIED").slice(0, 80).map((row) => (
+          <article className="lipi-result-row" key={row.id}>
+            <div className="lipi-row-main static">
+              <span>{row.unicodeScriptAlias}</span>
+              <strong>{row.unicodeScriptValue}</strong>
+              <em>{row.explicitLocaleScriptLinks} explicit CLDR links</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={row.status} tone={toneForAdapterFieldStatus(row.status)} />
+              <Badge label="usage" value={row.languageUsageClaim} tone="unknown" />
+              <Badge label="font" value={row.fontClaim} tone="unknown" />
+            </div>
+            <div className="lipi-row-blocks">
+              {row.localeLinks.slice(0, 5).map((link) => `${link.localeId} @ ${link.sourcePath}`).join(" / ")}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CldrDiffPanel({ view }: { view: ReturnType<typeof getLipiCldrIngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="CLDR Diff Preview">
+      <header>
+        <h3>CLDR Diff</h3>
+        <Badge label="diffs" value={String(view.diffPreview.summary.diffs)} tone="verified" />
+        <Badge label="changes" value={String(view.diffPreview.summary.proposedFieldChanges)} tone={view.diffPreview.summary.proposedFieldChanges ? "blocked" : "verified"} />
+        <Badge label="mutations" value={String(view.diffPreview.summary.registryMutations)} tone={view.diffPreview.summary.registryMutations ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Source-Backed" value={view.diffPreview.summary.sourceBackedMetadataPreviews} />
+        <RegistryStat label="No Explicit Link" value={view.diffPreview.summary.noExplicitLinkPreviews} />
+        <RegistryStat label="Preview Rows" value={view.diffPreview.summary.previewOnlyRows} />
+        <RegistryStat label="Runtime Enables" value={view.diffPreview.summary.runtimeEnablements} />
+      </div>
+      <div className="lipi-result-list small">
+        {view.diffPreview.diffs.slice(0, 96).map((diff) => (
+          <article className="lipi-result-row" key={diff.id}>
+            <div className="lipi-row-main static">
+              <span>{diff.previewOnly ? "PV" : "NO"}</span>
+              <strong>{diff.unicodeScriptValue}</strong>
+              <em>{diff.diffKind}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={diff.status} tone={toneForAdapterFieldStatus(diff.status)} />
+              <Badge label="patches" value={String(diff.proposedRegistryPatch.length)} tone={diff.proposedRegistryPatch.length ? "blocked" : "verified"} />
+              <Badge label="runtime" value={String(diff.wouldEnableRuntime)} tone={diff.wouldEnableRuntime ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{diff.reason}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CldrBlockersPanel({ view }: { view: ReturnType<typeof getLipiCldrIngestionView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="CLDR Blockers">
+      <header>
+        <h3>CLDR Blockers</h3>
+        <Badge label="blockers" value={String(view.blockers.summary.blockers)} tone={view.blockers.summary.blockers ? "blocked" : "verified"} />
+        <Badge label="ambiguous" value={String(view.blockers.summary.ambiguousScriptLocaleRelations)} tone="blocked" />
+        <Badge label="policy" value={view.blockers.ambiguousRelationPolicy.rule} tone="blocked" />
+      </header>
+      <div className="lipi-blocked-grid">
+        {view.blockers.blockers.map((blocker) => (
+          <article key={blocker.id}>
+            <strong>{blocker.cldrScript}</strong>
+            <Badge label="status" value={blocker.status} tone="blocked" />
+            <Badge label="links" value={String(blocker.localeLinks.length)} tone="neutral" />
             <p>{blocker.reason}</p>
           </article>
         ))}

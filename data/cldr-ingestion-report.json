@@ -1,0 +1,76 @@
+{
+  "schema": "cldr-ingestion-report.v1",
+  "generatedAt": "DETERMINISTIC_FROM_OFFICIAL_CLDR_CORE_SNAPSHOT",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+  "officialSource": {
+    "id": "cldr-official-core-zip",
+    "url": "https://unicode.org/Public/cldr/latest/core.zip",
+    "sourcePage": "https://cldr.unicode.org/index/downloads",
+    "localPath": "data/cldr/cldr-core.zip",
+    "sha256": "06c7c698d6fd8d67cefac15a0206b0109b00e0ef1636f86f84449fa959561f74",
+    "format": "CLDR core.zip with LDML XML under common/main/*.xml",
+    "note": "Phase 10 reads only explicit LDML locale identity script subtags; it does not use likelySubtags, languageData, genealogy, fonts, or transforms."
+  },
+  "trustedInputs": [
+    {
+      "id": "unicodeCrosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "cldrCoreZip",
+      "path": "data/cldr/cldr-core.zip",
+      "sha256": "06c7c698d6fd8d67cefac15a0206b0109b00e0ef1636f86f84449fa959561f74"
+    }
+  ],
+  "provenance": {
+    "scope": "cldr-ingestion-report.v1",
+    "sourceIds": [
+      "cldr-official-core-zip"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase10-cldr-ingestion.mjs",
+    "sourcePolicy": "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
+    "officialSourceUrl": "https://unicode.org/Public/cldr/latest/core.zip",
+    "trustedInputs": [
+      "data/cldr/cldr-core.zip",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json"
+    ],
+    "reviewed": false,
+    "phkd": "CLDR_LOCALE_SCRIPT_METADATA_ONLY_NO_USAGE_INFERENCE"
+  },
+  "ingestion": {
+    "mode": "CLDR_LOCALE_SCRIPT_METADATA_DRY_RUN_ONLY",
+    "adapter": "cldr",
+    "cldrMainLocaleFiles": 1122,
+    "explicitLocaleScriptLinks": 166,
+    "unicodeScriptRowsCompared": 176,
+    "rowsWritten": 0,
+    "enrichedRows": 0,
+    "runtimeEnablements": 0,
+    "proposedFieldChanges": 0,
+    "blockers": 2,
+    "ambiguousRelations": 2,
+    "promotionStatus": "BLOCKED",
+    "ambiguousRelationsBlockPromotion": true,
+    "seedHashBefore": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f",
+    "seedHashAfter": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+  },
+  "summary": {
+    "verifiedRows": 20,
+    "unknownRows": 156,
+    "blockedRows": 0,
+    "matchedRegistryScriptCodes": 20,
+    "unmatchedCldrScriptCodes": 2
+  }
+}
