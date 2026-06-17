@@ -36,6 +36,18 @@ import icuScriptMetadataCrosswalk from "../../data/icu-script-metadata-crosswalk
 import icuDiffPreview from "../../data/icu-diff-preview.json" with { type: "json" };
 import icuBlockers from "../../data/icu-blockers.json" with { type: "json" };
 import icuIngestionEvidence from "../../release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json" with { type: "json" };
+import harfbuzzOpenTypeDryRunReport from "../../data/hkd-lipi-harfbuzz-opentype-dry-ingestion-report.json" with { type: "json" };
+import harfbuzzOpenTypeDiffPreview from "../../data/hkd-lipi-harfbuzz-opentype-diff-preview.json" with { type: "json" };
+import harfbuzzOpenTypeBlockers from "../../data/hkd-lipi-harfbuzz-opentype-blockers.json" with { type: "json" };
+import harfbuzzOpenTypeEvidence from "../../release/evidence/hkd-lipi-registry-phase12-harfbuzz-opentype.json" with { type: "json" };
+import conflictAuthorityAudit from "../../data/hkd-lipi-cross-source-conflict-authority-audit.json" with { type: "json" };
+import conflictAuthorityEvidence from "../../release/evidence/hkd-lipi-registry-phase13-authority-audit.json" with { type: "json" };
+import controlledEnrichmentProposals from "../../data/hkd-lipi-controlled-enrichment-proposals.json" with { type: "json" };
+import controlledEnrichmentEvidence from "../../release/evidence/hkd-lipi-registry-phase14-controlled-enrichment.json" with { type: "json" };
+import runtimeGateReview from "../../data/hkd-lipi-runtime-enablement-gate-review.json" with { type: "json" };
+import runtimeGateEvidence from "../../release/evidence/hkd-lipi-registry-phase15-runtime-gate-review.json" with { type: "json" };
+import releaseCandidateEvidenceIndex from "../../data/hkd-lipi-release-candidate-evidence-index.json" with { type: "json" };
+import releaseCandidateEvidenceBundle from "../../release/evidence/hkd-lipi-registry-phase16-release-candidate-evidence-bundle.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -415,6 +427,91 @@ export type LipiIcuIngestionView = {
   };
 };
 
+export type LipiPhase12To16GovernanceView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  phase12: {
+    report: {
+      ingestion: typeof harfbuzzOpenTypeDryRunReport.ingestion;
+      officialSources: typeof harfbuzzOpenTypeDryRunReport.officialSources;
+      adapterRuns: typeof harfbuzzOpenTypeDryRunReport.adapterRuns;
+      limitations: typeof harfbuzzOpenTypeDryRunReport.limitations;
+    };
+    diffPreview: {
+      summary: typeof harfbuzzOpenTypeDiffPreview.summary;
+      diffs: typeof harfbuzzOpenTypeDiffPreview.diffs;
+    };
+    blockers: {
+      summary: typeof harfbuzzOpenTypeBlockers.summary;
+      promotionPolicy: typeof harfbuzzOpenTypeBlockers.promotionPolicy;
+      blockers: typeof harfbuzzOpenTypeBlockers.blockers;
+    };
+    evidence: {
+      counts: typeof harfbuzzOpenTypeEvidence.counts;
+      checks: typeof harfbuzzOpenTypeEvidence.checks;
+      limitations: typeof harfbuzzOpenTypeEvidence.limitations;
+    };
+  };
+  phase13: {
+    audit: {
+      summary: typeof conflictAuthorityAudit.summary;
+      authorityOrder: typeof conflictAuthorityAudit.authorityOrder;
+      conflictPolicy: typeof conflictAuthorityAudit.conflictPolicy;
+      audits: typeof conflictAuthorityAudit.audits;
+      blockingFindings: typeof conflictAuthorityAudit.blockingFindings;
+    };
+    evidence: {
+      counts: typeof conflictAuthorityEvidence.counts;
+      checks: typeof conflictAuthorityEvidence.checks;
+      limitations: typeof conflictAuthorityEvidence.limitations;
+    };
+  };
+  phase14: {
+    proposals: {
+      summary: typeof controlledEnrichmentProposals.summary;
+      proposalPolicy: typeof controlledEnrichmentProposals.proposalPolicy;
+      proposals: typeof controlledEnrichmentProposals.proposals;
+    };
+    evidence: {
+      counts: typeof controlledEnrichmentEvidence.counts;
+      checks: typeof controlledEnrichmentEvidence.checks;
+      limitations: typeof controlledEnrichmentEvidence.limitations;
+    };
+  };
+  phase15: {
+    gateReview: {
+      summary: typeof runtimeGateReview.summary;
+      gatePolicy: typeof runtimeGateReview.gatePolicy;
+      criteria: typeof runtimeGateReview.criteria;
+      blockers: typeof runtimeGateReview.blockers;
+    };
+    evidence: {
+      counts: typeof runtimeGateEvidence.counts;
+      checks: typeof runtimeGateEvidence.checks;
+      limitations: typeof runtimeGateEvidence.limitations;
+    };
+  };
+  phase16: {
+    evidenceIndex: {
+      summary: typeof releaseCandidateEvidenceIndex.summary;
+      artifacts: typeof releaseCandidateEvidenceIndex.artifacts;
+      reproducibility: typeof releaseCandidateEvidenceIndex.reproducibility;
+      releaseCandidateReadiness: typeof releaseCandidateEvidenceIndex.releaseCandidateReadiness;
+    };
+    evidenceBundle: {
+      summary: typeof releaseCandidateEvidenceBundle.summary;
+      artifactIndex: typeof releaseCandidateEvidenceBundle.artifactIndex;
+      reproducibility: typeof releaseCandidateEvidenceBundle.reproducibility;
+      releaseCandidateReadiness: typeof releaseCandidateEvidenceBundle.releaseCandidateReadiness;
+      checks: typeof releaseCandidateEvidenceBundle.checks;
+      limitations: typeof releaseCandidateEvidenceBundle.limitations;
+    };
+  };
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -630,6 +727,48 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/ingestion/icu/blockers",
     handler: "getLipiIcuIngestionView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/harfbuzz-opentype/report",
+    handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/harfbuzz-opentype/diff-preview",
+    handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/ingestion/harfbuzz-opentype/blockers",
+    handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/conflict-authority-audit",
+    handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/controlled-enrichment/proposals",
+    handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/runtime-enablement/gate-review",
+    handler: "getLipiPhase12To16GovernanceView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/release-candidate/evidence-bundle",
+    handler: "getLipiPhase12To16GovernanceView",
     status: "LOCAL_CONTRACT",
   },
 ] as const;
@@ -1074,6 +1213,93 @@ export function getLipiIcuIngestionView(): LipiIcuIngestionView {
   };
 }
 
+export function getLipiPhase12To16GovernanceView(): LipiPhase12To16GovernanceView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    phase12: {
+      report: {
+        ingestion: harfbuzzOpenTypeDryRunReport.ingestion,
+        officialSources: harfbuzzOpenTypeDryRunReport.officialSources,
+        adapterRuns: harfbuzzOpenTypeDryRunReport.adapterRuns,
+        limitations: harfbuzzOpenTypeDryRunReport.limitations,
+      },
+      diffPreview: {
+        summary: harfbuzzOpenTypeDiffPreview.summary,
+        diffs: harfbuzzOpenTypeDiffPreview.diffs,
+      },
+      blockers: {
+        summary: harfbuzzOpenTypeBlockers.summary,
+        promotionPolicy: harfbuzzOpenTypeBlockers.promotionPolicy,
+        blockers: harfbuzzOpenTypeBlockers.blockers,
+      },
+      evidence: {
+        counts: harfbuzzOpenTypeEvidence.counts,
+        checks: harfbuzzOpenTypeEvidence.checks,
+        limitations: harfbuzzOpenTypeEvidence.limitations,
+      },
+    },
+    phase13: {
+      audit: {
+        summary: conflictAuthorityAudit.summary,
+        authorityOrder: conflictAuthorityAudit.authorityOrder,
+        conflictPolicy: conflictAuthorityAudit.conflictPolicy,
+        audits: conflictAuthorityAudit.audits,
+        blockingFindings: conflictAuthorityAudit.blockingFindings,
+      },
+      evidence: {
+        counts: conflictAuthorityEvidence.counts,
+        checks: conflictAuthorityEvidence.checks,
+        limitations: conflictAuthorityEvidence.limitations,
+      },
+    },
+    phase14: {
+      proposals: {
+        summary: controlledEnrichmentProposals.summary,
+        proposalPolicy: controlledEnrichmentProposals.proposalPolicy,
+        proposals: controlledEnrichmentProposals.proposals,
+      },
+      evidence: {
+        counts: controlledEnrichmentEvidence.counts,
+        checks: controlledEnrichmentEvidence.checks,
+        limitations: controlledEnrichmentEvidence.limitations,
+      },
+    },
+    phase15: {
+      gateReview: {
+        summary: runtimeGateReview.summary,
+        gatePolicy: runtimeGateReview.gatePolicy,
+        criteria: runtimeGateReview.criteria,
+        blockers: runtimeGateReview.blockers,
+      },
+      evidence: {
+        counts: runtimeGateEvidence.counts,
+        checks: runtimeGateEvidence.checks,
+        limitations: runtimeGateEvidence.limitations,
+      },
+    },
+    phase16: {
+      evidenceIndex: {
+        summary: releaseCandidateEvidenceIndex.summary,
+        artifacts: releaseCandidateEvidenceIndex.artifacts,
+        reproducibility: releaseCandidateEvidenceIndex.reproducibility,
+        releaseCandidateReadiness: releaseCandidateEvidenceIndex.releaseCandidateReadiness,
+      },
+      evidenceBundle: {
+        summary: releaseCandidateEvidenceBundle.summary,
+        artifactIndex: releaseCandidateEvidenceBundle.artifactIndex,
+        reproducibility: releaseCandidateEvidenceBundle.reproducibility,
+        releaseCandidateReadiness: releaseCandidateEvidenceBundle.releaseCandidateReadiness,
+        checks: releaseCandidateEvidenceBundle.checks,
+        limitations: releaseCandidateEvidenceBundle.limitations,
+      },
+    },
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -1131,6 +1357,14 @@ export function getLipiRegistrySourceSummary() {
       icuCrosswalk: icuScriptMetadataCrosswalk.schema,
       icuDiffPreview: icuDiffPreview.schema,
       icuBlockers: icuBlockers.schema,
+      harfbuzzOpenTypeIngestion: harfbuzzOpenTypeDryRunReport.schema,
+      harfbuzzOpenTypeDiffPreview: harfbuzzOpenTypeDiffPreview.schema,
+      harfbuzzOpenTypeBlockers: harfbuzzOpenTypeBlockers.schema,
+      conflictAuthorityAudit: conflictAuthorityAudit.schema,
+      controlledEnrichmentProposals: controlledEnrichmentProposals.schema,
+      runtimeEnablementGateReview: runtimeGateReview.schema,
+      releaseCandidateEvidenceIndex: releaseCandidateEvidenceIndex.schema,
+      releaseCandidateEvidenceBundle: releaseCandidateEvidenceBundle.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",
@@ -1141,6 +1375,11 @@ export function getLipiRegistrySourceSummary() {
     phase9SourcePolicy: "iso15924_official_source_only_preview_no_registry_mutation",
     phase10SourcePolicy: "cldr_official_source_only_locale_script_metadata_no_registry_mutation",
     phase11SourcePolicy: "icu_official_uscript_source_only_script_metadata_no_registry_mutation",
+    phase12SourcePolicy: "harfbuzz_opentype_dry_run_blocked_without_fixtures_no_registry_mutation",
+    phase13SourcePolicy: "cross_source_conflict_authority_audit_no_auto_resolution",
+    phase14SourcePolicy: "controlled_enrichment_proposal_only_no_auto_apply",
+    phase15SourcePolicy: "runtime_enablement_gate_review_no_runtime_enablement",
+    phase16SourcePolicy: "release_candidate_evidence_bundle_no_release_candidate_go",
     contracts: HKD_LIPI_REGISTRY_API_CONTRACTS,
     reviewState: "CONTROLLED_NO_GO" as const,
     governedProductionGo: false as const,

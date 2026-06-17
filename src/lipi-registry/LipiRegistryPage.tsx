@@ -9,6 +9,7 @@ import {
   getLipiIso15924IngestionView,
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
+  getLipiPhase12To16GovernanceView,
   getLipiPhase3ScriptEnrichment,
   getLipiRegistryAuditabilityView,
   getLipiRegistryScript,
@@ -62,7 +63,14 @@ type ExplorerId =
   | "icu-report"
   | "icu-crosswalk"
   | "icu-diff"
-  | "icu-blockers";
+  | "icu-blockers"
+  | "hb-ot-report"
+  | "hb-ot-diff"
+  | "hb-ot-blockers"
+  | "authority-audit"
+  | "enrichment-proposals"
+  | "runtime-gate"
+  | "rc-bundle";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -88,6 +96,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const iso15924View = useMemo(() => getLipiIso15924IngestionView(), []);
   const cldrView = useMemo(() => getLipiCldrIngestionView(), []);
   const icuView = useMemo(() => getLipiIcuIngestionView(), []);
+  const phase12To16View = useMemo(() => getLipiPhase12To16GovernanceView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -174,6 +183,13 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["icu-crosswalk", "ICU Crosswalk"],
           ["icu-diff", "ICU Diff"],
           ["icu-blockers", "ICU Blockers"],
+          ["hb-ot-report", "HB/OT Report"],
+          ["hb-ot-diff", "HB/OT Diff"],
+          ["hb-ot-blockers", "HB/OT Blockers"],
+          ["authority-audit", "Authority Audit"],
+          ["enrichment-proposals", "Enrichment Proposals"],
+          ["runtime-gate", "Runtime Gate"],
+          ["rc-bundle", "RC Evidence Bundle"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -214,6 +230,13 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "icu-crosswalk" ? <IcuCrosswalkPanel view={icuView} /> : null}
       {explorer === "icu-diff" ? <IcuDiffPanel view={icuView} /> : null}
       {explorer === "icu-blockers" ? <IcuBlockersPanel view={icuView} /> : null}
+      {explorer === "hb-ot-report" ? <HarfbuzzOpenTypeReportPanel view={phase12To16View} /> : null}
+      {explorer === "hb-ot-diff" ? <HarfbuzzOpenTypeDiffPanel view={phase12To16View} /> : null}
+      {explorer === "hb-ot-blockers" ? <HarfbuzzOpenTypeBlockersPanel view={phase12To16View} /> : null}
+      {explorer === "authority-audit" ? <AuthorityAuditPanel view={phase12To16View} /> : null}
+      {explorer === "enrichment-proposals" ? <EnrichmentProposalsPanel view={phase12To16View} /> : null}
+      {explorer === "runtime-gate" ? <RuntimeGateReviewPanel view={phase12To16View} /> : null}
+      {explorer === "rc-bundle" ? <ReleaseCandidateBundlePanel view={phase12To16View} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -1354,6 +1377,255 @@ function IcuBlockersPanel({ view }: { view: ReturnType<typeof getLipiIcuIngestio
   );
 }
 
+function HarfbuzzOpenTypeReportPanel({ view }: { view: ReturnType<typeof getLipiPhase12To16GovernanceView> }) {
+  const phase12 = view.phase12;
+  return (
+    <section className="lipi-numeral-panel" aria-label="HarfBuzz OpenType Dry-Run Report">
+      <header>
+        <h3>HarfBuzz + OpenType Report</h3>
+        <Badge label="mode" value={phase12.report.ingestion.mode} tone="blocked" />
+        <Badge label="writes" value={String(phase12.report.ingestion.rowsWritten)} tone={phase12.report.ingestion.rowsWritten ? "blocked" : "verified"} />
+        <Badge label="promotion" value={phase12.report.ingestion.promotionStatus} tone="blocked" />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Adapters" value={phase12.report.ingestion.adaptersRun} />
+        <RegistryStat label="Field Previews" value={phase12.report.ingestion.fieldDiffPreviews} />
+        <RegistryStat label="Blockers" value={phase12.report.ingestion.blockers} />
+        <RegistryStat label="Runtime Enables" value={phase12.report.ingestion.runtimeEnablements} />
+      </div>
+      <div className="lipi-result-list small">
+        {phase12.report.adapterRuns.map((run) => (
+          <article className="lipi-result-row" key={run.id}>
+            <div className="lipi-row-main static">
+              <span>DRY</span>
+              <strong>{run.sourceId}</strong>
+              <em>{run.contractStatus}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="local" value={run.sourceLocalStatus} tone="blocked" />
+              <Badge label="fields" value={String(run.fieldPreviewCount)} tone="neutral" />
+              <Badge label="claims" value={String(run.fontSupportClaimsAsserted + run.shapingClaimsAsserted + run.opentypeFeatureClaimsAsserted)} tone="verified" />
+            </div>
+            <div className="lipi-row-blocks">{run.prerequisites.join(" / ")}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HarfbuzzOpenTypeDiffPanel({ view }: { view: ReturnType<typeof getLipiPhase12To16GovernanceView> }) {
+  const diff = view.phase12.diffPreview;
+  return (
+    <section className="lipi-numeral-panel" aria-label="HarfBuzz OpenType Diff Preview">
+      <header>
+        <h3>HarfBuzz + OpenType Diff</h3>
+        <Badge label="previews" value={String(diff.summary.previews)} tone="neutral" />
+        <Badge label="changes" value={String(diff.summary.proposedFieldChanges)} tone={diff.summary.proposedFieldChanges ? "blocked" : "verified"} />
+        <Badge label="mutations" value={String(diff.summary.registryMutations)} tone={diff.summary.registryMutations ? "blocked" : "verified"} />
+        <Badge label="claims" value={String(diff.summary.fontSupportClaimsAsserted + diff.summary.shapingClaimsAsserted + diff.summary.opentypeFeatureClaimsAsserted)} tone="verified" />
+      </header>
+      <div className="lipi-result-list small">
+        {diff.diffs.map((row) => (
+          <article className="lipi-result-row" key={row.id}>
+            <div className="lipi-row-main static">
+              <span>{row.previewOnly ? "PV" : "NO"}</span>
+              <strong>{row.field}</strong>
+              <em>{row.sourceId}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={row.status} tone={toneForAdapterFieldStatus(row.status)} />
+              <Badge label="write" value={String(row.wouldMutateRegistry)} tone={row.wouldMutateRegistry ? "blocked" : "verified"} />
+              <Badge label="runtime" value={String(row.wouldEnableRuntime)} tone={row.wouldEnableRuntime ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{row.reason}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HarfbuzzOpenTypeBlockersPanel({ view }: { view: ReturnType<typeof getLipiPhase12To16GovernanceView> }) {
+  const blockers = view.phase12.blockers;
+  return (
+    <section className="lipi-numeral-panel" aria-label="HarfBuzz OpenType Blockers">
+      <header>
+        <h3>HarfBuzz + OpenType Blockers</h3>
+        <Badge label="blockers" value={String(blockers.summary.blockers)} tone="blocked" />
+        <Badge label="high" value={String(blockers.summary.highSeverity)} tone="blocked" />
+        <Badge label="policy" value={blockers.promotionPolicy.rule} tone="blocked" />
+      </header>
+      <div className="lipi-blocked-grid">
+        {blockers.blockers.map((blocker) => (
+          <article key={blocker.id}>
+            <strong>{blocker.field}</strong>
+            <Badge label="source" value={blocker.sourceId} tone="neutral" />
+            <Badge label="status" value={blocker.status} tone={toneForAdapterFieldStatus(blocker.status)} />
+            <p>{blocker.reason}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AuthorityAuditPanel({ view }: { view: ReturnType<typeof getLipiPhase12To16GovernanceView> }) {
+  const audit = view.phase13.audit;
+  return (
+    <section className="lipi-numeral-panel" aria-label="Cross Source Conflict Authority Audit">
+      <header>
+        <h3>Authority Audit</h3>
+        <Badge label="findings" value={String(audit.summary.blockingFindings)} tone="blocked" />
+        <Badge label="conflicts" value={String(audit.summary.conflictsDetected)} tone={audit.summary.conflictsDetected ? "blocked" : "verified"} />
+        <Badge label="auto resolve" value={String(audit.summary.autoResolvedConflicts)} tone={audit.summary.autoResolvedConflicts ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Sources" value={audit.summary.sourcesAudited} />
+        <RegistryStat label="Blocked Findings" value={audit.summary.blockingFindings} />
+        <RegistryStat label="Mutations" value={audit.summary.registryMutations} />
+        <RegistryStat label="Runtime Enables" value={audit.summary.runtimeEnablements} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Authority Order</h4>
+        {audit.authorityOrder.map((entry) => (
+          <div key={entry}>
+            <span>{entry.split(":")[0]}</span>
+            <strong>{entry}</strong>
+          </div>
+        ))}
+      </div>
+      <div className="lipi-result-list small">
+        {audit.audits.map((row) => (
+          <article className="lipi-result-row" key={row.id}>
+            <div className="lipi-row-main static">
+              <span>{row.sourceId.slice(0, 4)}</span>
+              <strong>{row.sourceId}</strong>
+              <em>{row.status}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="auto" value={String(row.autoResolutionAllowed)} tone={row.autoResolutionAllowed ? "blocked" : "verified"} />
+              <Badge label="claims" value={String(row.createsNewClaims)} tone={row.createsNewClaims ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{row.authorityFor.join(", ")}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function EnrichmentProposalsPanel({ view }: { view: ReturnType<typeof getLipiPhase12To16GovernanceView> }) {
+  const proposals = view.phase14.proposals;
+  return (
+    <section className="lipi-numeral-panel" aria-label="Controlled Enrichment Proposals">
+      <header>
+        <h3>Controlled Enrichment Proposals</h3>
+        <Badge label="proposals" value={String(proposals.summary.proposals)} tone="neutral" />
+        <Badge label="auto apply" value={String(proposals.summary.autoApply)} tone={proposals.summary.autoApply ? "blocked" : "verified"} />
+        <Badge label="mutation" value={String(proposals.summary.registryMutations)} tone={proposals.summary.registryMutations ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-blocked-grid">
+        {proposals.proposals.map((proposal) => (
+          <article key={proposal.id}>
+            <strong>{proposal.title}</strong>
+            <Badge label="status" value={proposal.proposalStatus} tone="blocked" />
+            <Badge label="review" value={String(proposal.requiresReview)} tone={proposal.requiresReview ? "blocked" : "verified"} />
+            <p>{proposal.requiredEvidence.join(" / ")}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function RuntimeGateReviewPanel({ view }: { view: ReturnType<typeof getLipiPhase12To16GovernanceView> }) {
+  const gate = view.phase15.gateReview;
+  return (
+    <section className="lipi-numeral-panel" aria-label="Runtime Enablement Gate Review">
+      <header>
+        <h3>Runtime Gate Review</h3>
+        <Badge label="gate" value={gate.summary.gateStatus} tone="blocked" />
+        <Badge label="approved" value={String(gate.summary.runtimeEnablementApproved)} tone={gate.summary.runtimeEnablementApproved ? "blocked" : "verified"} />
+        <Badge label="runtime" value={String(gate.summary.runtimeEnabledRows)} tone={gate.summary.runtimeEnabledRows ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Failed Criteria" value={gate.summary.failedCriteria} />
+        <RegistryStat label="Passed Criteria" value={gate.summary.passedCriteria} />
+        <RegistryStat label="Unresolved Blockers" value={gate.summary.unresolvedBlockers} />
+        <RegistryStat label="Runtime Enables" value={gate.summary.runtimeEnablements} />
+      </div>
+      <div className="lipi-result-list small">
+        {gate.criteria.map((criterion) => (
+          <article className="lipi-result-row" key={criterion.id}>
+            <div className="lipi-row-main static">
+              <span>{criterion.status}</span>
+              <strong>{criterion.label}</strong>
+              <em>{criterion.blocksEnablement ? "blocks" : "clear"}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={criterion.status} tone={criterion.status === "PASS" ? "verified" : "blocked"} />
+              <Badge label="blocks" value={String(criterion.blocksEnablement)} tone={criterion.blocksEnablement ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{criterion.evidence}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ReleaseCandidateBundlePanel({ view }: { view: ReturnType<typeof getLipiPhase12To16GovernanceView> }) {
+  const bundle = view.phase16.evidenceBundle;
+  const artifacts = bundle.artifactIndex.artifacts.slice(0, 72);
+  return (
+    <section className="lipi-numeral-panel" aria-label="Release Candidate Evidence Bundle">
+      <header>
+        <h3>RC Evidence Bundle</h3>
+        <Badge label="release" value={String(bundle.summary.releaseCandidate)} tone={bundle.summary.releaseCandidate ? "blocked" : "verified"} />
+        <Badge label="production" value={String(bundle.summary.productionReady)} tone={bundle.summary.productionReady ? "blocked" : "verified"} />
+        <Badge label="runtime" value={String(bundle.summary.runtimeEnabled)} tone={bundle.summary.runtimeEnabled ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Artifacts" value={bundle.summary.indexedArtifacts} />
+        <RegistryStat label="Missing" value={bundle.summary.missingArtifacts} />
+        <RegistryStat label="Unresolved" value={bundle.summary.unresolvedBlockers} />
+        <RegistryStat label="PHKD" value={bundle.summary.phkdVerdict} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Readiness</h4>
+        <div>
+          <span>Reason</span>
+          <strong>{bundle.releaseCandidateReadiness.releaseCandidateReason}</strong>
+        </div>
+        <div>
+          <span>Seed mutation</span>
+          <strong>{String(bundle.reproducibility.registryMutationDetected)}</strong>
+        </div>
+        <div>
+          <span>Index hash</span>
+          <strong>{bundle.artifactIndex.sha256.slice(0, 24)}</strong>
+        </div>
+      </div>
+      <div className="lipi-result-list small">
+        {artifacts.map((artifact) => (
+          <article className="lipi-result-row" key={artifact.path}>
+            <div className="lipi-row-main static">
+              <span>{artifact.phase}</span>
+              <strong>{artifact.path}</strong>
+              <em>{artifact.exists ? artifact.sha256.slice(0, 16) : "MISSING"}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="exists" value={String(artifact.exists)} tone={artifact.exists ? "verified" : "blocked"} />
+              <Badge label="required" value={String(artifact.requiredForReleaseCandidate)} tone="neutral" />
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function NumeralZeroPanel({ view }: { view: ReturnType<typeof getLipiNumeralZeroView> }) {
   const visibleRows = view.rows.slice(0, 36);
   return (
@@ -1491,7 +1763,7 @@ function DetailBlock({ title, rows }: { title: string; rows: Array<[string, stri
   );
 }
 
-function RegistryStat({ label, value }: { label: string; value: number }) {
+function RegistryStat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="lipi-stat">
       <span>{label}</span>

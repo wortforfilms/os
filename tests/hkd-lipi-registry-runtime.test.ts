@@ -2,11 +2,14 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import {
+  getLipiCldrIngestionView,
   getLipiEvidenceFederationView,
+  getLipiIcuIngestionView,
   getLipiIngestionDryRunView,
   getLipiIso15924IngestionView,
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
+  getLipiPhase12To16GovernanceView,
   getLipiRegistryAuditabilityView,
   getLipiRegistryRecords,
   getLipiRegistryScript,
@@ -127,12 +130,34 @@ test("source summary carries local API contracts and keeps production blocked", 
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/iso15924/crosswalk"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/iso15924/diff-preview"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/iso15924/blockers"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/cldr/report"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/cldr/crosswalk"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/cldr/diff-preview"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/cldr/blockers"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/icu/report"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/icu/crosswalk"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/icu/diff-preview"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/icu/blockers"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/harfbuzz-opentype/report"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/harfbuzz-opentype/diff-preview"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/ingestion/harfbuzz-opentype/blockers"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/conflict-authority-audit"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/controlled-enrichment/proposals"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/runtime-enablement/gate-review"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/release-candidate/evidence-bundle"));
   assert.equal(sourceSummary.phase3SourcePolicy, "official_unicode_ucd_only");
   assert.equal(sourceSummary.phase4SourcePolicy, "hkd_registry_seed_plus_phase3_ucd_artifacts_only");
   assert.equal(sourceSummary.phase6SourcePolicy, "cross_reference_only_no_new_script_claims");
   assert.equal(sourceSummary.phase7SourcePolicy, "adapter_contracts_only_no_ingestion_no_silent_enrichment");
   assert.equal(sourceSummary.phase8SourcePolicy, "dry_run_only_no_registry_mutation_no_enrichment");
   assert.equal(sourceSummary.phase9SourcePolicy, "iso15924_official_source_only_preview_no_registry_mutation");
+  assert.equal(sourceSummary.phase10SourcePolicy, "cldr_official_source_only_locale_script_metadata_no_registry_mutation");
+  assert.equal(sourceSummary.phase11SourcePolicy, "icu_official_uscript_source_only_script_metadata_no_registry_mutation");
+  assert.equal(sourceSummary.phase12SourcePolicy, "harfbuzz_opentype_dry_run_blocked_without_fixtures_no_registry_mutation");
+  assert.equal(sourceSummary.phase13SourcePolicy, "cross_source_conflict_authority_audit_no_auto_resolution");
+  assert.equal(sourceSummary.phase14SourcePolicy, "controlled_enrichment_proposal_only_no_auto_apply");
+  assert.equal(sourceSummary.phase15SourcePolicy, "runtime_enablement_gate_review_no_runtime_enablement");
+  assert.equal(sourceSummary.phase16SourcePolicy, "release_candidate_evidence_bundle_no_release_candidate_go");
   assert.ok(sourceSummary.sourceRefs.length >= 5);
 });
 
@@ -215,6 +240,91 @@ test("Phase 9 ISO 15924 API compares official source without registry mutation",
   assert.equal(iso.evidence.checks.officialIsoSourceOnly, true);
   assert.equal(iso.evidence.checks.missingOrAmbiguousCodesBlocked, true);
   assert.equal(iso.evidence.checks.noRegistryMutation, true);
+});
+
+test("Phase 10 CLDR API exposes locale-script metadata dry-run without registry mutation", () => {
+  const cldr = getLipiCldrIngestionView();
+
+  assert.equal(cldr.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(cldr.productionReady, false);
+  assert.equal(cldr.governedProductionGo, false);
+  assert.equal(cldr.report.officialSource.id, "cldr-official-core-zip");
+  assert.equal(cldr.report.ingestion.mode, "CLDR_LOCALE_SCRIPT_METADATA_DRY_RUN_ONLY");
+  assert.equal(cldr.report.ingestion.rowsWritten, 0);
+  assert.equal(cldr.report.ingestion.enrichedRows, 0);
+  assert.equal(cldr.report.ingestion.runtimeEnablements, 0);
+  assert.equal(cldr.report.ingestion.proposedFieldChanges, 0);
+  assert.equal(cldr.crosswalk.summary.unicodeScriptRowsCompared, 176);
+  assert.equal(cldr.crosswalk.summary.cldrMainLocaleFiles, 1122);
+  assert.equal(cldr.crosswalk.summary.explicitLocaleScriptLinks, 166);
+  assert.equal(cldr.crosswalk.summary.verifiedRows, 20);
+  assert.equal(cldr.crosswalk.summary.unknownRows, 156);
+  assert.deepEqual(cldr.crosswalk.unmatchedCldrScripts, ["Hans", "Hant"]);
+  assert.equal(cldr.diffPreview.summary.proposedFieldChanges, 0);
+  assert.equal(cldr.diffPreview.summary.registryMutations, 0);
+  assert.equal(cldr.blockers.summary.blockers, 2);
+  assert.equal(cldr.blockers.summary.promotionBlocked, true);
+  assert.equal(cldr.evidence.checks.officialCldrSourceOnly, true);
+  assert.equal(cldr.evidence.checks.noInventedLanguageUsageClaims, true);
+  assert.equal(cldr.evidence.checks.noGenealogyClaims, true);
+  assert.equal(cldr.evidence.checks.noFontClaims, true);
+  assert.equal(cldr.evidence.checks.noRegistryMutation, true);
+});
+
+test("Phase 11 ICU API exposes script metadata dry-run without registry mutation", () => {
+  const icu = getLipiIcuIngestionView();
+
+  assert.equal(icu.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(icu.productionReady, false);
+  assert.equal(icu.governedProductionGo, false);
+  assert.equal(icu.report.officialSource.id, "icu-official-uscript-source");
+  assert.equal(icu.report.ingestion.mode, "ICU_USCRIPT_METADATA_DRY_RUN_ONLY");
+  assert.equal(icu.report.ingestion.rowsWritten, 0);
+  assert.equal(icu.report.ingestion.enrichedRows, 0);
+  assert.equal(icu.report.ingestion.runtimeEnablements, 0);
+  assert.equal(icu.report.ingestion.proposedFieldChanges, 0);
+  assert.equal(icu.crosswalk.summary.unicodeScriptRowsCompared, 176);
+  assert.equal(icu.crosswalk.summary.officialIcuScriptCodes, 213);
+  assert.equal(icu.crosswalk.summary.verifiedRows, 168);
+  assert.equal(icu.crosswalk.summary.blockedRows, 8);
+  assert.equal(icu.crosswalk.summary.extraIcuCodesNotInUcdRegistry, 37);
+  assert.equal(icu.diffPreview.summary.proposedFieldChanges, 0);
+  assert.equal(icu.diffPreview.summary.registryMutations, 0);
+  assert.equal(icu.blockers.summary.blockers, 45);
+  assert.equal(icu.blockers.summary.promotionBlocked, true);
+  assert.equal(icu.evidence.checks.officialIcuSourceOnly, true);
+  assert.equal(icu.evidence.checks.noLocaleInferenceClaims, true);
+  assert.equal(icu.evidence.checks.noGenealogyClaims, true);
+  assert.equal(icu.evidence.checks.noFontClaims, true);
+  assert.equal(icu.evidence.checks.noRenderingClaims, true);
+  assert.equal(icu.evidence.checks.noRegistryMutation, true);
+});
+
+test("Phases 12-16 governance API exposes dry-run, proposal-only, and gate-blocked state", () => {
+  const governance = getLipiPhase12To16GovernanceView();
+
+  assert.equal(governance.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(governance.productionReady, false);
+  assert.equal(governance.governedProductionGo, false);
+  assert.equal(governance.phkdVerdict, "CONTROLLED_NO_GO");
+  assert.equal(governance.phase12.report.ingestion.mode, "HARFBUZZ_OPENTYPE_DRY_RUN_ONLY");
+  assert.equal(governance.phase12.report.ingestion.rowsWritten, 0);
+  assert.equal(governance.phase12.report.ingestion.enrichedRows, 0);
+  assert.equal(governance.phase12.report.ingestion.runtimeEnablements, 0);
+  assert.equal(governance.phase12.diffPreview.summary.fontSupportClaimsAsserted, 0);
+  assert.equal(governance.phase12.diffPreview.summary.shapingClaimsAsserted, 0);
+  assert.equal(governance.phase12.blockers.summary.blockers, 10);
+  assert.equal(governance.phase13.audit.summary.blockingFindings, 61);
+  assert.equal(governance.phase13.audit.summary.autoResolvedConflicts, 0);
+  assert.equal(governance.phase14.proposals.summary.proposals, 6);
+  assert.equal(governance.phase14.proposals.summary.autoApply, 0);
+  assert.equal(governance.phase14.proposals.summary.registryMutations, 0);
+  assert.equal(governance.phase15.gateReview.summary.gateStatus, "BLOCKED");
+  assert.equal(governance.phase15.gateReview.summary.runtimeEnablementApproved, false);
+  assert.equal(governance.phase15.gateReview.summary.runtimeEnabledRows, 0);
+  assert.equal(governance.phase16.evidenceBundle.summary.releaseCandidate, false);
+  assert.equal(governance.phase16.evidenceBundle.summary.productionReady, false);
+  assert.equal(governance.phase16.evidenceBundle.checks.everyIndexedArtifactExists, true);
 });
 
 test("auditability API exposes reproducible exports and provenance checks without new claims", () => {

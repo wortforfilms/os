@@ -1,0 +1,568 @@
+{
+  "schema": "hkd-lipi-controlled-enrichment-proposals.v1",
+  "generatedAt": "DETERMINISTIC_FROM_PHASE12_TO_PHASE16_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+  "trustedInputs": [
+    {
+      "id": "cldrBlockers",
+      "path": "data/cldr-blockers.json",
+      "sha256": "c87adda6186d46b99b44bd77e9c6698d0ef48b0d8cae404f61543d0d860a9835"
+    },
+    {
+      "id": "cldrCrosswalk",
+      "path": "data/cldr-script-locale-crosswalk.json",
+      "sha256": "92bab12eea5d2b5142dabe79d44cc596f5d6b8bab2924871b950585fd80aaba7"
+    },
+    {
+      "id": "conflictResolutionRules",
+      "path": "data/hkd-lipi-conflict-resolution-rules.json",
+      "sha256": "0e46f99c9da9e733c66ab2d363856ef7c8540f4f014b969f97aa86e25cbdaccb"
+    },
+    {
+      "id": "sourceRegistry",
+      "path": "data/hkd-lipi-federated-source-registry.json",
+      "sha256": "d312a8276cad9048ff5703b2c9ff08de9cfdf0d9e29e214b49f62b148081719d"
+    },
+    {
+      "id": "ingestionBlockers",
+      "path": "data/hkd-lipi-ingestion-blockers.json",
+      "sha256": "e3acbb5a8bef850f7790a936b54a78d0eeccf42c46b32a836bafd539bf448e71"
+    },
+    {
+      "id": "ingestionDryRunReport",
+      "path": "data/hkd-lipi-ingestion-dry-run-report.json",
+      "sha256": "8b561f45d4a11ba07c816c87691b31c50546c8359b1ac2ee1f9ac42734d68f51"
+    },
+    {
+      "id": "ingestionPolicy",
+      "path": "data/hkd-lipi-ingestion-policy.json",
+      "sha256": "4b1e4f1a61ff35d2fa4708830a6a2223811eb6de15ed60861171e1e9f33ca090"
+    },
+    {
+      "id": "kbsGraph",
+      "path": "data/hkd-lipi-kbs-graph.json",
+      "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+    },
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "sourceAdapterContracts",
+      "path": "data/hkd-lipi-source-adapter-contracts.json",
+      "sha256": "850e620a1d25ca69f65ad089c444d9d170a1525169c3dc3066cf993772966d09"
+    },
+    {
+      "id": "sourceTrustMatrix",
+      "path": "data/hkd-lipi-source-trust-matrix.json",
+      "sha256": "0074f967ddb95059bb75221f3a11384611506372af99d7b5c83ea27cb56b77c4"
+    },
+    {
+      "id": "unicodeCrosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "icuBlockers",
+      "path": "data/icu-blockers.json",
+      "sha256": "65854dea85a1fef9a41f39e4eca8b04ee76a547e04e79bec2ccae2bdbc4a7e24"
+    },
+    {
+      "id": "icuCrosswalk",
+      "path": "data/icu-script-metadata-crosswalk.json",
+      "sha256": "febc33abaed168d562561e00a9fcf66c34f608dacf6084ff6400dbfc6ee0cdf6"
+    },
+    {
+      "id": "iso15924Blockers",
+      "path": "data/iso15924-blockers.json",
+      "sha256": "228990b6236b3f704fe55adc8f90d5b9e9ff5124f86016109f5842471c297c33"
+    },
+    {
+      "id": "iso15924Crosswalk",
+      "path": "data/iso15924-script-code-crosswalk.json",
+      "sha256": "ce07ad4f7f080d9e22fc13f99d4b07703cc1a11bb5531b1492a858f88811a10c"
+    },
+    {
+      "id": "auditReport",
+      "path": "release/evidence/hkd-lipi-registry-audit-report.json",
+      "sha256": "6a95d81a033d1f6c4cffd0fa1c5adb1c107f69c739ec758655dcf5e6c31bd5ff"
+    },
+    {
+      "id": "phase10Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+      "sha256": "13a9f2d54e7ea49b3404a7f9ed3823510fa714eac0b07973161703672386a0a0"
+    },
+    {
+      "id": "phase11Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+      "sha256": "5ce2fffc4e576cf6ee1f806095bb5888264d53a508872de71c3a45c364beebef"
+    },
+    {
+      "id": "phase6Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase6-federation.json",
+      "sha256": "10ba8272e75cec778d7e86feea1a30e1d3a62dc3c1413741fbe6b72940e8e88b"
+    },
+    {
+      "id": "phase7Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+      "sha256": "4597a101c020f101d98ab559a0516b0955b5e210951e2d0f7acd21f34a6dfaff"
+    },
+    {
+      "id": "phase8Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+      "sha256": "bf8d37b3542e0f1a8fc6fd8a1124275d55405972767d2a5eef168a09289e054d"
+    },
+    {
+      "id": "phase9Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+      "sha256": "251d73842e5b75d560250d3c1d27e3965d8b088ec3f1e1623204c1b73b7cd41e"
+    },
+    {
+      "id": "provenanceReport",
+      "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06"
+    }
+  ],
+  "provenance": {
+    "scope": "hkd-lipi-controlled-enrichment-proposals.v1",
+    "sourceIds": [
+      "hkd-lipi-phase13-authority-audit"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+    "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+    "trustedInputs": [
+      "data/cldr-blockers.json",
+      "data/cldr-script-locale-crosswalk.json",
+      "data/hkd-lipi-conflict-resolution-rules.json",
+      "data/hkd-lipi-federated-source-registry.json",
+      "data/hkd-lipi-ingestion-blockers.json",
+      "data/hkd-lipi-ingestion-dry-run-report.json",
+      "data/hkd-lipi-ingestion-policy.json",
+      "data/hkd-lipi-kbs-graph.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-source-adapter-contracts.json",
+      "data/hkd-lipi-source-trust-matrix.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/icu-blockers.json",
+      "data/icu-script-metadata-crosswalk.json",
+      "data/iso15924-blockers.json",
+      "data/iso15924-script-code-crosswalk.json",
+      "release/evidence/hkd-lipi-registry-audit-report.json",
+      "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+      "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+      "release/evidence/hkd-lipi-registry-phase6-federation.json",
+      "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+      "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+      "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+      "release/evidence/hkd-lipi-registry-provenance-report.json"
+    ],
+    "reviewed": false,
+    "phkd": "FACTS_FROM_TRUSTED_INPUTS_OR_BLOCKED"
+  },
+  "summary": {
+    "proposals": 6,
+    "proposalOnly": 6,
+    "autoApply": 0,
+    "requiresReview": 6,
+    "registryMutations": 0,
+    "runtimeEnablements": 0,
+    "sourceBlockingFindingsConsidered": 61,
+    "promotionStatus": "BLOCKED"
+  },
+  "proposalPolicy": {
+    "mode": "CONTROLLED_PROPOSAL_ONLY",
+    "autoApplyAllowed": false,
+    "registryMutationAllowed": false,
+    "runtimeEnablementAllowed": false,
+    "promotionRequiresCleanAuthorityAudit": true
+  },
+  "proposals": [
+    {
+      "id": "phase14:proposal:harfbuzz-shaping-fixtures",
+      "title": "Attach HarfBuzz shaping validation fixtures",
+      "sourceIds": [
+        "harfbuzz"
+      ],
+      "targetFields": [
+        "joining_behavior",
+        "complex_shaping_behavior",
+        "glyph_substitution_behavior"
+      ],
+      "proposalStatus": "PROPOSAL_ONLY",
+      "blockedBy": [
+        "NO_HARFBUZZ_VERSIONED_BINARY_OR_SOURCE",
+        "NO_SHAPING_CORPUS",
+        "NO_FONT_FIXTURES"
+      ],
+      "requiredEvidence": [
+        "versioned HarfBuzz source or binary",
+        "script-specific shaping corpus",
+        "glyph-run diff report",
+        "human review"
+      ],
+      "proposedRegistryPatch": [],
+      "autoApply": false,
+      "requiresReview": true,
+      "registryMutationAllowed": false,
+      "wouldMutateRegistry": false,
+      "wouldEnableRuntime": false,
+      "provenance": {
+        "scope": "phase14_controlled_enrichment_proposal",
+        "sourceIds": [
+          "harfbuzz"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+        "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/cldr-blockers.json",
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-ingestion-blockers.json",
+          "data/hkd-lipi-ingestion-dry-run-report.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu-blockers.json",
+          "data/icu-script-metadata-crosswalk.json",
+          "data/iso15924-blockers.json",
+          "data/iso15924-script-code-crosswalk.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+          "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_TRUSTED_INPUTS_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "phase14:proposal:opentype-spec-fixtures",
+      "title": "Attach OpenType specification and font fixture evidence",
+      "sourceIds": [
+        "opentype-spec"
+      ],
+      "targetFields": [
+        "opentype_feature_support",
+        "font_table_support",
+        "font_support_status"
+      ],
+      "proposalStatus": "PROPOSAL_ONLY",
+      "blockedBy": [
+        "NO_OPENTYPE_SPEC_SNAPSHOT",
+        "NO_FEATURE_TAG_POLICY_MAP",
+        "NO_FONT_FIXTURES"
+      ],
+      "requiredEvidence": [
+        "versioned OpenType spec snapshot",
+        "feature-tag policy map",
+        "versioned font fixtures",
+        "reviewed field map"
+      ],
+      "proposedRegistryPatch": [],
+      "autoApply": false,
+      "requiresReview": true,
+      "registryMutationAllowed": false,
+      "wouldMutateRegistry": false,
+      "wouldEnableRuntime": false,
+      "provenance": {
+        "scope": "phase14_controlled_enrichment_proposal",
+        "sourceIds": [
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+        "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/cldr-blockers.json",
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-ingestion-blockers.json",
+          "data/hkd-lipi-ingestion-dry-run-report.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu-blockers.json",
+          "data/icu-script-metadata-crosswalk.json",
+          "data/iso15924-blockers.json",
+          "data/iso15924-script-code-crosswalk.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+          "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_TRUSTED_INPUTS_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "phase14:proposal:iso-pva-blocker-review",
+      "title": "Review ISO 15924 PVA blockers",
+      "sourceIds": [
+        "iso-15924"
+      ],
+      "targetFields": [
+        "iso15924",
+        "unicode_script_alias"
+      ],
+      "proposalStatus": "PROPOSAL_ONLY",
+      "blockedBy": [
+        "ISO15924_PVA_UNKNOWN_FOR_4_ROWS"
+      ],
+      "requiredEvidence": [
+        "official ISO update or explicit mapping policy",
+        "field-level provenance",
+        "review note"
+      ],
+      "proposedRegistryPatch": [],
+      "autoApply": false,
+      "requiresReview": true,
+      "registryMutationAllowed": false,
+      "wouldMutateRegistry": false,
+      "wouldEnableRuntime": false,
+      "provenance": {
+        "scope": "phase14_controlled_enrichment_proposal",
+        "sourceIds": [
+          "iso15924-official-plain-text"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+        "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/cldr-blockers.json",
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-ingestion-blockers.json",
+          "data/hkd-lipi-ingestion-dry-run-report.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu-blockers.json",
+          "data/icu-script-metadata-crosswalk.json",
+          "data/iso15924-blockers.json",
+          "data/iso15924-script-code-crosswalk.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+          "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_TRUSTED_INPUTS_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "phase14:proposal:cldr-hans-hant-policy",
+      "title": "Review CLDR Hans/Hant relation policy",
+      "sourceIds": [
+        "cldr"
+      ],
+      "targetFields": [
+        "locale_script_metadata"
+      ],
+      "proposalStatus": "PROPOSAL_ONLY",
+      "blockedBy": [
+        "CLDR_HANS_HANT_NOT_DIRECT_UCD_SCRIPT_ROWS"
+      ],
+      "requiredEvidence": [
+        "explicit policy for inherited CLDR script subtags",
+        "no language usage inference",
+        "review note"
+      ],
+      "proposedRegistryPatch": [],
+      "autoApply": false,
+      "requiresReview": true,
+      "registryMutationAllowed": false,
+      "wouldMutateRegistry": false,
+      "wouldEnableRuntime": false,
+      "provenance": {
+        "scope": "phase14_controlled_enrichment_proposal",
+        "sourceIds": [
+          "cldr-official-core-zip"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+        "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/cldr-blockers.json",
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-ingestion-blockers.json",
+          "data/hkd-lipi-ingestion-dry-run-report.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu-blockers.json",
+          "data/icu-script-metadata-crosswalk.json",
+          "data/iso15924-blockers.json",
+          "data/iso15924-script-code-crosswalk.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+          "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_TRUSTED_INPUTS_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "phase14:proposal:icu-metadata-mismatch-policy",
+      "title": "Review ICU metadata mismatch policy",
+      "sourceIds": [
+        "icu"
+      ],
+      "targetFields": [
+        "uscript_code",
+        "unicode_script_alias"
+      ],
+      "proposalStatus": "PROPOSAL_ONLY",
+      "blockedBy": [
+        "ICU_UCD_ISO_CLDR_METADATA_MISMATCHES"
+      ],
+      "requiredEvidence": [
+        "conflict authority decision",
+        "explicit field mapping policy",
+        "review note"
+      ],
+      "proposedRegistryPatch": [],
+      "autoApply": false,
+      "requiresReview": true,
+      "registryMutationAllowed": false,
+      "wouldMutateRegistry": false,
+      "wouldEnableRuntime": false,
+      "provenance": {
+        "scope": "phase14_controlled_enrichment_proposal",
+        "sourceIds": [
+          "icu-official-uscript-source"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+        "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/cldr-blockers.json",
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-ingestion-blockers.json",
+          "data/hkd-lipi-ingestion-dry-run-report.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu-blockers.json",
+          "data/icu-script-metadata-crosswalk.json",
+          "data/iso15924-blockers.json",
+          "data/iso15924-script-code-crosswalk.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+          "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_TRUSTED_INPUTS_OR_BLOCKED"
+      }
+    },
+    {
+      "id": "phase14:proposal:human-review-packet",
+      "title": "Prepare reviewer sign-off packet before any enrichment",
+      "sourceIds": [
+        "hkd-lipi-phase13-authority-audit"
+      ],
+      "targetFields": [
+        "review_status",
+        "promotion_status"
+      ],
+      "proposalStatus": "PROPOSAL_ONLY",
+      "blockedBy": [
+        "NO_HUMAN_REVIEW_SIGNOFF",
+        "UNRESOLVED_AUTHORITY_BLOCKERS"
+      ],
+      "requiredEvidence": [
+        "reviewer identity",
+        "review date",
+        "scope of approval",
+        "rerun all source-specific dry ingestions"
+      ],
+      "proposedRegistryPatch": [],
+      "autoApply": false,
+      "requiresReview": true,
+      "registryMutationAllowed": false,
+      "wouldMutateRegistry": false,
+      "wouldEnableRuntime": false,
+      "provenance": {
+        "scope": "phase14_controlled_enrichment_proposal",
+        "sourceIds": [
+          "hkd-lipi-phase13-authority-audit"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phases12-16.mjs",
+        "sourcePolicy": "phase12_to_phase16_dry_run_audit_proposal_gate_bundle_no_registry_mutation_no_runtime_enablement",
+        "trustedInputs": [
+          "data/cldr-blockers.json",
+          "data/cldr-script-locale-crosswalk.json",
+          "data/hkd-lipi-conflict-resolution-rules.json",
+          "data/hkd-lipi-federated-source-registry.json",
+          "data/hkd-lipi-ingestion-blockers.json",
+          "data/hkd-lipi-ingestion-dry-run-report.json",
+          "data/hkd-lipi-ingestion-policy.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-source-adapter-contracts.json",
+          "data/hkd-lipi-source-trust-matrix.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/icu-blockers.json",
+          "data/icu-script-metadata-crosswalk.json",
+          "data/iso15924-blockers.json",
+          "data/iso15924-script-code-crosswalk.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-phase10-cldr-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase11-icu-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase6-federation.json",
+          "release/evidence/hkd-lipi-registry-phase7-ingestion-contracts.json",
+          "release/evidence/hkd-lipi-registry-phase8-dry-run-ingestion.json",
+          "release/evidence/hkd-lipi-registry-phase9-iso15924-ingestion.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_TRUSTED_INPUTS_OR_BLOCKED"
+      }
+    }
+  ]
+}
