@@ -1,0 +1,381 @@
+{
+  "schema": "hkd-lipi-registry-provenance-report.v1",
+  "generatedAt": "DETERMINISTIC_FROM_INPUT_HASHES",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "nodes",
+      "path": "data/hkd-lipi-kbs-nodes.json",
+      "sha256": "d02070fedd429205ad1dcbe9b9e637fab55ea4b9e987d9f2cc1e1e32b993622e"
+    },
+    {
+      "id": "edges",
+      "path": "data/hkd-lipi-kbs-edges.json",
+      "sha256": "9fc6e86e4c65dc3f5d9bf714063cd1eac05988de8746c27199a16cb8d974f400"
+    },
+    {
+      "id": "graph",
+      "path": "data/hkd-lipi-kbs-graph.json",
+      "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+    },
+    {
+      "id": "phase4Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase4-kbs.json",
+      "sha256": "0d9b259700b3c75e6d235057c78212cdd075b88f38fe660c036301c8da7c2773"
+    }
+  ],
+  "counts": {
+    "evidenceSources": 6,
+    "nodeEvidenceRefs": 6,
+    "edgeEvidenceRefs": 6,
+    "allEvidenceRefs": 6,
+    "nodesMissingProvenance": 0,
+    "edgesMissingProvenance": 0,
+    "orphanEvidenceReferences": 0,
+    "nodesUnreachableFromProvenance": 0
+  },
+  "evidenceSources": [
+    {
+      "sourceId": "hkd-registry-architect-user-prompt",
+      "nodeId": "kbs:evidence-source:hkd-registry-architect-user-prompt",
+      "nodeReferences": 262,
+      "edgeReferences": 1000,
+      "sampleNodeIds": [
+        "kbs:evidence-source:hkd-registry-architect-user-prompt",
+        "kbs:phkd-status:controlled-no-go",
+        "kbs:registry-class:hkd-private",
+        "kbs:registry-class:notation",
+        "kbs:registry-class:shorthand",
+        "kbs:registry-class:symbol",
+        "kbs:registry-class:undeciphered",
+        "kbs:registry-class:unicode",
+        "kbs:script:aalekhya-systems",
+        "kbs:script:alchemical-symbols",
+        "kbs:script:astrological-symbols",
+        "kbs:script:astronomical-symbols"
+      ],
+      "sampleEdgeIds": [
+        "kbs:edge:script-backed-by-evidence:kbs-script-aalekhya-systems:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-alchemical-symbols:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-astrological-symbols:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-astronomical-symbols:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-byzantine-music-notation:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-cartographic-symbols:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-chemical-notation:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-dance-notation:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-future-research-systems:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-gregg-shorthand:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-hkd-evidence-slot-204:kbs-evidence-source-hkd-registry-architect-user-prompt",
+        "kbs:edge:script-backed-by-evidence:kbs-script-hkd-evidence-slot-205:kbs-evidence-source-hkd-registry-architect-user-prompt"
+      ],
+      "provenance": {
+        "scope": "evidence_source_reference_report",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+        "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-edges.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-kbs-nodes.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "unicode-ucd-17-blocks",
+      "nodeId": "kbs:evidence-source:unicode-ucd-17-blocks",
+      "nodeReferences": 3116,
+      "edgeReferences": 3735,
+      "sampleNodeIds": [
+        "kbs:decimal-digits:adlam",
+        "kbs:decimal-digits:ahom",
+        "kbs:decimal-digits:arabic",
+        "kbs:decimal-digits:balinese",
+        "kbs:decimal-digits:bengali",
+        "kbs:decimal-digits:bhaiksuki",
+        "kbs:decimal-digits:brahmi",
+        "kbs:decimal-digits:chakma",
+        "kbs:decimal-digits:cham",
+        "kbs:decimal-digits:common",
+        "kbs:decimal-digits:devanagari",
+        "kbs:decimal-digits:dives-akuru"
+      ],
+      "sampleEdgeIds": [
+        "kbs:edge:script-backed-by-evidence:kbs-script-adlam:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-ahom:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-alchemical-symbols:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-anatolian-hieroglyphs:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-arabic:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-armenian:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-astrological-symbols:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-astronomical-symbols:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-avestan:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-balinese:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bamum:kbs-evidence-source-unicode-ucd-17-blocks",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bassa-vah:kbs-evidence-source-unicode-ucd-17-blocks"
+      ],
+      "provenance": {
+        "scope": "evidence_source_reference_report",
+        "sourceIds": [
+          "unicode-ucd-17-blocks"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+        "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-edges.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-kbs-nodes.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "unicode-ucd-17-derived-age",
+      "nodeId": "kbs:evidence-source:unicode-ucd-17-derived-age",
+      "nodeReferences": 177,
+      "edgeReferences": 704,
+      "sampleNodeIds": [
+        "kbs:evidence-source:unicode-ucd-17-derived-age",
+        "kbs:script:adlam",
+        "kbs:script:ahom",
+        "kbs:script:anatolian-hieroglyphs",
+        "kbs:script:arabic",
+        "kbs:script:armenian",
+        "kbs:script:avestan",
+        "kbs:script:balinese",
+        "kbs:script:bamum",
+        "kbs:script:bassa-vah",
+        "kbs:script:batak",
+        "kbs:script:bengali"
+      ],
+      "sampleEdgeIds": [
+        "kbs:edge:script-backed-by-evidence:kbs-script-adlam:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-ahom:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-anatolian-hieroglyphs:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-arabic:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-armenian:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-avestan:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-balinese:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bamum:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bassa-vah:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-batak:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bengali:kbs-evidence-source-unicode-ucd-17-derived-age",
+        "kbs:edge:script-backed-by-evidence:kbs-script-beria-erfe:kbs-evidence-source-unicode-ucd-17-derived-age"
+      ],
+      "provenance": {
+        "scope": "evidence_source_reference_report",
+        "sourceIds": [
+          "unicode-ucd-17-derived-age"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+        "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-edges.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-kbs-nodes.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "unicode-ucd-17-property-value-aliases",
+      "nodeId": "kbs:evidence-source:unicode-ucd-17-property-value-aliases",
+      "nodeReferences": 2766,
+      "edgeReferences": 3293,
+      "sampleNodeIds": [
+        "kbs:decimal-digits:adlam",
+        "kbs:decimal-digits:ahom",
+        "kbs:decimal-digits:arabic",
+        "kbs:decimal-digits:balinese",
+        "kbs:decimal-digits:bengali",
+        "kbs:decimal-digits:bhaiksuki",
+        "kbs:decimal-digits:brahmi",
+        "kbs:decimal-digits:chakma",
+        "kbs:decimal-digits:cham",
+        "kbs:decimal-digits:common",
+        "kbs:decimal-digits:devanagari",
+        "kbs:decimal-digits:dives-akuru"
+      ],
+      "sampleEdgeIds": [
+        "kbs:edge:script-backed-by-evidence:kbs-script-adlam:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-ahom:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-anatolian-hieroglyphs:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-arabic:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-armenian:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-avestan:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-balinese:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bamum:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bassa-vah:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-batak:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bengali:kbs-evidence-source-unicode-ucd-17-property-value-aliases",
+        "kbs:edge:script-backed-by-evidence:kbs-script-beria-erfe:kbs-evidence-source-unicode-ucd-17-property-value-aliases"
+      ],
+      "provenance": {
+        "scope": "evidence_source_reference_report",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+        "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-edges.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-kbs-nodes.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "unicode-ucd-17-scripts",
+      "nodeId": "kbs:evidence-source:unicode-ucd-17-scripts",
+      "nodeReferences": 2766,
+      "edgeReferences": 3293,
+      "sampleNodeIds": [
+        "kbs:decimal-digits:adlam",
+        "kbs:decimal-digits:ahom",
+        "kbs:decimal-digits:arabic",
+        "kbs:decimal-digits:balinese",
+        "kbs:decimal-digits:bengali",
+        "kbs:decimal-digits:bhaiksuki",
+        "kbs:decimal-digits:brahmi",
+        "kbs:decimal-digits:chakma",
+        "kbs:decimal-digits:cham",
+        "kbs:decimal-digits:common",
+        "kbs:decimal-digits:devanagari",
+        "kbs:decimal-digits:dives-akuru"
+      ],
+      "sampleEdgeIds": [
+        "kbs:edge:script-backed-by-evidence:kbs-script-adlam:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-ahom:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-anatolian-hieroglyphs:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-arabic:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-armenian:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-avestan:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-balinese:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bamum:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bassa-vah:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-batak:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-bengali:kbs-evidence-source-unicode-ucd-17-scripts",
+        "kbs:edge:script-backed-by-evidence:kbs-script-beria-erfe:kbs-evidence-source-unicode-ucd-17-scripts"
+      ],
+      "provenance": {
+        "scope": "evidence_source_reference_report",
+        "sourceIds": [
+          "unicode-ucd-17-scripts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+        "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-edges.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-kbs-nodes.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "unicode-ucd-17-unicode-data",
+      "nodeId": "kbs:evidence-source:unicode-ucd-17-unicode-data",
+      "nodeReferences": 2590,
+      "edgeReferences": 2589,
+      "sampleNodeIds": [
+        "kbs:decimal-digits:adlam",
+        "kbs:decimal-digits:ahom",
+        "kbs:decimal-digits:arabic",
+        "kbs:decimal-digits:balinese",
+        "kbs:decimal-digits:bengali",
+        "kbs:decimal-digits:bhaiksuki",
+        "kbs:decimal-digits:brahmi",
+        "kbs:decimal-digits:chakma",
+        "kbs:decimal-digits:cham",
+        "kbs:decimal-digits:common",
+        "kbs:decimal-digits:devanagari",
+        "kbs:decimal-digits:dives-akuru"
+      ],
+      "sampleEdgeIds": [
+        "kbs:edge:script-has-decimal-digits:kbs-script-adlam:kbs-decimal-digits-adlam",
+        "kbs:edge:script-has-decimal-digits:kbs-script-ahom:kbs-decimal-digits-ahom",
+        "kbs:edge:script-has-decimal-digits:kbs-script-arabic:kbs-decimal-digits-arabic",
+        "kbs:edge:script-has-decimal-digits:kbs-script-balinese:kbs-decimal-digits-balinese",
+        "kbs:edge:script-has-decimal-digits:kbs-script-bengali:kbs-decimal-digits-bengali",
+        "kbs:edge:script-has-decimal-digits:kbs-script-bhaiksuki:kbs-decimal-digits-bhaiksuki",
+        "kbs:edge:script-has-decimal-digits:kbs-script-brahmi:kbs-decimal-digits-brahmi",
+        "kbs:edge:script-has-decimal-digits:kbs-script-chakma:kbs-decimal-digits-chakma",
+        "kbs:edge:script-has-decimal-digits:kbs-script-cham:kbs-decimal-digits-cham",
+        "kbs:edge:script-has-decimal-digits:kbs-script-common:kbs-decimal-digits-common",
+        "kbs:edge:script-has-decimal-digits:kbs-script-devanagari:kbs-decimal-digits-devanagari",
+        "kbs:edge:script-has-decimal-digits:kbs-script-dives-akuru:kbs-decimal-digits-dives-akuru"
+      ],
+      "provenance": {
+        "scope": "evidence_source_reference_report",
+        "sourceIds": [
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+        "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-edges.json",
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-kbs-nodes.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    }
+  ],
+  "orphanEvidenceReferences": [],
+  "nodesMissingProvenance": [],
+  "edgesMissingProvenance": [],
+  "nodesUnreachableFromProvenance": [],
+  "provenance": {
+    "scope": "provenance_report",
+    "sourceIds": [
+      "hkd-registry-architect-user-prompt",
+      "unicode-ucd-17-blocks",
+      "unicode-ucd-17-derived-age",
+      "unicode-ucd-17-property-value-aliases",
+      "unicode-ucd-17-scripts",
+      "unicode-ucd-17-unicode-data"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+    "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+    "trustedInputs": [
+      "data/hkd-lipi-kbs-edges.json",
+      "data/hkd-lipi-kbs-graph.json",
+      "data/hkd-lipi-kbs-nodes.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+    ],
+    "reviewed": false,
+    "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+  }
+}

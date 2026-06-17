@@ -1,0 +1,194 @@
+{
+  "schema": "hkd-lipi-registry-audit-report.v1",
+  "generatedAt": "DETERMINISTIC_FROM_INPUT_HASHES",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "nodes",
+      "path": "data/hkd-lipi-kbs-nodes.json",
+      "sha256": "d02070fedd429205ad1dcbe9b9e637fab55ea4b9e987d9f2cc1e1e32b993622e"
+    },
+    {
+      "id": "edges",
+      "path": "data/hkd-lipi-kbs-edges.json",
+      "sha256": "9fc6e86e4c65dc3f5d9bf714063cd1eac05988de8746c27199a16cb8d974f400"
+    },
+    {
+      "id": "graph",
+      "path": "data/hkd-lipi-kbs-graph.json",
+      "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+    },
+    {
+      "id": "phase4Evidence",
+      "path": "release/evidence/hkd-lipi-registry-phase4-kbs.json",
+      "sha256": "0d9b259700b3c75e6d235057c78212cdd075b88f38fe660c036301c8da7c2773"
+    }
+  ],
+  "artifactPaths": {
+    "json": "release/exports/hkd-lipi-registry-export.json",
+    "csv": "release/exports/hkd-lipi-registry-export.csv",
+    "sql": "release/exports/hkd-lipi-registry-export.sql",
+    "audit": "release/evidence/hkd-lipi-registry-audit-report.json",
+    "provenance": "release/evidence/hkd-lipi-registry-provenance-report.json"
+  },
+  "outputHashes": [
+    {
+      "id": "json",
+      "path": "release/exports/hkd-lipi-registry-export.json",
+      "format": "json",
+      "bytes": 11806453,
+      "sha256": "67a7dcc16302b673ea773441e88a537b9977f2492ea7354cf06da0279fe9b595",
+      "rows": 426
+    },
+    {
+      "id": "csv",
+      "path": "release/exports/hkd-lipi-registry-export.csv",
+      "format": "csv",
+      "bytes": 142109,
+      "sha256": "8baae9633946e69ad7b1a4c76d13fe723e1d0367fe706c1ceba0bcfd6761e83c",
+      "rows": 426
+    },
+    {
+      "id": "sql",
+      "path": "release/exports/hkd-lipi-registry-export.sql",
+      "format": "sql",
+      "bytes": 7249373,
+      "sha256": "e478e8d95439f9b01cb8cd8e2499604e327544a42118b697d13371e1e5ffa5c4",
+      "rows": 9031
+    },
+    {
+      "id": "provenance",
+      "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "format": "json",
+      "bytes": 18828,
+      "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06",
+      "rows": 6
+    }
+  ],
+  "inputCounts": {
+    "seedRecords": 426,
+    "graphNodes": 3372,
+    "graphEdges": 5233,
+    "phase4Checks": {
+      "scriptNodeCountIs426": true,
+      "everyUnicodeScriptRowHasEvidenceEdge": true,
+      "everyDecimalDigitGroupHasZeroGlyphEdge": true,
+      "everyNodeHasProvenance": true,
+      "everyEdgeHasProvenance": true,
+      "everyEdgeEndpointExists": true,
+      "noRuntimeEnabledRows": true,
+      "productionReadinessRemainsFalse": true,
+      "phase3FamilyGraphKeepsGenealogyBlocked": true,
+      "noGenealogicalDescentEdges": true,
+      "noFontSupportInvented": true,
+      "noTransliterationMappingsInvented": true
+    }
+  },
+  "registryDiff": {
+    "baseRecordCount": 426,
+    "exportRecordCount": 426,
+    "addedRows": [],
+    "removedRows": [],
+    "changedCriticalFields": [],
+    "criticalFieldPolicy": [
+      "id",
+      "kbs_node_id",
+      "runtime_enabled",
+      "productionReady",
+      "phkdVerdict"
+    ]
+  },
+  "checks": {
+    "everyNodeReachableFromProvenance": true,
+    "noOrphanEvidenceReferences": true,
+    "noRuntimeEnabledTrue": true,
+    "noProductionReadyTrue": true,
+    "exportReproducibilityInputs": [
+      {
+        "id": "seed",
+        "path": "data/hkd-lipi-script-registry-seed-426.json",
+        "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+      },
+      {
+        "id": "nodes",
+        "path": "data/hkd-lipi-kbs-nodes.json",
+        "sha256": "d02070fedd429205ad1dcbe9b9e637fab55ea4b9e987d9f2cc1e1e32b993622e"
+      },
+      {
+        "id": "edges",
+        "path": "data/hkd-lipi-kbs-edges.json",
+        "sha256": "9fc6e86e4c65dc3f5d9bf714063cd1eac05988de8746c27199a16cb8d974f400"
+      },
+      {
+        "id": "graph",
+        "path": "data/hkd-lipi-kbs-graph.json",
+        "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+      },
+      {
+        "id": "phase4Evidence",
+        "path": "release/evidence/hkd-lipi-registry-phase4-kbs.json",
+        "sha256": "0d9b259700b3c75e6d235057c78212cdd075b88f38fe660c036301c8da7c2773"
+      }
+    ],
+    "exportContentHashes": [
+      {
+        "id": "json",
+        "path": "release/exports/hkd-lipi-registry-export.json",
+        "sha256": "67a7dcc16302b673ea773441e88a537b9977f2492ea7354cf06da0279fe9b595"
+      },
+      {
+        "id": "csv",
+        "path": "release/exports/hkd-lipi-registry-export.csv",
+        "sha256": "8baae9633946e69ad7b1a4c76d13fe723e1d0367fe706c1ceba0bcfd6761e83c"
+      },
+      {
+        "id": "sql",
+        "path": "release/exports/hkd-lipi-registry-export.sql",
+        "sha256": "e478e8d95439f9b01cb8cd8e2499604e327544a42118b697d13371e1e5ffa5c4"
+      }
+    ],
+    "everyEdgeEndpointExists": true,
+    "everyNodeHasProvenance": true,
+    "everyEdgeHasProvenance": true
+  },
+  "failures": {
+    "edgeEndpointProblems": [],
+    "orphanEvidenceReferences": [],
+    "nodesMissingProvenance": [],
+    "edgesMissingProvenance": [],
+    "nodesUnreachableFromProvenance": [],
+    "changedCriticalFields": []
+  },
+  "provenance": {
+    "scope": "audit_report",
+    "sourceIds": [
+      "hkd-registry-architect-user-prompt",
+      "unicode-ucd-17-blocks",
+      "unicode-ucd-17-derived-age",
+      "unicode-ucd-17-property-value-aliases",
+      "unicode-ucd-17-scripts",
+      "unicode-ucd-17-unicode-data"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-audit-exports.mjs",
+    "sourcePolicy": "registry_seed_plus_phase4_kbs_graph_only",
+    "trustedInputs": [
+      "data/hkd-lipi-kbs-edges.json",
+      "data/hkd-lipi-kbs-graph.json",
+      "data/hkd-lipi-kbs-nodes.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "release/evidence/hkd-lipi-registry-phase4-kbs.json"
+    ],
+    "reviewed": false,
+    "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+  }
+}

@@ -5,6 +5,8 @@ import zeroRegistry from "../../data/hkd-lipi-zero-registry.json" with { type: "
 import familyGraph from "../../data/hkd-lipi-script-family-graph.json" with { type: "json" };
 import unicodeCrosswalk from "../../data/hkd-lipi-unicode-crosswalk.json" with { type: "json" };
 import kbsGraph from "../../data/hkd-lipi-kbs-graph.json" with { type: "json" };
+import auditReport from "../../release/evidence/hkd-lipi-registry-audit-report.json" with { type: "json" };
+import provenanceReport from "../../release/evidence/hkd-lipi-registry-provenance-report.json" with { type: "json" };
 import type { HkdLipiScriptRegistryRecord } from "../../packages/lipi-runtime/src/registry/hkd-lipi-registry-types.ts";
 
 export type LipiRegistryApiStatus = "CONTROLLED_NO_GO";
@@ -160,6 +162,39 @@ export type LipiKbsScriptNeighborhood = {
   };
 };
 
+export type LipiRegistryAuditabilityView = {
+  ok: true;
+  reviewState: LipiRegistryApiStatus;
+  governedProductionGo: false;
+  productionReady: false;
+  phkdVerdict: "CONTROLLED_NO_GO";
+  exportCenter: {
+    artifactPaths: typeof auditReport.artifactPaths;
+    outputHashes: typeof auditReport.outputHashes;
+  };
+  evidenceAudit: {
+    schema: typeof auditReport.schema;
+    inputCounts: typeof auditReport.inputCounts;
+    checks: typeof auditReport.checks;
+    failures: typeof auditReport.failures;
+  };
+  provenance: {
+    schema: typeof provenanceReport.schema;
+    counts: typeof provenanceReport.counts;
+    evidenceSources: typeof provenanceReport.evidenceSources;
+    orphanEvidenceReferences: typeof provenanceReport.orphanEvidenceReferences;
+    nodesMissingProvenance: typeof provenanceReport.nodesMissingProvenance;
+    edgesMissingProvenance: typeof provenanceReport.edgesMissingProvenance;
+    nodesUnreachableFromProvenance: typeof provenanceReport.nodesUnreachableFromProvenance;
+  };
+  validator: {
+    graphSummary: typeof kbsGraph.summary;
+    checks: typeof auditReport.checks;
+    failures: typeof auditReport.failures;
+  };
+  registryDiff: typeof auditReport.registryDiff;
+};
+
 export type LipiPhase3ScriptEnrichment = {
   crosswalk: (typeof unicodeCrosswalk.records)[number] | null;
   numeral: (typeof numeralRegistry.records)[number] | null;
@@ -207,6 +242,36 @@ export const HKD_LIPI_REGISTRY_API_CONTRACTS = [
     method: "GET",
     path: "/api/lipi-registry/scripts/{id}/kbs",
     handler: "getLipiScriptKbsNeighborhood",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/export-center",
+    handler: "getLipiRegistryAuditabilityView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/audit",
+    handler: "getLipiRegistryAuditabilityView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/provenance",
+    handler: "getLipiRegistryAuditabilityView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/validator",
+    handler: "getLipiRegistryAuditabilityView",
+    status: "LOCAL_CONTRACT",
+  },
+  {
+    method: "GET",
+    path: "/api/lipi-registry/diff",
+    handler: "getLipiRegistryAuditabilityView",
     status: "LOCAL_CONTRACT",
   },
 ] as const;
@@ -413,6 +478,41 @@ export function getLipiScriptKbsNeighborhood(scriptId: string): LipiKbsScriptNei
   };
 }
 
+export function getLipiRegistryAuditabilityView(): LipiRegistryAuditabilityView {
+  return {
+    ok: true,
+    reviewState: "CONTROLLED_NO_GO",
+    governedProductionGo: false,
+    productionReady: false,
+    phkdVerdict: "CONTROLLED_NO_GO",
+    exportCenter: {
+      artifactPaths: auditReport.artifactPaths,
+      outputHashes: auditReport.outputHashes,
+    },
+    evidenceAudit: {
+      schema: auditReport.schema,
+      inputCounts: auditReport.inputCounts,
+      checks: auditReport.checks,
+      failures: auditReport.failures,
+    },
+    provenance: {
+      schema: provenanceReport.schema,
+      counts: provenanceReport.counts,
+      evidenceSources: provenanceReport.evidenceSources,
+      orphanEvidenceReferences: provenanceReport.orphanEvidenceReferences,
+      nodesMissingProvenance: provenanceReport.nodesMissingProvenance,
+      edgesMissingProvenance: provenanceReport.edgesMissingProvenance,
+      nodesUnreachableFromProvenance: provenanceReport.nodesUnreachableFromProvenance,
+    },
+    validator: {
+      graphSummary: kbsGraph.summary,
+      checks: auditReport.checks,
+      failures: auditReport.failures,
+    },
+    registryDiff: auditReport.registryDiff,
+  };
+}
+
 export function getLipiPhase3ScriptEnrichment(record: HkdLipiScriptRegistryRecord): LipiPhase3ScriptEnrichment {
   const scriptValue = record.unicode_script_value;
   if (scriptValue === "UNKNOWN") {
@@ -445,6 +545,8 @@ export function getLipiRegistrySourceSummary() {
       family: familyGraph.schema,
       crosswalk: unicodeCrosswalk.schema,
       kbs: kbsGraph.schema,
+      audit: auditReport.schema,
+      provenance: provenanceReport.schema,
     },
     sourceRefs: seedDataset.sourceRefs,
     phase3SourcePolicy: "official_unicode_ucd_only",

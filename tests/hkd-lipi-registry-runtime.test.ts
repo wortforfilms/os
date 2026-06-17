@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import {
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
+  getLipiRegistryAuditabilityView,
   getLipiRegistryRecords,
   getLipiRegistryScript,
   getLipiRegistrySourceSummary,
@@ -102,9 +103,32 @@ test("source summary carries local API contracts and keeps production blocked", 
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/phase3/family-graph"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/kbs/graph"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/scripts/{id}/kbs"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/export-center"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/audit"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/provenance"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/validator"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/diff"));
   assert.equal(sourceSummary.phase3SourcePolicy, "official_unicode_ucd_only");
   assert.equal(sourceSummary.phase4SourcePolicy, "hkd_registry_seed_plus_phase3_ucd_artifacts_only");
   assert.ok(sourceSummary.sourceRefs.length >= 5);
+});
+
+test("auditability API exposes reproducible exports and provenance checks without new claims", () => {
+  const auditability = getLipiRegistryAuditabilityView();
+
+  assert.equal(auditability.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(auditability.productionReady, false);
+  assert.equal(auditability.governedProductionGo, false);
+  assert.equal(auditability.phkdVerdict, "CONTROLLED_NO_GO");
+  assert.ok(auditability.exportCenter.outputHashes.some((artifact) => artifact.path === "release/exports/hkd-lipi-registry-export.json"));
+  assert.ok(auditability.exportCenter.outputHashes.some((artifact) => artifact.path === "release/exports/hkd-lipi-registry-export.csv"));
+  assert.ok(auditability.exportCenter.outputHashes.some((artifact) => artifact.path === "release/exports/hkd-lipi-registry-export.sql"));
+  assert.equal(auditability.evidenceAudit.checks.everyNodeReachableFromProvenance, true);
+  assert.equal(auditability.evidenceAudit.checks.noOrphanEvidenceReferences, true);
+  assert.equal(auditability.evidenceAudit.checks.noRuntimeEnabledTrue, true);
+  assert.equal(auditability.evidenceAudit.checks.noProductionReadyTrue, true);
+  assert.equal(auditability.provenance.counts.nodesUnreachableFromProvenance, 0);
+  assert.equal(auditability.registryDiff.changedCriticalFields.length, 0);
 });
 
 test("Phase 4 KBS graph API exposes evidence graph without enabling runtime", () => {

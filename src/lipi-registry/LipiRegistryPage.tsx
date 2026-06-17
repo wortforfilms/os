@@ -5,6 +5,7 @@ import {
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiPhase3ScriptEnrichment,
+  getLipiRegistryAuditabilityView,
   getLipiRegistryScript,
   getLipiRegistrySourceSummary,
   getLipiScriptKbsNeighborhood,
@@ -22,7 +23,7 @@ type LipiRegistryPageProps = {
 const registryClasses = ["all", "unicode", "undeciphered", "shorthand", "notation", "symbol", "hkd_private"] as const;
 const unicodeStatuses = ["all", "encoded", "partially_encoded", "unencoded", "proposed", "private"] as const;
 const evidenceStatuses = ["all", "verified", "scholarly", "disputed", "draft", "unknown"] as const;
-type ExplorerId = "numerals" | "zero" | "family" | "crosswalk" | "kbs";
+type ExplorerId = "numerals" | "zero" | "family" | "crosswalk" | "kbs" | "export" | "audit" | "provenance" | "validator" | "diff";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -41,6 +42,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const familyView = useMemo(() => getLipiFamilyGraphView(), []);
   const crosswalkView = useMemo(() => getLipiUnicodeCrosswalk(), []);
   const kbsView = useMemo(() => getLipiKbsGraphView(), []);
+  const auditabilityView = useMemo(() => getLipiRegistryAuditabilityView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -99,6 +101,11 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["family", "Family Tree"],
           ["crosswalk", "Unicode Crosswalk"],
           ["kbs", "KBS Graph"],
+          ["export", "Export Center"],
+          ["audit", "Evidence Audit Viewer"],
+          ["provenance", "Provenance Explorer"],
+          ["validator", "Node/Edge Validator"],
+          ["diff", "Registry Diff Viewer"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -111,6 +118,11 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "family" ? <FamilyTreePanel view={familyView} /> : null}
       {explorer === "crosswalk" ? <UnicodeCrosswalkPanel view={crosswalkView} /> : null}
       {explorer === "kbs" ? <KbsGraphPanel view={kbsView} /> : null}
+      {explorer === "export" ? <ExportCenterPanel view={auditabilityView} /> : null}
+      {explorer === "audit" ? <EvidenceAuditPanel view={auditabilityView} /> : null}
+      {explorer === "provenance" ? <ProvenanceExplorerPanel view={auditabilityView} /> : null}
+      {explorer === "validator" ? <NodeEdgeValidatorPanel view={auditabilityView} /> : null}
+      {explorer === "diff" ? <RegistryDiffPanel view={auditabilityView} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -363,6 +375,165 @@ function ScriptGraphNeighborhood({ graph }: { graph: NonNullable<ReturnType<type
         })}
       </div>
     </div>
+  );
+}
+
+function ExportCenterPanel({ view }: { view: ReturnType<typeof getLipiRegistryAuditabilityView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Export Center">
+      <header>
+        <h3>Export Center</h3>
+        <Badge label="artifacts" value={String(view.exportCenter.outputHashes.length)} tone="verified" />
+        <Badge label="production" value={String(view.productionReady)} tone="blocked" />
+        <Badge label="PHKD" value={view.phkdVerdict} tone="blocked" />
+      </header>
+      <div className="lipi-result-list small">
+        {view.exportCenter.outputHashes.map((artifact) => (
+          <article className="lipi-result-row" key={artifact.path}>
+            <div className="lipi-row-main static">
+              <span>{artifact.format.toUpperCase()}</span>
+              <strong>{artifact.path}</strong>
+              <em>{artifact.rows} rows</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="bytes" value={String(artifact.bytes)} tone="neutral" />
+              <Badge label="sha256" value={artifact.sha256.slice(0, 16)} tone="verified" />
+            </div>
+            <div className="lipi-row-blocks">{artifact.sha256}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function EvidenceAuditPanel({ view }: { view: ReturnType<typeof getLipiRegistryAuditabilityView> }) {
+  const booleanChecks = Object.entries(view.evidenceAudit.checks).filter(([, value]) => typeof value === "boolean");
+  const failureCounts = Object.entries(view.evidenceAudit.failures).map(([label, value]) => [label, Array.isArray(value) ? value.length : 0] as const);
+  return (
+    <section className="lipi-numeral-panel" aria-label="Evidence Audit Viewer">
+      <header>
+        <h3>Evidence Audit Viewer</h3>
+        <Badge label="schema" value={view.evidenceAudit.schema} tone="neutral" />
+        <Badge label="production" value={String(view.productionReady)} tone="blocked" />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Seed Rows" value={view.evidenceAudit.inputCounts.seedRecords} />
+        <RegistryStat label="Graph Nodes" value={view.evidenceAudit.inputCounts.graphNodes} />
+        <RegistryStat label="Graph Edges" value={view.evidenceAudit.inputCounts.graphEdges} />
+        <RegistryStat label="Failures" value={failureCounts.reduce((sum, [, count]) => sum + count, 0)} />
+      </div>
+      <div className="lipi-kbs-columns">
+        <div className="lipi-kbs-card">
+          <h4>Audit Checks</h4>
+          {booleanChecks.map(([label, value]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <Badge label="check" value={String(value)} tone={value ? "verified" : "blocked"} />
+            </div>
+          ))}
+        </div>
+        <div className="lipi-kbs-card">
+          <h4>Failure Buckets</h4>
+          {failureCounts.map(([label, count]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <Badge label="count" value={String(count)} tone={count === 0 ? "verified" : "blocked"} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProvenanceExplorerPanel({ view }: { view: ReturnType<typeof getLipiRegistryAuditabilityView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Provenance Explorer">
+      <header>
+        <h3>Provenance Explorer</h3>
+        <Badge label="sources" value={String(view.provenance.counts.evidenceSources)} tone="verified" />
+        <Badge label="orphans" value={String(view.provenance.counts.orphanEvidenceReferences)} tone={view.provenance.counts.orphanEvidenceReferences === 0 ? "verified" : "blocked"} />
+        <Badge label="unreachable" value={String(view.provenance.counts.nodesUnreachableFromProvenance)} tone={view.provenance.counts.nodesUnreachableFromProvenance === 0 ? "verified" : "blocked"} />
+        <Badge label="production" value={String(view.productionReady)} tone="blocked" />
+      </header>
+      <div className="lipi-result-list small">
+        {view.provenance.evidenceSources.map((source) => (
+          <article className="lipi-result-row" key={source.sourceId}>
+            <div className="lipi-row-main static">
+              <span>{source.nodeReferences}</span>
+              <strong>{source.sourceId}</strong>
+              <em>{source.nodeId}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="node refs" value={String(source.nodeReferences)} tone="verified" />
+              <Badge label="edge refs" value={String(source.edgeReferences)} tone="verified" />
+            </div>
+            <div className="lipi-row-blocks">{source.sampleNodeIds.slice(0, 5).join(", ")}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function NodeEdgeValidatorPanel({ view }: { view: ReturnType<typeof getLipiRegistryAuditabilityView> }) {
+  const checks = [
+    ["Every node reachable from provenance", view.validator.checks.everyNodeReachableFromProvenance],
+    ["No orphan evidence references", view.validator.checks.noOrphanEvidenceReferences],
+    ["No runtime_enabled=true", view.validator.checks.noRuntimeEnabledTrue],
+    ["No productionReady=true", view.validator.checks.noProductionReadyTrue],
+    ["Every edge endpoint exists", view.validator.checks.everyEdgeEndpointExists],
+    ["Every node has provenance", view.validator.checks.everyNodeHasProvenance],
+    ["Every edge has provenance", view.validator.checks.everyEdgeHasProvenance],
+  ] as const;
+  return (
+    <section className="lipi-numeral-panel" aria-label="Node/Edge Validator">
+      <header>
+        <h3>Node/Edge Validator</h3>
+        <Badge label="nodes" value={String(view.validator.graphSummary.totalNodes)} tone="verified" />
+        <Badge label="edges" value={String(view.validator.graphSummary.totalEdges)} tone="verified" />
+      </header>
+      <div className="lipi-blocked-grid">
+        {checks.map(([label, value]) => (
+          <article key={label}>
+            <strong>{label}</strong>
+            <Badge label="pass" value={String(value)} tone={value ? "verified" : "blocked"} />
+            <p>{value ? "Verified from current KBS graph and audit report." : "Blocked until the audit report is regenerated cleanly."}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function RegistryDiffPanel({ view }: { view: ReturnType<typeof getLipiRegistryAuditabilityView> }) {
+  const diff = view.registryDiff;
+  const changedCriticalFields = diff.changedCriticalFields as string[];
+  return (
+    <section className="lipi-numeral-panel" aria-label="Registry Diff Viewer">
+      <header>
+        <h3>Registry Diff Viewer</h3>
+        <Badge label="base" value={String(diff.baseRecordCount)} tone="neutral" />
+        <Badge label="export" value={String(diff.exportRecordCount)} tone="verified" />
+        <Badge label="critical drift" value={String(diff.changedCriticalFields.length)} tone={diff.changedCriticalFields.length === 0 ? "verified" : "blocked"} />
+      </header>
+      <div className="lipi-graph-summary">
+        <RegistryStat label="Added" value={diff.addedRows.length} />
+        <RegistryStat label="Removed" value={diff.removedRows.length} />
+        <RegistryStat label="Critical Drift" value={diff.changedCriticalFields.length} />
+        <RegistryStat label="Rows Exported" value={diff.exportRecordCount} />
+      </div>
+      <div className="lipi-kbs-card">
+        <h4>Critical Field Policy</h4>
+        {diff.criticalFieldPolicy.map((field) => (
+          <div key={field}>
+            <span>{field}</span>
+            <strong>{changedCriticalFields.includes(field) ? "DRIFT" : "stable"}</strong>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
