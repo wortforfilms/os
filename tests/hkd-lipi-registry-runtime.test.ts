@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import {
+  getLipiEvidenceFederationView,
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
   getLipiRegistryAuditabilityView,
@@ -108,9 +109,31 @@ test("source summary carries local API contracts and keeps production blocked", 
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/provenance"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/validator"));
   assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/diff"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/federation/sources"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/federation/lineage"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/federation/conflicts"));
+  assert.ok(sourceSummary.contracts.some((contract) => contract.path === "/api/lipi-registry/federation/provenance-chains"));
   assert.equal(sourceSummary.phase3SourcePolicy, "official_unicode_ucd_only");
   assert.equal(sourceSummary.phase4SourcePolicy, "hkd_registry_seed_plus_phase3_ucd_artifacts_only");
+  assert.equal(sourceSummary.phase6SourcePolicy, "cross_reference_only_no_new_script_claims");
   assert.ok(sourceSummary.sourceRefs.length >= 5);
+});
+
+test("Phase 6 federation API registers sources without creating claims", () => {
+  const federation = getLipiEvidenceFederationView();
+
+  assert.equal(federation.reviewState, "CONTROLLED_NO_GO");
+  assert.equal(federation.productionReady, false);
+  assert.equal(federation.governedProductionGo, false);
+  assert.equal(federation.sourceRegistry.summary.sources, 7);
+  assert.equal(federation.sourceRegistry.summary.createsNewScriptClaims, 0);
+  assert.equal(federation.conflictDetector.summary.conflicts, 0);
+  assert.equal(federation.conflictDetector.summary.blockedComparisons, 4);
+  assert.equal(federation.conflictDetector.checks.noLineageClaimCreatingEdges, true);
+  assert.equal(federation.conflictDetector.checks.everyGraphSourceRefRegistered, true);
+  assert.equal(federation.provenanceChains.summary.scriptChains, 426);
+  assert.equal(federation.provenanceChains.summary.orphanScriptChains, 0);
+  assert.equal(federation.evidence.checks.noNewScriptClaimsCreated, true);
 });
 
 test("auditability API exposes reproducible exports and provenance checks without new claims", () => {

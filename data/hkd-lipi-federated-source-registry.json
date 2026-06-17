@@ -1,0 +1,371 @@
+{
+  "schema": "hkd-lipi-federated-source-registry.v1",
+  "generatedAt": "DETERMINISTIC_FROM_FEDERATED_SOURCE_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "cross_reference_only_no_new_script_claims",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "crosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "numeral",
+      "path": "data/hkd-lipi-numeral-registry.json",
+      "sha256": "f338fe217030c3df988f0d0d8c3714d38b0c74bfe3cbdfe04e22c08e1fb4a1eb"
+    },
+    {
+      "id": "zero",
+      "path": "data/hkd-lipi-zero-registry.json",
+      "sha256": "7589ebe1e1bda3286ced8a5d860bcc34808addf81924362825f66a7a2011968c"
+    },
+    {
+      "id": "kbsGraph",
+      "path": "data/hkd-lipi-kbs-graph.json",
+      "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+    },
+    {
+      "id": "audit",
+      "path": "release/evidence/hkd-lipi-registry-audit-report.json",
+      "sha256": "6a95d81a033d1f6c4cffd0fa1c5adb1c107f69c739ec758655dcf5e6c31bd5ff"
+    },
+    {
+      "id": "provenance",
+      "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06"
+    }
+  ],
+  "summary": {
+    "sources": 7,
+    "localIngested": 1,
+    "partialLocal": 1,
+    "notIngested": 4,
+    "createsNewScriptClaims": 0
+  },
+  "sources": [
+    {
+      "id": "unicode-ucd",
+      "displayName": "Unicode Character Database",
+      "authority": "Unicode Consortium",
+      "sourceClass": "external_authoritative_dataset",
+      "officialUrl": "https://www.unicode.org/ucd/",
+      "localStatus": "LOCAL_INGESTED",
+      "evidenceSourceIds": [
+        "unicode-ucd",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "localArtifacts": [
+        {
+          "path": "data/unicode/ucd-latest/PropertyValueAliases.txt",
+          "exists": true,
+          "sha256": "64e9a5f76f7a1e8b5a47d6a1f9a26522a251208f5276bdfa1559dac7cf2e827a"
+        },
+        {
+          "path": "data/unicode/ucd-latest/Scripts.txt",
+          "exists": true,
+          "sha256": "9f5e50d3abaee7d6ce09480f325c706f485ae3240912527e651954d2d6b035bf"
+        },
+        {
+          "path": "data/unicode/ucd-latest/Blocks.txt",
+          "exists": true,
+          "sha256": "c0edefaf1a19771e830a82735472716af6bf3c3975f6c2a23ffbe2580fbbcb15"
+        },
+        {
+          "path": "data/unicode/ucd-latest/UnicodeData.txt",
+          "exists": true,
+          "sha256": "2e1efc1dcb59c575eedf5ccae60f95229f706ee6d031835247d843c11d96470c"
+        },
+        {
+          "path": "data/unicode/ucd-latest/DerivedAge.txt",
+          "exists": true,
+          "sha256": "f8ecdf768bdc210f201abd271d9bc587825618a86a7046a8146cc816393f1998"
+        },
+        {
+          "path": "data/unicode/ucd-latest/ScriptExtensions.txt",
+          "exists": true,
+          "sha256": "ec2107e58825a1586acee8e0911ce18260394ac8b87e535ca325f1ccbeb06bc6"
+        }
+      ],
+      "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+      "createsNewScriptClaims": false,
+      "trustedFor": [
+        "Unicode Script property values",
+        "Unicode ranges",
+        "Unicode blocks",
+        "decimal digit inventories",
+        "zero glyphs"
+      ],
+      "notTrustedFor": [
+        "font support",
+        "shaping behavior",
+        "transliteration systems",
+        "genealogical descent"
+      ],
+      "notes": "Local UCD files are the only ingested external dataset in this federation layer.",
+      "provenance": {
+        "scope": "federated_source_registry_entry",
+        "sourceIds": [
+          "unicode-ucd",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "iso-15924",
+      "displayName": "ISO 15924 Registration Authority",
+      "authority": "ISO 15924/RA at Unicode Consortium",
+      "sourceClass": "external_authoritative_registry",
+      "officialUrl": "https://www.unicode.org/iso15924/",
+      "localStatus": "PARTIAL_VIA_UCD_PROPERTY_VALUE_ALIASES",
+      "evidenceSourceIds": [
+        "iso-15924",
+        "unicode-ucd-17-property-value-aliases"
+      ],
+      "localArtifacts": [
+        {
+          "path": "data/unicode/ucd-latest/PropertyValueAliases.txt",
+          "exists": true,
+          "sha256": "64e9a5f76f7a1e8b5a47d6a1f9a26522a251208f5276bdfa1559dac7cf2e827a"
+        }
+      ],
+      "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+      "createsNewScriptClaims": false,
+      "trustedFor": [
+        "cross-checking existing Unicode script aliases only"
+      ],
+      "notTrustedFor": [
+        "numeric ISO 15924 codes",
+        "official ISO code-list deltas",
+        "new script-code assignment"
+      ],
+      "notes": "No standalone ISO 15924 code-list snapshot is present locally; aliases are checked only through UCD PropertyValueAliases.",
+      "provenance": {
+        "scope": "federated_source_registry_entry",
+        "sourceIds": [
+          "iso-15924",
+          "unicode-ucd-17-property-value-aliases"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "cldr",
+      "displayName": "Unicode CLDR",
+      "authority": "Unicode Consortium",
+      "sourceClass": "external_authoritative_dataset",
+      "officialUrl": "https://cldr.unicode.org/",
+      "localStatus": "NOT_INGESTED",
+      "evidenceSourceIds": [
+        "cldr"
+      ],
+      "localArtifacts": [],
+      "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+      "createsNewScriptClaims": false,
+      "trustedFor": [
+        "future locale exemplar, collation, transform, and numbering-system validation after local ingestion"
+      ],
+      "notTrustedFor": [
+        "current script facts",
+        "current registry enablement"
+      ],
+      "notes": "CLDR is registered as an authority but no CLDR data snapshot is present in this checkpoint.",
+      "provenance": {
+        "scope": "federated_source_registry_entry",
+        "sourceIds": [
+          "cldr"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "icu",
+      "displayName": "ICU International Components for Unicode",
+      "authority": "Unicode Consortium ICU Technical Committee",
+      "sourceClass": "external_authoritative_implementation",
+      "officialUrl": "https://icu.unicode.org/",
+      "localStatus": "NOT_INGESTED",
+      "evidenceSourceIds": [
+        "icu"
+      ],
+      "localArtifacts": [],
+      "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+      "createsNewScriptClaims": false,
+      "trustedFor": [
+        "future implementation behavior checks after local ingestion"
+      ],
+      "notTrustedFor": [
+        "current script facts",
+        "font support",
+        "new registry claims"
+      ],
+      "notes": "ICU is a downstream implementation authority; no ICU data/API snapshot is ingested here.",
+      "provenance": {
+        "scope": "federated_source_registry_entry",
+        "sourceIds": [
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "harfbuzz",
+      "displayName": "HarfBuzz",
+      "authority": "HarfBuzz project",
+      "sourceClass": "external_authoritative_implementation",
+      "officialUrl": "https://harfbuzz.github.io/",
+      "localStatus": "NOT_INGESTED",
+      "evidenceSourceIds": [
+        "harfbuzz"
+      ],
+      "localArtifacts": [],
+      "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+      "createsNewScriptClaims": false,
+      "trustedFor": [
+        "future shaping behavior verification after local test corpus ingestion"
+      ],
+      "notTrustedFor": [
+        "current script facts",
+        "font support claims",
+        "transliteration mappings"
+      ],
+      "notes": "No HarfBuzz shaping test corpus or versioned snapshot is present locally.",
+      "provenance": {
+        "scope": "federated_source_registry_entry",
+        "sourceIds": [
+          "harfbuzz"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "opentype-spec",
+      "displayName": "OpenType Specification",
+      "authority": "Microsoft Typography / OpenType specification",
+      "sourceClass": "external_authoritative_specification",
+      "officialUrl": "https://learn.microsoft.com/en-us/typography/opentype/spec/",
+      "localStatus": "NOT_INGESTED",
+      "evidenceSourceIds": [
+        "opentype-spec"
+      ],
+      "localArtifacts": [],
+      "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+      "createsNewScriptClaims": false,
+      "trustedFor": [
+        "future font-table and shaping-feature validation after local specification snapshot ingestion"
+      ],
+      "notTrustedFor": [
+        "current script facts",
+        "current font availability",
+        "runtime enablement"
+      ],
+      "notes": "No local OpenType specification snapshot or font evidence is ingested here.",
+      "provenance": {
+        "scope": "federated_source_registry_entry",
+        "sourceIds": [
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "hkd-registry-architect-user-prompt",
+      "displayName": "HKD Registry Architect Prompt",
+      "authority": "HKD project internal",
+      "sourceClass": "internal_scope_anchor",
+      "officialUrl": "LOCAL_THREAD_CONTEXT",
+      "localStatus": "LOCAL_SCOPE_ANCHOR",
+      "evidenceSourceIds": [
+        "hkd-registry-architect-user-prompt"
+      ],
+      "localArtifacts": [
+        {
+          "path": "data/hkd-lipi-script-registry-seed-426.json",
+          "exists": true,
+          "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+        }
+      ],
+      "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+      "createsNewScriptClaims": false,
+      "trustedFor": [
+        "registry partition scope",
+        "reserved non-Unicode row placeholders"
+      ],
+      "notTrustedFor": [
+        "external script facts",
+        "Unicode assignments",
+        "ISO assignments"
+      ],
+      "notes": "Internal scope source retained because existing graph provenance references it.",
+      "provenance": {
+        "scope": "federated_source_registry_entry",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    }
+  ],
+  "provenance": {
+    "scope": "source_registry",
+    "sourceIds": [
+      "cldr",
+      "harfbuzz",
+      "hkd-registry-architect-user-prompt",
+      "icu",
+      "iso-15924",
+      "opentype-spec",
+      "unicode-ucd"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+    "sourcePolicy": "cross_reference_only_no_new_script_claims",
+    "trustedInputs": [],
+    "reviewed": false,
+    "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+  }
+}

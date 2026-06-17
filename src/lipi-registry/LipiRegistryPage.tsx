@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import {
   getLipiEvidenceBadges,
+  getLipiEvidenceFederationView,
   getLipiFamilyGraphView,
   getLipiKbsGraphView,
   getLipiNumeralZeroView,
@@ -23,7 +24,21 @@ type LipiRegistryPageProps = {
 const registryClasses = ["all", "unicode", "undeciphered", "shorthand", "notation", "symbol", "hkd_private"] as const;
 const unicodeStatuses = ["all", "encoded", "partially_encoded", "unencoded", "proposed", "private"] as const;
 const evidenceStatuses = ["all", "verified", "scholarly", "disputed", "draft", "unknown"] as const;
-type ExplorerId = "numerals" | "zero" | "family" | "crosswalk" | "kbs" | "export" | "audit" | "provenance" | "validator" | "diff";
+type ExplorerId =
+  | "numerals"
+  | "zero"
+  | "family"
+  | "crosswalk"
+  | "kbs"
+  | "export"
+  | "audit"
+  | "provenance"
+  | "validator"
+  | "diff"
+  | "federation-sources"
+  | "lineage"
+  | "conflicts"
+  | "chains";
 
 export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const selectedId = route.startsWith("/lipi-registry/") ? decodeURIComponent(route.replace("/lipi-registry/", "")) : null;
@@ -43,6 +58,7 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
   const crosswalkView = useMemo(() => getLipiUnicodeCrosswalk(), []);
   const kbsView = useMemo(() => getLipiKbsGraphView(), []);
   const auditabilityView = useMemo(() => getLipiRegistryAuditabilityView(), []);
+  const federationView = useMemo(() => getLipiEvidenceFederationView(), []);
   const sources = useMemo(() => getLipiRegistrySourceSummary(), []);
 
   return (
@@ -106,6 +122,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
           ["provenance", "Provenance Explorer"],
           ["validator", "Node/Edge Validator"],
           ["diff", "Registry Diff Viewer"],
+          ["federation-sources", "Source Registry"],
+          ["lineage", "Evidence Lineage"],
+          ["conflicts", "Source Conflicts"],
+          ["chains", "Provenance Chains"],
         ].map(([id, label]) => (
           <button className={explorer === id ? "active" : ""} key={id} onClick={() => setExplorer(id as ExplorerId)}>
             {label}
@@ -123,6 +143,10 @@ export function LipiRegistryPage({ route, navigate }: LipiRegistryPageProps) {
       {explorer === "provenance" ? <ProvenanceExplorerPanel view={auditabilityView} /> : null}
       {explorer === "validator" ? <NodeEdgeValidatorPanel view={auditabilityView} /> : null}
       {explorer === "diff" ? <RegistryDiffPanel view={auditabilityView} /> : null}
+      {explorer === "federation-sources" ? <FederatedSourceRegistryPanel view={federationView} /> : null}
+      {explorer === "lineage" ? <EvidenceLineagePanel view={federationView} /> : null}
+      {explorer === "conflicts" ? <SourceConflictPanel view={federationView} /> : null}
+      {explorer === "chains" ? <ProvenanceChainPanel view={federationView} /> : null}
 
       {detail ? (
         detail.ok ? (
@@ -531,6 +555,150 @@ function RegistryDiffPanel({ view }: { view: ReturnType<typeof getLipiRegistryAu
             <span>{field}</span>
             <strong>{changedCriticalFields.includes(field) ? "DRIFT" : "stable"}</strong>
           </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FederatedSourceRegistryPanel({ view }: { view: ReturnType<typeof getLipiEvidenceFederationView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Source Registry">
+      <header>
+        <h3>Source Registry</h3>
+        <Badge label="sources" value={String(view.sourceRegistry.summary.sources)} tone="verified" />
+        <Badge label="not ingested" value={String(view.sourceRegistry.summary.notIngested)} tone={view.sourceRegistry.summary.notIngested ? "blocked" : "verified"} />
+        <Badge label="new claims" value={String(view.sourceRegistry.summary.createsNewScriptClaims)} tone={view.sourceRegistry.summary.createsNewScriptClaims ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-result-list small">
+        {view.sourceRegistry.sources.map((source) => (
+          <article className="lipi-result-row" key={source.id}>
+            <div className="lipi-row-main static">
+              <span>{source.localStatus === "LOCAL_INGESTED" ? "IN" : source.localStatus === "NOT_INGESTED" ? "NO" : "PART"}</span>
+              <strong>{source.displayName}</strong>
+              <em>{source.id}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="status" value={source.localStatus} tone={source.localStatus === "NOT_INGESTED" ? "blocked" : source.localStatus === "LOCAL_INGESTED" ? "verified" : "draft"} />
+              <Badge label="claims" value={String(source.createsNewScriptClaims)} tone={source.createsNewScriptClaims ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{source.notes}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function EvidenceLineagePanel({ view }: { view: ReturnType<typeof getLipiEvidenceFederationView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Evidence Lineage Graph">
+      <header>
+        <h3>Evidence Lineage</h3>
+        <Badge label="nodes" value={String(view.lineageGraph.summary.nodes)} tone="verified" />
+        <Badge label="edges" value={String(view.lineageGraph.summary.edges)} tone="verified" />
+        <Badge label="claim edges" value={String(view.lineageGraph.summary.claimCreatingEdges)} tone={view.lineageGraph.summary.claimCreatingEdges ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-kbs-columns">
+        <div className="lipi-kbs-card">
+          <h4>Node Types</h4>
+          {Object.entries(view.lineageGraph.summary.byNodeType).map(([label, count]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <strong>{count}</strong>
+            </div>
+          ))}
+        </div>
+        <div className="lipi-kbs-card">
+          <h4>Edge Types</h4>
+          {Object.entries(view.lineageGraph.summary.byEdgeType).map(([label, count]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <strong>{count}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="lipi-result-list small">
+        {view.lineageGraph.edges.slice(0, 60).map((edge) => (
+          <article className="lipi-result-row" key={edge.id}>
+            <div className="lipi-row-main static">
+              <span>-&gt;</span>
+              <strong>{edge.type}</strong>
+              <em>{edge.fields.createsNewScriptClaims === false ? "no claims" : "blocked"}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="from" value={edge.from.replace("phase6:", "")} tone="neutral" />
+              <Badge label="to" value={edge.to.replace("phase6:", "")} tone="neutral" />
+            </div>
+            <div className="lipi-row-blocks">{edge.sourceRefs.join(", ")}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SourceConflictPanel({ view }: { view: ReturnType<typeof getLipiEvidenceFederationView> }) {
+  const checks = Object.entries(view.conflictDetector.checks);
+  return (
+    <section className="lipi-numeral-panel" aria-label="Source Conflict Detector">
+      <header>
+        <h3>Source Conflicts</h3>
+        <Badge label="conflicts" value={String(view.conflictDetector.summary.conflicts)} tone={view.conflictDetector.summary.conflicts ? "blocked" : "verified"} />
+        <Badge label="blocked comparisons" value={String(view.conflictDetector.summary.blockedComparisons)} tone="blocked" />
+        <Badge label="new claims" value={String(view.conflictDetector.summary.newScriptClaimsCreated)} tone={view.conflictDetector.summary.newScriptClaimsCreated ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-blocked-grid">
+        {checks.map(([label, value]) => (
+          <article key={label}>
+            <strong>{label}</strong>
+            <Badge label="pass" value={String(value)} tone={value ? "verified" : "blocked"} />
+            <p>{value ? "Verified by the Phase 6 detector." : "Blocked until the source registry is regenerated cleanly."}</p>
+          </article>
+        ))}
+      </div>
+      <div className="lipi-result-list small">
+        {view.conflictDetector.blockedComparisons.map((comparison) => (
+          <article className="lipi-result-row" key={comparison.sourceId}>
+            <div className="lipi-row-main static">
+              <span>NO</span>
+              <strong>{comparison.sourceId}</strong>
+              <em>{comparison.status}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="compared" value={String(comparison.compared)} tone="blocked" />
+            </div>
+            <div className="lipi-row-blocks">{comparison.reason}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProvenanceChainPanel({ view }: { view: ReturnType<typeof getLipiEvidenceFederationView> }) {
+  return (
+    <section className="lipi-numeral-panel" aria-label="Provenance Chain Explorer">
+      <header>
+        <h3>Provenance Chains</h3>
+        <Badge label="source chains" value={String(view.provenanceChains.summary.sourceChains)} tone="verified" />
+        <Badge label="script chains" value={String(view.provenanceChains.summary.scriptChains)} tone="verified" />
+        <Badge label="orphans" value={String(view.provenanceChains.summary.orphanScriptChains)} tone={view.provenanceChains.summary.orphanScriptChains ? "blocked" : "verified"} />
+      </header>
+      <div className="lipi-result-list small">
+        {view.provenanceChains.sourceChains.map((chain) => (
+          <article className="lipi-result-row" key={chain.sourceId}>
+            <div className="lipi-row-main static">
+              <span>{chain.chain.length}</span>
+              <strong>{chain.label}</strong>
+              <em>{chain.localStatus}</em>
+            </div>
+            <div className="lipi-row-meta">
+              <Badge label="claims" value={String(chain.createsNewScriptClaims)} tone={chain.createsNewScriptClaims ? "blocked" : "verified"} />
+            </div>
+            <div className="lipi-row-blocks">{chain.chain.slice(0, 4).map((edge) => edge.type).join(", ") || "Registered with no local lineage edges yet."}</div>
+          </article>
         ))}
       </div>
     </section>

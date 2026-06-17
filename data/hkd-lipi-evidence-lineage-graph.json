@@ -1,0 +1,2302 @@
+{
+  "schema": "hkd-lipi-evidence-lineage-graph.v1",
+  "generatedAt": "DETERMINISTIC_FROM_FEDERATED_SOURCE_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "cross_reference_only_no_new_script_claims",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "crosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "numeral",
+      "path": "data/hkd-lipi-numeral-registry.json",
+      "sha256": "f338fe217030c3df988f0d0d8c3714d38b0c74bfe3cbdfe04e22c08e1fb4a1eb"
+    },
+    {
+      "id": "zero",
+      "path": "data/hkd-lipi-zero-registry.json",
+      "sha256": "7589ebe1e1bda3286ced8a5d860bcc34808addf81924362825f66a7a2011968c"
+    },
+    {
+      "id": "kbsGraph",
+      "path": "data/hkd-lipi-kbs-graph.json",
+      "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+    },
+    {
+      "id": "audit",
+      "path": "release/evidence/hkd-lipi-registry-audit-report.json",
+      "sha256": "6a95d81a033d1f6c4cffd0fa1c5adb1c107f69c739ec758655dcf5e6c31bd5ff"
+    },
+    {
+      "id": "provenance",
+      "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06"
+    }
+  ],
+  "summary": {
+    "nodes": 36,
+    "edges": 28,
+    "byNodeType": {
+      "Source": 7,
+      "EvidenceSourceId": 12,
+      "LocalSourceFile": 6,
+      "RegistryArtifact": 7,
+      "FederationArtifact": 4
+    },
+    "byEdgeType": {
+      "SOURCE_HAS_EVIDENCE_ID": 6,
+      "SOURCE_HAS_LOCAL_FILE": 6,
+      "SOURCE_PARTIALLY_BACKS_ALIAS_CHECK": 1,
+      "SOURCE_BLOCKED_FOR_CLAIMS": 4,
+      "LOCAL_FILES_DERIVE_PHASE3": 3,
+      "PHASE3_DERIVES_KBS": 3,
+      "KBS_DERIVES_AUDIT_EXPORT": 1,
+      "KBS_DERIVES_PROVENANCE": 1,
+      "AUDIT_DERIVES_FEDERATION": 2,
+      "PROVENANCE_DERIVES_CHAINS": 1
+    },
+    "claimCreatingEdges": 0
+  },
+  "nodes": [
+    {
+      "id": "phase6:source:unicode-ucd",
+      "type": "Source",
+      "label": "Unicode Character Database",
+      "fields": {
+        "sourceId": "unicode-ucd",
+        "localStatus": "LOCAL_INGESTED",
+        "sourceClass": "external_authoritative_dataset",
+        "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:source:iso-15924",
+      "type": "Source",
+      "label": "ISO 15924 Registration Authority",
+      "fields": {
+        "sourceId": "iso-15924",
+        "localStatus": "PARTIAL_VIA_UCD_PROPERTY_VALUE_ALIASES",
+        "sourceClass": "external_authoritative_registry",
+        "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "iso-15924"
+      ],
+      "provenance": {
+        "scope": "lineage_source_node",
+        "sourceIds": [
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:source:cldr",
+      "type": "Source",
+      "label": "Unicode CLDR",
+      "fields": {
+        "sourceId": "cldr",
+        "localStatus": "NOT_INGESTED",
+        "sourceClass": "external_authoritative_dataset",
+        "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "cldr"
+      ],
+      "provenance": {
+        "scope": "lineage_source_node",
+        "sourceIds": [
+          "cldr"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:source:icu",
+      "type": "Source",
+      "label": "ICU International Components for Unicode",
+      "fields": {
+        "sourceId": "icu",
+        "localStatus": "NOT_INGESTED",
+        "sourceClass": "external_authoritative_implementation",
+        "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "icu"
+      ],
+      "provenance": {
+        "scope": "lineage_source_node",
+        "sourceIds": [
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:source:harfbuzz",
+      "type": "Source",
+      "label": "HarfBuzz",
+      "fields": {
+        "sourceId": "harfbuzz",
+        "localStatus": "NOT_INGESTED",
+        "sourceClass": "external_authoritative_implementation",
+        "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "harfbuzz"
+      ],
+      "provenance": {
+        "scope": "lineage_source_node",
+        "sourceIds": [
+          "harfbuzz"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:source:opentype-spec",
+      "type": "Source",
+      "label": "OpenType Specification",
+      "fields": {
+        "sourceId": "opentype-spec",
+        "localStatus": "NOT_INGESTED",
+        "sourceClass": "external_authoritative_specification",
+        "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "opentype-spec"
+      ],
+      "provenance": {
+        "scope": "lineage_source_node",
+        "sourceIds": [
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:source:hkd-registry-architect-user-prompt",
+      "type": "Source",
+      "label": "HKD Registry Architect Prompt",
+      "fields": {
+        "sourceId": "hkd-registry-architect-user-prompt",
+        "localStatus": "LOCAL_SCOPE_ANCHOR",
+        "sourceClass": "internal_scope_anchor",
+        "claimPolicy": "VALIDATE_EXISTING_FACTS_ONLY",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt"
+      ],
+      "provenance": {
+        "scope": "lineage_source_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:cldr",
+      "type": "EvidenceSourceId",
+      "label": "cldr",
+      "fields": {
+        "evidenceSourceId": "cldr",
+        "parentSourceNode": "phase6:source:cldr"
+      },
+      "sourceRefs": [
+        "cldr"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "cldr"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:harfbuzz",
+      "type": "EvidenceSourceId",
+      "label": "harfbuzz",
+      "fields": {
+        "evidenceSourceId": "harfbuzz",
+        "parentSourceNode": "phase6:source:harfbuzz"
+      },
+      "sourceRefs": [
+        "harfbuzz"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "harfbuzz"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:hkd-registry-architect-user-prompt",
+      "type": "EvidenceSourceId",
+      "label": "hkd-registry-architect-user-prompt",
+      "fields": {
+        "evidenceSourceId": "hkd-registry-architect-user-prompt",
+        "parentSourceNode": "phase6:source:hkd-registry-architect-user-prompt"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:icu",
+      "type": "EvidenceSourceId",
+      "label": "icu",
+      "fields": {
+        "evidenceSourceId": "icu",
+        "parentSourceNode": "phase6:source:icu"
+      },
+      "sourceRefs": [
+        "icu"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:iso-15924",
+      "type": "EvidenceSourceId",
+      "label": "iso-15924",
+      "fields": {
+        "evidenceSourceId": "iso-15924",
+        "parentSourceNode": "phase6:source:iso-15924"
+      },
+      "sourceRefs": [
+        "iso-15924"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "iso-15924"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:opentype-spec",
+      "type": "EvidenceSourceId",
+      "label": "opentype-spec",
+      "fields": {
+        "evidenceSourceId": "opentype-spec",
+        "parentSourceNode": "phase6:source:opentype-spec"
+      },
+      "sourceRefs": [
+        "opentype-spec"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:unicode-ucd",
+      "type": "EvidenceSourceId",
+      "label": "unicode-ucd",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd",
+        "parentSourceNode": "phase6:source:unicode-ucd"
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:unicode-ucd-17-blocks",
+      "type": "EvidenceSourceId",
+      "label": "unicode-ucd-17-blocks",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-blocks",
+        "parentSourceNode": "phase6:source:unicode-ucd"
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-blocks"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "unicode-ucd-17-blocks"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:unicode-ucd-17-derived-age",
+      "type": "EvidenceSourceId",
+      "label": "unicode-ucd-17-derived-age",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-derived-age",
+        "parentSourceNode": "phase6:source:unicode-ucd"
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-derived-age"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "unicode-ucd-17-derived-age"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:unicode-ucd-17-property-value-aliases",
+      "type": "EvidenceSourceId",
+      "label": "unicode-ucd-17-property-value-aliases",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-property-value-aliases",
+        "parentSourceNode": "phase6:source:iso-15924"
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:unicode-ucd-17-scripts",
+      "type": "EvidenceSourceId",
+      "label": "unicode-ucd-17-scripts",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-scripts",
+        "parentSourceNode": "phase6:source:unicode-ucd"
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-scripts"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "unicode-ucd-17-scripts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:evidence-id:unicode-ucd-17-unicode-data",
+      "type": "EvidenceSourceId",
+      "label": "unicode-ucd-17-unicode-data",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-unicode-data",
+        "parentSourceNode": "phase6:source:unicode-ucd"
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_evidencesourceid_node",
+        "sourceIds": [
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:local-source-file:unicode-ucd-property-value-aliases",
+      "type": "LocalSourceFile",
+      "label": "data/unicode/ucd-latest/PropertyValueAliases.txt",
+      "fields": {
+        "key": "unicodeUcdPropertyValueAliases",
+        "path": "data/unicode/ucd-latest/PropertyValueAliases.txt",
+        "exists": true,
+        "sha256": "64e9a5f76f7a1e8b5a47d6a1f9a26522a251208f5276bdfa1559dac7cf2e827a"
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_localsourcefile_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:local-source-file:unicode-ucd-scripts",
+      "type": "LocalSourceFile",
+      "label": "data/unicode/ucd-latest/Scripts.txt",
+      "fields": {
+        "key": "unicodeUcdScripts",
+        "path": "data/unicode/ucd-latest/Scripts.txt",
+        "exists": true,
+        "sha256": "9f5e50d3abaee7d6ce09480f325c706f485ae3240912527e651954d2d6b035bf"
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_localsourcefile_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:local-source-file:unicode-ucd-blocks",
+      "type": "LocalSourceFile",
+      "label": "data/unicode/ucd-latest/Blocks.txt",
+      "fields": {
+        "key": "unicodeUcdBlocks",
+        "path": "data/unicode/ucd-latest/Blocks.txt",
+        "exists": true,
+        "sha256": "c0edefaf1a19771e830a82735472716af6bf3c3975f6c2a23ffbe2580fbbcb15"
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_localsourcefile_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:local-source-file:unicode-ucd-unicode-data",
+      "type": "LocalSourceFile",
+      "label": "data/unicode/ucd-latest/UnicodeData.txt",
+      "fields": {
+        "key": "unicodeUcdUnicodeData",
+        "path": "data/unicode/ucd-latest/UnicodeData.txt",
+        "exists": true,
+        "sha256": "2e1efc1dcb59c575eedf5ccae60f95229f706ee6d031835247d843c11d96470c"
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_localsourcefile_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:local-source-file:unicode-ucd-derived-age",
+      "type": "LocalSourceFile",
+      "label": "data/unicode/ucd-latest/DerivedAge.txt",
+      "fields": {
+        "key": "unicodeUcdDerivedAge",
+        "path": "data/unicode/ucd-latest/DerivedAge.txt",
+        "exists": true,
+        "sha256": "f8ecdf768bdc210f201abd271d9bc587825618a86a7046a8146cc816393f1998"
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_localsourcefile_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:local-source-file:unicode-ucd-script-extensions",
+      "type": "LocalSourceFile",
+      "label": "data/unicode/ucd-latest/ScriptExtensions.txt",
+      "fields": {
+        "key": "unicodeUcdScriptExtensions",
+        "path": "data/unicode/ucd-latest/ScriptExtensions.txt",
+        "exists": true,
+        "sha256": "ec2107e58825a1586acee8e0911ce18260394ac8b87e535ca325f1ccbeb06bc6"
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_localsourcefile_node",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:seed",
+      "type": "RegistryArtifact",
+      "label": "data/hkd-lipi-script-registry-seed-426.json",
+      "fields": {
+        "key": "seed",
+        "path": "data/hkd-lipi-script-registry-seed-426.json",
+        "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_registryartifact_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:crosswalk",
+      "type": "RegistryArtifact",
+      "label": "data/hkd-lipi-unicode-crosswalk.json",
+      "fields": {
+        "key": "crosswalk",
+        "path": "data/hkd-lipi-unicode-crosswalk.json",
+        "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_registryartifact_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:numeral",
+      "type": "RegistryArtifact",
+      "label": "data/hkd-lipi-numeral-registry.json",
+      "fields": {
+        "key": "numeral",
+        "path": "data/hkd-lipi-numeral-registry.json",
+        "sha256": "f338fe217030c3df988f0d0d8c3714d38b0c74bfe3cbdfe04e22c08e1fb4a1eb"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_registryartifact_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:zero",
+      "type": "RegistryArtifact",
+      "label": "data/hkd-lipi-zero-registry.json",
+      "fields": {
+        "key": "zero",
+        "path": "data/hkd-lipi-zero-registry.json",
+        "sha256": "7589ebe1e1bda3286ced8a5d860bcc34808addf81924362825f66a7a2011968c"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_registryartifact_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:kbs-graph",
+      "type": "RegistryArtifact",
+      "label": "data/hkd-lipi-kbs-graph.json",
+      "fields": {
+        "key": "kbsGraph",
+        "path": "data/hkd-lipi-kbs-graph.json",
+        "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_registryartifact_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:audit",
+      "type": "RegistryArtifact",
+      "label": "release/evidence/hkd-lipi-registry-audit-report.json",
+      "fields": {
+        "key": "audit",
+        "path": "release/evidence/hkd-lipi-registry-audit-report.json",
+        "sha256": "6a95d81a033d1f6c4cffd0fa1c5adb1c107f69c739ec758655dcf5e6c31bd5ff"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_registryartifact_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:provenance",
+      "type": "RegistryArtifact",
+      "label": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "fields": {
+        "key": "provenance",
+        "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+        "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06"
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_registryartifact_node",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:source-registry",
+      "type": "FederationArtifact",
+      "label": "data/hkd-lipi-federated-source-registry.json",
+      "fields": {
+        "path": "data/hkd-lipi-federated-source-registry.json"
+      },
+      "sourceRefs": [
+        "cldr",
+        "harfbuzz",
+        "hkd-registry-architect-user-prompt",
+        "icu",
+        "iso-15924",
+        "opentype-spec",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_federationartifact_node",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:lineage-graph",
+      "type": "FederationArtifact",
+      "label": "data/hkd-lipi-evidence-lineage-graph.json",
+      "fields": {
+        "path": "data/hkd-lipi-evidence-lineage-graph.json"
+      },
+      "sourceRefs": [
+        "cldr",
+        "harfbuzz",
+        "hkd-registry-architect-user-prompt",
+        "icu",
+        "iso-15924",
+        "opentype-spec",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_federationartifact_node",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:conflict-detector",
+      "type": "FederationArtifact",
+      "label": "data/hkd-lipi-source-conflict-detector.json",
+      "fields": {
+        "path": "data/hkd-lipi-source-conflict-detector.json"
+      },
+      "sourceRefs": [
+        "cldr",
+        "harfbuzz",
+        "hkd-registry-architect-user-prompt",
+        "icu",
+        "iso-15924",
+        "opentype-spec",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_federationartifact_node",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:artifact:provenance-chains",
+      "type": "FederationArtifact",
+      "label": "data/hkd-lipi-provenance-chain-explorer.json",
+      "fields": {
+        "path": "data/hkd-lipi-provenance-chain-explorer.json"
+      },
+      "sourceRefs": [
+        "cldr",
+        "harfbuzz",
+        "hkd-registry-architect-user-prompt",
+        "icu",
+        "iso-15924",
+        "opentype-spec",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_federationartifact_node",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "phase6:edge:source-has-evidence-id:phase6-source-unicode-ucd:phase6-evidence-id-unicode-ucd-17-blocks",
+      "type": "SOURCE_HAS_EVIDENCE_ID",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:evidence-id:unicode-ucd-17-blocks",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-blocks",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-blocks"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_evidence_id_edge",
+        "sourceIds": [
+          "unicode-ucd-17-blocks"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-evidence-id:phase6-source-unicode-ucd:phase6-evidence-id-unicode-ucd-17-derived-age",
+      "type": "SOURCE_HAS_EVIDENCE_ID",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:evidence-id:unicode-ucd-17-derived-age",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-derived-age",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-derived-age"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_evidence_id_edge",
+        "sourceIds": [
+          "unicode-ucd-17-derived-age"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-evidence-id:phase6-source-unicode-ucd:phase6-evidence-id-unicode-ucd-17-property-value-aliases",
+      "type": "SOURCE_HAS_EVIDENCE_ID",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:evidence-id:unicode-ucd-17-property-value-aliases",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-property-value-aliases",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_evidence_id_edge",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-evidence-id:phase6-source-unicode-ucd:phase6-evidence-id-unicode-ucd-17-scripts",
+      "type": "SOURCE_HAS_EVIDENCE_ID",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:evidence-id:unicode-ucd-17-scripts",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-scripts",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-scripts"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_evidence_id_edge",
+        "sourceIds": [
+          "unicode-ucd-17-scripts"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-evidence-id:phase6-source-unicode-ucd:phase6-evidence-id-unicode-ucd-17-unicode-data",
+      "type": "SOURCE_HAS_EVIDENCE_ID",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:evidence-id:unicode-ucd-17-unicode-data",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-unicode-data",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_evidence_id_edge",
+        "sourceIds": [
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-evidence-id:phase6-source-iso-15924:phase6-evidence-id-unicode-ucd-17-property-value-aliases",
+      "type": "SOURCE_HAS_EVIDENCE_ID",
+      "from": "phase6:source:iso-15924",
+      "to": "phase6:evidence-id:unicode-ucd-17-property-value-aliases",
+      "fields": {
+        "evidenceSourceId": "unicode-ucd-17-property-value-aliases",
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd-17-property-value-aliases"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_evidence_id_edge",
+        "sourceIds": [
+          "unicode-ucd-17-property-value-aliases"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-local-file:phase6-source-unicode-ucd:phase6-local-source-file-unicode-ucd-property-value-aliases",
+      "type": "SOURCE_HAS_LOCAL_FILE",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:local-source-file:unicode-ucd-property-value-aliases",
+      "fields": {
+        "ingested": true
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_local_file_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-local-file:phase6-source-unicode-ucd:phase6-local-source-file-unicode-ucd-scripts",
+      "type": "SOURCE_HAS_LOCAL_FILE",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:local-source-file:unicode-ucd-scripts",
+      "fields": {
+        "ingested": true
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_local_file_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-local-file:phase6-source-unicode-ucd:phase6-local-source-file-unicode-ucd-blocks",
+      "type": "SOURCE_HAS_LOCAL_FILE",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:local-source-file:unicode-ucd-blocks",
+      "fields": {
+        "ingested": true
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_local_file_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-local-file:phase6-source-unicode-ucd:phase6-local-source-file-unicode-ucd-unicode-data",
+      "type": "SOURCE_HAS_LOCAL_FILE",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:local-source-file:unicode-ucd-unicode-data",
+      "fields": {
+        "ingested": true
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_local_file_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-local-file:phase6-source-unicode-ucd:phase6-local-source-file-unicode-ucd-derived-age",
+      "type": "SOURCE_HAS_LOCAL_FILE",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:local-source-file:unicode-ucd-derived-age",
+      "fields": {
+        "ingested": true
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_local_file_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-has-local-file:phase6-source-unicode-ucd:phase6-local-source-file-unicode-ucd-script-extensions",
+      "type": "SOURCE_HAS_LOCAL_FILE",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:local-source-file:unicode-ucd-script-extensions",
+      "fields": {
+        "ingested": true
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_has_local_file_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-partially-backs-alias-check:phase6-source-iso-15924:phase6-local-source-file-unicode-ucd-property-value-aliases",
+      "type": "SOURCE_PARTIALLY_BACKS_ALIAS_CHECK",
+      "from": "phase6:source:iso-15924",
+      "to": "phase6:local-source-file:unicode-ucd-property-value-aliases",
+      "fields": {
+        "ingested": "partial_via_ucd_aliases"
+      },
+      "sourceRefs": [
+        "iso-15924",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_source_partially_backs_alias_check_edge",
+        "sourceIds": [
+          "iso-15924",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-blocked-for-claims:phase6-source-cldr:phase6-artifact-conflict-detector",
+      "type": "SOURCE_BLOCKED_FOR_CLAIMS",
+      "from": "phase6:source:cldr",
+      "to": "phase6:artifact:conflict-detector",
+      "fields": {
+        "reason": "No local authoritative snapshot is ingested."
+      },
+      "sourceRefs": [
+        "cldr"
+      ],
+      "provenance": {
+        "scope": "lineage_source_blocked_for_claims_edge",
+        "sourceIds": [
+          "cldr"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-blocked-for-claims:phase6-source-icu:phase6-artifact-conflict-detector",
+      "type": "SOURCE_BLOCKED_FOR_CLAIMS",
+      "from": "phase6:source:icu",
+      "to": "phase6:artifact:conflict-detector",
+      "fields": {
+        "reason": "No local authoritative snapshot is ingested."
+      },
+      "sourceRefs": [
+        "icu"
+      ],
+      "provenance": {
+        "scope": "lineage_source_blocked_for_claims_edge",
+        "sourceIds": [
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-blocked-for-claims:phase6-source-harfbuzz:phase6-artifact-conflict-detector",
+      "type": "SOURCE_BLOCKED_FOR_CLAIMS",
+      "from": "phase6:source:harfbuzz",
+      "to": "phase6:artifact:conflict-detector",
+      "fields": {
+        "reason": "No local authoritative snapshot is ingested."
+      },
+      "sourceRefs": [
+        "harfbuzz"
+      ],
+      "provenance": {
+        "scope": "lineage_source_blocked_for_claims_edge",
+        "sourceIds": [
+          "harfbuzz"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:source-blocked-for-claims:phase6-source-opentype-spec:phase6-artifact-conflict-detector",
+      "type": "SOURCE_BLOCKED_FOR_CLAIMS",
+      "from": "phase6:source:opentype-spec",
+      "to": "phase6:artifact:conflict-detector",
+      "fields": {
+        "reason": "No local authoritative snapshot is ingested."
+      },
+      "sourceRefs": [
+        "opentype-spec"
+      ],
+      "provenance": {
+        "scope": "lineage_source_blocked_for_claims_edge",
+        "sourceIds": [
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:local-files-derive-phase3:phase6-source-unicode-ucd:phase6-artifact-crosswalk",
+      "type": "LOCAL_FILES_DERIVE_PHASE3",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:artifact:crosswalk",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_local_files_derive_phase3_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:local-files-derive-phase3:phase6-source-unicode-ucd:phase6-artifact-numeral",
+      "type": "LOCAL_FILES_DERIVE_PHASE3",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:artifact:numeral",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_local_files_derive_phase3_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:local-files-derive-phase3:phase6-source-unicode-ucd:phase6-artifact-zero",
+      "type": "LOCAL_FILES_DERIVE_PHASE3",
+      "from": "phase6:source:unicode-ucd",
+      "to": "phase6:artifact:zero",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_local_files_derive_phase3_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:phase3-derives-kbs:phase6-artifact-crosswalk:phase6-artifact-kbs-graph",
+      "type": "PHASE3_DERIVES_KBS",
+      "from": "phase6:artifact:crosswalk",
+      "to": "phase6:artifact:kbs-graph",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_phase3_derives_kbs_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:phase3-derives-kbs:phase6-artifact-numeral:phase6-artifact-kbs-graph",
+      "type": "PHASE3_DERIVES_KBS",
+      "from": "phase6:artifact:numeral",
+      "to": "phase6:artifact:kbs-graph",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_phase3_derives_kbs_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:phase3-derives-kbs:phase6-artifact-zero:phase6-artifact-kbs-graph",
+      "type": "PHASE3_DERIVES_KBS",
+      "from": "phase6:artifact:zero",
+      "to": "phase6:artifact:kbs-graph",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_phase3_derives_kbs_edge",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:kbs-derives-audit-export:phase6-artifact-kbs-graph:phase6-artifact-audit",
+      "type": "KBS_DERIVES_AUDIT_EXPORT",
+      "from": "phase6:artifact:kbs-graph",
+      "to": "phase6:artifact:audit",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_kbs_derives_audit_export_edge",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:kbs-derives-provenance:phase6-artifact-kbs-graph:phase6-artifact-provenance",
+      "type": "KBS_DERIVES_PROVENANCE",
+      "from": "phase6:artifact:kbs-graph",
+      "to": "phase6:artifact:provenance",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "hkd-registry-architect-user-prompt",
+        "unicode-ucd-17-blocks",
+        "unicode-ucd-17-derived-age",
+        "unicode-ucd-17-property-value-aliases",
+        "unicode-ucd-17-scripts",
+        "unicode-ucd-17-unicode-data"
+      ],
+      "provenance": {
+        "scope": "lineage_kbs_derives_provenance_edge",
+        "sourceIds": [
+          "hkd-registry-architect-user-prompt",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:audit-derives-federation:phase6-artifact-audit:phase6-artifact-source-registry",
+      "type": "AUDIT_DERIVES_FEDERATION",
+      "from": "phase6:artifact:audit",
+      "to": "phase6:artifact:source-registry",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "cldr",
+        "harfbuzz",
+        "hkd-registry-architect-user-prompt",
+        "icu",
+        "iso-15924",
+        "opentype-spec",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_audit_derives_federation_edge",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:audit-derives-federation:phase6-artifact-audit:phase6-artifact-conflict-detector",
+      "type": "AUDIT_DERIVES_FEDERATION",
+      "from": "phase6:artifact:audit",
+      "to": "phase6:artifact:conflict-detector",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "cldr",
+        "harfbuzz",
+        "hkd-registry-architect-user-prompt",
+        "icu",
+        "iso-15924",
+        "opentype-spec",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_audit_derives_federation_edge",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "phase6:edge:provenance-derives-chains:phase6-artifact-provenance:phase6-artifact-provenance-chains",
+      "type": "PROVENANCE_DERIVES_CHAINS",
+      "from": "phase6:artifact:provenance",
+      "to": "phase6:artifact:provenance-chains",
+      "fields": {
+        "createsNewScriptClaims": false
+      },
+      "sourceRefs": [
+        "cldr",
+        "harfbuzz",
+        "hkd-registry-architect-user-prompt",
+        "icu",
+        "iso-15924",
+        "opentype-spec",
+        "unicode-ucd"
+      ],
+      "provenance": {
+        "scope": "lineage_provenance_derives_chains_edge",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    }
+  ],
+  "provenance": {
+    "scope": "evidence_lineage_graph",
+    "sourceIds": [
+      "cldr",
+      "harfbuzz",
+      "hkd-registry-architect-user-prompt",
+      "icu",
+      "iso-15924",
+      "opentype-spec",
+      "unicode-ucd"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+    "sourcePolicy": "cross_reference_only_no_new_script_claims",
+    "trustedInputs": [
+      "data/hkd-lipi-kbs-graph.json",
+      "data/hkd-lipi-numeral-registry.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/hkd-lipi-zero-registry.json",
+      "release/evidence/hkd-lipi-registry-audit-report.json",
+      "release/evidence/hkd-lipi-registry-provenance-report.json"
+    ],
+    "reviewed": false,
+    "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+  }
+}

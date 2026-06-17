@@ -1,0 +1,293 @@
+{
+  "schema": "hkd-lipi-source-conflict-detector.v1",
+  "generatedAt": "DETERMINISTIC_FROM_FEDERATED_SOURCE_INPUTS",
+  "reviewState": "CONTROLLED_NO_GO",
+  "governedProductionGo": false,
+  "productionReady": false,
+  "runtimeEnabled": 0,
+  "phkdVerdict": "CONTROLLED_NO_GO",
+  "sourcePolicy": "cross_reference_only_no_new_script_claims",
+  "trustedInputs": [
+    {
+      "id": "seed",
+      "path": "data/hkd-lipi-script-registry-seed-426.json",
+      "sha256": "98fc533dfa7998af80d12f903b2ea10d02143a7ee55ce8ea96e52c360477634f"
+    },
+    {
+      "id": "crosswalk",
+      "path": "data/hkd-lipi-unicode-crosswalk.json",
+      "sha256": "c885c5e0fb8617574ed9b21575a2856048a285472eb0935fb796a8cfac9fba65"
+    },
+    {
+      "id": "numeral",
+      "path": "data/hkd-lipi-numeral-registry.json",
+      "sha256": "f338fe217030c3df988f0d0d8c3714d38b0c74bfe3cbdfe04e22c08e1fb4a1eb"
+    },
+    {
+      "id": "zero",
+      "path": "data/hkd-lipi-zero-registry.json",
+      "sha256": "7589ebe1e1bda3286ced8a5d860bcc34808addf81924362825f66a7a2011968c"
+    },
+    {
+      "id": "kbsGraph",
+      "path": "data/hkd-lipi-kbs-graph.json",
+      "sha256": "0d3435f5885e2c50338d94b8e21341370164b30bdb64ed6db954ee5dd01670ec"
+    },
+    {
+      "id": "audit",
+      "path": "release/evidence/hkd-lipi-registry-audit-report.json",
+      "sha256": "6a95d81a033d1f6c4cffd0fa1c5adb1c107f69c739ec758655dcf5e6c31bd5ff"
+    },
+    {
+      "id": "provenance",
+      "path": "release/evidence/hkd-lipi-registry-provenance-report.json",
+      "sha256": "a6d1b12b01f7f4db425d50e906cc2523beae045e3253a4596430e8992be38f06"
+    }
+  ],
+  "summary": {
+    "conflicts": 0,
+    "highSeverityConflicts": 0,
+    "blockedComparisons": 4,
+    "localComparisons": 3,
+    "newScriptClaimsCreated": 0
+  },
+  "checks": {
+    "noSeedCrosswalkAliasMismatches": true,
+    "noRuntimeEnabledTrue": true,
+    "noProductionReadyTrue": true,
+    "noNonIngestedSourceCreatesClaims": true,
+    "noLineageClaimCreatingEdges": true,
+    "everyGraphSourceRefRegistered": true,
+    "cldrIcuHarfBuzzOpenTypeBlockedUntilIngested": true
+  },
+  "localComparisons": [
+    {
+      "id": "seed-vs-crosswalk-script-aliases",
+      "sources": [
+        "unicode-ucd",
+        "iso-15924"
+      ],
+      "comparedRows": 176,
+      "mismatches": [],
+      "provenance": {
+        "scope": "local_source_comparison",
+        "sourceIds": [
+          "iso-15924",
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "decimal-digit-inventory-vs-zero-registry",
+      "sources": [
+        "unicode-ucd"
+      ],
+      "comparedRows": 63,
+      "mismatches": [],
+      "provenance": {
+        "scope": "local_source_comparison",
+        "sourceIds": [
+          "unicode-ucd"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "id": "kbs-provenance-vs-source-registry",
+      "sources": [
+        "unicode-ucd",
+        "iso-15924",
+        "cldr",
+        "icu",
+        "harfbuzz",
+        "opentype-spec",
+        "hkd-registry-architect-user-prompt"
+      ],
+      "comparedRows": 6,
+      "mismatches": [],
+      "provenance": {
+        "scope": "local_source_comparison",
+        "sourceIds": [
+          "cldr",
+          "harfbuzz",
+          "hkd-registry-architect-user-prompt",
+          "icu",
+          "iso-15924",
+          "opentype-spec",
+          "unicode-ucd",
+          "unicode-ucd-17-blocks",
+          "unicode-ucd-17-derived-age",
+          "unicode-ucd-17-property-value-aliases",
+          "unicode-ucd-17-scripts",
+          "unicode-ucd-17-unicode-data"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    }
+  ],
+  "blockedComparisons": [
+    {
+      "sourceId": "cldr",
+      "status": "BLOCKED_NO_LOCAL_SNAPSHOT",
+      "compared": false,
+      "reason": "Source is registered as authoritative, but no local snapshot is ingested, so it cannot validate or conflict with registry claims.",
+      "provenance": {
+        "scope": "blocked_source_comparison",
+        "sourceIds": [
+          "cldr"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "icu",
+      "status": "BLOCKED_NO_LOCAL_SNAPSHOT",
+      "compared": false,
+      "reason": "Source is registered as authoritative, but no local snapshot is ingested, so it cannot validate or conflict with registry claims.",
+      "provenance": {
+        "scope": "blocked_source_comparison",
+        "sourceIds": [
+          "icu"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "harfbuzz",
+      "status": "BLOCKED_NO_LOCAL_SNAPSHOT",
+      "compared": false,
+      "reason": "Source is registered as authoritative, but no local snapshot is ingested, so it cannot validate or conflict with registry claims.",
+      "provenance": {
+        "scope": "blocked_source_comparison",
+        "sourceIds": [
+          "harfbuzz"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    },
+    {
+      "sourceId": "opentype-spec",
+      "status": "BLOCKED_NO_LOCAL_SNAPSHOT",
+      "compared": false,
+      "reason": "Source is registered as authoritative, but no local snapshot is ingested, so it cannot validate or conflict with registry claims.",
+      "provenance": {
+        "scope": "blocked_source_comparison",
+        "sourceIds": [
+          "opentype-spec"
+        ],
+        "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+        "sourcePolicy": "cross_reference_only_no_new_script_claims",
+        "trustedInputs": [
+          "data/hkd-lipi-kbs-graph.json",
+          "data/hkd-lipi-numeral-registry.json",
+          "data/hkd-lipi-script-registry-seed-426.json",
+          "data/hkd-lipi-unicode-crosswalk.json",
+          "data/hkd-lipi-zero-registry.json",
+          "release/evidence/hkd-lipi-registry-audit-report.json",
+          "release/evidence/hkd-lipi-registry-provenance-report.json"
+        ],
+        "reviewed": false,
+        "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+      }
+    }
+  ],
+  "conflicts": [],
+  "provenance": {
+    "scope": "source_conflict_detector",
+    "sourceIds": [
+      "cldr",
+      "harfbuzz",
+      "hkd-registry-architect-user-prompt",
+      "icu",
+      "iso-15924",
+      "opentype-spec",
+      "unicode-ucd"
+    ],
+    "generatedBy": "scripts/generate-hkd-lipi-registry-phase6-federation.mjs",
+    "sourcePolicy": "cross_reference_only_no_new_script_claims",
+    "trustedInputs": [
+      "data/hkd-lipi-kbs-graph.json",
+      "data/hkd-lipi-numeral-registry.json",
+      "data/hkd-lipi-script-registry-seed-426.json",
+      "data/hkd-lipi-unicode-crosswalk.json",
+      "data/hkd-lipi-zero-registry.json",
+      "release/evidence/hkd-lipi-registry-audit-report.json",
+      "release/evidence/hkd-lipi-registry-provenance-report.json"
+    ],
+    "reviewed": false,
+    "phkd": "FACTS_FROM_SOURCES_OR_UNKNOWN"
+  }
+}
