@@ -6,7 +6,45 @@ pub mod time;
 #[cfg(test)]
 mod tests {
     use super::hsts::{HstsStateWord, HSTS_ASTRO_TIME_VERIFIED, HSTS_NETWORK_SSL_ENFORCED};
-    use super::time::{MonotonicTick, HEMANT_SAMWAT_EPOCH_NANOS};
+    use super::time::{
+        MonotonicTick, VedanticTimePosition, VedanticTimeUnit, AHORATRA_NANOS,
+        HEMANT_SAMWAT_EPOCH_NANOS, NIMESHA_PER_AHORATRA,
+    };
+
+    #[test]
+    fn kashi_makara_sankranti_1979_is_the_reference_epoch() {
+        assert_eq!(HEMANT_SAMWAT_EPOCH_NANOS, 285_148_740_000_000_000);
+    }
+
+    #[test]
+    fn vedantic_unit_ratios_follow_the_documented_day_convention() {
+        assert_eq!(NIMESHA_PER_AHORATRA, 405_000);
+        assert_eq!(
+            VedanticTimeUnit::Muhurta.to_nanoseconds(1),
+            Some(2_880_000_000_000)
+        );
+        assert_eq!(
+            VedanticTimeUnit::Ahoratra.to_nanoseconds(1),
+            Some(AHORATRA_NANOS)
+        );
+        assert_eq!(
+            VedanticTimeUnit::Nimesha.to_nanoseconds(3),
+            Some(640_000_000)
+        );
+    }
+
+    #[test]
+    fn tick_decomposes_elapsed_time_into_vedantic_units() {
+        let elapsed = AHORATRA_NANOS + 2_880_000_000_000 + 1;
+        let position = VedanticTimePosition::from_elapsed_nanos(elapsed);
+        assert_eq!(position.ahoratra, 1);
+        assert_eq!(position.muhurta, 1);
+        assert_eq!(position.kala, 0);
+        assert_eq!(position.kastha, 0);
+        assert_eq!(position.nimesha, 0);
+        assert_eq!(position.sub_nimesha_nanos, 1);
+        assert_eq!(MonotonicTick::new(elapsed, 1).vedantic_position(), position);
+    }
 
     #[test]
     fn monotonic_progression_limits() {
