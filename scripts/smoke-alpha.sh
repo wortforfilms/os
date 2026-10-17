@@ -29,4 +29,8 @@ echo "5/5 QEMU boot"
 ./scripts/run.sh
 
 echo ""
+echo "6/6 QEMU clock self-test"
+./scripts/qemu-clock-test.sh
+
+echo ""
 echo "Alpha smoke test passed"

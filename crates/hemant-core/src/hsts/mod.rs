@@ -19,7 +19,10 @@ pub struct HstsStateWord {
 }
 
 impl HstsStateWord {
-    /// Generates an armed, certified initial state tracking record.
+    /// Builds a state word with `HSTS_ASTRO_TIME_VERIFIED` set. It does **not**
+    /// check any clock or astronomical source: the bit records what the caller
+    /// asserts, not what was verified. Do not report it as verified time until
+    /// a drift reference exists. The kernel does not use this yet.
     pub fn compile_gold_master(current_tick: MonotonicTick) -> Self {
         let mask = HSTS_NETWORK_SSL_ENFORCED | HSTS_ASTRO_TIME_VERIFIED;
         let integrity_hash = compile_integrity_hash(current_tick, mask);

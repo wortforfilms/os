@@ -19,7 +19,10 @@ Working in this alpha:
 - Virtual driver registry for UART, GPIO, SPI, I2C, and power
 - Virtual flash manifest
 - Static capsule table with memory accounting
-- Six-tick scheduler simulation
+- Six-tick scheduler simulation, paced by the kernel clock
+- Kernel monotonic clock: SysTick at 1 kHz from the 168 MHz core clock,
+  cycle-precise reads, fed into `hemant-core::MonotonicTick`
+  ([docs/kernel-clock.md](docs/kernel-clock.md); `./scripts/qemu-clock-test.sh`)
 - Release size check
 - Host unit tests for virtual kernel subsystems
 - Vite/Electron sovereign runtime dashboard preview

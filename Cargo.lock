@@ -277,6 +277,7 @@ dependencies = [
  "cortex-m-semihosting",
  "embassy-executor",
  "embassy-time",
+ "hemant-core",
  "panic-halt",
  "rtt-target",
 ]

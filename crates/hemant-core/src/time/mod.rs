@@ -121,7 +121,10 @@ impl MonotonicTick {
         self.state_sequence = self.state_sequence.saturating_add(1);
     }
 
-    /// Computes the exact absolute timestamp equivalent used within file manifests.
+    /// Epoch plus `elapsed_nanos`. This is a Hemant timestamp **only** when
+    /// `elapsed_nanos` counts from the Hemant epoch. A kernel tick counts from
+    /// boot, so for kernel ticks this value is not a date: anchor the clock
+    /// first (maataa-os `src/clock.rs`, `HostAnchor::hemant_elapsed_nanos`).
     #[inline]
     pub const fn compute_absolute_epoch_nanos(&self) -> u64 {
         HEMANT_SAMWAT_EPOCH_NANOS.saturating_add(self.elapsed_nanos)

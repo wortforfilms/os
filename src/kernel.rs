@@ -1,4 +1,5 @@
 use crate::capsule::CapsuleManager;
+use crate::clock::{self, HostAnchor};
 use crate::drivers::{DriverRegistry, HealthState};
 use crate::ipc::comm::COMM_FRAME_BYTES;
 use crate::ipc::frame::{
@@ -13,7 +14,7 @@ use crate::ipc::{
     VerificationReport,
 };
 use crate::storage::StorageManager;
-use cortex_m_semihosting::{debug, hprintln};
+use cortex_m_semihosting::{debug, hprintln, syscall};
 
 const SCRIPT_AI_BATCH_STATUS: u32 = 0x001b_0047;
 const AI_BATCH_CERTIFICATION_CLEARANCE: u32 = 0x08;
@@ -56,6 +57,41 @@ pub fn run() -> ! {
     hprintln!("telemetry capsule id: {:?}", telemetry_capsule);
     hprintln!("control capsule id: {:?}", control_capsule);
 
+    // Time. The kernel clock is monotonic since boot. A Hemant reading needs
+    // an anchor; the only one available under QEMU is the host clock, read
+    // once over semihosting, so it stays labelled unverified.
+    let anchor_uptime = clock::now_nanos();
+    // SAFETY: SYS_TIME takes no arguments and only returns a value.
+    let host_unix_seconds = unsafe { syscall!(TIME) } as u64;
+    let anchor = HostAnchor {
+        unix_seconds: host_unix_seconds,
+        uptime_nanos: anchor_uptime,
+    };
+    let tick = clock::monotonic_tick();
+    hprintln!(
+        "clock: systick {} Hz, core {} Hz (board assumption)",
+        clock::TICK_HZ,
+        clock::CORE_CLOCK_HZ
+    );
+    hprintln!("time: {}", clock::TIME_BASIS);
+    hprintln!("uptime ns: {}", tick.elapsed_nanos());
+    match anchor.hemant_elapsed_nanos(tick.elapsed_nanos()) {
+        Some(since_epoch) => {
+            let p = hemant_core::time::VedanticTimePosition::from_elapsed_nanos(since_epoch);
+            hprintln!("hemant anchor: {}", HostAnchor::BASIS);
+            hprintln!("hemant ns since epoch: {}", since_epoch);
+            hprintln!(
+                "hemant position: ahoratra {} muhurta {} kala {} kastha {} nimesha {}",
+                p.ahoratra,
+                p.muhurta,
+                p.kala,
+                p.kastha,
+                p.nimesha
+            );
+        }
+        None => hprintln!("hemant anchor: unavailable"),
+    }
+
     let mut screen = AsciiScreenBuffer::new();
     screen.write_str("Maataa OS local terminal\n");
     screen.parse_shell_input(b"boot-contract: locked");
@@ -92,8 +128,11 @@ pub fn run() -> ! {
         SCRIPT_AI_BATCH_STATUS
     };
     hprintln!("verification status: {}", verification_status);
+    // Self-check against the embedded reference only. Its gap state is the
+    // built-in nominal value, not an external audit, so this is not
+    // certification by anyone outside the kernel.
     hprintln!(
-        "verification certified: {}",
+        "verification self-check passed: {}",
         verification_report.is_scientifically_certified()
             && (verification_status & VERIFY_CERTIFIED_MASK) == VERIFY_CERTIFIED_MASK
     );
@@ -105,6 +144,7 @@ pub fn run() -> ! {
     let mut rescue_frame = [0u8; MOSR_FRAME_BYTES];
     for tick in 1..=6 {
         hprintln!("tick {}", tick);
+        hprintln!("  uptime ns: {}", clock::now_nanos());
         drivers.poll(tick);
         capsules.run_cycle(tick);
         let snapshot = SchedulerTelemetrySnapshot::from_scheduler_with_verification(
@@ -131,10 +171,13 @@ pub fn run() -> ! {
             hprintln!("telemetry: recovery frame emitted");
         }
 
-        cortex_m::asm::delay(1_000_000);
+        // One scheduler slot: 10 ms of kernel time, sleeping between ticks.
+        clock::sleep_ms(10);
     }
 
     hprintln!("");
+    hprintln!("clock regressions: {}", clock::regressions());
+    hprintln!("uptime at exit ns: {}", clock::now_nanos());
     hprintln!("Maataa OS prototype demo complete.");
     hprintln!("Exiting QEMU.");
 

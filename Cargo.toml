@@ -17,6 +17,8 @@ embassy-time = "0.3.0"
 
 # Add semihosting for QEMU
 cortex-m-semihosting = "0.5.0"
+# Hemant time primitives; the kernel clock feeds MonotonicTick (src/clock.rs).
+hemant-core = { path = "crates/hemant-core" }
 
 [profile.release]
 opt-level = "z"
