@@ -8,8 +8,20 @@ set -euo pipefail
 TARGET=thumbv7em-none-eabihf
 BIN=target/$TARGET/release/clock_selftest
 
+# macOS has no `timeout`; use GNU timeout when present, else perl's alarm.
+run_with_limit() {
+    local seconds=$1; shift
+    if command -v timeout >/dev/null 2>&1; then
+        timeout "$seconds" "$@"
+    elif command -v gtimeout >/dev/null 2>&1; then
+        gtimeout "$seconds" "$@"
+    else
+        perl -e 'alarm shift; exec @ARGV or die "exec failed: $!"' "$seconds" "$@"
+    fi
+}
+
 cargo build --release --target "$TARGET" --bin clock_selftest
-timeout 60 qemu-system-arm \
+run_with_limit 60 qemu-system-arm \
     -machine netduinoplus2 \
     -cpu cortex-m4 \
     -kernel "$BIN" \

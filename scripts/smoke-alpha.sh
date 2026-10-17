@@ -5,27 +5,27 @@ echo "Maataa OS alpha smoke test"
 echo "=========================="
 
 echo ""
-echo "0/5 clean embedded target"
+echo "0/6 clean embedded target"
 rm -rf target/thumbv7em-none-eabihf
 
 echo ""
-echo "1/5 cargo check"
+echo "1/6 cargo check"
 cargo check --target thumbv7em-none-eabihf
 
 echo ""
-echo "2/5 host unit tests"
+echo "2/6 host unit tests"
 ./scripts/test-host.sh
 
 echo ""
-echo "3/5 release build"
+echo "3/6 release build"
 cargo build --release --target thumbv7em-none-eabihf
 
 echo ""
-echo "4/5 size check"
+echo "4/6 size check"
 ./scripts/sizecheck.sh
 
 echo ""
-echo "5/5 QEMU boot"
+echo "5/6 QEMU boot"
 ./scripts/run.sh
 
 echo ""
