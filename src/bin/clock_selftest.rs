@@ -14,7 +14,9 @@ use core::panic::PanicInfo;
 use cortex_m::interrupt;
 use cortex_m::peripheral::SCB;
 use cortex_m_rt::{entry, exception};
-use cortex_m_semihosting::{debug, hprintln, syscall};
+use maataa_os::logging::kprintln;
+#[cfg(feature = "board-qemu-f405")]
+use cortex_m_semihosting::{debug, syscall};
 use maataa_os::{board, clock};
 
 #[exception]
@@ -24,7 +26,8 @@ fn SysTick() {
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    hprintln!("FAIL: {}", info);
+    kprintln!("FAIL: {}", info);
+    #[cfg(feature = "board-qemu-f405")]
     debug::exit(debug::EXIT_FAILURE);
     loop {
         cortex_m::asm::wfi();
@@ -34,6 +37,7 @@ fn panic(info: &PanicInfo) -> ! {
 /// Host wall time in nanoseconds since QEMU started (semihosting SYS_ELAPSED
 /// scaled by SYS_TICKFREQ). Not SYS_CLOCK: QEMU answers SYS_CLOCK with the
 /// host *process CPU time*, which stands still while the guest sleeps in WFI.
+#[cfg(feature = "board-qemu-f405")]
 fn host_nanos() -> u64 {
     let mut words = [0u32; 2];
     // SAFETY: SYS_ELAPSED writes two words (low, high) into the block we pass.
@@ -57,16 +61,17 @@ fn host_nanos() -> u64 {
 
 #[entry]
 fn main() -> ! {
+    board::init_logging();
     let mut core = cortex_m::Peripherals::take().unwrap();
 
     // 1. Before start: zero, and no ticks.
     assert_eq!(clock::now_nanos(), 0, "clock reads 0 before start");
     assert_eq!(clock::ticks(), 0, "no ticks before start");
-    hprintln!("ok  starts at 0");
+    kprintln!("ok  starts at 0");
 
     let core_hz = board::init_core_clock();
     let config = clock::Config::for_core_hz(core_hz).expect("whole 1 kHz tick");
-    hprintln!(
+    kprintln!(
         "    board {}, core {} Hz ({})",
         board::NAME,
         core_hz,
@@ -79,7 +84,7 @@ fn main() -> ! {
     let ticks = clock::ticks();
     assert!(ticks >= 50, "advanced past 50 ticks (got {})", ticks);
     assert!(clock::now_nanos() >= 50_000_000, "50 ms elapsed");
-    hprintln!("ok  advanced {} ticks", ticks);
+    kprintln!("ok  advanced {} ticks", ticks);
 
     // 3. Monotonic over many back-to-back reads, across tick boundaries.
     let mut last = clock::now_nanos();
@@ -89,7 +94,7 @@ fn main() -> ! {
         last = now;
     }
     assert_eq!(clock::regressions(), 0, "no clamped readings");
-    hprintln!("ok  monotonic over 200000 reads, reached {} ns", last);
+    kprintln!("ok  monotonic over 200000 reads, reached {} ns", last);
 
     // 4. A wrap the ISR could not handle yet is still counted.
     let (before, inside) = interrupt::free(|_| {
@@ -111,17 +116,19 @@ fn main() -> ! {
         clock::now_nanos() >= inside,
         "monotonic after the pending tick"
     );
-    hprintln!("ok  pending wrap counted while interrupts were masked");
+    kprintln!("ok  pending wrap counted while interrupts were masked");
 
-    if !board::HOST_TIME_AVAILABLE {
-        hprintln!("--  rate and Hemant checks skipped: no host time on this board");
-        hprintln!("clock self-test passed");
-        debug::exit(debug::EXIT_SUCCESS);
+    #[cfg(feature = "board-f411")]
+    {
+        kprintln!("--  rate and Hemant checks skipped: no host time on this board");
+        kprintln!("clock self-test passed");
         loop {
             cortex_m::asm::wfi();
         }
     }
 
+    #[cfg(feature = "board-qemu-f405")]
+    {
     // 5. Rate against the host clock, as a range: ~2 s of host time.
     let host_start = host_nanos();
     let kernel_start = clock::now_nanos();
@@ -131,7 +138,7 @@ fn main() -> ! {
     let host_ns = host_nanos() - host_start;
     let kernel_ns = clock::now_nanos() - kernel_start;
     let ratio_pct = kernel_ns * 100 / host_ns;
-    hprintln!(
+    kprintln!(
         "    kernel {} ns vs host {} ns ({}%)",
         kernel_ns,
         host_ns,
@@ -149,9 +156,9 @@ fn main() -> ! {
         ratio_pct
     );
     if (80..=125).contains(&ratio_pct) {
-        hprintln!("ok  rate within 80..=125% of the host clock");
+        kprintln!("ok  rate within 80..=125% of the host clock");
     } else {
-        hprintln!(
+        kprintln!(
             "ok  rate within 50..=200% of the host clock (outside 80..=125%: host timer accuracy under QEMU, see docs/kernel-clock.md)"
         );
     }
@@ -172,14 +179,15 @@ fn main() -> ! {
         b >= a + 20_000_000,
         "Hemant time advances with the kernel clock"
     );
-    hprintln!(
+    kprintln!(
         "ok  hemant time = anchor + uptime ({})",
         clock::HostAnchor::BASIS
     );
 
-    hprintln!("clock self-test passed");
+    kprintln!("clock self-test passed");
     debug::exit(debug::EXIT_SUCCESS);
     loop {
         cortex_m::asm::wfi();
+    }
     }
 }

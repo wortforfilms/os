@@ -2,7 +2,6 @@
 #![no_main]
 
 use cortex_m_rt::{entry, exception};
-use cortex_m_semihosting::hprintln;
 use panic_halt as _;
 
 mod board;
@@ -13,13 +12,15 @@ mod drivers;
 mod ipc;
 mod kernel;
 mod log;
+mod logging;
 #[path = "storage/mod.rs"]
 mod storage;
 
 #[entry]
 fn main() -> ! {
-    hprintln!("Maataa OS starting in QEMU...");
-    hprintln!("Cortex-M semihosting prototype boot");
+    board::init_logging();
+    logging::kprintln!("Maataa OS starting...");
+    logging::kprintln!("Kernel output initialized");
 
     // The board sets up its clock tree and reports the core clock; the kernel
     // clock starts from that value before anything else reads time.

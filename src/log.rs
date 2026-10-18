@@ -2,13 +2,9 @@
 macro_rules! boot_log {
     ($($arg:tt)*) => {{
         #[cfg(target_arch = "arm")]
-        {
-            cortex_m_semihosting::hprintln!($($arg)*);
-        }
+        $crate::logging::kprintln!($($arg)*);
 
         #[cfg(not(target_arch = "arm"))]
-        {
-            let _ = core::format_args!($($arg)*);
-        }
+        let _ = core::format_args!($($arg)*);
     }};
 }

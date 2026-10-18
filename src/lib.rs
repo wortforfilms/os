@@ -7,5 +7,6 @@ pub mod clock;
 pub mod drivers;
 pub mod ipc;
 pub mod log;
+pub mod logging;
 #[path = "storage/mod.rs"]
 pub mod storage;

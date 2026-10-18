@@ -8,8 +8,12 @@
 # CMSIS-DAP for the Black Pill) and probe-rs (https://probe.rs, e.g.
 # `cargo install probe-rs-tools --locked`).
 #
-# The kernel prints over semihosting. Without a debugger attached, a
-# semihosting call stops the CPU, so only run these binaries through probe-rs.
+# The kernel prints over RTT. probe-rs RTT flag verification is pending because
+# probe-rs is not installed in the authoring environment. Exact check run:
+#   $ probe-rs run --help
+#   zsh:1: command not found: probe-rs
+# Re-check the installed probe-rs version's run help before adding an RTT flag;
+# do not guess a CLI option. RTT is initialized in the F411 image either way.
 # Hardware builds do not ask the host for the time (no Hemant anchor), and
 # the clock self-test skips its host-time checks.
 set -euo pipefail
@@ -23,5 +27,5 @@ if ! command -v probe-rs >/dev/null 2>&1; then
     exit 1
 fi
 
-cargo build --release --target "$TARGET" --no-default-features --features board-f411 --bin "$BIN"
+RUSTC="$(rustup which rustc)" cargo build --release --target "$TARGET" --no-default-features --features board-f411 --bin "$BIN"
 probe-rs run --chip "$CHIP" "target/$TARGET/release/$BIN"

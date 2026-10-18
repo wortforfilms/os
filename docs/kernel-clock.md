@@ -37,14 +37,28 @@ PROBE_RS_CHIP=STM32F411RETx ./scripts/run-hw.sh      # Nucleo-F411RE
 
 `.cargo/config.toml` now uses `probe-rs run`. The old runner, `probe-run`, is deprecated.
 
-The kernel still prints over semihosting. That works only while a debugger is attached; a semihosting call without one stops the CPU. So run hardware builds through probe-rs only, and check on the first run that probe-rs shows the output.
+The kernel prints over RTT on F411. `src/board.rs` initializes the RTT channel
+once before the first log line. QEMU keeps its existing semihosting output.
+`probe-rs` is not installed in the authoring environment, so the installed
+version's RTT command-line flag could not be checked. `scripts/run-hw.sh`
+records the exact help command and output as a TODO; verify the probe-rs run
+help on the machine that has the probe before relying on hardware output.
 
 Hardware builds do not ask the host for the time:
 
 - the Hemant anchor reads `unavailable`;
 - the self-test skips the rate and Hemant checks and says so.
 
-Untested here: no board was available for this change. The F411 build compiles, but RCC set-up and SysTick on silicon still need a first run.
+## Hardware verification pending
+
+No F411 board was available. Compilation is not hardware verification. Check
+each item on the physical board and replace its status only with observed
+evidence:
+
+- **UNVERIFIED** — RCC locks at 100 MHz.
+- **UNVERIFIED** — SysTick fires at the configured 1 kHz rate.
+- **UNVERIFIED** — RTT output is visible in probe-rs.
+- **UNVERIFIED** — tasks preempt on hardware.
 
 ## Hemant time
 

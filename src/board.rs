@@ -35,6 +35,7 @@ pub const CLOCK_SOURCE: &str = "rcc configured";
 /// Whether the host answers semihosting time calls (`SYS_TIME`,
 /// `SYS_ELAPSED`). QEMU does; a debug probe may not, so hardware builds do not
 /// ask and report the Hemant anchor as unavailable.
+#[allow(dead_code)]
 pub const HOST_TIME_AVAILABLE: bool = cfg!(feature = "board-qemu-f405");
 
 /// QEMU `netduinoplus2` system clock.
@@ -43,6 +44,20 @@ pub const QEMU_F405_CORE_HZ: u32 = 168_000_000;
 /// F411 target: the chip's maximum, reachable from the 16 MHz HSI.
 #[allow(dead_code)] // used by one board only
 pub const F411_CORE_HZ: u32 = 100_000_000;
+
+/// Initializes the selected board's output once, before the first log line.
+#[cfg(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405")))]
+pub fn init_logging() {
+    rtt_target::rtt_init_print!();
+}
+
+/// QEMU semihosting needs no separate initialization.
+#[cfg(all(target_arch = "arm", feature = "board-qemu-f405"))]
+pub const fn init_logging() {}
+
+/// Host-side unit tests do not initialize embedded output.
+#[cfg(not(target_arch = "arm"))]
+pub const fn init_logging() {}
 
 /// Sets up the clock tree (on hardware) and returns the core clock in Hz,
 /// which is what SysTick counts with `SystClkSource::Core`. Call once, first.
