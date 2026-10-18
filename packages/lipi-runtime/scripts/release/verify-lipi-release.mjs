@@ -1,8 +1,8 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = process.cwd();
-const packageRoot = join(root, "packages/lipi-runtime");
+const packageRoot = fileURLToPath(new URL("../../", import.meta.url));
 const registryPath = join(packageRoot, "src/data/lipi-426-master.ts");
 const evidencePath = join(packageRoot, "release/evidence/lipi-registry-status.json");
 const reportPath = join(packageRoot, "release/evidence/lipi-release-verification.json");
@@ -13,7 +13,7 @@ function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-if (!existsSync(packageRoot)) failures.push("packages/lipi-runtime is missing");
+if (!existsSync(packageRoot)) failures.push("@maataa/lipi-runtime package root is missing");
 
 const packageJson = readJson(join(packageRoot, "package.json"));
 if (packageJson.name !== "@maataa/lipi-runtime") failures.push("package name must be @maataa/lipi-runtime");
