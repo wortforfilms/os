@@ -55,12 +55,13 @@ The line `verification certified` is now `verification self-check passed`. The c
 - advances at least 50 ticks during a 50 ms sleep,
 - never goes backwards across 200,000 reads,
 - counts a wrap that is still pending while interrupts are masked,
-- runs at 80–125% of host wall time over 2 s (observed: 99%),
+- runs within 50–200% of host wall time over 2 s. It reports separately whether the rate is inside 80–125%. Observed: 99% on a Linux host, 76% on a macOS host.
 - produces Hemant time as anchor plus uptime.
 
 QEMU gotchas:
 
 - QEMU does not model cycles exactly. Assert ranges, never exact counts.
+- Without `-icount`, QEMU drives SysTick from host timers, so the kernel's rate compared with wall time depends on the host. On macOS the kernel clock ran at 76% of wall time, likely because of host timer slack. The kernel cannot fix that. The test fails only outside 50–200%, which still catches a wrong `CORE_CLOCK_HZ` (12 MHz assumed on a 168 MHz board reads 14 times off). Real hardware needs its own drift measurement, which is still open.
 - Use `SYS_ELAPSED` / `SYS_TICKFREQ` as the reference. Do not use `SYS_CLOCK`: QEMU answers it with the host process's **CPU time**, which barely moves while the guest sleeps in `WFI`. With `SYS_CLOCK` the kernel clock looked 14 times faster than the host.
 - `cargo test --lib` (`scripts/test-host.sh`) covers the pure arithmetic: the reload math, sub-tick nanoseconds, monotonicity across tick boundaries, saturation, and the anchor formula.
 
