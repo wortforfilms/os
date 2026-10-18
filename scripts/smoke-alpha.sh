@@ -20,6 +20,8 @@ finish() {
     else
         printf 'FAIL: smoke-alpha (%s/%s checks; step: %s)\n' "$DONE" "$TOTAL" "$STEP"
     fi
+    trap - EXIT
+    exit "$status"
 }
 trap finish EXIT
 
@@ -34,8 +36,13 @@ cargo build --target "$TARGET"
 pass
 
 STEP="F411 dependency tree excludes semihosting"
-if cargo tree --target "$TARGET" --no-default-features --features board-f411 | rg -qi semihost; then
+F411_TREE="$(cargo tree --target "$TARGET" --no-default-features --features board-f411)"
+if printf '%s\n' "$F411_TREE" | rg -qi semihost; then
     echo "FAIL: board-f411 dependency tree contains semihosting" >&2
+    exit 1
+fi
+if ! printf '%s\n' "$F411_TREE" | rg -q 'rtt-target v'; then
+    echo "FAIL: board-f411 dependency tree does not include rtt-target" >&2
     exit 1
 fi
 pass
@@ -76,8 +83,20 @@ rg -q '^drivers: [0-9]+/[0-9]+ ready$' "$BOOT_LOG"
 rg -q '^storage mounted: (true|false)$' "$BOOT_LOG"
 rg -q '^manifest: ' "$BOOT_LOG"
 rg -q '^capsules loaded: [0-9]+$' "$BOOT_LOG"
+rg -q '^capsule memory: [0-9]+/[0-9]+ bytes$' "$BOOT_LOG"
+rg -q '^telemetry capsule id: ' "$BOOT_LOG"
+rg -q '^control capsule id: ' "$BOOT_LOG"
 rg -q '^clock: systick 1000 Hz, core ' "$BOOT_LOG"
 rg -q '^board: qemu-netduinoplus2-stm32f405$' "$BOOT_LOG"
+rg -q '^time: kernel-monotonic-since-boot$' "$BOOT_LOG"
+rg -q '^sched: round-robin tasks=3 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
+[ "$(rg -c '^sched:' "$BOOT_LOG")" -eq 1 ]
+rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
+rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
+rg -q '^hemant ns since epoch: [0-9]+$' "$BOOT_LOG"
+rg -q '^hemant position: ahoratra [0-9]+ muhurta [0-9]+ kala [0-9]+ kastha [0-9]+ nimesha [0-9]+$' "$BOOT_LOG"
+TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"
+[ "$TASK_ORDER" = "task 1 task 2 task 3 " ]
 pass
 
 STEP="QEMU clock self-test"

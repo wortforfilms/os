@@ -3,7 +3,8 @@
 Maataa OS is an embedded Cortex-M operating-system prototype. The current
 release target is a QEMU alpha: it boots under `qemu-system-arm`, initializes
 virtual kernel subsystems, loads static capsule slots, runs a short scheduler
-simulation, reports health, and exits through semihosting.
+simulation, then preempts three demo tasks in round-robin order before exiting
+through semihosting.
 
 ## Status
 
@@ -20,6 +21,8 @@ Working in this alpha:
 - Virtual flash manifest
 - Static capsule table with memory accounting
 - Six-tick scheduler simulation, paced by the kernel clock
+- Fixed-capacity round-robin and fixed-priority policies, with QEMU PendSV
+  preemption demo
 - Kernel monotonic clock: SysTick at 1 kHz from the 168 MHz core clock,
   cycle-precise reads, fed into `hemant-core::MonotonicTick`
   ([docs/kernel-clock.md](docs/kernel-clock.md); `./scripts/qemu-clock-test.sh`)
@@ -50,8 +53,8 @@ Not yet included:
 ./scripts/run.sh
 ```
 
-Expected result: QEMU prints the boot report, runs six scheduler ticks with
-nominal health, then exits cleanly.
+Expected result: QEMU prints the boot report, runs six telemetry ticks with
+nominal health, prints `task 1`, `task 2`, `task 3` in order, then exits cleanly.
 
 ## Release Smoke Test
 
@@ -59,8 +62,9 @@ nominal health, then exits cleanly.
 ./scripts/smoke-alpha.sh
 ```
 
-The smoke test runs `cargo check`, host unit tests, `cargo build --release`,
-`scripts/sizecheck.sh`, and the QEMU launcher.
+The smoke test checks both board builds, verifies F411 has no semihosting
+dependency, runs the host suite, validates the boot report and task order in
+QEMU, runs the clock self-test, and prints one PASS/FAIL summary.
 
 ## Documentation
 

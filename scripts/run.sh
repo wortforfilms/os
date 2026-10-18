@@ -17,7 +17,7 @@ echo "✅ QEMU found: $(which qemu-system-arm)"
 # Build the OS
 echo ""
 echo "🔨 Building Maataa OS..."
-cargo build --release --target thumbv7em-none-eabihf
+RUSTC="$(rustup which rustc)" cargo build --release --target thumbv7em-none-eabihf
 
 echo ""
 echo "📊 Binary Info:"

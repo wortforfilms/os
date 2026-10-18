@@ -8,5 +8,6 @@ pub mod drivers;
 pub mod ipc;
 pub mod log;
 pub mod logging;
+pub mod sched;
 #[path = "storage/mod.rs"]
 pub mod storage;

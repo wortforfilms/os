@@ -218,6 +218,12 @@ mod hw {
         interrupt::free(|cs| TICKS.borrow(cs).get())
     }
 
+    /// Whole monotonic ticks for scheduling decisions. Policy code receives
+    /// this value as an argument and never reads the hardware clock itself.
+    pub fn get_ticks() -> u64 {
+        ticks()
+    }
+
     /// Nanoseconds since [`start`], cycle-precise, never decreasing.
     pub fn now_nanos() -> u64 {
         interrupt::free(|cs| {
@@ -276,7 +282,9 @@ mod hw {
 // Each binary compiles its own copy of this module and uses a subset.
 #[cfg(target_arch = "arm")]
 #[allow(unused_imports)]
-pub use hw::{config, monotonic_tick, now_nanos, on_systick, regressions, sleep_ms, start, ticks};
+pub use hw::{
+    config, get_ticks, monotonic_tick, now_nanos, on_systick, regressions, sleep_ms, start, ticks,
+};
 
 #[cfg(test)]
 mod tests {

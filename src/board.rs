@@ -46,7 +46,11 @@ pub const QEMU_F405_CORE_HZ: u32 = 168_000_000;
 pub const F411_CORE_HZ: u32 = 100_000_000;
 
 /// Initializes the selected board's output once, before the first log line.
-#[cfg(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405")))]
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
 pub fn init_logging() {
     rtt_target::rtt_init_print!();
 }

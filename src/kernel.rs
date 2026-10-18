@@ -14,15 +14,17 @@ use crate::ipc::{
     AsciiScreenBuffer, MosfTelemetryFrame, RadioAutomationState, SecludedCommFrame,
     VerificationReport,
 };
-use crate::storage::StorageManager;
 use crate::logging::kprintln;
 #[cfg(feature = "board-qemu-f405")]
-use cortex_m_semihosting::{debug, syscall};
+use crate::sched::DEFAULT_DEMO_QUANTUM_MS;
+use crate::storage::StorageManager;
+#[cfg(feature = "board-qemu-f405")]
+use cortex_m_semihosting::syscall;
 
 const SCRIPT_AI_BATCH_STATUS: u32 = 0x001b_0047;
 const AI_BATCH_CERTIFICATION_CLEARANCE: u32 = 0x08;
 
-pub fn run() -> ! {
+pub fn run() {
     kprintln!("Starting Maataa OS kernel...");
     kprintln!("================================");
 
@@ -86,6 +88,13 @@ pub fn run() -> ! {
     );
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
+    #[cfg(feature = "board-qemu-f405")]
+    kprintln!(
+        "sched: round-robin tasks=3 first_switch_at_ms={}",
+        DEFAULT_DEMO_QUANTUM_MS
+    );
+    #[cfg(feature = "board-f411")]
+    kprintln!("sched: round-robin tasks=0 first_switch_at_ms=0");
     kprintln!("uptime ns: {}", tick.elapsed_nanos());
     match anchor.and_then(|a| a.hemant_elapsed_nanos(tick.elapsed_nanos())) {
         Some(since_epoch) => {
@@ -101,7 +110,11 @@ pub fn run() -> ! {
                 p.nimesha
             );
         }
-        None => kprintln!("hemant anchor: unavailable"),
+        None => {
+            kprintln!("hemant anchor: unavailable");
+            kprintln!("hemant ns since epoch: unavailable");
+            kprintln!("hemant position: unavailable");
+        }
     }
 
     let mut screen = AsciiScreenBuffer::new();
@@ -192,11 +205,4 @@ pub fn run() -> ! {
     kprintln!("uptime at exit ns: {}", clock::now_nanos());
     kprintln!("Maataa OS prototype demo complete.");
     kprintln!("Exiting QEMU.");
-
-    #[cfg(feature = "board-qemu-f405")]
-    debug::exit(debug::EXIT_SUCCESS);
-
-    loop {
-        cortex_m::asm::wfi();
-    }
 }

@@ -14,7 +14,7 @@
 | Missed wrap | If `PENDSTSET` is set, count that tick and re-read `SYST_CVR` | Covers a wrap the ISR hasn't run for yet. A second wrap while still masked is lost, so keep critical sections well under 1 ms. |
 | Never backwards | Clamp to the last reading and count it (`regressions()`) | Expected to stay 0. The boot report prints it. |
 | Pure decision | `read(config, Sample, last)` | The hardware code only samples registers. The pending-wrap and clamp decision is a pure function, unit-tested on the host. |
-| Handler | `#[exception] fn SysTick` in each binary, calling `clock::on_systick()` | If the handler lived only in the library, the linker could keep the default handler instead. |
+| Handler | `#[exception] fn SysTick` calls `clock::on_systick()` then `sched::on_systick()` | SysTick measures and requests PendSV; PendSV performs the context switch. |
 
 ## Boards
 
@@ -77,6 +77,7 @@ hemant_ns_since_epoch = (host_unix_seconds × 10⁹ − HEMANT_SAMWAT_EPOCH_NANO
 clock: systick 1000 Hz, core <hz> Hz (board assumption | rcc configured)
 board: <qemu-netduinoplus2-stm32f405 | stm32f411>
 time: kernel-monotonic-since-boot
+sched: round-robin tasks=<n> first_switch_at_ms=<quantum>
 uptime ns: <n>
 hemant anchor: host-unix-clock-unverified
 hemant ns since epoch: <n>
@@ -89,7 +90,11 @@ clock regressions: 0
 uptime at exit ns: <n>
 ```
 
-The scheduler loop now sleeps 10 ms of kernel time between ticks, with `WFI` while it waits. Before, it ran a cycle-count busy loop. The `tick N` lines are still a simulation counter, and the uptime lines beneath them are the real kernel time.
+The boot report's scheduler line records the selected policy, task count, and
+configured first-switch quantum. The existing six-tick telemetry simulation
+still sleeps 10 ms between ticks; afterward the QEMU demo starts three
+preemptive tasks with a 5 ms quantum. Their round-robin order is checked by
+`scripts/smoke-alpha.sh`.
 
 The line `verification certified` is now `verification self-check passed`. The check compares against an embedded reference using a built-in "nominal" gap state, so it is not certification by anyone outside the kernel.
 
@@ -109,14 +114,15 @@ QEMU gotchas:
 - QEMU does not model cycles exactly. Assert ranges, never exact counts.
 - Without `-icount`, QEMU drives SysTick from host timers, so the kernel's rate compared with wall time depends on the host. On macOS the kernel clock ran at 76% of wall time, likely because of host timer slack. The kernel cannot fix that. The test fails only outside 50–200%, which still catches a wrong board clock (12 MHz assumed on a 168 MHz board reads 14 times off). Real hardware needs its own drift measurement, which is still open.
 - Use `SYS_ELAPSED` / `SYS_TICKFREQ` as the reference. Do not use `SYS_CLOCK`: QEMU answers it with the host process's **CPU time**, which barely moves while the guest sleeps in `WFI`. With `SYS_CLOCK` the kernel clock looked 14 times faster than the host.
-- `cargo test --lib` (`scripts/test-host.sh`) covers the pure logic on the host:
+- `cargo test` covers the pure logic on the host:
   - the reload math for each board, and refused frequencies;
   - sub-tick nanoseconds, monotonicity across tick boundaries, and saturation;
   - `read()` with a wrap between the tick count and the register read, a wrap between the two register reads, and the clamp-and-report case;
   - the anchor formula.
+  - the fixed-capacity scheduler policies and run-queue states.
 
 ## Still open
 
 - Trust: a drift reference (RTC plus an external time source) and a signed anchor.
 - A request/response channel to the host. The report is still printed once at boot, and then QEMU exits.
-- A preemptive scheduler and IPC timeouts driven by this clock.
+- IPC timeouts driven by this clock.

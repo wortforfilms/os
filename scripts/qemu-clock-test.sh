@@ -21,7 +21,7 @@ run_with_limit() {
     fi
 }
 
-cargo build --release --target "$TARGET" --bin clock_selftest
+RUSTC="$(rustup which rustc)" cargo build --release --target "$TARGET" --bin clock_selftest
 qemu-system-arm --version | head -1
 run_with_limit 60 qemu-system-arm \
     -machine netduinoplus2 \
