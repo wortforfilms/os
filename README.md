@@ -23,6 +23,9 @@ Working in this alpha:
 - Kernel monotonic clock: SysTick at 1 kHz from the 168 MHz core clock,
   cycle-precise reads, fed into `hemant-core::MonotonicTick`
   ([docs/kernel-clock.md](docs/kernel-clock.md); `./scripts/qemu-clock-test.sh`)
+- Board selection: `board-qemu-f405` (default) or `board-f411`, with RCC set up
+  through `stm32f4xx-hal`. Real hardware runs through `probe-rs`
+  (`./scripts/run-hw.sh`); this has not yet been run on a board
 - Release size check
 - Host unit tests for virtual kernel subsystems
 - Vite/Electron sovereign runtime dashboard preview

@@ -1,3 +1,4 @@
+use crate::board;
 use crate::capsule::CapsuleManager;
 use crate::clock::{self, HostAnchor};
 use crate::drivers::{DriverRegistry, HealthState};
@@ -59,23 +60,31 @@ pub fn run() -> ! {
 
     // Time. The kernel clock is monotonic since boot. A Hemant reading needs
     // an anchor; the only one available under QEMU is the host clock, read
-    // once over semihosting, so it stays labelled unverified.
-    let anchor_uptime = clock::now_nanos();
-    // SAFETY: SYS_TIME takes no arguments and only returns a value.
-    let host_unix_seconds = unsafe { syscall!(TIME) } as u64;
-    let anchor = HostAnchor {
-        unix_seconds: host_unix_seconds,
-        uptime_nanos: anchor_uptime,
+    // once over semihosting, so it stays labelled unverified. Hardware builds
+    // do not ask the probe for host time and report the anchor unavailable.
+    let anchor = if board::HOST_TIME_AVAILABLE {
+        let uptime_nanos = clock::now_nanos();
+        // SAFETY: SYS_TIME takes no arguments and only returns a value.
+        let unix_seconds = unsafe { syscall!(TIME) } as u64;
+        Some(HostAnchor {
+            unix_seconds,
+            uptime_nanos,
+        })
+    } else {
+        None
     };
     let tick = clock::monotonic_tick();
+    let config = clock::config().expect("clock started in main");
     hprintln!(
-        "clock: systick {} Hz, core {} Hz (board assumption)",
+        "clock: systick {} Hz, core {} Hz ({})",
         clock::TICK_HZ,
-        clock::CORE_CLOCK_HZ
+        config.core_hz,
+        board::CLOCK_SOURCE
     );
+    hprintln!("board: {}", board::NAME);
     hprintln!("time: {}", clock::TIME_BASIS);
     hprintln!("uptime ns: {}", tick.elapsed_nanos());
-    match anchor.hemant_elapsed_nanos(tick.elapsed_nanos()) {
+    match anchor.and_then(|a| a.hemant_elapsed_nanos(tick.elapsed_nanos())) {
         Some(since_epoch) => {
             let p = hemant_core::time::VedanticTimePosition::from_elapsed_nanos(since_epoch);
             hprintln!("hemant anchor: {}", HostAnchor::BASIS);

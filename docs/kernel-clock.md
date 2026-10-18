@@ -7,13 +7,44 @@
 | Choice | Value | Why |
 | --- | --- | --- |
 | Source | SysTick, `SystClkSource::Core` | Present on every Cortex-M. QEMU's external reference clock for this board isn't something to rely on. |
-| Core clock | 168 MHz (`CORE_CLOCK_HZ`) | STM32F405, as QEMU `netduinoplus2` models it. On hardware, set it from the clock tree, here only. |
-| Tick | 1 kHz, `RELOAD = 168_000_000 / 1_000 − 1 = 167_999` | The counter runs RELOAD..=0, so a tick is RELOAD + 1 cycles. The 24-bit limit is about 99.9 ms at 168 MHz. |
+| Core clock | From the board at start-up (`src/board.rs`) | QEMU: fixed 168 MHz. F411: whatever RCC was configured to (100 MHz). Nothing else in the kernel assumes a frequency. |
+| Tick | 1 kHz, `reload = core_hz / 1_000 − 1` (`Config::for_core_hz`) | 167_999 at 168 MHz, 99_999 at 100 MHz, 15_999 at the F411's 16 MHz reset clock. A tick is reload + 1 cycles. Frequencies that are not a whole number of cycles per tick are refused. |
 | Counter | `u64` in `cortex_m::interrupt::Mutex<Cell<_>>` | ARMv7-M and ARMv7E-M have no 64-bit atomics, so `AtomicU64` does not exist on `thumbv7(e)m`. The ISR is the only writer, and readers mask interrupts for a few cycles. |
-| Reading | `ticks × 1 ms + (RELOAD − SYST_CVR)` cycles | Precise to one cycle, not just one tick. |
+| Reading | `ticks × 1 ms + (reload − SYST_CVR)` cycles | Precise to one cycle, not just one tick. |
 | Missed wrap | If `PENDSTSET` is set, count that tick and re-read `SYST_CVR` | Covers a wrap the ISR hasn't run for yet. A second wrap while still masked is lost, so keep critical sections well under 1 ms. |
 | Never backwards | Clamp to the last reading and count it (`regressions()`) | Expected to stay 0. The boot report prints it. |
+| Pure decision | `read(config, Sample, last)` | The hardware code only samples registers. The pending-wrap and clamp decision is a pure function, unit-tested on the host. |
 | Handler | `#[exception] fn SysTick` in each binary, calling `clock::on_systick()` | If the handler lived only in the library, the linker could keep the default handler instead. |
+
+## Boards
+
+| Cargo feature | Board | Core clock | Source label |
+| --- | --- | --- | --- |
+| `board-qemu-f405` (default) | QEMU `netduinoplus2` (STM32F405) | 168 MHz, fixed | `board assumption` |
+| `board-f411` | STM32F411: Black Pill or Nucleo-F411RE | 100 MHz from HSI via the PLL (`stm32f4xx-hal`) | `rcc configured` |
+
+- **QEMU does not configure RCC.** The emulated F405 has no RCC model, so writing the clock tree and waiting for PLL lock would hang.
+- **The F411 uses HSI on purpose.** The Black Pill has a 25 MHz crystal and the Nucleo gets 8 MHz from its ST-LINK, so one HSE setting would break the other board. HSI is trimmed to about 1%. That is fine for a monotonic clock, but measuring drift needs the LSE crystal or an external reference.
+- **Select exactly one board.** Selecting both, or neither, is a compile error.
+
+### Real hardware (`probe-rs`)
+
+```sh
+./scripts/run-hw.sh                                  # kernel, Black Pill (STM32F411CEUx)
+./scripts/run-hw.sh clock_selftest                   # clock self-test on the board
+PROBE_RS_CHIP=STM32F411RETx ./scripts/run-hw.sh      # Nucleo-F411RE
+```
+
+`.cargo/config.toml` now uses `probe-rs run`. The old runner, `probe-run`, is deprecated.
+
+The kernel still prints over semihosting. That works only while a debugger is attached; a semihosting call without one stops the CPU. So run hardware builds through probe-rs only, and check on the first run that probe-rs shows the output.
+
+Hardware builds do not ask the host for the time:
+
+- the Hemant anchor reads `unavailable`;
+- the self-test skips the rate and Hemant checks and says so.
+
+Untested here: no board was available for this change. The F411 build compiles, but RCC set-up and SysTick on silicon still need a first run.
 
 ## Hemant time
 
@@ -29,7 +60,8 @@ hemant_ns_since_epoch = (host_unix_seconds × 10⁹ − HEMANT_SAMWAT_EPOCH_NANO
 ## Boot report
 
 ```
-clock: systick 1000 Hz, core 168000000 Hz (board assumption)
+clock: systick 1000 Hz, core <hz> Hz (board assumption | rcc configured)
+board: <qemu-netduinoplus2-stm32f405 | stm32f411>
 time: kernel-monotonic-since-boot
 uptime ns: <n>
 hemant anchor: host-unix-clock-unverified
@@ -61,9 +93,13 @@ The line `verification certified` is now `verification self-check passed`. The c
 QEMU gotchas:
 
 - QEMU does not model cycles exactly. Assert ranges, never exact counts.
-- Without `-icount`, QEMU drives SysTick from host timers, so the kernel's rate compared with wall time depends on the host. On macOS the kernel clock ran at 76% of wall time, likely because of host timer slack. The kernel cannot fix that. The test fails only outside 50–200%, which still catches a wrong `CORE_CLOCK_HZ` (12 MHz assumed on a 168 MHz board reads 14 times off). Real hardware needs its own drift measurement, which is still open.
+- Without `-icount`, QEMU drives SysTick from host timers, so the kernel's rate compared with wall time depends on the host. On macOS the kernel clock ran at 76% of wall time, likely because of host timer slack. The kernel cannot fix that. The test fails only outside 50–200%, which still catches a wrong board clock (12 MHz assumed on a 168 MHz board reads 14 times off). Real hardware needs its own drift measurement, which is still open.
 - Use `SYS_ELAPSED` / `SYS_TICKFREQ` as the reference. Do not use `SYS_CLOCK`: QEMU answers it with the host process's **CPU time**, which barely moves while the guest sleeps in `WFI`. With `SYS_CLOCK` the kernel clock looked 14 times faster than the host.
-- `cargo test --lib` (`scripts/test-host.sh`) covers the pure arithmetic: the reload math, sub-tick nanoseconds, monotonicity across tick boundaries, saturation, and the anchor formula.
+- `cargo test --lib` (`scripts/test-host.sh`) covers the pure logic on the host:
+  - the reload math for each board, and refused frequencies;
+  - sub-tick nanoseconds, monotonicity across tick boundaries, and saturation;
+  - `read()` with a wrap between the tick count and the register read, a wrap between the two register reads, and the clamp-and-report case;
+  - the anchor formula.
 
 ## Still open
 

@@ -1,5 +1,14 @@
+# Hardware runner for `cargo run` on the STM32F411 build. probe-run is
+# deprecated; probe-rs replaces it. QEMU runs go through scripts/run.sh and
+# scripts/qemu-clock-test.sh, which call qemu-system-arm directly.
+#
+#   ./scripts/run-hw.sh                  # kernel
+#   ./scripts/run-hw.sh clock_selftest   # clock self-test on the board
+#
+# Chip: STM32F411CEUx is the Black Pill; use STM32F411RETx for a Nucleo-F411RE
+# (PROBE_RS_CHIP in run-hw.sh, or edit this line for plain `cargo run`).
 [target.thumbv7em-none-eabihf]
-runner = "probe-run --chip STM32F411CEUx"
+runner = "probe-rs run --chip STM32F411CEUx"
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]

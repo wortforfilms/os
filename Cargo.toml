@@ -7,6 +7,12 @@ edition = "2021"
 members = [".", "crates/hemant-core"]
 resolver = "2"
 
+[features]
+# Exactly one board. The default keeps `cargo build` and the QEMU scripts as they were.
+default = ["board-qemu-f405"]
+board-qemu-f405 = []
+board-f411 = ["dep:stm32f4xx-hal"]
+
 [dependencies]
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.3"
@@ -19,6 +25,8 @@ embassy-time = "0.3.0"
 cortex-m-semihosting = "0.5.0"
 # Hemant time primitives; the kernel clock feeds MonotonicTick (src/clock.rs).
 hemant-core = { path = "crates/hemant-core" }
+# Clock tree on real STM32F411 boards (src/board.rs); not linked for QEMU.
+stm32f4xx-hal = { version = "0.23.0", features = ["stm32f411"], optional = true }
 
 [profile.release]
 opt-level = "z"

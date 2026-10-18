@@ -1,8 +1,12 @@
-//! QEMU self-test for the kernel clock (`src/clock.rs`).
+//! Self-test for the kernel clock (`src/clock.rs`).
 //!
-//! Run: `./scripts/qemu-clock-test.sh`. Exits QEMU with status 0 when every
-//! check passes, 1 otherwise. QEMU does not model cycles exactly, so rates are
+//! QEMU: `./scripts/qemu-clock-test.sh`. Exits with status 0 when every check
+//! passes, 1 otherwise. QEMU does not model cycles exactly, so rates are
 //! checked as ranges against the host clock, never as exact counts.
+//!
+//! Hardware: `./scripts/run-hw.sh clock_selftest`. The host-time checks (5 and
+//! 6) need semihosting time calls, which a debug probe may not answer, so a
+//! hardware build skips them and says so.
 #![no_std]
 #![no_main]
 
@@ -11,7 +15,7 @@ use cortex_m::interrupt;
 use cortex_m::peripheral::SCB;
 use cortex_m_rt::{entry, exception};
 use cortex_m_semihosting::{debug, hprintln, syscall};
-use maataa_os::clock;
+use maataa_os::{board, clock};
 
 #[exception]
 fn SysTick() {
@@ -60,7 +64,15 @@ fn main() -> ! {
     assert_eq!(clock::ticks(), 0, "no ticks before start");
     hprintln!("ok  starts at 0");
 
-    clock::start(&mut core.SYST);
+    let core_hz = board::init_core_clock();
+    let config = clock::Config::for_core_hz(core_hz).expect("whole 1 kHz tick");
+    hprintln!(
+        "    board {}, core {} Hz ({})",
+        board::NAME,
+        core_hz,
+        board::CLOCK_SOURCE
+    );
+    clock::start(&mut core.SYST, config);
 
     // 2. Advances: after sleeping 50 ms, at least 50 whole ticks.
     clock::sleep_ms(50);
@@ -101,6 +113,15 @@ fn main() -> ! {
     );
     hprintln!("ok  pending wrap counted while interrupts were masked");
 
+    if !board::HOST_TIME_AVAILABLE {
+        hprintln!("--  rate and Hemant checks skipped: no host time on this board");
+        hprintln!("clock self-test passed");
+        debug::exit(debug::EXIT_SUCCESS);
+        loop {
+            cortex_m::asm::wfi();
+        }
+    }
+
     // 5. Rate against the host clock, as a range: ~2 s of host time.
     let host_start = host_nanos();
     let kernel_start = clock::now_nanos();
@@ -124,7 +145,7 @@ fn main() -> ! {
     // only that fails; the wider band is reported.
     assert!(
         (50..=200).contains(&ratio_pct),
-        "rate within 50..=200% of host ({}%): check CORE_CLOCK_HZ and RELOAD",
+        "rate within 50..=200% of host ({}%): check the board's core clock",
         ratio_pct
     );
     if (80..=125).contains(&ratio_pct) {
