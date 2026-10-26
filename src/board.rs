@@ -79,6 +79,12 @@ pub fn init_core_clock() -> u32 {
     use stm32f4xx_hal::{pac, prelude::*, rcc::Config};
 
     let dp = pac::Peripherals::take().expect("device peripherals are taken once");
+    // Keep the debug port alive in sleep: the kernel sleeps with WFI between
+    // ticks, and without these bits a probe reading RTT can lose the core at
+    // the first WFI (it showed as "Firmware exited unexpectedly: Exception").
+    dp.DBGMCU
+        .cr()
+        .modify(|_, w| w.dbg_sleep().set_bit().dbg_stop().set_bit().dbg_standby().set_bit());
     let rcc = dp.RCC.freeze(Config::hsi().sysclk(F411_CORE_HZ.Hz()));
     // SysTick's core source is HCLK. With no AHB prescaler HCLK = SYSCLK; if
     // a later change adds one, the clock must follow HCLK, so use it directly.

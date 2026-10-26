@@ -19,46 +19,40 @@ mod sched;
 #[path = "storage/mod.rs"]
 mod storage;
 
-#[cfg(feature = "board-qemu-f405")]
 #[repr(align(8))]
 struct DemoStack([u8; 1024]);
 
-#[cfg(feature = "board-qemu-f405")]
 static mut TASK_ONE_STACK: DemoStack = DemoStack([0; 1024]);
-#[cfg(feature = "board-qemu-f405")]
 static mut TASK_TWO_STACK: DemoStack = DemoStack([0; 1024]);
-#[cfg(feature = "board-qemu-f405")]
 static mut TASK_THREE_STACK: DemoStack = DemoStack([0; 1024]);
 
-#[cfg(feature = "board-qemu-f405")]
 fn demo_task_one() -> ! {
     logging::kprintln!("task 1");
     cortex_m::asm::delay(1_000_000);
     loop {
-        cortex_m::asm::wfi();
+        clock::idle();
     }
 }
 
-#[cfg(feature = "board-qemu-f405")]
 fn demo_task_two() -> ! {
     logging::kprintln!("task 2");
     cortex_m::asm::delay(1_000_000);
     loop {
-        cortex_m::asm::wfi();
+        clock::idle();
     }
 }
 
-#[cfg(feature = "board-qemu-f405")]
 fn demo_task_three() -> ! {
     logging::kprintln!("task 3");
     cortex_m::asm::delay(1_000_000);
+    // QEMU ends the run here; a real board keeps the three tasks switching.
+    #[cfg(feature = "board-qemu-f405")]
     debug::exit(debug::EXIT_SUCCESS);
     loop {
-        cortex_m::asm::wfi();
+        clock::idle();
     }
 }
 
-#[cfg(feature = "board-qemu-f405")]
 fn task_stack(stack: *mut DemoStack) -> &'static mut [u8] {
     // SAFETY: each private static stack is handed to exactly one scheduler task.
     unsafe { core::slice::from_raw_parts_mut(stack.cast::<u8>(), 1024) }
@@ -79,7 +73,6 @@ fn main() -> ! {
 
     kernel::run();
 
-    #[cfg(feature = "board-qemu-f405")]
     {
         let mut queue = sched::RunQueue::<{ sched::MAX_TASKS }>::new();
         let added = queue
@@ -110,13 +103,32 @@ fn main() -> ! {
                 .is_err()
         {
             loop {
-                cortex_m::asm::wfi();
+                clock::idle();
             }
         }
     }
 
     loop {
-        cortex_m::asm::wfi();
+        clock::idle();
+    }
+}
+
+/// HardFault: print where the fault happened before stopping, so a board run
+/// over RTT names the instruction instead of only "Exception".
+#[exception]
+unsafe fn HardFault(ef: &cortex_m_rt::ExceptionFrame) -> ! {
+    let scb = &*cortex_m::peripheral::SCB::PTR;
+    logging::kprintln!(
+        "HARD FAULT pc={:#010x} lr={:#010x} cfsr={:#010x} hfsr={:#010x} bfar={:#010x} mmfar={:#010x}",
+        ef.pc(),
+        ef.lr(),
+        scb.cfsr.read(),
+        scb.hfsr.read(),
+        scb.bfar.read(),
+        scb.mmfar.read()
+    );
+    loop {
+        cortex_m::asm::nop();
     }
 }
 

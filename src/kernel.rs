@@ -15,7 +15,6 @@ use crate::ipc::{
     VerificationReport,
 };
 use crate::logging::kprintln;
-#[cfg(feature = "board-qemu-f405")]
 use crate::sched::DEFAULT_DEMO_QUANTUM_MS;
 use crate::storage::StorageManager;
 #[cfg(feature = "board-qemu-f405")]
@@ -88,13 +87,10 @@ pub fn run() {
     );
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
-    #[cfg(feature = "board-qemu-f405")]
     kprintln!(
         "sched: round-robin tasks=3 first_switch_at_ms={}",
         DEFAULT_DEMO_QUANTUM_MS
     );
-    #[cfg(feature = "board-f411")]
-    kprintln!("sched: round-robin tasks=0 first_switch_at_ms=0");
     kprintln!("uptime ns: {}", tick.elapsed_nanos());
     match anchor.and_then(|a| a.hemant_elapsed_nanos(tick.elapsed_nanos())) {
         Some(since_epoch) => {
@@ -204,5 +200,8 @@ pub fn run() {
     kprintln!("clock regressions: {}", clock::regressions());
     kprintln!("uptime at exit ns: {}", clock::now_nanos());
     kprintln!("Maataa OS prototype demo complete.");
+    #[cfg(feature = "board-qemu-f405")]
     kprintln!("Exiting QEMU.");
+    #[cfg(feature = "board-f411")]
+    kprintln!("Starting the three demo tasks.");
 }

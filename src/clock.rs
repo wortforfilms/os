@@ -169,6 +169,22 @@ impl HostAnchor {
 }
 
 /// Hardware side: SysTick setup, ISR and register sampling. Target only.
+/// Waits for the next interrupt.
+///
+/// On the F411 the default is to stay awake (a NOP): with the core asleep in
+/// WFI the ST-LINK could not read RTT memory, even with the DBGMCU sleep bits
+/// set, and probe-rs reported a spurious exception. Build with the
+/// `low-power` feature to idle in WFI instead, at the cost of RTT output.
+/// QEMU always uses WFI.
+#[cfg(target_arch = "arm")]
+#[inline(always)]
+pub fn idle() {
+    #[cfg(all(feature = "board-f411", not(feature = "low-power")))]
+    cortex_m::asm::nop();
+    #[cfg(not(all(feature = "board-f411", not(feature = "low-power"))))]
+    cortex_m::asm::wfi();
+}
+
 #[cfg(target_arch = "arm")]
 mod hw {
     use super::*;
@@ -274,7 +290,7 @@ mod hw {
     pub fn sleep_ms(millis: u64) {
         let until = now_nanos().saturating_add(millis.saturating_mul(1_000_000));
         while now_nanos() < until {
-            cortex_m::asm::wfi();
+            super::idle();
         }
     }
 }

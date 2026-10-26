@@ -339,7 +339,7 @@ mod cortex_m_runtime {
 
     extern "C" fn task_exit() -> ! {
         loop {
-            cortex_m::asm::wfi();
+            crate::clock::idle();
         }
     }
 
