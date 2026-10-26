@@ -62,8 +62,11 @@ task 1: 10 blinks
 
 Task 4's write to a kernel word was stopped, the word kept its value, and
 task 1 kept blinking LD2 through `svc #2` afterwards. Host tests: 52 pass
-(region encoding, bounds checks, syscall buffer rules). The QEMU build compiles;
-the QEMU run with the MPU has not been checked yet.
+(region encoding, bounds checks, syscall buffer rules).
+
+QEMU (`Run QEMU.command`, netduinoplus2 / STM32F405) gives the same result:
+task 4's write to `0x20002800` is stopped, the word stays `0x00000000`, task 4
+is killed, and task 3's `svc #3` ends the run with exit status 0.
 
 ## Next
 
