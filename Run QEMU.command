@@ -19,6 +19,6 @@ if kill -0 "$QP" 2>/dev/null; then kill "$QP"; echo "(stopped after 30 s)" >> "$
 wait "$QP" 2>/dev/null; echo "exit status: $?" >> "$LOG"
 cat "$LOG"
 echo
-if grep -q "violated memory" "$LOG" && grep -q "task 3" "$LOG"; then echo "✓ QEMU: tasks ran unprivileged and task 4 was killed by the MPU."
+if grep -q "violated memory" "$LOG" && grep -q "overflowed its stack" "$LOG"; then echo "✓ QEMU: task 4 (bad write) and task 5 (stack overflow) were killed; the rest ran."
 else echo "? Check $LOG"; fi
 pause

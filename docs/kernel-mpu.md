@@ -40,37 +40,44 @@ stack and makes one `svc #1`.
   an idle loop and pends PendSV, which switches to the next task.
 - **Kernel fault** (handler mode or the boot thread): reported, then the system
   stops.
-- **Limit:** a fault during exception stacking or unstacking (`MSTKERR`,
-  `MUNSTKERR`, `MLSPERR`, typically a task stack overflow) leaves no usable
-  frame; milestone 1 reports it and stops the system instead of killing only
-  the task.
+- **Stack overflow** (`MSTKERR`, `MUNSTKERR` or `MLSPERR`: the hardware could
+  not stack or unstack the task's frame): there is no frame to return through,
+  so the kernel writes a fresh 8-word frame at the top of the dead task's own
+  stack, aimed at the idle loop, points PSP at it and leaves with
+  `EXC_RETURN = 0xFFFFFFFD` (thread, PSP, basic frame). The task is killed;
+  the others keep running. Below a task stack there is nothing a task may
+  touch, so no extra guard region is needed for tasks.
+- The kernel's own stack (MSP) has no guard yet: privileged code is not
+  limited by the background map, so a kernel overflow would still corrupt
+  `.bss` silently. A no-access guard region at the stack's low end is next.
 
-## Verified on the board (26 October 2026)
+## Verified on the board (27 October 2026)
 
 NUCLEO-F411RE, `Flash Nucleo F411.command`, 30-second run:
 
 ```
-sched: round-robin tasks=4 first_switch_at_ms=5
-mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done
+sched: round-robin tasks=5 first_switch_at_ms=5
 task 1
 task 2
 task 3
-task 4: writing to kernel memory at 0x20002800
-task 4 violated memory: data access at 0x20002800 (pc 0x080008f0); task killed, kernel word still 0x00000000
+task 4: writing to kernel memory at 0x20003000
+task 4 violated memory: data access at 0x20003000 (pc 0x08000974); task killed, kernel word still 0x00000000
+task 5: recursing until the stack overflows
+task 5 overflowed its stack (stacking, mmfsr=0x92); task killed
 task 1: 10 blinks
 ```
 
-Task 4's write to a kernel word was stopped, the word kept its value, and
-task 1 kept blinking LD2 through `svc #2` afterwards. Host tests: 52 pass
-(region encoding, bounds checks, syscall buffer rules).
+`mmfsr = 0x92` is MMARVALID + MSTKERR + DACCVIOL. Both bad tasks were killed
+and task 1 kept blinking LD2 through `svc #2`. QEMU (`Run QEMU.command`) gives
+the same two kills and ends with exit status 0. Host tests: 52 pass.
 
-QEMU (`Run QEMU.command`, netduinoplus2 / STM32F405) gives the same result:
-task 4's write to `0x20002800` is stopped, the word stays `0x00000000`, task 4
-is killed, and task 3's `svc #3` ends the run with exit status 0.
+The RTT up-channel is now 4 KB (non-blocking). With the default 1 KB the burst
+of task lines overflowed the buffer before probe-rs read it, and the task 5
+lines were dropped on the first board run.
 
 ## Next
 
-- Kill only the task on a stack overflow (rebuild a frame, or switch inside
-  the fault handler).
-- A guard region below each stack, so overflow faults before it corrupts.
-- More calls: sleep, yield, a real UART write; then IPC.
+- A no-access guard region at the low end of the kernel stack (MSP).
+- IPC: `svc #4` send and `svc #5` receive through a kernel message queue,
+  copying the data (never passing pointers between tasks).
+- More calls: sleep, yield, a real UART write.
