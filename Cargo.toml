@@ -17,6 +17,9 @@ board-f411 = ["dep:stm32f4xx-hal"]
 # F411 only: idle with WFI (low power). Without it the F411 idles with a NOP so a
 # debug probe can keep reading RTT; with it, RTT stops being readable once the core sleeps.
 low-power = []
+# Test only: task 2 asks the kernel (svc #4) to recurse on the main stack until
+# it hits the kernel stack guard. The system must report and stop.
+kernel-stack-test = []
 
 [dependencies]
 cortex-m = "0.7.7"

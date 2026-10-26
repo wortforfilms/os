@@ -5,6 +5,7 @@
 //! | 1 | write text to the kernel log | pointer | length | bytes written, or `u32::MAX` if refused |
 //! | 2 | set the user LED | 0 = off, else on | | 0 |
 //! | 3 | demo finished (QEMU exits; boards ignore it) | | | 0 |
+//! | 4 | test only (`kernel-stack-test`): overflow the kernel stack | | | never |
 //!
 //! The kernel accepts a write only if the whole buffer lies in flash or in the
 //! calling task's own stack, so a task cannot make the kernel read memory the
@@ -13,6 +14,7 @@
 pub const SYS_WRITE: u8 = 1;
 pub const SYS_LED: u8 = 2;
 pub const SYS_DEMO_DONE: u8 = 3;
+pub const SYS_TEST_KERNEL_OVERFLOW: u8 = 4;
 /// Returned in r0 for an unknown call or a refused buffer.
 pub const REFUSED: u32 = u32::MAX;
 
@@ -54,6 +56,15 @@ pub fn demo_done() {
     let mut r0 = 0u32;
     // SAFETY: no memory is passed.
     unsafe { core::arch::asm!("svc #3", inout("r0") r0) };
+    let _ = r0;
+}
+
+/// Test only: asks the kernel to overflow its own stack.
+#[cfg(all(target_arch = "arm", feature = "kernel-stack-test"))]
+pub fn test_kernel_overflow() {
+    let mut r0 = 0u32;
+    // SAFETY: no memory is passed; the kernel is expected to stop.
+    unsafe { core::arch::asm!("svc #4", inout("r0") r0) };
     let _ = r0;
 }
 
@@ -132,6 +143,15 @@ mod kernel {
         0
     }
 
+    /// Test only: recurse on the main stack until the guard stops it.
+    #[cfg(feature = "kernel-stack-test")]
+    #[inline(never)]
+    #[allow(unconditional_recursion)]
+    fn kernel_recurse(depth: u32) -> u32 {
+        let frame = core::hint::black_box([depth as u8; 64]);
+        kernel_recurse(depth + 1).wrapping_add(frame[3] as u32)
+    }
+
     /// Called by the SVCall handler with the stacked exception frame
     /// (r0, r1, r2, r3, r12, lr, pc, xPSR). The call number is the SVC
     /// instruction's immediate, the byte just before the stacked pc.
@@ -150,6 +170,11 @@ mod kernel {
                 0
             }
             SYS_DEMO_DONE => sys_demo_done(),
+            #[cfg(feature = "kernel-stack-test")]
+            SYS_TEST_KERNEL_OVERFLOW => {
+                crate::logging::kprintln!("kernel: recursing on the main stack (kernel-stack-test)");
+                kernel_recurse(0)
+            }
             _ => REFUSED,
         };
         // SAFETY: r0 of the same frame; returned to the task as the result.

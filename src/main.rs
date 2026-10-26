@@ -54,6 +54,8 @@ fn demo_task_one() -> ! {
 
 fn demo_task_two() -> ! {
     crate::uprintln!("task 2");
+    #[cfg(feature = "kernel-stack-test")]
+    syscall::test_kernel_overflow();
     loop {
         clock::idle();
     }
