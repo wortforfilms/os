@@ -52,7 +52,9 @@ pub const F411_CORE_HZ: u32 = 100_000_000;
     not(feature = "board-qemu-f405")
 ))]
 pub fn init_logging() {
-    rtt_target::rtt_init_print!();
+    // 4 KB, non-blocking: a burst of task lines must not be dropped while the
+    // probe catches up, and with no probe attached the kernel must never block.
+    rtt_target::rtt_init_print!(NoBlockSkip, 4096);
 }
 
 /// QEMU semihosting needs no separate initialization.
