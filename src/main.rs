@@ -29,6 +29,7 @@ static mut TASK_ONE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_TWO_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_THREE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_FOUR_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
+static mut TASK_FIVE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 
 // The tasks below run unprivileged inside their MPU regions: they reach the
 // log and the LED only through supervisor calls (src/syscall.rs).
@@ -77,6 +78,24 @@ fn demo_task_four() -> ! {
     // SAFETY: deliberately not safe; this is the protection test.
     unsafe { target.write_volatile(0xDEAD_BEEF) };
     crate::uprintln!("task 4: the write went through: MEMORY IS NOT PROTECTED");
+    loop {
+        clock::idle();
+    }
+}
+
+/// Recurses with a 64-byte frame until the 2 KB stack runs out.
+#[inline(never)]
+#[allow(unconditional_recursion)]
+fn recurse(depth: u32) -> u32 {
+    let frame = core::hint::black_box([depth as u8; 64]);
+    recurse(depth + 1).wrapping_add(frame[3] as u32)
+}
+
+/// The stack-overflow test: the kernel must kill only this task.
+fn demo_task_five() -> ! {
+    crate::uprintln!("task 5: recursing until the stack overflows");
+    let n = recurse(0);
+    crate::uprintln!("task 5: returned {}: THE OVERFLOW WAS NOT CAUGHT", n);
     loop {
         clock::idle();
     }
@@ -133,6 +152,14 @@ fn main() -> ! {
                     4,
                     task_stack(core::ptr::addr_of_mut!(TASK_FOUR_STACK)),
                     demo_task_four,
+                    1,
+                ))
+            })
+            .and_then(|()| {
+                queue.add(sched::Task::new(
+                    5,
+                    task_stack(core::ptr::addr_of_mut!(TASK_FIVE_STACK)),
+                    demo_task_five,
                     1,
                 ))
             });

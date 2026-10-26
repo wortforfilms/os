@@ -446,12 +446,12 @@ mod memfault {
     const MMARVALID: u8 = 1 << 7;
 
     fn kind(status: u8) -> &'static str {
-        if status & DACCVIOL != 0 {
+        if status & MSTKERR != 0 {
+            "stacking"
+        } else if status & DACCVIOL != 0 {
             "data access"
         } else if status & IACCVIOL != 0 {
             "instruction fetch"
-        } else if status & MSTKERR != 0 {
-            "stacking (stack overflow)"
         } else if status & MUNSTKERR != 0 {
             "unstacking"
         } else if status & MLSPERR != 0 {
@@ -461,10 +461,15 @@ mod memfault {
         }
     }
 
+    const STACKING: u8 = MSTKERR | MUNSTKERR | MLSPERR;
+    /// EXC_RETURN: back to thread mode on PSP with a basic (non-FPU) frame.
+    const RETURN_THREAD_PSP_BASIC: u32 = 0xFFFF_FFFD;
+
     /// `frame` is the stacked exception frame; `exc_return` tells whether the
     /// fault came from a task (thread mode on PSP) or from the kernel.
+    /// Returns the EXC_RETURN value the handler leaves with.
     #[no_mangle]
-    extern "C" fn __maataa_memfault(frame: *mut u32, exc_return: u32) {
+    extern "C" fn __maataa_memfault(frame: *mut u32, exc_return: u32) -> u32 {
         let (status, address) = crate::mpu::fault_status();
         let at = if status & MMARVALID != 0 { address } else { 0 };
         let from_task = exc_return & 0b0100 != 0;
@@ -481,33 +486,61 @@ mod memfault {
                 cortex_m::asm::nop();
             }
         }
-        let id = super::kill_current();
+        let stack = super::current_stack();
+        let id = super::kill_current().unwrap_or(0);
+        crate::mpu::clear_fault_status();
+        SCB::set_pendsv();
+
+        if status & STACKING != 0 {
+            // The hardware could not stack (or unstack) the task's frame: its
+            // stack pointer has run past its region, usually a stack overflow.
+            // There is no frame to return through, so build one at the top of
+            // the dead task's own stack, aimed at the idle loop, and point PSP
+            // at it. The return then lands in the loop and PendSV switches on.
+            crate::logging::kprintln!(
+                "task {} overflowed its stack ({}, mmfsr={:#04x}); task killed",
+                id,
+                kind(status),
+                status
+            );
+            let Some((base, len)) = stack else {
+                crate::logging::kprintln!("no stack recorded for the task; system stopped");
+                loop {
+                    cortex_m::asm::nop();
+                }
+            };
+            let top = (base + len) & !7;
+            let fresh = (top - 8 * 4) as *mut u32;
+            // SAFETY: the dead task's own stack, inside its MPU region; no one
+            // else uses it. Registers r0-r3, r12, lr, pc, xPSR (Thumb bit).
+            unsafe {
+                for i in 0..6 {
+                    fresh.add(i).write(0);
+                }
+                fresh.add(6).write(super::task_exit_address() & !1);
+                fresh.add(7).write(1 << 24);
+                core::arch::asm!("msr psp, {0}", in(reg) fresh as u32);
+            }
+            return RETURN_THREAD_PSP_BASIC;
+        }
+
         // SAFETY: a stacked pc read for the report.
-        let pc = if status & (MSTKERR | MUNSTKERR | MLSPERR) == 0 { unsafe { frame.add(6).read() } } else { 0 };
+        let pc = unsafe { frame.add(6).read() };
         crate::logging::kprintln!(
-            "task {:?} violated memory: {} at {:#010x} (pc {:#010x}); task killed, kernel word still {:#010x}",
-            id.unwrap_or(0),
+            "task {} violated memory: {} at {:#010x} (pc {:#010x}); task killed, kernel word still {:#010x}",
+            id,
             kind(status),
             at,
             pc,
             target
         );
-        if status & (MSTKERR | MUNSTKERR | MLSPERR) != 0 {
-            // The frame is not usable, so the task cannot be resumed into an
-            // idle loop. Milestone 1 stops here; see docs/kernel-mpu.md.
-            crate::logging::kprintln!("the task's stack frame is unusable; system stopped");
-            loop {
-                cortex_m::asm::nop();
-            }
-        }
         // Resume the dead task in an idle loop until the switch that follows.
         // SAFETY: the frame is the task's own, stacked by hardware, valid here.
         unsafe {
             frame.add(6).write(super::task_exit_address() & !1);
             frame.add(7).write(1 << 24);
         }
-        crate::mpu::clear_fault_status();
-        SCB::set_pendsv();
+        exc_return
     }
 
     core::arch::global_asm!(
@@ -523,7 +556,10 @@ mod memfault {
         "mrseq r0, msp",
         "mrsne r0, psp",
         "mov r1, lr",
-        "b __maataa_memfault",
+        // The handler returns the EXC_RETURN to leave with: normally the one
+        // it was entered with, or a basic-frame return after a stack overflow.
+        "bl __maataa_memfault",
+        "bx r0",
         ".size MemoryManagement, .-MemoryManagement",
     );
 }

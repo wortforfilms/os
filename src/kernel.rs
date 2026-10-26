@@ -88,7 +88,7 @@ pub fn run() {
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
-        "sched: round-robin tasks=4 first_switch_at_ms={}",
+        "sched: round-robin tasks=5 first_switch_at_ms={}",
         DEFAULT_DEMO_QUANTUM_MS
     );
     kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done");
@@ -204,5 +204,5 @@ pub fn run() {
     #[cfg(feature = "board-qemu-f405")]
     kprintln!("Exiting QEMU.");
     #[cfg(feature = "board-f411")]
-    kprintln!("Starting the four demo tasks (task 4 tests memory protection).");
+    kprintln!("Starting the five demo tasks (task 4 tests memory protection, task 5 a stack overflow).");
 }
