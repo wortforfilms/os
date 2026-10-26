@@ -88,9 +88,10 @@ pub fn run() {
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
-        "sched: round-robin tasks=3 first_switch_at_ms={}",
+        "sched: round-robin tasks=4 first_switch_at_ms={}",
         DEFAULT_DEMO_QUANTUM_MS
     );
+    kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done");
     kprintln!("uptime ns: {}", tick.elapsed_nanos());
     match anchor.and_then(|a| a.hemant_elapsed_nanos(tick.elapsed_nanos())) {
         Some(since_epoch) => {
@@ -203,5 +204,5 @@ pub fn run() {
     #[cfg(feature = "board-qemu-f405")]
     kprintln!("Exiting QEMU.");
     #[cfg(feature = "board-f411")]
-    kprintln!("Starting the three demo tasks.");
+    kprintln!("Starting the four demo tasks (task 4 tests memory protection).");
 }

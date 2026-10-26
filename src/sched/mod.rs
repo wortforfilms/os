@@ -202,6 +202,9 @@ mod cortex_m_runtime {
         NoRunnableTasks,
         ZeroQuantum,
         StackTooSmall,
+        /// A task stack is not a power of two of at least 32 bytes aligned to
+        /// its size, so the MPU cannot give it its own region.
+        StackNotProtectable,
         AlreadyStarted,
     }
 
@@ -223,6 +226,12 @@ mod cortex_m_runtime {
             .any(|task| matches!(task.state, TaskState::Ready | TaskState::Running))
         {
             return Err(StartError::NoRunnableTasks);
+        }
+        if queue
+            .iter()
+            .any(|task| !crate::mpu::region_ok(task.stack.as_ptr() as usize, task.stack.len()))
+        {
+            return Err(StartError::StackNotProtectable);
         }
         if STARTED.swap(true, Ordering::AcqRel) {
             return Err(StartError::AlreadyStarted);
@@ -246,8 +255,42 @@ mod cortex_m_runtime {
         // PendSV must be the lowest-priority exception. SysTick only measures
         // time and requests this deferred context switch.
         unsafe { scb.set_priority(SystemHandler::PendSV, u8::MAX) };
+        // From the first switch on, tasks run unprivileged inside their MPU
+        // regions (PendSV sets CONTROL.nPRIV).
+        crate::mpu::enable();
         SCB::set_pendsv();
         Ok(())
+    }
+
+    /// The running task's id.
+    pub fn current_task() -> Option<TaskId> {
+        interrupt::free(|cs| RUNTIME.borrow(cs).borrow().as_ref().and_then(|rt| rt.current))
+    }
+
+    /// The running task's stack as (base, size), for checking syscall buffers.
+    pub fn current_stack() -> Option<(usize, usize)> {
+        interrupt::free(|cs| {
+            let shared = RUNTIME.borrow(cs).borrow();
+            let rt = shared.as_ref()?;
+            let task = rt.queue.get(rt.current?)?;
+            Some((task.stack.as_ptr() as usize, task.stack.len()))
+        })
+    }
+
+    /// Marks the running task dead; the scheduler never picks it again.
+    pub fn kill_current() -> Option<TaskId> {
+        interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let rt = shared.as_mut()?;
+            let id = rt.current?;
+            rt.queue.get_mut(id)?.state = TaskState::Dead;
+            Some(id)
+        })
+    }
+
+    /// Where a killed task is sent until the next switch: an idle loop.
+    pub fn task_exit_address() -> u32 {
+        task_exit as usize as u32
     }
 
     /// Called after `clock::on_systick()`. It only requests PendSV; no task
@@ -300,6 +343,7 @@ mod cortex_m_runtime {
             task.state = TaskState::Running;
             runtime.current = Some(next);
             runtime.last_dispatch_tick = now;
+            crate::mpu::set_task_stack(task.stack.as_ptr() as usize, task.stack.len());
             task.saved_sp as *mut u32
         })
     }
@@ -374,14 +418,121 @@ mod cortex_m_runtime {
         "vldmia r0!, {{s16-s31}}",
         "4:",
         "msr psp, r0",
+        // Thread mode is unprivileged from now on (tasks only; the boot
+        // thread never resumes). The barriers also make the new MPU stack
+        // region take effect before the task runs.
+        "mrs r1, control",
+        "orr r1, r1, #1",
+        "msr control, r1",
+        "dsb",
+        "isb",
         "bx lr",
         ".size PendSV, .-PendSV",
     );
 }
 
+/// MemManage: a task touched memory outside its regions. The task is killed
+/// and the others keep running; a fault in the kernel itself stops the system.
+#[cfg(target_arch = "arm")]
+mod memfault {
+    use cortex_m::peripheral::SCB;
+
+    // MMFSR bits.
+    const IACCVIOL: u8 = 1 << 0;
+    const DACCVIOL: u8 = 1 << 1;
+    const MUNSTKERR: u8 = 1 << 3;
+    const MSTKERR: u8 = 1 << 4;
+    const MLSPERR: u8 = 1 << 5;
+    const MMARVALID: u8 = 1 << 7;
+
+    fn kind(status: u8) -> &'static str {
+        if status & DACCVIOL != 0 {
+            "data access"
+        } else if status & IACCVIOL != 0 {
+            "instruction fetch"
+        } else if status & MSTKERR != 0 {
+            "stacking (stack overflow)"
+        } else if status & MUNSTKERR != 0 {
+            "unstacking"
+        } else if status & MLSPERR != 0 {
+            "FPU lazy stacking"
+        } else {
+            "unknown"
+        }
+    }
+
+    /// `frame` is the stacked exception frame; `exc_return` tells whether the
+    /// fault came from a task (thread mode on PSP) or from the kernel.
+    #[no_mangle]
+    extern "C" fn __maataa_memfault(frame: *mut u32, exc_return: u32) {
+        let (status, address) = crate::mpu::fault_status();
+        let at = if status & MMARVALID != 0 { address } else { 0 };
+        let from_task = exc_return & 0b0100 != 0;
+        // SAFETY: a plain read of a kernel word, for the report only.
+        let target = unsafe { core::ptr::addr_of!(crate::mpu::FAULT_TEST_TARGET).read_volatile() };
+        if !from_task {
+            crate::logging::kprintln!(
+                "KERNEL MEMORY FAULT ({}) at {:#010x}, mmfsr={:#04x}; system stopped",
+                kind(status),
+                at,
+                status
+            );
+            loop {
+                cortex_m::asm::nop();
+            }
+        }
+        let id = super::kill_current();
+        // SAFETY: a stacked pc read for the report.
+        let pc = if status & (MSTKERR | MUNSTKERR | MLSPERR) == 0 { unsafe { frame.add(6).read() } } else { 0 };
+        crate::logging::kprintln!(
+            "task {:?} violated memory: {} at {:#010x} (pc {:#010x}); task killed, kernel word still {:#010x}",
+            id.unwrap_or(0),
+            kind(status),
+            at,
+            pc,
+            target
+        );
+        if status & (MSTKERR | MUNSTKERR | MLSPERR) != 0 {
+            // The frame is not usable, so the task cannot be resumed into an
+            // idle loop. Milestone 1 stops here; see docs/kernel-mpu.md.
+            crate::logging::kprintln!("the task's stack frame is unusable; system stopped");
+            loop {
+                cortex_m::asm::nop();
+            }
+        }
+        // Resume the dead task in an idle loop until the switch that follows.
+        // SAFETY: the frame is the task's own, stacked by hardware, valid here.
+        unsafe {
+            frame.add(6).write(super::task_exit_address() & !1);
+            frame.add(7).write(1 << 24);
+        }
+        crate::mpu::clear_fault_status();
+        SCB::set_pendsv();
+    }
+
+    core::arch::global_asm!(
+        ".syntax unified",
+        ".thumb",
+        ".section .text.MemoryManagement, \"ax\"",
+        ".global MemoryManagement",
+        ".type MemoryManagement,%function",
+        ".thumb_func",
+        "MemoryManagement:",
+        "tst lr, #4",
+        "ite eq",
+        "mrseq r0, msp",
+        "mrsne r0, psp",
+        "mov r1, lr",
+        "b __maataa_memfault",
+        ".size MemoryManagement, .-MemoryManagement",
+    );
+}
+
 #[cfg(target_arch = "arm")]
 #[allow(unused_imports)]
-pub use cortex_m_runtime::{on_systick, start_round_robin, StartError};
+pub use cortex_m_runtime::{
+    current_stack, current_task, kill_current, on_systick, start_round_robin, task_exit_address, StartError,
+};
 
 #[cfg(test)]
 mod tests {

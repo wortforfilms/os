@@ -2,8 +2,6 @@
 #![no_main]
 
 use cortex_m_rt::{entry, exception};
-#[cfg(feature = "board-qemu-f405")]
-use cortex_m_semihosting::debug;
 use panic_halt as _;
 
 mod board;
@@ -15,50 +13,70 @@ mod ipc;
 mod kernel;
 mod log;
 mod logging;
+mod mpu;
 mod sched;
 #[path = "storage/mod.rs"]
 mod storage;
+mod syscall;
 
-#[repr(align(8))]
-struct DemoStack([u8; 1024]);
+/// Task stacks are 2 KB and aligned to 2 KB so each can be one MPU region.
+const TASK_STACK_BYTES: usize = 2048;
 
-static mut TASK_ONE_STACK: DemoStack = DemoStack([0; 1024]);
-static mut TASK_TWO_STACK: DemoStack = DemoStack([0; 1024]);
-static mut TASK_THREE_STACK: DemoStack = DemoStack([0; 1024]);
+#[repr(C, align(2048))]
+struct DemoStack([u8; TASK_STACK_BYTES]);
+
+static mut TASK_ONE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
+static mut TASK_TWO_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
+static mut TASK_THREE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
+static mut TASK_FOUR_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
+
+// The tasks below run unprivileged inside their MPU regions: they reach the
+// log and the LED only through supervisor calls (src/syscall.rs).
 
 fn demo_task_one() -> ! {
-    logging::kprintln!("task 1");
+    crate::uprintln!("task 1");
     // Blink LD2 with busy waits and never yield: the LED keeps blinking only
     // because the scheduler preempts this task, and it keeps going with no
-    // probe attached. 25 M cycles is 250 ms of this task's own CPU time; with
-    // three tasks sharing the CPU, each LED phase lasts about three times that.
+    // probe attached. 25 M cycles is 250 ms of this task's own CPU time.
     let mut blinks: u32 = 0;
     loop {
-        board::led_set(true);
+        syscall::led(true);
         cortex_m::asm::delay(25_000_000);
-        board::led_set(false);
+        syscall::led(false);
         cortex_m::asm::delay(25_000_000);
         blinks = blinks.wrapping_add(1);
         if blinks % 10 == 0 {
-            logging::kprintln!("task 1: {} blinks", blinks);
+            crate::uprintln!("task 1: {} blinks", blinks);
         }
     }
 }
 
 fn demo_task_two() -> ! {
-    logging::kprintln!("task 2");
-    cortex_m::asm::delay(1_000_000);
+    crate::uprintln!("task 2");
     loop {
         clock::idle();
     }
 }
 
 fn demo_task_three() -> ! {
-    logging::kprintln!("task 3");
-    cortex_m::asm::delay(1_000_000);
-    // QEMU ends the run here; a real board keeps the three tasks switching.
-    #[cfg(feature = "board-qemu-f405")]
-    debug::exit(debug::EXIT_SUCCESS);
+    crate::uprintln!("task 3");
+    // Long enough for task 4 to run (and be killed) first; then QEMU ends the
+    // run. A real board ignores demo_done and keeps the tasks switching.
+    cortex_m::asm::delay(50_000_000);
+    syscall::demo_done();
+    loop {
+        clock::idle();
+    }
+}
+
+/// The MPU test: write to a kernel word. The MPU must stop the write, the
+/// kernel must kill this task, and the other tasks must keep running.
+fn demo_task_four() -> ! {
+    let target = core::ptr::addr_of_mut!(mpu::FAULT_TEST_TARGET);
+    crate::uprintln!("task 4: writing to kernel memory at {:#010x}", target as usize);
+    // SAFETY: deliberately not safe; this is the protection test.
+    unsafe { target.write_volatile(0xDEAD_BEEF) };
+    crate::uprintln!("task 4: the write went through: MEMORY IS NOT PROTECTED");
     loop {
         clock::idle();
     }
@@ -66,7 +84,7 @@ fn demo_task_three() -> ! {
 
 fn task_stack(stack: *mut DemoStack) -> &'static mut [u8] {
     // SAFETY: each private static stack is handed to exactly one scheduler task.
-    unsafe { core::slice::from_raw_parts_mut(stack.cast::<u8>(), 1024) }
+    unsafe { core::slice::from_raw_parts_mut(stack.cast::<u8>(), TASK_STACK_BYTES) }
 }
 
 #[entry]
@@ -109,11 +127,24 @@ fn main() -> ! {
                     demo_task_three,
                     1,
                 ))
+            })
+            .and_then(|()| {
+                queue.add(sched::Task::new(
+                    4,
+                    task_stack(core::ptr::addr_of_mut!(TASK_FOUR_STACK)),
+                    demo_task_four,
+                    1,
+                ))
             });
-        if added.is_err()
-            || sched::start_round_robin(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB)
-                .is_err()
-        {
+        let started = added.is_ok()
+            && match sched::start_round_robin(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB) {
+                Ok(()) => true,
+                Err(e) => {
+                    logging::kprintln!("scheduler did not start: {:?}", e);
+                    false
+                }
+            };
+        if !started {
             loop {
                 clock::idle();
             }
