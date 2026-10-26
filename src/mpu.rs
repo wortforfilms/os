@@ -7,6 +7,7 @@
 //! | background | everything | default map (`PRIVDEFENA`) | no access |
 //! | 0 | flash, first 512 KB | read, execute | read, execute |
 //! | 1 | the running task's stack | read, write | read, write, never execute |
+//! | 2 | kernel stack guard: 256 bytes at the low end of the main stack | no access | no access |
 //!
 //! Kernel RAM, peripherals and other tasks' stacks are therefore out of reach
 //! for a task: touching them raises MemManage, and the kernel kills that task
@@ -49,6 +50,26 @@ const AP_RO: u32 = 0b110 << 24; // read-only for both levels
 const NORMAL_C: u32 = 1 << 17; // TEX=000 C=1 B=0: normal memory, write-through
 const SHAREABLE: u32 = 1 << 18;
 
+/// Size of the no-access guard at the low end of the kernel (main) stack.
+/// Larger than the biggest exception frame (104 bytes with FPU state), so an
+/// exception pushed by a kernel that is about to overflow lands in the guard.
+pub const KERNEL_GUARD_SIZE: usize = 256;
+
+/// The guard's base: the first `KERNEL_GUARD_SIZE`-aligned address at or
+/// above `stack_low`, the lowest address the main stack may reach.
+pub const fn kernel_guard_base(stack_low: usize) -> usize {
+    (stack_low + KERNEL_GUARD_SIZE - 1) & !(KERNEL_GUARD_SIZE - 1)
+}
+
+/// RASR value for the kernel stack guard: no access at all, never execute.
+pub const fn kernel_guard_rasr() -> u32 {
+    let size = match size_field(KERNEL_GUARD_SIZE) {
+        Some(s) => s,
+        None => 0,
+    };
+    XN | SHAREABLE | NORMAL_C | (size << 1) | RASR_ENABLE // AP = 000
+}
+
 /// RASR value for the flash region.
 pub const fn flash_rasr() -> u32 {
     let size = match size_field(FLASH_SIZE) {
@@ -77,6 +98,27 @@ mod hw {
 
     const REGION_FLASH: u32 = 0;
     const REGION_STACK: u32 = 1;
+    const REGION_KERNEL_GUARD: u32 = 2;
+
+    extern "C" {
+        /// End of .bss/.uninit (cortex-m-rt): the main stack grows down to here.
+        static __sheap: u32;
+        /// Top of the main stack (cortex-m-rt, from memory.x).
+        static _stack_start: u32;
+    }
+
+    /// The initial main stack pointer.
+    pub fn main_stack_top() -> usize {
+        // SAFETY: only the symbol's address is taken.
+        unsafe { core::ptr::addr_of!(_stack_start) as usize }
+    }
+
+    /// The kernel stack guard as (base, size).
+    pub fn kernel_guard() -> (usize, usize) {
+        // SAFETY: only the symbol's address is taken.
+        let low = unsafe { core::ptr::addr_of!(__sheap) as usize };
+        (kernel_guard_base(low), KERNEL_GUARD_SIZE)
+    }
     const CTRL_ENABLE: u32 = 1;
     const CTRL_PRIVDEFENA: u32 = 1 << 2;
     const SHCSR_MEMFAULTENA: u32 = 1 << 16;
@@ -94,6 +136,10 @@ mod hw {
             mpu.rasr.write(flash_rasr());
             mpu.rnr.write(REGION_STACK);
             mpu.rasr.write(0);
+            let (guard, _) = kernel_guard();
+            mpu.rnr.write(REGION_KERNEL_GUARD);
+            mpu.rbar.write(guard as u32);
+            mpu.rasr.write(kernel_guard_rasr());
             mpu.ctrl.write(CTRL_ENABLE | CTRL_PRIVDEFENA);
             let scb = &*SCB::PTR;
             scb.shcsr.modify(|v| v | SHCSR_MEMFAULTENA);
@@ -133,7 +179,7 @@ mod hw {
 }
 
 #[cfg(target_arch = "arm")]
-pub use hw::{clear_fault_status, enable, fault_status, set_task_stack};
+pub use hw::{clear_fault_status, enable, fault_status, kernel_guard, main_stack_top, set_task_stack};
 
 #[cfg(test)]
 mod tests {
@@ -162,6 +208,17 @@ mod tests {
         assert!(!contains(0x2000_0000, 2048, 0x2000_07F8, 16));
         assert!(!contains(0x2000_0000, 2048, 0x1FFF_FFF0, 32));
         assert!(!contains(0x2000_0000, 2048, usize::MAX - 4, 16));
+    }
+
+    #[test]
+    fn kernel_guard_is_aligned_inside_free_ram_and_closed_to_everyone() {
+        assert_eq!(kernel_guard_base(0x2000_3520), 0x2000_3600);
+        assert_eq!(kernel_guard_base(0x2000_3600), 0x2000_3600);
+        assert!(region_ok(kernel_guard_base(0x2000_3521), KERNEL_GUARD_SIZE));
+        let g = kernel_guard_rasr();
+        assert_eq!(g & (0b111 << 24), 0, "no access, privileged included");
+        assert_ne!(g & XN, 0);
+        assert!(KERNEL_GUARD_SIZE > 104, "bigger than an FPU exception frame");
     }
 
     #[test]

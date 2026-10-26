@@ -183,25 +183,6 @@ fn main() -> ! {
     }
 }
 
-/// HardFault: print where the fault happened before stopping, so a board run
-/// over RTT names the instruction instead of only "Exception".
-#[exception]
-unsafe fn HardFault(ef: &cortex_m_rt::ExceptionFrame) -> ! {
-    let scb = &*cortex_m::peripheral::SCB::PTR;
-    logging::kprintln!(
-        "HARD FAULT pc={:#010x} lr={:#010x} cfsr={:#010x} hfsr={:#010x} bfar={:#010x} mmfar={:#010x}",
-        ef.pc(),
-        ef.lr(),
-        scb.cfsr.read(),
-        scb.hfsr.read(),
-        scb.bfar.read(),
-        scb.mmfar.read()
-    );
-    loop {
-        cortex_m::asm::nop();
-    }
-}
-
 /// SysTick exception: one kernel tick. Defined in the binary so the vector
 /// table always links it (a handler only in a library can be dropped in
 /// favour of the default handler).

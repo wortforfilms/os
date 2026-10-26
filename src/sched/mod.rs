@@ -255,6 +255,15 @@ mod cortex_m_runtime {
         // PendSV must be the lowest-priority exception. SysTick only measures
         // time and requests this deferred context switch.
         unsafe { scb.set_priority(SystemHandler::PendSV, u8::MAX) };
+        // MemManage must be able to preempt the kernel's own handlers: a
+        // fault inside a supervisor call or the tick would otherwise escalate
+        // to HardFault (equal priority cannot preempt). Kernel handlers get
+        // 0x40; MemManage keeps 0, the highest configurable priority.
+        unsafe {
+            scb.set_priority(SystemHandler::MemoryManagement, 0);
+            scb.set_priority(SystemHandler::SVCall, 0x40);
+            scb.set_priority(SystemHandler::SysTick, 0x40);
+        }
         // From the first switch on, tasks run unprivileged inside their MPU
         // regions (PendSV sets CONTROL.nPRIV).
         crate::mpu::enable();
@@ -472,20 +481,9 @@ mod memfault {
     extern "C" fn __maataa_memfault(frame: *mut u32, exc_return: u32) -> u32 {
         let (status, address) = crate::mpu::fault_status();
         let at = if status & MMARVALID != 0 { address } else { 0 };
-        let from_task = exc_return & 0b0100 != 0;
+        let _ = exc_return; // a task fault: thread mode on PSP (the stub checked)
         // SAFETY: a plain read of a kernel word, for the report only.
         let target = unsafe { core::ptr::addr_of!(crate::mpu::FAULT_TEST_TARGET).read_volatile() };
-        if !from_task {
-            crate::logging::kprintln!(
-                "KERNEL MEMORY FAULT ({}) at {:#010x}, mmfsr={:#04x}; system stopped",
-                kind(status),
-                at,
-                status
-            );
-            loop {
-                cortex_m::asm::nop();
-            }
-        }
         let stack = super::current_stack();
         let id = super::kill_current().unwrap_or(0);
         crate::mpu::clear_fault_status();
@@ -543,6 +541,100 @@ mod memfault {
         exc_return
     }
 
+    /// A memory fault in the kernel itself (handler mode, or the boot thread,
+    /// on the main stack). The stub has already moved MSP back to the top of
+    /// the main stack, so this report runs even when the old stack pointer sat
+    /// in the guard. The kernel cannot recover from its own bug: report, stop.
+    #[no_mangle]
+    extern "C" fn __maataa_kernel_fault(old_msp: u32, exc_return: u32) -> ! {
+        let (status, address) = crate::mpu::fault_status();
+        let at = if status & MMARVALID != 0 { address } else { 0 };
+        let (guard, size) = crate::mpu::kernel_guard();
+        let guard_end = (guard + size) as u32;
+        let hit_guard = (at != 0 && at >= guard as u32 && at < guard_end) || old_msp < guard_end + 32;
+        if hit_guard {
+            crate::logging::kprintln!(
+                "KERNEL STACK OVERFLOW: the main stack reached its guard {:#010x}..{:#010x} (sp {:#010x}, {} at {:#010x}, mmfsr={:#04x}); system stopped",
+                guard,
+                guard_end,
+                old_msp,
+                kind(status),
+                at,
+                status
+            );
+        } else {
+            crate::logging::kprintln!(
+                "KERNEL MEMORY FAULT: {} at {:#010x} (sp {:#010x}, exc_return {:#010x}, mmfsr={:#04x}); system stopped",
+                kind(status),
+                at,
+                old_msp,
+                exc_return,
+                status
+            );
+        }
+        loop {
+            cortex_m::asm::nop();
+        }
+    }
+
+    /// HardFault. MSP is reset first by the stub; the stacked frame is read
+    /// only if it lies in memory that is safe to read.
+    #[no_mangle]
+    extern "C" fn __maataa_hardfault(frame: u32, exc_return: u32) -> ! {
+        // SAFETY: plain reads of the fault status registers.
+        let (cfsr, hfsr, mmfar, bfar) = unsafe {
+            let scb = &*SCB::PTR;
+            (scb.cfsr.read(), scb.hfsr.read(), scb.mmfar.read(), scb.bfar.read())
+        };
+        let (guard, size) = crate::mpu::kernel_guard();
+        let from_task = exc_return & 0b0100 != 0;
+        let readable = if from_task {
+            match super::current_stack() {
+                Some((base, len)) => crate::mpu::contains(base, len, frame as usize, 32),
+                None => false,
+            }
+        } else {
+            frame as usize >= guard + size && (frame as usize) + 32 <= crate::mpu::main_stack_top()
+        };
+        // SAFETY: only when the frame lies in a task stack or above the guard.
+        let (pc, lr) = if readable { unsafe { ((frame as *const u32).add(6).read(), (frame as *const u32).add(5).read()) } } else { (0, 0) };
+        crate::logging::kprintln!(
+            "HARD FAULT pc={:#010x} lr={:#010x} cfsr={:#010x} hfsr={:#010x} bfar={:#010x} mmfar={:#010x} ({}); system stopped",
+            pc,
+            lr,
+            cfsr,
+            hfsr,
+            bfar,
+            mmfar,
+            if from_task { "in a task" } else { "in the kernel" }
+        );
+        loop {
+            cortex_m::asm::nop();
+        }
+    }
+
+    core::arch::global_asm!(
+        ".syntax unified",
+        ".thumb",
+        ".section .text.HardFault, \"ax\"",
+        ".global HardFault",
+        ".type HardFault,%function",
+        ".thumb_func",
+        "HardFault:",
+        "tst lr, #4",
+        "ite eq",
+        "mrseq r0, msp",
+        "mrsne r0, psp",
+        "mov r1, lr",
+        // Move MSP back to the top before anything is pushed: the old main
+        // stack may be in or next to the guard.
+        "ldr r2, =_stack_start",
+        "msr msp, r2",
+        "bl __maataa_hardfault",
+        ".ltorg",
+        ".size HardFault, .-HardFault",
+    );
+
     core::arch::global_asm!(
         ".syntax unified",
         ".thumb",
@@ -552,14 +644,23 @@ mod memfault {
         ".thumb_func",
         "MemoryManagement:",
         "tst lr, #4",
-        "ite eq",
-        "mrseq r0, msp",
-        "mrsne r0, psp",
+        "bne 1f",
+        // Kernel fault (main stack): move MSP back to the top before any push,
+        // because the old stack pointer may sit in the guard; then report.
+        "mrs r0, msp",
         "mov r1, lr",
-        // The handler returns the EXC_RETURN to leave with: normally the one
-        // it was entered with, or a basic-frame return after a stack overflow.
+        "ldr r2, =_stack_start",
+        "msr msp, r2",
+        "bl __maataa_kernel_fault",
+        "1:",
+        // Task fault. The handler returns the EXC_RETURN to leave with:
+        // normally the one it was entered with, or a basic-frame return after
+        // a task stack overflow.
+        "mrs r0, psp",
+        "mov r1, lr",
         "bl __maataa_memfault",
         "bx r0",
+        ".ltorg",
         ".size MemoryManagement, .-MemoryManagement",
     );
 }
