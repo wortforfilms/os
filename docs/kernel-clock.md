@@ -49,16 +49,30 @@ Hardware builds do not ask the host for the time:
 - the Hemant anchor reads `unavailable`;
 - the self-test skips the rate and Hemant checks and says so.
 
-## Hardware verification pending
+## Hardware verification (26 October 2026)
 
-No F411 board was available. Compilation is not hardware verification. Check
-each item on the physical board and replace its status only with observed
-evidence:
+Board: NUCLEO-F411RE (STM32F411RET6), ST-LINK, `probe-rs run --chip STM32F411RETx`.
+Run log: `target/nucleo-run.log` (30-second run, no exception, no reset).
 
-- **UNVERIFIED** — RCC locks at 100 MHz.
-- **UNVERIFIED** — SysTick fires at the configured 1 kHz rate.
-- **UNVERIFIED** — RTT output is visible in probe-rs.
-- **UNVERIFIED** — tasks preempt on hardware.
+- **PASS** — RCC configured: the HAL reports a 100 MHz core clock after the PLL
+  is set up from HSI, and the kernel runs on it (`clock: systick 1000 Hz, core
+  100000000 Hz (rcc configured)`). The frequency was not measured externally.
+- **PASS (self-consistent)** — SysTick at 1 kHz: each 10 ms kernel sleep
+  measured about 10.15 ms on the kernel clock (uptime 21.06, 31.21, 41.36,
+  51.51 ms at ticks 3 to 6), with 0 clock regressions. Checking the rate
+  against an external reference still needs the LSE crystal or a scope.
+- **PASS** — RTT output is visible in probe-rs: the full boot report.
+- **PASS** — tasks preempt on hardware: task 1 never yields after printing,
+  yet task 2 and task 3 print, so the 5 ms quantum switched them.
+
+### WFI and RTT on the F411
+
+With the core asleep in WFI, the ST-LINK read only zeros from RAM and
+peripherals, so probe-rs lost RTT and reported "Firmware exited unexpectedly:
+Exception". Setting `DBGMCU_CR` DBG_SLEEP, DBG_STOP and DBG_STANDBY (they read
+back as `0x7`) did not change that on this board. `clock::idle()` therefore
+uses a NOP on the F411 by default; build with `--features board-f411,low-power`
+to idle in WFI again when RTT is not needed.
 
 ## Hemant time
 
