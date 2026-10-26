@@ -28,9 +28,20 @@ static mut TASK_THREE_STACK: DemoStack = DemoStack([0; 1024]);
 
 fn demo_task_one() -> ! {
     logging::kprintln!("task 1");
-    cortex_m::asm::delay(1_000_000);
+    // Blink LD2 with busy waits and never yield: the LED keeps blinking only
+    // because the scheduler preempts this task, and it keeps going with no
+    // probe attached. 25 M cycles is 250 ms of this task's own CPU time; with
+    // three tasks sharing the CPU, each LED phase lasts about three times that.
+    let mut blinks: u32 = 0;
     loop {
-        clock::idle();
+        board::led_set(true);
+        cortex_m::asm::delay(25_000_000);
+        board::led_set(false);
+        cortex_m::asm::delay(25_000_000);
+        blinks = blinks.wrapping_add(1);
+        if blinks % 10 == 0 {
+            logging::kprintln!("task 1: {} blinks", blinks);
+        }
     }
 }
 
@@ -67,6 +78,7 @@ fn main() -> ! {
     // The board sets up its clock tree and reports the core clock; the kernel
     // clock starts from that value before anything else reads time.
     let core_hz = board::init_core_clock();
+    board::led_init();
     let config = clock::Config::for_core_hz(core_hz).expect("core clock gives a whole 1 kHz tick");
     let mut core = cortex_m::Peripherals::take().expect("core peripherals are taken once");
     clock::start(&mut core.SYST, config);

@@ -90,3 +90,34 @@ pub fn init_core_clock() -> u32 {
     // a later change adds one, the clock must follow HCLK, so use it directly.
     rcc.clocks.hclk().raw()
 }
+
+/// Green user LED LD2 on the Nucleo-F411RE (PA5). Black Pill boards have their
+/// LED on PC13 instead, so on a Black Pill this drives PA5 and nothing lights.
+#[cfg(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405")))]
+pub fn led_init() {
+    use stm32f4xx_hal::pac;
+    // SAFETY: called once at boot before the tasks start; only the GPIOA clock
+    // bit and PA5's mode bits are changed.
+    unsafe {
+        let rcc = &*pac::RCC::ptr();
+        rcc.ahb1enr().modify(|_, w| w.gpioaen().set_bit());
+        let _ = rcc.ahb1enr().read(); // let the clock settle before touching GPIOA
+        (*pac::GPIOA::ptr()).moder().modify(|_, w| w.moder5().output());
+    }
+}
+
+/// Turns LD2 on or off. BSRR writes are atomic, so any task may call this.
+#[cfg(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405")))]
+pub fn led_set(on: bool) {
+    use stm32f4xx_hal::pac;
+    // SAFETY: a write-only set/reset register; it touches PA5 alone.
+    unsafe {
+        (*pac::GPIOA::ptr()).bsrr().write(|w| if on { w.bs5().set_bit() } else { w.br5().set_bit() });
+    }
+}
+
+/// QEMU and host builds have no LED.
+#[cfg(not(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405"))))]
+pub fn led_init() {}
+#[cfg(not(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405"))))]
+pub fn led_set(_on: bool) {}

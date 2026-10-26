@@ -48,7 +48,7 @@ if [ -n "$ADDR" ]; then
   BUF=$(probe-rs read --chip "$CHIP" b32 "0x$ADDR" 12 2>/dev/null | tr -s ' ' '\n' | grep -E '^[0-9a-fA-F]{8}$' | sed -n '8p')
   [ -n "$BUF" ] && { echo "up buffer 0x$BUF:"; probe-rs read --chip "$CHIP" b8 "0x$BUF" 256 2>&1; } | tee -a target/nucleo-rtt.txt
 fi
-if grep -q "task 3" "$LOG"; then echo "✓ task 1 → task 2 → task 3 ran on the board."
+if grep -q "task 3" "$LOG"; then echo "✓ task 1 → task 2 → task 3 ran on the board."; grep -a "blinks" "$LOG" | tail -1 | tr -d "\000\r"
 elif grep -q "HARD FAULT" "$LOG"; then echo "✗ Hard fault: see the HARD FAULT line above."
 else echo "? Did not see task 3. Full output: $LOG"; fi
 pause
