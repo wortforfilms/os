@@ -6,7 +6,270 @@
 
 pub type TaskId = u8;
 pub const MAX_TASKS: usize = 8;
+/// Reserved scheduler-owned task ID. Applications cannot claim this slot.
+pub const IDLE_TASK_ID: TaskId = u8::MAX;
 pub const DEFAULT_DEMO_QUANTUM_MS: u32 = 5;
+pub const MAX_MUTEXES: usize = 4;
+pub const MAX_SEMAPHORES: usize = 4;
+
+/// A kernel-owned, allocation-free mutex. Waiters are queued FIFO and ownership
+/// is handed directly to the next live waiter when the owner unlocks.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct KernelMutex {
+    pub locked: bool,
+    pub owner: Option<TaskId>,
+    wait_queue: [Option<TaskId>; MAX_TASKS],
+    wait_len: usize,
+}
+
+impl KernelMutex {
+    pub const fn new() -> Self {
+        Self {
+            locked: false,
+            owner: None,
+            wait_queue: [None; MAX_TASKS],
+            wait_len: 0,
+        }
+    }
+
+    fn enqueue(&mut self, id: TaskId) -> Result<(), MutexError> {
+        if self.wait_queue[..self.wait_len].contains(&Some(id)) {
+            return Err(MutexError::Deadlock);
+        }
+        if self.wait_len == MAX_TASKS {
+            return Err(MutexError::QueueFull);
+        }
+        self.wait_queue[self.wait_len] = Some(id);
+        self.wait_len += 1;
+        Ok(())
+    }
+
+    fn dequeue(&mut self) -> Option<TaskId> {
+        if self.wait_len == 0 {
+            return None;
+        }
+        let next = self.wait_queue[0].take();
+        for index in 1..self.wait_len {
+            self.wait_queue[index - 1] = self.wait_queue[index].take();
+        }
+        self.wait_len -= 1;
+        next
+    }
+
+    fn remove_waiter(&mut self, id: TaskId) {
+        let mut write = 0;
+        for read in 0..self.wait_len {
+            if self.wait_queue[read] != Some(id) {
+                self.wait_queue[write] = self.wait_queue[read];
+                write += 1;
+            }
+        }
+        for slot in &mut self.wait_queue[write..self.wait_len] {
+            *slot = None;
+        }
+        self.wait_len = write;
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum MutexError {
+    InvalidId,
+    NotOwner,
+    Deadlock,
+    QueueFull,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum LockResult {
+    Acquired,
+    Blocked,
+}
+
+/// Fixed-capacity mutex registry; IDs are stable indexes into this table.
+pub struct MutexSet {
+    locks: [KernelMutex; MAX_MUTEXES],
+}
+
+/// A counting semaphore with FIFO waiters. Initial permit counts are supplied
+/// by the kernel at boot; the application cannot mutate the registry shape.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Semaphore {
+    pub count: u16,
+    wait_queue: [Option<TaskId>; MAX_TASKS],
+    wait_len: usize,
+}
+
+impl Semaphore {
+    pub const fn new(initial_count: u16) -> Self {
+        Self {
+            count: initial_count,
+            wait_queue: [None; MAX_TASKS],
+            wait_len: 0,
+        }
+    }
+
+    fn enqueue(&mut self, task: TaskId) -> Result<(), SemaphoreError> {
+        if self.wait_queue[..self.wait_len].contains(&Some(task)) {
+            return Err(SemaphoreError::AlreadyWaiting);
+        }
+        if self.wait_len == MAX_TASKS {
+            return Err(SemaphoreError::QueueFull);
+        }
+        self.wait_queue[self.wait_len] = Some(task);
+        self.wait_len += 1;
+        Ok(())
+    }
+
+    fn dequeue(&mut self) -> Option<TaskId> {
+        if self.wait_len == 0 {
+            return None;
+        }
+        let next = self.wait_queue[0].take();
+        for index in 1..self.wait_len {
+            self.wait_queue[index - 1] = self.wait_queue[index].take();
+        }
+        self.wait_len -= 1;
+        next
+    }
+
+    fn remove_waiter(&mut self, task: TaskId) {
+        let mut write = 0;
+        for read in 0..self.wait_len {
+            if self.wait_queue[read] != Some(task) {
+                self.wait_queue[write] = self.wait_queue[read];
+                write += 1;
+            }
+        }
+        for slot in &mut self.wait_queue[write..self.wait_len] {
+            *slot = None;
+        }
+        self.wait_len = write;
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SemaphoreError {
+    InvalidId,
+    AlreadyWaiting,
+    QueueFull,
+    Overflow,
+}
+
+/// Fixed-capacity counting semaphore registry. Every semaphore starts at zero.
+pub struct SemaphoreSet {
+    semaphores: [Semaphore; MAX_SEMAPHORES],
+}
+
+impl SemaphoreSet {
+    pub const fn new() -> Self {
+        Self {
+            semaphores: [Semaphore::new(0); MAX_SEMAPHORES],
+        }
+    }
+
+    pub const fn with_initial_counts(counts: [u16; MAX_SEMAPHORES]) -> Self {
+        Self {
+            semaphores: [
+                Semaphore::new(counts[0]),
+                Semaphore::new(counts[1]),
+                Semaphore::new(counts[2]),
+                Semaphore::new(counts[3]),
+            ],
+        }
+    }
+
+    /// Consumes one permit immediately or adds the task to the FIFO wait queue.
+    pub fn wait(&mut self, id: u8, task: TaskId) -> Result<LockResult, SemaphoreError> {
+        let semaphore = self
+            .semaphores
+            .get_mut(id as usize)
+            .ok_or(SemaphoreError::InvalidId)?;
+        if semaphore.count > 0 {
+            semaphore.count -= 1;
+            return Ok(LockResult::Acquired);
+        }
+        semaphore.enqueue(task)?;
+        Ok(LockResult::Blocked)
+    }
+
+    /// Transfers a permit to the oldest waiter, or increments the available count.
+    pub fn post(&mut self, id: u8) -> Result<Option<TaskId>, SemaphoreError> {
+        let semaphore = self
+            .semaphores
+            .get_mut(id as usize)
+            .ok_or(SemaphoreError::InvalidId)?;
+        if let Some(task) = semaphore.dequeue() {
+            return Ok(Some(task));
+        }
+        semaphore.count = semaphore
+            .count
+            .checked_add(1)
+            .ok_or(SemaphoreError::Overflow)?;
+        Ok(None)
+    }
+
+    /// Removes a dead task from every wait queue.
+    pub fn forget_task(&mut self, task: TaskId) {
+        for semaphore in &mut self.semaphores {
+            semaphore.remove_waiter(task);
+        }
+    }
+}
+
+impl MutexSet {
+    pub const fn new() -> Self {
+        Self {
+            locks: [KernelMutex::new(); MAX_MUTEXES],
+        }
+    }
+
+    pub fn lock(&mut self, id: u8, task: TaskId) -> Result<LockResult, MutexError> {
+        let lock = self
+            .locks
+            .get_mut(id as usize)
+            .ok_or(MutexError::InvalidId)?;
+        if !lock.locked {
+            lock.locked = true;
+            lock.owner = Some(task);
+            return Ok(LockResult::Acquired);
+        }
+        if lock.owner == Some(task) {
+            return Err(MutexError::Deadlock);
+        }
+        lock.enqueue(task)?;
+        Ok(LockResult::Blocked)
+    }
+
+    /// Releases an owned lock and transfers ownership to its FIFO waiter.
+    pub fn unlock(&mut self, id: u8, task: TaskId) -> Result<Option<TaskId>, MutexError> {
+        let lock = self
+            .locks
+            .get_mut(id as usize)
+            .ok_or(MutexError::InvalidId)?;
+        if lock.owner != Some(task) {
+            return Err(MutexError::NotOwner);
+        }
+        let next = lock.dequeue();
+        lock.owner = next;
+        lock.locked = next.is_some();
+        Ok(next)
+    }
+
+    /// Removes dead tasks from queues and releases any lock they owned.
+    pub fn forget_task(&mut self, task: TaskId) -> [Option<TaskId>; MAX_MUTEXES] {
+        let mut woke = [None; MAX_MUTEXES];
+        for (index, lock) in self.locks.iter_mut().enumerate() {
+            lock.remove_waiter(task);
+            if lock.owner == Some(task) {
+                let next = lock.dequeue();
+                lock.owner = next;
+                lock.locked = next.is_some();
+                woke[index] = next;
+            }
+        }
+        woke
+    }
+}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TaskState {
@@ -22,6 +285,14 @@ pub struct Task {
     pub entry: fn() -> !,
     pub state: TaskState,
     pub priority: u8,
+    /// Deadline in the kernel's 1 kHz monotonic tick domain.
+    pub wait_until: Option<u64>,
+    wait_for_message: bool,
+    recv_timed_out: bool,
+    waiting_mutex: Option<u8>,
+    mutex_acquired: Option<u8>,
+    waiting_semaphore: Option<u8>,
+    semaphore_acquired: Option<u8>,
     #[allow(dead_code)]
     saved_sp: usize,
 }
@@ -34,6 +305,13 @@ impl Task {
             entry,
             state: TaskState::Ready,
             priority,
+            wait_until: None,
+            wait_for_message: false,
+            recv_timed_out: false,
+            waiting_mutex: None,
+            mutex_acquired: None,
+            waiting_semaphore: None,
+            semaphore_acquired: None,
             saved_sp: 0,
         }
     }
@@ -99,11 +377,177 @@ impl<const N: usize> RunQueue<N> {
     pub fn iter(&self) -> impl Iterator<Item = &Task> {
         self.slots.iter().filter_map(Option::as_ref)
     }
+
+    /// Makes deadline-expired tasks runnable. Returns whether anything woke.
+    pub fn wake_expired(&mut self, now: u64) -> bool {
+        let mut woke = false;
+        for task in self.slots.iter_mut().filter_map(Option::as_mut) {
+            if task.state == TaskState::Blocked
+                && task.wait_until.is_some_and(|deadline| now >= deadline)
+            {
+                task.state = TaskState::Ready;
+                task.wait_until = None;
+                if task.wait_for_message {
+                    task.recv_timed_out = true;
+                }
+                task.wait_for_message = false;
+                woke = true;
+            }
+        }
+        woke
+    }
+
+    /// Wakes a task blocked in receive after a message has been enqueued.
+    pub fn wake_waiting_receiver(&mut self, id: TaskId) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        if task.state != TaskState::Blocked || !task.wait_for_message {
+            return false;
+        }
+        task.state = TaskState::Ready;
+        task.wait_until = None;
+        task.wait_for_message = false;
+        true
+    }
+
+    /// Consumes the timeout completion after a blocked receive resumes.
+    pub fn take_recv_timeout(&mut self, id: TaskId) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        core::mem::replace(&mut task.recv_timed_out, false)
+    }
+
+    pub fn wake_mutex_waiter(&mut self, id: TaskId, mutex_id: u8) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        if task.state != TaskState::Blocked || task.waiting_mutex != Some(mutex_id) {
+            return false;
+        }
+        task.state = TaskState::Ready;
+        task.wait_until = None;
+        task.waiting_mutex = None;
+        task.mutex_acquired = Some(mutex_id);
+        true
+    }
+
+    pub fn take_mutex_acquired(&mut self, id: TaskId, mutex_id: u8) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        if task.mutex_acquired != Some(mutex_id) {
+            return false;
+        }
+        task.mutex_acquired = None;
+        true
+    }
+
+    pub fn wake_semaphore_waiter(&mut self, id: TaskId, semaphore_id: u8) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        if task.state != TaskState::Blocked || task.waiting_semaphore != Some(semaphore_id) {
+            return false;
+        }
+        task.state = TaskState::Ready;
+        task.wait_until = None;
+        task.waiting_semaphore = None;
+        task.semaphore_acquired = Some(semaphore_id);
+        true
+    }
+
+    pub fn take_semaphore_acquired(&mut self, id: TaskId, semaphore_id: u8) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        if task.semaphore_acquired != Some(semaphore_id) {
+            return false;
+        }
+        task.semaphore_acquired = None;
+        true
+    }
 }
 
 impl<const N: usize> Default for RunQueue<N> {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+#[cfg(test)]
+mod mutex_tests {
+    use super::*;
+
+    #[test]
+    fn mutex_hands_ownership_to_waiters_in_fifo_order() {
+        let mut locks = MutexSet::new();
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        assert_eq!(locks.lock(0, 2), Ok(LockResult::Blocked));
+        assert_eq!(locks.lock(0, 3), Ok(LockResult::Blocked));
+        assert_eq!(locks.unlock(0, 1), Ok(Some(2)));
+        assert_eq!(locks.lock(0, 2), Err(MutexError::Deadlock));
+        assert_eq!(locks.unlock(0, 2), Ok(Some(3)));
+        assert_eq!(locks.unlock(0, 3), Ok(None));
+    }
+
+    #[test]
+    fn mutex_rejects_wrong_owner_and_invalid_ids() {
+        let mut locks = MutexSet::new();
+        assert_eq!(locks.lock(7, 1), Err(MutexError::InvalidId));
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        assert_eq!(locks.unlock(0, 2), Err(MutexError::NotOwner));
+    }
+
+    #[test]
+    fn removing_a_task_preserves_other_waiters_and_hands_off_owner_lock() {
+        let mut locks = MutexSet::new();
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        assert_eq!(locks.lock(0, 2), Ok(LockResult::Blocked));
+        assert_eq!(locks.lock(0, 3), Ok(LockResult::Blocked));
+        let woke = locks.forget_task(2);
+        assert_eq!(woke, [None; MAX_MUTEXES]);
+        let woke = locks.forget_task(1);
+        assert_eq!(woke[0], Some(3));
+        assert_eq!(locks.unlock(0, 3), Ok(None));
+    }
+}
+
+#[cfg(test)]
+mod semaphore_tests {
+    use super::*;
+
+    #[test]
+    fn semaphore_consumes_permits_and_hands_posts_to_fifo_waiters() {
+        let mut semaphores = SemaphoreSet::with_initial_counts([2, 0, 0, 0]);
+        assert_eq!(semaphores.wait(0, 1), Ok(LockResult::Acquired));
+        assert_eq!(semaphores.wait(0, 2), Ok(LockResult::Acquired));
+        assert_eq!(semaphores.wait(0, 3), Ok(LockResult::Blocked));
+        assert_eq!(semaphores.wait(0, 4), Ok(LockResult::Blocked));
+        assert_eq!(semaphores.post(0), Ok(Some(3)));
+        assert_eq!(semaphores.post(0), Ok(Some(4)));
+        assert_eq!(semaphores.post(0), Ok(None));
+        assert_eq!(semaphores.wait(0, 5), Ok(LockResult::Acquired));
+    }
+
+    #[test]
+    fn semaphore_rejects_invalid_duplicate_full_and_overflow_cases() {
+        let mut semaphores = SemaphoreSet::with_initial_counts([u16::MAX, 0, 0, 0]);
+        assert_eq!(semaphores.wait(4, 1), Err(SemaphoreError::InvalidId));
+        assert_eq!(semaphores.post(4), Err(SemaphoreError::InvalidId));
+        assert_eq!(semaphores.post(0), Err(SemaphoreError::Overflow));
+        assert_eq!(semaphores.wait(1, 1), Ok(LockResult::Blocked));
+        assert_eq!(semaphores.wait(1, 1), Err(SemaphoreError::AlreadyWaiting));
+    }
+
+    #[test]
+    fn removing_a_task_keeps_other_semaphore_waiters_in_order() {
+        let mut semaphores = SemaphoreSet::new();
+        assert_eq!(semaphores.wait(0, 1), Ok(LockResult::Blocked));
+        assert_eq!(semaphores.wait(0, 2), Ok(LockResult::Blocked));
+        semaphores.forget_task(1);
+        assert_eq!(semaphores.post(0), Ok(Some(2)));
     }
 }
 
@@ -136,15 +580,21 @@ impl<const N: usize> Scheduler<N> for RoundRobin {
             Some(slot) => (slot + 1) % N,
             None => 0,
         };
+        let mut idle = None;
         for offset in 0..N {
             let index = (start + offset) % N;
             if let Some(task) = rq.slots[index].as_ref() {
-                if matches!(task.state, TaskState::Ready | TaskState::Running) {
+                if !matches!(task.state, TaskState::Ready | TaskState::Running) {
+                    continue;
+                }
+                if task.id == IDLE_TASK_ID {
+                    idle = Some(task.id);
+                } else {
                     return Some(task.id);
                 }
             }
         }
-        None
+        idle
     }
 }
 
@@ -188,12 +638,19 @@ mod cortex_m_runtime {
     static STARTED: AtomicBool = AtomicBool::new(false);
     static RUNTIME: Mutex<RefCell<Option<Runtime>>> = Mutex::new(RefCell::new(None));
 
+    const IDLE_STACK_BYTES: usize = 256;
+    #[repr(C, align(256))]
+    struct IdleStack([u8; IDLE_STACK_BYTES]);
+    static mut IDLE_STACK: IdleStack = IdleStack([0; IDLE_STACK_BYTES]);
+
     struct Runtime {
-        queue: RunQueue<MAX_TASKS>,
+        queue: RunQueue<{ MAX_TASKS + 1 }>,
         policy: RoundRobin,
         current: Option<TaskId>,
         quantum_ticks: u32,
         last_dispatch_tick: u64,
+        mutexes: MutexSet,
+        semaphores: SemaphoreSet,
     }
 
     #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -205,6 +662,7 @@ mod cortex_m_runtime {
         /// A task stack is not a power of two of at least 32 bytes aligned to
         /// its size, so the MPU cannot give it its own region.
         StackNotProtectable,
+        ReservedTaskId,
         AlreadyStarted,
     }
 
@@ -221,6 +679,9 @@ mod cortex_m_runtime {
         if queue.is_empty() {
             return Err(StartError::EmptyQueue);
         }
+        if queue.iter().any(|task| task.id == IDLE_TASK_ID) {
+            return Err(StartError::ReservedTaskId);
+        }
         if !queue
             .iter()
             .any(|task| matches!(task.state, TaskState::Ready | TaskState::Running))
@@ -233,6 +694,18 @@ mod cortex_m_runtime {
         {
             return Err(StartError::StackNotProtectable);
         }
+        // A private, lowest-priority task gives the scheduler somewhere safe
+        // to run while every application task is blocked or dead.
+        let idle_stack = unsafe {
+            core::slice::from_raw_parts_mut(
+                core::ptr::addr_of_mut!(IDLE_STACK).cast::<u8>(),
+                IDLE_STACK_BYTES,
+            )
+        };
+        let mut idle_task = Task::new(IDLE_TASK_ID, idle_stack, idle_entry, 0);
+        if !crate::mpu::region_ok(idle_task.stack.as_ptr() as usize, idle_task.stack.len()) {
+            return Err(StartError::StackNotProtectable);
+        }
         if STARTED.swap(true, Ordering::AcqRel) {
             return Err(StartError::AlreadyStarted);
         }
@@ -242,14 +715,29 @@ mod cortex_m_runtime {
                 StartError::StackTooSmall
             })?;
         }
+        idle_task.saved_sp = initialize_stack(&mut idle_task).ok_or_else(|| {
+            STARTED.store(false, Ordering::Release);
+            StartError::StackTooSmall
+        })?;
+        let mut runtime_queue = RunQueue::<{ MAX_TASKS + 1 }>::new();
+        for task in queue.slots.into_iter().flatten() {
+            runtime_queue
+                .add(task)
+                .map_err(|_| StartError::EmptyQueue)?;
+        }
+        runtime_queue
+            .add(idle_task)
+            .map_err(|_| StartError::EmptyQueue)?;
         let now = crate::clock::get_ticks();
         interrupt::free(|cs| {
             *RUNTIME.borrow(cs).borrow_mut() = Some(Runtime {
-                queue,
+                queue: runtime_queue,
                 policy: RoundRobin::new(),
                 current: None,
                 quantum_ticks,
                 last_dispatch_tick: now,
+                mutexes: MutexSet::new(),
+                semaphores: SemaphoreSet::new(),
             });
         });
         // PendSV must be the lowest-priority exception. SysTick only measures
@@ -273,7 +761,13 @@ mod cortex_m_runtime {
 
     /// The running task's id.
     pub fn current_task() -> Option<TaskId> {
-        interrupt::free(|cs| RUNTIME.borrow(cs).borrow().as_ref().and_then(|rt| rt.current))
+        interrupt::free(|cs| {
+            RUNTIME
+                .borrow(cs)
+                .borrow()
+                .as_ref()
+                .and_then(|rt| rt.current)
+        })
     }
 
     /// The running task's stack as (base, size), for checking syscall buffers.
@@ -286,15 +780,176 @@ mod cortex_m_runtime {
         })
     }
 
+    /// Blocks the running task until `deadline` (1 kHz monotonic ticks).
+    /// PendSV performs the switch after the current supervisor call returns.
+    pub fn block_current_until(deadline: u64, waiting_for_message: bool) -> bool {
+        let blocked = interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let rt = shared.as_mut()?;
+            let id = rt.current?;
+            let task = rt.queue.get_mut(id)?;
+            task.state = TaskState::Blocked;
+            task.wait_until = Some(deadline);
+            task.wait_for_message = waiting_for_message;
+            task.recv_timed_out = false;
+            Some(())
+        })
+        .is_some();
+        if blocked {
+            SCB::set_pendsv();
+        }
+        blocked
+    }
+
+    /// Attempts to lock a kernel mutex and parks the task atomically on contention.
+    pub fn mutex_lock_current(id: u8) -> Result<LockResult, MutexError> {
+        let (result, blocked) = interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let rt = shared.as_mut().ok_or(MutexError::InvalidId)?;
+            let task_id = rt.current.ok_or(MutexError::InvalidId)?;
+            if rt.queue.take_mutex_acquired(task_id, id) {
+                return Ok((LockResult::Acquired, false));
+            }
+            match rt.mutexes.lock(id, task_id)? {
+                LockResult::Acquired => Ok((LockResult::Acquired, false)),
+                LockResult::Blocked => {
+                    let task = rt.queue.get_mut(task_id).ok_or(MutexError::InvalidId)?;
+                    task.state = TaskState::Blocked;
+                    task.wait_until = None;
+                    task.waiting_mutex = Some(id);
+                    task.wait_for_message = false;
+                    Ok((LockResult::Blocked, true))
+                }
+            }
+        })?;
+        if blocked {
+            SCB::set_pendsv();
+        }
+        Ok(result)
+    }
+
+    /// Unlocks the current task's mutex and wakes the FIFO successor, if any.
+    pub fn mutex_unlock_current(id: u8) -> Result<(), MutexError> {
+        let woke = interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let rt = shared.as_mut().ok_or(MutexError::InvalidId)?;
+            let task_id = rt.current.ok_or(MutexError::InvalidId)?;
+            let next = rt.mutexes.unlock(id, task_id)?;
+            if let Some(next) = next {
+                rt.queue.wake_mutex_waiter(next, id);
+            }
+            Ok::<_, MutexError>(next.is_some())
+        })?;
+        if woke {
+            SCB::set_pendsv();
+        }
+        Ok(())
+    }
+
+    /// Consumes a semaphore permit, or parks the caller until one is posted.
+    pub fn semaphore_wait_current(id: u8) -> Result<LockResult, SemaphoreError> {
+        let (result, blocked) = interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let rt = shared.as_mut().ok_or(SemaphoreError::InvalidId)?;
+            let task_id = rt.current.ok_or(SemaphoreError::InvalidId)?;
+            if rt.queue.take_semaphore_acquired(task_id, id) {
+                return Ok((LockResult::Acquired, false));
+            }
+            match rt.semaphores.wait(id, task_id)? {
+                LockResult::Acquired => Ok((LockResult::Acquired, false)),
+                LockResult::Blocked => {
+                    let task = rt.queue.get_mut(task_id).ok_or(SemaphoreError::InvalidId)?;
+                    task.state = TaskState::Blocked;
+                    task.wait_until = None;
+                    task.waiting_semaphore = Some(id);
+                    task.wait_for_message = false;
+                    Ok((LockResult::Blocked, true))
+                }
+            }
+        })?;
+        if blocked {
+            SCB::set_pendsv();
+        }
+        Ok(result)
+    }
+
+    /// Adds a permit or wakes the oldest waiter without exposing a race window.
+    pub fn semaphore_post_current(id: u8) -> Result<(), SemaphoreError> {
+        let woke = interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let rt = shared.as_mut().ok_or(SemaphoreError::InvalidId)?;
+            let next = rt.semaphores.post(id)?;
+            if let Some(next) = next {
+                rt.queue.wake_semaphore_waiter(next, id);
+            }
+            Ok::<_, SemaphoreError>(next.is_some())
+        })?;
+        if woke {
+            SCB::set_pendsv();
+        }
+        Ok(())
+    }
+
+    /// Wakes a receiver when a message is queued for it.
+    pub fn wake_waiting_receiver(id: TaskId) -> bool {
+        let woke = interrupt::free(|cs| {
+            RUNTIME
+                .borrow(cs)
+                .borrow_mut()
+                .as_mut()
+                .is_some_and(|rt| rt.queue.wake_waiting_receiver(id))
+        });
+        if woke {
+            SCB::set_pendsv();
+        }
+        woke
+    }
+
+    /// Returns and clears a timed-out receive completion for the running task.
+    pub fn take_recv_timeout() -> bool {
+        interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let Some(rt) = shared.as_mut() else {
+                return false;
+            };
+            let Some(id) = rt.current else { return false };
+            rt.queue.take_recv_timeout(id)
+        })
+    }
+
+    /// Whether task `id` exists and is not dead.
+    pub fn task_alive(id: TaskId) -> bool {
+        interrupt::free(|cs| {
+            RUNTIME
+                .borrow(cs)
+                .borrow()
+                .as_ref()
+                .and_then(|rt| rt.queue.get(id).map(|t| t.state != TaskState::Dead))
+                .unwrap_or(false)
+        })
+    }
+
     /// Marks the running task dead; the scheduler never picks it again.
     pub fn kill_current() -> Option<TaskId> {
-        interrupt::free(|cs| {
+        let (dead, woke) = interrupt::free(|cs| {
             let mut shared = RUNTIME.borrow(cs).borrow_mut();
             let rt = shared.as_mut()?;
             let id = rt.current?;
             rt.queue.get_mut(id)?.state = TaskState::Dead;
-            Some(id)
-        })
+            let woke = rt.mutexes.forget_task(id);
+            for (mutex_id, waiter) in woke.iter().enumerate() {
+                if let Some(waiter) = waiter {
+                    rt.queue.wake_mutex_waiter(*waiter, mutex_id as u8);
+                }
+            }
+            rt.semaphores.forget_task(id);
+            Some((id, woke.iter().any(Option::is_some)))
+        })?;
+        crate::syscall::forget_task(dead);
+        if woke {
+            SCB::set_pendsv();
+        }
+        Some(dead)
     }
 
     /// Where a killed task is sent until the next switch: an idle loop.
@@ -306,13 +961,17 @@ mod cortex_m_runtime {
     /// state or register context is changed in the measurement handler.
     pub fn on_systick() {
         let now = crate::clock::get_ticks();
-        let expired = interrupt::free(|cs| {
-            RUNTIME.borrow(cs).borrow().as_ref().map(|runtime| {
-                runtime.current.is_some()
-                    && now.wrapping_sub(runtime.last_dispatch_tick) >= runtime.quantum_ticks as u64
-            })
+        let (woke, quantum_expired) = interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let Some(runtime) = shared.as_mut() else {
+                return (false, false);
+            };
+            let woke = runtime.queue.wake_expired(now);
+            let quantum_expired = runtime.current.is_some()
+                && now.wrapping_sub(runtime.last_dispatch_tick) >= runtime.quantum_ticks as u64;
+            (woke, quantum_expired)
         });
-        if expired == Some(true) {
+        if woke || quantum_expired {
             SCB::set_pendsv();
         }
     }
@@ -394,6 +1053,10 @@ mod cortex_m_runtime {
         loop {
             crate::clock::idle();
         }
+    }
+
+    fn idle_entry() -> ! {
+        task_exit()
     }
 
     core::arch::global_asm!(
@@ -482,7 +1145,7 @@ mod memfault {
         let (status, address) = crate::mpu::fault_status();
         let at = if status & MMARVALID != 0 { address } else { 0 };
         let _ = exc_return; // a task fault: thread mode on PSP (the stub checked)
-        // SAFETY: a plain read of a kernel word, for the report only.
+                            // SAFETY: a plain read of a kernel word, for the report only.
         let target = unsafe { core::ptr::addr_of!(crate::mpu::FAULT_TEST_TARGET).read_volatile() };
         let stack = super::current_stack();
         let id = super::kill_current().unwrap_or(0);
@@ -551,7 +1214,8 @@ mod memfault {
         let at = if status & MMARVALID != 0 { address } else { 0 };
         let (guard, size) = crate::mpu::kernel_guard();
         let guard_end = (guard + size) as u32;
-        let hit_guard = (at != 0 && at >= guard as u32 && at < guard_end) || old_msp < guard_end + 32;
+        let hit_guard =
+            (at != 0 && at >= guard as u32 && at < guard_end) || old_msp < guard_end + 32;
         if hit_guard {
             crate::logging::kprintln!(
                 "KERNEL STACK OVERFLOW: the main stack reached its guard {:#010x}..{:#010x} (sp {:#010x}, {} at {:#010x}, mmfsr={:#04x}); system stopped",
@@ -584,7 +1248,12 @@ mod memfault {
         // SAFETY: plain reads of the fault status registers.
         let (cfsr, hfsr, mmfar, bfar) = unsafe {
             let scb = &*SCB::PTR;
-            (scb.cfsr.read(), scb.hfsr.read(), scb.mmfar.read(), scb.bfar.read())
+            (
+                scb.cfsr.read(),
+                scb.hfsr.read(),
+                scb.mmfar.read(),
+                scb.bfar.read(),
+            )
         };
         let (guard, size) = crate::mpu::kernel_guard();
         let from_task = exc_return & 0b0100 != 0;
@@ -597,7 +1266,16 @@ mod memfault {
             frame as usize >= guard + size && (frame as usize) + 32 <= crate::mpu::main_stack_top()
         };
         // SAFETY: only when the frame lies in a task stack or above the guard.
-        let (pc, lr) = if readable { unsafe { ((frame as *const u32).add(6).read(), (frame as *const u32).add(5).read()) } } else { (0, 0) };
+        let (pc, lr) = if readable {
+            unsafe {
+                (
+                    (frame as *const u32).add(6).read(),
+                    (frame as *const u32).add(5).read(),
+                )
+            }
+        } else {
+            (0, 0)
+        };
         crate::logging::kprintln!(
             "HARD FAULT pc={:#010x} lr={:#010x} cfsr={:#010x} hfsr={:#010x} bfar={:#010x} mmfar={:#010x} ({}); system stopped",
             pc,
@@ -668,7 +1346,10 @@ mod memfault {
 #[cfg(target_arch = "arm")]
 #[allow(unused_imports)]
 pub use cortex_m_runtime::{
-    current_stack, current_task, kill_current, on_systick, start_round_robin, task_exit_address, StartError,
+    block_current_until, current_stack, current_task, kill_current, mutex_lock_current,
+    mutex_unlock_current, on_systick, semaphore_post_current, semaphore_wait_current,
+    start_round_robin, take_recv_timeout, task_alive, task_exit_address, wake_waiting_receiver,
+    StartError,
 };
 
 #[cfg(test)]
@@ -745,6 +1426,39 @@ mod tests {
         let rq = RunQueue::<4>::new();
         assert_eq!(RoundRobin::new().pick(&rq, 10), None);
         assert_eq!(FixedPriority::new().pick(&rq, 10), None);
+    }
+
+    #[test]
+    fn reserved_idle_task_runs_only_when_application_tasks_are_not_runnable() {
+        let mut rq = queue::<3>(&[(1, 1), (2, 1), (IDLE_TASK_ID, 0)]);
+        rq.get_mut(1).unwrap().state = TaskState::Blocked;
+        rq.get_mut(2).unwrap().state = TaskState::Ready;
+        assert_eq!(RoundRobin::new().pick(&rq, 0), Some(2));
+        rq.get_mut(2).unwrap().state = TaskState::Blocked;
+        assert_eq!(RoundRobin::new().pick(&rq, 0), Some(IDLE_TASK_ID));
+    }
+
+    #[test]
+    fn blocked_receiver_wakes_on_message_and_timeout_is_recorded() {
+        let mut rq = queue::<1>(&[(2, 1)]);
+        let task = rq.get_mut(2).unwrap();
+        task.state = TaskState::Blocked;
+        task.wait_until = Some(1_000);
+        task.wait_for_message = true;
+        assert!(rq.wake_waiting_receiver(2));
+        assert_eq!(rq.get(2).unwrap().state, TaskState::Ready);
+        assert_eq!(rq.get(2).unwrap().wait_until, None);
+        assert!(!rq.take_recv_timeout(2));
+
+        let task = rq.get_mut(2).unwrap();
+        task.state = TaskState::Blocked;
+        task.wait_until = Some(2_000);
+        task.wait_for_message = true;
+        assert!(!rq.wake_expired(1_999));
+        assert!(rq.wake_expired(2_000));
+        assert_eq!(rq.get(2).unwrap().state, TaskState::Ready);
+        assert!(rq.take_recv_timeout(2));
+        assert!(!rq.take_recv_timeout(2));
     }
 
     #[test]
