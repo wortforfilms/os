@@ -41,8 +41,8 @@ if printf '%s\n' "$F411_TREE" | rg -qi semihost; then
     echo "FAIL: board-f411 dependency tree contains semihosting" >&2
     exit 1
 fi
-if ! printf '%s\n' "$F411_TREE" | rg -q 'rtt-target v'; then
-    echo "FAIL: board-f411 dependency tree does not include rtt-target" >&2
+if ! printf '%s\n' "$F411_TREE" | rg -q 'stm32f4xx-hal v'; then
+    echo "FAIL: board-f411 dependency tree does not include stm32f4xx-hal" >&2
     exit 1
 fi
 pass
@@ -89,7 +89,7 @@ rg -q '^control capsule id: ' "$BOOT_LOG"
 rg -q '^clock: systick 1000 Hz, core ' "$BOOT_LOG"
 rg -q '^board: qemu-netduinoplus2-stm32f405$' "$BOOT_LOG"
 rg -q '^time: kernel-monotonic-since-boot$' "$BOOT_LOG"
-rg -q '^sched: round-robin tasks=3 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
+rg -q '^sched: round-robin tasks=5 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
 [ "$(rg -c '^sched:' "$BOOT_LOG")" -eq 1 ]
 rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
