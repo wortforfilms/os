@@ -106,6 +106,7 @@ lines were dropped on the first board run.
 ## Follow-up status
 
 That historical roadmap was superseded by the IPC and scheduling milestones.
-USART2 output is implemented and its transmit path was physically verified on
-the Nucleo-F411RE ST-LINK serial port at 115200 baud. SVC UART receive was not
-exercised by that capture; see `docs/kernel-clock.md`.
+USART2 TX and task-level SVC receive were physically verified on the
+Nucleo-F411RE ST-LINK serial port at 115200 baud. The task uses SVC 13 to read
+from a kernel-owned FIFO and SVC 12 to echo; it does not access driver state
+directly. See `docs/kernel-clock.md`.

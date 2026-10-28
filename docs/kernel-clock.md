@@ -83,8 +83,18 @@ and nonblocking read operations to tasks, capped at 256 bytes per call. SVC
 with `probe-rs`; a host serial terminal at 115200 baud captured the complete
 boot report and task logs, including timed receive, mutex handoff, and
 semaphore wake-up. This verifies the Nucleo-F411RE USART2 TX path and VCP
-configuration. RX was not exercised. Black Pill boards need an external
-USB-UART adapter.
+configuration. The first capture did not exercise RX. Black Pill boards need
+an external USB-UART adapter.
+
+### USART2 interrupt-driven receive (28 October 2026)
+
+USART2 RXNE and NVIC IRQ 38 feed a 256-byte kernel-owned FIFO. SVC 13 drains
+available bytes without blocking; a full FIFO drops the new byte and records a
+drop count. The demo task uses only SVC calls: it polls SVC 13 and echoes
+received bytes through SVC 12. On the Nucleo-F411RE, the serial terminal showed
+the direct task-level SVC 12 marker and echoed the typed strings `rx-test-123`
+and `IRQ_RX_OK`. No task MPU fault occurred during the corrected run. Blocking
+reads and scheduler wake-on-byte remain out of scope.
 
 ## Hemant time
 
