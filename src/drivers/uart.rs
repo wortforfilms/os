@@ -2,7 +2,7 @@
 //!
 //! PA2 is TX and PA3 is RX at 115200 8-N-1. The HAL configures the peripheral
 //! once during board bring-up; these bounded methods use its registers without
-//! allocating. Reads are nonblocking and return zero when RX is empty.
+//! allocating. Task reads block until the interrupt-fed FIFO has data.
 
 use super::DriverError;
 #[cfg(all(
@@ -79,6 +79,12 @@ impl RxRing {
         self.len -= 1;
         Some(byte)
     }
+}
+
+/// Outcome of a task-side read attempt after checking the FIFO atomically.
+pub enum ReadResult {
+    Bytes(usize),
+    Blocked,
 }
 
 static READY: AtomicBool = AtomicBool::new(false);
@@ -162,11 +168,16 @@ pub fn on_receive_interrupt() {
     if has_byte || has_error {
         let byte = usart.dr().read().bits() as u8;
         if has_byte {
-            cortex_m::interrupt::free(|cs| {
-                if RX_BUFFER.borrow(cs).borrow_mut().push(byte).is_err() {
+            let queued = cortex_m::interrupt::free(|cs| {
+                let queued = RX_BUFFER.borrow(cs).borrow_mut().push(byte).is_ok();
+                if !queued {
                     RX_DROPPED.fetch_add(1, AtomicOrdering::Relaxed);
                 }
+                queued
             });
+            if queued {
+                crate::sched::wake_waiting_uart_reader();
+            }
         }
     }
 }
@@ -208,10 +219,15 @@ pub fn write(data: &[u8]) -> Result<usize, DriverError> {
     }
 }
 
-/// Reads queued USART2 bytes without waiting. Returns zero if the FIFO is empty.
-pub fn read(buffer: &mut [u8]) -> Result<usize, DriverError> {
+/// Reads available bytes or atomically parks the current task until USART2
+/// receives a byte. Interrupts remain masked across the empty check and the
+/// scheduler state change, so an arriving byte cannot be lost between them.
+pub fn read_or_block(buffer: &mut [u8]) -> Result<ReadResult, DriverError> {
     if !READY.load(Ordering::Acquire) {
         return Err(DriverError::NotSupported);
+    }
+    if buffer.is_empty() {
+        return Ok(ReadResult::Bytes(0));
     }
     #[cfg(all(
         target_arch = "arm",
@@ -219,10 +235,10 @@ pub fn read(buffer: &mut [u8]) -> Result<usize, DriverError> {
         not(feature = "board-qemu-f405")
     ))]
     {
-        Ok(cortex_m::interrupt::free(|cs| {
+        let outcome = cortex_m::interrupt::free(|cs| {
             let mut queue = RX_BUFFER.borrow(cs).borrow_mut();
             let mut count = 0;
-            for slot in buffer {
+            for slot in buffer.iter_mut() {
                 match queue.pop() {
                     Some(byte) => {
                         *slot = byte;
@@ -231,8 +247,18 @@ pub fn read(buffer: &mut [u8]) -> Result<usize, DriverError> {
                     None => break,
                 }
             }
-            count
-        }))
+            if count > 0 {
+                Ok(ReadResult::Bytes(count))
+            } else if crate::sched::block_current_for_uart(cs) {
+                Ok(ReadResult::Blocked)
+            } else {
+                Ok(ReadResult::Bytes(0))
+            }
+        });
+        if matches!(&outcome, Ok(ReadResult::Blocked)) {
+            crate::sched::pend_scheduler_switch();
+        }
+        outcome
     }
     #[cfg(not(all(
         target_arch = "arm",
@@ -294,6 +320,9 @@ mod tests {
     #[test]
     fn hardware_uart_is_unavailable_before_board_initialization() {
         assert_eq!(write(b"x"), Err(DriverError::NotSupported));
-        assert_eq!(read(&mut [0]), Err(DriverError::NotSupported));
+        assert!(matches!(
+            read_or_block(&mut [0]),
+            Err(DriverError::NotSupported)
+        ));
     }
 }

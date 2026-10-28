@@ -89,12 +89,15 @@ an external USB-UART adapter.
 ### USART2 interrupt-driven receive (28 October 2026)
 
 USART2 RXNE and NVIC IRQ 38 feed a 256-byte kernel-owned FIFO. SVC 13 drains
-available bytes without blocking; a full FIFO drops the new byte and records a
-drop count. The demo task uses only SVC calls: it polls SVC 13 and echoes
-received bytes through SVC 12. On the Nucleo-F411RE, the serial terminal showed
-the direct task-level SVC 12 marker and echoed the typed strings `rx-test-123`
-and `IRQ_RX_OK`. No task MPU fault occurred during the corrected run. Blocking
-reads and scheduler wake-on-byte remain out of scope.
+available bytes; if it finds the FIFO empty, it atomically blocks the caller
+and returns an internal retry result. The IRQ queues a received byte, wakes one
+blocked reader, and pends the scheduler. A full FIFO drops the new byte and
+records a drop count. The demo task uses only SVC calls and echoes received
+bytes through SVC 12 without polling. On the Nucleo-F411RE, the serial terminal
+showed the direct task-level SVC 12 marker and echoed the typed strings
+`rx-test-123` and `IRQ_RX_OK`; this earlier capture predates blocking reads.
+The new blocking path is covered by scheduler unit tests and a target build;
+physical wake-on-byte verification remains pending.
 
 ## Hemant time
 

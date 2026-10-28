@@ -38,4 +38,6 @@ or dead tasks. QEMU smoke checks validate the boot-report line and the observed
 `task 1`, `task 2`, `task 3` order. The earlier F411 preemption and clock
 observations used RTT; USART2 TX and interrupt-driven RX were physically
 verified on the Nucleo-F411RE ST-LINK serial port at 115200 baud using task
-SVCs. Reads remain nonblocking and the demo polls; see `docs/kernel-clock.md`.
+SVCs. SVC 13 now parks an empty reader and the RX interrupt wakes one waiter;
+the blocking wake path has unit and target-build coverage, while a fresh board
+capture remains pending. See `docs/kernel-clock.md`.

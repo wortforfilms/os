@@ -288,6 +288,7 @@ pub struct Task {
     /// Deadline in the kernel's 1 kHz monotonic tick domain.
     pub wait_until: Option<u64>,
     wait_for_message: bool,
+    waiting_for_uart: bool,
     recv_timed_out: bool,
     waiting_mutex: Option<u8>,
     mutex_acquired: Option<u8>,
@@ -307,6 +308,7 @@ impl Task {
             priority,
             wait_until: None,
             wait_for_message: false,
+            waiting_for_uart: false,
             recv_timed_out: false,
             waiting_mutex: None,
             mutex_acquired: None,
@@ -408,6 +410,38 @@ impl<const N: usize> RunQueue<N> {
         task.state = TaskState::Ready;
         task.wait_until = None;
         task.wait_for_message = false;
+        true
+    }
+
+    /// Blocks the running task until a UART byte arrives.
+    pub fn block_waiting_uart(&mut self, id: TaskId) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        if task.state != TaskState::Running {
+            return false;
+        }
+        task.state = TaskState::Blocked;
+        task.wait_until = None;
+        task.wait_for_message = false;
+        task.waiting_for_uart = true;
+        true
+    }
+
+    /// Wakes one task waiting for UART input; subsequent readers re-check the
+    /// FIFO and block again if another task consumed the available byte.
+    pub fn wake_waiting_uart(&mut self) -> bool {
+        let Some(task) = self
+            .slots
+            .iter_mut()
+            .filter_map(Option::as_mut)
+            .find(|task| task.state == TaskState::Blocked && task.waiting_for_uart)
+        else {
+            return false;
+        };
+        task.state = TaskState::Ready;
+        task.wait_until = None;
+        task.waiting_for_uart = false;
         true
     }
 
@@ -801,6 +835,25 @@ mod cortex_m_runtime {
         blocked
     }
 
+    /// Parks the running task until USART2's receive interrupt supplies data.
+    /// Callers must hold an interrupt critical section across their FIFO-empty
+    /// check and this state transition to prevent a lost wake-up.
+    pub fn block_current_for_uart(cs: &cortex_m::interrupt::CriticalSection) -> bool {
+        let mut shared = RUNTIME.borrow(cs).borrow_mut();
+        let Some(rt) = shared.as_mut() else {
+            return false;
+        };
+        let Some(id) = rt.current else {
+            return false;
+        };
+        rt.queue.block_waiting_uart(id)
+    }
+
+    /// Requests the deferred context switch after an atomic block transition.
+    pub fn pend_scheduler_switch() {
+        SCB::set_pendsv();
+    }
+
     /// Attempts to lock a kernel mutex and parks the task atomically on contention.
     pub fn mutex_lock_current(id: u8) -> Result<LockResult, MutexError> {
         let (result, blocked) = interrupt::free(|cs| {
@@ -898,6 +951,21 @@ mod cortex_m_runtime {
                 .borrow_mut()
                 .as_mut()
                 .is_some_and(|rt| rt.queue.wake_waiting_receiver(id))
+        });
+        if woke {
+            SCB::set_pendsv();
+        }
+        woke
+    }
+
+    /// Called after a byte enters the UART FIFO; wakes one blocked reader.
+    pub fn wake_waiting_uart_reader() -> bool {
+        let woke = interrupt::free(|cs| {
+            RUNTIME
+                .borrow(cs)
+                .borrow_mut()
+                .as_mut()
+                .is_some_and(|rt| rt.queue.wake_waiting_uart())
         });
         if woke {
             SCB::set_pendsv();
@@ -1346,10 +1414,10 @@ mod memfault {
 #[cfg(target_arch = "arm")]
 #[allow(unused_imports)]
 pub use cortex_m_runtime::{
-    block_current_until, current_stack, current_task, kill_current, mutex_lock_current,
-    mutex_unlock_current, on_systick, semaphore_post_current, semaphore_wait_current,
-    start_round_robin, take_recv_timeout, task_alive, task_exit_address, wake_waiting_receiver,
-    StartError,
+    block_current_for_uart, block_current_until, current_stack, current_task, kill_current,
+    mutex_lock_current, mutex_unlock_current, on_systick, pend_scheduler_switch,
+    semaphore_post_current, semaphore_wait_current, start_round_robin, take_recv_timeout,
+    task_alive, task_exit_address, wake_waiting_receiver, wake_waiting_uart_reader, StartError,
 };
 
 #[cfg(test)]
@@ -1459,6 +1527,24 @@ mod tests {
         assert_eq!(rq.get(2).unwrap().state, TaskState::Ready);
         assert!(rq.take_recv_timeout(2));
         assert!(!rq.take_recv_timeout(2));
+    }
+
+    #[test]
+    fn uart_irq_wakes_one_waiter_and_leaves_other_tasks_blocked() {
+        let mut rq = queue::<3>(&[(1, 1), (2, 1), (3, 1)]);
+        rq.get_mut(1).unwrap().state = TaskState::Running;
+        rq.get_mut(2).unwrap().state = TaskState::Running;
+        assert!(rq.block_waiting_uart(1));
+        assert!(rq.block_waiting_uart(2));
+
+        assert!(rq.wake_waiting_uart());
+        assert_eq!(rq.get(1).unwrap().state, TaskState::Ready);
+        assert_eq!(rq.get(2).unwrap().state, TaskState::Blocked);
+        assert!(!rq.get(1).unwrap().waiting_for_uart);
+        assert!(rq.get(2).unwrap().waiting_for_uart);
+        assert!(rq.wake_waiting_uart());
+        assert_eq!(rq.get(2).unwrap().state, TaskState::Ready);
+        assert!(!rq.wake_waiting_uart());
     }
 
     #[test]

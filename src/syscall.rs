@@ -14,7 +14,7 @@
 //! | 10 | wait for semaphore permit | semaphore ID | | 0 or an error |
 //! | 11 | post semaphore permit | semaphore ID | | 0 or an error |
 //! | 12 | write bytes to the board UART | pointer | length | bytes written, or an error |
-//! | 13 | read available board UART bytes (nonblocking) | pointer | capacity | bytes read, or an error |
+//! | 13 | read board UART bytes (blocks until data arrives) | pointer | capacity | bytes read, or an error |
 //!
 //! The kernel reads a task buffer (write, send) only if it lies wholly in flash
 //! or in the caller's own stack, and writes one (receive) only if it lies in
@@ -298,18 +298,23 @@ pub fn uart_write(data: &[u8]) -> Result<usize, u32> {
     }
 }
 
-/// Reads immediately available UART bytes from the interrupt-fed kernel FIFO
-/// without waiting. Returns zero if the FIFO is empty.
+/// Reads UART bytes from the interrupt-fed kernel FIFO, blocking the task until
+/// data arrives. The internal parked result is retried after the IRQ wakes it.
 #[cfg(target_arch = "arm")]
 pub fn uart_read(buffer: &mut [u8]) -> Result<usize, u32> {
-    let mut r0 = buffer.as_mut_ptr() as u32;
-    let r1 = buffer.len() as u32;
-    // SAFETY: the kernel bounds-checks this caller-owned output range.
-    unsafe { core::arch::asm!("svc #13", inout("r0") r0, in("r1") r1) };
-    if r0 >= E_NOT_SUPPORTED {
-        Err(r0)
-    } else {
-        Ok(r0 as usize)
+    if buffer.is_empty() {
+        return Ok(0);
+    }
+    loop {
+        let mut r0 = buffer.as_mut_ptr() as u32;
+        let r1 = buffer.len() as u32;
+        // SAFETY: the kernel bounds-checks this caller-owned output range.
+        unsafe { core::arch::asm!("svc #13", inout("r0") r0, in("r1") r1) };
+        match r0 {
+            E_BLOCKED => continue,
+            value if value >= E_NOT_SUPPORTED => return Err(value),
+            count => return Ok(count as usize),
+        }
     }
 }
 
@@ -508,7 +513,11 @@ mod kernel {
         }
         // SAFETY: the task buffer was validated as its own writable stack.
         let buffer = unsafe { core::slice::from_raw_parts_mut(ptr as *mut u8, len) };
-        crate::drivers::uart::read(buffer).map_or(E_NOT_SUPPORTED, |read| read as u32)
+        match crate::drivers::uart::read_or_block(buffer) {
+            Ok(crate::drivers::uart::ReadResult::Bytes(read)) => read as u32,
+            Ok(crate::drivers::uart::ReadResult::Blocked) => E_BLOCKED,
+            Err(_) => E_NOT_SUPPORTED,
+        }
     }
 
     fn sys_mutex_lock(id: u32) -> u32 {

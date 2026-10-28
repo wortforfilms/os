@@ -121,7 +121,9 @@ fn demo_task_two() -> ! {
         let mut bytes = [0u8; 32];
         loop {
             match syscall::uart_read(&mut bytes) {
-                Ok(0) => {}
+                Ok(0) => {
+                    let _ = syscall::sleep_ms(10);
+                }
                 Ok(count) => {
                     if let Err(error) = syscall::uart_write(&bytes[..count]) {
                         crate::uprintln!(
@@ -135,7 +137,6 @@ fn demo_task_two() -> ! {
                     let _ = syscall::sleep_ms(100);
                 }
             }
-            let _ = syscall::sleep_ms(10);
         }
     }
     #[cfg(not(all(feature = "board-f411", not(feature = "board-qemu-f405"))))]
