@@ -19,6 +19,13 @@ mod sched;
 mod storage;
 mod syscall;
 
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
+use stm32f4xx_hal::pac::interrupt;
+
 /// Task stacks are 2 KB and aligned to 2 KB so each can be one MPU region.
 const TASK_STACK_BYTES: usize = 2048;
 
@@ -108,6 +115,30 @@ fn demo_task_two() -> ! {
         Ok(()) => crate::uprintln!("task 2: semaphore 0 permit received; producer wake verified"),
         Err(e) => crate::uprintln!("task 2: semaphore wait failed: {}", syscall::error_name(e)),
     }
+    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    {
+        crate::uprintln!("task 2: UART RX echo active; type into the serial terminal");
+        let mut bytes = [0u8; 32];
+        loop {
+            match syscall::uart_read(&mut bytes) {
+                Ok(0) => {}
+                Ok(count) => {
+                    if let Err(error) = syscall::uart_write(&bytes[..count]) {
+                        crate::uprintln!(
+                            "task 2: UART echo failed: {}",
+                            syscall::error_name(error)
+                        );
+                    }
+                }
+                Err(error) => {
+                    crate::uprintln!("task 2: UART read failed: {}", syscall::error_name(error));
+                    let _ = syscall::sleep_ms(100);
+                }
+            }
+            let _ = syscall::sleep_ms(10);
+        }
+    }
+    #[cfg(not(all(feature = "board-f411", not(feature = "board-qemu-f405"))))]
     loop {
         clock::idle();
     }
@@ -115,6 +146,19 @@ fn demo_task_two() -> ! {
 
 fn demo_task_three() -> ! {
     crate::uprintln!("task 3");
+    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    {
+        let payload = b"task 3: direct SVC #12 UART write verified\r\n";
+        match syscall::uart_write(payload) {
+            Ok(count) if count == payload.len() => {
+                crate::uprintln!("task 3: SVC #12 wrote {} bytes", count)
+            }
+            Ok(count) => crate::uprintln!("task 3: SVC #12 short write {}", count),
+            Err(error) => {
+                crate::uprintln!("task 3: SVC #12 failed: {}", syscall::error_name(error))
+            }
+        }
+    }
     // IPC misuse: the kernel must refuse each of these without touching the memory.
     let kernel_word = core::ptr::addr_of!(mpu::FAULT_TEST_TARGET) as *const u8;
     let r = syscall::send_raw(2, kernel_word, 4);
@@ -270,4 +314,16 @@ fn main() -> ! {
 fn SysTick() {
     clock::on_systick();
     sched::on_systick();
+}
+
+/// USART2 RXNE interrupt. The handler only moves received bytes into the
+/// driver's fixed FIFO; task scheduling and SVC reads stay outside the ISR.
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
+#[interrupt]
+fn USART2() {
+    drivers::uart::on_receive_interrupt();
 }
