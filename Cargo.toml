@@ -14,8 +14,8 @@ resolver = "2"
 default = ["board-qemu-f405"]
 board-qemu-f405 = ["dep:cortex-m-semihosting"]
 board-f411 = ["dep:stm32f4xx-hal"]
-# F411 only: idle with WFI (low power). Without it the F411 idles with a NOP so a
-# debug probe can keep reading RTT; with it, RTT stops being readable once the core sleeps.
+# F411 only: idle with WFI (low power). The default NOP path keeps the debug
+# probe attached while USART2 remains available for serial output.
 low-power = []
 # Test only: task 2 asks the kernel (svc #4) to recurse on the main stack until
 # it hits the kernel stack guard. The system must report and stop.
@@ -25,7 +25,6 @@ kernel-stack-test = []
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.3"
 panic-halt = "0.2.0"
-rtt-target = { version = "0.3.1", features = ["cortex-m"] }
 embassy-executor = { version = "0.5.0", features = ["arch-cortex-m", "executor-thread", "integrated-timers"] }
 embassy-time = "0.3.0"
 

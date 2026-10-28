@@ -67,9 +67,8 @@ fn main() -> ! {
     // 1. Before start: zero, and no ticks.
     assert_eq!(clock::now_nanos(), 0, "clock reads 0 before start");
     assert_eq!(clock::ticks(), 0, "no ticks before start");
-    kprintln!("ok  starts at 0");
-
     let core_hz = board::init_core_clock();
+    kprintln!("ok  starts at 0");
     let config = clock::Config::for_core_hz(core_hz).expect("whole 1 kHz tick");
     kprintln!(
         "    board {}, core {} Hz ({})",

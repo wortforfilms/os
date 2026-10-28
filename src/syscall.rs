@@ -13,6 +13,8 @@
 //! | 9 | unlock kernel mutex | mutex ID | | 0 or an error |
 //! | 10 | wait for semaphore permit | semaphore ID | | 0 or an error |
 //! | 11 | post semaphore permit | semaphore ID | | 0 or an error |
+//! | 12 | write bytes to the board UART | pointer | length | bytes written, or an error |
+//! | 13 | read available board UART bytes (nonblocking) | pointer | capacity | bytes read, or an error |
 //!
 //! The kernel reads a task buffer (write, send) only if it lies wholly in flash
 //! or in the caller's own stack, and writes one (receive) only if it lies in
@@ -30,6 +32,14 @@ pub const SYS_MUTEX_LOCK: u8 = 8;
 pub const SYS_MUTEX_UNLOCK: u8 = 9;
 pub const SYS_SEMAPHORE_WAIT: u8 = 10;
 pub const SYS_SEMAPHORE_POST: u8 = 11;
+pub const SYS_UART_WRITE: u8 = 12;
+pub const SYS_UART_READ: u8 = 13;
+/// Maximum bytes copied or sent by one UART syscall.
+pub const MAX_UART_TRANSFER: usize = 256;
+
+const fn uart_len_allowed(len: usize) -> bool {
+    len <= MAX_UART_TRANSFER
+}
 
 /// A buffer outside the caller's own memory, or an unknown call.
 pub const E_PERM: u32 = u32::MAX;
@@ -59,6 +69,8 @@ pub const E_SEMAPHORE_FULL: u32 = u32::MAX - 11;
 pub const E_SEMAPHORE_OVERFLOW: u32 = u32::MAX - 12;
 /// Semaphore ID is outside the fixed registry.
 pub const E_BAD_SEMAPHORE: u32 = u32::MAX - 13;
+/// This board does not provide a physical UART.
+pub const E_NOT_SUPPORTED: u32 = u32::MAX - 14;
 /// Older name for E_PERM.
 pub const REFUSED: u32 = E_PERM;
 
@@ -79,6 +91,7 @@ pub const fn error_name(code: u32) -> &'static str {
         E_SEMAPHORE_FULL => "ESEMFULL",
         E_SEMAPHORE_OVERFLOW => "ESEMOVERFLOW",
         E_BAD_SEMAPHORE => "EBADSEMAPHORE",
+        E_NOT_SUPPORTED => "ENOTSUP",
         _ => "?",
     }
 }
@@ -270,6 +283,36 @@ pub fn semaphore_post(id: u8) -> Result<(), u32> {
     }
 }
 
+/// Writes bytes to the board's UART. On F411 this is USART2 at 115200 baud;
+/// other targets return `E_NOT_SUPPORTED`.
+#[cfg(target_arch = "arm")]
+pub fn uart_write(data: &[u8]) -> Result<usize, u32> {
+    let mut r0 = data.as_ptr() as u32;
+    let r1 = data.len() as u32;
+    // SAFETY: the kernel bounds-checks this caller-owned input range.
+    unsafe { core::arch::asm!("svc #12", inout("r0") r0, in("r1") r1) };
+    if r0 >= E_NOT_SUPPORTED {
+        Err(r0)
+    } else {
+        Ok(r0 as usize)
+    }
+}
+
+/// Reads immediately available UART bytes without waiting. Returns zero if
+/// the receive register is empty; this prototype does not yet queue RX data.
+#[cfg(target_arch = "arm")]
+pub fn uart_read(buffer: &mut [u8]) -> Result<usize, u32> {
+    let mut r0 = buffer.as_mut_ptr() as u32;
+    let r1 = buffer.len() as u32;
+    // SAFETY: the kernel bounds-checks this caller-owned output range.
+    unsafe { core::arch::asm!("svc #13", inout("r0") r0, in("r1") r1) };
+    if r0 >= E_NOT_SUPPORTED {
+        Err(r0)
+    } else {
+        Ok(r0 as usize)
+    }
+}
+
 /// A line buffer on the task's own stack for `uprintln!`.
 pub struct LineBuf {
     pub buf: [u8; 120],
@@ -444,6 +487,30 @@ mod kernel {
         crate::sched::semaphore_post_current(id as u8).map_or_else(semaphore_error, |_| 0)
     }
 
+    fn sys_uart_write(ptr: usize, len: usize) -> u32 {
+        if !uart_len_allowed(len) {
+            return E_TOOLONG;
+        }
+        if !buffer_allowed(ptr, len, crate::sched::current_stack()) {
+            return REFUSED;
+        }
+        // SAFETY: the task buffer was validated as flash or its own stack.
+        let bytes = unsafe { core::slice::from_raw_parts(ptr as *const u8, len) };
+        crate::drivers::uart::write(bytes).map_or(E_NOT_SUPPORTED, |written| written as u32)
+    }
+
+    fn sys_uart_read(ptr: usize, len: usize) -> u32 {
+        if !uart_len_allowed(len) {
+            return E_TOOLONG;
+        }
+        if !writable_allowed(ptr, len, crate::sched::current_stack()) {
+            return REFUSED;
+        }
+        // SAFETY: the task buffer was validated as its own writable stack.
+        let buffer = unsafe { core::slice::from_raw_parts_mut(ptr as *mut u8, len) };
+        crate::drivers::uart::read(buffer).map_or(E_NOT_SUPPORTED, |read| read as u32)
+    }
+
     fn sys_mutex_lock(id: u32) -> u32 {
         if id > u8::MAX as u32 {
             return E_BAD_MUTEX;
@@ -529,6 +596,8 @@ mod kernel {
             SYS_MUTEX_UNLOCK => sys_mutex_unlock(r0),
             SYS_SEMAPHORE_WAIT => sys_semaphore_wait(r0),
             SYS_SEMAPHORE_POST => sys_semaphore_post(r0),
+            SYS_UART_WRITE => sys_uart_write(r0 as usize, r1 as usize),
+            SYS_UART_READ => sys_uart_read(r0 as usize, r1 as usize),
             #[cfg(feature = "kernel-stack-test")]
             SYS_TEST_KERNEL_OVERFLOW => {
                 crate::logging::kprintln!(
@@ -594,6 +663,7 @@ mod tests {
             E_SEMAPHORE_FULL,
             E_SEMAPHORE_OVERFLOW,
             E_BAD_SEMAPHORE,
+            E_NOT_SUPPORTED,
         ];
         for (i, a) in codes.iter().enumerate() {
             assert_ne!(error_name(*a), "?");
@@ -605,6 +675,13 @@ mod tests {
             64 < E_NOTASK,
             "a message length can never look like an error"
         );
+    }
+
+    #[test]
+    fn uart_syscall_transfer_is_bounded() {
+        assert!(uart_len_allowed(0));
+        assert!(uart_len_allowed(MAX_UART_TRANSFER));
+        assert!(!uart_len_allowed(MAX_UART_TRANSFER + 1));
     }
 
     #[test]

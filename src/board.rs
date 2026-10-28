@@ -52,9 +52,7 @@ pub const F411_CORE_HZ: u32 = 100_000_000;
     not(feature = "board-qemu-f405")
 ))]
 pub fn init_logging() {
-    // 4 KB, non-blocking: a burst of task lines must not be dropped while the
-    // probe catches up, and with no probe attached the kernel must never block.
-    rtt_target::rtt_init_print!(NoBlockSkip, 4096);
+    // USART2 is initialized in `init_core_clock`, after its APB clock is known.
 }
 
 /// QEMU semihosting needs no separate initialization.
@@ -78,7 +76,7 @@ pub fn init_core_clock() -> u32 {
     not(feature = "board-qemu-f405")
 ))]
 pub fn init_core_clock() -> u32 {
-    use stm32f4xx_hal::{pac, prelude::*, rcc::Config};
+    use stm32f4xx_hal::{pac, prelude::*, rcc::Config, serial::SerialExt};
 
     let dp = pac::Peripherals::take().expect("device peripherals are taken once");
     // Keep the debug port alive in sleep: the kernel sleeps with WFI between
@@ -87,7 +85,14 @@ pub fn init_core_clock() -> u32 {
     dp.DBGMCU
         .cr()
         .modify(|_, w| w.dbg_sleep().set_bit().dbg_stop().set_bit().dbg_standby().set_bit());
-    let rcc = dp.RCC.freeze(Config::hsi().sysclk(F411_CORE_HZ.Hz()));
+    let mut rcc = dp.RCC.freeze(Config::hsi().sysclk(F411_CORE_HZ.Hz()));
+    let gpioa = dp.GPIOA.split(&mut rcc);
+    // Nucleo-F411RE's ST-LINK virtual COM port is connected to USART2 PA2/PA3.
+    let _serial: stm32f4xx_hal::serial::Serial2 = dp
+        .USART2
+        .serial((gpioa.pa2, gpioa.pa3), 115_200_u32.bps(), &mut rcc)
+        .expect("USART2 115200 baud configuration is valid");
+    crate::drivers::uart::mark_initialized();
     // SysTick's core source is HCLK. With no AHB prescaler HCLK = SYSCLK; if
     // a later change adds one, the clock must follow HCLK, so use it directly.
     rcc.clocks.hclk().raw()

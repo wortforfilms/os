@@ -189,12 +189,11 @@ fn task_stack(stack: *mut DemoStack) -> &'static mut [u8] {
 #[entry]
 fn main() -> ! {
     board::init_logging();
-    logging::kprintln!("Maataa OS starting...");
-    logging::kprintln!("Kernel output initialized");
-
     // The board sets up its clock tree and reports the core clock; the kernel
     // clock starts from that value before anything else reads time.
     let core_hz = board::init_core_clock();
+    logging::kprintln!("Maataa OS starting...");
+    logging::kprintln!("Kernel output initialized");
     board::led_init();
     let config = clock::Config::for_core_hz(core_hz).expect("core clock gives a whole 1 kHz tick");
     let mut core = cortex_m::Peripherals::take().expect("core peripherals are taken once");

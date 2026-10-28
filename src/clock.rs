@@ -171,10 +171,9 @@ impl HostAnchor {
 /// Hardware side: SysTick setup, ISR and register sampling. Target only.
 /// Waits for the next interrupt.
 ///
-/// On the F411 the default is to stay awake (a NOP): with the core asleep in
-/// WFI the ST-LINK could not read RTT memory, even with the DBGMCU sleep bits
-/// set, and probe-rs reported a spurious exception. Build with the
-/// `low-power` feature to idle in WFI instead, at the cost of RTT output.
+/// On the F411 the default is to stay awake (a NOP): the earlier probe session
+/// lost debug access while the core slept in WFI. Build with `low-power` to
+/// idle in WFI; USART2 serial logging is separate from the RTT debug transport.
 /// QEMU always uses WFI.
 #[cfg(target_arch = "arm")]
 #[inline(always)]

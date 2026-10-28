@@ -1,6 +1,7 @@
 use crate::boot_log;
 
 pub mod spi;
+pub mod uart;
 
 const DRIVER_COUNT: usize = 5;
 

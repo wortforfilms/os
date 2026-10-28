@@ -8,12 +8,9 @@
 # CMSIS-DAP for the Black Pill) and probe-rs (https://probe.rs, e.g.
 # `cargo install probe-rs-tools --locked`).
 #
-# The kernel prints over RTT. probe-rs RTT flag verification is pending because
-# probe-rs is not installed in the authoring environment. Exact check run:
-#   $ probe-rs run --help
-#   zsh:1: command not found: probe-rs
-# Re-check the installed probe-rs version's run help before adding an RTT flag;
-# do not guess a CLI option. RTT is initialized in the F411 image either way.
+# The Nucleo-F411RE sends logs on USART2 (PA2 TX / PA3 RX, 115200 8-N-1),
+# through its ST-LINK virtual COM port. Open the host serial device at 115200
+# baud to read output; probe-rs is still used to flash/run the board.
 # Hardware builds do not ask the host for the time (no Hemant anchor), and
 # the clock self-test skips its host-time checks.
 set -euo pipefail
