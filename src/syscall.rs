@@ -298,8 +298,8 @@ pub fn uart_write(data: &[u8]) -> Result<usize, u32> {
     }
 }
 
-/// Reads immediately available UART bytes without waiting. Returns zero if
-/// the receive register is empty; this prototype does not yet queue RX data.
+/// Reads immediately available UART bytes from the interrupt-fed kernel FIFO
+/// without waiting. Returns zero if the FIFO is empty.
 #[cfg(target_arch = "arm")]
 pub fn uart_read(buffer: &mut [u8]) -> Result<usize, u32> {
     let mut r0 = buffer.as_mut_ptr() as u32;

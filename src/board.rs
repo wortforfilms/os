@@ -93,6 +93,7 @@ pub fn init_core_clock() -> u32 {
         .serial((gpioa.pa2, gpioa.pa3), 115_200_u32.bps(), &mut rcc)
         .expect("USART2 115200 baud configuration is valid");
     crate::drivers::uart::mark_initialized();
+    crate::drivers::uart::enable_receive_interrupt();
     // SysTick's core source is HCLK. With no AHB prescaler HCLK = SYSCLK; if
     // a later change adds one, the clock must follow HCLK, so use it directly.
     rcc.clocks.hclk().raw()

@@ -5,10 +5,92 @@
 //! allocating. Reads are nonblocking and return zero when RX is empty.
 
 use super::DriverError;
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
+use core::cell::RefCell;
 use core::fmt;
 use core::sync::atomic::{AtomicBool, Ordering};
+use core::sync::atomic::{AtomicU32, Ordering as AtomicOrdering};
+
+#[cfg(any(
+    test,
+    all(
+        target_arch = "arm",
+        feature = "board-f411",
+        not(feature = "board-qemu-f405")
+    )
+))]
+const RX_CAPACITY: usize = 256;
+
+/// Fixed-size FIFO shared by the USART2 interrupt and task-side SVC reads.
+#[cfg(any(
+    test,
+    all(
+        target_arch = "arm",
+        feature = "board-f411",
+        not(feature = "board-qemu-f405")
+    )
+))]
+#[derive(Clone)]
+struct RxRing {
+    bytes: [u8; RX_CAPACITY],
+    head: usize,
+    tail: usize,
+    len: usize,
+}
+
+#[cfg(any(
+    test,
+    all(
+        target_arch = "arm",
+        feature = "board-f411",
+        not(feature = "board-qemu-f405")
+    )
+))]
+impl RxRing {
+    const fn new() -> Self {
+        Self {
+            bytes: [0; RX_CAPACITY],
+            head: 0,
+            tail: 0,
+            len: 0,
+        }
+    }
+
+    fn push(&mut self, byte: u8) -> Result<(), u8> {
+        if self.len == RX_CAPACITY {
+            return Err(byte);
+        }
+        self.bytes[self.head] = byte;
+        self.head = (self.head + 1) % RX_CAPACITY;
+        self.len += 1;
+        Ok(())
+    }
+
+    fn pop(&mut self) -> Option<u8> {
+        if self.len == 0 {
+            return None;
+        }
+        let byte = self.bytes[self.tail];
+        self.tail = (self.tail + 1) % RX_CAPACITY;
+        self.len -= 1;
+        Some(byte)
+    }
+}
 
 static READY: AtomicBool = AtomicBool::new(false);
+static RX_DROPPED: AtomicU32 = AtomicU32::new(0);
+
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
+static RX_BUFFER: cortex_m::interrupt::Mutex<RefCell<RxRing>> =
+    cortex_m::interrupt::Mutex::new(RefCell::new(RxRing::new()));
 
 /// Called only after board bring-up configures USART2 and PA2/PA3 through HAL.
 #[cfg(all(
@@ -26,6 +108,73 @@ pub fn mark_initialized() {
     not(feature = "board-qemu-f405")
 )))]
 pub fn mark_initialized() {}
+
+/// Enables USART2 RXNE interrupts after the ring and ISR are ready.
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
+pub fn enable_receive_interrupt() {
+    use stm32f4xx_hal::pac::{self, Interrupt};
+
+    cortex_m::interrupt::free(|cs| {
+        *RX_BUFFER.borrow(cs).borrow_mut() = RxRing::new();
+    });
+    RX_DROPPED.store(0, AtomicOrdering::Relaxed);
+    // SAFETY: USART2 was configured once during board bring-up and this is the
+    // sole code enabling its RX interrupt and NVIC line.
+    unsafe {
+        let usart = &*pac::USART2::ptr();
+        usart.cr1().modify(|_, w| w.rxneie().set_bit());
+        cortex_m::peripheral::NVIC::unmask(Interrupt::USART2);
+    }
+}
+
+#[cfg(not(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+)))]
+pub fn enable_receive_interrupt() {}
+
+/// Drains USART2's receive register in interrupt context into the bounded FIFO.
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
+pub fn on_receive_interrupt() {
+    use stm32f4xx_hal::pac;
+
+    // SAFETY: the board configures USART2 once; this ISR is its only RX register
+    // reader, and SVC code consumes bytes only from RX_BUFFER.
+    let usart = unsafe { &*pac::USART2::ptr() };
+    let status = usart.sr().read();
+    let has_byte = status.rxne().bit_is_set();
+    let has_error = status.ore().bit_is_set()
+        || status.fe().bit_is_set()
+        || status.nf().bit_is_set()
+        || status.pe().bit_is_set();
+
+    // On STM32F4, reading SR followed by DR clears RXNE and the receive error
+    // flags. Read DR even for an error-only interrupt to prevent an IRQ storm.
+    if has_byte || has_error {
+        let byte = usart.dr().read().bits() as u8;
+        if has_byte {
+            cortex_m::interrupt::free(|cs| {
+                if RX_BUFFER.borrow(cs).borrow_mut().push(byte).is_err() {
+                    RX_DROPPED.fetch_add(1, AtomicOrdering::Relaxed);
+                }
+            });
+        }
+    }
+}
+
+/// Number of bytes dropped because the bounded receive FIFO was full.
+pub fn dropped_receive_bytes() -> u32 {
+    RX_DROPPED.load(AtomicOrdering::Relaxed)
+}
 
 /// Writes every byte to USART2. This waits for TXE for each byte, so it is
 /// suitable for short kernel log/syscall messages, not bulk transfers.
@@ -59,8 +208,7 @@ pub fn write(data: &[u8]) -> Result<usize, DriverError> {
     }
 }
 
-/// Reads up to `buffer.len()` bytes already present in USART2's RX register.
-/// Returns zero immediately when no byte is waiting.
+/// Reads queued USART2 bytes without waiting. Returns zero if the FIFO is empty.
 pub fn read(buffer: &mut [u8]) -> Result<usize, DriverError> {
     if !READY.load(Ordering::Acquire) {
         return Err(DriverError::NotSupported);
@@ -71,17 +219,20 @@ pub fn read(buffer: &mut [u8]) -> Result<usize, DriverError> {
         not(feature = "board-qemu-f405")
     ))]
     {
-        // SAFETY: same single-owner USART2 register access as `write`.
-        let usart = unsafe { &*stm32f4xx_hal::pac::USART2::ptr() };
-        let mut count = 0;
-        for slot in buffer {
-            if !usart.sr().read().rxne().bit_is_set() {
-                break;
+        Ok(cortex_m::interrupt::free(|cs| {
+            let mut queue = RX_BUFFER.borrow(cs).borrow_mut();
+            let mut count = 0;
+            for slot in buffer {
+                match queue.pop() {
+                    Some(byte) => {
+                        *slot = byte;
+                        count += 1;
+                    }
+                    None => break,
+                }
             }
-            *slot = usart.dr().read().bits() as u8;
-            count += 1;
-        }
-        Ok(count)
+            count
+        }))
     }
     #[cfg(not(all(
         target_arch = "arm",
@@ -117,6 +268,28 @@ pub fn write_fmt(args: fmt::Arguments<'_>) -> fmt::Result {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn receive_ring_preserves_fifo_order_and_wraps() {
+        let mut ring = RxRing::new();
+        for byte in 0..RX_CAPACITY {
+            ring.push(byte as u8).unwrap();
+        }
+        assert!(ring.push(0xff).is_err());
+        for byte in 0..128u8 {
+            assert_eq!(ring.pop(), Some(byte));
+        }
+        for byte in 0..128u8 {
+            ring.push(byte.wrapping_add(1)).unwrap();
+        }
+        for byte in 128..RX_CAPACITY {
+            assert_eq!(ring.pop(), Some(byte as u8));
+        }
+        for byte in 0..128u8 {
+            assert_eq!(ring.pop(), Some(byte.wrapping_add(1)));
+        }
+        assert_eq!(ring.pop(), None);
+    }
 
     #[test]
     fn hardware_uart_is_unavailable_before_board_initialization() {
