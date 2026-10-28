@@ -6,17 +6,82 @@
 //! | 2 | set the user LED | 0 = off, else on | | 0 |
 //! | 3 | demo finished (QEMU exits; boards ignore it) | | | 0 |
 //! | 4 | test only (`kernel-stack-test`): overflow the kernel stack | | | never |
+//! | 5 | send a message (copied into the kernel queue) | destination task, r1 = pointer, r2 = length | | 0 or an error |
+//! | 6 | receive a message (copied into the caller's buffer) | pointer | capacity | timeout ms | length and sender in r1; or an error |
+//! | 7 | sleep until a monotonic deadline | milliseconds | | | 0 or an error |
+//! | 8 | lock kernel mutex | mutex ID | | 0 or an error |
+//! | 9 | unlock kernel mutex | mutex ID | | 0 or an error |
+//! | 10 | wait for semaphore permit | semaphore ID | | 0 or an error |
+//! | 11 | post semaphore permit | semaphore ID | | 0 or an error |
 //!
-//! The kernel accepts a write only if the whole buffer lies in flash or in the
-//! calling task's own stack, so a task cannot make the kernel read memory the
-//! task itself may not read.
+//! The kernel reads a task buffer (write, send) only if it lies wholly in flash
+//! or in the caller's own stack, and writes one (receive) only if it lies in
+//! the caller's own stack. So a task cannot make the kernel read or write
+//! memory the task itself may not touch. Errors are the top values of u32.
 
 pub const SYS_WRITE: u8 = 1;
 pub const SYS_LED: u8 = 2;
 pub const SYS_DEMO_DONE: u8 = 3;
 pub const SYS_TEST_KERNEL_OVERFLOW: u8 = 4;
-/// Returned in r0 for an unknown call or a refused buffer.
-pub const REFUSED: u32 = u32::MAX;
+pub const SYS_SEND: u8 = 5;
+pub const SYS_RECV: u8 = 6;
+pub const SYS_SLEEP: u8 = 7;
+pub const SYS_MUTEX_LOCK: u8 = 8;
+pub const SYS_MUTEX_UNLOCK: u8 = 9;
+pub const SYS_SEMAPHORE_WAIT: u8 = 10;
+pub const SYS_SEMAPHORE_POST: u8 = 11;
+
+/// A buffer outside the caller's own memory, or an unknown call.
+pub const E_PERM: u32 = u32::MAX;
+/// No message waiting (receive).
+pub const E_AGAIN: u32 = u32::MAX - 1;
+/// The kernel queue is full (send).
+pub const E_FULL: u32 = u32::MAX - 2;
+/// Longer than the 64-byte message limit (send).
+pub const E_TOOLONG: u32 = u32::MAX - 3;
+/// The destination task does not exist or is dead (send).
+pub const E_NOTASK: u32 = u32::MAX - 4;
+/// Receive deadline elapsed.
+pub const E_TIMEOUT: u32 = u32::MAX - 5;
+/// Internal result: the task was parked and must retry the receive after waking.
+pub const E_BLOCKED: u32 = u32::MAX - 6;
+/// The caller does not own the mutex being unlocked.
+pub const E_NOT_OWNER: u32 = u32::MAX - 7;
+/// Mutex IDs are limited to the kernel's fixed registry.
+pub const E_BAD_MUTEX: u32 = u32::MAX - 8;
+/// Recursive lock by the current owner.
+pub const E_DEADLOCK: u32 = u32::MAX - 9;
+/// The bounded mutex waiter queue is full.
+pub const E_MUTEX_FULL: u32 = u32::MAX - 10;
+/// The semaphore waiter queue is full.
+pub const E_SEMAPHORE_FULL: u32 = u32::MAX - 11;
+/// The semaphore count cannot exceed its fixed u16 maximum.
+pub const E_SEMAPHORE_OVERFLOW: u32 = u32::MAX - 12;
+/// Semaphore ID is outside the fixed registry.
+pub const E_BAD_SEMAPHORE: u32 = u32::MAX - 13;
+/// Older name for E_PERM.
+pub const REFUSED: u32 = E_PERM;
+
+/// A short name for an error code, for task logs.
+pub const fn error_name(code: u32) -> &'static str {
+    match code {
+        E_PERM => "EPERM",
+        E_AGAIN => "EAGAIN",
+        E_FULL => "EFULL",
+        E_TOOLONG => "ETOOLONG",
+        E_NOTASK => "ENOTASK",
+        E_TIMEOUT => "ETIMEDOUT",
+        E_BLOCKED => "EBLOCKED",
+        E_NOT_OWNER => "ENOTOWNER",
+        E_BAD_MUTEX => "EBADMUTEX",
+        E_DEADLOCK => "EDEADLK",
+        E_MUTEX_FULL => "EMUTEXFULL",
+        E_SEMAPHORE_FULL => "ESEMFULL",
+        E_SEMAPHORE_OVERFLOW => "ESEMOVERFLOW",
+        E_BAD_SEMAPHORE => "EBADSEMAPHORE",
+        _ => "?",
+    }
+}
 
 /// Whether the kernel may read `len` bytes at `ptr` for a task whose stack is
 /// `stack = (base, size)`.
@@ -24,6 +89,15 @@ pub const fn buffer_allowed(ptr: usize, len: usize, stack: Option<(usize, usize)
     if crate::mpu::contains(crate::mpu::FLASH_BASE, crate::mpu::FLASH_SIZE, ptr, len) {
         return true;
     }
+    match stack {
+        Some((base, size)) => crate::mpu::contains(base, size, ptr, len),
+        None => false,
+    }
+}
+
+/// Whether the kernel may write `len` bytes at `ptr` for a task whose stack is
+/// `stack`: only inside that stack (never flash, never kernel memory).
+pub const fn writable_allowed(ptr: usize, len: usize, stack: Option<(usize, usize)>) -> bool {
     match stack {
         Some((base, size)) => crate::mpu::contains(base, size, ptr, len),
         None => false,
@@ -68,6 +142,134 @@ pub fn test_kernel_overflow() {
     let _ = r0;
 }
 
+/// Sends a raw buffer to task `to`. `send` is the safe wrapper; this form
+/// exists so a test can hand the kernel a pointer it must refuse.
+#[cfg(target_arch = "arm")]
+pub fn send_raw(to: u8, ptr: *const u8, len: usize) -> u32 {
+    let mut r0 = to as u32;
+    // SAFETY: the kernel checks the range before reading it.
+    unsafe { core::arch::asm!("svc #5", inout("r0") r0, in("r1") ptr, in("r2") len) };
+    r0
+}
+
+/// Sends `data` (copied by the kernel) to task `to`.
+#[cfg(target_arch = "arm")]
+pub fn send(to: u8, data: &[u8]) -> Result<(), u32> {
+    match send_raw(to, data.as_ptr(), data.len()) {
+        0 => Ok(()),
+        e => Err(e),
+    }
+}
+
+/// Receives into a raw buffer with a timeout; returns (r0, r1) = (length or error, sender).
+#[cfg(target_arch = "arm")]
+pub fn recv_raw_timeout(ptr: *mut u8, cap: usize, timeout_ms: u32) -> (u32, u32) {
+    let mut r0 = ptr as u32;
+    let mut r1 = cap as u32;
+    let r2 = timeout_ms;
+    // SAFETY: the kernel validates the output buffer before writing it.
+    unsafe { core::arch::asm!("svc #6", inout("r0") r0, inout("r1") r1, in("r2") r2) };
+    (r0, r1)
+}
+
+/// Nonblocking receive; returns E_AGAIN if no message is waiting.
+#[cfg(target_arch = "arm")]
+pub fn recv_raw(ptr: *mut u8, cap: usize) -> (u32, u32) {
+    recv_raw_timeout(ptr, cap, 0)
+}
+
+/// Receives the oldest message for this task: (sender, length copied).
+#[cfg(target_arch = "arm")]
+pub fn recv(buf: &mut [u8]) -> Result<(u8, usize), u32> {
+    recv_timeout(buf, 0)
+}
+
+/// Receives until a message arrives or the monotonic timeout expires.
+/// Parking is performed by the kernel; E_BLOCKED is an internal retry signal.
+#[cfg(target_arch = "arm")]
+pub fn recv_timeout(buf: &mut [u8], timeout_ms: u32) -> Result<(u8, usize), u32> {
+    loop {
+        let (r0, r1) = recv_raw_timeout(buf.as_mut_ptr(), buf.len(), timeout_ms);
+        match r0 {
+            E_BLOCKED => continue,
+            E_TIMEOUT => return Err(E_TIMEOUT),
+            E_AGAIN if timeout_ms == 0 => return Err(E_AGAIN),
+            value if value >= E_BLOCKED => return Err(value),
+            length => return Ok((r1 as u8, length as usize)),
+        }
+    }
+}
+
+/// Sleeps in the kernel scheduler instead of spinning until the deadline.
+#[cfg(target_arch = "arm")]
+pub fn sleep_ms(millis: u32) -> Result<(), u32> {
+    let mut r0 = millis;
+    // SAFETY: the kernel treats this as a duration and checks the deadline arithmetic.
+    unsafe { core::arch::asm!("svc #7", inout("r0") r0) };
+    if r0 == 0 {
+        Ok(())
+    } else {
+        Err(r0)
+    }
+}
+
+/// Locks a kernel mutex, sleeping until ownership is handed to this task.
+#[cfg(target_arch = "arm")]
+pub fn mutex_lock(id: u8) -> Result<(), u32> {
+    loop {
+        let mut r0 = id as u32;
+        // SAFETY: the kernel validates the mutex ID and blocks this task if busy.
+        unsafe { core::arch::asm!("svc #8", inout("r0") r0) };
+        match r0 {
+            0 => return Ok(()),
+            E_BLOCKED => continue,
+            error => return Err(error),
+        }
+    }
+}
+
+/// Unlocks a mutex owned by the current task.
+#[cfg(target_arch = "arm")]
+pub fn mutex_unlock(id: u8) -> Result<(), u32> {
+    let mut r0 = id as u32;
+    // SAFETY: the kernel checks ownership before releasing or handing off.
+    unsafe { core::arch::asm!("svc #9", inout("r0") r0) };
+    if r0 == 0 {
+        Ok(())
+    } else {
+        Err(r0)
+    }
+}
+
+/// Waits for one permit from a zero-initialized kernel counting semaphore.
+/// Blocks until a permit is available; posted permits are handed to FIFO waiters.
+#[cfg(target_arch = "arm")]
+pub fn semaphore_wait(id: u8) -> Result<(), u32> {
+    loop {
+        let mut r0 = id as u32;
+        // SAFETY: the kernel validates the ID and parks this task when empty.
+        unsafe { core::arch::asm!("svc #10", inout("r0") r0) };
+        match r0 {
+            0 => return Ok(()),
+            E_BLOCKED => continue,
+            error => return Err(error),
+        }
+    }
+}
+
+/// Posts one permit; wakes the oldest task waiting on this semaphore, if any.
+#[cfg(target_arch = "arm")]
+pub fn semaphore_post(id: u8) -> Result<(), u32> {
+    let mut r0 = id as u32;
+    // SAFETY: the kernel validates the ID and checks count overflow.
+    unsafe { core::arch::asm!("svc #11", inout("r0") r0) };
+    if r0 == 0 {
+        Ok(())
+    } else {
+        Err(r0)
+    }
+}
+
 /// A line buffer on the task's own stack for `uprintln!`.
 pub struct LineBuf {
     pub buf: [u8; 120],
@@ -76,7 +278,10 @@ pub struct LineBuf {
 
 impl LineBuf {
     pub const fn new() -> Self {
-        Self { buf: [0; 120], len: 0 }
+        Self {
+            buf: [0; 120],
+            len: 0,
+        }
     }
     pub fn as_str(&self) -> &str {
         // Only whole UTF-8 strings are ever copied in, so this cannot fail.
@@ -122,10 +327,147 @@ macro_rules! uprintln {
 #[cfg(target_arch = "arm")]
 mod kernel {
     use super::*;
+    use crate::ipc::mailbox::{Mailbox, MailboxError};
+    use core::cell::RefCell;
+    use cortex_m::interrupt::{self, Mutex};
+
+    static MAILBOX: Mutex<RefCell<Mailbox>> = Mutex::new(RefCell::new(Mailbox::new()));
+
+    /// Drops a dead task's messages (called when the kernel kills a task).
+    pub fn forget_task(task: u8) {
+        interrupt::free(|cs| MAILBOX.borrow(cs).borrow_mut().forget(task));
+    }
+
+    fn sys_send(to: u32, ptr: usize, len: usize) -> u32 {
+        let from = crate::sched::current_task().unwrap_or(0);
+        if !buffer_allowed(ptr, len, crate::sched::current_stack()) {
+            crate::logging::kprintln!(
+                "kernel: send from task {} refused: buffer {:#010x}+{} is not the task's own",
+                from,
+                ptr,
+                len
+            );
+            return E_PERM;
+        }
+        if to > u8::MAX as u32 || !crate::sched::task_alive(to as u8) {
+            return E_NOTASK;
+        }
+        // SAFETY: the range was checked to lie in flash or the caller's stack.
+        let data = unsafe { core::slice::from_raw_parts(ptr as *const u8, len) };
+        match interrupt::free(|cs| MAILBOX.borrow(cs).borrow_mut().send(from, to as u8, data)) {
+            Ok(()) => {
+                crate::sched::wake_waiting_receiver(to as u8);
+                0
+            }
+            Err(MailboxError::Full) => E_FULL,
+            Err(MailboxError::TooLong) => E_TOOLONG,
+            Err(MailboxError::Empty) => E_AGAIN,
+        }
+    }
+
+    /// Returns (r0, r1): (length, sender) or (error, 0).
+    fn sys_recv(ptr: usize, cap: usize, timeout_ms: u32) -> (u32, u32) {
+        let me = crate::sched::current_task().unwrap_or(0);
+        if !writable_allowed(ptr, cap, crate::sched::current_stack()) {
+            crate::logging::kprintln!(
+                "kernel: recv by task {} refused: buffer {:#010x}+{} is not in the task's stack",
+                me,
+                ptr,
+                cap
+            );
+            return (E_PERM, 0);
+        }
+        if crate::sched::take_recv_timeout() {
+            return (E_TIMEOUT, 0);
+        }
+        // SAFETY: the range was checked to lie in the caller's own stack.
+        let out = unsafe { core::slice::from_raw_parts_mut(ptr as *mut u8, cap) };
+        match interrupt::free(|cs| MAILBOX.borrow(cs).borrow_mut().recv(me, out)) {
+            Ok((from, n)) => (n as u32, from as u32),
+            Err(_) if timeout_ms == 0 => (E_AGAIN, 0),
+            Err(_) => {
+                let deadline = crate::clock::get_ticks().saturating_add(timeout_ms as u64);
+                if crate::sched::block_current_until(deadline, true) {
+                    (E_BLOCKED, 0)
+                } else {
+                    (E_AGAIN, 0)
+                }
+            }
+        }
+    }
+
+    fn sys_sleep(millis: u32) -> u32 {
+        if millis == 0 {
+            return 0;
+        }
+        let deadline = crate::clock::get_ticks().saturating_add(millis as u64);
+        if crate::sched::block_current_until(deadline, false) {
+            0
+        } else {
+            E_AGAIN
+        }
+    }
+
+    fn mutex_error(error: crate::sched::MutexError) -> u32 {
+        match error {
+            crate::sched::MutexError::InvalidId => E_BAD_MUTEX,
+            crate::sched::MutexError::NotOwner => E_NOT_OWNER,
+            crate::sched::MutexError::Deadlock => E_DEADLOCK,
+            crate::sched::MutexError::QueueFull => E_MUTEX_FULL,
+        }
+    }
+
+    fn semaphore_error(error: crate::sched::SemaphoreError) -> u32 {
+        match error {
+            crate::sched::SemaphoreError::InvalidId => E_BAD_SEMAPHORE,
+            crate::sched::SemaphoreError::AlreadyWaiting => E_DEADLOCK,
+            crate::sched::SemaphoreError::QueueFull => E_SEMAPHORE_FULL,
+            crate::sched::SemaphoreError::Overflow => E_SEMAPHORE_OVERFLOW,
+        }
+    }
+
+    fn sys_semaphore_wait(id: u32) -> u32 {
+        if id > u8::MAX as u32 {
+            return E_BAD_SEMAPHORE;
+        }
+        match crate::sched::semaphore_wait_current(id as u8) {
+            Ok(crate::sched::LockResult::Acquired) => 0,
+            Ok(crate::sched::LockResult::Blocked) => E_BLOCKED,
+            Err(error) => semaphore_error(error),
+        }
+    }
+
+    fn sys_semaphore_post(id: u32) -> u32 {
+        if id > u8::MAX as u32 {
+            return E_BAD_SEMAPHORE;
+        }
+        crate::sched::semaphore_post_current(id as u8).map_or_else(semaphore_error, |_| 0)
+    }
+
+    fn sys_mutex_lock(id: u32) -> u32 {
+        if id > u8::MAX as u32 {
+            return E_BAD_MUTEX;
+        }
+        match crate::sched::mutex_lock_current(id as u8) {
+            Ok(crate::sched::LockResult::Acquired) => 0,
+            Ok(crate::sched::LockResult::Blocked) => E_BLOCKED,
+            Err(error) => mutex_error(error),
+        }
+    }
+
+    fn sys_mutex_unlock(id: u32) -> u32 {
+        if id > u8::MAX as u32 {
+            return E_BAD_MUTEX;
+        }
+        crate::sched::mutex_unlock_current(id as u8).map_or_else(mutex_error, |_| 0)
+    }
 
     fn sys_write(ptr: usize, len: usize) -> u32 {
         if !buffer_allowed(ptr, len, crate::sched::current_stack()) {
-            crate::logging::kprintln!("kernel: refused a write from task {:?}", crate::sched::current_task());
+            crate::logging::kprintln!(
+                "kernel: refused a write from task {:?}",
+                crate::sched::current_task()
+            );
             return REFUSED;
         }
         // SAFETY: the range was checked to lie in flash or the caller's stack.
@@ -159,9 +501,14 @@ mod kernel {
     extern "C" fn __maataa_svc(frame: *mut u32) {
         // SAFETY: the frame was just stacked by hardware on entry to SVCall,
         // and the stacked pc points just past an SVC instruction in flash.
-        let (r0, r1, number) = unsafe {
+        let (r0, r1, r2, number) = unsafe {
             let pc = frame.add(6).read() as usize;
-            (frame.read(), frame.add(1).read(), ((pc - 2) as *const u8).read())
+            (
+                frame.read(),
+                frame.add(1).read(),
+                frame.add(2).read(),
+                ((pc - 2) as *const u8).read(),
+            )
         };
         let result = match number {
             SYS_WRITE => sys_write(r0 as usize, r1 as usize),
@@ -170,12 +517,26 @@ mod kernel {
                 0
             }
             SYS_DEMO_DONE => sys_demo_done(),
+            SYS_SEND => sys_send(r0, r1 as usize, r2 as usize),
+            SYS_RECV => {
+                let (len, from) = sys_recv(r0 as usize, r1 as usize, r2);
+                // SAFETY: r1 of the same frame carries the sender back.
+                unsafe { frame.add(1).write(from) };
+                len
+            }
+            SYS_SLEEP => sys_sleep(r0),
+            SYS_MUTEX_LOCK => sys_mutex_lock(r0),
+            SYS_MUTEX_UNLOCK => sys_mutex_unlock(r0),
+            SYS_SEMAPHORE_WAIT => sys_semaphore_wait(r0),
+            SYS_SEMAPHORE_POST => sys_semaphore_post(r0),
             #[cfg(feature = "kernel-stack-test")]
             SYS_TEST_KERNEL_OVERFLOW => {
-                crate::logging::kprintln!("kernel: recursing on the main stack (kernel-stack-test)");
+                crate::logging::kprintln!(
+                    "kernel: recursing on the main stack (kernel-stack-test)"
+                );
                 kernel_recurse(0)
             }
-            _ => REFUSED,
+            _ => E_PERM,
         };
         // SAFETY: r0 of the same frame; returned to the task as the result.
         unsafe { frame.write(result) };
@@ -198,10 +559,53 @@ mod kernel {
     );
 }
 
+#[cfg(target_arch = "arm")]
+pub use kernel::forget_task;
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use core::fmt::Write;
+
+    #[test]
+    fn receive_buffers_must_be_in_the_callers_stack() {
+        let stack = Some((0x2000_1000, 2048));
+        assert!(writable_allowed(0x2000_1100, 64, stack));
+        assert!(!writable_allowed(0x0800_1234, 16, stack)); // flash: read-only
+        assert!(!writable_allowed(0x2000_0000, 4, stack)); // kernel RAM
+        assert!(!writable_allowed(0x2000_17F0, 32, stack)); // runs off the stack
+        assert!(!writable_allowed(0x2000_1100, 4, None));
+    }
+
+    #[test]
+    fn error_codes_are_distinct_and_named() {
+        let codes = [
+            E_PERM,
+            E_AGAIN,
+            E_FULL,
+            E_TOOLONG,
+            E_NOTASK,
+            E_TIMEOUT,
+            E_BLOCKED,
+            E_NOT_OWNER,
+            E_BAD_MUTEX,
+            E_DEADLOCK,
+            E_MUTEX_FULL,
+            E_SEMAPHORE_FULL,
+            E_SEMAPHORE_OVERFLOW,
+            E_BAD_SEMAPHORE,
+        ];
+        for (i, a) in codes.iter().enumerate() {
+            assert_ne!(error_name(*a), "?");
+            for b in &codes[i + 1..] {
+                assert_ne!(a, b);
+            }
+        }
+        assert!(
+            64 < E_NOTASK,
+            "a message length can never look like an error"
+        );
+    }
 
     #[test]
     fn writes_are_allowed_from_flash_or_the_callers_stack_only() {

@@ -1,5 +1,6 @@
 pub mod comm;
 pub mod frame;
+pub mod mailbox;
 pub mod radio;
 pub mod terminal;
 pub mod verification;

@@ -91,7 +91,7 @@ pub fn run() {
         "sched: round-robin tasks=5 first_switch_at_ms={}",
         DEFAULT_DEMO_QUANTUM_MS
     );
-    kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done");
+    kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore");
     kprintln!("uptime ns: {}", tick.elapsed_nanos());
     match anchor.and_then(|a| a.hemant_elapsed_nanos(tick.elapsed_nanos())) {
         Some(since_epoch) => {
@@ -204,5 +204,7 @@ pub fn run() {
     #[cfg(feature = "board-qemu-f405")]
     kprintln!("Exiting QEMU.");
     #[cfg(feature = "board-f411")]
-    kprintln!("Starting the five demo tasks (task 4 tests memory protection, task 5 a stack overflow).");
+    kprintln!(
+        "Starting the five demo tasks (task 4 tests memory protection, task 5 a stack overflow)."
+    );
 }
