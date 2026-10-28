@@ -35,6 +35,7 @@ preserved when the exception frame indicates an active FP context.
 Host tests cover the three-task round-robin cycle, fixed-priority selection,
 strict-priority starvation over 1,000 picks, empty queues, and skipping blocked
 or dead tasks. QEMU smoke checks validate the boot-report line and the observed
-`task 1`, `task 2`, `task 3` order. F411 firmware compilation is checked, but
-preemption, clock setup, and RTT output on physical hardware remain unverified;
-see `docs/kernel-clock.md`.
+`task 1`, `task 2`, `task 3` order. The earlier F411 preemption and clock
+observations used RTT; the newer USART2 transmit path was physically verified
+on the Nucleo-F411RE ST-LINK serial port at 115200 baud. Receive-path
+verification remains pending. See `docs/kernel-clock.md`.

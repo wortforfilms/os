@@ -37,12 +37,11 @@ PROBE_RS_CHIP=STM32F411RETx ./scripts/run-hw.sh      # Nucleo-F411RE
 
 `.cargo/config.toml` now uses `probe-rs run`. The old runner, `probe-run`, is deprecated.
 
-The kernel prints over RTT on F411. `src/board.rs` initializes the RTT channel
-once before the first log line. QEMU keeps its existing semihosting output.
-`probe-rs` is not installed in the authoring environment, so the installed
-version's RTT command-line flag could not be checked. `scripts/run-hw.sh`
-records the exact help command and output as a TODO; verify the probe-rs run
-help on the machine that has the probe before relying on hardware output.
+At the time of the earlier hardware run below, kernel output used RTT. The
+current F411 path initializes USART2 at 115200 baud and sends logs through the
+Nucleo-F411RE ST-LINK virtual COM connection (PA2 TX, PA3 RX); QEMU retains its
+semihosting output. USART2 has since been verified on the physical Nucleo
+through its ST-LINK virtual COM port; see the 28 October evidence below.
 
 Hardware builds do not ask the host for the time:
 
@@ -71,8 +70,21 @@ With the core asleep in WFI, the ST-LINK read only zeros from RAM and
 peripherals, so probe-rs lost RTT and reported "Firmware exited unexpectedly:
 Exception". Setting `DBGMCU_CR` DBG_SLEEP, DBG_STOP and DBG_STANDBY (they read
 back as `0x7`) did not change that on this board. `clock::idle()` therefore
-uses a NOP on the F411 by default; build with `--features board-f411,low-power`
-to idle in WFI again when RTT is not needed.
+uses a NOP on the F411 by default to keep probe debugging reliable. Build with
+`--features board-f411,low-power` to use WFI; USART2 itself is independent of
+RTT and remains the configured log transport.
+
+### USART2 serial output (28 October 2026)
+
+The F411 board configures USART2 through `stm32f4xx-hal`: 115200 baud, 8-N-1,
+PA2 TX and PA3 RX. Kernel logs use the UART, and SVC 12/13 expose byte write
+and nonblocking read operations to tasks, capped at 256 bytes per call. SVC
+10/11 remain semaphore wait/post. The F411 release build was flashed and run
+with `probe-rs`; a host serial terminal at 115200 baud captured the complete
+boot report and task logs, including timed receive, mutex handoff, and
+semaphore wake-up. This verifies the Nucleo-F411RE USART2 TX path and VCP
+configuration. RX was not exercised. Black Pill boards need an external
+USB-UART adapter.
 
 ## Hemant time
 

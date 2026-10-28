@@ -103,8 +103,9 @@ The RTT up-channel is now 4 KB (non-blocking). With the default 1 KB the burst
 of task lines overflowed the buffer before probe-rs read it, and the task 5
 lines were dropped on the first board run.
 
-## Next
+## Follow-up status
 
-- IPC: `svc #4` send and `svc #5` receive through a kernel message queue,
-  copying the data (never passing pointers between tasks).
-- More calls: sleep, yield, a real UART write.
+That historical roadmap was superseded by the IPC and scheduling milestones.
+USART2 output is implemented and its transmit path was physically verified on
+the Nucleo-F411RE ST-LINK serial port at 115200 baud. SVC UART receive was not
+exercised by that capture; see `docs/kernel-clock.md`.
