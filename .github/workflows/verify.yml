@@ -11,20 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+          cache: "pnpm"
       - run: sudo apt-get update && sudo apt-get install -y qemu-system-arm binutils-arm-none-eabi
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: thumbv7em-none-eabihf
-      - run: npm ci
-      - run: npm run db:migrate
-      - run: npm run seed
-      - run: npm run typecheck
-      - run: npm run test
-      - run: npm run build
-      - run: npm run evidence:generate
-      - run: npm run smoke
-      - run: npm run audit:phkd
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run db:migrate
+      - run: pnpm run seed
+      - run: pnpm run typecheck
+      - run: pnpm run test
+      - run: pnpm run build
+      - run: pnpm run evidence:generate
+      - run: pnpm run smoke
+      - run: pnpm run audit:phkd

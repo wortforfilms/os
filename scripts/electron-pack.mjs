@@ -28,7 +28,7 @@ if (process.platform !== "darwin") {
 }
 
 if (!existsSync(electronSource)) {
-  fail("Electron.app is missing. Run npm install before packing Electron.");
+  fail("Electron.app is missing. Run pnpm install before packing Electron.");
 }
 
 execFileSync("npm", ["run", "build:web"], { cwd: root, stdio: "inherit", env: { ...process.env, COPYFILE_DISABLE: "1" } });

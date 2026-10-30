@@ -1,2 +1,8 @@
 packages:
   - "packages/*"
+# Dependencies allowed to run install scripts. better-sqlite3 builds its native
+# module (used by db:migrate and the Electron auth store); @prisma/engines
+# fetches the Prisma engines.
+allowBuilds:
+  '@prisma/engines': true
+  better-sqlite3: true

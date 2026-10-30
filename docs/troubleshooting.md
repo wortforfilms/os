@@ -30,7 +30,7 @@ If the port is already in use, stop the old process and retry.
 Package builds use `tsup`. Install workspace dependencies before package builds:
 
 ```bash
-npm install
+pnpm install
 ```
 
 Then retry:

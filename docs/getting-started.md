@@ -3,7 +3,7 @@
 Maataa-OS currently runs as a Vite React cockpit with Tauri and Electron shells.
 
 ```bash
-npm install
+pnpm install
 npm run evidence:generate
 npm run typecheck
 npm run build

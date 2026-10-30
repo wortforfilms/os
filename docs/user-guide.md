@@ -33,7 +33,7 @@ FINAL_STATUS=GOVERNED_PRODUCTION_NO_GO
 ## Start The Desktop Preview
 
 ```bash
-npm install
+pnpm install
 npm run evidence:generate
 npm run electron:dev
 ```

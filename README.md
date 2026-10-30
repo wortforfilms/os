@@ -88,7 +88,7 @@ QEMU, runs the clock self-test, and prints one PASS/FAIL summary.
 ## Desktop Preview
 
 ```bash
-npm install
+pnpm install
 npm run evidence:generate
 npm run electron:dev
 ```
