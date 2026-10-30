@@ -9,6 +9,7 @@ const DRIVER_COUNT: usize = 5;
 pub enum DriverError {
     NotSupported,
     SiliconSignatureMismatch,
+    Timeout,
 }
 
 pub trait Driver {

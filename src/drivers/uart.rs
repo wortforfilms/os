@@ -90,6 +90,12 @@ pub enum ReadResult {
 static READY: AtomicBool = AtomicBool::new(false);
 static RX_DROPPED: AtomicU32 = AtomicU32::new(0);
 
+/// Probe-readable last USART2 TX result: bit 31 marks a TXE timeout, bit 30
+/// marks complete transmission, low 16 bits retain the last USART status, and
+/// bits 16..23 retain the byte that was in flight on timeout.
+#[no_mangle]
+pub static MAATAA_UART_TX_DIAG: AtomicU32 = AtomicU32::new(0);
+
 #[cfg(all(
     target_arch = "arm",
     feature = "board-f411",
@@ -191,6 +197,7 @@ pub fn dropped_receive_bytes() -> u32 {
 /// suitable for short kernel log/syscall messages, not bulk transfers.
 pub fn write(data: &[u8]) -> Result<usize, DriverError> {
     if !READY.load(Ordering::Acquire) {
+        MAATAA_UART_TX_DIAG.store(0x2000_0000, Ordering::Release);
         return Err(DriverError::NotSupported);
     }
     #[cfg(all(
@@ -203,9 +210,42 @@ pub fn write(data: &[u8]) -> Result<usize, DriverError> {
         // privileged kernel/SVC path and no other module touches its registers.
         let usart = unsafe { &*stm32f4xx_hal::pac::USART2::ptr() };
         for &byte in data {
-            while !usart.sr().read().txe().bit_is_set() {}
+            let mut tx_ready = false;
+            let mut last_status = 0;
+            for _ in 0..100_000 {
+                let status = usart.sr().read();
+                last_status = status.bits() as u32;
+                if status.txe().bit_is_set() {
+                    tx_ready = true;
+                    break;
+                }
+                cortex_m::asm::delay(1);
+            }
+            if !tx_ready {
+                MAATAA_UART_TX_DIAG.store(
+                    0x8000_0000 | ((byte as u32) << 16) | (last_status & 0xffff),
+                    Ordering::Release,
+                );
+                return Err(DriverError::Timeout);
+            }
             usart.dr().write(|w| unsafe { w.bits(byte as u16) });
         }
+        let mut tx_complete = false;
+        let mut last_status = 0;
+        for _ in 0..100_000 {
+            let status = usart.sr().read();
+            last_status = status.bits() as u32;
+            if status.tc().bit_is_set() {
+                tx_complete = true;
+                break;
+            }
+            cortex_m::asm::delay(1);
+        }
+        if !tx_complete {
+            MAATAA_UART_TX_DIAG.store(0xc000_0000 | (last_status & 0xffff), Ordering::Release);
+            return Err(DriverError::Timeout);
+        }
+        MAATAA_UART_TX_DIAG.store(0x4000_0000 | (last_status & 0xffff), Ordering::Release);
         Ok(data.len())
     }
     #[cfg(not(all(
