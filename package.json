@@ -1,6 +1,7 @@
 {
   "name": "maataa-os",
   "version": "0.1.0-alpha.1",
+  "packageManager": "pnpm@12.6.0",
   "private": true,
   "license": "LicenseRef-Tantramsha-Ajnapatra-1.0",
   "scripts": {
