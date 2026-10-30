@@ -86,7 +86,6 @@ pub fn init_core_clock() -> u32 {
         .cr()
         .modify(|_, w| w.dbg_sleep().set_bit().dbg_stop().set_bit().dbg_standby().set_bit());
     let mut rcc = dp.RCC.freeze(Config::hsi().sysclk(F411_CORE_HZ.Hz()));
-    blink_marker_long(1);
     let gpioa = dp.GPIOA.split(&mut rcc);
     // Nucleo-F411RE's ST-LINK virtual COM port is connected to USART2 PA2/PA3.
     let _serial: stm32f4xx_hal::serial::Serial2 = dp
@@ -95,7 +94,6 @@ pub fn init_core_clock() -> u32 {
         .expect("USART2 115200 baud configuration is valid");
     crate::drivers::uart::mark_initialized();
     crate::drivers::uart::enable_receive_interrupt();
-    blink_marker_long(2);
     // SysTick's core source is HCLK. With no AHB prescaler HCLK = SYSCLK; if
     // a later change adds one, the clock must follow HCLK, so use it directly.
     rcc.clocks.hclk().raw()
@@ -126,58 +124,8 @@ pub fn led_set(on: bool) {
     }
 }
 
-/// Emits a short, count-based checkpoint on the Nucleo-F411RE LD2 LED.
-/// The delay is cycle-based and intentionally only makes the pattern visible;
-/// it is not a calibrated time source.
-#[cfg(all(
-    target_arch = "arm",
-    feature = "board-f411",
-    not(feature = "board-qemu-f405")
-))]
-pub fn blink_marker(count: u8) {
-    blink_marker_with_cycles(count, 5_000_000);
-}
-
-/// Emits a longer checkpoint pattern, distinct from [`blink_marker`].
-#[cfg(all(
-    target_arch = "arm",
-    feature = "board-f411",
-    not(feature = "board-qemu-f405")
-))]
-pub fn blink_marker_long(count: u8) {
-    blink_marker_with_cycles(count, 20_000_000);
-}
-
-#[cfg(all(
-    target_arch = "arm",
-    feature = "board-f411",
-    not(feature = "board-qemu-f405")
-))]
-fn blink_marker_with_cycles(count: u8, pulse_cycles: u32) {
-    for _ in 0..count {
-        led_set(true);
-        cortex_m::asm::delay(pulse_cycles);
-        led_set(false);
-        cortex_m::asm::delay(pulse_cycles);
-    }
-    // A clear group gap distinguishes adjacent checkpoints with the same count.
-    cortex_m::asm::delay(60_000_000);
-}
-
 /// QEMU and host builds have no LED.
 #[cfg(not(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405"))))]
 pub fn led_init() {}
 #[cfg(not(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405"))))]
 pub fn led_set(_on: bool) {}
-#[cfg(not(all(
-    target_arch = "arm",
-    feature = "board-f411",
-    not(feature = "board-qemu-f405")
-)))]
-pub fn blink_marker(_count: u8) {}
-#[cfg(not(all(
-    target_arch = "arm",
-    feature = "board-f411",
-    not(feature = "board-qemu-f405")
-)))]
-pub fn blink_marker_long(_count: u8) {}

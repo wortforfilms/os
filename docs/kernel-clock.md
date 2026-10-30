@@ -95,9 +95,14 @@ blocked reader, and pends the scheduler. A full FIFO drops the new byte and
 records a drop count. The demo task uses only SVC calls and echoes received
 bytes through SVC 12 without polling. On the Nucleo-F411RE, the serial terminal
 showed the direct task-level SVC 12 marker and echoed the typed strings
-`rx-test-123` and `IRQ_RX_OK`; this earlier capture predates blocking reads.
-The new blocking path is covered by scheduler unit tests and a target build;
-physical wake-on-byte verification remains pending.
+`rx-test-123` and `IRQ_RX_OK`; that capture predates blocking reads.
+
+The blocking path was verified on the Nucleo-F411RE on 2026-10-30. The echo
+task blocked in SVC 13 for several hundred task-1 blink lines, then woke on
+typed input and echoed `h` and `hello-123`, while task 1 kept running. USART2
+TX waits are bounded (100k status polls for TXE and TC); a timeout returns
+`DriverError::Timeout` and is recorded in `MAATAA_UART_TX_DIAG`, which a probe
+can read.
 
 ## Hemant time
 

@@ -234,28 +234,12 @@ fn task_stack(stack: *mut DemoStack) -> &'static mut [u8] {
 #[entry]
 fn main() -> ! {
     board::init_logging();
-    board::led_init();
-    board::blink_marker(1);
     // The board sets up its clock tree and reports the core clock; the kernel
     // clock starts from that value before anything else reads time.
     let core_hz = board::init_core_clock();
-    board::blink_marker(2);
-    #[cfg(all(
-        target_arch = "arm",
-        feature = "board-f411",
-        not(feature = "board-qemu-f405")
-    ))]
-    match drivers::uart::write_fmt(format_args!("Maataa OS starting...\n")) {
-        Ok(()) => board::blink_marker(3),
-        Err(_) => board::blink_marker(5),
-    }
-    #[cfg(not(all(
-        target_arch = "arm",
-        feature = "board-f411",
-        not(feature = "board-qemu-f405")
-    )))]
     logging::kprintln!("Maataa OS starting...");
     logging::kprintln!("Kernel output initialized");
+    board::led_init();
     let config = clock::Config::for_core_hz(core_hz).expect("core clock gives a whole 1 kHz tick");
     let mut core = cortex_m::Peripherals::take().expect("core peripherals are taken once");
     clock::start(&mut core.SYST, config);
