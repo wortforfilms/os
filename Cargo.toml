@@ -20,6 +20,10 @@ low-power = []
 # Test only: task 2 asks the kernel (svc #4) to recurse on the main stack until
 # it hits the kernel stack guard. The system must report and stop.
 kernel-stack-test = []
+# Test only: the clock self-test runs under QEMU -icount, where guest time
+# follows the instruction count, not host time. The host-rate check is then
+# reported, not asserted (scripts/qemu-clock-test.sh).
+qemu-icount = []
 
 [dependencies]
 cortex-m = "0.7.7"

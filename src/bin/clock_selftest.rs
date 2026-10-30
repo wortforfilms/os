@@ -144,22 +144,28 @@ fn main() -> ! {
             ratio_pct
         );
         // Without -icount, QEMU drives SysTick from host timers, so the observed
-        // rate depends on the host: 99% on a Linux host, 76% on a macOS host
-        // (likely host timer slack: late callbacks). That is an
-        // emulator property, not a kernel one. A wrong clock configuration is a
-        // different order of error (12 MHz assumed at 168 MHz reads 14x off), so
-        // only that fails; the wider band is reported.
-        assert!(
-            (50..=200).contains(&ratio_pct),
-            "rate within 50..=200% of host ({}%): check the board's core clock",
-            ratio_pct
-        );
-        if (80..=125).contains(&ratio_pct) {
-            kprintln!("ok  rate within 80..=125% of the host clock");
-        } else {
-            kprintln!(
-            "ok  rate within 50..=200% of the host clock (outside 80..=125%: host timer accuracy under QEMU, see docs/kernel-clock.md)"
-        );
+        // rate depends on the host: 99% on a Linux host, 76% on a macOS host,
+        // where late timer callbacks also skip whole ticks. Under -icount
+        // (feature `qemu-icount`, used by scripts/qemu-clock-test.sh) guest
+        // time follows the instruction count, so it is not compared with host
+        // time at all: the rate is reported only. Without -icount a wrong clock
+        // configuration (12 MHz assumed at 168 MHz reads 14x off) still fails.
+        #[cfg(feature = "qemu-icount")]
+        kprintln!("--  rate not checked: -icount guest time does not follow the host clock");
+        #[cfg(not(feature = "qemu-icount"))]
+        {
+            assert!(
+                (50..=200).contains(&ratio_pct),
+                "rate within 50..=200% of host ({}%): check the board's core clock",
+                ratio_pct
+            );
+            if (80..=125).contains(&ratio_pct) {
+                kprintln!("ok  rate within 80..=125% of the host clock");
+            } else {
+                kprintln!(
+                    "ok  rate within 50..=200% of the host clock (outside 80..=125%: host timer accuracy under QEMU, see docs/kernel-clock.md)"
+                );
+            }
         }
 
         // 6. Hemant time comes from an anchor plus uptime, never uptime alone.

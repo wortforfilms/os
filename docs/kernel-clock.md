@@ -157,6 +157,7 @@ QEMU gotchas:
 
 - QEMU does not model cycles exactly. Assert ranges, never exact counts.
 - Without `-icount`, QEMU drives SysTick from host timers, so the kernel's rate compared with wall time depends on the host. On macOS the kernel clock ran at 76% of wall time, likely because of host timer slack. The kernel cannot fix that. The test fails only outside 50–200%, which still catches a wrong board clock (12 MHz assumed on a 168 MHz board reads 14 times off). Real hardware needs its own drift measurement, which is still open.
+- `scripts/qemu-clock-test.sh` runs the self-test under `-icount shift=auto` (feature `qemu-icount`). Without it, QEMU 11.1.2 on macOS delivered SysTick late and skipped whole ticks. The self-test then counted 1170 clamped readings (2026-10-30), while the same build passed under `-icount` and on Linux. In `-icount` mode guest time follows the instruction count, so the host-rate figure is printed but not checked.
 - Use `SYS_ELAPSED` / `SYS_TICKFREQ` as the reference. Do not use `SYS_CLOCK`: QEMU answers it with the host process's **CPU time**, which barely moves while the guest sleeps in `WFI`. With `SYS_CLOCK` the kernel clock looked 14 times faster than the host.
 - `cargo test` covers the pure logic on the host:
   - the reload math for each board, and refused frequencies;

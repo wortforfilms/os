@@ -1,7 +1,7 @@
 #!/bin/bash
 # QEMU self-test for the kernel clock (src/clock.rs, src/bin/clock_selftest.rs).
 # Checks: starts at 0, advances, monotonic, a pending wrap is counted, the rate
-# is within 50..200% of the host wall clock (80..125% reported), Hemant
+# is reported against the host clock (not asserted under -icount), Hemant
 # time = anchor + uptime.
 # Exit status is the self-test's own (0 pass, 1 fail); a hang fails after 60 s.
 set -euo pipefail
@@ -21,11 +21,17 @@ run_with_limit() {
     fi
 }
 
-RUSTC="$(rustup which rustc)" cargo build --release --target "$TARGET" --bin clock_selftest
+# -icount: guest time follows the instruction count, so SysTick interrupts
+# arrive on time whatever the host's timer slack. Without it, QEMU 11 on macOS
+# delivered ticks late, skipped whole periods, and the self-test counted 1170
+# clamped readings (2026-10-30); the same build passed under -icount. The
+# host-rate check is reported, not asserted, in this mode (feature qemu-icount).
+RUSTC="$(rustup which rustc)" cargo build --release --target "$TARGET" --features qemu-icount --bin clock_selftest
 qemu-system-arm --version | head -1
 run_with_limit 60 qemu-system-arm \
     -machine netduinoplus2 \
     -cpu cortex-m4 \
+    -icount shift=auto \
     -kernel "$BIN" \
     -nographic \
     -semihosting-config enable=on,target=native
