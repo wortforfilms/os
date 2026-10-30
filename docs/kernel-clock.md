@@ -102,7 +102,10 @@ task blocked in SVC 13 for several hundred task-1 blink lines, then woke on
 typed input and echoed `h` and `hello-123`, while task 1 kept running. USART2
 TX waits are bounded (100k status polls for TXE and TC); a timeout returns
 `DriverError::Timeout` and is recorded in `MAATAA_UART_TX_DIAG`, which a probe
-can read.
+can read. A second board run the same day, after the bring-up blinks were removed and
+the echo was changed to send Enter as CR LF, booted normally and echoed
+`wake-test` twice. Each line stayed visible after Enter; task-1 log lines
+interleave with typed characters, because both share the one serial port.
 
 ## Hemant time
 
