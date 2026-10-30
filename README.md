@@ -1,70 +1,55 @@
 # Maataa OS
 
-Maataa OS is an embedded Cortex-M operating-system prototype. The current
-release target is a QEMU alpha: it boots under `qemu-system-arm`, initializes
-virtual kernel subsystems, loads static capsule slots, runs a short scheduler
-simulation, then preempts three demo tasks in round-robin order before exiting
-through semihosting.
+Maataa OS is a Rust `no_std` operating-system kernel for Cortex-M
+microcontrollers. It boots in QEMU (`netduinoplus2`, STM32F405) and on a
+NUCLEO-F411RE board.
+
+This repository holds only the kernel. The desktop shell, UI packages,
+evidence tooling and other JS/TS work live in the separate `maataa-apps`
+repository, which does not build or test this kernel.
 
 ## Status
 
 Release: `v0.1.0-alpha.1`
 
-This release is for local emulator validation. It is not a hardware-ready OS
-release yet.
+Working:
 
-Working in this alpha:
+- Cortex-M boot path, QEMU semihosting output, RTT on hardware
+- Preemptive scheduler (PendSV), round-robin and fixed-priority policies
+- MPU-isolated unprivileged tasks and SVC system calls
+- Mailbox IPC, mutexes and semaphores
+- USART2 TX/RX with a 256-byte RX FIFO and blocking wake on receive
+- Kernel monotonic clock: SysTick at 1 kHz, cycle-precise reads, fed into
+  `hemant-core::MonotonicTick` ([docs/kernel-clock.md](docs/kernel-clock.md))
+- Board selection: `board-qemu-f405` (default) or `board-f411`, RCC set up
+  through `stm32f4xx-hal`. Verified on a NUCLEO-F411RE: demo, UART echo and
+  RX wake.
+- Static capsule table, virtual flash manifest, release size check
 
-- Cortex-M `no_std` boot path
-- QEMU semihosting output
-- Virtual driver registry for UART, GPIO, SPI, I2C, and power
-- Virtual flash manifest
-- Static capsule table with memory accounting
-- Six-tick scheduler simulation, paced by the kernel clock
-- Fixed-capacity round-robin and fixed-priority policies, with QEMU PendSV
-  preemption demo
-- Kernel monotonic clock: SysTick at 1 kHz from the 168 MHz core clock,
-  cycle-precise reads, fed into `hemant-core::MonotonicTick`
-  ([docs/kernel-clock.md](docs/kernel-clock.md); `./scripts/qemu-clock-test.sh`)
-- Board selection: `board-qemu-f405` (default) or `board-f411`, with RCC set up
-  through `stm32f4xx-hal`. Real hardware runs through `probe-rs`
-  (`./scripts/run-hw.sh`); this has not yet been run on a board
-- Release size check
-- Host unit tests for virtual kernel subsystems
-- Vite/Electron sovereign runtime dashboard preview
-- Local evidence generation and blocker reporting
+Not yet:
 
-Not yet included:
-
-- Real STM32 peripheral initialization
-- Interrupt-driven drivers
-- LittleFS flash persistence
 - Executing WebAssembly capsules
 - Capability enforcement and capsule signing
-- Next.js App Router production routes
-- Prisma/libSQL application adapter
-- Auth, billing, entitlement, and SSE API services
-- Real local AI inference over model weights
-- Hardware root of trust
+- LittleFS flash persistence
+- UART host channel
 
-## Quick Start
+## Requirements
 
-```bash
-./scripts/run.sh
-```
+- Rust (stable; targets and `rust-src` come from `rust-toolchain.toml`)
+- `qemu-system-arm`, `arm-none-eabi-size` (binutils), `ripgrep`
+- For hardware: `probe-rs`
 
-Expected result: QEMU prints the boot report, runs six telemetry ticks with
-nominal health, prints `task 1`, `task 2`, `task 3` in order, then exits cleanly.
-
-## Release Smoke Test
+## Quick start
 
 ```bash
-./scripts/smoke-alpha.sh
+./scripts/run.sh            # boot in QEMU
+./scripts/smoke-alpha.sh    # release gate: 9 checks, one PASS/FAIL line
+./scripts/test-host.sh      # host unit tests
+./scripts/run-hw.sh         # flash and run on NUCLEO-F411RE
 ```
 
-The smoke test checks both board builds, verifies F411 has no semihosting
-dependency, runs the host suite, validates the boot report and task order in
-QEMU, runs the clock self-test, and prints one PASS/FAIL summary.
+On macOS the `.command` files in the repository root run the same steps by
+double-click.
 
 ## Documentation
 
@@ -73,43 +58,9 @@ QEMU, runs the clock self-test, and prints one PASS/FAIL summary.
 - [System manifest](doc/SYSTEM_MANIFEST.md)
 - [Roadmap](doc/ROADMAP.md)
 - [Release notes](doc/RELEASE_NOTES.md)
-- [Planned repository structure](docs/STRUCTURE.md)
-- [Full scaffold](docs/SCAFFOLD.md)
-- [Promoted UI modules](docs/MAATAA_OS_UI_MODULES.md)
-- [Golden image deployment](docs/DEPLOYMENT.md)
+- [Kernel clock](docs/kernel-clock.md)
+- [Kernel IPC](docs/kernel-ipc.md)
+- [Kernel MPU](docs/kernel-mpu.md)
+- [Scheduler](docs/engineering/SCHEDULER.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)
-- [Maataa UI package](packages/maataa-ui/README.md)
-- [User guide](docs/user-guide.md)
-- [Support](docs/support.md)
-- [Troubleshooting](docs/troubleshooting.md)
-- [FAQ](docs/faq.md)
-
-## Desktop Preview
-
-```bash
-pnpm install
-npm run evidence:generate
-npm run electron:dev
-```
-
-The Electron shell renders the active SovereignDashboard from
-`packages/maataa-ui`. Tauri remains available through `npm run tauri:dev`.
-
-## Product Evidence
-
-```bash
-npm run typecheck
-npm run test
-npm run build
-npm run evidence:generate
-npm run status:matrix
-```
-
-Generated evidence:
-
-- `COMPLETION_STATUS_MATRIX.json`
-- `COMPLETION_STATUS_MATRIX.md`
-- `release/evidence/latest.json`
-- `release/evidence/blockers.json`
-- `release/evidence/commands-run.md`

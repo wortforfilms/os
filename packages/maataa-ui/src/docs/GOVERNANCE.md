@@ -1,4 +1,0 @@
-# Governance
-
-Governance states are `RAW`, `NORMALIZED`, `VALIDATED_PREVIEW`,
-`REFERENCE_VALIDATED`, `SIGNED`, and `SCIENTIFIC_CERTIFIED`.

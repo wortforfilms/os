@@ -7,26 +7,17 @@ on:
       - main
 
 jobs:
-  verify:
+  kernel:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Version from package.json "packageManager" (pnpm 11+ reads allowBuilds).
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-      - run: sudo apt-get update && sudo apt-get install -y qemu-system-arm binutils-arm-none-eabi sqlite3
+      - run: sudo apt-get update && sudo apt-get install -y qemu-system-arm binutils-arm-none-eabi ripgrep
+      # Toolchain, targets and rust-src come from rust-toolchain.toml.
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: thumbv7em-none-eabihf
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run db:migrate
-      - run: pnpm run seed
-      - run: pnpm run typecheck
-      - run: pnpm run test
-      - run: pnpm run build
-      - run: pnpm run evidence:generate
-      - run: pnpm run smoke
-      - run: pnpm run audit:phkd
+      - uses: Swatinem/rust-cache@v2
+      # Both board builds, F411 has no semihosting, host tests, QEMU boot
+      # report and task order, and the clock self-test under -icount.
+      - run: ./scripts/smoke-alpha.sh
+      - run: ./scripts/sizecheck.sh
