@@ -29,8 +29,6 @@ qemu-icount = []
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.3"
 panic-halt = "0.2.0"
-embassy-executor = { version = "0.5.0", features = ["arch-cortex-m", "executor-thread", "integrated-timers"] }
-embassy-time = "0.3.0"
 
 # QEMU output and host-clock calls; deliberately absent from the F411 feature tree.
 cortex-m-semihosting = { version = "0.5.0", optional = true }
@@ -38,6 +36,14 @@ cortex-m-semihosting = { version = "0.5.0", optional = true }
 hemant-core = { path = "crates/hemant-core" }
 # Clock tree on real STM32F411 boards (src/board.rs); not linked for QEMU.
 stm32f4xx-hal = { version = "0.23.0", features = ["stm32f411"], optional = true }
+
+# Embedded-only. Nothing compiled uses them yet (only src/utils.rs and
+# src/capsule/api.rs, which are not in the module tree), and
+# embassy-executor's cortex-m arch does not build for the host, so host
+# `cargo test --lib` on x86_64 (CI) needs them out of the host graph.
+[target.'cfg(target_arch = "arm")'.dependencies]
+embassy-executor = { version = "0.5.0", features = ["arch-cortex-m", "executor-thread", "integrated-timers"] }
+embassy-time = "0.3.0"
 
 [[bin]]
 name = "maataa-os"

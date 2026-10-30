@@ -245,6 +245,9 @@ importers:
         specifier: ^19.1.0
         version: 19.3.1(react@19.3.1)
     devDependencies:
+      '@types/node':
+        specifier: ^20.16.13
+        version: 20.19.43
       tsup:
         specifier: ^8.4.0
         version: 8.5.1(jiti@2.7.0)(postcss@8.5.32)(typescript@5.9.3)
