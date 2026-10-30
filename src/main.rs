@@ -125,7 +125,22 @@ fn demo_task_two() -> ! {
                     let _ = syscall::sleep_ms(10);
                 }
                 Ok(count) => {
-                    if let Err(error) = syscall::uart_write(&bytes[..count]) {
+                    // Enter sends CR only. Echo it as CR LF, as a terminal
+                    // would; a bare CR returns the cursor to column 0 and the
+                    // next log line overwrites what was typed.
+                    let newline = [b'\r', b'\n'];
+                    let mut result = Ok(0);
+                    for chunk in bytes[..count].split_inclusive(|&b| b == b'\r') {
+                        result = match chunk.split_last() {
+                            Some((&b'\r', text)) => syscall::uart_write(text)
+                                .and_then(|_| syscall::uart_write(&newline)),
+                            _ => syscall::uart_write(chunk),
+                        };
+                        if result.is_err() {
+                            break;
+                        }
+                    }
+                    if let Err(error) = result {
                         crate::uprintln!(
                             "task 2: UART echo failed: {}",
                             syscall::error_name(error)
