@@ -18,12 +18,17 @@ Working:
 - Preemptive scheduler (PendSV), round-robin and fixed-priority policies
 - MPU-isolated unprivileged tasks and SVC system calls
 - Mailbox IPC, mutexes and semaphores
-- USART2 TX/RX with a 256-byte RX FIFO and blocking wake on receive
+- USART2 TX/RX with a 256-byte RX FIFO and blocking wake on receive, on
+  both QEMU and the F411
+- Host channel over USART2: COBS-framed, CRC-checked PING, STATUS,
+  TELEMETRY and INFO requests, served by an unprivileged task; host tool
+  `maataa-link` ([docs/host-channel.md](docs/host-channel.md))
 - Kernel monotonic clock: SysTick at 1 kHz, cycle-precise reads, fed into
   `hemant-core::MonotonicTick` ([docs/kernel-clock.md](docs/kernel-clock.md))
 - Board selection: `board-qemu-f405` (default) or `board-f411`, RCC set up
   through `stm32f4xx-hal`. Verified on a NUCLEO-F411RE: demo, UART echo and
-  RX wake.
+  RX wake. The host channel has been tested in QEMU, but not yet on the
+  board.
 - Static capsule table, virtual flash manifest, release size check
 
 Not yet:
@@ -31,7 +36,6 @@ Not yet:
 - Executing WebAssembly capsules
 - Capability enforcement and capsule signing
 - LittleFS flash persistence
-- UART host channel
 
 ## Requirements
 
@@ -43,9 +47,13 @@ Not yet:
 
 ```bash
 ./scripts/run.sh            # boot in QEMU
-./scripts/smoke-alpha.sh    # release gate: 9 checks, one PASS/FAIL line
+./scripts/smoke-alpha.sh    # release gate: 10 checks, one PASS/FAIL line
 ./scripts/test-host.sh      # host unit tests
 ./scripts/run-hw.sh         # flash and run on NUCLEO-F411RE
+
+# talk to a running kernel over USART2
+cargo build --release -p maataa-link --features cli
+target/release/maataa-link --serial /dev/cu.usbmodem1103 selftest
 ```
 
 On macOS the `.command` files in the repository root run the same steps by
@@ -61,6 +69,7 @@ double-click.
 - [Kernel clock](docs/kernel-clock.md)
 - [Kernel IPC](docs/kernel-ipc.md)
 - [Kernel MPU](docs/kernel-mpu.md)
+- [Host channel](docs/host-channel.md)
 - [Scheduler](docs/engineering/SCHEDULER.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)

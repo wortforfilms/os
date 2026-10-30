@@ -107,6 +107,11 @@ the echo was changed to send Enter as CR LF, booted normally and echoed
 `wake-test` twice. Each line stayed visible after Enter; task-1 log lines
 interleave with typed characters, because both share the one serial port.
 
+Since 2026-10-31 the echo task is gone. The UART is now served by the host
+channel (task 6, [host-channel.md](host-channel.md)), which uses the same
+SVC 12/13 path. The driver now also runs in QEMU, where USART2 is the second
+`-serial` device.
+
 ## Hemant time
 
 Uptime alone is not Hemant time, because it starts at zero at every boot:

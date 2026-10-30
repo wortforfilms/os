@@ -1,0 +1,19 @@
+[package]
+name = "maataa-link"
+version = "0.1.0"
+edition = "2021"
+description = "Maataa OS host channel: COBS-framed, CRC-checked messages over a UART"
+license = "UNLICENSED"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "maataa-link"
+path = "src/main.rs"
+required-features = ["cli"]
+
+[features]
+# Host-side command-line tool (std). The kernel uses the codec only.
+cli = []

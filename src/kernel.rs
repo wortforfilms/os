@@ -88,10 +88,10 @@ pub fn run() {
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
-        "sched: round-robin tasks=5 first_switch_at_ms={}",
+        "sched: round-robin tasks=6 first_switch_at_ms={}",
         DEFAULT_DEMO_QUANTUM_MS
     );
-    kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore");
+    kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore, uart, host status");
     kprintln!("uptime ns: {}", tick.elapsed_nanos());
     match anchor.and_then(|a| a.hemant_elapsed_nanos(tick.elapsed_nanos())) {
         Some(since_epoch) => {
@@ -191,6 +191,9 @@ pub fn run() {
             write_rescue_frame(error, tick, &mut rescue_frame);
             let _ = MosrRescueFrame::validate_bytes(&rescue_frame);
             kprintln!("telemetry: recovery frame emitted");
+        } else {
+            // The host channel's TELEMETRY reply serves the latest valid frame.
+            crate::hostlink::publish_telemetry(&telemetry_frame);
         }
 
         // One scheduler slot: 10 ms of kernel time, sleeping between ticks.
@@ -205,6 +208,6 @@ pub fn run() {
     kprintln!("Exiting QEMU.");
     #[cfg(feature = "board-f411")]
     kprintln!(
-        "Starting the five demo tasks (task 4 tests memory protection, task 5 a stack overflow)."
+        "Starting the demo tasks (task 4 tests memory protection, task 5 a stack overflow, task 6 serves the host channel)."
     );
 }

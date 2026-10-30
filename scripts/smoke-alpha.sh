@@ -7,7 +7,7 @@ RUSTDOC="$(rustup which rustdoc)"
 export RUSTC
 export RUSTDOC
 DONE=0
-TOTAL=9
+TOTAL=10
 STEP="startup"
 BOOT_LOG="$(mktemp)"
 DUAL_LOG="$(mktemp)"
@@ -66,6 +66,7 @@ pass
 
 STEP="host unit tests"
 cargo test
+cargo test -p maataa-link -p hemant-core
 pass
 
 STEP="release build"
@@ -89,7 +90,7 @@ rg -q '^control capsule id: ' "$BOOT_LOG"
 rg -q '^clock: systick 1000 Hz, core ' "$BOOT_LOG"
 rg -q '^board: qemu-netduinoplus2-stm32f405$' "$BOOT_LOG"
 rg -q '^time: kernel-monotonic-since-boot$' "$BOOT_LOG"
-rg -q '^sched: round-robin tasks=5 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
+rg -q '^sched: round-robin tasks=6 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
 [ "$(rg -c '^sched:' "$BOOT_LOG")" -eq 1 ]
 rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
@@ -101,4 +102,8 @@ pass
 
 STEP="QEMU clock self-test"
 ./scripts/qemu-clock-test.sh
+pass
+
+STEP="QEMU host channel"
+./scripts/qemu-host-channel-test.sh
 pass

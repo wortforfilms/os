@@ -109,4 +109,6 @@ That historical roadmap was superseded by the IPC and scheduling milestones.
 USART2 TX and task-level SVC receive were physically verified on the
 Nucleo-F411RE ST-LINK serial port at 115200 baud. The task uses SVC 13 to read
 from a kernel-owned FIFO and SVC 12 to echo; it does not access driver state
-directly. See `docs/kernel-clock.md`.
+directly. See `docs/kernel-clock.md`. The echo is now replaced by the host
+channel task, which reads the kernel status through SVC 14 into its own stack
+(`docs/host-channel.md`).

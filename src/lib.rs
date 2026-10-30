@@ -5,6 +5,7 @@ pub mod board;
 pub mod capsule;
 pub mod clock;
 pub mod drivers;
+pub mod hostlink;
 pub mod ipc;
 pub mod log;
 pub mod logging;

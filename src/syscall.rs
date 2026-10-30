@@ -15,6 +15,7 @@
 //! | 11 | post semaphore permit | semaphore ID | | 0 or an error |
 //! | 12 | write bytes to the board UART | pointer | length | bytes written, or an error |
 //! | 13 | read board UART bytes (blocks until data arrives) | pointer | capacity | bytes read, or an error |
+//! | 14 | copy the host-channel status block (`hostlink::HOST_STATUS_BYTES`) | pointer | length | 0 or an error |
 //!
 //! The kernel reads a task buffer (write, send) only if it lies wholly in flash
 //! or in the caller's own stack, and writes one (receive) only if it lies in
@@ -34,6 +35,7 @@ pub const SYS_SEMAPHORE_WAIT: u8 = 10;
 pub const SYS_SEMAPHORE_POST: u8 = 11;
 pub const SYS_UART_WRITE: u8 = 12;
 pub const SYS_UART_READ: u8 = 13;
+pub const SYS_HOST_STATUS: u8 = 14;
 /// Maximum bytes copied or sent by one UART syscall.
 pub const MAX_UART_TRANSFER: usize = 256;
 
@@ -298,6 +300,21 @@ pub fn uart_write(data: &[u8]) -> Result<usize, u32> {
     }
 }
 
+/// Copies the kernel's status block (time, tasks, UART drops, last telemetry
+/// frame) into the caller's stack buffer, for the host channel's replies.
+#[cfg(target_arch = "arm")]
+pub fn host_status(out: &mut [u8; crate::hostlink::HOST_STATUS_BYTES]) -> Result<(), u32> {
+    let mut r0 = out.as_mut_ptr() as u32;
+    let r1 = out.len() as u32;
+    // SAFETY: the kernel checks the range lies in the caller's own stack.
+    unsafe { core::arch::asm!("svc #14", inout("r0") r0, in("r1") r1) };
+    if r0 == 0 {
+        Ok(())
+    } else {
+        Err(r0)
+    }
+}
+
 /// Reads UART bytes from the interrupt-fed kernel FIFO, blocking the task until
 /// data arrives. The internal parked result is retried after the IRQ wakes it.
 #[cfg(target_arch = "arm")]
@@ -520,6 +537,20 @@ mod kernel {
         }
     }
 
+    fn sys_host_status(ptr: usize, len: usize) -> u32 {
+        if len != crate::hostlink::HOST_STATUS_BYTES {
+            return E_TOOLONG;
+        }
+        if !writable_allowed(ptr, len, crate::sched::current_stack()) {
+            return REFUSED;
+        }
+        // SAFETY: the range was checked to lie in the caller's own stack and
+        // to be exactly one status block long.
+        let out = unsafe { &mut *(ptr as *mut [u8; crate::hostlink::HOST_STATUS_BYTES]) };
+        crate::hostlink::fill_status(out);
+        0
+    }
+
     fn sys_mutex_lock(id: u32) -> u32 {
         if id > u8::MAX as u32 {
             return E_BAD_MUTEX;
@@ -607,6 +638,7 @@ mod kernel {
             SYS_SEMAPHORE_POST => sys_semaphore_post(r0),
             SYS_UART_WRITE => sys_uart_write(r0 as usize, r1 as usize),
             SYS_UART_READ => sys_uart_read(r0 as usize, r1 as usize),
+            SYS_HOST_STATUS => sys_host_status(r0 as usize, r1 as usize),
             #[cfg(feature = "kernel-stack-test")]
             SYS_TEST_KERNEL_OVERFLOW => {
                 crate::logging::kprintln!(

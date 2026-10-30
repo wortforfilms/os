@@ -9,6 +9,7 @@ mod board;
 mod capsule;
 mod clock;
 mod drivers;
+mod hostlink;
 mod ipc;
 mod kernel;
 mod log;
@@ -37,6 +38,7 @@ static mut TASK_TWO_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_THREE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_FOUR_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_FIVE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
+static mut TASK_SIX_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 
 // The tasks below run unprivileged inside their MPU regions: they reach the
 // log and the LED only through supervisor calls (src/syscall.rs).
@@ -115,46 +117,7 @@ fn demo_task_two() -> ! {
         Ok(()) => crate::uprintln!("task 2: semaphore 0 permit received; producer wake verified"),
         Err(e) => crate::uprintln!("task 2: semaphore wait failed: {}", syscall::error_name(e)),
     }
-    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
-    {
-        crate::uprintln!("task 2: UART RX echo active; type into the serial terminal");
-        let mut bytes = [0u8; 32];
-        loop {
-            match syscall::uart_read(&mut bytes) {
-                Ok(0) => {
-                    let _ = syscall::sleep_ms(10);
-                }
-                Ok(count) => {
-                    // Enter sends CR only. Echo it as CR LF, as a terminal
-                    // would; a bare CR returns the cursor to column 0 and the
-                    // next log line overwrites what was typed.
-                    let newline = [b'\r', b'\n'];
-                    let mut result = Ok(0);
-                    for chunk in bytes[..count].split_inclusive(|&b| b == b'\r') {
-                        result = match chunk.split_last() {
-                            Some((&b'\r', text)) => syscall::uart_write(text)
-                                .and_then(|_| syscall::uart_write(&newline)),
-                            _ => syscall::uart_write(chunk),
-                        };
-                        if result.is_err() {
-                            break;
-                        }
-                    }
-                    if let Err(error) = result {
-                        crate::uprintln!(
-                            "task 2: UART echo failed: {}",
-                            syscall::error_name(error)
-                        );
-                    }
-                }
-                Err(error) => {
-                    crate::uprintln!("task 2: UART read failed: {}", syscall::error_name(error));
-                    let _ = syscall::sleep_ms(100);
-                }
-            }
-        }
-    }
-    #[cfg(not(all(feature = "board-f411", not(feature = "board-qemu-f405"))))]
+    // USART2 belongs to the host channel (task 6); see docs/host-channel.md.
     loop {
         clock::idle();
     }
@@ -241,6 +204,11 @@ fn demo_task_five() -> ! {
     }
 }
 
+/// Task 6: the host channel on USART2 (src/hostlink.rs).
+fn host_channel_task() -> ! {
+    hostlink::channel_task()
+}
+
 fn task_stack(stack: *mut DemoStack) -> &'static mut [u8] {
     // SAFETY: each private static stack is handed to exactly one scheduler task.
     unsafe { core::slice::from_raw_parts_mut(stack.cast::<u8>(), TASK_STACK_BYTES) }
@@ -301,6 +269,14 @@ fn main() -> ! {
                     demo_task_five,
                     1,
                 ))
+            })
+            .and_then(|()| {
+                queue.add(sched::Task::new(
+                    6,
+                    task_stack(core::ptr::addr_of_mut!(TASK_SIX_STACK)),
+                    host_channel_task,
+                    1,
+                ))
             });
         let started = added.is_ok()
             && match sched::start_round_robin(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB)
@@ -342,4 +318,19 @@ fn SysTick() {
 #[interrupt]
 fn USART2() {
     drivers::uart::on_receive_interrupt();
+}
+
+/// QEMU build: no device crate supplies named interrupt vectors, so device
+/// interrupts arrive here with their number. USART2 is the only one enabled.
+#[cfg(all(target_arch = "arm", feature = "board-qemu-f405"))]
+#[exception]
+unsafe fn DefaultHandler(irqn: i16) {
+    if irqn == drivers::uart::USART2_IRQ as i16 {
+        drivers::uart::on_receive_interrupt();
+        return;
+    }
+    // Any other unexpected interrupt: stop here, as cortex-m-rt's default does.
+    loop {
+        cortex_m::asm::nop();
+    }
 }

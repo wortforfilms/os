@@ -67,6 +67,11 @@ pub const fn init_logging() {}
 /// which is what SysTick counts with `SystClkSource::Core`. Call once, first.
 #[cfg(all(target_arch = "arm", feature = "board-qemu-f405"))]
 pub fn init_core_clock() -> u32 {
+    // QEMU's USART2 model needs no clocks or pins; logs stay on semihosting
+    // and USART2 carries only the host channel.
+    crate::drivers::uart::init_qemu();
+    crate::drivers::uart::mark_initialized();
+    crate::drivers::uart::enable_receive_interrupt();
     QEMU_F405_CORE_HZ
 }
 

@@ -362,6 +362,17 @@ impl<const N: usize> RunQueue<N> {
         self.len == 0
     }
 
+    /// (tasks not dead, tasks added). Used by the host channel's STATUS reply.
+    pub fn counts(&self) -> (usize, usize) {
+        let alive = self
+            .slots
+            .iter()
+            .filter_map(Option::as_ref)
+            .filter(|task| task.state != TaskState::Dead)
+            .count();
+        (alive, self.len)
+    }
+
     pub fn get(&self, id: TaskId) -> Option<&Task> {
         self.slots
             .iter()
@@ -997,6 +1008,17 @@ mod cortex_m_runtime {
         })
     }
 
+    /// (alive, total) task counts; (0, 0) before the scheduler starts.
+    pub fn task_counts() -> (usize, usize) {
+        interrupt::free(|cs| {
+            RUNTIME
+                .borrow(cs)
+                .borrow()
+                .as_ref()
+                .map_or((0, 0), |rt| rt.queue.counts())
+        })
+    }
+
     /// Marks the running task dead; the scheduler never picks it again.
     pub fn kill_current() -> Option<TaskId> {
         let (dead, woke) = interrupt::free(|cs| {
@@ -1417,7 +1439,8 @@ pub use cortex_m_runtime::{
     block_current_for_uart, block_current_until, current_stack, current_task, kill_current,
     mutex_lock_current, mutex_unlock_current, on_systick, pend_scheduler_switch,
     semaphore_post_current, semaphore_wait_current, start_round_robin, take_recv_timeout,
-    task_alive, task_exit_address, wake_waiting_receiver, wake_waiting_uart_reader, StartError,
+    task_alive, task_counts, task_exit_address, wake_waiting_receiver, wake_waiting_uart_reader,
+    StartError,
 };
 
 #[cfg(test)]
@@ -1527,6 +1550,14 @@ mod tests {
         assert_eq!(rq.get(2).unwrap().state, TaskState::Ready);
         assert!(rq.take_recv_timeout(2));
         assert!(!rq.take_recv_timeout(2));
+    }
+
+    #[test]
+    fn counts_report_alive_and_total_tasks() {
+        let mut rq = queue::<4>(&[(1, 1), (2, 1), (3, 1)]);
+        assert_eq!(rq.counts(), (3, 3));
+        rq.get_mut(2).unwrap().state = TaskState::Dead;
+        assert_eq!(rq.counts(), (2, 3));
     }
 
     #[test]
