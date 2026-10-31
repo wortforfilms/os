@@ -14,6 +14,7 @@ mod clock;
 mod crash;
 mod drivers;
 mod hostlink;
+mod installed;
 mod ipc;
 mod kernel;
 mod log;
@@ -55,6 +56,10 @@ struct CapsuleStack([u8; CAPSULE_STACK_BYTES]);
 
 static mut TASK_SEVEN_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES]);
 static mut TASK_EIGHT_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES]);
+
+/// Task 9 (the run-time capsule) has a capsule stack too; it also keeps its
+/// own copy of the installed image (at most 4 KiB) on it.
+static mut TASK_NINE_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES]);
 
 // A capsule task runs unprivileged and may not read kernel memory, so `main`
 // hands it its grant through the task's own stack: the grant is written at
@@ -197,8 +202,8 @@ fn demo_task_three() -> ! {
     let flash = b"read-only".as_ptr() as *mut u8;
     let (r, _) = syscall::recv_raw(flash, 9);
     crate::uprintln!("task 3: recv into flash -> {}", syscall::error_name(r));
-    let r = syscall::send_raw(9, b"hi".as_ptr(), 2);
-    crate::uprintln!("task 3: send to task 9 -> {}", syscall::error_name(r));
+    let r = syscall::send_raw(12, b"hi".as_ptr(), 2);
+    crate::uprintln!("task 3: send to task 12 -> {}", syscall::error_name(r));
     // Capability check: task 3 holds no LED capability.
     let r = syscall::led_checked(true);
     crate::uprintln!(
@@ -287,6 +292,25 @@ fn capsule_task_seven() -> ! {
 /// Task 8: the second verified WebAssembly capsule.
 fn capsule_task_eight() -> ! {
     capsule_from_stack(core::ptr::addr_of!(TASK_EIGHT_STACK))
+}
+
+/// Task 9: the capsule installed at run time. The kernel copies its image
+/// into this task's stack (checking it again on the way) through syscall 18.
+fn installed_capsule_task() -> ! {
+    let mut image = [0u8; installed::MAX_IMAGE];
+    match syscall::capsule_image(&mut image) {
+        Ok(len) => {
+            let image = &image[..len];
+            let name = maataa_capsule::name_unverified(image).unwrap_or("installed");
+            capsule_task::run(name, image)
+        }
+        Err(e) => {
+            crate::uprintln!("capsule task 9: no image: {}", syscall::error_name(e));
+            loop {
+                clock::idle();
+            }
+        }
+    }
 }
 
 /// Task 6: the host channel on USART2 (src/hostlink.rs).
@@ -409,6 +433,26 @@ fn main() -> ! {
                     queue.add(
                         sched::Task::new(kernel::CAPSULE_TASK_IDS[index], stack, body, 1)
                             .with_capabilities(grant.capabilities),
+                    )?;
+                }
+                // Task 9: the run-time capsule, with its signed capabilities
+                // plus the one call that hands it its image.
+                if let Some(capabilities) = grants.installed {
+                    // SAFETY: the static stack is handed to this one task.
+                    let stack = unsafe {
+                        core::slice::from_raw_parts_mut(
+                            core::ptr::addr_of_mut!(TASK_NINE_STACK).cast::<u8>(),
+                            CAPSULE_STACK_BYTES,
+                        )
+                    };
+                    queue.add(
+                        sched::Task::new(
+                            kernel::INSTALLED_TASK_ID,
+                            stack,
+                            installed_capsule_task,
+                            1,
+                        )
+                        .with_capabilities(capabilities | maataa_capsule::cap::CAPSULE_IMAGE),
                     )?;
                 }
                 Ok(())

@@ -11,7 +11,7 @@
 
 use maataa_link::{
     decode_info, encode_frame, error_code, kind, BootRecord, CrashKind, Decoder, Event, Status,
-    MAX_WIRE,
+    CAPSULE_CHUNK, MAX_WIRE,
 };
 use std::io::{ErrorKind, Read, Write};
 use std::process::ExitCode;
@@ -28,6 +28,9 @@ commands:
   put KEY [TEXT]  write TEXT to persistent key KEY; no TEXT deletes it
   store-stress N  write N 64-byte values to key 63 (forces flash compaction)
   boot-info       boot count, last reset cause and last crash (kernel keys 0 and 1)
+  capsule-install FILE   send a signed capsule image (.mcap); it runs from the next boot
+  capsule-info    the installed run-time capsule
+  capsule-remove  remove the installed run-time capsule (from the next boot)
   selftest        all of the above plus two deliberate bad frames";
 
 trait Link: Read + Write {}
@@ -122,6 +125,39 @@ impl Channel {
             }
         }
         Err(format!("no reply within {} ms", self.timeout.as_millis()))
+    }
+}
+
+/// Capability names in bit order (the same bits as maataa_capsule::cap,
+/// which this crate does not depend on).
+fn maataa_capsule_cap_names(mask: u32) -> Vec<&'static str> {
+    const NAMES: [(u32, &str); 16] = [
+        (1 << 1, "write"),
+        (1 << 2, "led"),
+        (1 << 3, "demo_done"),
+        (1 << 4, "test"),
+        (1 << 5, "send"),
+        (1 << 6, "recv"),
+        (1 << 7, "sleep"),
+        ((1 << 8) | (1 << 9), "mutex"),
+        ((1 << 10) | (1 << 11), "semaphore"),
+        (1 << 12, "uart_write"),
+        (1 << 13, "uart_read"),
+        (1 << 14, "host_status"),
+        (1 << 15, "store_get"),
+        (1 << 16, "store_put"),
+        (1 << 17, "capsule_install"),
+        (1 << 18, "capsule_image"),
+    ];
+    let names: Vec<&str> = NAMES
+        .iter()
+        .filter(|(bits, _)| mask & bits == *bits)
+        .map(|(_, name)| *name)
+        .collect();
+    if names.is_empty() {
+        vec!["none"]
+    } else {
+        names
     }
 }
 
@@ -251,6 +287,65 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
             } else {
                 format!("key {key}: stored {} bytes", text.len())
             })
+        }
+        "capsule-install" => {
+            let path = args.first().ok_or("capsule-install needs a .mcap file")?;
+            let image = std::fs::read(path).map_err(|e| format!("{path}: {e}"))?;
+            let started = Instant::now();
+            // Starting an install may erase a flash sector (about 2 s on the
+            // F411), so allow it more time.
+            let saved = ch.timeout;
+            ch.timeout = ch.timeout.max(Duration::from_secs(10));
+            let begun = ch.request(kind::CAPSULE_BEGIN, &(image.len() as u32).to_le_bytes());
+            ch.timeout = saved;
+            expect(begun?, kind::CAPSULE_BEGIN_REPLY).map_err(|e| format!("begin: {e}"))?;
+            for (i, chunk) in image.chunks(CAPSULE_CHUNK).enumerate() {
+                let mut payload = ((i * CAPSULE_CHUNK) as u32).to_le_bytes().to_vec();
+                payload.extend_from_slice(chunk);
+                expect(
+                    ch.request(kind::CAPSULE_WRITE, &payload)?,
+                    kind::CAPSULE_WRITE_REPLY,
+                )
+                .map_err(|e| format!("write at {}: {e}", i * CAPSULE_CHUNK))?;
+            }
+            expect(
+                ch.request(kind::CAPSULE_COMMIT, &[])?,
+                kind::CAPSULE_COMMIT_REPLY,
+            )
+            .map_err(|e| format!("commit: {e} (the kernel log says why)"))?;
+            Ok(format!(
+                "installed {path}: {} bytes in {} ms; it runs from the next boot",
+                image.len(),
+                started.elapsed().as_millis()
+            ))
+        }
+        "capsule-info" => {
+            let reply = ch.request(kind::CAPSULE_INFO, &[])?;
+            if reply.kind == kind::ERROR && reply.payload.first() == Some(&error_code::NOT_FOUND) {
+                return Ok("no capsule installed".into());
+            }
+            let info = expect(reply, kind::CAPSULE_INFO_REPLY)?;
+            if info.len() < 13 || info.len() != 13 + info[12] as usize {
+                return Err("malformed CAPSULE_INFO reply".into());
+            }
+            let word =
+                |i: usize| u32::from_le_bytes([info[i], info[i + 1], info[i + 2], info[i + 3]]);
+            let caps: Vec<&str> = maataa_capsule_cap_names(word(4));
+            Ok(format!(
+                "installed: {} version {}, {} bytes, caps {}",
+                String::from_utf8_lossy(&info[13..]),
+                word(0),
+                word(8),
+                caps.join(",")
+            ))
+        }
+        "capsule-remove" => {
+            let reply = ch.request(kind::CAPSULE_REMOVE, &[])?;
+            if reply.kind == kind::ERROR && reply.payload.first() == Some(&error_code::NOT_FOUND) {
+                return Ok("no capsule installed".into());
+            }
+            expect(reply, kind::CAPSULE_REMOVE_REPLY)?;
+            Ok("removed; the capsule no longer runs from the next boot".into())
         }
         "boot-info" => {
             let count = expect(ch.request(kind::STORE_GET, &[0])?, kind::STORE_GET_REPLY)?;

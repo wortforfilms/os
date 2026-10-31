@@ -5,7 +5,7 @@
 //! and can be tested on the host.
 
 pub type TaskId = u8;
-pub const MAX_TASKS: usize = 8;
+pub const MAX_TASKS: usize = 9;
 /// Reserved scheduler-owned task ID. Applications cannot claim this slot.
 pub const IDLE_TASK_ID: TaskId = u8::MAX;
 pub const DEFAULT_DEMO_QUANTUM_MS: u32 = 5;

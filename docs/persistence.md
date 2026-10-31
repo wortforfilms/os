@@ -22,10 +22,11 @@ Code locations:
 | NUCLEO-F411RE | flash sectors 6 and 7 (`0x0804_0000`, `0x0806_0000`), 128 KiB each | FLASH registers: byte programming, sector erase, data cache reset afterwards |
 | QEMU | two 16 KiB banks in `target/qemu-flash.bin` on the host | semihosting file I/O, because QEMU does not model flash writes. The file survives between QEMU runs. |
 
-`memory.x` limits the kernel to sectors 0–5 (256 KiB), so building or
-flashing the kernel can never overwrite the store. `scripts/sizecheck.sh`
-enforces the same 256 KiB limit. Debug builds are size-optimised (`opt-level
-= "z"` with LTO) so they fit too.
+`memory.x` limits the kernel to sectors 0–4 (128 KiB), so building or
+flashing the kernel can never overwrite the store, or the run-time capsule
+area in sector 5. `scripts/sizecheck.sh` enforces the same 128 KiB limit.
+Debug builds are size-optimised too (`opt-level = "z"` with LTO, overflow
+checks on, debug assertions off), so they fit as well.
 
 ## Format and safety
 
@@ -130,7 +131,8 @@ fails the test. The tests cover:
 | --- | --- |
 | 0 | kernel: boot count (u32, little-endian) |
 | 1 | kernel: last reset cause and crash ([watchdog.md](watchdog.md)) |
-| 2–15 | kernel, reserved |
+| 2 | kernel: version floors of run-time capsules ([capsules.md](capsules.md#installing-a-capsule-at-run-time)) |
+| 3–15 | kernel, reserved |
 | 16–63 | tasks, with the `store_get` / `store_put` capabilities (key 32: the telemetry capsule's lifetime tick count) |
 
 Tasks may read kernel keys 0–15 but not write them.

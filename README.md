@@ -40,6 +40,11 @@ Working:
   so its manifest's capabilities bind it, and its schedule comes from a
   signed `maataa` section in the module
   ([docs/wasm-capsules.md](docs/wasm-capsules.md))
+- Run-time capsule install over the host channel: a signed WebAssembly
+  capsule goes into flash sector 5 and runs as task 9 from the next boot.
+  The kernel checks signature, name, module and version (no downgrades), and
+  a refused or interrupted install keeps the installed capsule
+  ([docs/capsules.md](docs/capsules.md#installing-a-capsule-at-run-time))
 - Watchdog (F411 IWDG, fed by the scheduler tick), reset cause, and a crash
   record that survives the reset; each boot reports both and saves them to
   persistent key 1 ([docs/watchdog.md](docs/watchdog.md))
@@ -53,7 +58,7 @@ Working:
 Not yet:
 
 - Rollback protection for the store (needs a counter in OTP)
-- Installing a capsule at run time (only built-in images run)
+- More than one run-time capsule at a time, and starting one without a reboot
 
 ## Requirements
 

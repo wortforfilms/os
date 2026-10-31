@@ -8,6 +8,7 @@ pub mod clock;
 pub mod crash;
 pub mod drivers;
 pub mod hostlink;
+pub mod installed;
 pub mod ipc;
 pub mod log;
 pub mod logging;

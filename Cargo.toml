@@ -57,6 +57,10 @@ stm32f4xx-hal = { version = "0.23.0", features = ["stm32f411"], optional = true 
 embassy-executor = { version = "0.5.0", features = ["arch-cortex-m", "executor-thread", "integrated-timers"] }
 embassy-time = "0.3.0"
 
+[dev-dependencies]
+# Host tests sign their own capsule images (src/installed.rs).
+maataa-capsule = { path = "crates/maataa-capsule", features = ["cli"] }
+
 [[bin]]
 name = "maataa-os"
 path = "src/main.rs"
@@ -69,12 +73,15 @@ path = "src/bin/clock_selftest.rs"
 test = false
 bench = false
 
-# Debug builds must also fit the 256 KiB kernel flash region (memory.x keeps
-# sectors 6-7 for the persistent store), so they are size-optimised too.
+# Debug builds must also fit the 128 KiB kernel flash region (memory.x keeps
+# sector 5 for the run-time capsule area and sectors 6-7 for the persistent
+# store), so they are size-optimised too. Overflow checks stay on; debug
+# assertions (core's extra checks and their messages) are off to fit.
 [profile.dev]
 opt-level = "z"
 lto = true
 codegen-units = 1
+debug-assertions = false
 
 [profile.release]
 opt-level = "z"

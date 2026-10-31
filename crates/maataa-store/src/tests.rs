@@ -366,3 +366,128 @@ fn device_keys_differ_per_device_and_key_ids_are_stable() {
     assert_eq!(key_id(&a), key_id(&a));
     assert_ne!(key_id(&a), key_id(&b));
 }
+
+mod area_tests {
+    use super::RamFlash;
+    use crate::area::{entry_bytes, InstallArea, MAX_IMAGE};
+
+    fn install(area: &mut InstallArea<RamFlash>, image: &[u8]) {
+        let mut scratch = vec![0u8; MAX_IMAGE];
+        area.begin(image.len(), &mut scratch).unwrap();
+        for (i, chunk) in image.chunks(7).enumerate() {
+            area.write(i * 7, chunk).unwrap();
+        }
+        let mut check = vec![0u8; MAX_IMAGE];
+        let n = area.read_pending(&mut check).unwrap();
+        assert_eq!(&check[..n], image);
+        area.commit().unwrap();
+    }
+
+    fn installed(area: &mut InstallArea<RamFlash>) -> Option<Vec<u8>> {
+        let mut out = vec![0u8; MAX_IMAGE];
+        area.read_installed(&mut out)
+            .unwrap()
+            .map(|n| out[..n].to_vec())
+    }
+
+    #[test]
+    fn installs_survive_a_remount_and_the_newest_wins() {
+        let mut area = InstallArea::mount(RamFlash::new(4096)).unwrap();
+        assert_eq!(installed(&mut area), None);
+        install(&mut area, b"first image");
+        install(&mut area, b"second image, a bit longer");
+        let mut area = InstallArea::mount(area.into_flash()).unwrap();
+        assert_eq!(
+            installed(&mut area).as_deref(),
+            Some(&b"second image, a bit longer"[..])
+        );
+    }
+
+    #[test]
+    fn a_refused_install_leaves_the_previous_one() {
+        let mut area = InstallArea::mount(RamFlash::new(4096)).unwrap();
+        install(&mut area, b"good");
+        let mut scratch = vec![0u8; MAX_IMAGE];
+        area.begin(5, &mut scratch).unwrap();
+        area.write(0, b"bad!!").unwrap();
+        area.abandon().unwrap();
+        assert_eq!(installed(&mut area).as_deref(), Some(&b"good"[..]));
+        let mut area = InstallArea::mount(area.into_flash()).unwrap();
+        assert_eq!(installed(&mut area).as_deref(), Some(&b"good"[..]));
+        // An install begun and never finished (no abandon either) is skipped.
+        area.begin(5, &mut scratch).unwrap();
+        area.write(0, b"torn!").unwrap();
+        let mut area = InstallArea::mount(area.into_flash()).unwrap();
+        assert_eq!(installed(&mut area).as_deref(), Some(&b"good"[..]));
+    }
+
+    #[test]
+    fn remove_and_limits() {
+        let mut area = InstallArea::mount(RamFlash::new(4096)).unwrap();
+        let mut scratch = vec![0u8; MAX_IMAGE];
+        assert!(area.begin(0, &mut scratch).is_err());
+        assert!(area.begin(MAX_IMAGE + 1, &mut scratch).is_err());
+        assert!(area.write(0, b"x").is_err(), "no install in progress");
+        install(&mut area, b"to remove");
+        area.begin(4, &mut scratch).unwrap();
+        assert!(area.write(2, b"abc").is_err(), "past the declared length");
+        area.abandon().unwrap();
+        assert!(area.remove().unwrap());
+        assert!(!area.remove().unwrap());
+        let mut area = InstallArea::mount(area.into_flash()).unwrap();
+        assert_eq!(installed(&mut area), None);
+    }
+
+    #[test]
+    fn a_full_area_is_compacted_and_keeps_the_installed_image() {
+        let mut area = InstallArea::mount(RamFlash::new(1024)).unwrap();
+        for round in 0..40u32 {
+            let image = vec![round as u8; 100 + round as usize];
+            install(&mut area, &image);
+            assert_eq!(installed(&mut area), Some(image.clone()));
+        }
+        assert!(area.into_flash().erases > 0, "compacted at least once");
+        // An image that cannot fit even in an empty area.
+        let mut area = InstallArea::mount(RamFlash::new(1024)).unwrap();
+        let mut scratch = vec![0u8; MAX_IMAGE];
+        assert!(area.begin(1024, &mut scratch).is_err());
+        assert!(entry_bytes(1000) <= 1024);
+    }
+
+    /// Cuts power after every number of programmed bytes during an install
+    /// over an installed image: the old image or the new one must be
+    /// installed afterwards, never anything else.
+    #[test]
+    fn every_power_cut_leaves_the_old_or_the_new_image() {
+        let old = b"the old image".to_vec();
+        let new = vec![0x5A; 300];
+        for cut in 0..400 {
+            let mut area = InstallArea::mount(RamFlash::new(512)).unwrap();
+            install(&mut area, &old);
+            let mut flash = area.into_flash();
+            flash.budget = Some(cut);
+            let mut area = InstallArea::mount(flash).unwrap();
+            let mut scratch = vec![0u8; MAX_IMAGE];
+            let finished = (|| -> Result<(), crate::StoreError> {
+                area.begin(new.len(), &mut scratch)?;
+                for (i, chunk) in new.chunks(64).enumerate() {
+                    area.write(i * 64, chunk)?;
+                }
+                area.commit()
+            })()
+            .is_ok();
+            let mut flash = area.into_flash();
+            flash.budget = None;
+            let mut area = InstallArea::mount(flash).unwrap();
+            let got = installed(&mut area);
+            assert!(
+                got.as_deref() == Some(&old[..]) || got.as_deref() == Some(&new[..]),
+                "cut {cut}: {got:?}"
+            );
+            if finished {
+                assert_eq!(got.as_deref(), Some(&new[..]), "cut {cut}");
+                break;
+            }
+        }
+    }
+}

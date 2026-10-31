@@ -125,6 +125,7 @@ mod tests {
         let mut out = [0u8; 64];
         assert_eq!(mb.recv(2, &mut out), Ok((1, 17)));
         assert_eq!(&out[..17], b"Hello from Task 1");
+        assert_eq!(text[0], b'X');
         assert_eq!(mb.recv(2, &mut out), Err(MailboxError::Empty));
     }
 

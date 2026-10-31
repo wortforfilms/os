@@ -45,6 +45,21 @@ pub const SYS_UART_READ: u8 = 13;
 pub const SYS_HOST_STATUS: u8 = 14;
 pub const SYS_STORE_GET: u8 = 15;
 pub const SYS_STORE_PUT: u8 = 16;
+/// Run-time capsule install: begin, write, commit, remove and info
+/// (src/installed.rs). r0 = operation | offset << 8, r1/r2 = buffer.
+pub const SYS_CAPSULE_INSTALL: u8 = 17;
+/// Copies the installed capsule's image into the caller's buffer (the task
+/// that runs it).
+pub const SYS_CAPSULE_IMAGE: u8 = 18;
+
+/// Operations of [`SYS_CAPSULE_INSTALL`].
+pub mod capsule_op {
+    pub const BEGIN: u32 = 0;
+    pub const WRITE: u32 = 1;
+    pub const COMMIT: u32 = 2;
+    pub const REMOVE: u32 = 3;
+    pub const INFO: u32 = 4;
+}
 /// Maximum bytes copied or sent by one UART syscall.
 pub const MAX_UART_TRANSFER: usize = 256;
 
@@ -392,6 +407,86 @@ pub fn store_put(key: u8, value: &[u8]) -> Result<(), u32> {
     }
 }
 
+#[cfg(target_arch = "arm")]
+fn capsule_install(op: u32, offset: usize, ptr: *const u8, len: usize) -> u32 {
+    let mut r0 = op | ((offset as u32) << 8);
+    // SAFETY: the kernel checks the range is flash or the caller's own stack
+    // (and, for INFO, writes only inside the caller's own stack).
+    unsafe { core::arch::asm!("svc #17", inout("r0") r0, in("r1") ptr, in("r2") len) };
+    r0
+}
+
+#[cfg(target_arch = "arm")]
+fn status(r0: u32) -> Result<(), u32> {
+    if r0 == 0 {
+        Ok(())
+    } else {
+        Err(r0)
+    }
+}
+
+/// Starts installing a run-time capsule image of `len` bytes.
+#[cfg(target_arch = "arm")]
+pub fn capsule_begin(len: usize) -> Result<(), u32> {
+    status(capsule_install(
+        capsule_op::BEGIN,
+        0,
+        core::ptr::null(),
+        len,
+    ))
+}
+
+/// Writes `data` at `offset` of the image being installed.
+#[cfg(target_arch = "arm")]
+pub fn capsule_write(offset: usize, data: &[u8]) -> Result<(), u32> {
+    if offset >= 1 << 24 {
+        return Err(E_TOOLONG);
+    }
+    status(capsule_install(
+        capsule_op::WRITE,
+        offset,
+        data.as_ptr(),
+        data.len(),
+    ))
+}
+
+/// Checks the image and, if it passes, installs it (it runs from the next
+/// boot); `E_PERM` if the kernel refused it.
+#[cfg(target_arch = "arm")]
+pub fn capsule_commit() -> Result<(), u32> {
+    status(capsule_install(capsule_op::COMMIT, 0, core::ptr::null(), 0))
+}
+
+/// Removes the installed capsule; `E_NOENT` if there is none.
+#[cfg(target_arch = "arm")]
+pub fn capsule_remove() -> Result<(), u32> {
+    status(capsule_install(capsule_op::REMOVE, 0, core::ptr::null(), 0))
+}
+
+/// Describes the installed capsule (`crate::installed::encode_info`).
+#[cfg(target_arch = "arm")]
+pub fn capsule_info(out: &mut [u8]) -> Result<usize, u32> {
+    let r0 = capsule_install(capsule_op::INFO, 0, out.as_mut_ptr(), out.len());
+    if r0 >= E_LOWEST {
+        Err(r0)
+    } else {
+        Ok(r0 as usize)
+    }
+}
+
+/// Copies the installed capsule's image into `out`; returns its length.
+#[cfg(target_arch = "arm")]
+pub fn capsule_image(out: &mut [u8]) -> Result<usize, u32> {
+    let mut r0 = out.as_mut_ptr() as u32;
+    // SAFETY: the kernel checks the range lies in the caller's own stack.
+    unsafe { core::arch::asm!("svc #18", inout("r0") r0, in("r1") out.len()) };
+    if r0 >= E_LOWEST {
+        Err(r0)
+    } else {
+        Ok(r0 as usize)
+    }
+}
+
 /// Reads UART bytes from the interrupt-fed kernel FIFO, blocking the task until
 /// data arrives. The internal parked result is retried after the IRQ wakes it.
 #[cfg(target_arch = "arm")]
@@ -672,6 +767,42 @@ mod kernel {
         }
     }
 
+    fn sys_capsule_install(r0: u32, ptr: usize, len: usize) -> u32 {
+        let stack = crate::sched::current_stack();
+        let offset = (r0 >> 8) as usize;
+        match r0 & 0xFF {
+            capsule_op::BEGIN => crate::installed::begin(len),
+            capsule_op::WRITE => {
+                if !buffer_allowed(ptr, len, stack) {
+                    return REFUSED;
+                }
+                // SAFETY: the range was checked to be flash or the caller's stack.
+                let data = unsafe { core::slice::from_raw_parts(ptr as *const u8, len) };
+                crate::installed::write(offset, data)
+            }
+            capsule_op::COMMIT => crate::installed::commit(),
+            capsule_op::REMOVE => crate::installed::remove(),
+            capsule_op::INFO => {
+                if !writable_allowed(ptr, len, stack) {
+                    return REFUSED;
+                }
+                // SAFETY: the range was checked to lie in the caller's own stack.
+                let out = unsafe { core::slice::from_raw_parts_mut(ptr as *mut u8, len) };
+                crate::installed::info(out)
+            }
+            _ => E_NOT_SUPPORTED,
+        }
+    }
+
+    fn sys_capsule_image(ptr: usize, len: usize) -> u32 {
+        if !writable_allowed(ptr, len, crate::sched::current_stack()) {
+            return REFUSED;
+        }
+        // SAFETY: the range was checked to lie in the caller's own stack.
+        let out = unsafe { core::slice::from_raw_parts_mut(ptr as *mut u8, len) };
+        crate::installed::read_image(out)
+    }
+
     fn sys_mutex_lock(id: u32) -> u32 {
         if id > u8::MAX as u32 {
             return E_BAD_MUTEX;
@@ -776,6 +907,8 @@ mod kernel {
             SYS_HOST_STATUS => sys_host_status(r0 as usize, r1 as usize),
             SYS_STORE_GET => sys_store_get(r0, r1 as usize, r2 as usize),
             SYS_STORE_PUT => sys_store_put(r0, r1 as usize, r2 as usize),
+            SYS_CAPSULE_INSTALL => sys_capsule_install(r0, r1 as usize, r2 as usize),
+            SYS_CAPSULE_IMAGE => sys_capsule_image(r0 as usize, r1 as usize),
             #[cfg(feature = "kernel-stack-test")]
             SYS_TEST_KERNEL_OVERFLOW => {
                 crate::logging::kprintln!(

@@ -93,12 +93,12 @@ pub const fn to_capsule(code: u32) -> i32 {
 
 /// Host functions backed by supervisor calls.
 #[cfg(target_arch = "arm")]
-pub struct SyscallHost {
-    pub name: &'static str,
+pub struct SyscallHost<'a> {
+    pub name: &'a str,
 }
 
 #[cfg(target_arch = "arm")]
-impl Host for SyscallHost {
+impl Host for SyscallHost<'_> {
     fn call(
         &mut self,
         _index: usize,
@@ -163,7 +163,7 @@ impl core::fmt::Display for Shown {
 /// schedule its signed manifest gives, then idle. `image` must already have
 /// been verified by the kernel.
 #[cfg(target_arch = "arm")]
-pub fn run(name: &'static str, image: &'static [u8]) -> ! {
+pub fn run(name: &str, image: &[u8]) -> ! {
     use maataa_capsule::Schedule;
     use maataa_wasm::{Instance, Module};
 
@@ -305,6 +305,7 @@ mod tests {
                 Schedule {
                     ticks: 3,
                     period_ms: 200,
+                    version: 0,
                 },
             ),
             (
@@ -312,6 +313,7 @@ mod tests {
                 Schedule {
                     ticks: 4,
                     period_ms: 300,
+                    version: 0,
                 },
             ),
         ] {

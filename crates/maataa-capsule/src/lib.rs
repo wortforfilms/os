@@ -53,6 +53,12 @@ pub mod cap {
     pub const STORE_GET: u32 = 1 << 15;
     /// Write a persistent key (call 16).
     pub const STORE_PUT: u32 = 1 << 16;
+    /// Install, remove and describe the run-time capsule (call 17).
+    pub const CAPSULE_INSTALL: u32 = 1 << 17;
+    /// Read the installed capsule's image (call 18). The kernel gives this
+    /// only to the task that runs that capsule; a signed image may not ask
+    /// for it.
+    pub const CAPSULE_IMAGE: u32 = 1 << 18;
     /// Every call defined today.
     pub const ALL: u32 = WRITE
         | LED
@@ -67,7 +73,8 @@ pub mod cap {
         | UART_READ
         | HOST_STATUS
         | STORE_GET
-        | STORE_PUT;
+        | STORE_PUT
+        | CAPSULE_INSTALL;
 
     /// Whether `mask` allows supervisor call `number`.
     pub const fn allows(mask: u32, number: u8) -> bool {
@@ -75,7 +82,7 @@ pub mod cap {
     }
 
     /// Short names in bit order, for logs and the host tool.
-    pub const NAMES: [(u32, &str); 14] = [
+    pub const NAMES: [(u32, &str); 16] = [
         (WRITE, "write"),
         (LED, "led"),
         (DEMO_DONE, "demo_done"),
@@ -90,6 +97,8 @@ pub mod cap {
         (HOST_STATUS, "host_status"),
         (STORE_GET, "store_get"),
         (STORE_PUT, "store_put"),
+        (CAPSULE_INSTALL, "capsule_install"),
+        (CAPSULE_IMAGE, "capsule_image"),
     ];
 }
 
@@ -196,6 +205,12 @@ pub fn payload_unverified(image: &[u8]) -> Option<&[u8]> {
     image.get(HEADER_BYTES..HEADER_BYTES + len)
 }
 
+/// The name of an image whose layout is valid, without checking the
+/// signature; same conditions as [`payload_unverified`].
+pub fn name_unverified(image: &[u8]) -> Option<&str> {
+    parse_header(image).ok().map(|(name, _, _)| name)
+}
+
 /// Writes the unsigned part (header and payload) of an image into `out` and
 /// returns its length; the signer appends 64 signature bytes.
 pub fn write_unsigned(
@@ -229,7 +244,6 @@ pub fn write_unsigned(
     Ok(len)
 }
 
-/// Host side: a complete signed image.
 /// When the kernel runs a WebAssembly capsule: read from the module's
 /// `maataa` custom section, which is part of the signed payload.
 ///
@@ -243,6 +257,8 @@ pub fn write_unsigned(
 /// - `ticks`: how many times to call the `tick` export, 1 to 1000, or 0 to
 ///   keep calling it for as long as the board runs.
 /// - `period_ms`: sleep between ticks, 10 to 3 600 000 ms.
+/// - `version`: the capsule's version, 0 to 1 000 000 (default 0). A capsule
+///   installed at run time may not be replaced by an older version of itself.
 ///
 /// Unknown keys, repeated keys and out-of-range values are refused, so a
 /// schedule means exactly what it says.
@@ -250,6 +266,7 @@ pub fn write_unsigned(
 pub struct Schedule {
     pub ticks: u32,
     pub period_ms: u32,
+    pub version: u32,
 }
 
 impl Schedule {
@@ -257,7 +274,9 @@ impl Schedule {
     pub const DEFAULT: Self = Self {
         ticks: 1,
         period_ms: 1_000,
+        version: 0,
     };
+    pub const MAX_VERSION: u32 = 1_000_000;
     pub const MAX_TICKS: u32 = 1_000;
     pub const MIN_PERIOD_MS: u32 = 10;
     pub const MAX_PERIOD_MS: u32 = 3_600_000;
@@ -268,7 +287,7 @@ impl Schedule {
             return Ok(Self::DEFAULT);
         };
         let text = core::str::from_utf8(section).map_err(|_| "manifest is not text")?;
-        let (mut ticks, mut period_ms) = (None, None);
+        let (mut ticks, mut period_ms, mut version) = (None, None, None);
         for field in text
             .split(|c: char| {
                 c == ' ' || c == ',' || c == ';' || c == '\n' || c == '\r' || c == '\t'
@@ -282,6 +301,7 @@ impl Schedule {
             let slot = match key {
                 "ticks" => &mut ticks,
                 "period_ms" => &mut period_ms,
+                "version" => &mut version,
                 _ => return Err("unknown manifest key"),
             };
             if slot.replace(value).is_some() {
@@ -291,7 +311,11 @@ impl Schedule {
         let schedule = Self {
             ticks: ticks.unwrap_or(Self::DEFAULT.ticks),
             period_ms: period_ms.unwrap_or(Self::DEFAULT.period_ms),
+            version: version.unwrap_or(Self::DEFAULT.version),
         };
+        if schedule.version > Self::MAX_VERSION {
+            return Err("manifest version out of range");
+        }
         if schedule.ticks > Self::MAX_TICKS {
             return Err("manifest ticks out of range");
         }
@@ -312,6 +336,7 @@ pub fn is_wasm(payload: &[u8]) -> bool {
     payload.starts_with(b"\0asm")
 }
 
+/// Host side: a complete signed image.
 #[cfg(any(test, feature = "cli"))]
 pub fn sign(
     name: &str,
@@ -343,17 +368,20 @@ mod tests {
             Schedule::parse(Some(b"ticks=3 period_ms=200")),
             Ok(Schedule {
                 ticks: 3,
-                period_ms: 200
+                period_ms: 200,
+                version: 0
             })
         );
         assert_eq!(
             Schedule::parse(Some(b"period_ms=500;\nticks=0")),
             Ok(Schedule {
                 ticks: 0,
-                period_ms: 500
+                period_ms: 500,
+                version: 0
             })
         );
         assert!(Schedule::parse(Some(b"ticks=0")).unwrap().forever());
+        assert_eq!(Schedule::parse(Some(b"version=7")).unwrap().version, 7);
         for bad in [
             &b"ticks"[..],
             b"ticks=x",
@@ -363,6 +391,8 @@ mod tests {
             b"period_ms=3600001",
             b"ticks=1 ticks=2",
             b"speed=3",
+            b"version=1000001",
+            b"version=1 version=2",
             b"\xff",
         ] {
             assert!(Schedule::parse(Some(bad)).is_err(), "{:?}", bad);
@@ -466,7 +496,12 @@ mod tests {
         assert!(cap::allows(cap::HOST_STATUS, 14));
         assert!(!cap::allows(cap::ALL, 0));
         assert!(cap::allows(cap::STORE_GET, 15) && cap::allows(cap::STORE_PUT, 16));
-        assert!(!cap::allows(cap::ALL, 17));
+        assert!(cap::allows(cap::CAPSULE_INSTALL, 17));
+        assert!(cap::allows(cap::CAPSULE_IMAGE, 18));
+        // A signed image may ask for installing, but not for call 18, which
+        // the kernel gives only to the task that runs the installed capsule.
+        assert!(cap::allows(cap::ALL, 17) && !cap::allows(cap::ALL, 18));
+        assert!(!cap::allows(cap::ALL, 19));
         assert!(!cap::allows(u32::MAX, 40));
     }
 

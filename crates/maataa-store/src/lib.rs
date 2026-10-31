@@ -580,5 +580,7 @@ fn read_header<F: Flash>(
     })
 }
 
+pub mod area;
+
 #[cfg(test)]
 mod tests;

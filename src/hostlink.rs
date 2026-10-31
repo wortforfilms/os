@@ -119,6 +119,60 @@ fn store_request(
     }
 }
 
+/// CAPSULE_* requests through syscall 17, so only a task whose signed
+/// manifest grants `capsule_install` can install, and the kernel checks every
+/// image itself (src/installed.rs).
+#[cfg(target_arch = "arm")]
+fn capsule_request(
+    request: &maataa_link::Frame<'_>,
+    payload: &mut [u8; maataa_link::MAX_PAYLOAD],
+) -> (u8, usize) {
+    use crate::syscall;
+    use maataa_link::{error_code, kind, CAPSULE_CHUNK};
+    let error = |payload: &mut [u8; maataa_link::MAX_PAYLOAD], code: u8| {
+        payload[0] = code;
+        payload[1] = request.kind;
+        (kind::ERROR, 2)
+    };
+    let code_for = |e: u32| match e {
+        syscall::E_NOENT => error_code::NOT_FOUND,
+        syscall::E_PERM | syscall::E_NOCAP => error_code::REFUSED,
+        syscall::E_TOOLONG => error_code::BAD_LENGTH,
+        syscall::E_FULL => error_code::FULL,
+        _ => error_code::UNAVAILABLE,
+    };
+    let word = |b: &[u8]| u32::from_le_bytes([b[0], b[1], b[2], b[3]]) as usize;
+    let body = request.payload;
+    let result = match request.kind {
+        kind::CAPSULE_BEGIN if body.len() == 4 => {
+            syscall::capsule_begin(word(body)).map(|()| (kind::CAPSULE_BEGIN_REPLY, 0))
+        }
+        kind::CAPSULE_WRITE if body.len() > 4 && body.len() - 4 <= CAPSULE_CHUNK => {
+            // Copy to the stack: the kernel accepts only the caller's own buffer.
+            let mut chunk = [0u8; CAPSULE_CHUNK];
+            let data = &body[4..];
+            chunk[..data.len()].copy_from_slice(data);
+            syscall::capsule_write(word(body), &chunk[..data.len()])
+                .map(|()| (kind::CAPSULE_WRITE_REPLY, 0))
+        }
+        kind::CAPSULE_COMMIT if body.is_empty() => {
+            syscall::capsule_commit().map(|()| (kind::CAPSULE_COMMIT_REPLY, 0))
+        }
+        kind::CAPSULE_REMOVE if body.is_empty() => {
+            syscall::capsule_remove().map(|()| (kind::CAPSULE_REMOVE_REPLY, 0))
+        }
+        kind::CAPSULE_INFO if body.is_empty() => {
+            let mut out = [0u8; 32];
+            syscall::capsule_info(&mut out).map(|n| {
+                payload[..n].copy_from_slice(&out[..n]);
+                (kind::CAPSULE_INFO_REPLY, n)
+            })
+        }
+        _ => return error(payload, error_code::BAD_LENGTH),
+    };
+    result.unwrap_or_else(|e| error(payload, code_for(e)))
+}
+
 /// The channel task. It runs unprivileged and reaches the UART and the status
 /// block only through supervisor calls.
 #[cfg(target_arch = "arm")]
@@ -171,9 +225,16 @@ pub fn channel_task() -> ! {
             let reply = match decoder.push(byte) {
                 None => continue,
                 Some(Event::Frame(request))
-                    if request.kind == kind::STORE_GET || request.kind == kind::STORE_PUT =>
+                    if request.kind == kind::STORE_GET
+                        || request.kind == kind::STORE_PUT
+                        || (kind::CAPSULE_BEGIN..=kind::CAPSULE_INFO).contains(&request.kind) =>
                 {
-                    let (reply_kind, len) = store_request(&request, &mut payload);
+                    let (reply_kind, len) =
+                        if request.kind == kind::STORE_GET || request.kind == kind::STORE_PUT {
+                            store_request(&request, &mut payload)
+                        } else {
+                            capsule_request(&request, &mut payload)
+                        };
                     if reply_kind == kind::ERROR {
                         rejected = rejected.wrapping_add(1);
                     } else {

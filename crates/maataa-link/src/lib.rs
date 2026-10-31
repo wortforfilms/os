@@ -30,6 +30,8 @@ pub const MAX_BODY: usize = MAX_PAYLOAD + OVERHEAD;
 /// Largest encoded frame including the leading and trailing `0x00`. COBS adds
 /// one byte per 254 bytes, plus one.
 pub const MAX_WIRE: usize = MAX_BODY + MAX_BODY / 254 + 1 + 2;
+/// Image bytes per CAPSULE_WRITE request (a 4-byte offset comes first).
+pub const CAPSULE_CHUNK: usize = 192;
 /// Longest PING payload the kernel echoes.
 pub const MAX_PING: usize = 64;
 
@@ -43,6 +45,18 @@ pub mod kind {
     pub const STORE_GET: u8 = 0x05;
     /// Payload `[key, value..]` (empty value deletes); reply empty.
     pub const STORE_PUT: u8 = 0x06;
+    /// Run-time capsule install. Payload `[length u32]`; reply empty.
+    pub const CAPSULE_BEGIN: u8 = 0x07;
+    /// Payload `[offset u32, bytes..]` (at most [`super::CAPSULE_CHUNK`]
+    /// bytes); reply empty.
+    pub const CAPSULE_WRITE: u8 = 0x08;
+    /// Check and install; reply empty, or ERROR `REFUSED`.
+    pub const CAPSULE_COMMIT: u8 = 0x09;
+    /// Remove the installed capsule; reply empty.
+    pub const CAPSULE_REMOVE: u8 = 0x0A;
+    /// Reply `[version u32, capabilities u32, image length u32, name length
+    /// u8, name..]`, or ERROR `NOT_FOUND`.
+    pub const CAPSULE_INFO: u8 = 0x0B;
 
     /// Sent once by the kernel when the channel starts; payload as INFO.
     pub const HELLO: u8 = 0x80;
@@ -52,6 +66,11 @@ pub mod kind {
     pub const INFO_REPLY: u8 = 0x84;
     pub const STORE_GET_REPLY: u8 = 0x85;
     pub const STORE_PUT_REPLY: u8 = 0x86;
+    pub const CAPSULE_BEGIN_REPLY: u8 = 0x87;
+    pub const CAPSULE_WRITE_REPLY: u8 = 0x88;
+    pub const CAPSULE_COMMIT_REPLY: u8 = 0x89;
+    pub const CAPSULE_REMOVE_REPLY: u8 = 0x8A;
+    pub const CAPSULE_INFO_REPLY: u8 = 0x8B;
     pub const ERROR: u8 = 0xFF;
 }
 
@@ -65,8 +84,11 @@ pub mod error_code {
     pub const UNAVAILABLE: u8 = 6;
     pub const BAD_COBS: u8 = 7;
     pub const NOT_FOUND: u8 = 8;
-    /// The kernel refused (a kernel-reserved key, or no capability).
+    /// The kernel refused (a kernel-reserved key, no capability, or a
+    /// capsule image it did not accept).
     pub const REFUSED: u8 = 9;
+    /// No room (the store or the capsule area is full).
+    pub const FULL: u8 = 10;
 
     pub const fn name(code: u8) -> &'static str {
         match code {
@@ -79,6 +101,7 @@ pub mod error_code {
             BAD_COBS => "bad COBS encoding",
             NOT_FOUND => "key not found",
             REFUSED => "refused by the kernel",
+            FULL => "no room",
             _ => "unknown error",
         }
     }

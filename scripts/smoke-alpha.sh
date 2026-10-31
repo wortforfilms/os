@@ -7,7 +7,7 @@ RUSTDOC="$(rustup which rustdoc)"
 export RUSTC
 export RUSTDOC
 DONE=0
-TOTAL=11
+TOTAL=12
 STEP="startup"
 BOOT_LOG="$(mktemp)"
 DUAL_LOG="$(mktemp)"
@@ -78,7 +78,10 @@ STEP="size check"
 pass
 
 STEP="QEMU boot and boot report"
+# No run-time capsule for this boot (the install test leaves none either).
+rm -f target/qemu-capsule.bin
 ./scripts/run.sh 2>&1 | tee "$BOOT_LOG"
+rg -q '^capsule installed: none$' "$BOOT_LOG"
 rg -q '^Boot report$' "$BOOT_LOG"
 rg -q '^drivers: [0-9]+/[0-9]+ ready$' "$BOOT_LOG"
 rg -q '^storage mounted: (true|false)$' "$BOOT_LOG"
@@ -97,7 +100,7 @@ rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
 rg -q '^hemant ns since epoch: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant position: ahoratra [0-9]+ muhurta [0-9]+ kala [0-9]+ kastha [0-9]+ nimesha [0-9]+$' "$BOOT_LOG"
 rg -q '^capsule verified: telemetry caps=write,sleep,store_get,store_put$' "$BOOT_LOG"
-rg -q '^capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status,store_get,store_put$' "$BOOT_LOG"
+rg -q '^capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status,store_get,store_put,capsule_install$' "$BOOT_LOG"
 rg -q '^flash store: bank [01] generation [0-9]+ ' "$BOOT_LOG"
 rg -q '^boot count: [0-9]+$' "$BOOT_LOG"
 rg -q '^reset cause: unknown$' "$BOOT_LOG"
@@ -142,4 +145,8 @@ pass
 
 STEP="QEMU persistent store"
 ./scripts/qemu-persistence-test.sh
+pass
+
+STEP="QEMU run-time capsule install"
+./scripts/qemu-capsule-install-test.sh
 pass

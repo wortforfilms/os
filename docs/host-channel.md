@@ -51,6 +51,15 @@ it.
 | INFO | `0x04` | none | `0x84` | `[version, len, board…, len, kernel version…]` |
 | STORE_GET | `0x05` | `[key]` | `0x85` | the value ([persistence.md](persistence.md)) |
 | STORE_PUT | `0x06` | `[key, value…]`; an empty value deletes | `0x86` | none |
+| CAPSULE_BEGIN | `0x07` | `[image length u32]` | `0x87` | none |
+| CAPSULE_WRITE | `0x08` | `[offset u32, up to 192 image bytes]` | `0x88` | none |
+| CAPSULE_COMMIT | `0x09` | none | `0x89` | none, or ERROR 9 if the kernel did not accept the image |
+| CAPSULE_REMOVE | `0x0A` | none | `0x8A` | none, or ERROR 8 if nothing is installed |
+| CAPSULE_INFO | `0x0B` | none | `0x8B` | `[version u32, capabilities u32, image length u32, name length, name…]`, or ERROR 8 |
+
+The CAPSULE_* requests install a capsule at run time
+([capsules.md](capsules.md#installing-a-capsule-at-run-time)). Task 6 serves
+them through syscall 17, which its signed manifest grants (`capsule_install`).
 
 The kernel sends **HELLO** (`0x80`, same payload as INFO, sequence 0) once,
 when the channel starts.
@@ -68,7 +77,8 @@ When a request fails, the reply is **ERROR** (`0xFF`), with payload
 | 6 | not available (no telemetry yet) |
 | 7 | bad COBS encoding |
 | 8 | key not found |
-| 9 | refused by the kernel (a kernel key, or no capability) |
+| 9 | refused by the kernel (a kernel key, no capability, or a capsule image it did not accept) |
+| 10 | no room (the store or the capsule area is full) |
 
 STATUS payload (little-endian):
 

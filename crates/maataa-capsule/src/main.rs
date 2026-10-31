@@ -168,12 +168,13 @@ fn run(args: Args) -> Result<(), String> {
                 .map_err(|e| format!("{path}: maataa manifest: {e}"))?;
             std::fs::write(out, &bytes).map_err(|e| format!("{out}: {e}"))?;
             println!(
-                "wrote {out}: {} bytes; imports [{}]; exports [{}]; schedule {} ticks every {} ms{}",
+                "wrote {out}: {} bytes; imports [{}]; exports [{}]; schedule {} ticks every {} ms, version {}{}",
                 bytes.len(),
                 imports.join(", "),
                 exports.join(", "),
                 schedule.ticks,
                 schedule.period_ms,
+                schedule.version,
                 if module.manifest().is_none() { " (default: no maataa section)" } else { "" }
             );
             Ok(())

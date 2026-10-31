@@ -48,6 +48,9 @@ pub fn device_store_key() -> maataa_store::StoreKey {
 pub const KEY_BOOT_COUNT: u8 = 0;
 /// Kernel key: the last boot's reset cause and crash (`maataa_link::BootRecord`).
 pub const KEY_LAST_RESET: u8 = 1;
+/// Kernel key: the version floors of run-time capsules
+/// (`crate::installed::VersionFloors`).
+pub const KEY_CAPSULE_FLOORS: u8 = 2;
 /// Lowest key a task may write.
 pub const FIRST_TASK_KEY: u8 = 16;
 
@@ -67,8 +70,9 @@ pub const fn task_key_readable(key: u32) -> bool {
     feature = "board-f411",
     not(feature = "board-qemu-f405")
 ))]
-mod backend {
-    //! STM32F411 flash sectors 6 and 7.
+pub(crate) mod backend {
+    //! STM32F411 flash: sectors 6 and 7 for the store, sector 5 for the
+    //! run-time capsule area.
     use maataa_store::{Flash, FlashError};
 
     const FLASH_BASE: u32 = 0x4002_3C00;
@@ -88,15 +92,34 @@ mod backend {
     const ACR_DCEN: u32 = 1 << 10;
     const ACR_DCRST: u32 = 1 << 12;
 
-    const BANK_BASES: [u32; 2] = [0x0804_0000, 0x0806_0000];
-    const BANK_SECTORS: [u32; 2] = [6, 7];
     pub const BANK_SIZE: u32 = 128 * 1024;
 
-    pub struct Backend;
+    /// Erase units given as (base address, sector number).
+    pub struct Backend {
+        banks: &'static [(u32, u32)],
+    }
 
     impl Backend {
+        /// The persistent store: sectors 6 and 7.
         pub fn open() -> Result<Self, FlashError> {
-            Ok(Self)
+            Ok(Self {
+                banks: &[(0x0804_0000, 6), (0x0806_0000, 7)],
+            })
+        }
+
+        /// The run-time capsule area: sector 5 (memory.x keeps the kernel
+        /// below it).
+        pub fn open_capsule_area() -> Result<Self, FlashError> {
+            Ok(Self {
+                banks: &[(0x0802_0000, 5)],
+            })
+        }
+
+        fn bank(&self, bank: u8) -> Result<(u32, u32), FlashError> {
+            self.banks
+                .get(bank as usize)
+                .copied()
+                .ok_or(FlashError::OutOfRange)
         }
     }
 
@@ -153,12 +176,14 @@ mod backend {
             let end = offset
                 .checked_add(buf.len() as u32)
                 .ok_or(FlashError::OutOfRange)?;
-            if bank > 1 || end > BANK_SIZE {
+            let (bank_base, _) = self.bank(bank)?;
+            if end > BANK_SIZE {
                 return Err(FlashError::OutOfRange);
             }
-            let base = BANK_BASES[bank as usize] + offset;
+            let base = bank_base + offset;
             for (i, b) in buf.iter_mut().enumerate() {
-                // SAFETY: inside one of the two reserved sectors, checked above.
+                // SAFETY: inside one of this backend's reserved sectors,
+                // checked above.
                 *b = unsafe { ((base + i as u32) as *const u8).read_volatile() };
             }
             Ok(())
@@ -168,17 +193,19 @@ mod backend {
             let end = offset
                 .checked_add(data.len() as u32)
                 .ok_or(FlashError::OutOfRange)?;
-            if bank > 1 || end > BANK_SIZE {
+            let (bank_base, _) = self.bank(bank)?;
+            if end > BANK_SIZE {
                 return Err(FlashError::OutOfRange);
             }
-            let base = BANK_BASES[bank as usize] + offset;
+            let base = bank_base + offset;
             wait_idle()?;
             unlock();
             // Byte programming (PSIZE x8) works at any supply voltage.
             reg_write(CR, CR_PG);
             let mut result = Ok(());
             for (i, &b) in data.iter().enumerate() {
-                // SAFETY: inside one of the two reserved sectors, checked above.
+                // SAFETY: inside one of this backend's reserved sectors,
+                // checked above.
                 unsafe { ((base + i as u32) as *mut u8).write_volatile(b) };
                 if let Err(e) = wait_idle() {
                     result = Err(e);
@@ -190,13 +217,11 @@ mod backend {
         }
 
         fn erase(&mut self, bank: u8) -> Result<(), FlashError> {
-            if bank > 1 {
-                return Err(FlashError::OutOfRange);
-            }
+            let (_, sector) = self.bank(bank)?;
             wait_idle()?;
             unlock();
-            reg_write(CR, CR_SER | (BANK_SECTORS[bank as usize] << 3));
-            reg_write(CR, CR_SER | (BANK_SECTORS[bank as usize] << 3) | CR_STRT);
+            reg_write(CR, CR_SER | (sector << 3));
+            reg_write(CR, CR_SER | (sector << 3) | CR_STRT);
             let result = wait_idle();
             lock_and_flush_data_cache();
             result
@@ -205,18 +230,20 @@ mod backend {
 }
 
 #[cfg(all(target_arch = "arm", feature = "board-qemu-f405"))]
-mod backend {
-    //! Two banks in a host file, through semihosting.
+pub(crate) mod backend {
+    //! Banks in a host file, through semihosting: two for the store
+    //! (`target/qemu-flash.bin`), one for the run-time capsule area
+    //! (`target/qemu-capsule.bin`).
     use cortex_m_semihosting::syscall;
     use maataa_store::{Flash, FlashError};
 
     pub const BANK_SIZE: u32 = 16 * 1024;
-    const PATH: &[u8] = b"target/qemu-flash.bin\0";
     const MODE_RW_BINARY: usize = 3; // "r+b"
     const MODE_CREATE_BINARY: usize = 7; // "w+b"
 
     pub struct Backend {
         handle: usize,
+        banks: u32,
     }
 
     fn seek(handle: usize, pos: u32) -> Result<(), FlashError> {
@@ -240,22 +267,32 @@ mod backend {
     }
 
     impl Backend {
+        /// The persistent store.
         pub fn open() -> Result<Self, FlashError> {
+            Self::open_file(b"target/qemu-flash.bin\0", 2)
+        }
+
+        /// The run-time capsule area.
+        pub fn open_capsule_area() -> Result<Self, FlashError> {
+            Self::open_file(b"target/qemu-capsule.bin\0", 1)
+        }
+
+        fn open_file(path: &[u8], banks: u32) -> Result<Self, FlashError> {
             // SAFETY: SYS_OPEN reads the NUL-terminated path; the length
             // excludes the NUL.
             let mut handle =
-                unsafe { syscall!(OPEN, PATH.as_ptr(), MODE_RW_BINARY, PATH.len() - 1) };
+                unsafe { syscall!(OPEN, path.as_ptr(), MODE_RW_BINARY, path.len() - 1) };
             if handle == usize::MAX {
                 // SAFETY: as above, creating the file.
                 handle =
-                    unsafe { syscall!(OPEN, PATH.as_ptr(), MODE_CREATE_BINARY, PATH.len() - 1) };
+                    unsafe { syscall!(OPEN, path.as_ptr(), MODE_CREATE_BINARY, path.len() - 1) };
             }
             if handle == usize::MAX {
                 return Err(FlashError::Device(0xFFFF_FFFF));
             }
             // SAFETY: SYS_FLEN takes the handle.
             let len = unsafe { syscall!(FLEN, handle) };
-            let want = 2 * BANK_SIZE as usize;
+            let want = (banks * BANK_SIZE) as usize;
             if len == usize::MAX || len < want {
                 // A new or short file: fill it with erased flash.
                 let erased = [0xFFu8; 256];
@@ -267,7 +304,7 @@ mod backend {
                     at += n;
                 }
             }
-            Ok(Self { handle })
+            Ok(Self { handle, banks })
         }
     }
 
@@ -277,7 +314,7 @@ mod backend {
         }
 
         fn read(&mut self, bank: u8, offset: u32, buf: &mut [u8]) -> Result<(), FlashError> {
-            if bank > 1 || offset as usize + buf.len() > BANK_SIZE as usize {
+            if bank as u32 >= self.banks || offset as usize + buf.len() > BANK_SIZE as usize {
                 return Err(FlashError::OutOfRange);
             }
             seek(self.handle, bank as u32 * BANK_SIZE + offset)?;
@@ -291,7 +328,7 @@ mod backend {
         }
 
         fn program(&mut self, bank: u8, offset: u32, data: &[u8]) -> Result<(), FlashError> {
-            if bank > 1 || offset as usize + data.len() > BANK_SIZE as usize {
+            if bank as u32 >= self.banks || offset as usize + data.len() > BANK_SIZE as usize {
                 return Err(FlashError::OutOfRange);
             }
             // NOR semantics: programming only clears bits.
@@ -309,7 +346,7 @@ mod backend {
         }
 
         fn erase(&mut self, bank: u8) -> Result<(), FlashError> {
-            if bank > 1 {
+            if bank as u32 >= self.banks {
                 return Err(FlashError::OutOfRange);
             }
             let erased = [0xFFu8; 256];

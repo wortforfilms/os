@@ -85,6 +85,7 @@ semicolons or newlines:
 | --- | --- | --- |
 | `ticks` | how many times to call the `tick` export | 1 to 1000, or 0 for "for as long as the board runs" |
 | `period_ms` | sleep between ticks | 10 to 3 600 000 |
+| `version` | the capsule's version; a run-time install may not go back to an older one | 0 to 1 000 000 (default 0) |
 
 The kernel refuses to run a capsule whose section has an unknown key, a key
 given twice, or a value out of range. A module with two `maataa` sections is
@@ -249,9 +250,9 @@ To add a capsule to the kernel, add its image to the list in `src/kernel.rs`.
 
 - **Two capsule tasks.** Each needs a 16 KiB stack; a third would take
   another 16 KiB of the F411's 128 KiB of RAM and a ninth task slot.
-- **Built-in images only.** The kernel runs the images compiled into it. A
-  capsule installed at run time (over the host channel, into flash) is not
-  supported yet.
+- **One run-time capsule.** Besides the built-in images, one capsule can be
+  installed at run time, over the host channel, and runs as task 9 from the
+  next boot ([capsules.md](capsules.md#installing-a-capsule-at-run-time)).
 - **Fixed entry points.** The task calls the exports `init` and `tick`.
 - **4 KiB of memory.** Programs built by compilers that expect a full 64 KiB
   page would need a larger buffer, or must keep their data small.

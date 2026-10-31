@@ -32,6 +32,8 @@ static HOSTLINK_CAPSULE: &[u8] = include_bytes!("../assets/capsules/hostlink.mca
 
 /// Task ids of the capsule tasks, in slot order (see src/main.rs).
 pub const CAPSULE_TASK_IDS: [u8; crate::capsule_task::CAPSULE_TASKS] = [7, 8];
+/// Task id of the capsule installed at run time.
+pub const INSTALLED_TASK_ID: u8 = 9;
 
 /// Comma-separated capability names for the boot report.
 struct CapNames(u32);
@@ -64,6 +66,9 @@ pub struct Grants {
     /// A rejected capsule gets no task.
     pub capsule_tasks:
         [Option<crate::capsule_task::CapsuleGrant>; crate::capsule_task::CAPSULE_TASKS],
+    /// Capabilities of the capsule installed at run time, if it passed its
+    /// checks (task 9 runs it).
+    pub installed: Option<u32>,
 }
 
 /// Runs the boot sequence and returns the capsule grants.
@@ -128,6 +133,36 @@ pub fn run() -> Grants {
             None => kprintln!("capsule {}: no capsule task free; not started", label),
         }
     }
+    // The capsule installed at run time (src/installed.rs), if any.
+    let installed = match crate::installed::mount() {
+        crate::installed::Boot::Accepted {
+            name,
+            capabilities,
+            schedule,
+        } => {
+            kprintln!(
+                "capsule installed: {} version {} caps={}",
+                name,
+                schedule.version,
+                CapNames(capabilities)
+            );
+            let _ = capsules.record_verified(name, 0, capabilities);
+            kprintln!("capsule task {}: {}", INSTALLED_TASK_ID, name);
+            Some(capabilities)
+        }
+        crate::installed::Boot::Empty => {
+            kprintln!("capsule installed: none");
+            None
+        }
+        crate::installed::Boot::Refused(refusal) => {
+            kprintln!("capsule installed: not run: {}", refusal.as_str());
+            None
+        }
+        crate::installed::Boot::Unavailable => {
+            kprintln!("capsule installed: area not available");
+            None
+        }
+    };
     // Tamper check: the same signed image with one payload byte changed must
     // not verify. The copy lives on the stack and is never loaded.
     let mut tampered = [0u8; 160];
@@ -270,7 +305,7 @@ pub fn run() -> Grants {
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
         "sched: round-robin tasks={} first_switch_at_ms={}",
-        6 + capsule_tasks.iter().flatten().count(),
+        6 + capsule_tasks.iter().flatten().count() + usize::from(installed.is_some()),
         DEFAULT_DEMO_QUANTUM_MS
     );
     kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore, uart, host status; each task limited to its capability mask");
@@ -395,5 +430,6 @@ pub fn run() -> Grants {
     Grants {
         hostlink: hostlink_capabilities,
         capsule_tasks,
+        installed,
     }
 }

@@ -64,6 +64,17 @@ impl CapsuleManager {
             .map_err(LoadError::NoRoom)
     }
 
+    /// Records a capsule the caller has already verified (the run-time
+    /// capsule, checked by src/installed.rs).
+    pub fn record_verified(
+        &mut self,
+        name: &'static str,
+        size_bytes: usize,
+        capabilities: u32,
+    ) -> Result<usize, &'static str> {
+        self.insert(name, size_bytes, capabilities)
+    }
+
     /// Capabilities of the loaded capsule called `name`, if any.
     pub fn capabilities_of(&self, name: &str) -> Option<u32> {
         self.capsules
@@ -208,6 +219,7 @@ mod tests {
                     | cap::HOST_STATUS
                     | cap::STORE_GET
                     | cap::STORE_PUT
+                    | cap::CAPSULE_INSTALL
             )
         );
         assert_eq!(manager.capabilities_of("missing"), None);
