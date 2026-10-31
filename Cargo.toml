@@ -28,6 +28,12 @@ watchdog-test = []
 # follows the instruction count, not host time. The host-rate check is then
 # reported, not asserted (scripts/qemu-clock-test.sh).
 qemu-icount = []
+# Rollback protection for the persistent store: a counter in one-time
+# programmable memory (crates/maataa-store/src/rollback.rs). On the F411 it
+# writes the OTP area (0x1FFF7900..0x1FFF79FF), which can NEVER be erased:
+# each store compaction uses up one of its 256 bytes for good. In QEMU the
+# "OTP" is the host file target/qemu-otp.bin. Off by default.
+otp-rollback = []
 
 [dependencies]
 cortex-m = "0.7.7"

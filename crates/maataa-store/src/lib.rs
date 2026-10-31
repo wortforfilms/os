@@ -118,6 +118,9 @@ pub enum StoreError {
     WrongKey,
     /// A sealed value failed its check when it was read.
     Corrupt,
+    /// The newest bank is older than the rollback counter allows: an older
+    /// copy of the flash was put back. The flash was left untouched.
+    RolledBack,
 }
 
 impl From<FlashError> for StoreError {
@@ -136,6 +139,7 @@ impl StoreError {
             Self::Full => "store full",
             Self::WrongKey => "sealed with a different key",
             Self::Corrupt => "a sealed value failed its check",
+            Self::RolledBack => "rolled back to an older copy",
         }
     }
 }
@@ -188,6 +192,8 @@ pub struct MountReport {
     pub recovered: bool,
     /// The store was in the unsealed `MKV1` format and was sealed.
     pub migrated: bool,
+    /// The rollback counter is full: from here on, rollback is not detected.
+    pub counter_full: bool,
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -215,8 +221,9 @@ enum Header {
     Unsealed(u32),
 }
 
-pub struct Store<F: Flash> {
+pub struct Store<F: Flash, C: RollbackCounter = NoCounter> {
     flash: F,
+    counter: C,
     cipher: ChaCha20Poly1305,
     key_id: u32,
     format: Format,
@@ -229,10 +236,21 @@ pub struct Store<F: Flash> {
 }
 
 impl<F: Flash> Store<F> {
+    /// Opens the store with `key`, without rollback protection.
+    pub fn mount(flash: F, key: &StoreKey) -> Result<(Self, MountReport), StoreError> {
+        Store::mount_with_counter(flash, key, NoCounter)
+    }
+}
+
+impl<F: Flash, C: RollbackCounter> Store<F, C> {
     /// Opens the store with `key`, choosing the newest valid bank, formatting
     /// blank flash, migrating an unsealed store and recovering from a torn
-    /// write.
-    pub fn mount(mut flash: F, key: &StoreKey) -> Result<(Self, MountReport), StoreError> {
+    /// write. `counter` gives rollback protection ([`rollback`]).
+    pub fn mount_with_counter(
+        mut flash: F,
+        key: &StoreKey,
+        mut counter: C,
+    ) -> Result<(Self, MountReport), StoreError> {
         let size = flash.bank_size();
         assert!(size.is_multiple_of(4) && size >= 256, "bank size");
         let cipher = ChaCha20Poly1305::new(Key::from_slice(key));
@@ -256,9 +274,16 @@ impl<F: Flash> Store<F> {
                 Header::None => {}
             }
         }
+        let floor = counter.value()?;
+        if let Some((_, generation)) = sealed {
+            if generation < floor {
+                return Err(StoreError::RolledBack);
+            }
+        }
         let mut report = MountReport::default();
         let mut store = Store {
             flash,
+            counter,
             cipher,
             key_id,
             format: Format::Sealed,
@@ -284,6 +309,8 @@ impl<F: Flash> Store<F> {
                 store.active = bank;
                 store.generation = generation;
                 report.recovered = !store.scan()?;
+                // Sealed generations continue at the counter at least.
+                store.generation = generation.max(floor);
                 // Seal the live data into the other bank, then erase the
                 // unsealed one so it can never be read again.
                 store.compact()?;
@@ -291,12 +318,18 @@ impl<F: Flash> Store<F> {
                 report.migrated = true;
             }
             (None, None) => {
+                // Blank (or erased) flash starts at the counter's generation,
+                // so an erase cannot reset the counter's meaning, and nonces
+                // do not repeat those of the erased data.
+                let generation = floor.max(1);
                 store.flash.erase(0)?;
-                store.write_header(0, 1)?;
-                store.generation = 1;
+                store.write_header(0, generation)?;
+                store.generation = generation;
                 report.formatted = true;
             }
         }
+        store.counter.raise_to(store.generation)?;
+        report.counter_full = store.generation > store.counter.capacity();
         Ok((store, report))
     }
 
@@ -449,6 +482,9 @@ impl<F: Flash> Store<F> {
         self.generation = generation;
         self.end = at;
         self.index = new_index;
+        // After the header: a power cut before this leaves the counter one
+        // behind, and the next mount raises it.
+        self.counter.raise_to(generation)?;
         Ok(())
     }
 
@@ -525,6 +561,11 @@ impl<F: Flash> Store<F> {
     pub fn into_flash(self) -> F {
         self.flash
     }
+
+    /// The flash and the counter, for tests.
+    pub fn into_parts(self) -> (F, C) {
+        (self.flash, self.counter)
+    }
 }
 
 fn seal_header(cipher: &ChaCha20Poly1305, key_id: u32, generation: u32) -> [u8; 32] {
@@ -581,6 +622,9 @@ fn read_header<F: Flash>(
 }
 
 pub mod area;
+pub mod rollback;
+
+pub use rollback::{NoCounter, RollbackCounter};
 
 #[cfg(test)]
 mod tests;

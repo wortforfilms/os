@@ -7,7 +7,7 @@ RUSTDOC="$(rustup which rustdoc)"
 export RUSTC
 export RUSTDOC
 DONE=0
-TOTAL=12
+TOTAL=13
 STEP="startup"
 BOOT_LOG="$(mktemp)"
 DUAL_LOG="$(mktemp)"
@@ -82,6 +82,7 @@ STEP="QEMU boot and boot report"
 rm -f target/qemu-capsule.bin
 ./scripts/run.sh 2>&1 | tee "$BOOT_LOG"
 rg -q '^capsule installed: none$' "$BOOT_LOG"
+rg -q '^flash store: rollback counter: off \(feature otp-rollback\)$' "$BOOT_LOG"
 rg -q '^Boot report$' "$BOOT_LOG"
 rg -q '^drivers: [0-9]+/[0-9]+ ready$' "$BOOT_LOG"
 rg -q '^storage mounted: (true|false)$' "$BOOT_LOG"
@@ -149,4 +150,8 @@ pass
 
 STEP="QEMU run-time capsule install"
 ./scripts/qemu-capsule-install-test.sh
+pass
+
+STEP="QEMU store rollback counter (otp-rollback)"
+./scripts/qemu-rollback-test.sh
 pass

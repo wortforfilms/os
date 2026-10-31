@@ -51,13 +51,15 @@ Working:
 - Persistent key-value store on flash sectors 6–7 (F411) or a host file
   (QEMU): power-loss safe, two-bank compaction, boot count; every value
   sealed with ChaCha20-Poly1305 under a key bound to the chip's unique id;
+  optional rollback counter in OTP (`otp-rollback`);
   tasks and the host channel use it through syscalls 15/16
   ([docs/persistence.md](docs/persistence.md))
 - Static capsule table, virtual flash manifest, release size check
 
 Not yet:
 
-- Rollback protection for the store (needs a counter in OTP)
+- Rollback protection run on a board (it is built and tested in QEMU; on
+  the F411 it writes OTP for good, so it is opt-in: feature `otp-rollback`)
 - More than one run-time capsule at a time, and starting one without a reboot
 
 ## Requirements

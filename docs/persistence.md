@@ -82,13 +82,67 @@ Each value is encrypted and authenticated with ChaCha20-Poly1305 (RustCrypto
 
 What sealing does not do:
 
-- **Freshness.** Someone with the flash can put back an older copy of it, or
-  cut records off the end of the log (mount treats that like a power cut).
-  Detecting that needs a counter they cannot reset, such as one in the
-  F411's one-time-programmable area. Not done yet.
-- **A re-formatted store.** After the flash is erased, the store starts
-  again at generation 1, and nonces repeat those of the erased data. Someone
-  who kept a copy of the old flash could compare the two.
+- **Freshness, by default.** Someone with the flash can put back an older
+  copy of it, or cut records off the end of the log (mount treats that like
+  a power cut). The `otp-rollback` feature catches the first
+  ([Rollback counter](#rollback-counter)); nothing catches the second.
+- **A re-formatted store, by default.** After the flash is erased, the store
+  starts again at generation 1, and nonces repeat those of the erased data.
+  Someone who kept a copy of the old flash could compare the two. With
+  `otp-rollback`, a re-formatted store starts at the counter's generation
+  instead, so the nonces do not repeat.
+
+## Rollback counter
+
+Built with the `otp-rollback` feature, the store keeps a counter that only
+goes up, in one-time-programmable memory
+(`crates/maataa-store/src/rollback.rs`):
+
+- **What it counts.** The lowest generation the store may have. Each
+  compaction raises the generation by one; right after the new bank's header
+  is written, the counter is raised to match. (A power cut between the two
+  leaves the counter one behind; the next mount raises it.)
+- **What mount does.** If the newest valid bank is older than the counter,
+  mount refuses the store (`flash store: not mounted: rolled back to an
+  older copy`) and leaves the flash untouched. That catches an older copy
+  of the flash put back, and the newest bank erased so that mount would fall
+  back to the older one.
+- **What it does not catch.** Records cut off the end of the newest bank,
+  which has the same generation. A store erased completely is formatted
+  again, empty, at the counter's generation.
+- **Where the counter lives.** On the F411, the OTP area at
+  `0x1FFF_7900`–`0x1FFF_79FF` (blocks 8–15; blocks 0–7 and the lock bytes
+  are never touched). One byte is programmed to `0x00` per step, each byte
+  only once, so 256 steps: about 256 compactions, or roughly 460,000 writes
+  of 64-byte values. When it is full, the boot report says so, and rollback
+  is no longer detected. In QEMU it is the host file `target/qemu-otp.bin`,
+  whose bytes can be written once each.
+- **It cannot be undone.** OTP bytes can never be erased. A board that once
+  ran an `otp-rollback` kernel keeps its counter for good, and that counter
+  stays readable to any later kernel. The feature is off by default, and
+  this project has not yet run it on a board; only the host tests and QEMU
+  have.
+
+The boot report shows the counter
+(`flash store: rollback counter 2/256 (one-time programmable)`), or
+`flash store: rollback counter: off (feature otp-rollback)`.
+
+Tests:
+
+- `cargo test -p maataa-store` runs the counter over an OTP in RAM that
+  fails the test if any byte is programmed twice. It checks that:
+  - the counter only goes up and stops at its capacity;
+  - a torn byte is skipped;
+  - an older copy of the flash, and a store whose newest bank was erased,
+    are refused;
+  - an erased store starts again at the counter;
+  - a full counter is reported;
+  - the store still mounts with its counter after a power cut at many
+    points.
+- `scripts/qemu-rollback-test.sh` (part of `smoke-alpha.sh`) builds the
+  feature for QEMU. It writes key 30, keeps a copy of the flash file, forces
+  a compaction, puts the copy back (mount refuses it), then puts the current
+  flash back (key 30 reads back).
 
 ## Migration from the unsealed format
 
@@ -228,4 +282,5 @@ telemetry capsule lifetime ticks (key 32): 54
 - **Development key.** With the default build, anyone with this source and a
   debug probe can still read the values; set `MAATAA_STORE_KEY` and enable
   read-out protection to keep them secret.
-- **No rollback protection** (see [Sealing](#sealing)).
+- **Rollback protection is opt-in** (`otp-rollback`), because it writes
+  OTP for good; see [Rollback counter](#rollback-counter).

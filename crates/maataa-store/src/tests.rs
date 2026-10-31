@@ -491,3 +491,152 @@ mod area_tests {
         }
     }
 }
+
+mod rollback_tests {
+    use super::{RamFlash, KEY};
+    use crate::rollback::{OneTimeBytes, OtpCounter, RollbackCounter};
+    use crate::{FlashError, Store, StoreError};
+
+    /// OTP in RAM: each byte may be programmed once, from 0xFF.
+    #[derive(Clone)]
+    struct RamOtp(Vec<u8>);
+
+    impl OneTimeBytes for RamOtp {
+        fn len(&self) -> usize {
+            self.0.len()
+        }
+        fn read(&mut self, offset: usize) -> Result<u8, FlashError> {
+            self.0.get(offset).copied().ok_or(FlashError::OutOfRange)
+        }
+        fn program(&mut self, offset: usize, value: u8) -> Result<(), FlashError> {
+            let cell = self.0.get_mut(offset).ok_or(FlashError::OutOfRange)?;
+            assert_eq!(*cell, 0xFF, "OTP byte {offset} programmed twice");
+            *cell = value;
+            Ok(())
+        }
+    }
+
+    fn counter(otp: &RamOtp) -> OtpCounter<RamOtp> {
+        OtpCounter::new(otp.clone())
+    }
+
+    #[test]
+    fn the_counter_counts_programmed_bytes_and_skips_a_torn_one() {
+        let mut c = counter(&RamOtp(vec![0xFF; 8]));
+        assert_eq!(c.value(), Ok(0));
+        c.raise_to(3).unwrap();
+        assert_eq!(c.value(), Ok(3));
+        c.raise_to(2).unwrap();
+        assert_eq!(c.value(), Ok(3), "never goes down");
+        let mut otp = c.into_inner();
+        otp.0[3] = 0x5A; // torn
+        let mut c = OtpCounter::new(otp);
+        assert_eq!(c.value(), Ok(3));
+        c.raise_to(5).unwrap();
+        assert_eq!(c.value(), Ok(5));
+        c.raise_to(100).unwrap();
+        assert_eq!(
+            c.value(),
+            Ok(7),
+            "stops at capacity (one byte lost to the tear)"
+        );
+        assert_eq!(c.capacity(), 8);
+    }
+
+    #[test]
+    fn an_older_copy_of_the_flash_is_refused() {
+        let otp = RamOtp(vec![0xFF; 64]);
+        let (mut store, report) =
+            Store::mount_with_counter(RamFlash::new(256), &KEY, counter(&otp)).unwrap();
+        assert!(report.formatted);
+        store.put(20, b"v1").unwrap();
+        let (old_copy, c) = store.into_parts();
+        let (mut store, _) = Store::mount_with_counter(old_copy.clone(), &KEY, c).unwrap();
+        // Enough writes for a compaction or two.
+        for i in 0..30u32 {
+            store.put(20, &i.to_le_bytes()).unwrap();
+        }
+        let generation = store.stats().generation;
+        assert!(generation >= 2);
+        let (flash, mut c) = store.into_parts();
+        assert_eq!(c.value(), Ok(generation));
+        // Putting the old copy back is refused.
+        match Store::mount_with_counter(old_copy, &KEY, c) {
+            Err(StoreError::RolledBack) => {}
+            Err(e) => panic!("expected RolledBack, got {e:?}"),
+            Ok(_) => panic!("an older copy was mounted"),
+        }
+        // Erasing the newest bank, so mount would fall back to the other
+        // one, is refused too.
+        let mut damaged = flash.clone();
+        let active = Store::mount(flash.clone(), &KEY).unwrap().0.stats().bank as usize;
+        damaged.banks[active].fill(0xFF);
+        let otp_now = {
+            let mut c = counter(&otp);
+            c.raise_to(generation).unwrap();
+            c.into_inner()
+        };
+        assert!(matches!(
+            Store::mount_with_counter(damaged, &KEY, counter(&otp_now)),
+            Err(StoreError::RolledBack)
+        ));
+        // The current flash still mounts.
+        let (mut store, _) = Store::mount_with_counter(flash, &KEY, counter(&otp_now)).unwrap();
+        assert_eq!(
+            get_store(&mut store).as_deref(),
+            Some(&29u32.to_le_bytes()[..])
+        );
+    }
+
+    fn get_store(store: &mut Store<RamFlash, OtpCounter<RamOtp>>) -> Option<Vec<u8>> {
+        let mut buf = [0u8; crate::MAX_VALUE];
+        store.get(20, &mut buf).unwrap().map(|n| buf[..n].to_vec())
+    }
+
+    #[test]
+    fn an_erased_store_starts_again_at_the_counter() {
+        let mut c = counter(&RamOtp(vec![0xFF; 64]));
+        c.raise_to(9).unwrap();
+        let (store, report) = Store::mount_with_counter(RamFlash::new(256), &KEY, c).unwrap();
+        assert!(report.formatted);
+        assert_eq!(store.stats().generation, 9);
+        let (flash, c) = store.into_parts();
+        let (mut store, report) = Store::mount_with_counter(flash, &KEY, c).unwrap();
+        assert!(!report.formatted);
+        assert_eq!(get_store(&mut store), None);
+    }
+
+    #[test]
+    fn a_full_counter_is_reported() {
+        let (store, report) =
+            Store::mount_with_counter(RamFlash::new(256), &KEY, counter(&RamOtp(vec![0xFF; 0])))
+                .unwrap();
+        assert!(report.counter_full);
+        drop(store);
+    }
+
+    /// Power cuts during writes with compactions never make the store
+    /// unmountable with its counter (the counter may lag by one, never lead).
+    #[test]
+    fn every_power_cut_keeps_the_store_mountable_with_its_counter() {
+        for cut in (0..1500).step_by(7) {
+            let otp = RamOtp(vec![0xFF; 64]);
+            let (store, _) =
+                Store::mount_with_counter(RamFlash::new(256), &KEY, counter(&otp)).unwrap();
+            let (mut flash, c) = store.into_parts();
+            flash.budget = Some(cut);
+            let (mut store, _) = Store::mount_with_counter(flash, &KEY, c).unwrap();
+            for i in 0..60u32 {
+                if store.put((i % 3) as u8, &i.to_le_bytes()).is_err() {
+                    break;
+                }
+            }
+            let (mut flash, c) = store.into_parts();
+            flash.budget = None;
+            assert!(
+                Store::mount_with_counter(flash, &KEY, c).is_ok(),
+                "cut {cut}: the store no longer mounts"
+            );
+        }
+    }
+}

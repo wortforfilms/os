@@ -229,6 +229,19 @@ pub fn run() -> Grants {
                     ""
                 }
             );
+            match crate::storage::persist::rollback_counter() {
+                Some((value, capacity)) => kprintln!(
+                    "flash store: rollback counter {}/{} (one-time programmable){}",
+                    value,
+                    capacity,
+                    if report.counter_full {
+                        "; FULL, rollback no longer detected"
+                    } else {
+                        ""
+                    }
+                ),
+                None => kprintln!("flash store: rollback counter: off (feature otp-rollback)"),
+            }
             kprintln!(
                 "flash store: sealed with ChaCha20-Poly1305, {} key bound to this chip, id {:08x}",
                 crate::storage::persist::STORE_KEY_KIND,

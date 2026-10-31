@@ -167,6 +167,20 @@ pub(crate) mod backend {
         reg_write(ACR, acr & !ACR_DCRST);
     }
 
+    /// Programs one byte anywhere the FLASH interface writes: used for the
+    /// OTP rollback counter (`otp` below). The caller checks the address.
+    #[cfg(feature = "otp-rollback")]
+    pub fn program_byte(address: u32, value: u8) -> Result<(), FlashError> {
+        wait_idle()?;
+        unlock();
+        reg_write(CR, CR_PG);
+        // SAFETY: the caller passes an address in the OTP counter range.
+        unsafe { (address as *mut u8).write_volatile(value) };
+        let result = wait_idle();
+        lock_and_flush_data_cache();
+        result
+    }
+
     impl Flash for Backend {
         fn bank_size(&self) -> u32 {
             BANK_SIZE
@@ -359,6 +373,127 @@ pub(crate) mod backend {
     }
 }
 
+/// The one-time-programmable bytes behind the rollback counter.
+#[cfg(all(target_arch = "arm", feature = "otp-rollback"))]
+pub(crate) mod otp {
+    use maataa_store::rollback::OneTimeBytes;
+    use maataa_store::FlashError;
+
+    /// Bytes the counter uses: 256, so the store can compact 256 times.
+    pub const BYTES: usize = 256;
+
+    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    pub struct Otp;
+
+    /// OTP blocks 8 to 15 (blocks 0 to 7 and the lock bytes at 0x1FFF7A00
+    /// are never touched).
+    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    const BASE: u32 = 0x1FFF_7900;
+
+    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    impl Otp {
+        pub fn open() -> Result<Self, FlashError> {
+            Ok(Self)
+        }
+    }
+
+    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    impl OneTimeBytes for Otp {
+        fn len(&self) -> usize {
+            BYTES
+        }
+        fn read(&mut self, offset: usize) -> Result<u8, FlashError> {
+            if offset >= BYTES {
+                return Err(FlashError::OutOfRange);
+            }
+            // SAFETY: inside the counter's OTP range, checked above.
+            Ok(unsafe { ((BASE + offset as u32) as *const u8).read_volatile() })
+        }
+        fn program(&mut self, offset: usize, value: u8) -> Result<(), FlashError> {
+            if offset >= BYTES {
+                return Err(FlashError::OutOfRange);
+            }
+            super::backend::program_byte(BASE + offset as u32, value)
+        }
+    }
+
+    /// QEMU: a 256-byte host file whose bytes can each be written once.
+    #[cfg(feature = "board-qemu-f405")]
+    pub struct Otp {
+        handle: usize,
+    }
+
+    #[cfg(feature = "board-qemu-f405")]
+    impl Otp {
+        pub fn open() -> Result<Self, FlashError> {
+            use cortex_m_semihosting::syscall;
+            const PATH: &[u8] = b"target/qemu-otp.bin\0";
+            // SAFETY: SYS_OPEN reads the NUL-terminated path.
+            let mut handle = unsafe { syscall!(OPEN, PATH.as_ptr(), 3usize, PATH.len() - 1) };
+            if handle == usize::MAX {
+                // SAFETY: as above, creating the file.
+                handle = unsafe { syscall!(OPEN, PATH.as_ptr(), 7usize, PATH.len() - 1) };
+            }
+            if handle == usize::MAX {
+                return Err(FlashError::Device(0xFFFF_FFFF));
+            }
+            // SAFETY: SYS_FLEN takes the handle.
+            let len = unsafe { syscall!(FLEN, handle) };
+            if len != BYTES {
+                let erased = [0xFFu8; BYTES];
+                // SAFETY: SYS_SEEK / SYS_WRITE with a handle and our buffer.
+                unsafe {
+                    syscall!(SEEK, handle, 0usize);
+                    syscall!(WRITE, handle, erased.as_ptr(), erased.len());
+                }
+            }
+            Ok(Self { handle })
+        }
+    }
+
+    #[cfg(feature = "board-qemu-f405")]
+    impl OneTimeBytes for Otp {
+        fn len(&self) -> usize {
+            BYTES
+        }
+        fn read(&mut self, offset: usize) -> Result<u8, FlashError> {
+            use cortex_m_semihosting::syscall;
+            if offset >= BYTES {
+                return Err(FlashError::OutOfRange);
+            }
+            let mut byte = [0u8; 1];
+            // SAFETY: SYS_SEEK / SYS_READ into a one-byte buffer.
+            let left = unsafe {
+                syscall!(SEEK, self.handle, offset);
+                syscall!(READ, self.handle, byte.as_mut_ptr(), 1usize)
+            };
+            if left == 0 {
+                Ok(byte[0])
+            } else {
+                Err(FlashError::Device(left as u32))
+            }
+        }
+        fn program(&mut self, offset: usize, value: u8) -> Result<(), FlashError> {
+            use cortex_m_semihosting::syscall;
+            if self.read(offset)? != 0xFF {
+                // One time only, as on the chip.
+                return Err(FlashError::Device(0x0700));
+            }
+            let byte = [value];
+            // SAFETY: SYS_SEEK / SYS_WRITE from a one-byte buffer.
+            let left = unsafe {
+                syscall!(SEEK, self.handle, offset);
+                syscall!(WRITE, self.handle, byte.as_ptr(), 1usize)
+            };
+            if left == 0 {
+                Ok(())
+            } else {
+                Err(FlashError::Device(left as u32))
+            }
+        }
+    }
+}
+
 #[cfg(target_arch = "arm")]
 pub use kernel_side::*;
 
@@ -368,21 +503,48 @@ mod kernel_side {
     use super::*;
     use core::cell::RefCell;
     use cortex_m::interrupt::{self, Mutex};
+    use maataa_store::rollback::RollbackCounter;
     use maataa_store::Store;
 
-    static STORE: Mutex<RefCell<Option<Store<Backend>>>> = Mutex::new(RefCell::new(None));
+    #[cfg(feature = "otp-rollback")]
+    type Counter = maataa_store::rollback::OtpCounter<super::otp::Otp>;
+    #[cfg(not(feature = "otp-rollback"))]
+    type Counter = maataa_store::NoCounter;
+
+    static STORE: Mutex<RefCell<Option<Store<Backend, Counter>>>> = Mutex::new(RefCell::new(None));
+
+    #[cfg(feature = "otp-rollback")]
+    fn counter() -> Result<Counter, StoreError> {
+        Ok(maataa_store::rollback::OtpCounter::new(
+            super::otp::Otp::open()?,
+        ))
+    }
+
+    #[cfg(not(feature = "otp-rollback"))]
+    fn counter() -> Result<Counter, StoreError> {
+        Ok(maataa_store::NoCounter)
+    }
+
+    /// The rollback counter's value and capacity, if this build has one.
+    pub fn rollback_counter() -> Option<(u32, u32)> {
+        if !cfg!(feature = "otp-rollback") {
+            return None;
+        }
+        let mut c = counter().ok()?;
+        Some((c.value().ok()?, c.capacity()))
+    }
 
     /// Mounts the store (once, at boot) and returns what it found.
     pub fn mount() -> Result<(MountReport, Stats), StoreError> {
         let backend = Backend::open()?;
-        let (store, report) = Store::mount(backend, &device_store_key())?;
+        let (store, report) = Store::mount_with_counter(backend, &device_store_key(), counter()?)?;
         let stats = store.stats();
         interrupt::free(|cs| *STORE.borrow(cs).borrow_mut() = Some(store));
         Ok((report, stats))
     }
 
     fn with<R>(
-        f: impl FnOnce(&mut Store<Backend>) -> Result<R, StoreError>,
+        f: impl FnOnce(&mut Store<Backend, Counter>) -> Result<R, StoreError>,
     ) -> Option<Result<R, StoreError>> {
         interrupt::free(|cs| STORE.borrow(cs).borrow_mut().as_mut().map(f))
     }
