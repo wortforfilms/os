@@ -41,7 +41,27 @@ static mut TASK_FIVE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_SIX_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 
 // The tasks below run unprivileged inside their MPU regions: they reach the
-// log and the LED only through supervisor calls (src/syscall.rs).
+// log and the LED only through supervisor calls (src/syscall.rs), and only
+// the calls in their capability mask. Task 6 (host channel) gets its mask
+// from its signed capsule manifest (assets/capsules/hostlink.mcap).
+
+use maataa_capsule::cap;
+
+const TASK_ONE_CAPS: u32 = cap::WRITE | cap::LED | cap::SLEEP | cap::MUTEX | cap::SEND;
+#[cfg(not(feature = "kernel-stack-test"))]
+const TASK_TWO_CAPS: u32 = cap::WRITE | cap::RECV | cap::MUTEX | cap::SEMAPHORE;
+#[cfg(feature = "kernel-stack-test")]
+const TASK_TWO_CAPS: u32 = cap::WRITE | cap::RECV | cap::MUTEX | cap::SEMAPHORE | cap::TEST;
+/// Task 3 tests misuse; it may not touch the LED, and checks that it cannot.
+const TASK_THREE_CAPS: u32 = cap::WRITE
+    | cap::SEND
+    | cap::RECV
+    | cap::SLEEP
+    | cap::SEMAPHORE
+    | cap::DEMO_DONE
+    | cap::UART_WRITE;
+const TASK_FOUR_CAPS: u32 = cap::WRITE;
+const TASK_FIVE_CAPS: u32 = cap::WRITE;
 
 fn demo_task_one() -> ! {
     crate::uprintln!("task 1");
@@ -150,6 +170,9 @@ fn demo_task_three() -> ! {
     crate::uprintln!("task 3: recv into flash -> {}", syscall::error_name(r));
     let r = syscall::send_raw(9, b"hi".as_ptr(), 2);
     crate::uprintln!("task 3: send to task 9 -> {}", syscall::error_name(r));
+    // Capability check: task 3 holds no LED capability.
+    let r = syscall::led_checked(true);
+    crate::uprintln!("task 3: led without capability -> {}", syscall::error_name(r));
     crate::uprintln!("task 3: sleeping for 1500 ms before sending");
     let _ = syscall::sleep_ms(1_500);
     match syscall::send(2, b"Hello from Task 3 after 1500 ms") {
@@ -227,7 +250,7 @@ fn main() -> ! {
     let mut core = cortex_m::Peripherals::take().expect("core peripherals are taken once");
     clock::start(&mut core.SYST, config);
 
-    kernel::run();
+    let hostlink_capabilities = kernel::run();
 
     {
         let mut queue = sched::RunQueue::<{ sched::MAX_TASKS }>::new();
@@ -237,14 +260,16 @@ fn main() -> ! {
                 task_stack(core::ptr::addr_of_mut!(TASK_ONE_STACK)),
                 demo_task_one,
                 1,
-            ))
+            )
+            .with_capabilities(TASK_ONE_CAPS))
             .and_then(|()| {
                 queue.add(sched::Task::new(
                     2,
                     task_stack(core::ptr::addr_of_mut!(TASK_TWO_STACK)),
                     demo_task_two,
                     1,
-                ))
+                )
+                .with_capabilities(TASK_TWO_CAPS))
             })
             .and_then(|()| {
                 queue.add(sched::Task::new(
@@ -252,7 +277,8 @@ fn main() -> ! {
                     task_stack(core::ptr::addr_of_mut!(TASK_THREE_STACK)),
                     demo_task_three,
                     1,
-                ))
+                )
+                .with_capabilities(TASK_THREE_CAPS))
             })
             .and_then(|()| {
                 queue.add(sched::Task::new(
@@ -260,7 +286,8 @@ fn main() -> ! {
                     task_stack(core::ptr::addr_of_mut!(TASK_FOUR_STACK)),
                     demo_task_four,
                     1,
-                ))
+                )
+                .with_capabilities(TASK_FOUR_CAPS))
             })
             .and_then(|()| {
                 queue.add(sched::Task::new(
@@ -268,7 +295,8 @@ fn main() -> ! {
                     task_stack(core::ptr::addr_of_mut!(TASK_FIVE_STACK)),
                     demo_task_five,
                     1,
-                ))
+                )
+                .with_capabilities(TASK_FIVE_CAPS))
             })
             .and_then(|()| {
                 queue.add(sched::Task::new(
@@ -276,7 +304,8 @@ fn main() -> ! {
                     task_stack(core::ptr::addr_of_mut!(TASK_SIX_STACK)),
                     host_channel_task,
                     1,
-                ))
+                )
+                .with_capabilities(hostlink_capabilities))
             });
         let started = added.is_ok()
             && match sched::start_round_robin(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB)

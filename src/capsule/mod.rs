@@ -1,4 +1,25 @@
 use crate::boot_log;
+use maataa_capsule::CapsuleError;
+
+include!(concat!(env!("OUT_DIR"), "/capsule_key.rs"));
+
+/// Why a signed capsule was not loaded.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum LoadError {
+    /// The image failed its layout or signature check.
+    Rejected(CapsuleError),
+    /// Valid, but the table or the memory budget is full.
+    NoRoom(&'static str),
+}
+
+impl LoadError {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Rejected(error) => error.as_str(),
+            Self::NoRoom(reason) => reason,
+        }
+    }
+}
 
 const MAX_CAPSULES: usize = 4;
 const CAPSULE_MEMORY_BYTES: usize = 64 * 1024;
@@ -9,6 +30,8 @@ pub struct CapsuleInfo {
     pub name: &'static str,
     pub size_bytes: usize,
     pub cycles: u32,
+    /// Syscalls a task bound to this capsule may make (signed, from the image).
+    pub capabilities: u32,
 }
 
 pub struct CapsuleManager {
@@ -24,26 +47,64 @@ impl CapsuleManager {
         }
     }
 
+    /// Verifies a signed MCAP image against the build's capsule key and, only
+    /// if it passes, records the capsule with the capabilities it was signed
+    /// with. The payload is accounted for but not executed yet.
+    pub fn load_signed(&mut self, image: &'static [u8]) -> Result<usize, LoadError> {
+        self.load_signed_with_key(image, &CAPSULE_PUBLIC_KEY)
+    }
+
+    pub fn load_signed_with_key(
+        &mut self,
+        image: &'static [u8],
+        public_key: &[u8; 32],
+    ) -> Result<usize, LoadError> {
+        let capsule = maataa_capsule::verify(image, public_key).map_err(LoadError::Rejected)?;
+        self.insert(capsule.name, capsule.payload.len(), capsule.capabilities)
+            .map_err(LoadError::NoRoom)
+    }
+
+    /// Capabilities of the loaded capsule called `name`, if any.
+    pub fn capabilities_of(&self, name: &str) -> Option<u32> {
+        self.capsules
+            .iter()
+            .flatten()
+            .find(|c| c.name == name)
+            .map(|c| c.capabilities)
+    }
+
+    /// Unsigned load with no capabilities; kept for the table tests.
+    #[cfg(test)]
     pub fn load(&mut self, name: &'static str, image: &[u8]) -> Result<usize, &'static str> {
+        self.insert(name, image.len(), 0)
+    }
+
+    fn insert(
+        &mut self,
+        name: &'static str,
+        size_bytes: usize,
+        capabilities: u32,
+    ) -> Result<usize, &'static str> {
         let next = self.count();
         if next >= MAX_CAPSULES {
             return Err("capsule table full");
         }
 
-        if self.used_bytes + image.len() > CAPSULE_MEMORY_BYTES {
+        if self.used_bytes + size_bytes > CAPSULE_MEMORY_BYTES {
             return Err("capsule memory exhausted");
         }
 
         let info = CapsuleInfo {
             id: next,
             name,
-            size_bytes: image.len(),
+            size_bytes,
             cycles: 0,
+            capabilities,
         };
 
         self.capsules[next] = Some(info);
-        self.used_bytes += image.len();
-        boot_log!("capsule loaded: {} ({} bytes)", name, image.len());
+        self.used_bytes += size_bytes;
+        boot_log!("capsule loaded: {} ({} bytes)", name, size_bytes);
         Ok(next)
     }
 
@@ -122,6 +183,40 @@ mod tests {
         );
         assert_eq!(manager.count(), 0);
         assert_eq!(manager.used_bytes(), 0);
+    }
+
+    #[test]
+    fn signed_capsules_load_with_their_capabilities() {
+        use maataa_capsule::cap;
+        let mut manager = CapsuleManager::new();
+        let hostlink = include_bytes!("../../assets/capsules/hostlink.mcap");
+        let id = manager.load_signed(hostlink).unwrap();
+        assert_eq!(manager.capsule(id).unwrap().name, "hostlink");
+        assert_eq!(
+            manager.capabilities_of("hostlink"),
+            Some(cap::WRITE | cap::SLEEP | cap::UART_WRITE | cap::UART_READ | cap::HOST_STATUS)
+        );
+        assert_eq!(manager.capabilities_of("missing"), None);
+    }
+
+    #[test]
+    fn tampered_or_foreign_capsules_are_not_loaded() {
+        let mut manager = CapsuleManager::new();
+        let image = include_bytes!("../../assets/capsules/control.mcap");
+        let tampered: &'static mut [u8] = Box::leak(image.to_vec().into_boxed_slice());
+        tampered[40] ^= 0x01;
+        assert_eq!(manager.load_signed(tampered), Err(LoadError::Rejected(CapsuleError::BadSignature)));
+        assert_eq!(manager.load_signed_with_key(image, &[9u8; 32]), Err(LoadError::Rejected(CapsuleError::BadSignature)));
+        assert_eq!(manager.count(), 0);
+        assert_eq!(manager.used_bytes(), 0);
+    }
+
+    #[test]
+    fn this_build_trusts_the_development_key_by_default() {
+        if std::env::var("MAATAA_CAPSULE_PUBKEY").is_err() {
+            assert!(CAPSULE_KEY_KIND.starts_with("development"));
+            assert_eq!(CAPSULE_KEY_ID, &include_str!("../../keys/capsule-dev.pub")[..8]);
+        }
     }
 
     #[test]

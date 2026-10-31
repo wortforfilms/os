@@ -23,7 +23,38 @@ use cortex_m_semihosting::syscall;
 const SCRIPT_AI_BATCH_STATUS: u32 = 0x001b_0047;
 const AI_BATCH_CERTIFICATION_CLEARANCE: u32 = 0x08;
 
-pub fn run() {
+/// Signed capsule images built into the kernel (assets/capsules, made with
+/// `maataa-capsule sign`). Each is verified before it is recorded.
+static TELEMETRY_CAPSULE: &[u8] = include_bytes!("../assets/capsules/telemetry.mcap");
+static CONTROL_CAPSULE: &[u8] = include_bytes!("../assets/capsules/control.mcap");
+static HOSTLINK_CAPSULE: &[u8] = include_bytes!("../assets/capsules/hostlink.mcap");
+
+/// Comma-separated capability names for the boot report.
+struct CapNames(u32);
+
+impl core::fmt::Display for CapNames {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        let mut first = true;
+        for (bits, name) in maataa_capsule::cap::NAMES {
+            if self.0 & bits == bits {
+                if !first {
+                    f.write_str(",")?;
+                }
+                f.write_str(name)?;
+                first = false;
+            }
+        }
+        if first {
+            f.write_str("none")?;
+        }
+        Ok(())
+    }
+}
+
+/// Runs the boot sequence and returns the capability mask signed into the
+/// host-channel capsule (0 if that capsule was rejected, so the task it
+/// governs gets no syscalls at all).
+pub fn run() -> u32 {
     kprintln!("Starting Maataa OS kernel...");
     kprintln!("================================");
 
@@ -35,8 +66,42 @@ pub fn run() {
     storage.mount();
     storage.save_manifest("maataa-os", env!("CARGO_PKG_VERSION"));
 
-    let telemetry_capsule = capsules.load("telemetry", include_bytes!("../assets/demo.wasm"));
-    let control_capsule = capsules.load("control", b"virtual-control-capsule");
+    kprintln!(
+        "capsule signer: {} key {}",
+        crate::capsule::CAPSULE_KEY_KIND,
+        crate::capsule::CAPSULE_KEY_ID
+    );
+    let telemetry_capsule = capsules.load_signed(TELEMETRY_CAPSULE);
+    let control_capsule = capsules.load_signed(CONTROL_CAPSULE);
+    let hostlink_capsule = capsules.load_signed(HOSTLINK_CAPSULE);
+    for (name, result) in [
+        ("telemetry", telemetry_capsule),
+        ("control", control_capsule),
+        ("hostlink", hostlink_capsule),
+    ] {
+        match result {
+            Ok(_) => kprintln!(
+                "capsule verified: {} caps={}",
+                name,
+                CapNames(capsules.capabilities_of(name).unwrap_or(0))
+            ),
+            Err(error) => kprintln!("capsule rejected: {}: {}", name, error.as_str()),
+        }
+    }
+    // Tamper check: the same signed image with one payload byte changed must
+    // not verify. The copy lives on the stack and is never loaded.
+    let mut tampered = [0u8; 160];
+    let tamper_len = HOSTLINK_CAPSULE.len().min(tampered.len());
+    tampered[..tamper_len].copy_from_slice(&HOSTLINK_CAPSULE[..tamper_len]);
+    tampered[maataa_capsule::HEADER_BYTES] ^= 0x01;
+    match maataa_capsule::verify(
+        &tampered[..tamper_len],
+        &crate::capsule::CAPSULE_PUBLIC_KEY,
+    ) {
+        Ok(_) => kprintln!("capsule tamper check: ACCEPTED A MODIFIED IMAGE"),
+        Err(error) => kprintln!("capsule tamper check: rejected ({})", error.as_str()),
+    }
+    let hostlink_capabilities = capsules.capabilities_of("hostlink").unwrap_or(0);
 
     kprintln!("");
     kprintln!("Boot report");
@@ -91,7 +156,7 @@ pub fn run() {
         "sched: round-robin tasks=6 first_switch_at_ms={}",
         DEFAULT_DEMO_QUANTUM_MS
     );
-    kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore, uart, host status");
+    kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore, uart, host status; each task limited to its capability mask");
     kprintln!("uptime ns: {}", tick.elapsed_nanos());
     match anchor.and_then(|a| a.hemant_elapsed_nanos(tick.elapsed_nanos())) {
         Some(since_epoch) => {
@@ -210,4 +275,5 @@ pub fn run() {
     kprintln!(
         "Starting the demo tasks (task 4 tests memory protection, task 5 a stack overflow, task 6 serves the host channel)."
     );
+    hostlink_capabilities
 }

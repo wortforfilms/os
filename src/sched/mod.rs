@@ -294,6 +294,9 @@ pub struct Task {
     mutex_acquired: Option<u8>,
     waiting_semaphore: Option<u8>,
     semaphore_acquired: Option<u8>,
+    /// Supervisor calls this task may make: bit n allows call n
+    /// (`maataa_capsule::cap`). Zero, the default, allows none.
+    pub capabilities: u32,
     #[allow(dead_code)]
     saved_sp: usize,
 }
@@ -314,8 +317,15 @@ impl Task {
             mutex_acquired: None,
             waiting_semaphore: None,
             semaphore_acquired: None,
+            capabilities: 0,
             saved_sp: 0,
         }
+    }
+
+    /// Grants the supervisor calls in `capabilities` (bit n allows call n).
+    pub const fn with_capabilities(mut self, capabilities: u32) -> Self {
+        self.capabilities = capabilities;
+        self
     }
 }
 
@@ -1008,6 +1018,17 @@ mod cortex_m_runtime {
         })
     }
 
+    /// Capabilities of the running task, or `None` when no task is running
+    /// (kernel code before the scheduler starts).
+    pub fn current_capabilities() -> Option<u32> {
+        interrupt::free(|cs| {
+            let shared = RUNTIME.borrow(cs).borrow();
+            let rt = shared.as_ref()?;
+            let id = rt.current?;
+            rt.queue.get(id).map(|t| t.capabilities)
+        })
+    }
+
     /// (alive, total) task counts; (0, 0) before the scheduler starts.
     pub fn task_counts() -> (usize, usize) {
         interrupt::free(|cs| {
@@ -1436,7 +1457,8 @@ mod memfault {
 #[cfg(target_arch = "arm")]
 #[allow(unused_imports)]
 pub use cortex_m_runtime::{
-    block_current_for_uart, block_current_until, current_stack, current_task, kill_current,
+    block_current_for_uart, block_current_until, current_capabilities, current_stack,
+    current_task, kill_current,
     mutex_lock_current, mutex_unlock_current, on_systick, pend_scheduler_switch,
     semaphore_post_current, semaphore_wait_current, start_round_robin, take_recv_timeout,
     task_alive, task_counts, task_exit_address, wake_waiting_receiver, wake_waiting_uart_reader,
@@ -1550,6 +1572,12 @@ mod tests {
         assert_eq!(rq.get(2).unwrap().state, TaskState::Ready);
         assert!(rq.take_recv_timeout(2));
         assert!(!rq.take_recv_timeout(2));
+    }
+
+    #[test]
+    fn tasks_start_with_no_capabilities_until_granted() {
+        assert_eq!(task(1, 1).capabilities, 0);
+        assert_eq!(task(1, 1).with_capabilities(0b110).capabilities, 0b110);
     }
 
     #[test]

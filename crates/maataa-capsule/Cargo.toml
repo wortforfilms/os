@@ -1,0 +1,23 @@
+[package]
+name = "maataa-capsule"
+version = "0.1.0"
+edition = "2021"
+description = "Maataa OS signed capsule images (MCAP): format, capabilities, ed25519 verification"
+license = "UNLICENSED"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "maataa-capsule"
+path = "src/main.rs"
+required-features = ["cli"]
+
+[features]
+# Host signing tool (std).
+cli = []
+
+[dependencies]
+# Pure Rust, no_std, no allocation; verification only needs the public key.
+ed25519-compact = { version = "2.1", default-features = false }

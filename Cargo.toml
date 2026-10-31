@@ -6,7 +6,7 @@ autobins = false
 autoexamples = false
 
 [workspace]
-members = [".", "crates/hemant-core", "crates/maataa-link"]
+members = [".", "crates/hemant-core", "crates/maataa-link", "crates/maataa-capsule"]
 resolver = "2"
 
 [features]
@@ -36,6 +36,8 @@ cortex-m-semihosting = { version = "0.5.0", optional = true }
 hemant-core = { path = "crates/hemant-core" }
 # Host channel codec, shared with the host tool (src/hostlink.rs).
 maataa-link = { path = "crates/maataa-link" }
+# Signed capsule images and capability bits (src/capsule/mod.rs, src/syscall.rs).
+maataa-capsule = { path = "crates/maataa-capsule" }
 # Clock tree on real STM32F411 boards (src/board.rs); not linked for QEMU.
 stm32f4xx-hal = { version = "0.23.0", features = ["stm32f411"], optional = true }
 

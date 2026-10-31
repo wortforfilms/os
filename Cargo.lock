@@ -134,6 +134,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "ed25519-compact"
+version = "2.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1454db4f2edb7f0e8fe0c5b375b0c978fc63244cc9f010d160e417eb10139aa8"
+
+[[package]]
 name = "embassy-executor"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -358,6 +364,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "11d3d7f243d5c5a8b9bb5d6dd2b1602c0cb0b9db1621bafc7ed66e35ff9fe092"
 
 [[package]]
+name = "maataa-capsule"
+version = "0.1.0"
+dependencies = [
+ "ed25519-compact",
+]
+
+[[package]]
 name = "maataa-link"
 version = "0.1.0"
 
@@ -371,6 +384,7 @@ dependencies = [
  "embassy-executor",
  "embassy-time",
  "hemant-core",
+ "maataa-capsule",
  "maataa-link",
  "panic-halt",
  "stm32f4xx-hal",

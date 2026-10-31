@@ -17,6 +17,11 @@
 //! | 13 | read board UART bytes (blocks until data arrives) | pointer | capacity | bytes read, or an error |
 //! | 14 | copy the host-channel status block (`hostlink::HOST_STATUS_BYTES`) | pointer | length | 0 or an error |
 //!
+//! Each task carries a capability mask (bit n allows call n), set when it is
+//! created: from its signed capsule manifest for the host channel, by the
+//! kernel for the demo tasks. A call outside the mask returns `E_NOCAP`
+//! before the kernel looks at its arguments.
+//!
 //! The kernel reads a task buffer (write, send) only if it lies wholly in flash
 //! or in the caller's own stack, and writes one (receive) only if it lies in
 //! the caller's own stack. So a task cannot make the kernel read or write
@@ -73,6 +78,10 @@ pub const E_SEMAPHORE_OVERFLOW: u32 = u32::MAX - 12;
 pub const E_BAD_SEMAPHORE: u32 = u32::MAX - 13;
 /// This board does not provide a physical UART.
 pub const E_NOT_SUPPORTED: u32 = u32::MAX - 14;
+/// The calling task has no capability for this supervisor call.
+pub const E_NOCAP: u32 = u32::MAX - 15;
+/// Every error code is at least this; smaller results are counts or lengths.
+pub const E_LOWEST: u32 = E_NOCAP;
 /// Older name for E_PERM.
 pub const REFUSED: u32 = E_PERM;
 
@@ -94,6 +103,7 @@ pub const fn error_name(code: u32) -> &'static str {
         E_SEMAPHORE_OVERFLOW => "ESEMOVERFLOW",
         E_BAD_SEMAPHORE => "EBADSEMAPHORE",
         E_NOT_SUPPORTED => "ENOTSUP",
+        E_NOCAP => "ENOCAP",
         _ => "?",
     }
 }
@@ -137,6 +147,16 @@ pub fn led(on: bool) {
     // SAFETY: no memory is passed.
     unsafe { core::arch::asm!("svc #2", inout("r0") r0) };
     let _ = r0;
+}
+
+/// Like `led`, but returns the kernel's result (0, or `E_NOCAP` without the
+/// LED capability).
+#[cfg(target_arch = "arm")]
+pub fn led_checked(on: bool) -> u32 {
+    let mut r0 = on as u32;
+    // SAFETY: no memory is passed.
+    unsafe { core::arch::asm!("svc #2", inout("r0") r0) };
+    r0
 }
 
 /// Tells the kernel the demo is over (QEMU exits).
@@ -209,7 +229,7 @@ pub fn recv_timeout(buf: &mut [u8], timeout_ms: u32) -> Result<(u8, usize), u32>
             E_BLOCKED => continue,
             E_TIMEOUT => return Err(E_TIMEOUT),
             E_AGAIN if timeout_ms == 0 => return Err(E_AGAIN),
-            value if value >= E_BLOCKED => return Err(value),
+            value if value >= E_LOWEST => return Err(value),
             length => return Ok((r1 as u8, length as usize)),
         }
     }
@@ -293,7 +313,7 @@ pub fn uart_write(data: &[u8]) -> Result<usize, u32> {
     let r1 = data.len() as u32;
     // SAFETY: the kernel bounds-checks this caller-owned input range.
     unsafe { core::arch::asm!("svc #12", inout("r0") r0, in("r1") r1) };
-    if r0 >= E_NOT_SUPPORTED {
+    if r0 >= E_LOWEST {
         Err(r0)
     } else {
         Ok(r0 as usize)
@@ -329,7 +349,7 @@ pub fn uart_read(buffer: &mut [u8]) -> Result<usize, u32> {
         unsafe { core::arch::asm!("svc #13", inout("r0") r0, in("r1") r1) };
         match r0 {
             E_BLOCKED => continue,
-            value if value >= E_NOT_SUPPORTED => return Err(value),
+            value if value >= E_LOWEST => return Err(value),
             count => return Ok(count as usize),
         }
     }
@@ -617,6 +637,20 @@ mod kernel {
                 ((pc - 2) as *const u8).read(),
             )
         };
+        // Capability gate: a running task may make only the calls its mask
+        // allows. Kernel code before the scheduler starts has no task.
+        if let Some(capabilities) = crate::sched::current_capabilities() {
+            if !maataa_capsule::cap::allows(capabilities, number) {
+                crate::logging::kprintln!(
+                    "kernel: task {} has no capability for syscall {}",
+                    crate::sched::current_task().unwrap_or(0),
+                    number
+                );
+                // SAFETY: r0 of the same frame; returned to the task as the result.
+                unsafe { frame.write(E_NOCAP) };
+                return;
+            }
+        }
         let result = match number {
             SYS_WRITE => sys_write(r0 as usize, r1 as usize),
             SYS_LED => {
@@ -705,7 +739,9 @@ mod tests {
             E_SEMAPHORE_OVERFLOW,
             E_BAD_SEMAPHORE,
             E_NOT_SUPPORTED,
+            E_NOCAP,
         ];
+        assert!(codes.iter().all(|&c| c >= E_LOWEST));
         for (i, a) in codes.iter().enumerate() {
             assert_ne!(error_name(*a), "?");
             for b in &codes[i + 1..] {

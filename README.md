@@ -28,12 +28,15 @@ Working:
 - Board selection: `board-qemu-f405` (default) or `board-f411`, RCC set up
   through `stm32f4xx-hal`. Verified on a NUCLEO-F411RE: demo, UART echo and
   RX wake. Host channel selftest passed in QEMU and on the board.
+- Signed capsules (MCAP, ed25519) and per-task capability masks: every
+  supervisor call is checked against the calling task's mask, and the host
+  channel task's mask comes from its signed manifest
+  ([docs/capsules.md](docs/capsules.md))
 - Static capsule table, virtual flash manifest, release size check
 
 Not yet:
 
 - Executing WebAssembly capsules
-- Capability enforcement and capsule signing
 - LittleFS flash persistence
 
 ## Requirements
@@ -69,6 +72,7 @@ double-click.
 - [Kernel IPC](docs/kernel-ipc.md)
 - [Kernel MPU](docs/kernel-mpu.md)
 - [Host channel](docs/host-channel.md)
+- [Signed capsules and capabilities](docs/capsules.md)
 - [Scheduler](docs/engineering/SCHEDULER.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)

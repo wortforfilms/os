@@ -66,7 +66,7 @@ pass
 
 STEP="host unit tests"
 cargo test
-cargo test -p maataa-link -p hemant-core
+cargo test -p maataa-link -p maataa-capsule -p hemant-core
 pass
 
 STEP="release build"
@@ -96,6 +96,14 @@ rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
 rg -q '^hemant ns since epoch: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant position: ahoratra [0-9]+ muhurta [0-9]+ kala [0-9]+ kastha [0-9]+ nimesha [0-9]+$' "$BOOT_LOG"
+rg -q '^capsule verified: telemetry caps=write,sleep$' "$BOOT_LOG"
+rg -q '^capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status$' "$BOOT_LOG"
+if rg -q '^capsule rejected' "$BOOT_LOG"; then
+    echo "FAIL: a built-in capsule was rejected" >&2
+    exit 1
+fi
+rg -q '^capsule tamper check: rejected \(bad signature\)$' "$BOOT_LOG"
+rg -q '^task 3: led without capability -> ENOCAP$' "$BOOT_LOG"
 TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"
 [ "$TASK_ORDER" = "task 1 task 2 task 3 " ]
 pass

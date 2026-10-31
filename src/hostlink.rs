@@ -99,8 +99,10 @@ pub fn channel_task() -> ! {
         ),
         Err(e) => {
             crate::uprintln!("host channel: not started: {}", syscall::error_name(e));
+            // No syscalls from here on: without its capabilities the task
+            // would only collect refusals.
             loop {
-                let _ = syscall::sleep_ms(60_000);
+                crate::clock::idle();
             }
         }
     }

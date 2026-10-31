@@ -5,7 +5,9 @@ USART2. It replaces the UART echo demo of task 2.
 
 - Kernel side: `src/hostlink.rs`. Task 6 serves the channel. It runs
   unprivileged and uses supervisor calls only: 12 (UART write), 13 (UART read,
-  blocks until bytes arrive), and 14 (status block).
+  blocks until bytes arrive), and 14 (status block). Its capability mask
+  comes from the signed capsule `assets/capsules/hostlink.mcap`
+  ([capsules.md](capsules.md)).
 - Shared codec: `crates/maataa-link`. It is `no_std`, does not allocate, and
   is used by both the kernel and the host tool.
 - Host tool: `maataa-link`. Build it with
