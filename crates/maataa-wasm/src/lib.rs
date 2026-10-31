@@ -9,13 +9,22 @@
 //!   `return`, `call`, `unreachable`, `nop`;
 //! - `drop`, `select`, locals, globals (`i32.const` initialisers), and every
 //!   `i32` comparison and arithmetic instruction;
-//! - imported functions only (no imported globals, memories or tables).
+//! - imported functions only (no imported globals, memories or tables);
+//! - one linear memory with active data segments, `i32` loads and stores
+//!   (`load`, `load8/16_s/u`, `store`, `store8/16`), `memory.size` and
+//!   `memory.grow`.
 //!
-//! There is no linear memory, table, `call_indirect`, start function, float
-//! or `i64`. Every body is scanned once at load: opcodes, local, global,
-//! function and branch indices are checked then. At run time each call has a
-//! fuel limit (instructions), the operand, label and call stacks are bounded,
-//! and every arithmetic trap the specification defines is raised.
+//! **Memory is bounded by the host.** The host passes a byte buffer (a few
+//! KiB in the kernel) and the module sees at most that much of its declared
+//! memory: any access beyond the buffer traps, `memory.size` reports the
+//! declared minimum, and `memory.grow` always fails (returns -1). A module
+//! whose data segments do not fit the buffer is refused at instantiation.
+//!
+//! There is no table, `call_indirect`, start function, float or `i64`. Every
+//! body is scanned once at load: opcodes, local, global, function, branch
+//! and memory use are checked then. At run time each call has a fuel limit
+//! (instructions), the operand, label and call stacks are bounded, and every
+//! trap the specification defines for this subset is raised.
 
 #![cfg_attr(not(test), no_std)]
 
@@ -24,6 +33,9 @@ pub const MAX_IMPORTS: usize = 8;
 pub const MAX_FUNCS: usize = 32;
 pub const MAX_GLOBALS: usize = 8;
 pub const MAX_EXPORTS: usize = 24;
+pub const MAX_DATA: usize = 8;
+/// WebAssembly page size.
+pub const PAGE: u32 = 65_536;
 pub const MAX_PARAMS: usize = 8;
 /// Parameters plus declared locals of one function.
 pub const MAX_LOCALS: usize = 32;
@@ -81,6 +93,8 @@ pub enum Trap {
     Host(u32),
     /// Code that should have been rejected at load time.
     BadCode,
+    /// A load, store or data segment outside the memory buffer.
+    OutOfBounds,
 }
 
 impl Trap {
@@ -98,6 +112,7 @@ impl Trap {
             Self::UnresolvedImport => "unresolved import",
             Self::Host(_) => "host call failed",
             Self::BadCode => "invalid code",
+            Self::OutOfBounds => "memory access out of bounds",
         }
     }
 }
@@ -132,6 +147,14 @@ struct Global {
     init: i32,
 }
 
+/// An active data segment: bytes copied to `offset` at instantiation.
+#[derive(Clone, Copy, Debug, Default)]
+struct Data {
+    offset: u32,
+    start: u32,
+    len: u32,
+}
+
 #[derive(Clone, Copy, Debug, Default)]
 struct Export<'a> {
     name: &'a str,
@@ -151,6 +174,10 @@ pub struct Module<'a> {
     n_globals: usize,
     exports: [Export<'a>; MAX_EXPORTS],
     n_exports: usize,
+    /// Declared minimum pages, if the module has a memory.
+    memory_pages: Option<u32>,
+    data: [Data; MAX_DATA],
+    n_data: usize,
 }
 
 struct Reader<'a> {
@@ -248,12 +275,50 @@ fn skip_immediates(op: u8, r: &mut Reader<'_>) -> Result<(), Error> {
             block_arity(r)?;
         }
         0x11 => return Err(Error::Unsupported("call_indirect")),
-        0x28..=0x40 => return Err(Error::Unsupported("memory instruction")),
+        0x28 | 0x2C..=0x2F | 0x36 | 0x3A | 0x3B => {
+            memarg(op, r)?;
+        }
+        0x3F | 0x40 => {
+            if r.byte()? != 0 {
+                return Err(Error::Malformed("memory index"));
+            }
+        }
+        0x29..=0x35 | 0x37..=0x39 | 0x3C..=0x3E => {
+            return Err(Error::Unsupported("i64 or float memory access"))
+        }
         0x42 => return Err(Error::Unsupported("i64")),
         0x43 | 0x44 => return Err(Error::Unsupported("floating point")),
         _ => return Err(Error::Unsupported("instruction outside the i32 subset")),
     }
     Ok(())
+}
+
+/// Start index of a `width`-byte access at `base + offset`, if it fits.
+fn effective(base: u32, offset: u32, width: usize, len: usize) -> Result<usize, Trap> {
+    let at = base as u64 + offset as u64;
+    if at + width as u64 > len as u64 {
+        Err(Trap::OutOfBounds)
+    } else {
+        Ok(at as usize)
+    }
+}
+
+/// Natural alignment (log2 bytes) of an i32 memory instruction.
+const fn natural_align(op: u8) -> u32 {
+    match op {
+        0x2C | 0x2D | 0x3A => 0,
+        0x2E | 0x2F | 0x3B => 1,
+        _ => 2,
+    }
+}
+
+/// Reads a memory argument; returns the static offset.
+fn memarg(op: u8, r: &mut Reader<'_>) -> Result<u32, Error> {
+    let align = r.u32()?;
+    if align > natural_align(op) {
+        return Err(Error::Malformed("alignment larger than natural"));
+    }
+    r.u32()
 }
 
 /// From just after a block type, finds the matching `else` (if any) and `end`.
@@ -309,6 +374,9 @@ impl<'a> Module<'a> {
             n_globals: 0,
             exports: [Export::default(); MAX_EXPORTS],
             n_exports: 0,
+            memory_pages: None,
+            data: [Data::default(); MAX_DATA],
+            n_data: 0,
         };
         let mut r = Reader {
             bytes,
@@ -335,7 +403,7 @@ impl<'a> Module<'a> {
                 2 => m.parse_imports(&mut s)?,
                 3 => declared_funcs = Some(m.parse_functions(&mut s)?),
                 4 => return Err(Error::Unsupported("tables")),
-                5 => return Err(Error::Unsupported("linear memory")),
+                5 => m.parse_memory(&mut s)?,
                 6 => m.parse_globals(&mut s)?,
                 7 => m.parse_exports(&mut s)?,
                 8 => return Err(Error::Unsupported("start function")),
@@ -344,7 +412,10 @@ impl<'a> Module<'a> {
                     m.parse_code(&mut s, declared_funcs.unwrap_or(0))?;
                     saw_code = true;
                 }
-                11 | 12 => return Err(Error::Unsupported("data segments")),
+                11 => m.parse_data(&mut s)?,
+                12 => {
+                    s.u32()?; // data count; checked against the data section
+                }
                 _ => return Err(Error::Malformed("unknown section")),
             }
             if id != 0 && s.pos != s.end {
@@ -465,6 +536,74 @@ impl<'a> Module<'a> {
         }
         self.n_globals = n;
         Ok(())
+    }
+
+    fn parse_memory(&mut self, s: &mut Reader<'a>) -> Result<(), Error> {
+        let n = s.u32()?;
+        if n > 1 {
+            return Err(Error::TooMany("memories"));
+        }
+        if n == 1 {
+            let flags = s.byte()?;
+            let min = s.u32()?;
+            match flags {
+                0 => {}
+                1 => {
+                    if s.u32()? < min {
+                        return Err(Error::Malformed("memory maximum below minimum"));
+                    }
+                }
+                _ => return Err(Error::Unsupported("shared or 64-bit memory")),
+            }
+            if min > PAGE {
+                return Err(Error::Malformed("memory too large"));
+            }
+            self.memory_pages = Some(min);
+        }
+        Ok(())
+    }
+
+    fn parse_data(&mut self, s: &mut Reader<'a>) -> Result<(), Error> {
+        let n = s.u32()? as usize;
+        if n > MAX_DATA {
+            return Err(Error::TooMany("data segments"));
+        }
+        if n > 0 && self.memory_pages.is_none() {
+            return Err(Error::BadIndex("data segment without a memory"));
+        }
+        for i in 0..n {
+            match s.u32()? {
+                0 => {}
+                2 => {
+                    if s.u32()? != 0 {
+                        return Err(Error::BadIndex("memory index"));
+                    }
+                }
+                _ => return Err(Error::Unsupported("passive data segments")),
+            }
+            if s.byte()? != 0x41 {
+                return Err(Error::Unsupported("data offset other than i32.const"));
+            }
+            let offset = s.i32()? as u32;
+            if s.byte()? != 0x0B {
+                return Err(Error::Malformed("data offset not ended"));
+            }
+            let len = s.u32()? as usize;
+            let start = s.pos;
+            s.take(len)?;
+            self.data[i] = Data {
+                offset,
+                start: start as u32,
+                len: len as u32,
+            };
+        }
+        self.n_data = n;
+        Ok(())
+    }
+
+    /// Declared minimum memory in pages, if the module has a memory.
+    pub fn memory_pages(&self) -> Option<u32> {
+        self.memory_pages
     }
 
     fn parse_exports(&mut self, s: &mut Reader<'a>) -> Result<(), Error> {
@@ -599,6 +738,12 @@ impl<'a> Module<'a> {
                         return Err(Error::BadIndex("local index"));
                     }
                 }
+                0x28 | 0x2C..=0x2F | 0x36 | 0x3A | 0x3B | 0x3F | 0x40 => {
+                    if self.memory_pages.is_none() {
+                        return Err(Error::BadIndex("memory instruction without a memory"));
+                    }
+                    skip_immediates(op, &mut r)?;
+                }
                 0x23 | 0x24 => {
                     let g = r.u32()? as usize;
                     if g >= self.n_globals {
@@ -639,7 +784,15 @@ impl<'a> Module<'a> {
 pub trait Host {
     /// Calls import `index` (position in [`Module::imports`]) with `args`.
     /// The return value is used only when the import declares a result.
-    fn call(&mut self, index: usize, import: &Import<'_>, args: &[i32]) -> Result<i32, Trap>;
+    /// `memory` is the instance's memory buffer (empty without a memory),
+    /// so imports can read and write strings and buffers.
+    fn call(
+        &mut self,
+        index: usize,
+        import: &Import<'_>,
+        args: &[i32],
+        memory: &mut [u8],
+    ) -> Result<i32, Trap>;
 }
 
 #[derive(Clone, Copy, Default)]
@@ -687,18 +840,49 @@ impl<'m, 'a> Instance<'m, 'a> {
         }
     }
 
+    /// Clears `memory` and copies the data segments into it. Call once before
+    /// the first `invoke`, with the buffer that every `invoke` will get.
+    pub fn init_memory(&self, memory: &mut [u8]) -> Result<(), Trap> {
+        memory.fill(0);
+        let limit = self.memory_limit(memory.len());
+        let m = self.module;
+        for d in &m.data[..m.n_data] {
+            let start = d.offset as usize;
+            let end = start.checked_add(d.len as usize).ok_or(Trap::OutOfBounds)?;
+            if end > limit {
+                return Err(Trap::OutOfBounds);
+            }
+            let src = &m.bytes[d.start as usize..(d.start + d.len) as usize];
+            memory[start..end].copy_from_slice(src);
+        }
+        Ok(())
+    }
+
+    /// Bytes of `memory` the module may use: the buffer, capped at its
+    /// declared size; 0 without a memory.
+    fn memory_limit(&self, buffer: usize) -> usize {
+        match self.module.memory_pages {
+            Some(pages) => buffer.min(pages as usize * PAGE as usize),
+            None => 0,
+        }
+    }
+
     pub fn global(&self, index: usize) -> Option<i32> {
         (index < self.module.n_globals).then(|| self.globals[index])
     }
 
     /// Runs exported function `name` with at most `fuel` instructions.
+    /// `memory` is the buffer given to [`Instance::init_memory`].
     pub fn invoke(
         &mut self,
         host: &mut dyn Host,
         name: &str,
         args: &[i32],
         fuel: u32,
+        memory: &mut [u8],
     ) -> Result<Option<i32>, Trap> {
+        let limit = self.memory_limit(memory.len());
+        let memory = &mut memory[..limit];
         let m = self.module;
         let export = m.exports[..m.n_exports]
             .iter()
@@ -711,7 +895,7 @@ impl<'m, 'a> Instance<'m, 'a> {
         }
         self.fuel_used = 0;
         if target < m.n_imports {
-            let v = host.call(target, &m.imports[target], args)?;
+            let v = host.call(target, &m.imports[target], args, memory)?;
             return Ok((ty.results == 1).then_some(v));
         }
 
@@ -906,7 +1090,7 @@ impl<'m, 'a> Instance<'m, 'a> {
                         let mut args = [0i32; MAX_PARAMS];
                         args[..n].copy_from_slice(&stack[sp - n..sp]);
                         sp -= n;
-                        let v = host.call(callee, &m.imports[callee], &args[..n])?;
+                        let v = host.call(callee, &m.imports[callee], &args[..n], memory)?;
                         if ty.results == 1 {
                             push!(v);
                         }
@@ -960,6 +1144,40 @@ impl<'m, 'a> Instance<'m, 'a> {
                 0x41 => {
                     let v = r.i32().map_err(|_| Trap::BadCode)?;
                     push!(v);
+                }
+                0x28 | 0x2C..=0x2F => {
+                    let offset = memarg(op, &mut r).map_err(|_| Trap::BadCode)?;
+                    let base = pop!() as u32;
+                    let width = 1usize << natural_align(op);
+                    let at = effective(base, offset, width, memory.len())?;
+                    let mut b = [0u8; 4];
+                    b[..width].copy_from_slice(&memory[at..at + width]);
+                    let v = match op {
+                        0x28 => i32::from_le_bytes(b),
+                        0x2C => b[0] as i8 as i32,
+                        0x2D => b[0] as i32,
+                        0x2E => i16::from_le_bytes([b[0], b[1]]) as i32,
+                        _ => u16::from_le_bytes([b[0], b[1]]) as i32,
+                    };
+                    push!(v);
+                }
+                0x36 | 0x3A | 0x3B => {
+                    let offset = memarg(op, &mut r).map_err(|_| Trap::BadCode)?;
+                    let value = pop!();
+                    let base = pop!() as u32;
+                    let width = 1usize << natural_align(op);
+                    let at = effective(base, offset, width, memory.len())?;
+                    memory[at..at + width].copy_from_slice(&value.to_le_bytes()[..width]);
+                }
+                0x3F => {
+                    r.byte().map_err(|_| Trap::BadCode)?;
+                    push!(m.memory_pages.unwrap_or(0) as i32);
+                }
+                0x40 => {
+                    r.byte().map_err(|_| Trap::BadCode)?;
+                    pop!();
+                    // The host buffer is fixed: growing always fails.
+                    push!(-1);
                 }
                 0x45 => {
                     let a = pop!();

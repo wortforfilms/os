@@ -2,13 +2,13 @@
 #![no_main]
 
 use cortex_m_rt::{entry, exception};
-use panic_halt as _;
 
 mod board;
 #[path = "capsule/mod.rs"]
 mod capsule;
 mod capsule_task;
 mod clock;
+mod crash;
 mod drivers;
 mod hostlink;
 mod ipc;
@@ -20,6 +20,7 @@ mod sched;
 #[path = "storage/mod.rs"]
 mod storage;
 mod syscall;
+mod watchdog;
 
 #[cfg(all(
     target_arch = "arm",
@@ -41,11 +42,12 @@ static mut TASK_FOUR_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_FIVE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_SIX_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 
-/// The WebAssembly task needs room for the interpreter's fixed stacks; 8 KB,
-/// aligned to 8 KB so it is still one MPU region.
-const CAPSULE_STACK_BYTES: usize = 8192;
+/// The WebAssembly task needs room for the interpreter's fixed stacks and
+/// the capsule's 4 KiB memory; 16 KiB, aligned to 16 KiB so it is still one
+/// MPU region.
+const CAPSULE_STACK_BYTES: usize = 16384;
 
-#[repr(C, align(8192))]
+#[repr(C, align(16384))]
 struct CapsuleStack([u8; CAPSULE_STACK_BYTES]);
 
 static mut TASK_SEVEN_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES]);
@@ -58,9 +60,11 @@ static mut TASK_SEVEN_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES
 use maataa_capsule::cap;
 
 const TASK_ONE_CAPS: u32 = cap::WRITE | cap::LED | cap::SLEEP | cap::MUTEX | cap::SEND;
-#[cfg(not(feature = "kernel-stack-test"))]
+#[cfg(all(feature = "kernel-stack-test", feature = "watchdog-test"))]
+compile_error!("kernel-stack-test and watchdog-test both use syscall 4; pick one");
+#[cfg(not(any(feature = "kernel-stack-test", feature = "watchdog-test")))]
 const TASK_TWO_CAPS: u32 = cap::WRITE | cap::RECV | cap::MUTEX | cap::SEMAPHORE;
-#[cfg(feature = "kernel-stack-test")]
+#[cfg(any(feature = "kernel-stack-test", feature = "watchdog-test"))]
 const TASK_TWO_CAPS: u32 = cap::WRITE | cap::RECV | cap::MUTEX | cap::SEMAPHORE | cap::TEST;
 /// Task 3 tests misuse; it may not touch the LED, and checks that it cannot.
 const TASK_THREE_CAPS: u32 = cap::WRITE
@@ -146,6 +150,12 @@ fn demo_task_two() -> ! {
     match syscall::semaphore_wait(0) {
         Ok(()) => crate::uprintln!("task 2: semaphore 0 permit received; producer wake verified"),
         Err(e) => crate::uprintln!("task 2: semaphore wait failed: {}", syscall::error_name(e)),
+    }
+    #[cfg(feature = "watchdog-test")]
+    {
+        crate::uprintln!("watchdog test: asking the kernel to hang");
+        syscall::test_watchdog();
+        crate::uprintln!("watchdog test: PASS; the last reset came from the watchdog, so the kernel did not hang again");
     }
     // USART2 belongs to the host channel (task 6); see docs/host-channel.md.
     loop {
@@ -237,6 +247,18 @@ fn demo_task_five() -> ! {
     }
 }
 
+/// A kernel panic: record it for the next boot (src/crash.rs), report it, and
+/// stop. On the F411 the watchdog then resets the board.
+#[panic_handler]
+fn panic(info: &core::panic::PanicInfo) -> ! {
+    let line = info.location().map_or(0, |l| l.line());
+    crash::record(crash::CrashKind::Panic, line, 0);
+    logging::kprintln!("KERNEL PANIC: {}; system stopped", info);
+    loop {
+        cortex_m::asm::nop();
+    }
+}
+
 /// Task 7: the telemetry capsule, a signed WebAssembly program.
 fn telemetry_capsule_task() -> ! {
     capsule_task::run("telemetry", kernel::TELEMETRY_CAPSULE, 3, 200)
@@ -266,6 +288,8 @@ fn main() -> ! {
     clock::start(&mut core.SYST, config);
 
     let grants = kernel::run();
+    // From here the scheduler tick must keep running (src/watchdog.rs).
+    watchdog::start();
 
     {
         let mut queue = sched::RunQueue::<{ sched::MAX_TASKS }>::new();

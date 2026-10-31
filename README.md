@@ -33,10 +33,14 @@ Working:
   channel task's mask comes from its signed manifest
   ([docs/capsules.md](docs/capsules.md))
 - WebAssembly capsules: the signed telemetry capsule runs as task 7 in a
-  small `no_std` interpreter (`crates/maataa-wasm`: i32 subset, no linear
-  memory, fuel-limited; checked against wasmi on 20,000 random programs).
-  Its imports are supervisor calls, so its manifest's capabilities bind it
+  small `no_std` interpreter (`crates/maataa-wasm`: i32 subset with a 4 KiB
+  host-bounded linear memory, fuel-limited; checked against wasmi). Its
+  imports (log, strings, sleep, LED, persistent store) are supervisor calls,
+  so its manifest's capabilities bind it
   ([docs/wasm-capsules.md](docs/wasm-capsules.md))
+- Watchdog (F411 IWDG, fed by the scheduler tick), reset cause, and a crash
+  record that survives the reset; each boot reports both and saves them to
+  persistent key 1 ([docs/watchdog.md](docs/watchdog.md))
 - Persistent key-value store on flash sectors 6–7 (F411) or a host file
   (QEMU): power-loss safe, two-bank compaction, boot count; tasks and the
   host channel use it through syscalls 15/16
@@ -45,7 +49,6 @@ Working:
 
 Not yet:
 
-- Linear memory for WebAssembly capsules (strings, buffers)
 - More than one capsule task, started from manifest data
 - Encrypted or authenticated storage
 
@@ -85,6 +88,7 @@ double-click.
 - [Signed capsules and capabilities](docs/capsules.md)
 - [WebAssembly capsules](docs/wasm-capsules.md)
 - [Persistent storage](docs/persistence.md)
+- [Watchdog and crash report](docs/watchdog.md)
 - [Scheduler](docs/engineering/SCHEDULER.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)

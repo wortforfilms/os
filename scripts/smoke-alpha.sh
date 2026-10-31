@@ -96,10 +96,13 @@ rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
 rg -q '^hemant ns since epoch: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant position: ahoratra [0-9]+ muhurta [0-9]+ kala [0-9]+ kastha [0-9]+ nimesha [0-9]+$' "$BOOT_LOG"
-rg -q '^capsule verified: telemetry caps=write,sleep$' "$BOOT_LOG"
+rg -q '^capsule verified: telemetry caps=write,sleep,store_get,store_put$' "$BOOT_LOG"
 rg -q '^capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status,store_get,store_put$' "$BOOT_LOG"
 rg -q '^flash store: bank [01] generation [0-9]+ ' "$BOOT_LOG"
 rg -q '^boot count: [0-9]+$' "$BOOT_LOG"
+rg -q '^reset cause: unknown$' "$BOOT_LOG"
+rg -q '^last crash: none$' "$BOOT_LOG"
+rg -q '^watchdog: not available on this board$' "$BOOT_LOG"
 if rg -q '^capsule rejected' "$BOOT_LOG"; then
     echo "FAIL: a built-in capsule was rejected" >&2
     exit 1
@@ -108,7 +111,8 @@ rg -q '^capsule tamper check: rejected \(bad signature\)$' "$BOOT_LOG"
 rg -q '^task 3: led without capability -> ENOCAP$' "$BOOT_LOG"
 # Task 7 runs the signed telemetry capsule's WebAssembly; its manifest has no
 # LED capability, so its LED import must be refused.
-rg -q '^capsule telemetry: wasm loaded ' "$BOOT_LOG"
+rg -q '^capsule telemetry: wasm loaded .* 4096 bytes of memory\)$' "$BOOT_LOG"
+rg -q '^capsule telemetry: telemetry capsule up$' "$BOOT_LOG"
 rg -q '^capsule telemetry: init -> -16 \(ENOCAP\)$' "$BOOT_LOG"
 rg -q '^capsule telemetry: tick 3 -> 233 ' "$BOOT_LOG"
 TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"

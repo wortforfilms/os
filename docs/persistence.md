@@ -64,13 +64,16 @@ fails the test. The tests cover:
 | Keys | Owner |
 | --- | --- |
 | 0 | kernel: boot count (u32, little-endian) |
-| 1–15 | kernel, reserved |
-| 16–63 | tasks, with the `store_get` / `store_put` capabilities |
+| 1 | kernel: last reset cause and crash ([watchdog.md](watchdog.md)) |
+| 2–15 | kernel, reserved |
+| 16–63 | tasks, with the `store_get` / `store_put` capabilities (key 32: the telemetry capsule's lifetime tick count) |
 
-Values are at most 64 bytes. Syscalls refuse kernel keys with `EPERM`, and
+Tasks may read kernel keys 0–15 but not write them.
+
+Values are at most 64 bytes. Writes to kernel keys get `EPERM`, and
 calls outside the task's capability mask with `ENOCAP`. A missing key gives
-`ENOENT`. Of the built-in capsules, only the signed hostlink capsule (task 6)
-grants `store_get` and `store_put`.
+`ENOENT`. The signed hostlink capsule (task 6) and telemetry capsule (task 7)
+grant `store_get` and `store_put`.
 
 ## From the host
 

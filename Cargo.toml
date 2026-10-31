@@ -20,6 +20,10 @@ low-power = []
 # Test only: task 2 asks the kernel (svc #4) to recurse on the main stack until
 # it hits the kernel stack guard. The system must report and stop.
 kernel-stack-test = []
+# Test only (F411): task 2 asks the kernel to hang with interrupts off, so the
+# watchdog must reset the board. After a watchdog reset the kernel refuses to
+# hang again and reports the reset cause instead.
+watchdog-test = []
 # Test only: the clock self-test runs under QEMU -icount, where guest time
 # follows the instruction count, not host time. The host-rate check is then
 # reported, not asserted (scripts/qemu-clock-test.sh).

@@ -1071,6 +1071,9 @@ mod cortex_m_runtime {
     /// Called after `clock::on_systick()`. It only requests PendSV; no task
     /// state or register context is changed in the measurement handler.
     pub fn on_systick() {
+        // The tick runs, so interrupts are on and no fault handler is stuck:
+        // feed the watchdog (src/watchdog.rs).
+        crate::watchdog::feed();
         let now = crate::clock::get_ticks();
         let (woke, quantum_expired) = interrupt::free(|cs| {
             let mut shared = RUNTIME.borrow(cs).borrow_mut();
@@ -1327,6 +1330,15 @@ mod memfault {
         let guard_end = (guard + size) as u32;
         let hit_guard =
             (at != 0 && at >= guard as u32 && at < guard_end) || old_msp < guard_end + 32;
+        crate::crash::record(
+            if hit_guard {
+                crate::crash::CrashKind::KernelStackOverflow
+            } else {
+                crate::crash::CrashKind::KernelMemoryFault
+            },
+            at,
+            status as u32,
+        );
         if hit_guard {
             crate::logging::kprintln!(
                 "KERNEL STACK OVERFLOW: the main stack reached its guard {:#010x}..{:#010x} (sp {:#010x}, {} at {:#010x}, mmfsr={:#04x}); system stopped",
@@ -1387,6 +1399,7 @@ mod memfault {
         } else {
             (0, 0)
         };
+        crate::crash::record(crate::crash::CrashKind::HardFault, pc, cfsr);
         crate::logging::kprintln!(
             "HARD FAULT pc={:#010x} lr={:#010x} cfsr={:#010x} hfsr={:#010x} bfar={:#010x} mmfar={:#010x} ({}); system stopped",
             pc,

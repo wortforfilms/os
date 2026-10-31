@@ -11,10 +11,20 @@
 //! | Import | Type | Supervisor call |
 //! | --- | --- | --- |
 //! | `log` | `(i32)` | 1, write: `capsule <name>: log <value>` |
+//! | `log_str` | `(ptr, len)` | 1, write: `capsule <name>: <text>` (UTF-8 from memory) |
 //! | `sleep_ms` | `(i32) -> i32` | 7, sleep; 0 or an error code |
 //! | `led` | `(i32) -> i32` | 2, LED; 0 or an error code |
+//! | `store_get` | `(key, ptr, cap) -> i32` | 15; value length or an error code |
+//! | `store_put` | `(key, ptr, len) -> i32` | 16; 0 or an error code |
 //!
 //! Error codes reach the capsule as negative numbers (`E_NOCAP` is -16).
+//!
+//! **Memory.** A capsule with a linear memory gets [`CAPSULE_MEMORY_BYTES`]
+//! of it, in a buffer on this task's own stack. Its data segments are copied
+//! in at load; any access beyond the buffer traps. A pointer an import
+//! receives is checked against the same buffer, and because the buffer lies
+//! in the task's stack the kernel's own buffer checks accept it for
+//! `store_get` / `store_put` unchanged.
 
 #[cfg(target_arch = "arm")]
 use crate::syscall;
@@ -23,8 +33,25 @@ use maataa_wasm::{Host, Import, Trap};
 /// Instructions one export call may run.
 pub const FUEL_PER_CALL: u32 = 20_000;
 
+/// Linear memory a capsule may use.
+pub const CAPSULE_MEMORY_BYTES: usize = 4096;
+
 /// Names the capsule may import. Anything else is refused before it runs.
-pub const IMPORTS: [(&str, u8, u8); 3] = [("log", 1, 0), ("sleep_ms", 1, 1), ("led", 1, 1)];
+pub const IMPORTS: [(&str, u8, u8); 6] = [
+    ("log", 1, 0),
+    ("log_str", 2, 0),
+    ("sleep_ms", 1, 1),
+    ("led", 1, 1),
+    ("store_get", 3, 1),
+    ("store_put", 3, 1),
+];
+
+/// The `[ptr, ptr + len)` slice of capsule memory, or a trap.
+pub fn capsule_slice(memory: &mut [u8], ptr: i32, len: i32) -> Result<&mut [u8], Trap> {
+    let (ptr, len) = (ptr as u32 as usize, len as u32 as usize);
+    let end = ptr.checked_add(len).ok_or(Trap::OutOfBounds)?;
+    memory.get_mut(ptr..end).ok_or(Trap::OutOfBounds)
+}
 
 /// Checks every import against [`IMPORTS`] (module, name and type).
 pub fn check_imports(imports: &[Import<'_>]) -> Result<(), &'static str> {
@@ -55,11 +82,39 @@ pub struct SyscallHost {
 
 #[cfg(target_arch = "arm")]
 impl Host for SyscallHost {
-    fn call(&mut self, _index: usize, import: &Import<'_>, args: &[i32]) -> Result<i32, Trap> {
+    fn call(
+        &mut self,
+        _index: usize,
+        import: &Import<'_>,
+        args: &[i32],
+        memory: &mut [u8],
+    ) -> Result<i32, Trap> {
         match import.name {
             "log" => {
                 crate::uprintln!("capsule {}: log {}", self.name, args[0]);
                 Ok(0)
+            }
+            "log_str" => {
+                let bytes = capsule_slice(memory, args[0], args[1])?;
+                let text = core::str::from_utf8(bytes).unwrap_or("<not UTF-8>");
+                crate::uprintln!("capsule {}: {}", self.name, text);
+                Ok(0)
+            }
+            "store_get" => {
+                let out = capsule_slice(memory, args[1], args[2])?;
+                Ok(match syscall::store_get(args[0].clamp(0, 255) as u8, out) {
+                    Ok(n) => n as i32,
+                    Err(code) => to_capsule(code),
+                })
+            }
+            "store_put" => {
+                let value = capsule_slice(memory, args[1], args[2])?;
+                Ok(
+                    match syscall::store_put(args[0].clamp(0, 255) as u8, value) {
+                        Ok(()) => 0,
+                        Err(code) => to_capsule(code),
+                    },
+                )
             }
             "sleep_ms" => Ok(match syscall::sleep_ms(args[0].max(0) as u32) {
                 Ok(()) => 0,
@@ -114,22 +169,32 @@ pub fn run(name: &'static str, image: &'static [u8], ticks: u32, period_ms: u32)
         idle()
     }
     crate::uprintln!(
-        "capsule {}: wasm loaded ({} bytes, {} imports)",
+        "capsule {}: wasm loaded ({} bytes, {} imports, {} bytes of memory)",
         name,
         payload.len(),
-        module.imports().len()
+        module.imports().len(),
+        if module.memory_pages().is_some() {
+            CAPSULE_MEMORY_BYTES
+        } else {
+            0
+        }
     );
     let mut instance = Instance::new(&module);
     let mut host = SyscallHost { name };
+    let mut memory = [0u8; CAPSULE_MEMORY_BYTES];
+    if let Err(trap) = instance.init_memory(&mut memory) {
+        crate::uprintln!("capsule {}: not loaded: {}", name, trap.as_str());
+        idle()
+    }
 
-    match instance.invoke(&mut host, "init", &[], FUEL_PER_CALL) {
+    match instance.invoke(&mut host, "init", &[], FUEL_PER_CALL, &mut memory) {
         Ok(Some(value)) => crate::uprintln!("capsule {}: init -> {}", name, Shown(value)),
         Ok(None) => crate::uprintln!("capsule {}: init done", name),
         Err(Trap::NoSuchExport) => {}
         Err(trap) => crate::uprintln!("capsule {}: init trapped: {}", name, trap.as_str()),
     }
     for tick in 1..=ticks {
-        match instance.invoke(&mut host, "tick", &[], FUEL_PER_CALL) {
+        match instance.invoke(&mut host, "tick", &[], FUEL_PER_CALL, &mut memory) {
             Ok(value) => crate::uprintln!(
                 "capsule {}: tick {} -> {} ({} instructions)",
                 name,
@@ -177,39 +242,90 @@ mod tests {
     }
 
     #[test]
+    fn capsule_slices_are_bounds_checked() {
+        let mut memory = [0u8; 16];
+        assert_eq!(capsule_slice(&mut memory, 4, 8).unwrap().len(), 8);
+        assert_eq!(capsule_slice(&mut memory, 8, 9), Err(Trap::OutOfBounds));
+        assert_eq!(capsule_slice(&mut memory, -1, 1), Err(Trap::OutOfBounds));
+        assert_eq!(capsule_slice(&mut memory, 1, -1), Err(Trap::OutOfBounds));
+    }
+
+    /// Runs the built-in capsule against a fake kernel: a store (key -> bytes),
+    /// a log, and an LED call that is refused.
+    #[test]
     fn the_built_in_telemetry_capsule_loads_and_runs() {
+        use std::collections::HashMap;
         let image = include_bytes!("../assets/capsules/telemetry.mcap");
         let payload = maataa_capsule::payload_unverified(image).unwrap();
         let module = Module::parse(payload).expect("telemetry wasm loads");
         check_imports(module.imports()).unwrap();
 
-        struct Fake(Vec<i32>);
+        #[derive(Default)]
+        struct Fake {
+            logged: Vec<String>,
+            store: HashMap<i32, Vec<u8>>,
+        }
         impl Host for Fake {
-            fn call(&mut self, _: usize, import: &Import<'_>, args: &[i32]) -> Result<i32, Trap> {
+            fn call(
+                &mut self,
+                _: usize,
+                import: &Import<'_>,
+                args: &[i32],
+                memory: &mut [u8],
+            ) -> Result<i32, Trap> {
                 match import.name {
-                    "log" => {
-                        self.0.push(args[0]);
-                        Ok(0)
+                    "log" => self.logged.push(args[0].to_string()),
+                    "log_str" => {
+                        let text = capsule_slice(memory, args[0], args[1])?;
+                        self.logged.push(String::from_utf8_lossy(text).into_owned());
                     }
-                    "led" => Ok(to_capsule(crate::syscall::E_NOCAP)),
-                    _ => Ok(0),
+                    "led" => return Ok(to_capsule(crate::syscall::E_NOCAP)),
+                    "store_get" => {
+                        let out = capsule_slice(memory, args[1], args[2])?;
+                        return Ok(match self.store.get(&args[0]) {
+                            Some(v) => {
+                                out[..v.len()].copy_from_slice(v);
+                                v.len() as i32
+                            }
+                            None => to_capsule(crate::syscall::E_NOENT),
+                        });
+                    }
+                    "store_put" => {
+                        let value = capsule_slice(memory, args[1], args[2])?.to_vec();
+                        self.store.insert(args[0], value);
+                    }
+                    _ => {}
                 }
+                Ok(0)
             }
         }
-        let mut host = Fake(Vec::new());
-        let mut instance = maataa_wasm::Instance::new(&module);
-        assert_eq!(
-            instance.invoke(&mut host, "init", &[], FUEL_PER_CALL),
-            Ok(Some(-16))
-        );
-        let ticks: Vec<_> = (0..3)
-            .map(|_| {
-                instance
-                    .invoke(&mut host, "tick", &[], FUEL_PER_CALL)
-                    .unwrap()
-            })
-            .collect();
-        assert_eq!(ticks, vec![Some(89), Some(144), Some(233)]);
-        assert_eq!(host.0, vec![89, 144, 233]);
+
+        let mut host = Fake::default();
+        // Two "boots": the lifetime count in key 32 carries over.
+        for boot in 0..2 {
+            let mut instance = maataa_wasm::Instance::new(&module);
+            let mut memory = [0u8; CAPSULE_MEMORY_BYTES];
+            instance.init_memory(&mut memory).unwrap();
+            assert_eq!(
+                instance.invoke(&mut host, "init", &[], FUEL_PER_CALL, &mut memory),
+                Ok(Some(-16))
+            );
+            let ticks: Vec<_> = (0..3)
+                .map(|_| {
+                    instance
+                        .invoke(&mut host, "tick", &[], FUEL_PER_CALL, &mut memory)
+                        .unwrap()
+                })
+                .collect();
+            assert_eq!(ticks, vec![Some(89), Some(144), Some(233)]);
+            let lifetime = 3 * (boot + 1);
+            assert_eq!(
+                host.store.get(&32),
+                Some(&(lifetime as u32).to_le_bytes().to_vec())
+            );
+        }
+        assert_eq!(host.logged[0], "telemetry capsule up");
+        assert_eq!(&host.logged[1..3], &["lifetime ticks", "1"]);
+        assert_eq!(host.logged.last().map(String::as_str), Some("6"));
     }
 }

@@ -5,6 +5,7 @@ pub mod board;
 pub mod capsule;
 pub mod capsule_task;
 pub mod clock;
+pub mod crash;
 pub mod drivers;
 pub mod hostlink;
 pub mod ipc;
@@ -15,3 +16,4 @@ pub mod sched;
 #[path = "storage/mod.rs"]
 pub mod storage;
 pub mod syscall;
+pub mod watchdog;

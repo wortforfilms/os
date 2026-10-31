@@ -111,6 +111,38 @@ pub fn run() -> Grants {
     }
     let hostlink_capabilities = capsules.capabilities_of("hostlink").unwrap_or(0);
 
+    // Why we are booting, and what (if anything) stopped the last run.
+    let cause = crate::crash::reset_cause();
+    let crash = crate::crash::take();
+    let boot_record = crate::crash::BootRecord {
+        cause,
+        crash: crash.map_or(crate::crash::CrashKind::None, |c| c.0),
+        address: crash.map_or(0, |c| c.1),
+        detail: crash.map_or(0, |c| c.2),
+        uptime_ms: crash.map_or(0, |c| c.3),
+    };
+    kprintln!("reset cause: {}", cause.as_str());
+    match crash {
+        Some((kind, address, detail, uptime_ms)) => kprintln!(
+            "last crash: {} (address {:#010x}, detail {:#010x}, at {} ms)",
+            kind.as_str(),
+            address,
+            detail,
+            uptime_ms
+        ),
+        None => kprintln!("last crash: none"),
+    }
+    if crate::watchdog::AVAILABLE {
+        kprintln!(
+            "watchdog: IWDG {} ms nominal, fed by the scheduler tick",
+            crate::watchdog::TIMEOUT_MS
+        );
+    } else {
+        kprintln!("watchdog: not available on this board");
+    }
+    #[cfg(feature = "watchdog-test")]
+    crate::syscall::arm_watchdog_test(cause != crate::crash::ResetCause::Watchdog);
+
     // Persistent store: flash sectors 6-7 on the F411, a host file in QEMU.
     match crate::storage::persist::mount() {
         Ok((report, stats)) => {
@@ -127,6 +159,12 @@ pub fn run() -> Grants {
             match crate::storage::persist::count_boot() {
                 Ok(count) => kprintln!("boot count: {}", count),
                 Err(error) => kprintln!("boot count: not saved: {}", error.as_str()),
+            }
+            if let Some(Err(error)) = crate::storage::persist::put(
+                crate::storage::persist::KEY_LAST_RESET,
+                &boot_record.encode(),
+            ) {
+                kprintln!("reset record: not saved: {}", error.as_str());
             }
         }
         Err(error) => kprintln!("flash store: not mounted: {}", error.as_str()),

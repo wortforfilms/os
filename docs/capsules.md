@@ -39,7 +39,7 @@ What each task gets in this build:
 | 3 | write, send, recv, sleep, semaphore, demo_done, uart_write | kernel. It calls `led` on purpose and must get `ENOCAP`. |
 | 4, 5 | write | kernel |
 | 6 (host channel) | write, sleep, uart_write, uart_read, host_status, store_get, store_put | **signed** `assets/capsules/hostlink.mcap` |
-| 7 (telemetry WebAssembly) | write, sleep | **signed** `assets/capsules/telemetry.mcap` |
+| 7 (telemetry WebAssembly) | write, sleep, store_get, store_put | **signed** `assets/capsules/telemetry.mcap` |
 
 If the hostlink capsule fails verification, task 6 gets a mask of 0. It then
 cannot even log, and stops without making any calls.
@@ -110,7 +110,7 @@ them.
 
 ```text
 capsule signer: development (public seed; integrity only) key 6dbf55f3
-capsule verified: telemetry caps=write,sleep
+capsule verified: telemetry caps=write,sleep,store_get,store_put
 capsule verified: control caps=write,send,recv
 capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status,store_get,store_put
 capsule tamper check: rejected (bad signature)

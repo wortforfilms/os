@@ -16,12 +16,20 @@ pub use maataa_store::{FlashError, MountReport, Stats, StoreError, KEYS, MAX_VAL
 
 /// Kernel key: number of boots, u32 little-endian.
 pub const KEY_BOOT_COUNT: u8 = 0;
-/// Lowest key a task may read or write.
+/// Kernel key: the last boot's reset cause and crash (`maataa_link::BootRecord`).
+pub const KEY_LAST_RESET: u8 = 1;
+/// Lowest key a task may write.
 pub const FIRST_TASK_KEY: u8 = 16;
 
-/// Whether a task may use `key`.
+/// Whether a task may write `key`. Kernel keys (0..16) are read-only for
+/// tasks.
 pub const fn task_key_allowed(key: u32) -> bool {
     key >= FIRST_TASK_KEY as u32 && key < KEYS as u32
+}
+
+/// Whether a task may read `key`: any key, kernel keys included.
+pub const fn task_key_readable(key: u32) -> bool {
+    key < KEYS as u32
 }
 
 #[cfg(all(
@@ -343,6 +351,13 @@ mod kernel_side {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn tasks_may_read_but_not_write_kernel_keys() {
+        assert!(task_key_readable(KEY_BOOT_COUNT as u32));
+        assert!(task_key_readable(KEY_LAST_RESET as u32));
+        assert!(!task_key_readable(64));
+    }
 
     #[test]
     fn tasks_cannot_touch_kernel_keys() {

@@ -4,9 +4,10 @@
 # target/qemu-flash.bin (through semihosting), so values must survive from
 # one QEMU run to the next.
 #
-#   run 1: fresh file -> "boot count: 1"; the host writes key 30 and forces
-#          compactions with 400 writes to key 63
-#   run 2: "boot count: 2"; key 30 and the last key-63 value read back
+#   run 1: fresh file -> "boot count: 1"; the host writes key 30
+#   run 2: "boot count: 2"; 260 writes to key 63 force a compaction
+#   run 3: "boot count: 3"; key 30 reads back, a compaction happened, and the
+#          WebAssembly telemetry capsule's own counter (key 32) reached 9
 # Exit status 0 on pass; a hang fails after 60 s per run.
 set -euo pipefail
 
@@ -76,6 +77,9 @@ out="$(boot_and_talk get 30)" || fail "run 3: get"
 echo "$out"
 echo "$out" | grep -q '"persisted-across-reboot"' || fail "run 3: key 30 did not survive"
 grep -q '^boot count: 3$' "$WORK/run.log" || fail "run 3: boot count is not 3"
+# The telemetry capsule keeps its lifetime tick count in key 32 through its
+# own memory and imports: 3 ticks per boot, so 9 after the third boot.
+grep -q '^capsule telemetry: log 9$' "$WORK/run.log" || fail "run 3: capsule lifetime count is not 9"
 generation="$(sed -n 's/^flash store: bank [01] generation \([0-9]*\) .*/\1/p' "$WORK/run.log")"
 [ "${generation:-0}" -ge 2 ] || fail "run 3: no compaction happened (generation ${generation:-?})"
 echo "PASS: persistent store (3 boots, generation $generation after compaction)"

@@ -11,7 +11,13 @@ struct TestHost {
 }
 
 impl Host for TestHost {
-    fn call(&mut self, _index: usize, import: &Import<'_>, args: &[i32]) -> Result<i32, Trap> {
+    fn call(
+        &mut self,
+        _index: usize,
+        import: &Import<'_>,
+        args: &[i32],
+        _memory: &mut [u8],
+    ) -> Result<i32, Trap> {
         match import.name {
             "log" => {
                 self.logged.push(args[0]);
@@ -28,7 +34,7 @@ fn run(text: &str, name: &str, args: &[i32]) -> Result<Option<i32>, Trap> {
     let bytes = wasm(text);
     let module = Module::parse(&bytes).expect("module loads");
     let mut instance = Instance::new(&module);
-    instance.invoke(&mut TestHost::default(), name, args, 1_000_000)
+    instance.invoke(&mut TestHost::default(), name, args, 1_000_000, &mut [])
 }
 
 #[test]
@@ -124,7 +130,7 @@ fn recursion_loops_and_globals() {
     let mut host = TestHost::default();
     for want in 1..=3 {
         assert_eq!(
-            instance.invoke(&mut host, "bump", &[], 1000),
+            instance.invoke(&mut host, "bump", &[], 1000, &mut []),
             Ok(Some(want))
         );
     }
@@ -191,13 +197,19 @@ fn host_imports_are_called_with_arguments() {
     assert_eq!(module.imports()[0].module, "maataa");
     let mut instance = Instance::new(&module);
     let mut host = TestHost::default();
-    assert_eq!(instance.invoke(&mut host, "go", &[], 100), Ok(Some(6)));
+    assert_eq!(
+        instance.invoke(&mut host, "go", &[], 100, &mut []),
+        Ok(Some(6))
+    );
     assert_eq!(host.logged, vec![42]);
     assert_eq!(
-        instance.invoke(&mut host, "boom", &[], 100),
+        instance.invoke(&mut host, "boom", &[], 100, &mut []),
         Err(Trap::Host(7))
     );
-    assert_eq!(instance.invoke(&mut host, "direct", &[1], 100), Ok(Some(2)));
+    assert_eq!(
+        instance.invoke(&mut host, "direct", &[1], 100, &mut []),
+        Ok(Some(2))
+    );
 }
 
 #[test]
@@ -220,7 +232,7 @@ fn fuel_counts_instructions() {
     let module = Module::parse(&bytes).unwrap();
     let mut instance = Instance::new(&module);
     assert_eq!(
-        instance.invoke(&mut TestHost::default(), "f", &[], 4),
+        instance.invoke(&mut TestHost::default(), "f", &[], 4, &mut []),
         Ok(Some(3))
     );
     assert_eq!(
@@ -228,7 +240,7 @@ fn fuel_counts_instructions() {
         "three instructions and the final end"
     );
     assert_eq!(
-        instance.invoke(&mut TestHost::default(), "f", &[], 3),
+        instance.invoke(&mut TestHost::default(), "f", &[], 3, &mut []),
         Err(Trap::OutOfFuel)
     );
 }
@@ -236,7 +248,6 @@ fn fuel_counts_instructions() {
 #[test]
 fn features_outside_the_subset_are_rejected_at_load() {
     let cases = [
-        (r#"(module (memory 1))"#, "linear memory"),
         (r#"(module (table 1 funcref))"#, "tables"),
         (
             r#"(module (func (param f32)))"#,
@@ -304,7 +315,7 @@ fn malformed_bytes_are_rejected() {
             let mut instance = Instance::new(&module);
             assert!(
                 instance
-                    .invoke(&mut TestHost::default(), "f", &[], 100)
+                    .invoke(&mut TestHost::default(), "f", &[], 100, &mut [])
                     .is_err(),
                 "truncated at {cut} still runs"
             );
@@ -317,7 +328,7 @@ fn malformed_bytes_are_rejected() {
             bad[i] ^= 1 << bit;
             if let Ok(module) = Module::parse(&bad) {
                 let mut instance = Instance::new(&module);
-                let _ = instance.invoke(&mut TestHost::default(), "f", &[], 1000);
+                let _ = instance.invoke(&mut TestHost::default(), "f", &[], 1000, &mut []);
             }
         }
     }
@@ -411,7 +422,7 @@ fn matches_wasmi_on_random_programs() {
 
         let ours = {
             let module = Module::parse(&bytes).expect("generated module loads");
-            Instance::new(&module).invoke(&mut TestHost::default(), "f", &[a, b], 10_000)
+            Instance::new(&module).invoke(&mut TestHost::default(), "f", &[a, b], 10_000, &mut [])
         };
         let reference = {
             let module = wasmi::Module::new(&engine, &bytes[..]).expect("wasmi loads");
@@ -430,6 +441,239 @@ fn matches_wasmi_on_random_programs() {
             (Ok(Some(x)), Some(y)) => assert_eq!(x, y, "{text} with ({a}, {b})"),
             (Err(_), None) => {}
             (o, r) => panic!("disagree: ours {o:?}, wasmi {r:?}\n{text} with ({a}, {b})"),
+        }
+    }
+}
+
+fn run_mem(text: &str, name: &str, args: &[i32], memory: &mut [u8]) -> Result<Option<i32>, Trap> {
+    let bytes = wasm(text);
+    let module = Module::parse(&bytes).expect("module loads");
+    let mut instance = Instance::new(&module);
+    instance.init_memory(memory)?;
+    instance.invoke(&mut TestHost::default(), name, args, 100_000, memory)
+}
+
+const MEM: &str = r#"(module
+  (memory 1)
+  (data (i32.const 16) "\01\80\ff\7f\fe\ff\ff\ff")
+  (func (export "l32") (param i32) (result i32) local.get 0 i32.load)
+  (func (export "l8s") (param i32) (result i32) local.get 0 i32.load8_s)
+  (func (export "l8u") (param i32) (result i32) local.get 0 i32.load8_u)
+  (func (export "l16s") (param i32) (result i32) local.get 0 i32.load16_s)
+  (func (export "l16u") (param i32) (result i32) local.get 0 i32.load16_u)
+  (func (export "off") (result i32) i32.const 8 i32.load offset=8)
+  (func (export "st") (param i32 i32) (result i32)
+    local.get 0 local.get 1 i32.store
+    local.get 0 i32.const 1 i32.add local.get 1 i32.store8
+    local.get 0 i32.load)
+  (func (export "st16") (param i32 i32) (result i32)
+    local.get 0 local.get 1 i32.store16 local.get 0 i32.load)
+  (func (export "size") (result i32) memory.size)
+  (func (export "grow") (result i32) i32.const 1 memory.grow))"#;
+
+#[test]
+fn loads_stores_and_data_segments() {
+    let mut memory = [0u8; 256];
+    let cases: &[(&str, &[i32], i32)] = &[
+        ("l32", &[16], 0x7FFF_8001),
+        ("l8s", &[17], -128),
+        ("l8u", &[17], 128),
+        ("l16s", &[18], 0x7FFF),
+        ("l16s", &[20], -2),
+        ("l16u", &[20], 0xFFFE),
+        ("off", &[], 0x7FFF_8001),
+        ("st", &[100, 0x1122_3344], 0x1122_4444),
+        ("st16", &[120, 0x7777_ABCD], 0xABCD),
+        ("size", &[], 1),
+        ("grow", &[], -1),
+    ];
+    for (name, args, want) in cases {
+        assert_eq!(
+            run_mem(MEM, name, args, &mut memory),
+            Ok(Some(*want)),
+            "{name}{args:?}"
+        );
+    }
+}
+
+#[test]
+fn accesses_outside_the_host_buffer_trap() {
+    let mut memory = [0u8; 64];
+    // Inside the declared page but past the 64-byte buffer.
+    assert_eq!(
+        run_mem(MEM, "l32", &[61], &mut memory),
+        Err(Trap::OutOfBounds)
+    );
+    assert_eq!(run_mem(MEM, "l32", &[60], &mut memory), Ok(Some(0)));
+    assert_eq!(
+        run_mem(MEM, "l32", &[-1], &mut memory),
+        Err(Trap::OutOfBounds)
+    );
+    assert_eq!(
+        run_mem(MEM, "st", &[63, 1], &mut memory),
+        Err(Trap::OutOfBounds)
+    );
+    // A data segment that does not fit the buffer is refused up front.
+    let mut tiny = [0u8; 20];
+    let bytes = wasm(MEM);
+    let module = Module::parse(&bytes).unwrap();
+    assert_eq!(
+        Instance::new(&module).init_memory(&mut tiny),
+        Err(Trap::OutOfBounds)
+    );
+}
+
+#[test]
+fn host_reads_strings_from_memory() {
+    struct Strings(Vec<String>);
+    impl Host for Strings {
+        fn call(
+            &mut self,
+            _: usize,
+            _: &Import<'_>,
+            args: &[i32],
+            memory: &mut [u8],
+        ) -> Result<i32, Trap> {
+            let (ptr, len) = (args[0] as u32 as usize, args[1] as u32 as usize);
+            let bytes = memory.get(ptr..ptr + len).ok_or(Trap::OutOfBounds)?;
+            self.0.push(String::from_utf8_lossy(bytes).into_owned());
+            memory[ptr] = b'J'; // hosts may write too
+            Ok(0)
+        }
+    }
+    let bytes = wasm(
+        r#"(module
+          (import "maataa" "log_str" (func $log (param i32 i32)))
+          (memory 1)
+          (data (i32.const 0) "jai maataa")
+          (func (export "go") (result i32)
+            i32.const 0 i32.const 10 call $log
+            i32.const 0 i32.load8_u))"#,
+    );
+    let module = Module::parse(&bytes).unwrap();
+    let mut instance = Instance::new(&module);
+    let mut memory = [0u8; 128];
+    instance.init_memory(&mut memory).unwrap();
+    let mut host = Strings(Vec::new());
+    assert_eq!(
+        instance.invoke(&mut host, "go", &[], 1000, &mut memory),
+        Ok(Some(b'J' as i32))
+    );
+    assert_eq!(host.0, vec!["jai maataa".to_string()]);
+}
+
+#[test]
+fn memory_misuse_is_rejected_at_load() {
+    for (text, why) in [
+        (
+            r#"(module (func i32.const 0 i32.load drop))"#,
+            "memory instruction without a memory",
+        ),
+        (
+            r#"(module (memory 1) (func i32.const 0 i32.load align=8 drop))"#,
+            "alignment larger than natural",
+        ),
+        (
+            r#"(module (memory 1) (func i32.const 0 i64.load drop))"#,
+            "i64 or float memory access",
+        ),
+        (r#"(module (memory 1) (data "x"))"#, "passive data segments"),
+        (
+            r#"(module (import "m" "mem" (memory 1)))"#,
+            "import other than a function",
+        ),
+    ] {
+        let bytes = wasm(text);
+        match Module::parse(&bytes) {
+            Err(e) => assert_eq!(e.as_str(), why, "{text}"),
+            Ok(_) => panic!("accepted: {text}"),
+        }
+    }
+}
+
+/// Random stores and loads give the same results here and in wasmi, with a
+/// full 64 KiB buffer so both see the same memory.
+#[test]
+fn memory_matches_wasmi_on_random_programs() {
+    let mut seed: u64 = 0x2545_F491_4F6C_DD1D;
+    let mut next = move || {
+        seed ^= seed << 13;
+        seed ^= seed >> 7;
+        seed ^= seed << 17;
+        seed
+    };
+    const LOADS: [&str; 5] = [
+        "i32.load",
+        "i32.load8_s",
+        "i32.load8_u",
+        "i32.load16_s",
+        "i32.load16_u",
+    ];
+    const STORES: [&str; 3] = ["i32.store", "i32.store8", "i32.store16"];
+    let engine = wasmi::Engine::default();
+    for _ in 0..300 {
+        let mut body = String::new();
+        // Addresses mostly in range, sometimes at or past the end.
+        let addr = |kind: u64, value: u64| -> i64 {
+            match kind % 10 {
+                0 => 65_534 + (value % 4) as i64,
+                1 => -1,
+                _ => (value % 65_536) as i64,
+            }
+        };
+        let mut addrs = Vec::new();
+        for _ in 0..(next() % 6 + 1) {
+            let a = addr(next(), next());
+            addrs.push(a);
+            body += &format!(
+                "i32.const {a} local.get 0 i32.const {} i32.mul {} offset={} ",
+                next() as i32,
+                STORES[(next() % 3) as usize],
+                next() % 3
+            );
+        }
+        body += "i32.const 0 ";
+        for _ in 0..(next() % 6 + 1) {
+            let a = if next() % 2 == 0 {
+                addrs[(next() as usize) % addrs.len()]
+            } else {
+                addr(next(), next())
+            };
+            body += &format!(
+                "i32.const {a} {} offset={} i32.add ",
+                LOADS[(next() % 5) as usize],
+                next() % 3
+            );
+        }
+        let text = format!(
+            "(module (memory 1) (data (i32.const 32) \"seed-bytes\")
+               (func (export \"f\") (param i32) (result i32) {body}))"
+        );
+        let bytes = wasm(&text);
+        let arg = next() as i32;
+
+        let ours = {
+            let module = Module::parse(&bytes).expect("generated module loads");
+            let mut instance = Instance::new(&module);
+            let mut memory = vec![0u8; PAGE as usize];
+            instance.init_memory(&mut memory).unwrap();
+            instance.invoke(&mut TestHost::default(), "f", &[arg], 10_000, &mut memory)
+        };
+        let reference = {
+            let module = wasmi::Module::new(&engine, &bytes[..]).expect("wasmi loads");
+            let mut store = wasmi::Store::new(&engine, ());
+            let linker = wasmi::Linker::<()>::new(&engine);
+            let instance = linker
+                .instantiate(&mut store, &module)
+                .and_then(|p| p.start(&mut store))
+                .expect("wasmi instantiates");
+            let f = instance.get_typed_func::<i32, i32>(&store, "f").unwrap();
+            f.call(&mut store, arg).ok()
+        };
+        match (ours, reference) {
+            (Ok(Some(x)), Some(y)) => assert_eq!(x, y, "{text} with {arg}"),
+            (Err(_), None) => {}
+            (o, r) => panic!("disagree: ours {o:?}, wasmi {r:?}\n{text} with {arg}"),
         }
     }
 }

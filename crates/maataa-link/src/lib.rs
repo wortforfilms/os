@@ -416,6 +416,123 @@ impl Status {
     }
 }
 
+/// Why the board last reset, as the kernel saw it at boot.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[repr(u8)]
+pub enum ResetCause {
+    Unknown = 0,
+    PowerOn = 1,
+    Pin = 2,
+    Software = 3,
+    Watchdog = 4,
+    WindowWatchdog = 5,
+    LowPower = 6,
+    Brownout = 7,
+}
+
+impl ResetCause {
+    pub const fn from_u8(v: u8) -> Self {
+        match v {
+            1 => Self::PowerOn,
+            2 => Self::Pin,
+            3 => Self::Software,
+            4 => Self::Watchdog,
+            5 => Self::WindowWatchdog,
+            6 => Self::LowPower,
+            7 => Self::Brownout,
+            _ => Self::Unknown,
+        }
+    }
+
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Unknown => "unknown",
+            Self::PowerOn => "power-on",
+            Self::Pin => "reset pin or debugger",
+            Self::Software => "software reset",
+            Self::Watchdog => "watchdog",
+            Self::WindowWatchdog => "window watchdog",
+            Self::LowPower => "low-power reset",
+            Self::Brownout => "brown-out",
+        }
+    }
+}
+
+/// What the kernel recorded when it last stopped on an error.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[repr(u8)]
+pub enum CrashKind {
+    None = 0,
+    Panic = 1,
+    KernelStackOverflow = 2,
+    KernelMemoryFault = 3,
+    HardFault = 4,
+}
+
+impl CrashKind {
+    pub const fn from_u8(v: u8) -> Self {
+        match v {
+            1 => Self::Panic,
+            2 => Self::KernelStackOverflow,
+            3 => Self::KernelMemoryFault,
+            4 => Self::HardFault,
+            _ => Self::None,
+        }
+    }
+
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::None => "none",
+            Self::Panic => "kernel panic",
+            Self::KernelStackOverflow => "kernel stack overflow",
+            Self::KernelMemoryFault => "kernel memory fault",
+            Self::HardFault => "hard fault",
+        }
+    }
+}
+
+/// Persistent key 1: the last boot's reset cause and the crash (if any) that
+/// preceded it. `address` is the faulting pc or address (the source line for
+/// a panic); `detail` is the fault status register.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct BootRecord {
+    pub cause: ResetCause,
+    pub crash: CrashKind,
+    pub address: u32,
+    pub detail: u32,
+    /// Kernel uptime in ms when the crash was recorded.
+    pub uptime_ms: u32,
+}
+
+impl BootRecord {
+    pub const BYTES: usize = 16;
+
+    pub fn encode(&self) -> [u8; Self::BYTES] {
+        let mut out = [0u8; Self::BYTES];
+        out[0] = self.cause as u8;
+        out[1] = self.crash as u8;
+        out[4..8].copy_from_slice(&self.address.to_le_bytes());
+        out[8..12].copy_from_slice(&self.detail.to_le_bytes());
+        out[12..16].copy_from_slice(&self.uptime_ms.to_le_bytes());
+        out
+    }
+
+    pub fn decode(bytes: &[u8]) -> Option<Self> {
+        if bytes.len() != Self::BYTES {
+            return None;
+        }
+        let word =
+            |i: usize| u32::from_le_bytes([bytes[i], bytes[i + 1], bytes[i + 2], bytes[i + 3]]);
+        Some(Self {
+            cause: ResetCause::from_u8(bytes[0]),
+            crash: CrashKind::from_u8(bytes[1]),
+            address: word(4),
+            detail: word(8),
+            uptime_ms: word(12),
+        })
+    }
+}
+
 /// INFO and HELLO payload: `[version, name_len, name.., kernel_len, kernel..]`.
 pub fn encode_info(board: &str, kernel_version: &str, out: &mut [u8]) -> Result<usize, LinkError> {
     let (b, k) = (board.as_bytes(), kernel_version.as_bytes());
@@ -662,6 +779,21 @@ mod tests {
         body[3..].copy_from_slice(&crc.to_le_bytes());
         assert_eq!(parse_body(&body), Err(LinkError::BadVersion));
         assert_eq!(parse_body(&body[..5]), Err(LinkError::TooShort));
+    }
+
+    #[test]
+    fn boot_record_round_trips() {
+        let r = BootRecord {
+            cause: ResetCause::Watchdog,
+            crash: CrashKind::HardFault,
+            address: 0x0800_1234,
+            detail: 0x0000_8200,
+            uptime_ms: 12_345,
+        };
+        assert_eq!(BootRecord::decode(&r.encode()), Some(r));
+        assert_eq!(BootRecord::decode(&[0; 15]), None);
+        assert_eq!(ResetCause::from_u8(99), ResetCause::Unknown);
+        assert_eq!(CrashKind::from_u8(99), CrashKind::None);
     }
 
     #[test]

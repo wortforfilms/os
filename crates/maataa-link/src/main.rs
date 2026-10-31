@@ -9,7 +9,10 @@
 //! `get KEY`, `put KEY [TEXT]`, `store-stress COUNT`, `selftest`.
 //! Build with `cargo run -p maataa-link --features cli -- ...`.
 
-use maataa_link::{decode_info, encode_frame, error_code, kind, Decoder, Event, Status, MAX_WIRE};
+use maataa_link::{
+    decode_info, encode_frame, error_code, kind, BootRecord, CrashKind, Decoder, Event, Status,
+    MAX_WIRE,
+};
 use std::io::{ErrorKind, Read, Write};
 use std::process::ExitCode;
 use std::time::{Duration, Instant};
@@ -24,6 +27,7 @@ commands:
   get KEY         read persistent key KEY (16..63)
   put KEY [TEXT]  write TEXT to persistent key KEY; no TEXT deletes it
   store-stress N  write N 64-byte values to key 63 (forces flash compaction)
+  boot-info       boot count, last reset cause and last crash (kernel keys 0 and 1)
   selftest        all of the above plus two deliberate bad frames";
 
 trait Link: Read + Write {}
@@ -248,6 +252,29 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
                 format!("key {key}: stored {} bytes", text.len())
             })
         }
+        "boot-info" => {
+            let count = expect(ch.request(kind::STORE_GET, &[0])?, kind::STORE_GET_REPLY)?;
+            let count = <[u8; 4]>::try_from(count.as_slice())
+                .map(u32::from_le_bytes)
+                .map_err(|_| "boot count is not 4 bytes".to_string())?;
+            let record = expect(ch.request(kind::STORE_GET, &[1])?, kind::STORE_GET_REPLY)?;
+            let r = BootRecord::decode(&record).ok_or("malformed reset record")?;
+            let crash = if r.crash == CrashKind::None {
+                "none".to_string()
+            } else {
+                format!(
+                    "{} (address {:#010x}, detail {:#010x}, at {} ms)",
+                    r.crash.as_str(),
+                    r.address,
+                    r.detail,
+                    r.uptime_ms
+                )
+            };
+            Ok(format!(
+                "boot {count}; reset cause: {}; last crash: {crash}",
+                r.cause.as_str()
+            ))
+        }
         "store-stress" => {
             let count: u32 = args
                 .first()
@@ -375,6 +402,7 @@ fn selftest(ch: &mut Channel) -> bool {
         }
     });
     check("store kernel key", reserved);
+    check("boot info", run_command(ch, "boot-info", &[]));
 
     // The channel still answers after the bad frames.
     check(

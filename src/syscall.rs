@@ -5,7 +5,7 @@
 //! | 1 | write text to the kernel log | pointer | length | bytes written, or `u32::MAX` if refused |
 //! | 2 | set the user LED | 0 = off, else on | | 0 |
 //! | 3 | demo finished (QEMU exits; boards ignore it) | | | 0 |
-//! | 4 | test only (`kernel-stack-test`): overflow the kernel stack | | | never |
+//! | 4 | test only (`kernel-stack-test`): overflow the kernel stack; (`watchdog-test`): hang with interrupts off | | | never, or 0 if the watchdog test already ran |
 //! | 5 | send a message (copied into the kernel queue) | destination task, r1 = pointer, r2 = length | | 0 or an error |
 //! | 6 | receive a message (copied into the caller's buffer) | pointer | capacity | timeout ms | length and sender in r1; or an error |
 //! | 7 | sleep until a monotonic deadline | milliseconds | | | 0 or an error |
@@ -16,7 +16,7 @@
 //! | 12 | write bytes to the board UART | pointer | length | bytes written, or an error |
 //! | 13 | read board UART bytes (blocks until data arrives) | pointer | capacity | bytes read, or an error |
 //! | 14 | copy the host-channel status block (`hostlink::HOST_STATUS_BYTES`) | pointer | length | 0 or an error |
-//! | 15 | read a persistent key (16..64) | key, r1 = pointer, r2 = capacity | | length, `E_NOENT`, or an error |
+//! | 15 | read a persistent key (0..64; 0..16 are the kernel's) | key, r1 = pointer, r2 = capacity | | length, `E_NOENT`, or an error |
 //! | 16 | write a persistent key (16..64; empty deletes) | key, r1 = pointer, r2 = length | | 0 or an error |
 //!
 //! Each task carries a capability mask (bit n allows call n), set when it is
@@ -182,6 +182,26 @@ pub fn test_kernel_overflow() {
     // SAFETY: no memory is passed; the kernel is expected to stop.
     unsafe { core::arch::asm!("svc #4", inout("r0") r0) };
     let _ = r0;
+}
+
+/// Test only: asks the kernel to hang with interrupts off. Returns 0 if the
+/// kernel declines because the last reset already came from the watchdog.
+#[cfg(all(target_arch = "arm", feature = "watchdog-test"))]
+pub fn test_watchdog() -> u32 {
+    let mut r0 = 0u32;
+    // SAFETY: no memory is passed; the kernel may never return.
+    unsafe { core::arch::asm!("svc #4", inout("r0") r0) };
+    r0
+}
+
+#[cfg(feature = "watchdog-test")]
+static WATCHDOG_TEST_ARMED: core::sync::atomic::AtomicBool =
+    core::sync::atomic::AtomicBool::new(false);
+
+/// Kernel, at boot: whether the watchdog test should hang this run.
+#[cfg(feature = "watchdog-test")]
+pub fn arm_watchdog_test(armed: bool) {
+    WATCHDOG_TEST_ARMED.store(armed, core::sync::atomic::Ordering::Relaxed);
 }
 
 /// Sends a raw buffer to task `to`. `send` is the safe wrapper; this form
@@ -606,7 +626,7 @@ mod kernel {
 
     fn sys_store_get(key: u32, ptr: usize, cap: usize) -> u32 {
         use crate::storage::persist;
-        if !persist::task_key_allowed(key) {
+        if !persist::task_key_readable(key) {
             return E_PERM;
         }
         if !writable_allowed(ptr, cap, crate::sched::current_stack()) {
@@ -758,6 +778,19 @@ mod kernel {
                     "kernel: recursing on the main stack (kernel-stack-test)"
                 );
                 kernel_recurse(0)
+            }
+            #[cfg(feature = "watchdog-test")]
+            SYS_TEST_KERNEL_OVERFLOW => {
+                if WATCHDOG_TEST_ARMED.load(core::sync::atomic::Ordering::Relaxed) {
+                    crate::logging::kprintln!(
+                        "kernel: hanging with interrupts off (watchdog-test); the watchdog must reset the board"
+                    );
+                    cortex_m::interrupt::disable();
+                    loop {
+                        cortex_m::asm::nop();
+                    }
+                }
+                0
             }
             _ => E_PERM,
         };
