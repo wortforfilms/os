@@ -23,12 +23,16 @@ use cortex_m_semihosting::syscall;
 const SCRIPT_AI_BATCH_STATUS: u32 = 0x001b_0047;
 const AI_BATCH_CERTIFICATION_CLEARANCE: u32 = 0x08;
 
-/// Signed capsule images built into the kernel (assets/capsules, made with
-/// `maataa-capsule sign`). Each is verified before it is recorded.
-static TELEMETRY_CAPSULE: &[u8] = include_bytes!("../assets/capsules/telemetry.mcap");
-static HEARTBEAT_CAPSULE: &[u8] = include_bytes!("../assets/capsules/heartbeat.mcap");
-static CONTROL_CAPSULE: &[u8] = include_bytes!("../assets/capsules/control.mcap");
-static HOSTLINK_CAPSULE: &[u8] = include_bytes!("../assets/capsules/hostlink.mcap");
+/// Signed capsule images built into the kernel: assets/capsules, or the
+/// release-signed copies MAATAA_CAPSULE_DIR names (build.rs). Each is
+/// verified before it is recorded.
+static TELEMETRY_CAPSULE: &[u8] =
+    include_bytes!(concat!(env!("OUT_DIR"), "/capsules/telemetry.mcap"));
+static HEARTBEAT_CAPSULE: &[u8] =
+    include_bytes!(concat!(env!("OUT_DIR"), "/capsules/heartbeat.mcap"));
+static CONTROL_CAPSULE: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/capsules/control.mcap"));
+static HOSTLINK_CAPSULE: &[u8] =
+    include_bytes!(concat!(env!("OUT_DIR"), "/capsules/hostlink.mcap"));
 
 /// Task ids of the capsule tasks, in slot order (see src/main.rs).
 pub const CAPSULE_TASK_IDS: [u8; crate::capsule_task::CAPSULE_TASKS] = [7, 8];

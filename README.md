@@ -10,7 +10,7 @@ repository, which does not build or test this kernel.
 
 ## Status
 
-Release: `v0.1.0-alpha.1`
+Release: `v0.1.0-alpha.2` ([release notes](doc/RELEASE_NOTES.md), [release builds](docs/release.md))
 
 Working:
 

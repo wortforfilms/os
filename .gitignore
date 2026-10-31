@@ -12,3 +12,4 @@ Cargo.lock.bak
 ._*
 hardcopy.*
 __pycache__/
+dist/

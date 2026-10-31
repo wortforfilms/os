@@ -15,8 +15,36 @@ fn main() {
     // Re-run build if memory.x changes
     println!("cargo:rerun-if-changed=memory.x");
 
-    capsule_key(out);
+    let release_key = capsule_key(out);
     store_key(out);
+    capsule_images(out, release_key);
+}
+
+/// The built-in capsule images (src/kernel.rs includes them from OUT_DIR).
+/// MAATAA_CAPSULE_DIR points at a directory of images signed with the
+/// release key (scripts/release.sh); otherwise assets/capsules is used.
+fn capsule_images(out: &Path, release_key: bool) {
+    println!("cargo:rerun-if-env-changed=MAATAA_CAPSULE_DIR");
+    let dir = match env::var("MAATAA_CAPSULE_DIR") {
+        Ok(d) if !d.trim().is_empty() => PathBuf::from(d.trim()),
+        _ => {
+            if release_key {
+                println!(
+                    "cargo:warning=MAATAA_CAPSULE_PUBKEY is set but MAATAA_CAPSULE_DIR is not: \
+                     the development-signed images in assets/capsules will be rejected at boot"
+                );
+            }
+            PathBuf::from("assets/capsules")
+        }
+    };
+    let target = out.join("capsules");
+    fs::create_dir_all(&target).unwrap();
+    for name in ["telemetry", "heartbeat", "control", "hostlink"] {
+        let from = dir.join(format!("{name}.mcap"));
+        println!("cargo:rerun-if-changed={}", from.display());
+        fs::copy(&from, target.join(format!("{name}.mcap")))
+            .unwrap_or_else(|e| panic!("{}: {e}", from.display()));
+    }
 }
 
 /// The master key the persistent store is sealed with (src/storage/persist.rs
@@ -59,7 +87,7 @@ fn store_key(out: &Path) {
 /// The public key the kernel checks capsule signatures against. A release
 /// build sets MAATAA_CAPSULE_PUBKEY (64 hex characters); otherwise the
 /// development key in keys/capsule-dev.pub is used and the boot report says so.
-fn capsule_key(out: &Path) {
+fn capsule_key(out: &Path) -> bool {
     println!("cargo:rerun-if-env-changed=MAATAA_CAPSULE_PUBKEY");
     println!("cargo:rerun-if-changed=keys/capsule-dev.pub");
     let (hex, kind) = match env::var("MAATAA_CAPSULE_PUBKEY") {
@@ -90,4 +118,5 @@ fn capsule_key(out: &Path) {
         &hex[..8]
     );
     fs::write(out.join("capsule_key.rs"), source).unwrap();
+    kind == "release"
 }

@@ -3,6 +3,7 @@
 //! ```text
 //! maataa-capsule sign --name telemetry --caps write,sleep --payload target/telemetry.wasm --dev -o assets/capsules/telemetry.mcap
 //! maataa-capsule inspect assets/capsules/telemetry.mcap --dev
+//! maataa-capsule resign assets/capsules/telemetry.mcap --seed-file ~/.maataa/capsule-release.seed -o out/telemetry.mcap
 //! maataa-capsule keygen -o ~/.maataa/capsule-release.seed     # keep this file private
 //! maataa-capsule pubkey --seed-file ~/.maataa/capsule-release.seed
 //! maataa-capsule wasm capsules/telemetry.wat -o target/telemetry.wasm
@@ -17,12 +18,13 @@ use std::process::ExitCode;
 const USAGE: &str = "usage:
   maataa-capsule sign --name NAME --caps LIST --payload FILE (--dev | --seed-file F) -o OUT
   maataa-capsule inspect IMAGE (--dev | --pubkey HEX | --seed-file F)
+  maataa-capsule resign IMAGE [--from-pubkey HEX] (--dev | --seed-file F) -o OUT
   maataa-capsule keygen -o SEED_FILE
   maataa-capsule pubkey (--dev | --seed-file F)
   maataa-capsule wasm TEXT.wat -o OUT.wasm   (assemble; must load in the kernel's interpreter)
 caps: comma-separated names, `none`, or `all`:
   write led demo_done test send recv sleep mutex semaphore uart_write uart_read host_status
-  store_get store_put";
+  store_get store_put capsule_install";
 
 fn hex(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{b:02x}")).collect()
@@ -110,6 +112,38 @@ fn run(args: Args) -> Result<(), String> {
                 describe_caps(caps),
                 payload.len(),
                 image.len()
+            );
+            Ok(())
+        }
+        "resign" => {
+            // Same name, capabilities and payload, signed with another key:
+            // turns the development-signed built-in images into release ones.
+            let path = args.0.get(1).ok_or("resign needs an image path")?;
+            let out = args.value("-o").ok_or("-o is required")?;
+            let image = std::fs::read(path).map_err(|e| format!("{path}: {e}"))?;
+            let from = match args.value("--from-pubkey") {
+                Some(hex_key) => unhex32(hex_key)?,
+                None => public_key(&DEV_SEED),
+            };
+            let capsule = verify(&image, &from).map_err(|e| {
+                format!(
+                    "{path}: does not verify with the key it is re-signed from: {}",
+                    e.as_str()
+                )
+            })?;
+            let signed = sign(
+                capsule.name,
+                capsule.capabilities,
+                capsule.payload,
+                &args.seed()?,
+            )
+            .map_err(|e| e.as_str().to_string())?;
+            std::fs::write(out, &signed).map_err(|e| format!("{out}: {e}"))?;
+            println!(
+                "re-signed {out}: {}, caps {}, payload {} bytes",
+                capsule.name,
+                describe_caps(capsule.capabilities),
+                capsule.payload.len()
             );
             Ok(())
         }
