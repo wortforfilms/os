@@ -178,14 +178,20 @@ pub fn run() -> Grants {
     match crate::storage::persist::mount() {
         Ok((report, stats)) => {
             kprintln!(
-                "flash store: bank {} generation {} keys {} used {}/{} bytes{}{}",
+                "flash store: bank {} generation {} keys {} used {}/{} bytes{}{}{}",
                 stats.bank,
                 stats.generation,
                 stats.live_keys,
                 stats.used_bytes,
                 stats.bank_bytes,
                 if report.formatted { " (formatted)" } else { "" },
-                if report.recovered { " (recovered from a torn write)" } else { "" }
+                if report.recovered { " (recovered from a torn write)" } else { "" },
+                if report.migrated { " (sealed the unsealed store)" } else { "" }
+            );
+            kprintln!(
+                "flash store: sealed with ChaCha20-Poly1305, {} key bound to this chip, id {:08x}",
+                crate::storage::persist::STORE_KEY_KIND,
+                maataa_store::key_id(&crate::storage::persist::device_store_key())
             );
             match crate::storage::persist::count_boot() {
                 Ok(count) => kprintln!("boot count: {}", count),

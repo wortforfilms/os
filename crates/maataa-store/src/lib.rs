@@ -1,24 +1,41 @@
-//! A small key-value store on two flash banks that survives power loss.
+//! A small key-value store on two flash banks that survives power loss, with
+//! every value encrypted and authenticated.
 //!
 //! Each bank is an erase unit: on the STM32F411, a 128 KiB sector.
 //!
 //! ```text
-//! bank:   [header 16 B][record][record]...[0xFF...]
-//! header: "MKV1" | generation u32 | 0xFFFF_FFFF | CRC-32 of bytes 0..12
-//! record: key u8 | length u8 | 0xFF 0xFF | value (padded to 4) | CRC-32
+//! bank:   [header 32 B][record][record]...[0xFF...]
+//! header: "MKV2" | generation u32 | key id u32 | 0xFFFF_FFFF | tag (16 B)
+//! record: key u8 | length u8 | 0xFF 0xFF | sealed value (padded to 4) | tag (16 B)
 //! ```
 //!
+//! - **Sealing.** Values are encrypted with ChaCha20-Poly1305 under the
+//!   store key the caller gives [`Store::mount`]. The nonce is the bank's
+//!   generation and the record's offset, so it is never reused while the
+//!   generation keeps rising. The record's first four bytes are authenticated
+//!   with it, and the header has a tag of its own. Someone who can rewrite
+//!   the flash but does not have the key can neither read a value nor change
+//!   one, move it to another key or offset, or make a forged bank win.
+//! - **Not freshness.** That person can still put back an older copy of the
+//!   flash, or cut records off the end of the log (mount treats that like a
+//!   power cut). Detecting rollback needs a counter they cannot reset.
+//! - **Key id.** The header carries 4 bytes derived from the key. A store
+//!   sealed with a different key is refused with [`StoreError::WrongKey`],
+//!   rather than formatted over.
 //! - Writes append a record. The newest record for a key wins, and length 0
 //!   deletes the key.
-//! - A record's CRC covers its first four bytes and its value. A record cut
-//!   short by power loss fails its CRC; mount stops reading there and moves
-//!   the live data to the other bank.
+//! - The tag is written last. A record cut short by power loss fails its tag;
+//!   mount stops reading there and moves the live data to the other bank.
 //! - When a bank is full, the live records are copied to the other bank,
 //!   which was erased first. Its header, with the next generation number, is
 //!   written last. If power fails before the header is written, the old bank
 //!   is still the newest valid one.
 //! - Mount picks the valid header with the highest generation. If neither
 //!   bank has one, mount formats bank 0.
+//! - **Migration.** A store in the earlier, unsealed format (`MKV1`, CRC
+//!   only) is read once and sealed into the other bank; the old bank is then
+//!   erased. Only when no bank holds a sealed header: a sealed store never
+//!   goes back to reading unsealed data.
 //!
 //! Keys are `0..KEYS`, and values are at most [`MAX_VALUE`] bytes. An index
 //! of each key's newest record is kept in RAM (`4 * KEYS` bytes), so reads do
@@ -26,11 +43,50 @@
 
 #![cfg_attr(not(test), no_std)]
 
+use chacha20poly1305::aead::{AeadInPlace, KeyInit};
+use chacha20poly1305::{ChaCha20Poly1305, Key, Nonce, Tag};
+
 pub const KEYS: usize = 64;
 pub const MAX_VALUE: usize = 64;
-pub const HEADER_BYTES: u32 = 16;
-const MAGIC: [u8; 4] = *b"MKV1";
+/// Header of a sealed bank.
+pub const HEADER_BYTES: u32 = 32;
+/// Header of an unsealed (`MKV1`) bank, read only to migrate it.
+const V1_HEADER_BYTES: u32 = 16;
+const MAGIC: [u8; 4] = *b"MKV2";
+const V1_MAGIC: [u8; 4] = *b"MKV1";
+const TAG_BYTES: usize = 16;
 const ERASED: u8 = 0xFF;
+
+/// A 256-bit store key.
+pub type StoreKey = [u8; 32];
+
+/// Derives a per-device store key from a master key and the device's unique
+/// id, so a flash image copied to another board does not open there.
+/// (ChaCha20 keystream under the master key, with the id as nonce.)
+pub fn derive_device_key(master: &StoreKey, device_id: &[u8; 12]) -> StoreKey {
+    let cipher = ChaCha20Poly1305::new(Key::from_slice(master));
+    let mut key = [0u8; 32];
+    // Encrypting zeros yields the keystream; the tag is not needed.
+    let _ = cipher.encrypt_in_place_detached(
+        Nonce::from_slice(device_id),
+        b"maataa-store device key",
+        &mut key,
+    );
+    key
+}
+
+/// The 4-byte id of a key that sealed headers carry (not secret).
+pub fn key_id(key: &StoreKey) -> u32 {
+    let cipher = ChaCha20Poly1305::new(Key::from_slice(key));
+    let tag = cipher
+        .encrypt_in_place_detached(
+            Nonce::from_slice(&[0xFF; 12]),
+            b"maataa-store key id",
+            &mut [],
+        )
+        .unwrap_or_default();
+    u32::from_le_bytes([tag[0], tag[1], tag[2], tag[3]])
+}
 
 /// Storage the store runs on: two equal banks, erased to 0xFF, where
 /// programming can only clear bits.
@@ -58,6 +114,10 @@ pub enum StoreError {
     TooLong,
     /// The live data does not fit in one bank.
     Full,
+    /// The store was sealed with a different key; it was left untouched.
+    WrongKey,
+    /// A sealed value failed its check when it was read.
+    Corrupt,
 }
 
 impl From<FlashError> for StoreError {
@@ -74,6 +134,8 @@ impl StoreError {
             Self::BadKey => "key out of range",
             Self::TooLong => "value too long",
             Self::Full => "store full",
+            Self::WrongKey => "sealed with a different key",
+            Self::Corrupt => "a sealed value failed its check",
         }
     }
 }
@@ -99,7 +161,21 @@ const fn padded(len: usize) -> usize {
 }
 
 const fn record_bytes(len: usize) -> u32 {
+    (4 + padded(len) + TAG_BYTES) as u32
+}
+
+const fn v1_record_bytes(len: usize) -> u32 {
     (4 + padded(len) + 4) as u32
+}
+
+/// Nonce for the record at `offset` in a bank of `generation` (offset 0 is
+/// the header).
+fn nonce(generation: u32, offset: u32) -> [u8; 12] {
+    let mut n = [0u8; 12];
+    n[..4].copy_from_slice(&generation.to_le_bytes());
+    n[4..8].copy_from_slice(&offset.to_le_bytes());
+    n[8..].copy_from_slice(&MAGIC);
+    n
 }
 
 /// What [`Store::mount`] found and did.
@@ -110,6 +186,8 @@ pub struct MountReport {
     /// A torn or corrupt record was found; live data was moved to the other
     /// bank.
     pub recovered: bool,
+    /// The store was in the unsealed `MKV1` format and was sealed.
+    pub migrated: bool,
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -121,8 +199,27 @@ pub struct Stats {
     pub bank_bytes: u32,
 }
 
+/// Which format the active bank is in. Only `Sealed` is ever written.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+enum Format {
+    Sealed,
+    Unsealed,
+}
+
+/// What a bank's header says.
+enum Header {
+    None,
+    Sealed(u32),
+    /// A sealed header for a different key.
+    Foreign,
+    Unsealed(u32),
+}
+
 pub struct Store<F: Flash> {
     flash: F,
+    cipher: ChaCha20Poly1305,
+    key_id: u32,
+    format: Format,
     active: u8,
     generation: u32,
     /// First free offset in the active bank.
@@ -132,35 +229,46 @@ pub struct Store<F: Flash> {
 }
 
 impl<F: Flash> Store<F> {
-    /// Opens the store, choosing the newest valid bank, formatting if there
-    /// is none and recovering from a torn write.
-    pub fn mount(mut flash: F) -> Result<(Self, MountReport), StoreError> {
+    /// Opens the store with `key`, choosing the newest valid bank, formatting
+    /// blank flash, migrating an unsealed store and recovering from a torn
+    /// write.
+    pub fn mount(mut flash: F, key: &StoreKey) -> Result<(Self, MountReport), StoreError> {
         let size = flash.bank_size();
         assert!(size.is_multiple_of(4) && size >= 256, "bank size");
-        let mut best: Option<(u8, u32)> = None;
+        let cipher = ChaCha20Poly1305::new(Key::from_slice(key));
+        let key_id = key_id(key);
+        let mut sealed: Option<(u8, u32)> = None;
+        let mut unsealed: Option<(u8, u32)> = None;
+        let mut foreign = false;
         for bank in 0..2u8 {
-            if let Some(generation) = read_header(&mut flash, bank)? {
-                if best.is_none_or(|(_, g)| generation > g) {
-                    best = Some((bank, generation));
+            match read_header(&mut flash, &cipher, key_id, bank)? {
+                Header::Sealed(generation) => {
+                    if sealed.is_none_or(|(_, g)| generation > g) {
+                        sealed = Some((bank, generation));
+                    }
                 }
+                Header::Unsealed(generation) => {
+                    if unsealed.is_none_or(|(_, g)| generation > g) {
+                        unsealed = Some((bank, generation));
+                    }
+                }
+                Header::Foreign => foreign = true,
+                Header::None => {}
             }
         }
         let mut report = MountReport::default();
         let mut store = Store {
             flash,
+            cipher,
+            key_id,
+            format: Format::Sealed,
             active: 0,
             generation: 0,
             end: HEADER_BYTES,
             index: [0; KEYS],
         };
-        match best {
-            None => {
-                store.flash.erase(0)?;
-                store.write_header(0, 1)?;
-                store.generation = 1;
-                report.formatted = true;
-            }
-            Some((bank, generation)) => {
+        match (sealed, unsealed) {
+            (Some((bank, generation)), _) => {
                 store.active = bank;
                 store.generation = generation;
                 if !store.scan()? {
@@ -168,8 +276,81 @@ impl<F: Flash> Store<F> {
                     report.recovered = true;
                 }
             }
+            // A sealed header for another key and nothing for ours: leave the
+            // flash alone.
+            (None, _) if foreign => return Err(StoreError::WrongKey),
+            (None, Some((bank, generation))) => {
+                store.format = Format::Unsealed;
+                store.active = bank;
+                store.generation = generation;
+                report.recovered = !store.scan()?;
+                // Seal the live data into the other bank, then erase the
+                // unsealed one so it can never be read again.
+                store.compact()?;
+                store.flash.erase(bank)?;
+                report.migrated = true;
+            }
+            (None, None) => {
+                store.flash.erase(0)?;
+                store.write_header(0, 1)?;
+                store.generation = 1;
+                report.formatted = true;
+            }
         }
         Ok((store, report))
+    }
+
+    /// Bytes from the start of the active bank to its first record.
+    fn header_bytes(&self) -> u32 {
+        match self.format {
+            Format::Sealed => HEADER_BYTES,
+            Format::Unsealed => V1_HEADER_BYTES,
+        }
+    }
+
+    fn record_bytes(&self, len: usize) -> u32 {
+        match self.format {
+            Format::Sealed => record_bytes(len),
+            Format::Unsealed => v1_record_bytes(len),
+        }
+    }
+
+    /// Reads and checks the record at `at` in the active bank whose first
+    /// bytes are `head`, and decrypts its value into `out`.
+    fn open_record(&mut self, at: u32, head: [u8; 4], out: &mut [u8]) -> Result<bool, StoreError> {
+        let len = head[1] as usize;
+        self.flash.read(self.active, at + 4, &mut out[..len])?;
+        match self.format {
+            Format::Sealed => {
+                // Padding is not sealed, so it must still be erased.
+                let mut pad = [0u8; 3];
+                let pad = &mut pad[..padded(len) - len];
+                if !pad.is_empty() {
+                    self.flash.read(self.active, at + 4 + len as u32, pad)?;
+                }
+                if pad.iter().any(|&b| b != ERASED) {
+                    return Ok(false);
+                }
+                let mut tag = [0u8; TAG_BYTES];
+                self.flash
+                    .read(self.active, at + 4 + padded(len) as u32, &mut tag)?;
+                Ok(self
+                    .cipher
+                    .decrypt_in_place_detached(
+                        Nonce::from_slice(&nonce(self.generation, at)),
+                        &head,
+                        &mut out[..len],
+                        Tag::from_slice(&tag),
+                    )
+                    .is_ok())
+            }
+            Format::Unsealed => {
+                let mut crc = [0u8; 4];
+                self.flash
+                    .read(self.active, at + 4 + padded(len) as u32, &mut crc)?;
+                Ok(crc32_update(crc32_update(0, &head), &out[..len]) == u32::from_le_bytes(crc))
+            }
+        }
     }
 
     /// Reads the active bank's records into the index. Returns `false` if it
@@ -177,7 +358,7 @@ impl<F: Flash> Store<F> {
     fn scan(&mut self) -> Result<bool, StoreError> {
         let size = self.flash.bank_size();
         self.index = [0; KEYS];
-        let mut at = HEADER_BYTES;
+        let mut at = self.header_bytes();
         loop {
             if at + 4 > size {
                 self.end = size;
@@ -193,49 +374,52 @@ impl<F: Flash> Store<F> {
             if key >= KEYS
                 || len > MAX_VALUE
                 || head[2..] != [ERASED, ERASED]
-                || at + record_bytes(len) > size
+                || at + self.record_bytes(len) > size
             {
                 self.end = at;
                 return Ok(false);
             }
             let mut value = [0u8; MAX_VALUE];
-            self.flash
-                .read(self.active, at + 4, &mut value[..padded(len)])?;
-            let mut crc = [0u8; 4];
-            self.flash
-                .read(self.active, at + 4 + padded(len) as u32, &mut crc)?;
-            if crc32_update(crc32_update(0, &head), &value[..len]) != u32::from_le_bytes(crc) {
+            if !self.open_record(at, head, &mut value)? {
                 self.end = at;
                 return Ok(false);
             }
             self.index[key] = if len == 0 { 0 } else { at };
-            at += record_bytes(len);
+            at += self.record_bytes(len);
         }
     }
 
     fn write_header(&mut self, bank: u8, generation: u32) -> Result<(), StoreError> {
-        let mut header = [0xFFu8; HEADER_BYTES as usize];
-        header[..4].copy_from_slice(&MAGIC);
-        header[4..8].copy_from_slice(&generation.to_le_bytes());
-        let crc = crc32_update(0, &header[..12]);
-        header[12..].copy_from_slice(&crc.to_le_bytes());
+        let header = seal_header(&self.cipher, self.key_id, generation);
         self.flash.program(bank, 0, &header)?;
         Ok(())
     }
 
-    /// Writes one record into `bank` at `at`. The CRC is written last.
-    fn write_record(&mut self, bank: u8, at: u32, key: u8, value: &[u8]) -> Result<(), StoreError> {
+    /// Writes one sealed record into `bank` (of `generation`) at `at`. The
+    /// tag is written last.
+    fn write_record(
+        &mut self,
+        bank: u8,
+        generation: u32,
+        at: u32,
+        key: u8,
+        value: &[u8],
+    ) -> Result<(), StoreError> {
         let head = [key, value.len() as u8, ERASED, ERASED];
-        let crc = crc32_update(crc32_update(0, &head), value);
         let mut body = [ERASED; 4 + MAX_VALUE];
         body[..4].copy_from_slice(&head);
         body[4..4 + value.len()].copy_from_slice(value);
+        let tag = self
+            .cipher
+            .encrypt_in_place_detached(
+                Nonce::from_slice(&nonce(generation, at)),
+                &head,
+                &mut body[4..4 + value.len()],
+            )
+            .map_err(|_| StoreError::TooLong)?;
         self.flash.program(bank, at, &body[..4 + value.len()])?;
-        self.flash.program(
-            bank,
-            at + 4 + padded(value.len()) as u32,
-            &crc.to_le_bytes(),
-        )?;
+        self.flash
+            .program(bank, at + 4 + padded(value.len()) as u32, &tag)?;
         Ok(())
     }
 
@@ -243,6 +427,7 @@ impl<F: Flash> Store<F> {
     fn compact(&mut self) -> Result<(), StoreError> {
         let target = 1 - self.active;
         let size = self.flash.bank_size();
+        let generation = self.generation.wrapping_add(1);
         self.flash.erase(target)?;
         let mut at = HEADER_BYTES;
         let mut new_index = [0u32; KEYS];
@@ -254,12 +439,12 @@ impl<F: Flash> Store<F> {
             if at + record_bytes(len) > size {
                 return Err(StoreError::Full);
             }
-            self.write_record(target, at, key as u8, &value[..len])?;
+            self.write_record(target, generation, at, key as u8, &value[..len])?;
             *slot = at;
             at += record_bytes(len);
         }
-        let generation = self.generation.wrapping_add(1);
         self.write_header(target, generation)?;
+        self.format = Format::Sealed;
         self.active = target;
         self.generation = generation;
         self.end = at;
@@ -280,10 +465,17 @@ impl<F: Flash> Store<F> {
         let mut head = [0u8; 4];
         self.flash.read(self.active, at, &mut head)?;
         let len = head[1] as usize;
+        if len > MAX_VALUE {
+            return Err(StoreError::Corrupt);
+        }
         if out.len() < len {
             return Err(StoreError::TooLong);
         }
-        self.flash.read(self.active, at + 4, &mut out[..len])?;
+        // Checked again on every read: the flash may have changed since mount.
+        if !self.open_record(at, head, out)? {
+            out[..len].fill(0);
+            return Err(StoreError::Corrupt);
+        }
         Ok(Some(len))
     }
 
@@ -305,13 +497,18 @@ impl<F: Flash> Store<F> {
         let at = self.end;
         // Reserve the space first: a failed write must not be overwritten.
         self.end += need;
-        self.write_record(self.active, at, key, value)?;
+        self.write_record(self.active, self.generation, at, key, value)?;
         self.index[key as usize] = if value.is_empty() { 0 } else { at };
         Ok(())
     }
 
     pub fn delete(&mut self, key: u8) -> Result<(), StoreError> {
         self.put(key, &[])
+    }
+
+    /// The id of the key this store is sealed with (not secret).
+    pub fn key_id(&self) -> u32 {
+        self.key_id
     }
 
     pub fn stats(&self) -> Stats {
@@ -330,19 +527,57 @@ impl<F: Flash> Store<F> {
     }
 }
 
-fn read_header<F: Flash>(flash: &mut F, bank: u8) -> Result<Option<u32>, StoreError> {
+fn seal_header(cipher: &ChaCha20Poly1305, key_id: u32, generation: u32) -> [u8; 32] {
+    let mut header = [0xFFu8; HEADER_BYTES as usize];
+    header[..4].copy_from_slice(&MAGIC);
+    header[4..8].copy_from_slice(&generation.to_le_bytes());
+    header[8..12].copy_from_slice(&key_id.to_le_bytes());
+    let (aad, tag) = header.split_at_mut(16);
+    let sealed = cipher
+        .encrypt_in_place_detached(Nonce::from_slice(&nonce(generation, 0)), aad, &mut [])
+        .unwrap_or_default();
+    tag.copy_from_slice(&sealed);
+    header
+}
+
+fn read_header<F: Flash>(
+    flash: &mut F,
+    cipher: &ChaCha20Poly1305,
+    key_id: u32,
+    bank: u8,
+) -> Result<Header, StoreError> {
     let mut header = [0u8; HEADER_BYTES as usize];
     flash.read(bank, 0, &mut header)?;
+    let word =
+        |i: usize| u32::from_le_bytes([header[i], header[i + 1], header[i + 2], header[i + 3]]);
+    if header[..4] == V1_MAGIC {
+        return Ok(if crc32_update(0, &header[..12]) == word(12) {
+            Header::Unsealed(word(4))
+        } else {
+            Header::None
+        });
+    }
     if header[..4] != MAGIC {
-        return Ok(None);
+        return Ok(Header::None);
     }
-    let crc = u32::from_le_bytes([header[12], header[13], header[14], header[15]]);
-    if crc32_update(0, &header[..12]) != crc {
-        return Ok(None);
+    if word(8) != key_id {
+        return Ok(Header::Foreign);
     }
-    Ok(Some(u32::from_le_bytes([
-        header[4], header[5], header[6], header[7],
-    ])))
+    let generation = word(4);
+    let (aad, tag) = header.split_at_mut(16);
+    let ok = cipher
+        .decrypt_in_place_detached(
+            Nonce::from_slice(&nonce(generation, 0)),
+            aad,
+            &mut [],
+            Tag::from_slice(tag),
+        )
+        .is_ok();
+    Ok(if ok {
+        Header::Sealed(generation)
+    } else {
+        Header::None
+    })
 }
 
 #[cfg(test)]

@@ -103,6 +103,7 @@ rg -q '^boot count: [0-9]+$' "$BOOT_LOG"
 rg -q '^reset cause: unknown$' "$BOOT_LOG"
 rg -q '^last crash: none$' "$BOOT_LOG"
 rg -q '^watchdog: not available on this board$' "$BOOT_LOG"
+rg -q '^flash store: sealed with ChaCha20-Poly1305, development \(public; integrity only\) key bound to this chip, id [0-9a-f]{8}$' "$BOOT_LOG"
 if rg -q '^capsule rejected' "$BOOT_LOG"; then
     echo "FAIL: a built-in capsule was rejected" >&2
     exit 1

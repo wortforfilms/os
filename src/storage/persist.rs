@@ -14,6 +14,36 @@
 
 pub use maataa_store::{FlashError, MountReport, Stats, StoreError, KEYS, MAX_VALUE};
 
+include!(concat!(env!("OUT_DIR"), "/store_key.rs"));
+
+/// The chip's 96-bit unique id, which binds the store key to this device.
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
+pub fn device_id() -> [u8; 12] {
+    const UID: *const u8 = 0x1FFF_7A10 as *const u8;
+    let mut id = [0u8; 12];
+    for (i, byte) in id.iter_mut().enumerate() {
+        // SAFETY: the factory-programmed unique id, read-only system memory.
+        *byte = unsafe { UID.add(i).read_volatile() };
+    }
+    id
+}
+
+/// QEMU does not model the unique id; every QEMU "device" is the same one.
+#[cfg(any(not(target_arch = "arm"), feature = "board-qemu-f405"))]
+pub fn device_id() -> [u8; 12] {
+    *b"qemu-netduin"
+}
+
+/// The key this device's store is sealed with: the build's master key bound
+/// to the chip's unique id.
+pub fn device_store_key() -> maataa_store::StoreKey {
+    maataa_store::derive_device_key(&STORE_MASTER_KEY, &device_id())
+}
+
 /// Kernel key: number of boots, u32 little-endian.
 pub const KEY_BOOT_COUNT: u8 = 0;
 /// Kernel key: the last boot's reset cause and crash (`maataa_link::BootRecord`).
@@ -308,7 +338,7 @@ mod kernel_side {
     /// Mounts the store (once, at boot) and returns what it found.
     pub fn mount() -> Result<(MountReport, Stats), StoreError> {
         let backend = Backend::open()?;
-        let (store, report) = Store::mount(backend)?;
+        let (store, report) = Store::mount(backend, &device_store_key())?;
         let stats = store.stats();
         interrupt::free(|cs| *STORE.borrow(cs).borrow_mut() = Some(store));
         Ok((report, stats))
@@ -351,6 +381,15 @@ mod kernel_side {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn this_build_uses_the_development_store_key_by_default() {
+        if std::env::var("MAATAA_STORE_KEY").is_err() {
+            assert!(STORE_KEY_KIND.starts_with("development"));
+            assert_eq!(&STORE_MASTER_KEY, b"maataa-os-dev-store-NOT-SECRET!!");
+        }
+        assert_ne!(device_store_key(), STORE_MASTER_KEY, "bound to the device");
+    }
 
     #[test]
     fn tasks_may_read_but_not_write_kernel_keys() {

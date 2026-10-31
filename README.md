@@ -44,14 +44,16 @@ Working:
   record that survives the reset; each boot reports both and saves them to
   persistent key 1 ([docs/watchdog.md](docs/watchdog.md))
 - Persistent key-value store on flash sectors 6–7 (F411) or a host file
-  (QEMU): power-loss safe, two-bank compaction, boot count; tasks and the
-  host channel use it through syscalls 15/16
+  (QEMU): power-loss safe, two-bank compaction, boot count; every value
+  sealed with ChaCha20-Poly1305 under a key bound to the chip's unique id;
+  tasks and the host channel use it through syscalls 15/16
   ([docs/persistence.md](docs/persistence.md))
 - Static capsule table, virtual flash manifest, release size check
 
 Not yet:
 
-- Encrypted or authenticated storage
+- Rollback protection for the store (needs a counter in OTP)
+- Installing a capsule at run time (only built-in images run)
 
 ## Requirements
 

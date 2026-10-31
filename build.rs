@@ -16,6 +16,44 @@ fn main() {
     println!("cargo:rerun-if-changed=memory.x");
 
     capsule_key(out);
+    store_key(out);
+}
+
+/// The master key the persistent store is sealed with (src/storage/persist.rs
+/// binds it to the chip's unique id). A release build sets MAATAA_STORE_KEY
+/// (64 hex characters); otherwise a development key, public in this source,
+/// is used and the boot report says so.
+fn store_key(out: &PathBuf) {
+    println!("cargo:rerun-if-env-changed=MAATAA_STORE_KEY");
+    let (bytes, kind): (Vec<u8>, &str) = match env::var("MAATAA_STORE_KEY") {
+        Ok(value) if !value.trim().is_empty() => {
+            let hex = value.trim();
+            assert!(
+                hex.len() == 64 && hex.bytes().all(|b| b.is_ascii_hexdigit()),
+                "MAATAA_STORE_KEY must be 64 hex characters"
+            );
+            (
+                (0..32)
+                    .map(|i| u8::from_str_radix(&hex[2 * i..2 * i + 2], 16).unwrap())
+                    .collect(),
+                "release",
+            )
+        }
+        _ => (
+            b"maataa-os-dev-store-NOT-SECRET!!".to_vec(),
+            "development (public; integrity only)",
+        ),
+    };
+    assert_eq!(bytes.len(), 32);
+    let list: Vec<String> = bytes.iter().map(|b| format!("0x{b:02x}")).collect();
+    let source = format!(
+        "/// Persistent store master key (build.rs).\n\
+         pub const STORE_MASTER_KEY: [u8; 32] = [{}];\n\
+         /// Which key this build uses, for the boot report.\n\
+         pub const STORE_KEY_KIND: &str = \"{kind}\";\n",
+        list.join(", ")
+    );
+    fs::write(out.join("store_key.rs"), source).unwrap();
 }
 
 /// The public key the kernel checks capsule signatures against. A release

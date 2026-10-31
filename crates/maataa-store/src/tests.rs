@@ -21,6 +21,8 @@ impl RamFlash {
     }
 }
 
+const KEY: StoreKey = [7; 32];
+
 const CUT: FlashError = FlashError::Device(0xDEAD);
 
 impl Flash for RamFlash {
@@ -76,7 +78,7 @@ fn get(store: &mut Store<RamFlash>, key: u8) -> Option<Vec<u8>> {
 
 #[test]
 fn formats_blank_flash_then_reads_back_after_remount() {
-    let (mut store, report) = Store::mount(RamFlash::new(1024)).unwrap();
+    let (mut store, report) = Store::mount(RamFlash::new(1024), &KEY).unwrap();
     assert!(report.formatted);
     assert_eq!(get(&mut store, 3), None);
     store.put(3, b"hello").unwrap();
@@ -84,7 +86,7 @@ fn formats_blank_flash_then_reads_back_after_remount() {
     store.put(3, b"hello again").unwrap();
     let flash = store.into_flash();
 
-    let (mut store, report) = Store::mount(flash).unwrap();
+    let (mut store, report) = Store::mount(flash, &KEY).unwrap();
     assert_eq!(report, MountReport::default());
     assert_eq!(get(&mut store, 3).as_deref(), Some(&b"hello again"[..]));
     assert_eq!(get(&mut store, 4).as_deref(), Some(&b"world"[..]));
@@ -93,7 +95,7 @@ fn formats_blank_flash_then_reads_back_after_remount() {
 
 #[test]
 fn delete_and_limits() {
-    let (mut store, _) = Store::mount(RamFlash::new(1024)).unwrap();
+    let (mut store, _) = Store::mount(RamFlash::new(1024), &KEY).unwrap();
     store.put(1, b"x").unwrap();
     store.delete(1).unwrap();
     assert_eq!(get(&mut store, 1), None);
@@ -103,13 +105,13 @@ fn delete_and_limits() {
     let mut small = [0u8; 4];
     assert_eq!(store.get(1, &mut small), Err(StoreError::TooLong));
     let flash = store.into_flash();
-    let (mut store, _) = Store::mount(flash).unwrap();
+    let (mut store, _) = Store::mount(flash, &KEY).unwrap();
     assert_eq!(get(&mut store, 1), Some(vec![7; MAX_VALUE]));
 }
 
 #[test]
 fn compaction_keeps_newest_values_and_switches_bank() {
-    let (mut store, _) = Store::mount(RamFlash::new(512)).unwrap();
+    let (mut store, _) = Store::mount(RamFlash::new(512), &KEY).unwrap();
     for round in 0..200u32 {
         store.put((round % 5) as u8, &round.to_le_bytes()).unwrap();
     }
@@ -120,7 +122,7 @@ fn compaction_keeps_newest_values_and_switches_bank() {
         assert_eq!(get(&mut store, key as u8).as_deref(), Some(&newest[..]));
     }
     let flash = store.into_flash();
-    let (mut store, report) = Store::mount(flash).unwrap();
+    let (mut store, report) = Store::mount(flash, &KEY).unwrap();
     assert!(!report.formatted && !report.recovered);
     assert_eq!(
         get(&mut store, 4).as_deref(),
@@ -130,7 +132,7 @@ fn compaction_keeps_newest_values_and_switches_bank() {
 
 #[test]
 fn full_live_set_is_reported() {
-    let (mut store, _) = Store::mount(RamFlash::new(512)).unwrap();
+    let (mut store, _) = Store::mount(RamFlash::new(512), &KEY).unwrap();
     let mut result = Ok(());
     for key in 0..KEYS as u8 {
         result = store.put(key, &[key; 40]);
@@ -152,10 +154,10 @@ fn every_power_cut_point_leaves_old_or_new_value() {
         .map(|i| ((i % 3) as u8, i.to_le_bytes().to_vec()))
         .collect();
     let run = |budget: Option<usize>| -> (RamFlash, usize) {
-        let (store, _) = Store::mount(RamFlash::new(256)).unwrap();
+        let (store, _) = Store::mount(RamFlash::new(256), &KEY).unwrap();
         let mut flash = store.into_flash();
         flash.budget = budget;
-        let (mut store, _) = Store::mount(flash).unwrap();
+        let (mut store, _) = Store::mount(flash, &KEY).unwrap();
         let mut done = 0;
         for (key, value) in &script {
             if store.put(*key, value).is_err() {
@@ -171,7 +173,7 @@ fn every_power_cut_point_leaves_old_or_new_value() {
     for cut in 0..2000 {
         let (mut flash, done) = run(Some(cut));
         flash.budget = None;
-        let (mut store, _) = Store::mount(flash).unwrap();
+        let (mut store, _) = Store::mount(flash, &KEY).unwrap();
         for key in 0..3u8 {
             // The last completed write for this key, and the interrupted one.
             let before = script[..done]
@@ -200,7 +202,7 @@ fn every_power_cut_point_leaves_old_or_new_value() {
 
 #[test]
 fn corrupt_header_falls_back_to_the_other_bank() {
-    let (mut store, _) = Store::mount(RamFlash::new(256)).unwrap();
+    let (mut store, _) = Store::mount(RamFlash::new(256), &KEY).unwrap();
     for i in 0..30u32 {
         store.put(0, &i.to_le_bytes()).unwrap();
     }
@@ -210,7 +212,7 @@ fn corrupt_header_falls_back_to_the_other_bank() {
     // Damage the newest header: mount must use the older bank, whose data is
     // older but intact, rather than fail.
     flash.banks[active][5] ^= 0x01;
-    let (mut store, report) = Store::mount(flash).unwrap();
+    let (mut store, report) = Store::mount(flash, &KEY).unwrap();
     assert!(!report.formatted);
     assert!(get(&mut store, 0).is_some());
 }
@@ -222,4 +224,145 @@ fn crc_matches_zlib() {
         crc32_update(crc32_update(0, b"1234"), b"56789"),
         0xCBF4_3926
     );
+}
+
+/// Writes an unsealed (`MKV1`) bank the way the earlier store did.
+fn v1_bank(flash: &mut RamFlash, bank: usize, generation: u32, records: &[(u8, &[u8])]) {
+    let b = &mut flash.banks[bank];
+    b.fill(0xFF);
+    b[..4].copy_from_slice(b"MKV1");
+    b[4..8].copy_from_slice(&generation.to_le_bytes());
+    let crc = crc32_update(0, &b[..12]);
+    b[12..16].copy_from_slice(&crc.to_le_bytes());
+    let mut at = 16;
+    for (key, value) in records {
+        let head = [*key, value.len() as u8, 0xFF, 0xFF];
+        b[at..at + 4].copy_from_slice(&head);
+        b[at + 4..at + 4 + value.len()].copy_from_slice(value);
+        let crc = crc32_update(crc32_update(0, &head), value);
+        let p = at + 4 + ((value.len() + 3) & !3);
+        b[p..p + 4].copy_from_slice(&crc.to_le_bytes());
+        at = p + 4;
+    }
+}
+
+fn contains(haystack: &[u8], needle: &[u8]) -> bool {
+    haystack.windows(needle.len()).any(|w| w == needle)
+}
+
+#[test]
+fn values_are_not_stored_in_the_clear() {
+    let (mut store, _) = Store::mount(RamFlash::new(1024), &KEY).unwrap();
+    store.put(20, b"a secret value").unwrap();
+    let flash = store.into_flash();
+    assert!(!contains(&flash.banks[0], b"a secret value"));
+    assert!(!contains(&flash.banks[1], b"a secret value"));
+}
+
+#[test]
+fn a_changed_value_is_never_returned() {
+    let (mut store, _) = Store::mount(RamFlash::new(1024), &KEY).unwrap();
+    store.put(1, b"first").unwrap();
+    store.put(2, b"second").unwrap();
+    let active = store.stats().bank as usize;
+    let flash = store.into_flash();
+    // Flip each bit of the second record (key 2) in turn: mount must drop
+    // it, as it would a torn write, and never return a changed value.
+    let second = HEADER_BYTES as usize + record_bytes(5) as usize;
+    for byte in second..second + record_bytes(6) as usize {
+        for bit in 0..8 {
+            let mut copy = flash.clone();
+            copy.banks[active][byte] ^= 1 << bit;
+            let (mut store, report) = Store::mount(copy, &KEY).unwrap();
+            assert!(report.recovered, "byte {byte} bit {bit}");
+            assert_eq!(get(&mut store, 1).as_deref(), Some(&b"first"[..]));
+            assert_eq!(get(&mut store, 2), None, "byte {byte} bit {bit}");
+        }
+    }
+    // A change after mount is caught when the value is read.
+    let mut out = [0u8; MAX_VALUE];
+    let (mut mounted, _) = Store::mount(flash, &KEY).unwrap();
+    mounted.flash.banks[active][second + 4] ^= 0x01;
+    assert_eq!(mounted.get(2, &mut out), Err(StoreError::Corrupt));
+    assert_eq!(
+        out, [0u8; MAX_VALUE],
+        "nothing of the forged value is returned"
+    );
+}
+
+#[test]
+fn a_record_moved_to_another_place_does_not_open() {
+    let (mut store, _) = Store::mount(RamFlash::new(1024), &KEY).unwrap();
+    store.put(3, b"value").unwrap();
+    let active = store.stats().bank as usize;
+    let mut flash = store.into_flash();
+    // Copy the record to the next free offset, under the same key.
+    let first = HEADER_BYTES as usize;
+    let len = record_bytes(5) as usize;
+    let record: Vec<u8> = flash.banks[active][first..first + len].to_vec();
+    flash.banks[active][first + len..first + 2 * len].copy_from_slice(&record);
+    let (_, report) = Store::mount(flash, &KEY).unwrap();
+    assert!(report.recovered, "the copy fails its tag at its new offset");
+}
+
+#[test]
+fn a_store_sealed_with_another_key_is_refused_and_left_alone() {
+    let (mut store, _) = Store::mount(RamFlash::new(1024), &KEY).unwrap();
+    store.put(5, b"mine").unwrap();
+    let flash = store.into_flash();
+    let before = flash.banks.clone();
+    let other = [8u8; 32];
+    match Store::mount(flash.clone(), &other) {
+        Err(StoreError::WrongKey) => {}
+        Err(e) => panic!("expected WrongKey, got {e:?}"),
+        Ok(_) => panic!("expected WrongKey, got a mounted store"),
+    }
+    assert_eq!(flash.banks, before);
+    let (mut store, _) = Store::mount(flash, &KEY).unwrap();
+    assert_eq!(get(&mut store, 5).as_deref(), Some(&b"mine"[..]));
+}
+
+#[test]
+fn an_unsealed_store_is_migrated_once_and_its_bank_erased() {
+    let mut flash = RamFlash::new(1024);
+    v1_bank(
+        &mut flash,
+        0,
+        41,
+        &[(0, &7u32.to_le_bytes()), (32, b"abcd"), (32, b"wxyz")],
+    );
+    let (mut store, report) = Store::mount(flash, &KEY).unwrap();
+    assert!(report.migrated && !report.formatted);
+    assert_eq!(store.stats().bank, 1);
+    assert_eq!(store.stats().generation, 42);
+    assert_eq!(get(&mut store, 0).as_deref(), Some(&7u32.to_le_bytes()[..]));
+    assert_eq!(get(&mut store, 32).as_deref(), Some(&b"wxyz"[..]));
+    let flash = store.into_flash();
+    assert!(flash.banks[0].iter().all(|&b| b == 0xFF), "old bank erased");
+    assert!(!contains(&flash.banks[1], b"wxyz"));
+    let (_, report) = Store::mount(flash, &KEY).unwrap();
+    assert_eq!(report, MountReport::default());
+}
+
+#[test]
+fn unsealed_data_is_ignored_once_the_store_is_sealed() {
+    let (mut store, _) = Store::mount(RamFlash::new(1024), &KEY).unwrap();
+    store.put(32, b"real").unwrap();
+    let active = store.stats().bank as usize;
+    let mut flash = store.into_flash();
+    // A forged unsealed bank with a much higher generation.
+    v1_bank(&mut flash, 1 - active, 1_000_000, &[(32, b"fake")]);
+    let (mut store, report) = Store::mount(flash, &KEY).unwrap();
+    assert!(!report.migrated);
+    assert_eq!(get(&mut store, 32).as_deref(), Some(&b"real"[..]));
+}
+
+#[test]
+fn device_keys_differ_per_device_and_key_ids_are_stable() {
+    let a = derive_device_key(&KEY, b"device-0001\0");
+    let b = derive_device_key(&KEY, b"device-0002\0");
+    assert_ne!(a, b);
+    assert_eq!(a, derive_device_key(&KEY, b"device-0001\0"));
+    assert_eq!(key_id(&a), key_id(&a));
+    assert_ne!(key_id(&a), key_id(&b));
 }

@@ -7,7 +7,10 @@
 #   run 1: fresh file -> "boot count: 1"; the host writes key 30
 #   run 2: "boot count: 2"; 260 writes to key 63 force a compaction
 #   run 3: "boot count: 3"; key 30 reads back, a compaction happened, and the
-#          WebAssembly telemetry capsule's own counter (key 32) reached 9
+#          WebAssembly telemetry capsule's own counter (key 32) reached 9;
+#          the file holds no value in the clear
+#   run 4: a store in the earlier, unsealed format (boot count 41, key 30)
+#          is sealed on mount: "boot count: 42", key 30 reads back
 # Exit status 0 on pass; a hang fails after 60 s per run.
 set -euo pipefail
 
@@ -82,4 +85,33 @@ grep -q '^boot count: 3$' "$WORK/run.log" || fail "run 3: boot count is not 3"
 grep -q '^capsule telemetry: log 9$' "$WORK/run.log" || fail "run 3: capsule lifetime count is not 9"
 generation="$(sed -n 's/^flash store: bank [01] generation \([0-9]*\) .*/\1/p' "$WORK/run.log")"
 [ "${generation:-0}" -ge 2 ] || fail "run 3: no compaction happened (generation ${generation:-?})"
-echo "PASS: persistent store (3 boots, generation $generation after compaction)"
+grep -q '^flash store: sealed with ChaCha20-Poly1305, ' "$WORK/run.log" || fail "run 3: store is not sealed"
+if grep -a -q 'persisted-across-reboot' "$FLASH_FILE"; then
+    fail "run 3: a stored value is in the flash file in the clear"
+fi
+
+# Run 4: migration. Write the two banks as the unsealed MKV1 format did:
+# bank 0 with boot count 41 and key 30, bank 1 erased.
+python3 - "$FLASH_FILE" <<'PY'
+import struct, sys, zlib
+bank = 16 * 1024
+def record(key, value):
+    head = bytes([key, len(value), 0xFF, 0xFF])
+    pad = (-len(value)) % 4
+    crc = zlib.crc32(head + value)
+    return head + value + b"\xff" * pad + struct.pack("<I", crc)
+header = b"MKV1" + struct.pack("<I", 7) + b"\xff" * 4
+header += struct.pack("<I", zlib.crc32(header))
+body = header + record(0, struct.pack("<I", 41)) + record(30, b"from-the-old-format")
+data = body + b"\xff" * (2 * bank - len(body))
+open(sys.argv[1], "wb").write(data)
+PY
+out="$(boot_and_talk get 30)" || fail "run 4: get"
+echo "$out"
+grep -q '^flash store: .*(sealed the unsealed store)$' "$WORK/run.log" || fail "run 4: the unsealed store was not migrated"
+grep -q '^boot count: 42$' "$WORK/run.log" || fail "run 4: boot count did not carry over (expected 42)"
+echo "$out" | grep -q '"from-the-old-format"' || fail "run 4: key 30 did not carry over"
+if grep -a -q 'from-the-old-format' "$FLASH_FILE"; then
+    fail "run 4: the unsealed bank was not erased"
+fi
+echo "PASS: persistent store (3 boots, generation $generation after compaction; sealed; migrated from MKV1)"
