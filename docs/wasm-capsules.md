@@ -232,8 +232,11 @@ To add a capsule to the kernel, add its image to the list in `src/kernel.rs`.
   `python3 scripts/read-board-store.py`.
 - NUCLEO-F411RE, 2026-10-31, with two capsule tasks: key 32 went on from 42
   to 54 over the next four boots, so task 7 runs the telemetry capsule on its
-  signed schedule next to task 8. The heartbeat's own lines go to RTT and the
-  host channel, which this check did not read.
+  signed schedule next to task 8. After a USB replug, the host channel
+  selftest passed (13/13): `STATUS` reported `tasks 7/9 alive`, which is all
+  eight tasks plus idle, minus tasks 4 and 5, which the MPU and stack tests
+  kill on purpose. So both capsule tasks, 7 and 8, are running. `TELEMETRY`
+  reported 4 capsules verified.
 
 ## Cost
 

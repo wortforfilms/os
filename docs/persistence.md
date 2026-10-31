@@ -211,6 +211,8 @@ telemetry capsule lifetime ticks (key 32): 54
 - The boot count went on from 53. Each later probe session resets the
   board, which is why it reads 57.
 - Read again 20 s later, nothing had changed: no watchdog reset.
+- The host channel selftest then passed on the sealed store: put, get and
+  delete of key 20, the refusal of kernel key 0, and `boot info` (boot 63).
 
 ## Limits
 
