@@ -7,7 +7,7 @@ RUSTDOC="$(rustup which rustdoc)"
 export RUSTC
 export RUSTDOC
 DONE=0
-TOTAL=10
+TOTAL=11
 STEP="startup"
 BOOT_LOG="$(mktemp)"
 DUAL_LOG="$(mktemp)"
@@ -66,7 +66,7 @@ pass
 
 STEP="host unit tests"
 cargo test
-cargo test -p maataa-link -p maataa-capsule -p maataa-wasm -p hemant-core
+cargo test -p maataa-link -p maataa-capsule -p maataa-wasm -p maataa-store -p hemant-core
 pass
 
 STEP="release build"
@@ -97,7 +97,9 @@ rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
 rg -q '^hemant ns since epoch: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant position: ahoratra [0-9]+ muhurta [0-9]+ kala [0-9]+ kastha [0-9]+ nimesha [0-9]+$' "$BOOT_LOG"
 rg -q '^capsule verified: telemetry caps=write,sleep$' "$BOOT_LOG"
-rg -q '^capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status$' "$BOOT_LOG"
+rg -q '^capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status,store_get,store_put$' "$BOOT_LOG"
+rg -q '^flash store: bank [01] generation [0-9]+ ' "$BOOT_LOG"
+rg -q '^boot count: [0-9]+$' "$BOOT_LOG"
 if rg -q '^capsule rejected' "$BOOT_LOG"; then
     echo "FAIL: a built-in capsule was rejected" >&2
     exit 1
@@ -119,4 +121,8 @@ pass
 
 STEP="QEMU host channel"
 ./scripts/qemu-host-channel-test.sh
+pass
+
+STEP="QEMU persistent store"
+./scripts/qemu-persistence-test.sh
 pass

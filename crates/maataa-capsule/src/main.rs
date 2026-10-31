@@ -21,7 +21,8 @@ const USAGE: &str = "usage:
   maataa-capsule pubkey (--dev | --seed-file F)
   maataa-capsule wasm TEXT.wat -o OUT.wasm   (assemble; must load in the kernel's interpreter)
 caps: comma-separated names, `none`, or `all`:
-  write led demo_done test send recv sleep mutex semaphore uart_write uart_read host_status";
+  write led demo_done test send recv sleep mutex semaphore uart_write uart_read host_status
+  store_get store_put";
 
 fn hex(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{b:02x}")).collect()

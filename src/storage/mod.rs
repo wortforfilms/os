@@ -1,6 +1,7 @@
 use crate::boot_log;
 
 pub mod flash;
+pub mod persist;
 use flash::{HardenedFlashController, ROLLING_DATABASE_SECTOR_START, SYSTEM_KERNEL_SECTOR_START};
 
 #[derive(Clone, Copy)]

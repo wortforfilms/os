@@ -5,7 +5,8 @@
 //! maataa-link --qemu-socket target/hostlink.sock --require-hello selftest
 //! ```
 //!
-//! Commands: `hello`, `ping [text]`, `status`, `telemetry`, `info`, `selftest`.
+//! Commands: `hello`, `ping [text]`, `status`, `telemetry`, `info`,
+//! `get KEY`, `put KEY [TEXT]`, `store-stress COUNT`, `selftest`.
 //! Build with `cargo run -p maataa-link --features cli -- ...`.
 
 use maataa_link::{decode_info, encode_frame, error_code, kind, Decoder, Event, Status, MAX_WIRE};
@@ -20,6 +21,9 @@ commands:
   status          uptime, ticks, tasks, UART drops
   telemetry       latest MOSF telemetry frame, checked
   info            board name and kernel version
+  get KEY         read persistent key KEY (16..63)
+  put KEY [TEXT]  write TEXT to persistent key KEY; no TEXT deletes it
+  store-stress N  write N 64-byte values to key 63 (forces flash compaction)
   selftest        all of the above plus two deliberate bad frames";
 
 trait Link: Read + Write {}
@@ -220,8 +224,64 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
             "info",
             &expect(ch.request(kind::INFO, &[])?, kind::INFO_REPLY)?,
         ),
+        "get" => {
+            let key = parse_key(args.first())?;
+            let value = expect(ch.request(kind::STORE_GET, &[key])?, kind::STORE_GET_REPLY)?;
+            Ok(format!(
+                "key {key}: {:?} ({} bytes)",
+                String::from_utf8_lossy(&value),
+                value.len()
+            ))
+        }
+        "put" => {
+            let key = parse_key(args.first())?;
+            let text = args.get(1).map(String::as_str).unwrap_or("");
+            let mut payload = vec![key];
+            payload.extend_from_slice(text.as_bytes());
+            expect(
+                ch.request(kind::STORE_PUT, &payload)?,
+                kind::STORE_PUT_REPLY,
+            )?;
+            Ok(if text.is_empty() {
+                format!("key {key}: deleted")
+            } else {
+                format!("key {key}: stored {} bytes", text.len())
+            })
+        }
+        "store-stress" => {
+            let count: u32 = args
+                .first()
+                .and_then(|n| n.parse().ok())
+                .ok_or("store-stress needs a count")?;
+            let started = Instant::now();
+            for i in 0..count {
+                let mut payload = vec![63u8];
+                payload.extend((0..64u32).map(|j| (i.wrapping_add(j) % 251) as u8));
+                expect(
+                    ch.request(kind::STORE_PUT, &payload)?,
+                    kind::STORE_PUT_REPLY,
+                )
+                .map_err(|e| format!("write {i}: {e}"))?;
+            }
+            let last = expect(ch.request(kind::STORE_GET, &[63])?, kind::STORE_GET_REPLY)?;
+            let want: Vec<u8> = (0..64u32)
+                .map(|j| ((count - 1).wrapping_add(j) % 251) as u8)
+                .collect();
+            if last != want {
+                return Err("key 63 does not hold the last value written".into());
+            }
+            Ok(format!(
+                "{count} writes of 64 bytes in {} ms; key 63 holds the last one",
+                started.elapsed().as_millis()
+            ))
+        }
         _ => Err(format!("unknown command `{command}`\n{USAGE}")),
     }
+}
+
+fn parse_key(arg: Option<&String>) -> Result<u8, String> {
+    arg.and_then(|k| k.parse().ok())
+        .ok_or_else(|| "give a key number".to_string())
 }
 
 /// Every request, then two bad frames that the kernel must reject.
@@ -280,6 +340,41 @@ fn selftest(ch: &mut Channel) -> bool {
             _ => Err(format!("unexpected reply {:#04x} {:?}", r.kind, r.payload)),
         });
     check("unknown request", unknown);
+
+    // Persistent store: write, read back, delete, and the kernel's own keys.
+    let marker = format!("selftest-{}", std::process::id());
+    check(
+        "store put",
+        run_command(ch, "put", &["20".into(), marker.clone()]),
+    );
+    check(
+        "store get",
+        run_command(ch, "get", &["20".into()]).and_then(|line| {
+            if line.contains(&marker) {
+                Ok(line)
+            } else {
+                Err(format!("read back {line}"))
+            }
+        }),
+    );
+    let deleted = run_command(ch, "put", &["21".into()])
+        .and_then(|_| ch.request(kind::STORE_GET, &[21]))
+        .and_then(|r| match (r.kind, r.payload.as_slice()) {
+            (kind::ERROR, [error_code::NOT_FOUND, _]) => {
+                Ok("deleted key reads as not found".into())
+            }
+            _ => Err(format!("unexpected reply {:#04x} {:?}", r.kind, r.payload)),
+        });
+    check("store delete", deleted);
+    let reserved = ch.request(kind::STORE_PUT, &[0, 1, 2, 3, 4]).and_then(|r| {
+        match (r.kind, r.payload.as_slice()) {
+            (kind::ERROR, [error_code::REFUSED, _]) => {
+                Ok("kernel key 0 (boot count) refused".into())
+            }
+            _ => Err(format!("unexpected reply {:#04x} {:?}", r.kind, r.payload)),
+        }
+    });
+    check("store kernel key", reserved);
 
     // The channel still answers after the bad frames.
     check(

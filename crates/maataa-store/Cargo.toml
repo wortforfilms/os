@@ -1,0 +1,10 @@
+[package]
+name = "maataa-store"
+version = "0.1.0"
+edition = "2021"
+description = "Power-safe key-value log over two flash banks for Maataa OS"
+license = "UNLICENSED"
+publish = false
+
+[lib]
+path = "src/lib.rs"

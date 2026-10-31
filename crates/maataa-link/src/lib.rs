@@ -39,6 +39,10 @@ pub mod kind {
     pub const STATUS: u8 = 0x02;
     pub const TELEMETRY: u8 = 0x03;
     pub const INFO: u8 = 0x04;
+    /// Payload `[key]`; reply `[value..]`.
+    pub const STORE_GET: u8 = 0x05;
+    /// Payload `[key, value..]` (empty value deletes); reply empty.
+    pub const STORE_PUT: u8 = 0x06;
 
     /// Sent once by the kernel when the channel starts; payload as INFO.
     pub const HELLO: u8 = 0x80;
@@ -46,6 +50,8 @@ pub mod kind {
     pub const STATUS_REPLY: u8 = 0x82;
     pub const TELEMETRY_REPLY: u8 = 0x83;
     pub const INFO_REPLY: u8 = 0x84;
+    pub const STORE_GET_REPLY: u8 = 0x85;
+    pub const STORE_PUT_REPLY: u8 = 0x86;
     pub const ERROR: u8 = 0xFF;
 }
 
@@ -58,6 +64,9 @@ pub mod error_code {
     pub const OVERFLOW: u8 = 5;
     pub const UNAVAILABLE: u8 = 6;
     pub const BAD_COBS: u8 = 7;
+    pub const NOT_FOUND: u8 = 8;
+    /// The kernel refused (a kernel-reserved key, or no capability).
+    pub const REFUSED: u8 = 9;
 
     pub const fn name(code: u8) -> &'static str {
         match code {
@@ -68,6 +77,8 @@ pub mod error_code {
             OVERFLOW => "frame too long",
             UNAVAILABLE => "not available on this board",
             BAD_COBS => "bad COBS encoding",
+            NOT_FOUND => "key not found",
+            REFUSED => "refused by the kernel",
             _ => "unknown error",
         }
     }

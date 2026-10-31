@@ -49,6 +49,8 @@ it.
 | STATUS | `0x02` | none | `0x82` | 32 bytes, see below |
 | TELEMETRY | `0x03` | none | `0x83` | the latest 40-byte MOSF frame ([IPC frame schema](IPC_FRAME_SCHEMA.md)) |
 | INFO | `0x04` | none | `0x84` | `[version, len, board…, len, kernel version…]` |
+| STORE_GET | `0x05` | `[key]` | `0x85` | the value ([persistence.md](persistence.md)) |
+| STORE_PUT | `0x06` | `[key, value…]`; an empty value deletes | `0x86` | none |
 
 The kernel sends **HELLO** (`0x80`, same payload as INFO, sequence 0) once,
 when the channel starts.
@@ -65,6 +67,8 @@ When a request fails, the reply is **ERROR** (`0xFF`), with payload
 | 5 | frame too long |
 | 6 | not available (no telemetry yet) |
 | 7 | bad COBS encoding |
+| 8 | key not found |
+| 9 | refused by the kernel (a kernel key, or no capability) |
 
 STATUS payload (little-endian):
 

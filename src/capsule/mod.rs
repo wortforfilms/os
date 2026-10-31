@@ -194,7 +194,15 @@ mod tests {
         assert_eq!(manager.capsule(id).unwrap().name, "hostlink");
         assert_eq!(
             manager.capabilities_of("hostlink"),
-            Some(cap::WRITE | cap::SLEEP | cap::UART_WRITE | cap::UART_READ | cap::HOST_STATUS)
+            Some(
+                cap::WRITE
+                    | cap::SLEEP
+                    | cap::UART_WRITE
+                    | cap::UART_READ
+                    | cap::HOST_STATUS
+                    | cap::STORE_GET
+                    | cap::STORE_PUT
+            )
         );
         assert_eq!(manager.capabilities_of("missing"), None);
     }

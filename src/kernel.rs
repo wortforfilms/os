@@ -111,6 +111,27 @@ pub fn run() -> Grants {
     }
     let hostlink_capabilities = capsules.capabilities_of("hostlink").unwrap_or(0);
 
+    // Persistent store: flash sectors 6-7 on the F411, a host file in QEMU.
+    match crate::storage::persist::mount() {
+        Ok((report, stats)) => {
+            kprintln!(
+                "flash store: bank {} generation {} keys {} used {}/{} bytes{}{}",
+                stats.bank,
+                stats.generation,
+                stats.live_keys,
+                stats.used_bytes,
+                stats.bank_bytes,
+                if report.formatted { " (formatted)" } else { "" },
+                if report.recovered { " (recovered from a torn write)" } else { "" }
+            );
+            match crate::storage::persist::count_boot() {
+                Ok(count) => kprintln!("boot count: {}", count),
+                Err(error) => kprintln!("boot count: not saved: {}", error.as_str()),
+            }
+        }
+        Err(error) => kprintln!("flash store: not mounted: {}", error.as_str()),
+    }
+
     kprintln!("");
     kprintln!("Boot report");
     kprintln!("-----------");

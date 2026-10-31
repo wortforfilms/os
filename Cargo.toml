@@ -6,7 +6,7 @@ autobins = false
 autoexamples = false
 
 [workspace]
-members = [".", "crates/hemant-core", "crates/maataa-link", "crates/maataa-capsule", "crates/maataa-wasm"]
+members = [".", "crates/hemant-core", "crates/maataa-link", "crates/maataa-capsule", "crates/maataa-wasm", "crates/maataa-store"]
 resolver = "2"
 
 [features]
@@ -40,6 +40,8 @@ maataa-link = { path = "crates/maataa-link" }
 maataa-capsule = { path = "crates/maataa-capsule" }
 # WebAssembly interpreter for capsule payloads (src/capsule_task.rs).
 maataa-wasm = { path = "crates/maataa-wasm" }
+# Power-safe key-value store on two flash banks (src/storage/persist.rs).
+maataa-store = { path = "crates/maataa-store" }
 # Clock tree on real STM32F411 boards (src/board.rs); not linked for QEMU.
 stm32f4xx-hal = { version = "0.23.0", features = ["stm32f411"], optional = true }
 
@@ -62,6 +64,13 @@ name = "clock_selftest"
 path = "src/bin/clock_selftest.rs"
 test = false
 bench = false
+
+# Debug builds must also fit the 256 KiB kernel flash region (memory.x keeps
+# sectors 6-7 for the persistent store), so they are size-optimised too.
+[profile.dev]
+opt-level = "z"
+lto = true
+codegen-units = 1
 
 [profile.release]
 opt-level = "z"

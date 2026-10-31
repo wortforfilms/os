@@ -16,6 +16,8 @@
 //! | 12 | write bytes to the board UART | pointer | length | bytes written, or an error |
 //! | 13 | read board UART bytes (blocks until data arrives) | pointer | capacity | bytes read, or an error |
 //! | 14 | copy the host-channel status block (`hostlink::HOST_STATUS_BYTES`) | pointer | length | 0 or an error |
+//! | 15 | read a persistent key (16..64) | key, r1 = pointer, r2 = capacity | | length, `E_NOENT`, or an error |
+//! | 16 | write a persistent key (16..64; empty deletes) | key, r1 = pointer, r2 = length | | 0 or an error |
 //!
 //! Each task carries a capability mask (bit n allows call n), set when it is
 //! created: from its signed capsule manifest for the host channel, by the
@@ -41,6 +43,8 @@ pub const SYS_SEMAPHORE_POST: u8 = 11;
 pub const SYS_UART_WRITE: u8 = 12;
 pub const SYS_UART_READ: u8 = 13;
 pub const SYS_HOST_STATUS: u8 = 14;
+pub const SYS_STORE_GET: u8 = 15;
+pub const SYS_STORE_PUT: u8 = 16;
 /// Maximum bytes copied or sent by one UART syscall.
 pub const MAX_UART_TRANSFER: usize = 256;
 
@@ -80,8 +84,10 @@ pub const E_BAD_SEMAPHORE: u32 = u32::MAX - 13;
 pub const E_NOT_SUPPORTED: u32 = u32::MAX - 14;
 /// The calling task has no capability for this supervisor call.
 pub const E_NOCAP: u32 = u32::MAX - 15;
+/// The persistent key has no value.
+pub const E_NOENT: u32 = u32::MAX - 16;
 /// Every error code is at least this; smaller results are counts or lengths.
-pub const E_LOWEST: u32 = E_NOCAP;
+pub const E_LOWEST: u32 = E_NOENT;
 /// Older name for E_PERM.
 pub const REFUSED: u32 = E_PERM;
 
@@ -104,6 +110,7 @@ pub const fn error_name(code: u32) -> &'static str {
         E_BAD_SEMAPHORE => "EBADSEMAPHORE",
         E_NOT_SUPPORTED => "ENOTSUP",
         E_NOCAP => "ENOCAP",
+        E_NOENT => "ENOENT",
         _ => "?",
     }
 }
@@ -328,6 +335,32 @@ pub fn host_status(out: &mut [u8; crate::hostlink::HOST_STATUS_BYTES]) -> Result
     let r1 = out.len() as u32;
     // SAFETY: the kernel checks the range lies in the caller's own stack.
     unsafe { core::arch::asm!("svc #14", inout("r0") r0, in("r1") r1) };
+    if r0 == 0 {
+        Ok(())
+    } else {
+        Err(r0)
+    }
+}
+
+/// Reads persistent key `key` (16..64) into `out`; returns the value's length.
+#[cfg(target_arch = "arm")]
+pub fn store_get(key: u8, out: &mut [u8]) -> Result<usize, u32> {
+    let mut r0 = key as u32;
+    // SAFETY: the kernel checks the output range lies in the caller's stack.
+    unsafe { core::arch::asm!("svc #15", inout("r0") r0, in("r1") out.as_mut_ptr(), in("r2") out.len()) };
+    if r0 >= E_LOWEST {
+        Err(r0)
+    } else {
+        Ok(r0 as usize)
+    }
+}
+
+/// Writes persistent key `key` (16..64); an empty value deletes it.
+#[cfg(target_arch = "arm")]
+pub fn store_put(key: u8, value: &[u8]) -> Result<(), u32> {
+    let mut r0 = key as u32;
+    // SAFETY: the kernel checks the input range is the caller's own.
+    unsafe { core::arch::asm!("svc #16", inout("r0") r0, in("r1") value.as_ptr(), in("r2") value.len()) };
     if r0 == 0 {
         Ok(())
     } else {
@@ -571,6 +604,50 @@ mod kernel {
         0
     }
 
+    fn sys_store_get(key: u32, ptr: usize, cap: usize) -> u32 {
+        use crate::storage::persist;
+        if !persist::task_key_allowed(key) {
+            return E_PERM;
+        }
+        if !writable_allowed(ptr, cap, crate::sched::current_stack()) {
+            return REFUSED;
+        }
+        let mut value = [0u8; persist::MAX_VALUE];
+        match persist::get(key as u8, &mut value) {
+            None => E_NOT_SUPPORTED,
+            Some(Ok(None)) => E_NOENT,
+            Some(Ok(Some(len))) if len > cap => E_TOOLONG,
+            Some(Ok(Some(len))) => {
+                // SAFETY: the range was checked to lie in the caller's own stack.
+                let out = unsafe { core::slice::from_raw_parts_mut(ptr as *mut u8, cap) };
+                out[..len].copy_from_slice(&value[..len]);
+                len as u32
+            }
+            Some(Err(_)) => E_NOT_SUPPORTED,
+        }
+    }
+
+    fn sys_store_put(key: u32, ptr: usize, len: usize) -> u32 {
+        use crate::storage::persist;
+        if !persist::task_key_allowed(key) {
+            return E_PERM;
+        }
+        if len > persist::MAX_VALUE {
+            return E_TOOLONG;
+        }
+        if !buffer_allowed(ptr, len, crate::sched::current_stack()) {
+            return REFUSED;
+        }
+        // SAFETY: the range was checked to be flash or the caller's stack.
+        let value = unsafe { core::slice::from_raw_parts(ptr as *const u8, len) };
+        match persist::put(key as u8, value) {
+            None => E_NOT_SUPPORTED,
+            Some(Ok(())) => 0,
+            Some(Err(persist::StoreError::Full)) => E_FULL,
+            Some(Err(_)) => E_NOT_SUPPORTED,
+        }
+    }
+
     fn sys_mutex_lock(id: u32) -> u32 {
         if id > u8::MAX as u32 {
             return E_BAD_MUTEX;
@@ -673,6 +750,8 @@ mod kernel {
             SYS_UART_WRITE => sys_uart_write(r0 as usize, r1 as usize),
             SYS_UART_READ => sys_uart_read(r0 as usize, r1 as usize),
             SYS_HOST_STATUS => sys_host_status(r0 as usize, r1 as usize),
+            SYS_STORE_GET => sys_store_get(r0, r1 as usize, r2 as usize),
+            SYS_STORE_PUT => sys_store_put(r0, r1 as usize, r2 as usize),
             #[cfg(feature = "kernel-stack-test")]
             SYS_TEST_KERNEL_OVERFLOW => {
                 crate::logging::kprintln!(
@@ -740,6 +819,7 @@ mod tests {
             E_BAD_SEMAPHORE,
             E_NOT_SUPPORTED,
             E_NOCAP,
+            E_NOENT,
         ];
         assert!(codes.iter().all(|&c| c >= E_LOWEST));
         for (i, a) in codes.iter().enumerate() {

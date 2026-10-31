@@ -37,11 +37,17 @@ Working:
   memory, fuel-limited; checked against wasmi on 20,000 random programs).
   Its imports are supervisor calls, so its manifest's capabilities bind it
   ([docs/wasm-capsules.md](docs/wasm-capsules.md))
+- Persistent key-value store on flash sectors 6–7 (F411) or a host file
+  (QEMU): power-loss safe, two-bank compaction, boot count; tasks and the
+  host channel use it through syscalls 15/16
+  ([docs/persistence.md](docs/persistence.md))
 - Static capsule table, virtual flash manifest, release size check
 
 Not yet:
 
-- LittleFS flash persistence
+- Linear memory for WebAssembly capsules (strings, buffers)
+- More than one capsule task, started from manifest data
+- Encrypted or authenticated storage
 
 ## Requirements
 
@@ -78,6 +84,7 @@ double-click.
 - [Host channel](docs/host-channel.md)
 - [Signed capsules and capabilities](docs/capsules.md)
 - [WebAssembly capsules](docs/wasm-capsules.md)
+- [Persistent storage](docs/persistence.md)
 - [Scheduler](docs/engineering/SCHEDULER.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)

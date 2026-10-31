@@ -70,6 +70,55 @@ mod kernel_side {
     }
 }
 
+/// STORE_GET / STORE_PUT through syscalls 15 and 16, so the kernel's key and
+/// capability checks apply to the host as to any task.
+#[cfg(target_arch = "arm")]
+fn store_request(
+    request: &maataa_link::Frame<'_>,
+    payload: &mut [u8; maataa_link::MAX_PAYLOAD],
+) -> (u8, usize) {
+    use crate::syscall;
+    use maataa_link::{error_code, kind};
+    let error = |payload: &mut [u8; maataa_link::MAX_PAYLOAD], code: u8| {
+        payload[0] = code;
+        payload[1] = request.kind;
+        (kind::ERROR, 2)
+    };
+    let Some((&key, value)) = request.payload.split_first() else {
+        return error(payload, error_code::BAD_LENGTH);
+    };
+    let code_for = |e: u32| match e {
+        syscall::E_NOENT => error_code::NOT_FOUND,
+        syscall::E_PERM | syscall::E_NOCAP => error_code::REFUSED,
+        syscall::E_TOOLONG => error_code::BAD_LENGTH,
+        _ => error_code::UNAVAILABLE,
+    };
+    if request.kind == kind::STORE_GET {
+        if !value.is_empty() {
+            return error(payload, error_code::BAD_LENGTH);
+        }
+        let mut out = [0u8; crate::storage::persist::MAX_VALUE];
+        match syscall::store_get(key, &mut out) {
+            Ok(n) => {
+                payload[..n].copy_from_slice(&out[..n]);
+                (kind::STORE_GET_REPLY, n)
+            }
+            Err(e) => error(payload, code_for(e)),
+        }
+    } else {
+        // Copy to the stack: the kernel accepts only the caller's own buffer.
+        let mut buf = [0u8; crate::storage::persist::MAX_VALUE];
+        if value.len() > buf.len() {
+            return error(payload, error_code::BAD_LENGTH);
+        }
+        buf[..value.len()].copy_from_slice(value);
+        match syscall::store_put(key, &buf[..value.len()]) {
+            Ok(()) => (kind::STORE_PUT_REPLY, 0),
+            Err(e) => error(payload, code_for(e)),
+        }
+    }
+}
+
 /// The channel task. It runs unprivileged and reaches the UART and the status
 /// block only through supervisor calls.
 #[cfg(target_arch = "arm")]
@@ -121,6 +170,17 @@ pub fn channel_task() -> ! {
         for &byte in &rx[..count] {
             let reply = match decoder.push(byte) {
                 None => continue,
+                Some(Event::Frame(request))
+                    if request.kind == kind::STORE_GET || request.kind == kind::STORE_PUT =>
+                {
+                    let (reply_kind, len) = store_request(&request, &mut payload);
+                    if reply_kind == kind::ERROR {
+                        rejected = rejected.wrapping_add(1);
+                    } else {
+                        served = served.wrapping_add(1);
+                    }
+                    (reply_kind, request.seq, len)
+                }
                 Some(Event::Frame(request)) => {
                     let (status, telemetry) = match syscall::host_status(&mut status_bytes) {
                         Ok(()) => unpack_status(&status_bytes),

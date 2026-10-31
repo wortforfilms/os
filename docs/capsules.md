@@ -28,6 +28,7 @@ at the call's arguments. A task's mask defaults to 0, which allows no calls.
 | `test` | 4 | `uart_write` | 12 |
 | `send` | 5 | `uart_read` | 13 |
 | `recv` | 6 | `host_status` | 14 |
+| `store_get` | 15 | `store_put` | 16 |
 
 What each task gets in this build:
 
@@ -37,7 +38,8 @@ What each task gets in this build:
 | 2 | write, recv, mutex, semaphore (+ test with `kernel-stack-test`) | kernel |
 | 3 | write, send, recv, sleep, semaphore, demo_done, uart_write | kernel. It calls `led` on purpose and must get `ENOCAP`. |
 | 4, 5 | write | kernel |
-| 6 (host channel) | write, sleep, uart_write, uart_read, host_status | **signed** `assets/capsules/hostlink.mcap` |
+| 6 (host channel) | write, sleep, uart_write, uart_read, host_status, store_get, store_put | **signed** `assets/capsules/hostlink.mcap` |
+| 7 (telemetry WebAssembly) | write, sleep | **signed** `assets/capsules/telemetry.mcap` |
 
 If the hostlink capsule fails verification, task 6 gets a mask of 0. It then
 cannot even log, and stops without making any calls.
@@ -93,7 +95,7 @@ T=target/release/maataa-capsule
 
 $T keygen -o ~/.maataa/capsule-release.seed      # private; never commit it
 $T pubkey --seed-file ~/.maataa/capsule-release.seed
-$T sign --name hostlink --caps write,sleep,uart_write,uart_read,host_status \
+$T sign --name hostlink --caps write,sleep,uart_write,uart_read,host_status,store_get,store_put \
    --payload hostlink.bin --seed-file ~/.maataa/capsule-release.seed \
    -o assets/capsules/hostlink.mcap
 $T inspect assets/capsules/hostlink.mcap --seed-file ~/.maataa/capsule-release.seed
@@ -110,7 +112,7 @@ them.
 capsule signer: development (public seed; integrity only) key 6dbf55f3
 capsule verified: telemetry caps=write,sleep
 capsule verified: control caps=write,send,recv
-capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status
+capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status,store_get,store_put
 capsule tamper check: rejected (bad signature)
 ...
 kernel: task 3 has no capability for syscall 2

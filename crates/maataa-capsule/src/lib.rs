@@ -49,6 +49,10 @@ pub mod cap {
     pub const UART_WRITE: u32 = 1 << 12;
     pub const UART_READ: u32 = 1 << 13;
     pub const HOST_STATUS: u32 = 1 << 14;
+    /// Read a persistent key (call 15).
+    pub const STORE_GET: u32 = 1 << 15;
+    /// Write a persistent key (call 16).
+    pub const STORE_PUT: u32 = 1 << 16;
     /// Every call defined today.
     pub const ALL: u32 = WRITE
         | LED
@@ -61,7 +65,9 @@ pub mod cap {
         | SEMAPHORE
         | UART_WRITE
         | UART_READ
-        | HOST_STATUS;
+        | HOST_STATUS
+        | STORE_GET
+        | STORE_PUT;
 
     /// Whether `mask` allows supervisor call `number`.
     pub const fn allows(mask: u32, number: u8) -> bool {
@@ -69,7 +75,7 @@ pub mod cap {
     }
 
     /// Short names in bit order, for logs and the host tool.
-    pub const NAMES: [(u32, &str); 12] = [
+    pub const NAMES: [(u32, &str); 14] = [
         (WRITE, "write"),
         (LED, "led"),
         (DEMO_DONE, "demo_done"),
@@ -82,6 +88,8 @@ pub mod cap {
         (UART_WRITE, "uart_write"),
         (UART_READ, "uart_read"),
         (HOST_STATUS, "host_status"),
+        (STORE_GET, "store_get"),
+        (STORE_PUT, "store_put"),
     ];
 }
 
@@ -336,7 +344,8 @@ mod tests {
         assert!(cap::allows(cap::SEMAPHORE, 10) && cap::allows(cap::SEMAPHORE, 11));
         assert!(cap::allows(cap::HOST_STATUS, 14));
         assert!(!cap::allows(cap::ALL, 0));
-        assert!(!cap::allows(cap::ALL, 15));
+        assert!(cap::allows(cap::STORE_GET, 15) && cap::allows(cap::STORE_PUT, 16));
+        assert!(!cap::allows(cap::ALL, 17));
         assert!(!cap::allows(u32::MAX, 40));
     }
 
