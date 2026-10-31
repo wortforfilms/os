@@ -116,6 +116,22 @@ target/release/maataa-link --serial /dev/cu.usbmodem1103 status
 The board sends HELLO once, at boot. A tool that connects later sees no HELLO
 and goes on without it. Close any serial terminal on the port first.
 
+## Verification
+
+- QEMU 8.2 (Linux) and QEMU on macOS: `smoke-alpha.sh` 10/10, including
+  `qemu-host-channel-test.sh`. All selftest checks passed.
+- NUCLEO-F411RE, 2026-10-31, `/dev/cu.usbmodem11403`, run with
+  `Board host channel.command` about 100 s after flashing. Every selftest
+  check passed, with round trips of about 12 ms.
+  - STATUS reported uptime 99.609 s at a 100 MHz core clock, which matches the
+    wall-clock time since the flash. It also reported 5 of 7 tasks alive
+    (tasks 4 and 5 are killed by design), 0 UART bytes dropped and 0 clock
+    regressions.
+  - TELEMETRY returned a MOSF frame whose checksum matched.
+  - INFO reported `stm32f411`.
+  - No HELLO was seen, as expected: it is sent at boot, before the tool
+    connected.
+
 ## Limits
 
 - One reader only. Task 6 owns USART2 RX; no other task may call syscall 13.

@@ -27,8 +27,7 @@ Working:
   `hemant-core::MonotonicTick` ([docs/kernel-clock.md](docs/kernel-clock.md))
 - Board selection: `board-qemu-f405` (default) or `board-f411`, RCC set up
   through `stm32f4xx-hal`. Verified on a NUCLEO-F411RE: demo, UART echo and
-  RX wake. The host channel has been tested in QEMU, but not yet on the
-  board.
+  RX wake. Host channel selftest passed in QEMU and on the board.
 - Static capsule table, virtual flash manifest, release size check
 
 Not yet:
