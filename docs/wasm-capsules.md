@@ -1,23 +1,47 @@
 # WebAssembly capsules
 
-The signed telemetry capsule carries a real WebAssembly program. Task 7 runs
-it in a small interpreter, on task 7's own stack, with 4 KiB of linear memory.
-The program can reach the kernel only through the imports listed below, and
-each import is a supervisor call made by task 7. So the capsule gets exactly
-the capabilities its signed manifest grants.
+Every verified capsule whose payload is a WebAssembly program runs in a
+capsule task of its own: task 7 and task 8. Each task runs its program in a
+small interpreter, on its own stack, with 4 KiB of linear memory. The program
+can reach the kernel only through the imports listed below, and each import
+is a supervisor call made by that task. So each capsule gets exactly the
+capabilities its own signed manifest grants, and when it runs comes from the
+same signed image (see [Schedule](#schedule)).
+
+Two such capsules are built in:
+
+| Task | Capsule | Capabilities | Schedule |
+| --- | --- | --- | --- |
+| 7 | telemetry (`capsules/telemetry.wat`) | write, sleep, store_get, store_put | 3 ticks, 200 ms apart |
+| 8 | heartbeat (`capsules/heartbeat.wat`) | write, sleep | 4 ticks, 300 ms apart |
 
 ```text
-capsule telemetry: wasm loaded (473 bytes, 6 imports, 4096 bytes of memory)
+capsule task 7: telemetry
+capsule task 8: heartbeat
+...
+capsule heartbeat: wasm loaded (231 bytes, 2 imports, 4096 bytes of memory)
+capsule heartbeat: schedule: 4 ticks every 300 ms (signed manifest)
+capsule heartbeat: heartbeat capsule up
+kernel: task 8 has no capability for syscall 16
+capsule heartbeat: init -> -16 (ENOCAP)
+capsule heartbeat: tick 1 -> 1 (6 instructions)
+capsule telemetry: wasm loaded (503 bytes, 6 imports, 4096 bytes of memory)
+capsule telemetry: schedule: 3 ticks every 200 ms (signed manifest)
 capsule telemetry: telemetry capsule up
 kernel: task 7 has no capability for syscall 2
 capsule telemetry: init -> -16 (ENOCAP)
 capsule telemetry: lifetime ticks
-capsule telemetry: log 4
+capsule telemetry: log 1
 capsule telemetry: tick 1 -> 89 (211 instructions)
 ...
 capsule telemetry: tick 3 -> 233 (243 instructions)
+capsule heartbeat: tick 4 -> 4 (6 instructions)
 capsule telemetry: done
+capsule heartbeat: done
 ```
+
+The two capsules' lines interleave, because the scheduler runs the two tasks
+side by side.
 
 What this shows:
 
@@ -26,17 +50,63 @@ What this shows:
 - **State that survives reboots.** The capsule keeps a lifetime tick count in
   persistent key 32, through `store_get` and `store_put`. The count carries
   on across reboots: 3, 6, 9...
-- **Refused calls.** The capsule's request for the LED is refused, because
-  the manifest grants `write`, `sleep`, `store_get` and `store_put`, but not
-  `led`.
+- **Refused calls.** The telemetry capsule's request for the LED is refused,
+  because its manifest grants `write`, `sleep`, `store_get` and `store_put`,
+  but not `led`. The heartbeat capsule's attempt to write the store is
+  refused, because its manifest grants only `write` and `sleep`.
 
 Where the code lives:
 
-- Source: `capsules/telemetry.wat`.
-- Signed image: `assets/capsules/telemetry.mcap`.
+- Sources: `capsules/telemetry.wat`, `capsules/heartbeat.wat`.
+- Signed images: `assets/capsules/telemetry.mcap`,
+  `assets/capsules/heartbeat.mcap`.
 - Interpreter: `crates/maataa-wasm`.
-- Kernel side: `src/capsule_task.rs`, plus task 7 in `src/main.rs` (a 16 KiB
-  stack, aligned so it forms one MPU region).
+- Schedule format: `maataa_capsule::Schedule`.
+- Kernel side: `src/kernel.rs` (which capsule gets which task),
+  `src/capsule_task.rs` (the task body), and tasks 7 and 8 in `src/main.rs`
+  (a 16 KiB stack each, aligned so each forms one MPU region).
+
+## Schedule
+
+A capsule's schedule is a custom section named `maataa` in its WebAssembly
+module. The section is part of the payload, so the image's signature covers
+it, just as it covers the capabilities. In WebAssembly text:
+
+```wat
+(module
+  (@custom "maataa" "ticks=3 period_ms=200")
+  ...)
+```
+
+The section is ASCII `key=value` pairs, separated by spaces, commas,
+semicolons or newlines:
+
+| Key | Meaning | Allowed |
+| --- | --- | --- |
+| `ticks` | how many times to call the `tick` export | 1 to 1000, or 0 for "for as long as the board runs" |
+| `period_ms` | sleep between ticks | 10 to 3 600 000 |
+
+The kernel refuses to run a capsule whose section has an unknown key, a key
+given twice, or a value out of range. A module with two `maataa` sections is
+refused when it is loaded. A module with no `maataa` section gets the default:
+one tick, and the boot log says so.
+
+The capsule task then calls `init` once (if the module exports it) and `tick`
+on the schedule. The sleep between ticks is a supervisor call too, so a
+capsule that ticks more than once needs the `sleep` capability.
+
+## Which capsule gets which task
+
+At boot the kernel verifies the built-in images in a fixed order:
+telemetry, heartbeat, control, hostlink. Each verified image whose payload
+starts with the WebAssembly magic (`\0asm`) takes the next free capsule task,
+7 and then 8, and the boot report says so (`capsule task 7: telemetry`). A
+rejected image gets no task. A third WebAssembly capsule would be reported as
+`no capsule task free; not started`.
+
+The task is unprivileged and may not read kernel memory, so the kernel hands
+it its grant (the capsule's name and image, both in flash) at the base of the
+task's own stack, before the scheduler starts. The task reads it first.
 
 ## The interpreter
 
@@ -48,7 +118,7 @@ array:
 - 16 nested calls
 
 A module may have up to 32 functions, 8 imports, 8 globals, 24 exports and 8
-data segments.
+data segments. Custom sections are skipped, except the `maataa` manifest.
 
 **What it supports:**
 
@@ -120,7 +190,7 @@ KiB. That is deliberate, so that a capsule fits in a small RAM.
 
 - **Pointer checks.** Before any call, each pointer and length is checked
   against the capsule's memory buffer; one outside it traps. The buffer lies
-  in task 7's stack, so the kernel's own buffer checks accept it unchanged.
+  in the capsule task's stack, so the kernel's own buffer checks accept it unchanged.
 - **Error codes** reach the program as negative numbers: `ENOCAP` is -16 and
   `ENOENT` is -17.
 - **Unknown imports.** A module that imports anything else, or one of these
@@ -131,18 +201,30 @@ KiB. That is deliberate, so that a capsule fits in a small RAM.
 ```bash
 cargo build --release -p maataa-capsule --features cli
 T=target/release/maataa-capsule
-$T wasm capsules/telemetry.wat -o target/telemetry.wasm   # assembles, then checks it loads in maataa-wasm
+# Assembles, checks the module loads in maataa-wasm, and checks its schedule.
+$T wasm capsules/telemetry.wat -o target/telemetry.wasm
 $T sign --name telemetry --caps write,sleep,store_get,store_put \
    --payload target/telemetry.wasm --dev -o assets/capsules/telemetry.mcap
+$T wasm capsules/heartbeat.wat -o target/heartbeat.wasm
+$T sign --name heartbeat --caps write,sleep \
+   --payload target/heartbeat.wasm --dev -o assets/capsules/heartbeat.mcap
 ```
+
+To add a capsule to the kernel, add its image to the list in `src/kernel.rs`.
 
 **What the tests check:**
 
 - `smoke-alpha.sh`:
-  - the module loads with 4096 bytes of memory;
+  - the telemetry module loads with 4096 bytes of memory;
   - the greeting string is printed;
   - `init` returns `-16 (ENOCAP)`;
-  - the third tick returns 233.
+  - the third tick returns 233;
+  - telemetry gets task 7 and heartbeat task 8, each with the schedule from
+    its own signed section;
+  - the heartbeat's store write is refused, and its fourth tick runs.
+- Host tests: the schedule parser (every malformed form refused), the
+  `maataa` section in the interpreter, and the schedules of the built-in
+  images.
 - `qemu-persistence-test.sh`: the capsule's own lifetime count reaches 9
   after three boots.
 - NUCLEO-F411RE, 2026-10-31: after 14 boots of this build, key 32 in the
@@ -154,12 +236,15 @@ $T sign --name telemetry --caps write,sleep,store_get,store_put \
 | Item | Size |
 | --- | --- |
 | Interpreter, flash | about 15 KB of text |
-| Task 7 stack | 16 KiB, which holds the interpreter's fixed stacks and the 4 KiB capsule memory |
+| Each capsule task's stack (tasks 7 and 8) | 16 KiB, which holds the interpreter's fixed stacks and the 4 KiB capsule memory |
 
 ## Limits
 
-- **One capsule task.** The kernel starts only the telemetry capsule, and its
-  name and schedule (3 ticks, 200 ms apart) are fixed in `src/main.rs`.
-  Manifest fields for the entry points and the period would remove that.
+- **Two capsule tasks.** Each needs a 16 KiB stack; a third would take
+  another 16 KiB of the F411's 128 KiB of RAM and a ninth task slot.
+- **Built-in images only.** The kernel runs the images compiled into it. A
+  capsule installed at run time (over the host channel, into flash) is not
+  supported yet.
+- **Fixed entry points.** The task calls the exports `init` and `tick`.
 - **4 KiB of memory.** Programs built by compilers that expect a full 64 KiB
   page would need a larger buffer, or must keep their data small.

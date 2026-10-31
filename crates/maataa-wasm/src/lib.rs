@@ -178,7 +178,12 @@ pub struct Module<'a> {
     memory_pages: Option<u32>,
     data: [Data; MAX_DATA],
     n_data: usize,
+    /// Contents of the custom section named `maataa` (the capsule manifest).
+    manifest: Option<&'a [u8]>,
 }
+
+/// Name of the custom section that carries a capsule's manifest.
+pub const MANIFEST_SECTION: &str = "maataa";
 
 struct Reader<'a> {
     bytes: &'a [u8],
@@ -377,6 +382,7 @@ impl<'a> Module<'a> {
             memory_pages: None,
             data: [Data::default(); MAX_DATA],
             n_data: 0,
+            manifest: None,
         };
         let mut r = Reader {
             bytes,
@@ -398,7 +404,15 @@ impl<'a> Module<'a> {
             };
             r.pos += size;
             match id {
-                0 => {} // custom section
+                0 => {
+                    // Custom sections are skipped, except the manifest.
+                    if s.name()? == MANIFEST_SECTION {
+                        if m.manifest.is_some() {
+                            return Err(Error::Malformed("two maataa manifest sections"));
+                        }
+                        m.manifest = Some(&bytes[s.pos..s.end]);
+                    }
+                }
                 1 => m.parse_types(&mut s)?,
                 2 => m.parse_imports(&mut s)?,
                 3 => declared_funcs = Some(m.parse_functions(&mut s)?),
@@ -602,6 +616,11 @@ impl<'a> Module<'a> {
     }
 
     /// Declared minimum memory in pages, if the module has a memory.
+    /// The bytes of the `maataa` custom section, if the module has one.
+    pub fn manifest(&self) -> Option<&'a [u8]> {
+        self.manifest
+    }
+
     pub fn memory_pages(&self) -> Option<u32> {
         self.memory_pages
     }

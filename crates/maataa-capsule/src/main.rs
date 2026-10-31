@@ -164,12 +164,17 @@ fn run(args: Args) -> Result<(), String> {
                 .map(|i| format!("{}.{}", i.module, i.name))
                 .collect();
             let exports: Vec<&str> = module.export_names().collect();
+            let schedule = maataa_capsule::Schedule::parse(module.manifest())
+                .map_err(|e| format!("{path}: maataa manifest: {e}"))?;
             std::fs::write(out, &bytes).map_err(|e| format!("{out}: {e}"))?;
             println!(
-                "wrote {out}: {} bytes; imports [{}]; exports [{}]",
+                "wrote {out}: {} bytes; imports [{}]; exports [{}]; schedule {} ticks every {} ms{}",
                 bytes.len(),
                 imports.join(", "),
-                exports.join(", ")
+                exports.join(", "),
+                schedule.ticks,
+                schedule.period_ms,
+                if module.manifest().is_none() { " (default: no maataa section)" } else { "" }
             );
             Ok(())
         }

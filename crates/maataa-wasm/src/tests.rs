@@ -677,3 +677,15 @@ fn memory_matches_wasmi_on_random_programs() {
         }
     }
 }
+
+#[test]
+fn the_manifest_section_is_exposed_and_other_custom_sections_are_skipped() {
+    let bytes = wasm(
+        r#"(module (@custom "notes" "ignored") (@custom "maataa" "ticks=3 period_ms=200") (func (export "tick")))"#,
+    );
+    let module = Module::parse(&bytes).unwrap();
+    assert_eq!(module.manifest(), Some(&b"ticks=3 period_ms=200"[..]));
+    assert_eq!(Module::parse(&wasm("(module)")).unwrap().manifest(), None);
+    let two = wasm(r#"(module (@custom "maataa" "ticks=1") (@custom "maataa" "ticks=2"))"#);
+    assert!(Module::parse(&two).is_err(), "a second manifest is refused");
+}

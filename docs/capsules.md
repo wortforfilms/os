@@ -40,6 +40,7 @@ What each task gets in this build:
 | 4, 5 | write | kernel |
 | 6 (host channel) | write, sleep, uart_write, uart_read, host_status, store_get, store_put | **signed** `assets/capsules/hostlink.mcap` |
 | 7 (telemetry WebAssembly) | write, sleep, store_get, store_put | **signed** `assets/capsules/telemetry.mcap` |
+| 8 (heartbeat WebAssembly) | write, sleep. It asks for `store_put` once and must get `ENOCAP`. | **signed** `assets/capsules/heartbeat.mcap` |
 
 If the hostlink capsule fails verification, task 6 gets a mask of 0. It then
 cannot even log, and stops without making any calls.
@@ -71,10 +72,13 @@ The kernel rejects an image if any of these is true:
 A test flips each bit of a signed image, one at a time, and checks that every
 change is rejected.
 
-The payload is recorded and counted against the capsule memory budget. The
-telemetry capsule's payload is WebAssembly, and task 7 runs it under the
-capsule's signed capabilities ([wasm-capsules.md](wasm-capsules.md)). The
-other two payloads are descriptors and are not executed.
+The payload is recorded and counted against the capsule memory budget. A
+verified capsule whose payload is WebAssembly gets a capsule task of its own
+(tasks 7 and 8, in the order the kernel lists the images) and runs under its
+signed capabilities, on the schedule in its signed `maataa` section
+([wasm-capsules.md](wasm-capsules.md)). The telemetry and heartbeat payloads
+are WebAssembly; the control and hostlink payloads are descriptors and are
+not executed.
 
 ## Keys
 
@@ -111,6 +115,9 @@ them.
 ```text
 capsule signer: development (public seed; integrity only) key 6dbf55f3
 capsule verified: telemetry caps=write,sleep,store_get,store_put
+capsule task 7: telemetry
+capsule verified: heartbeat caps=write,sleep
+capsule task 8: heartbeat
 capsule verified: control caps=write,send,recv
 capsule verified: hostlink caps=write,sleep,uart_write,uart_read,host_status,store_get,store_put
 capsule tamper check: rejected (bad signature)
@@ -137,6 +144,6 @@ lines and fails if any built-in capsule is rejected.
 ## Cost
 
 Ed25519 verification adds about 47 KB of flash. The QEMU release image grew
-from 35.6 KB to 82.9 KB of text, out of the 512 KB budget. Checking the three
+from 35.6 KB to 82.9 KB of text, out of the 512 KB budget. Checking the
 built-in capsules plus the tamper copy finishes before the boot report's first
 uptime reading (about 37 ms after boot in QEMU).

@@ -25,9 +25,13 @@ const AI_BATCH_CERTIFICATION_CLEARANCE: u32 = 0x08;
 
 /// Signed capsule images built into the kernel (assets/capsules, made with
 /// `maataa-capsule sign`). Each is verified before it is recorded.
-pub static TELEMETRY_CAPSULE: &[u8] = include_bytes!("../assets/capsules/telemetry.mcap");
+static TELEMETRY_CAPSULE: &[u8] = include_bytes!("../assets/capsules/telemetry.mcap");
+static HEARTBEAT_CAPSULE: &[u8] = include_bytes!("../assets/capsules/heartbeat.mcap");
 static CONTROL_CAPSULE: &[u8] = include_bytes!("../assets/capsules/control.mcap");
 static HOSTLINK_CAPSULE: &[u8] = include_bytes!("../assets/capsules/hostlink.mcap");
+
+/// Task ids of the capsule tasks, in slot order (see src/main.rs).
+pub const CAPSULE_TASK_IDS: [u8; crate::capsule_task::CAPSULE_TASKS] = [7, 8];
 
 /// Comma-separated capability names for the boot report.
 struct CapNames(u32);
@@ -56,9 +60,9 @@ pub struct Grants {
     /// Mask signed into the host-channel capsule; 0 if it was rejected, so
     /// the task it governs gets no syscalls at all.
     pub hostlink: u32,
-    /// Mask signed into the telemetry capsule, or `None` if it was rejected
-    /// (its task is then not started).
-    pub telemetry: Option<u32>,
+    /// Verified WebAssembly capsules, one per capsule task, in boot order.
+    /// A rejected capsule gets no task.
+    pub capsule_tasks: [Option<crate::capsule_task::CapsuleGrant>; crate::capsule_task::CAPSULE_TASKS],
 }
 
 /// Runs the boot sequence and returns the capsule grants.
@@ -79,21 +83,48 @@ pub fn run() -> Grants {
         crate::capsule::CAPSULE_KEY_KIND,
         crate::capsule::CAPSULE_KEY_ID
     );
-    let telemetry_capsule = capsules.load_signed(TELEMETRY_CAPSULE);
-    let control_capsule = capsules.load_signed(CONTROL_CAPSULE);
-    let hostlink_capsule = capsules.load_signed(HOSTLINK_CAPSULE);
-    for (name, result) in [
-        ("telemetry", telemetry_capsule),
-        ("control", control_capsule),
-        ("hostlink", hostlink_capsule),
-    ] {
+    let images = [
+        ("telemetry", TELEMETRY_CAPSULE),
+        ("heartbeat", HEARTBEAT_CAPSULE),
+        ("control", CONTROL_CAPSULE),
+        ("hostlink", HOSTLINK_CAPSULE),
+    ];
+    let mut capsule_tasks = [None; crate::capsule_task::CAPSULE_TASKS];
+    let mut telemetry_capsule = None;
+    let mut control_capsule = None;
+    for (label, image) in images {
+        let result = capsules.load_signed(image);
         match result {
             Ok(_) => kprintln!(
                 "capsule verified: {} caps={}",
-                name,
-                CapNames(capsules.capabilities_of(name).unwrap_or(0))
+                label,
+                CapNames(capsules.capabilities_of(label).unwrap_or(0))
             ),
-            Err(error) => kprintln!("capsule rejected: {}: {}", name, error.as_str()),
+            Err(error) => kprintln!("capsule rejected: {}: {}", label, error.as_str()),
+        }
+        match label {
+            "telemetry" => telemetry_capsule = Some(result),
+            "control" => control_capsule = Some(result),
+            _ => {}
+        }
+        // A verified capsule whose payload is WebAssembly gets a task of its
+        // own, with the capabilities it was signed with.
+        let Some(capabilities) = result.ok().and_then(|_| capsules.capabilities_of(label)) else {
+            continue;
+        };
+        if !maataa_capsule::payload_unverified(image).is_some_and(maataa_capsule::is_wasm) {
+            continue;
+        }
+        match capsule_tasks.iter_mut().position(|slot| slot.is_none()) {
+            Some(index) => {
+                capsule_tasks[index] = Some(crate::capsule_task::CapsuleGrant {
+                    name: label,
+                    image,
+                    capabilities,
+                });
+                kprintln!("capsule task {}: {}", CAPSULE_TASK_IDS[index], label);
+            }
+            None => kprintln!("capsule {}: no capsule task free; not started", label),
         }
     }
     // Tamper check: the same signed image with one payload byte changed must
@@ -190,8 +221,8 @@ pub fn run() -> Grants {
         capsules.used_bytes(),
         capsules.capacity_bytes()
     );
-    kprintln!("telemetry capsule id: {:?}", telemetry_capsule);
-    kprintln!("control capsule id: {:?}", control_capsule);
+    kprintln!("telemetry capsule id: {:?}", telemetry_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed"))));
+    kprintln!("control capsule id: {:?}", control_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed"))));
 
     // Time. The kernel clock is monotonic since boot. A Hemant reading needs
     // an anchor; the only one available under QEMU is the host clock, read
@@ -220,7 +251,8 @@ pub fn run() -> Grants {
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
-        "sched: round-robin tasks=7 first_switch_at_ms={}",
+        "sched: round-robin tasks={} first_switch_at_ms={}",
+        6 + capsule_tasks.iter().flatten().count(),
         DEFAULT_DEMO_QUANTUM_MS
     );
     kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore, uart, host status; each task limited to its capability mask");
@@ -344,6 +376,6 @@ pub fn run() -> Grants {
     );
     Grants {
         hostlink: hostlink_capabilities,
-        telemetry: capsules.capabilities_of("telemetry"),
+        capsule_tasks,
     }
 }

@@ -21,7 +21,7 @@ impl LoadError {
     }
 }
 
-const MAX_CAPSULES: usize = 4;
+const MAX_CAPSULES: usize = 8;
 const CAPSULE_MEMORY_BYTES: usize = 64 * 1024;
 
 #[derive(Clone, Copy)]

@@ -1,5 +1,10 @@
 //! Runs a verified WebAssembly capsule as an unprivileged task.
 //!
+//! The kernel starts one capsule task for each verified capsule whose payload
+//! is WebAssembly, up to [`CAPSULE_TASKS`]. When to call the capsule comes
+//! from its signed manifest: the module's `maataa` custom section
+//! (`maataa_capsule::Schedule`), for example `ticks=3 period_ms=200`.
+//!
 //! The kernel verifies the capsule's signature at boot and gives this task
 //! the capability mask from the capsule's signed manifest. The interpreter
 //! (`crates/maataa-wasm`) runs inside the task, on the task's own stack, and
@@ -29,6 +34,18 @@
 #[cfg(target_arch = "arm")]
 use crate::syscall;
 use maataa_wasm::{Host, Import, Trap};
+
+/// How many capsule tasks the kernel runs (tasks 7 and 8).
+pub const CAPSULE_TASKS: usize = 2;
+
+/// A verified WebAssembly capsule, assigned to a capsule task at boot.
+#[derive(Clone, Copy)]
+pub struct CapsuleGrant {
+    pub name: &'static str,
+    /// The whole signed image; the kernel verified it before granting it.
+    pub image: &'static [u8],
+    pub capabilities: u32,
+}
 
 /// Instructions one export call may run.
 pub const FUEL_PER_CALL: u32 = 20_000;
@@ -142,10 +159,12 @@ impl core::fmt::Display for Shown {
     }
 }
 
-/// Task body: load the capsule's module, call `init` once and `tick` a few
-/// times, then idle. `image` must already have been verified by the kernel.
+/// Task body: load the capsule's module, call `init` once and `tick` on the
+/// schedule its signed manifest gives, then idle. `image` must already have
+/// been verified by the kernel.
 #[cfg(target_arch = "arm")]
-pub fn run(name: &'static str, image: &'static [u8], ticks: u32, period_ms: u32) -> ! {
+pub fn run(name: &'static str, image: &'static [u8]) -> ! {
+    use maataa_capsule::Schedule;
     use maataa_wasm::{Instance, Module};
 
     let idle = || -> ! {
@@ -168,6 +187,13 @@ pub fn run(name: &'static str, image: &'static [u8], ticks: u32, period_ms: u32)
         crate::uprintln!("capsule {}: not loaded: {}", name, why);
         idle()
     }
+    let schedule = match Schedule::parse(module.manifest()) {
+        Ok(schedule) => schedule,
+        Err(why) => {
+            crate::uprintln!("capsule {}: not loaded: {}", name, why);
+            idle()
+        }
+    };
     crate::uprintln!(
         "capsule {}: wasm loaded ({} bytes, {} imports, {} bytes of memory)",
         name,
@@ -179,6 +205,24 @@ pub fn run(name: &'static str, image: &'static [u8], ticks: u32, period_ms: u32)
             0
         }
     );
+    match (module.manifest().is_some(), schedule.forever()) {
+        (false, _) => crate::uprintln!(
+            "capsule {}: schedule: default, {} tick (no signed manifest section)",
+            name,
+            schedule.ticks
+        ),
+        (true, false) => crate::uprintln!(
+            "capsule {}: schedule: {} ticks every {} ms (signed manifest)",
+            name,
+            schedule.ticks,
+            schedule.period_ms
+        ),
+        (true, true) => crate::uprintln!(
+            "capsule {}: schedule: a tick every {} ms, without end (signed manifest)",
+            name,
+            schedule.period_ms
+        ),
+    }
     let mut instance = Instance::new(&module);
     let mut host = SyscallHost { name };
     let mut memory = [0u8; CAPSULE_MEMORY_BYTES];
@@ -193,7 +237,9 @@ pub fn run(name: &'static str, image: &'static [u8], ticks: u32, period_ms: u32)
         Err(Trap::NoSuchExport) => {}
         Err(trap) => crate::uprintln!("capsule {}: init trapped: {}", name, trap.as_str()),
     }
-    for tick in 1..=ticks {
+    let mut tick: u32 = 0;
+    while schedule.forever() || tick < schedule.ticks {
+        tick = tick.wrapping_add(1);
         match instance.invoke(&mut host, "tick", &[], FUEL_PER_CALL, &mut memory) {
             Ok(value) => crate::uprintln!(
                 "capsule {}: tick {} -> {} ({} instructions)",
@@ -207,7 +253,7 @@ pub fn run(name: &'static str, image: &'static [u8], ticks: u32, period_ms: u32)
                 break;
             }
         }
-        let _ = syscall::sleep_ms(period_ms);
+        let _ = syscall::sleep_ms(schedule.period_ms);
     }
     crate::uprintln!("capsule {}: done", name);
     idle()
@@ -248,6 +294,27 @@ mod tests {
         assert_eq!(capsule_slice(&mut memory, 8, 9), Err(Trap::OutOfBounds));
         assert_eq!(capsule_slice(&mut memory, -1, 1), Err(Trap::OutOfBounds));
         assert_eq!(capsule_slice(&mut memory, 1, -1), Err(Trap::OutOfBounds));
+    }
+
+    #[test]
+    fn built_in_capsules_carry_their_schedules() {
+        use maataa_capsule::Schedule;
+        for (image, expected) in [
+            (
+                &include_bytes!("../assets/capsules/telemetry.mcap")[..],
+                Schedule { ticks: 3, period_ms: 200 },
+            ),
+            (
+                &include_bytes!("../assets/capsules/heartbeat.mcap")[..],
+                Schedule { ticks: 4, period_ms: 300 },
+            ),
+        ] {
+            let payload = maataa_capsule::payload_unverified(image).unwrap();
+            assert!(maataa_capsule::is_wasm(payload));
+            let module = Module::parse(payload).unwrap();
+            check_imports(module.imports()).unwrap();
+            assert_eq!(Schedule::parse(module.manifest()), Ok(expected));
+        }
     }
 
     /// Runs the built-in capsule against a fake kernel: a store (key -> bytes),

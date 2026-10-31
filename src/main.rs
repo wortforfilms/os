@@ -42,15 +42,21 @@ static mut TASK_FOUR_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_FIVE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_SIX_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 
-/// The WebAssembly task needs room for the interpreter's fixed stacks and
-/// the capsule's 4 KiB memory; 16 KiB, aligned to 16 KiB so it is still one
-/// MPU region.
+/// A WebAssembly capsule task needs room for the interpreter's fixed stacks
+/// and the capsule's 4 KiB memory; 16 KiB, aligned to 16 KiB so it is still
+/// one MPU region.
 const CAPSULE_STACK_BYTES: usize = 16384;
 
 #[repr(C, align(16384))]
 struct CapsuleStack([u8; CAPSULE_STACK_BYTES]);
 
 static mut TASK_SEVEN_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES]);
+static mut TASK_EIGHT_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES]);
+
+// A capsule task runs unprivileged and may not read kernel memory, so `main`
+// hands it its grant through the task's own stack: the grant is written at
+// the lowest address of the stack (the end the stack grows towards and reaches
+// only on overflow) before the scheduler starts, and the task reads it first.
 
 // The tasks below run unprivileged inside their MPU regions: they reach the
 // log and the LED only through supervisor calls (src/syscall.rs), and only
@@ -259,9 +265,22 @@ fn panic(info: &core::panic::PanicInfo) -> ! {
     }
 }
 
-/// Task 7: the telemetry capsule, a signed WebAssembly program.
-fn telemetry_capsule_task() -> ! {
-    capsule_task::run("telemetry", kernel::TELEMETRY_CAPSULE, 3, 200)
+/// Runs the capsule whose grant `main` left at the base of `stack`.
+fn capsule_from_stack(stack: *const CapsuleStack) -> ! {
+    // SAFETY: the base of this task's own stack, written by `main` before the
+    // scheduler started and not yet reached by the stack.
+    let grant = unsafe { stack.cast::<capsule_task::CapsuleGrant>().read() };
+    capsule_task::run(grant.name, grant.image)
+}
+
+/// Task 7: the first verified WebAssembly capsule.
+fn capsule_task_seven() -> ! {
+    capsule_from_stack(core::ptr::addr_of!(TASK_SEVEN_STACK))
+}
+
+/// Task 8: the second verified WebAssembly capsule.
+fn capsule_task_eight() -> ! {
+    capsule_from_stack(core::ptr::addr_of!(TASK_EIGHT_STACK))
 }
 
 /// Task 6: the host channel on USART2 (src/hostlink.rs).
@@ -346,23 +365,29 @@ fn main() -> ! {
                 )
                 .with_capabilities(grants.hostlink))
             })
-            .and_then(|()| match grants.telemetry {
-                // Task 7 runs the signed telemetry capsule's WebAssembly
-                // with the capabilities its manifest grants.
-                Some(capabilities) => {
-                    // SAFETY: the static stack is handed to this one task.
+            .and_then(|()| {
+                // Tasks 7 and 8 run the verified WebAssembly capsules, each
+                // with the capabilities its own manifest grants.
+                let slots: [(*mut CapsuleStack, fn() -> !); capsule_task::CAPSULE_TASKS] = [
+                    (core::ptr::addr_of_mut!(TASK_SEVEN_STACK), capsule_task_seven),
+                    (core::ptr::addr_of_mut!(TASK_EIGHT_STACK), capsule_task_eight),
+                ];
+                for (index, (stack, body)) in slots.into_iter().enumerate() {
+                    let Some(grant) = grants.capsule_tasks[index] else {
+                        continue;
+                    };
+                    // SAFETY: each static stack is handed to exactly one task;
+                    // the grant goes at its base (see capsule_from_stack).
                     let stack = unsafe {
-                        core::slice::from_raw_parts_mut(
-                            core::ptr::addr_of_mut!(TASK_SEVEN_STACK).cast::<u8>(),
-                            CAPSULE_STACK_BYTES,
-                        )
+                        stack.cast::<capsule_task::CapsuleGrant>().write(grant);
+                        core::slice::from_raw_parts_mut(stack.cast::<u8>(), CAPSULE_STACK_BYTES)
                     };
                     queue.add(
-                        sched::Task::new(7, stack, telemetry_capsule_task, 1)
-                            .with_capabilities(capabilities),
-                    )
+                        sched::Task::new(kernel::CAPSULE_TASK_IDS[index], stack, body, 1)
+                            .with_capabilities(grant.capabilities),
+                    )?;
                 }
-                None => Ok(()),
+                Ok(())
             });
         let started = added.is_ok()
             && match sched::start_round_robin(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB)

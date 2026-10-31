@@ -90,7 +90,7 @@ rg -q '^control capsule id: ' "$BOOT_LOG"
 rg -q '^clock: systick 1000 Hz, core ' "$BOOT_LOG"
 rg -q '^board: qemu-netduinoplus2-stm32f405$' "$BOOT_LOG"
 rg -q '^time: kernel-monotonic-since-boot$' "$BOOT_LOG"
-rg -q '^sched: round-robin tasks=7 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
+rg -q '^sched: round-robin tasks=8 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
 [ "$(rg -c '^sched:' "$BOOT_LOG")" -eq 1 ]
 rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
@@ -115,6 +115,18 @@ rg -q '^capsule telemetry: wasm loaded .* 4096 bytes of memory\)$' "$BOOT_LOG"
 rg -q '^capsule telemetry: telemetry capsule up$' "$BOOT_LOG"
 rg -q '^capsule telemetry: init -> -16 \(ENOCAP\)$' "$BOOT_LOG"
 rg -q '^capsule telemetry: tick 3 -> 233 ' "$BOOT_LOG"
+# Two capsule tasks, each on the schedule and with the capabilities its own
+# signed manifest gives (docs/wasm-capsules.md).
+rg -q '^capsule verified: heartbeat caps=write,sleep$' "$BOOT_LOG"
+rg -q '^capsule task 7: telemetry$' "$BOOT_LOG"
+rg -q '^capsule task 8: heartbeat$' "$BOOT_LOG"
+rg -q '^capsule telemetry: schedule: 3 ticks every 200 ms \(signed manifest\)$' "$BOOT_LOG"
+rg -q '^capsule heartbeat: schedule: 4 ticks every 300 ms \(signed manifest\)$' "$BOOT_LOG"
+rg -q '^kernel: task 8 has no capability for syscall 16$' "$BOOT_LOG"
+rg -q '^capsule heartbeat: init -> -16 \(ENOCAP\)$' "$BOOT_LOG"
+rg -q '^capsule heartbeat: tick 4 -> 4 ' "$BOOT_LOG"
+rg -q '^capsule heartbeat: done$' "$BOOT_LOG"
+
 TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"
 [ "$TASK_ORDER" = "task 1 task 2 task 3 " ]
 pass

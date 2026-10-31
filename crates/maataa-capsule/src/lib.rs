@@ -230,6 +230,88 @@ pub fn write_unsigned(
 }
 
 /// Host side: a complete signed image.
+/// When the kernel runs a WebAssembly capsule: read from the module's
+/// `maataa` custom section, which is part of the signed payload.
+///
+/// The section is ASCII text, `key=value` pairs separated by spaces, commas,
+/// semicolons or newlines:
+///
+/// ```text
+/// ticks=3 period_ms=200
+/// ```
+///
+/// - `ticks`: how many times to call the `tick` export, 1 to 1000, or 0 to
+///   keep calling it for as long as the board runs.
+/// - `period_ms`: sleep between ticks, 10 to 3 600 000 ms.
+///
+/// Unknown keys, repeated keys and out-of-range values are refused, so a
+/// schedule means exactly what it says.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct Schedule {
+    pub ticks: u32,
+    pub period_ms: u32,
+}
+
+impl Schedule {
+    /// Used for a capsule with no `maataa` section.
+    pub const DEFAULT: Self = Self {
+        ticks: 1,
+        period_ms: 1_000,
+    };
+    pub const MAX_TICKS: u32 = 1_000;
+    pub const MIN_PERIOD_MS: u32 = 10;
+    pub const MAX_PERIOD_MS: u32 = 3_600_000;
+
+    /// Parses a manifest section. `None` (no section) gives [`Self::DEFAULT`].
+    pub fn parse(section: Option<&[u8]>) -> Result<Self, &'static str> {
+        let Some(section) = section else {
+            return Ok(Self::DEFAULT);
+        };
+        let text = core::str::from_utf8(section).map_err(|_| "manifest is not text")?;
+        let (mut ticks, mut period_ms) = (None, None);
+        for field in text
+            .split(|c: char| {
+                c == ' ' || c == ',' || c == ';' || c == '\n' || c == '\r' || c == '\t'
+            })
+            .filter(|f| !f.is_empty())
+        {
+            let (key, value) = field.split_once('=').ok_or("manifest field without =")?;
+            let value: u32 = value
+                .parse()
+                .map_err(|_| "manifest value is not a number")?;
+            let slot = match key {
+                "ticks" => &mut ticks,
+                "period_ms" => &mut period_ms,
+                _ => return Err("unknown manifest key"),
+            };
+            if slot.replace(value).is_some() {
+                return Err("manifest key given twice");
+            }
+        }
+        let schedule = Self {
+            ticks: ticks.unwrap_or(Self::DEFAULT.ticks),
+            period_ms: period_ms.unwrap_or(Self::DEFAULT.period_ms),
+        };
+        if schedule.ticks > Self::MAX_TICKS {
+            return Err("manifest ticks out of range");
+        }
+        if !(Self::MIN_PERIOD_MS..=Self::MAX_PERIOD_MS).contains(&schedule.period_ms) {
+            return Err("manifest period_ms out of range");
+        }
+        Ok(schedule)
+    }
+
+    /// `ticks == 0`: keep ticking.
+    pub const fn forever(&self) -> bool {
+        self.ticks == 0
+    }
+}
+
+/// Whether a payload is a WebAssembly module (and so runs in a capsule task).
+pub fn is_wasm(payload: &[u8]) -> bool {
+    payload.starts_with(b"\0asm")
+}
+
 #[cfg(any(test, feature = "cli"))]
 pub fn sign(
     name: &str,
@@ -253,6 +335,45 @@ pub fn public_key(seed: &[u8; 32]) -> [u8; 32] {
 
 #[cfg(test)]
 mod tests {
+
+    #[test]
+    fn schedules_parse_strictly() {
+        assert_eq!(Schedule::parse(None), Ok(Schedule::DEFAULT));
+        assert_eq!(
+            Schedule::parse(Some(b"ticks=3 period_ms=200")),
+            Ok(Schedule {
+                ticks: 3,
+                period_ms: 200
+            })
+        );
+        assert_eq!(
+            Schedule::parse(Some(b"period_ms=500;\nticks=0")),
+            Ok(Schedule {
+                ticks: 0,
+                period_ms: 500
+            })
+        );
+        assert!(Schedule::parse(Some(b"ticks=0")).unwrap().forever());
+        for bad in [
+            &b"ticks"[..],
+            b"ticks=x",
+            b"ticks=-1",
+            b"ticks=1001",
+            b"period_ms=9",
+            b"period_ms=3600001",
+            b"ticks=1 ticks=2",
+            b"speed=3",
+            b"\xff",
+        ] {
+            assert!(Schedule::parse(Some(bad)).is_err(), "{:?}", bad);
+        }
+    }
+
+    #[test]
+    fn wasm_payloads_are_recognised() {
+        assert!(is_wasm(b"\0asm\x01\0\0\0"));
+        assert!(!is_wasm(b"hostlink descriptor"));
+    }
     use super::*;
 
     fn dev_key() -> [u8; 32] {

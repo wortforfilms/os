@@ -32,11 +32,13 @@ Working:
   supervisor call is checked against the calling task's mask, and the host
   channel task's mask comes from its signed manifest
   ([docs/capsules.md](docs/capsules.md))
-- WebAssembly capsules: the signed telemetry capsule runs as task 7 in a
+- WebAssembly capsules: every verified capsule whose payload is WebAssembly
+  runs in a task of its own (tasks 7 and 8: telemetry and heartbeat), in a
   small `no_std` interpreter (`crates/maataa-wasm`: i32 subset with a 4 KiB
   host-bounded linear memory, fuel-limited; checked against wasmi). Its
   imports (log, strings, sleep, LED, persistent store) are supervisor calls,
-  so its manifest's capabilities bind it
+  so its manifest's capabilities bind it, and its schedule comes from a
+  signed `maataa` section in the module
   ([docs/wasm-capsules.md](docs/wasm-capsules.md))
 - Watchdog (F411 IWDG, fed by the scheduler tick), reset cause, and a crash
   record that survives the reset; each boot reports both and saves them to
@@ -49,7 +51,6 @@ Working:
 
 Not yet:
 
-- More than one capsule task, started from manifest data
 - Encrypted or authenticated storage
 
 ## Requirements

@@ -1,4 +1,4 @@
-;; Telemetry capsule: a WebAssembly program Maataa OS runs as task 7.
+;; Telemetry capsule: a WebAssembly program Maataa OS runs in a capsule task.
 ;;
 ;; Build and sign (see docs/wasm-capsules.md):
 ;;   maataa-capsule wasm capsules/telemetry.wat -o target/telemetry.wasm
@@ -6,13 +6,18 @@
 ;;     --payload target/telemetry.wasm --dev -o assets/capsules/telemetry.mcap
 ;;
 ;; Its signed manifest grants write, sleep, store_get and store_put, but not
-;; led. Each import is a supervisor call made by task 7, so the kernel's
+;; led. Each import is a supervisor call made by the capsule's task, so the kernel's
 ;; capability check applies to the capsule as to native code.
 ;;
 ;; Memory: the kernel gives the capsule a 4 KiB buffer. It holds the two
 ;; strings below and, at offset 64, the lifetime tick count, which is kept in
 ;; persistent key 32 and so keeps counting across reboots.
+;;
+;; Schedule: the `maataa` custom section below is the capsule's manifest. It is
+;; part of the signed payload, so the kernel trusts it as it trusts the
+;; capabilities: call `tick` 3 times, 200 ms apart.
 (module
+  (@custom "maataa" "ticks=3 period_ms=200")
   (import "maataa" "log" (func $log (param i32)))
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "sleep_ms" (func $sleep_ms (param i32) (result i32)))
