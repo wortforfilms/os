@@ -144,7 +144,10 @@ mod tests {
         let screen = AsciiScreenBuffer::new();
         let mut out = [0xff; 16];
 
-        assert_eq!(screen.serialize_into(&mut out), Err(TerminalError::BufferTooSmall));
+        assert_eq!(
+            screen.serialize_into(&mut out),
+            Err(TerminalError::BufferTooSmall)
+        );
         assert_eq!(out, [0; 16]);
     }
 }

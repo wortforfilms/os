@@ -16,7 +16,18 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: thumbv7em-none-eabihf
+          components: clippy, rustfmt
       - uses: Swatinem/rust-cache@v2
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Lint host crates
+        run: cargo clippy -p maataa-store -p maataa-capsule -p maataa-wasm -p maataa-link -p hemant-core --all-targets --all-features -- -D warnings
+      - name: Lint the kernel for each board and test build
+        run: |
+          cargo clippy --target thumbv7em-none-eabihf -- -D warnings
+          cargo clippy --target thumbv7em-none-eabihf --features kernel-stack-test -- -D warnings
+          cargo clippy --target thumbv7em-none-eabihf --no-default-features --features board-f411 -- -D warnings
+          cargo clippy --target thumbv7em-none-eabihf --no-default-features --features board-f411,watchdog-test -- -D warnings
       # Both board builds, F411 has no semihosting, host tests, QEMU boot
       # report and task order, and the clock self-test under -icount.
       - run: ./scripts/smoke-alpha.sh

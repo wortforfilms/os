@@ -36,7 +36,7 @@ pub const fn size_field(bytes: usize) -> Option<u32> {
 
 /// Whether `len` bytes at `base` can be one MPU region.
 pub const fn region_ok(base: usize, len: usize) -> bool {
-    size_field(len).is_some() && base % len == 0
+    size_field(len).is_some() && base.is_multiple_of(len)
 }
 
 /// Whether `[ptr, ptr + len)` lies wholly inside `[base, base + size)`.
@@ -51,6 +51,7 @@ pub const fn contains(base: usize, size: usize, ptr: usize, len: usize) -> bool 
 const RASR_ENABLE: u32 = 1;
 const XN: u32 = 1 << 28;
 const AP_FULL: u32 = 0b011 << 24; // read/write for both levels
+#[cfg(test)]
 const AP_RO: u32 = 0b110 << 24; // read-only for both levels
 /// Read/write privileged, read-only unprivileged.
 const AP_PRIV_RW: u32 = 0b010 << 24;
@@ -116,14 +117,14 @@ mod hw {
 
     /// The initial main stack pointer.
     pub fn main_stack_top() -> usize {
-        // SAFETY: only the symbol's address is taken.
-        unsafe { core::ptr::addr_of!(_stack_start) as usize }
+        // Only the symbol's address is taken, which needs no `unsafe`.
+        core::ptr::addr_of!(_stack_start) as usize
     }
 
     /// The kernel stack guard as (base, size).
     pub fn kernel_guard() -> (usize, usize) {
-        // SAFETY: only the symbol's address is taken.
-        let low = unsafe { core::ptr::addr_of!(__sheap) as usize };
+        // Only the symbol's address is taken, which needs no `unsafe`.
+        let low = core::ptr::addr_of!(__sheap) as usize;
         (kernel_guard_base(low), KERNEL_GUARD_SIZE)
     }
     const CTRL_ENABLE: u32 = 1;
@@ -186,7 +187,9 @@ mod hw {
 }
 
 #[cfg(target_arch = "arm")]
-pub use hw::{clear_fault_status, enable, fault_status, kernel_guard, main_stack_top, set_task_stack};
+pub use hw::{
+    clear_fault_status, enable, fault_status, kernel_guard, main_stack_top, set_task_stack,
+};
 
 #[cfg(test)]
 mod tests {
@@ -225,7 +228,10 @@ mod tests {
         let g = kernel_guard_rasr();
         assert_eq!(g & (0b111 << 24), 0, "no access, privileged included");
         assert_ne!(g & XN, 0);
-        assert!(KERNEL_GUARD_SIZE > 104, "bigger than an FPU exception frame");
+        assert!(
+            KERNEL_GUARD_SIZE > 104,
+            "bigger than an FPU exception frame"
+        );
     }
 
     #[test]

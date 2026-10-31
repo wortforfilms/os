@@ -62,7 +62,8 @@ pub struct Grants {
     pub hostlink: u32,
     /// Verified WebAssembly capsules, one per capsule task, in boot order.
     /// A rejected capsule gets no task.
-    pub capsule_tasks: [Option<crate::capsule_task::CapsuleGrant>; crate::capsule_task::CAPSULE_TASKS],
+    pub capsule_tasks:
+        [Option<crate::capsule_task::CapsuleGrant>; crate::capsule_task::CAPSULE_TASKS],
 }
 
 /// Runs the boot sequence and returns the capsule grants.
@@ -133,10 +134,7 @@ pub fn run() -> Grants {
     let tamper_len = HOSTLINK_CAPSULE.len().min(tampered.len());
     tampered[..tamper_len].copy_from_slice(&HOSTLINK_CAPSULE[..tamper_len]);
     tampered[maataa_capsule::HEADER_BYTES] ^= 0x01;
-    match maataa_capsule::verify(
-        &tampered[..tamper_len],
-        &crate::capsule::CAPSULE_PUBLIC_KEY,
-    ) {
+    match maataa_capsule::verify(&tampered[..tamper_len], &crate::capsule::CAPSULE_PUBLIC_KEY) {
         Ok(_) => kprintln!("capsule tamper check: ACCEPTED A MODIFIED IMAGE"),
         Err(error) => kprintln!("capsule tamper check: rejected ({})", error.as_str()),
     }
@@ -185,8 +183,16 @@ pub fn run() -> Grants {
                 stats.used_bytes,
                 stats.bank_bytes,
                 if report.formatted { " (formatted)" } else { "" },
-                if report.recovered { " (recovered from a torn write)" } else { "" },
-                if report.migrated { " (sealed the unsealed store)" } else { "" }
+                if report.recovered {
+                    " (recovered from a torn write)"
+                } else {
+                    ""
+                },
+                if report.migrated {
+                    " (sealed the unsealed store)"
+                } else {
+                    ""
+                }
             );
             kprintln!(
                 "flash store: sealed with ChaCha20-Poly1305, {} key bound to this chip, id {:08x}",
@@ -227,8 +233,14 @@ pub fn run() -> Grants {
         capsules.used_bytes(),
         capsules.capacity_bytes()
     );
-    kprintln!("telemetry capsule id: {:?}", telemetry_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed"))));
-    kprintln!("control capsule id: {:?}", control_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed"))));
+    kprintln!(
+        "telemetry capsule id: {:?}",
+        telemetry_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed")))
+    );
+    kprintln!(
+        "control capsule id: {:?}",
+        control_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed")))
+    );
 
     // Time. The kernel clock is monotonic since boot. A Hemant reading needs
     // an anchor; the only one available under QEMU is the host clock, read

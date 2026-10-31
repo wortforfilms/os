@@ -130,6 +130,9 @@ mod tests {
         frame.serialize_into(&mut out).unwrap();
         out[20] ^= 0x40;
 
-        assert_eq!(SecludedCommFrame::from_bytes(&out), Err(CommError::ChecksumMismatch));
+        assert_eq!(
+            SecludedCommFrame::from_bytes(&out),
+            Err(CommError::ChecksumMismatch)
+        );
     }
 }

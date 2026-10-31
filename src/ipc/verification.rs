@@ -138,7 +138,7 @@ pub fn run_embedded_reference_verification() -> VerificationReport {
 }
 
 fn stable_magv_hash(frames: &[u8]) -> u32 {
-    if frames.is_empty() || frames.len() % MAGV_FRAME_BYTES != 0 {
+    if frames.is_empty() || !frames.len().is_multiple_of(MAGV_FRAME_BYTES) {
         return 0;
     }
 
@@ -158,7 +158,7 @@ fn stable_magv_hash(frames: &[u8]) -> u32 {
 }
 
 fn inverted_boundary_hash(frames: &[u8]) -> u32 {
-    if frames.is_empty() || frames.len() % MAGV_FRAME_BYTES != 0 {
+    if frames.is_empty() || !frames.len().is_multiple_of(MAGV_FRAME_BYTES) {
         return 0;
     }
 
@@ -248,7 +248,10 @@ mod tests {
             gaps,
         );
 
-        assert_eq!(report.gap_mask & GAP_REQUIRED_MASK, GAP_REQUIRED_MASK ^ 0x10);
+        assert_eq!(
+            report.gap_mask & GAP_REQUIRED_MASK,
+            GAP_REQUIRED_MASK ^ 0x10
+        );
         assert_eq!(report.status_word() & VERIFY_GAP_REMEDIATION, 0);
         assert_eq!(report.status_word() & VERIFY_CERTIFICATION_CLEARANCE, 0);
     }

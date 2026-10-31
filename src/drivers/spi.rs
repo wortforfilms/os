@@ -95,7 +95,10 @@ impl SpiDriver {
         self.mode = mode;
     }
 
-    pub fn verify_root_of_trust(&self, root: HardwareRootOfTrust) -> Result<SiliconAttestation, DriverError> {
+    pub fn verify_root_of_trust(
+        &self,
+        root: HardwareRootOfTrust,
+    ) -> Result<SiliconAttestation, DriverError> {
         if !self.initialized {
             return Err(DriverError::NotSupported);
         }
@@ -119,8 +122,13 @@ impl Driver for SpiDriver {
     }
 }
 
-pub fn validate_attestation(attestation: SiliconAttestation) -> Result<SiliconAttestation, DriverError> {
-    if attestation.mask_a == 0 || attestation.mask_b == 0 || attestation.status != EXPECTED_STATUS_ARMED {
+pub fn validate_attestation(
+    attestation: SiliconAttestation,
+) -> Result<SiliconAttestation, DriverError> {
+    if attestation.mask_a == 0
+        || attestation.mask_b == 0
+        || attestation.status != EXPECTED_STATUS_ARMED
+    {
         return Err(DriverError::SiliconSignatureMismatch);
     }
 
@@ -143,6 +151,18 @@ pub fn transfer(tx_data: &[u8], rx_data: &mut [u8]) -> Result<usize, DriverError
 
 pub fn verify_hardware_root_of_trust() -> Result<SiliconAttestation, DriverError> {
     unsafe { (&*SPI.0.get()).verify_root_of_trust(HardwareRootOfTrust::new()) }
+}
+
+impl Default for HardwareRootOfTrust {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Default for SpiDriver {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 #[cfg(test)]

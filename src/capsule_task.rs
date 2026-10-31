@@ -302,11 +302,17 @@ mod tests {
         for (image, expected) in [
             (
                 &include_bytes!("../assets/capsules/telemetry.mcap")[..],
-                Schedule { ticks: 3, period_ms: 200 },
+                Schedule {
+                    ticks: 3,
+                    period_ms: 200,
+                },
             ),
             (
                 &include_bytes!("../assets/capsules/heartbeat.mcap")[..],
-                Schedule { ticks: 4, period_ms: 300 },
+                Schedule {
+                    ticks: 4,
+                    period_ms: 300,
+                },
             ),
         ] {
             let payload = maataa_capsule::payload_unverified(image).unwrap();

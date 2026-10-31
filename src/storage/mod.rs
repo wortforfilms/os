@@ -56,6 +56,12 @@ impl StorageManager {
     }
 }
 
+impl Default for StorageManager {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

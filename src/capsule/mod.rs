@@ -142,6 +142,12 @@ impl CapsuleManager {
     }
 }
 
+impl Default for CapsuleManager {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -213,8 +219,14 @@ mod tests {
         let image = include_bytes!("../../assets/capsules/control.mcap");
         let tampered: &'static mut [u8] = Box::leak(image.to_vec().into_boxed_slice());
         tampered[40] ^= 0x01;
-        assert_eq!(manager.load_signed(tampered), Err(LoadError::Rejected(CapsuleError::BadSignature)));
-        assert_eq!(manager.load_signed_with_key(image, &[9u8; 32]), Err(LoadError::Rejected(CapsuleError::BadSignature)));
+        assert_eq!(
+            manager.load_signed(tampered),
+            Err(LoadError::Rejected(CapsuleError::BadSignature))
+        );
+        assert_eq!(
+            manager.load_signed_with_key(image, &[9u8; 32]),
+            Err(LoadError::Rejected(CapsuleError::BadSignature))
+        );
         assert_eq!(manager.count(), 0);
         assert_eq!(manager.used_bytes(), 0);
     }
@@ -223,7 +235,10 @@ mod tests {
     fn this_build_trusts_the_development_key_by_default() {
         if std::env::var("MAATAA_CAPSULE_PUBKEY").is_err() {
             assert!(CAPSULE_KEY_KIND.starts_with("development"));
-            assert_eq!(CAPSULE_KEY_ID, &include_str!("../../keys/capsule-dev.pub")[..8]);
+            assert_eq!(
+                CAPSULE_KEY_ID,
+                &include_str!("../../keys/capsule-dev.pub")[..8]
+            );
         }
     }
 

@@ -1065,7 +1065,7 @@ mod cortex_m_runtime {
 
     /// Where a killed task is sent until the next switch: an idle loop.
     pub fn task_exit_address() -> u32 {
-        task_exit as usize as u32
+        task_exit as *const () as usize as u32
     }
 
     /// Called after `clock::on_systick()`. It only requests PendSV; no task
@@ -1156,7 +1156,7 @@ mod cortex_m_runtime {
             frame.add(11).write(0); // r2
             frame.add(12).write(0); // r3
             frame.add(13).write(0); // r12
-            frame.add(14).write(task_exit as usize as u32);
+            frame.add(14).write(task_exit as *const () as usize as u32);
             frame.add(15).write((task.entry as usize & !1) as u32);
             frame.add(16).write(1 << 24); // xPSR T bit
         }
@@ -1470,13 +1470,30 @@ mod memfault {
 #[cfg(target_arch = "arm")]
 #[allow(unused_imports)]
 pub use cortex_m_runtime::{
-    block_current_for_uart, block_current_until, current_capabilities, current_stack,
-    current_task, kill_current,
-    mutex_lock_current, mutex_unlock_current, on_systick, pend_scheduler_switch,
+    block_current_for_uart, block_current_until, current_capabilities, current_stack, current_task,
+    kill_current, mutex_lock_current, mutex_unlock_current, on_systick, pend_scheduler_switch,
     semaphore_post_current, semaphore_wait_current, start_round_robin, take_recv_timeout,
     task_alive, task_counts, task_exit_address, wake_waiting_receiver, wake_waiting_uart_reader,
     StartError,
 };
+
+impl Default for KernelMutex {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Default for SemaphoreSet {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Default for MutexSet {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 #[cfg(test)]
 mod tests {

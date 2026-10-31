@@ -1,5 +1,8 @@
 #![no_std]
 #![no_main]
+// The binary compiles the kernel modules itself (`mod` below), so items that
+// only the library API (src/lib.rs) or the host tests use look unused here.
+#![allow(dead_code)]
 
 use cortex_m_rt::{entry, exception};
 
@@ -113,7 +116,7 @@ fn demo_task_one() -> ! {
         syscall::led(false);
         cortex_m::asm::delay(25_000_000);
         blinks = blinks.wrapping_add(1);
-        if blinks % 10 == 0 {
+        if blinks.is_multiple_of(10) {
             crate::uprintln!("task 1: {} blinks", blinks);
         }
     }
@@ -198,7 +201,10 @@ fn demo_task_three() -> ! {
     crate::uprintln!("task 3: send to task 9 -> {}", syscall::error_name(r));
     // Capability check: task 3 holds no LED capability.
     let r = syscall::led_checked(true);
-    crate::uprintln!("task 3: led without capability -> {}", syscall::error_name(r));
+    crate::uprintln!(
+        "task 3: led without capability -> {}",
+        syscall::error_name(r)
+    );
     crate::uprintln!("task 3: sleeping for 1500 ms before sending");
     let _ = syscall::sleep_ms(1_500);
     match syscall::send(2, b"Hello from Task 3 after 1500 ms") {
@@ -313,64 +319,82 @@ fn main() -> ! {
     {
         let mut queue = sched::RunQueue::<{ sched::MAX_TASKS }>::new();
         let added = queue
-            .add(sched::Task::new(
-                1,
-                task_stack(core::ptr::addr_of_mut!(TASK_ONE_STACK)),
-                demo_task_one,
-                1,
+            .add(
+                sched::Task::new(
+                    1,
+                    task_stack(core::ptr::addr_of_mut!(TASK_ONE_STACK)),
+                    demo_task_one,
+                    1,
+                )
+                .with_capabilities(TASK_ONE_CAPS),
             )
-            .with_capabilities(TASK_ONE_CAPS))
             .and_then(|()| {
-                queue.add(sched::Task::new(
-                    2,
-                    task_stack(core::ptr::addr_of_mut!(TASK_TWO_STACK)),
-                    demo_task_two,
-                    1,
+                queue.add(
+                    sched::Task::new(
+                        2,
+                        task_stack(core::ptr::addr_of_mut!(TASK_TWO_STACK)),
+                        demo_task_two,
+                        1,
+                    )
+                    .with_capabilities(TASK_TWO_CAPS),
                 )
-                .with_capabilities(TASK_TWO_CAPS))
             })
             .and_then(|()| {
-                queue.add(sched::Task::new(
-                    3,
-                    task_stack(core::ptr::addr_of_mut!(TASK_THREE_STACK)),
-                    demo_task_three,
-                    1,
+                queue.add(
+                    sched::Task::new(
+                        3,
+                        task_stack(core::ptr::addr_of_mut!(TASK_THREE_STACK)),
+                        demo_task_three,
+                        1,
+                    )
+                    .with_capabilities(TASK_THREE_CAPS),
                 )
-                .with_capabilities(TASK_THREE_CAPS))
             })
             .and_then(|()| {
-                queue.add(sched::Task::new(
-                    4,
-                    task_stack(core::ptr::addr_of_mut!(TASK_FOUR_STACK)),
-                    demo_task_four,
-                    1,
+                queue.add(
+                    sched::Task::new(
+                        4,
+                        task_stack(core::ptr::addr_of_mut!(TASK_FOUR_STACK)),
+                        demo_task_four,
+                        1,
+                    )
+                    .with_capabilities(TASK_FOUR_CAPS),
                 )
-                .with_capabilities(TASK_FOUR_CAPS))
             })
             .and_then(|()| {
-                queue.add(sched::Task::new(
-                    5,
-                    task_stack(core::ptr::addr_of_mut!(TASK_FIVE_STACK)),
-                    demo_task_five,
-                    1,
+                queue.add(
+                    sched::Task::new(
+                        5,
+                        task_stack(core::ptr::addr_of_mut!(TASK_FIVE_STACK)),
+                        demo_task_five,
+                        1,
+                    )
+                    .with_capabilities(TASK_FIVE_CAPS),
                 )
-                .with_capabilities(TASK_FIVE_CAPS))
             })
             .and_then(|()| {
-                queue.add(sched::Task::new(
-                    6,
-                    task_stack(core::ptr::addr_of_mut!(TASK_SIX_STACK)),
-                    host_channel_task,
-                    1,
+                queue.add(
+                    sched::Task::new(
+                        6,
+                        task_stack(core::ptr::addr_of_mut!(TASK_SIX_STACK)),
+                        host_channel_task,
+                        1,
+                    )
+                    .with_capabilities(grants.hostlink),
                 )
-                .with_capabilities(grants.hostlink))
             })
             .and_then(|()| {
                 // Tasks 7 and 8 run the verified WebAssembly capsules, each
                 // with the capabilities its own manifest grants.
                 let slots: [(*mut CapsuleStack, fn() -> !); capsule_task::CAPSULE_TASKS] = [
-                    (core::ptr::addr_of_mut!(TASK_SEVEN_STACK), capsule_task_seven),
-                    (core::ptr::addr_of_mut!(TASK_EIGHT_STACK), capsule_task_eight),
+                    (
+                        core::ptr::addr_of_mut!(TASK_SEVEN_STACK),
+                        capsule_task_seven,
+                    ),
+                    (
+                        core::ptr::addr_of_mut!(TASK_EIGHT_STACK),
+                        capsule_task_eight,
+                    ),
                 ];
                 for (index, (stack, body)) in slots.into_iter().enumerate() {
                     let Some(grant) = grants.capsule_tasks[index] else {

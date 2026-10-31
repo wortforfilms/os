@@ -212,7 +212,7 @@ pub fn channel_task() -> ! {
             if let Err(e) = send(reply_kind, seq, &payload[..len], &mut wire) {
                 crate::uprintln!("host channel: write failed: {}", syscall::error_name(e));
             }
-            if served.wrapping_add(rejected) % 16 == 0 {
+            if served.wrapping_add(rejected).is_multiple_of(16) {
                 crate::uprintln!("host channel: {} served, {} rejected", served, rejected);
             }
         }

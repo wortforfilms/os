@@ -35,7 +35,9 @@ impl HardenedFlashController {
         match address {
             SYSTEM_KERNEL_SECTOR_START..=SYSTEM_KERNEL_SECTOR_END => Ok(FlashSector::Kernel),
             MODEL_COMPUTE_SECTOR_START..=MODEL_COMPUTE_SECTOR_END => Ok(FlashSector::ModelCompute),
-            ROLLING_DATABASE_SECTOR_START..=ROLLING_DATABASE_SECTOR_END => Ok(FlashSector::RollingDatabase),
+            ROLLING_DATABASE_SECTOR_START..=ROLLING_DATABASE_SECTOR_END => {
+                Ok(FlashSector::RollingDatabase)
+            }
             _ => Err(SectorAccessError::AddressOutOfBounds),
         }
     }
@@ -69,7 +71,10 @@ mod tests {
         let controller = HardenedFlashController::new(true);
 
         assert_eq!(
-            controller.validate_boundary_transition(MODEL_COMPUTE_SECTOR_START, SYSTEM_KERNEL_SECTOR_START),
+            controller.validate_boundary_transition(
+                MODEL_COMPUTE_SECTOR_START,
+                SYSTEM_KERNEL_SECTOR_START
+            ),
             Err(SectorAccessError::WriteViolation)
         );
     }
@@ -79,7 +84,8 @@ mod tests {
         let controller = HardenedFlashController::new(false);
 
         assert_eq!(
-            controller.validate_boundary_transition(MODEL_COMPUTE_SECTOR_START, SYSTEM_KERNEL_SECTOR_END),
+            controller
+                .validate_boundary_transition(MODEL_COMPUTE_SECTOR_START, SYSTEM_KERNEL_SECTOR_END),
             Err(SectorAccessError::UnauthorizedCrossTalk)
         );
     }
@@ -89,7 +95,10 @@ mod tests {
         let controller = HardenedFlashController::new(true);
 
         assert_eq!(
-            controller.validate_boundary_transition(MODEL_COMPUTE_SECTOR_START, ROLLING_DATABASE_SECTOR_START),
+            controller.validate_boundary_transition(
+                MODEL_COMPUTE_SECTOR_START,
+                ROLLING_DATABASE_SECTOR_START
+            ),
             Ok(())
         );
     }
@@ -99,7 +108,10 @@ mod tests {
         let controller = HardenedFlashController::new(false);
 
         assert_eq!(
-            controller.validate_boundary_transition(SYSTEM_KERNEL_SECTOR_START, ROLLING_DATABASE_SECTOR_END + 1),
+            controller.validate_boundary_transition(
+                SYSTEM_KERNEL_SECTOR_START,
+                ROLLING_DATABASE_SECTOR_END + 1
+            ),
             Err(SectorAccessError::AddressOutOfBounds)
         );
     }

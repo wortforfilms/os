@@ -1,7 +1,7 @@
 use std::env;
 use std::fs::{self, File};
 use std::io::Write;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 fn main() {
     // Put the memory layout in the output directory
@@ -23,7 +23,7 @@ fn main() {
 /// binds it to the chip's unique id). A release build sets MAATAA_STORE_KEY
 /// (64 hex characters); otherwise a development key, public in this source,
 /// is used and the boot report says so.
-fn store_key(out: &PathBuf) {
+fn store_key(out: &Path) {
     println!("cargo:rerun-if-env-changed=MAATAA_STORE_KEY");
     let (bytes, kind): (Vec<u8>, &str) = match env::var("MAATAA_STORE_KEY") {
         Ok(value) if !value.trim().is_empty() => {
@@ -59,7 +59,7 @@ fn store_key(out: &PathBuf) {
 /// The public key the kernel checks capsule signatures against. A release
 /// build sets MAATAA_CAPSULE_PUBKEY (64 hex characters); otherwise the
 /// development key in keys/capsule-dev.pub is used and the boot report says so.
-fn capsule_key(out: &PathBuf) {
+fn capsule_key(out: &Path) {
     println!("cargo:rerun-if-env-changed=MAATAA_CAPSULE_PUBKEY");
     println!("cargo:rerun-if-changed=keys/capsule-dev.pub");
     let (hex, kind) = match env::var("MAATAA_CAPSULE_PUBKEY") {

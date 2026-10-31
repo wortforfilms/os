@@ -87,9 +87,14 @@ pub fn init_core_clock() -> u32 {
     // Keep the debug port alive in sleep: the kernel sleeps with WFI between
     // ticks, and without these bits a probe reading RTT can lose the core at
     // the first WFI (it showed as "Firmware exited unexpectedly: Exception").
-    dp.DBGMCU
-        .cr()
-        .modify(|_, w| w.dbg_sleep().set_bit().dbg_stop().set_bit().dbg_standby().set_bit());
+    dp.DBGMCU.cr().modify(|_, w| {
+        w.dbg_sleep()
+            .set_bit()
+            .dbg_stop()
+            .set_bit()
+            .dbg_standby()
+            .set_bit()
+    });
     let mut rcc = dp.RCC.freeze(Config::hsi().sysclk(F411_CORE_HZ.Hz()));
     let gpioa = dp.GPIOA.split(&mut rcc);
     // Nucleo-F411RE's ST-LINK virtual COM port is connected to USART2 PA2/PA3.
@@ -106,7 +111,11 @@ pub fn init_core_clock() -> u32 {
 
 /// Green user LED LD2 on the Nucleo-F411RE (PA5). Black Pill boards have their
 /// LED on PC13 instead, so on a Black Pill this drives PA5 and nothing lights.
-#[cfg(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405")))]
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
 pub fn led_init() {
     use stm32f4xx_hal::pac;
     // SAFETY: called once at boot before the tasks start; only the GPIOA clock
@@ -115,22 +124,42 @@ pub fn led_init() {
         let rcc = &*pac::RCC::ptr();
         rcc.ahb1enr().modify(|_, w| w.gpioaen().set_bit());
         let _ = rcc.ahb1enr().read(); // let the clock settle before touching GPIOA
-        (*pac::GPIOA::ptr()).moder().modify(|_, w| w.moder5().output());
+        (*pac::GPIOA::ptr())
+            .moder()
+            .modify(|_, w| w.moder5().output());
     }
 }
 
 /// Turns LD2 on or off. BSRR writes are atomic, so any task may call this.
-#[cfg(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405")))]
+#[cfg(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+))]
 pub fn led_set(on: bool) {
     use stm32f4xx_hal::pac;
     // SAFETY: a write-only set/reset register; it touches PA5 alone.
     unsafe {
-        (*pac::GPIOA::ptr()).bsrr().write(|w| if on { w.bs5().set_bit() } else { w.br5().set_bit() });
+        (*pac::GPIOA::ptr()).bsrr().write(|w| {
+            if on {
+                w.bs5().set_bit()
+            } else {
+                w.br5().set_bit()
+            }
+        });
     }
 }
 
 /// QEMU and host builds have no LED.
-#[cfg(not(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405"))))]
+#[cfg(not(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+)))]
 pub fn led_init() {}
-#[cfg(not(all(target_arch = "arm", feature = "board-f411", not(feature = "board-qemu-f405"))))]
+#[cfg(not(all(
+    target_arch = "arm",
+    feature = "board-f411",
+    not(feature = "board-qemu-f405")
+)))]
 pub fn led_set(_on: bool) {}

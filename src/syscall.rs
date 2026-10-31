@@ -367,7 +367,9 @@ pub fn host_status(out: &mut [u8; crate::hostlink::HOST_STATUS_BYTES]) -> Result
 pub fn store_get(key: u8, out: &mut [u8]) -> Result<usize, u32> {
     let mut r0 = key as u32;
     // SAFETY: the kernel checks the output range lies in the caller's stack.
-    unsafe { core::arch::asm!("svc #15", inout("r0") r0, in("r1") out.as_mut_ptr(), in("r2") out.len()) };
+    unsafe {
+        core::arch::asm!("svc #15", inout("r0") r0, in("r1") out.as_mut_ptr(), in("r2") out.len())
+    };
     if r0 >= E_LOWEST {
         Err(r0)
     } else {
@@ -380,7 +382,9 @@ pub fn store_get(key: u8, out: &mut [u8]) -> Result<usize, u32> {
 pub fn store_put(key: u8, value: &[u8]) -> Result<(), u32> {
     let mut r0 = key as u32;
     // SAFETY: the kernel checks the input range is the caller's own.
-    unsafe { core::arch::asm!("svc #16", inout("r0") r0, in("r1") value.as_ptr(), in("r2") value.len()) };
+    unsafe {
+        core::arch::asm!("svc #16", inout("r0") r0, in("r1") value.as_ptr(), in("r2") value.len())
+    };
     if r0 == 0 {
         Ok(())
     } else {
