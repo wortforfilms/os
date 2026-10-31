@@ -721,6 +721,21 @@ mod cortex_m_runtime {
         AlreadyStarted,
     }
 
+    impl StartError {
+        /// For the log; plain text, so the kernel needs no `Debug` formatting.
+        pub const fn as_str(self) -> &'static str {
+            match self {
+                Self::EmptyQueue => "empty queue",
+                Self::NoRunnableTasks => "no runnable tasks",
+                Self::ZeroQuantum => "zero quantum",
+                Self::StackTooSmall => "a task stack is too small",
+                Self::StackNotProtectable => "a task stack cannot be one MPU region",
+                Self::ReservedTaskId => "a reserved task id",
+                Self::AlreadyStarted => "already started",
+            }
+        }
+    }
+
     /// Installs a round-robin queue and requests its first PendSV switch.
     /// `quantum_ticks` is in 1 kHz clock ticks (so 5 means 5 ms).
     pub fn start_round_robin(

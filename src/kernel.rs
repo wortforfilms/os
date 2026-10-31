@@ -39,6 +39,20 @@ pub const CAPSULE_TASK_IDS: [u8; crate::capsule_task::CAPSULE_TASKS] = [7, 8];
 /// Task id of the capsule installed at run time.
 pub const INSTALLED_TASK_ID: u8 = 9;
 
+/// A capsule load result for the boot report, as `Ok(id)` or `Err(reason)`,
+/// without `Debug` formatting (which costs about 6 KB of flash; docs/size.md).
+struct LoadResult(Option<Result<usize, crate::capsule::LoadError>>);
+
+impl core::fmt::Display for LoadResult {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        match self.0 {
+            Some(Ok(id)) => write!(f, "Ok({id})"),
+            Some(Err(e)) => write!(f, "Err({})", e.as_str()),
+            None => f.write_str("Err(not listed)"),
+        }
+    }
+}
+
 /// Comma-separated capability names for the boot report.
 struct CapNames(u32);
 
@@ -285,14 +299,8 @@ pub fn run() -> Grants {
         capsules.used_bytes(),
         capsules.capacity_bytes()
     );
-    kprintln!(
-        "telemetry capsule id: {:?}",
-        telemetry_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed")))
-    );
-    kprintln!(
-        "control capsule id: {:?}",
-        control_capsule.unwrap_or(Err(crate::capsule::LoadError::NoRoom("not listed")))
-    );
+    kprintln!("telemetry capsule id: {}", LoadResult(telemetry_capsule));
+    kprintln!("control capsule id: {}", LoadResult(control_capsule));
 
     // Time. The kernel clock is monotonic since boot. A Hemant reading needs
     // an anchor; the only one available under QEMU is the host clock, read

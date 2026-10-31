@@ -270,7 +270,13 @@ fn demo_task_five() -> ! {
 fn panic(info: &core::panic::PanicInfo) -> ! {
     let line = info.location().map_or(0, |l| l.line());
     crash::record(crash::CrashKind::Panic, line, 0);
-    logging::kprintln!("KERNEL PANIC: {}; system stopped", info);
+    // Location only: formatting the panic message would pull about 3 KB of
+    // formatting code into the kernel (docs/size.md). The crash record keeps
+    // the line for the next boot.
+    match info.location() {
+        Some(l) => logging::kprintln!("KERNEL PANIC at {}:{}; system stopped", l.file(), l.line()),
+        None => logging::kprintln!("KERNEL PANIC; system stopped"),
+    }
     loop {
         cortex_m::asm::nop();
     }
@@ -462,7 +468,7 @@ fn main() -> ! {
             {
                 Ok(()) => true,
                 Err(e) => {
-                    logging::kprintln!("scheduler did not start: {:?}", e);
+                    logging::kprintln!("scheduler did not start: {}", e.as_str());
                     false
                 }
             };

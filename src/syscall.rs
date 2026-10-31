@@ -824,8 +824,8 @@ mod kernel {
     fn sys_write(ptr: usize, len: usize) -> u32 {
         if !buffer_allowed(ptr, len, crate::sched::current_stack()) {
             crate::logging::kprintln!(
-                "kernel: refused a write from task {:?}",
-                crate::sched::current_task()
+                "kernel: refused a write from task {}",
+                crate::sched::current_task().unwrap_or(0)
             );
             return REFUSED;
         }

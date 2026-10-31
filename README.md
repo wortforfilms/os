@@ -55,6 +55,7 @@ Working:
   tasks and the host channel use it through syscalls 15/16
   ([docs/persistence.md](docs/persistence.md))
 - Static capsule table, virtual flash manifest, release size check
+  ([docs/size.md](docs/size.md))
 
 Not yet:
 
