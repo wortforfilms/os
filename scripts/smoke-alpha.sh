@@ -66,7 +66,7 @@ pass
 
 STEP="host unit tests"
 cargo test
-cargo test -p maataa-link -p maataa-capsule -p hemant-core
+cargo test -p maataa-link -p maataa-capsule -p maataa-wasm -p hemant-core
 pass
 
 STEP="release build"
@@ -90,7 +90,7 @@ rg -q '^control capsule id: ' "$BOOT_LOG"
 rg -q '^clock: systick 1000 Hz, core ' "$BOOT_LOG"
 rg -q '^board: qemu-netduinoplus2-stm32f405$' "$BOOT_LOG"
 rg -q '^time: kernel-monotonic-since-boot$' "$BOOT_LOG"
-rg -q '^sched: round-robin tasks=6 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
+rg -q '^sched: round-robin tasks=7 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
 [ "$(rg -c '^sched:' "$BOOT_LOG")" -eq 1 ]
 rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
@@ -104,6 +104,11 @@ if rg -q '^capsule rejected' "$BOOT_LOG"; then
 fi
 rg -q '^capsule tamper check: rejected \(bad signature\)$' "$BOOT_LOG"
 rg -q '^task 3: led without capability -> ENOCAP$' "$BOOT_LOG"
+# Task 7 runs the signed telemetry capsule's WebAssembly; its manifest has no
+# LED capability, so its LED import must be refused.
+rg -q '^capsule telemetry: wasm loaded ' "$BOOT_LOG"
+rg -q '^capsule telemetry: init -> -16 \(ENOCAP\)$' "$BOOT_LOG"
+rg -q '^capsule telemetry: tick 3 -> 233 ' "$BOOT_LOG"
 TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"
 [ "$TASK_ORDER" = "task 1 task 2 task 3 " ]
 pass

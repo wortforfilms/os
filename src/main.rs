@@ -7,6 +7,7 @@ use panic_halt as _;
 mod board;
 #[path = "capsule/mod.rs"]
 mod capsule;
+mod capsule_task;
 mod clock;
 mod drivers;
 mod hostlink;
@@ -39,6 +40,15 @@ static mut TASK_THREE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_FOUR_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_FIVE_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
 static mut TASK_SIX_STACK: DemoStack = DemoStack([0; TASK_STACK_BYTES]);
+
+/// The WebAssembly task needs room for the interpreter's fixed stacks; 8 KB,
+/// aligned to 8 KB so it is still one MPU region.
+const CAPSULE_STACK_BYTES: usize = 8192;
+
+#[repr(C, align(8192))]
+struct CapsuleStack([u8; CAPSULE_STACK_BYTES]);
+
+static mut TASK_SEVEN_STACK: CapsuleStack = CapsuleStack([0; CAPSULE_STACK_BYTES]);
 
 // The tasks below run unprivileged inside their MPU regions: they reach the
 // log and the LED only through supervisor calls (src/syscall.rs), and only
@@ -227,6 +237,11 @@ fn demo_task_five() -> ! {
     }
 }
 
+/// Task 7: the telemetry capsule, a signed WebAssembly program.
+fn telemetry_capsule_task() -> ! {
+    capsule_task::run("telemetry", kernel::TELEMETRY_CAPSULE, 3, 200)
+}
+
 /// Task 6: the host channel on USART2 (src/hostlink.rs).
 fn host_channel_task() -> ! {
     hostlink::channel_task()
@@ -250,7 +265,7 @@ fn main() -> ! {
     let mut core = cortex_m::Peripherals::take().expect("core peripherals are taken once");
     clock::start(&mut core.SYST, config);
 
-    let hostlink_capabilities = kernel::run();
+    let grants = kernel::run();
 
     {
         let mut queue = sched::RunQueue::<{ sched::MAX_TASKS }>::new();
@@ -305,7 +320,25 @@ fn main() -> ! {
                     host_channel_task,
                     1,
                 )
-                .with_capabilities(hostlink_capabilities))
+                .with_capabilities(grants.hostlink))
+            })
+            .and_then(|()| match grants.telemetry {
+                // Task 7 runs the signed telemetry capsule's WebAssembly
+                // with the capabilities its manifest grants.
+                Some(capabilities) => {
+                    // SAFETY: the static stack is handed to this one task.
+                    let stack = unsafe {
+                        core::slice::from_raw_parts_mut(
+                            core::ptr::addr_of_mut!(TASK_SEVEN_STACK).cast::<u8>(),
+                            CAPSULE_STACK_BYTES,
+                        )
+                    };
+                    queue.add(
+                        sched::Task::new(7, stack, telemetry_capsule_task, 1)
+                            .with_capabilities(capabilities),
+                    )
+                }
+                None => Ok(()),
             });
         let started = added.is_ok()
             && match sched::start_round_robin(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB)

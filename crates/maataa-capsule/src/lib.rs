@@ -180,6 +180,14 @@ fn parse_header(image: &[u8]) -> Result<(&str, u32, usize), CapsuleError> {
     Ok((name, capabilities, payload_len))
 }
 
+/// The payload of an image whose layout is valid, without checking the
+/// signature. Only for an image that has already passed [`verify`] (the kernel
+/// verifies at boot and then hands the payload to the task that runs it).
+pub fn payload_unverified(image: &[u8]) -> Option<&[u8]> {
+    let (_, _, len) = parse_header(image).ok()?;
+    image.get(HEADER_BYTES..HEADER_BYTES + len)
+}
+
 /// Writes the unsigned part (header and payload) of an image into `out` and
 /// returns its length; the signer appends 64 signature bytes.
 pub fn write_unsigned(
@@ -330,6 +338,13 @@ mod tests {
         assert!(!cap::allows(cap::ALL, 0));
         assert!(!cap::allows(cap::ALL, 15));
         assert!(!cap::allows(u32::MAX, 40));
+    }
+
+    #[test]
+    fn payload_unverified_reads_the_layout_only() {
+        let image = sign("t", 0, b"wasm!", &DEV_SEED).unwrap();
+        assert_eq!(payload_unverified(&image), Some(&b"wasm!"[..]));
+        assert_eq!(payload_unverified(&image[..10]), None);
     }
 
     #[test]

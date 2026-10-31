@@ -32,11 +32,15 @@ Working:
   supervisor call is checked against the calling task's mask, and the host
   channel task's mask comes from its signed manifest
   ([docs/capsules.md](docs/capsules.md))
+- WebAssembly capsules: the signed telemetry capsule runs as task 7 in a
+  small `no_std` interpreter (`crates/maataa-wasm`: i32 subset, no linear
+  memory, fuel-limited; checked against wasmi on 20,000 random programs).
+  Its imports are supervisor calls, so its manifest's capabilities bind it
+  ([docs/wasm-capsules.md](docs/wasm-capsules.md))
 - Static capsule table, virtual flash manifest, release size check
 
 Not yet:
 
-- Executing WebAssembly capsules
 - LittleFS flash persistence
 
 ## Requirements
@@ -73,6 +77,7 @@ double-click.
 - [Kernel MPU](docs/kernel-mpu.md)
 - [Host channel](docs/host-channel.md)
 - [Signed capsules and capabilities](docs/capsules.md)
+- [WebAssembly capsules](docs/wasm-capsules.md)
 - [Scheduler](docs/engineering/SCHEDULER.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)

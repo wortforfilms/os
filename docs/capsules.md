@@ -69,8 +69,10 @@ The kernel rejects an image if any of these is true:
 A test flips each bit of a signed image, one at a time, and checks that every
 change is rejected.
 
-The payload is recorded and counted against the capsule memory budget. It is
-not executed yet; running WASM capsules is a later milestone.
+The payload is recorded and counted against the capsule memory budget. The
+telemetry capsule's payload is WebAssembly, and task 7 runs it under the
+capsule's signed capabilities ([wasm-capsules.md](wasm-capsules.md)). The
+other two payloads are descriptors and are not executed.
 
 ## Keys
 

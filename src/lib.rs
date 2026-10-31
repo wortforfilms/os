@@ -3,6 +3,7 @@
 pub mod board;
 #[path = "capsule/mod.rs"]
 pub mod capsule;
+pub mod capsule_task;
 pub mod clock;
 pub mod drivers;
 pub mod hostlink;

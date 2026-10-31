@@ -25,7 +25,7 @@ const AI_BATCH_CERTIFICATION_CLEARANCE: u32 = 0x08;
 
 /// Signed capsule images built into the kernel (assets/capsules, made with
 /// `maataa-capsule sign`). Each is verified before it is recorded.
-static TELEMETRY_CAPSULE: &[u8] = include_bytes!("../assets/capsules/telemetry.mcap");
+pub static TELEMETRY_CAPSULE: &[u8] = include_bytes!("../assets/capsules/telemetry.mcap");
 static CONTROL_CAPSULE: &[u8] = include_bytes!("../assets/capsules/control.mcap");
 static HOSTLINK_CAPSULE: &[u8] = include_bytes!("../assets/capsules/hostlink.mcap");
 
@@ -51,10 +51,18 @@ impl core::fmt::Display for CapNames {
     }
 }
 
-/// Runs the boot sequence and returns the capability mask signed into the
-/// host-channel capsule (0 if that capsule was rejected, so the task it
-/// governs gets no syscalls at all).
-pub fn run() -> u32 {
+/// What the boot sequence grants the tasks that run capsules.
+pub struct Grants {
+    /// Mask signed into the host-channel capsule; 0 if it was rejected, so
+    /// the task it governs gets no syscalls at all.
+    pub hostlink: u32,
+    /// Mask signed into the telemetry capsule, or `None` if it was rejected
+    /// (its task is then not started).
+    pub telemetry: Option<u32>,
+}
+
+/// Runs the boot sequence and returns the capsule grants.
+pub fn run() -> Grants {
     kprintln!("Starting Maataa OS kernel...");
     kprintln!("================================");
 
@@ -153,7 +161,7 @@ pub fn run() -> u32 {
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
-        "sched: round-robin tasks=6 first_switch_at_ms={}",
+        "sched: round-robin tasks=7 first_switch_at_ms={}",
         DEFAULT_DEMO_QUANTUM_MS
     );
     kprintln!("mpu: tasks unprivileged, own stack region, flash read-only; syscalls: write, led, demo_done, send, timed recv, sleep, mutex, semaphore, uart, host status; each task limited to its capability mask");
@@ -275,5 +283,8 @@ pub fn run() -> u32 {
     kprintln!(
         "Starting the demo tasks (task 4 tests memory protection, task 5 a stack overflow, task 6 serves the host channel)."
     );
-    hostlink_capabilities
+    Grants {
+        hostlink: hostlink_capabilities,
+        telemetry: capsules.capabilities_of("telemetry"),
+    }
 }

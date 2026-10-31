@@ -6,7 +6,7 @@ autobins = false
 autoexamples = false
 
 [workspace]
-members = [".", "crates/hemant-core", "crates/maataa-link", "crates/maataa-capsule"]
+members = [".", "crates/hemant-core", "crates/maataa-link", "crates/maataa-capsule", "crates/maataa-wasm"]
 resolver = "2"
 
 [features]
@@ -38,6 +38,8 @@ hemant-core = { path = "crates/hemant-core" }
 maataa-link = { path = "crates/maataa-link" }
 # Signed capsule images and capability bits (src/capsule/mod.rs, src/syscall.rs).
 maataa-capsule = { path = "crates/maataa-capsule" }
+# WebAssembly interpreter for capsule payloads (src/capsule_task.rs).
+maataa-wasm = { path = "crates/maataa-wasm" }
 # Clock tree on real STM32F411 boards (src/board.rs); not linked for QEMU.
 stm32f4xx-hal = { version = "0.23.0", features = ["stm32f411"], optional = true }
 

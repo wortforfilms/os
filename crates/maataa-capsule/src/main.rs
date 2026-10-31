@@ -1,10 +1,11 @@
 //! `maataa-capsule`: build, sign and inspect MCAP capsule images.
 //!
 //! ```text
-//! maataa-capsule sign --name telemetry --caps write,sleep --payload assets/demo.wasm --dev -o assets/capsules/telemetry.mcap
+//! maataa-capsule sign --name telemetry --caps write,sleep --payload target/telemetry.wasm --dev -o assets/capsules/telemetry.mcap
 //! maataa-capsule inspect assets/capsules/telemetry.mcap --dev
 //! maataa-capsule keygen -o ~/.maataa/capsule-release.seed     # keep this file private
 //! maataa-capsule pubkey --seed-file ~/.maataa/capsule-release.seed
+//! maataa-capsule wasm capsules/telemetry.wat -o target/telemetry.wasm
 //! ```
 //!
 //! `--dev` uses the public development seed (`DEV_SEED`). A release key is a
@@ -18,6 +19,7 @@ const USAGE: &str = "usage:
   maataa-capsule inspect IMAGE (--dev | --pubkey HEX | --seed-file F)
   maataa-capsule keygen -o SEED_FILE
   maataa-capsule pubkey (--dev | --seed-file F)
+  maataa-capsule wasm TEXT.wat -o OUT.wasm   (assemble; must load in the kernel's interpreter)
 caps: comma-separated names, `none`, or `all`:
   write led demo_done test send recv sleep mutex semaphore uart_write uart_read host_status";
 
@@ -146,6 +148,28 @@ fn run(args: Args) -> Result<(), String> {
             }
             println!("wrote {out} (keep it private)");
             println!("public key: {}", hex(&public_key(&seed)));
+            Ok(())
+        }
+        "wasm" => {
+            let path = args.0.get(1).ok_or("wasm needs a .wat path")?;
+            let out = args.value("-o").ok_or("-o is required")?;
+            let bytes = wat::parse_file(path).map_err(|e| format!("{path}: {e}"))?;
+            let module = maataa_wasm::Module::parse(&bytes).map_err(|e| {
+                format!("{path}: the kernel interpreter rejects it: {}", e.as_str())
+            })?;
+            let imports: Vec<String> = module
+                .imports()
+                .iter()
+                .map(|i| format!("{}.{}", i.module, i.name))
+                .collect();
+            let exports: Vec<&str> = module.export_names().collect();
+            std::fs::write(out, &bytes).map_err(|e| format!("{out}: {e}"))?;
+            println!(
+                "wrote {out}: {} bytes; imports [{}]; exports [{}]",
+                bytes.len(),
+                imports.join(", "),
+                exports.join(", ")
+            );
             Ok(())
         }
         "pubkey" => {
