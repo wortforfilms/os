@@ -119,6 +119,17 @@ The tamper check copies the hostlink image, flips one payload byte, and
 verifies the copy. That copy must fail. `smoke-alpha.sh` checks all of these
 lines and fails if any built-in capsule is rejected.
 
+## Verification
+
+- QEMU: `smoke-alpha.sh` 10/10. It checks the boot report lines above, the
+  `ENOCAP` denial for task 3, and that no built-in capsule is rejected.
+- QEMU with a different `MAATAA_CAPSULE_PUBKEY`: all three capsules were
+  rejected, task 6 got a mask of 0, and the host channel did not start.
+- NUCLEO-F411RE, 2026-10-31: the host channel selftest passed on the signed
+  build. TELEMETRY reported 3 capsules and 294 bytes of capsule memory, so all
+  three images verified on the board. Every reply came from task 6, whose
+  mask comes only from the signed hostlink image.
+
 ## Cost
 
 Ed25519 verification adds about 47 KB of flash. The QEMU release image grew
