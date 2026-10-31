@@ -145,6 +145,9 @@ $T sign --name telemetry --caps write,sleep,store_get,store_put \
   - the third tick returns 233.
 - `qemu-persistence-test.sh`: the capsule's own lifetime count reaches 9
   after three boots.
+- NUCLEO-F411RE, 2026-10-31: after 14 boots of this build, key 32 in the
+  board's flash held 42, three ticks per boot. Read it with
+  `python3 scripts/read-board-store.py`.
 
 ## Cost
 

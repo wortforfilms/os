@@ -11,3 +11,4 @@ Cargo.lock.bak
 .DS_Store
 ._*
 hardcopy.*
+__pycache__/

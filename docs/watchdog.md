@@ -91,6 +91,23 @@ The host channel `selftest` includes a `boot info` check.
   3. The next boot must report `reset cause: watchdog`. Since the last reset
      came from the watchdog, the kernel declines to hang again and prints
      `watchdog test: PASS`.
-  4. The command then reads key 1 over the host channel.
+  4. The command then reads key 1 straight from flash with the probe
+     (`scripts/read-board-store.py`), so the result does not depend on the
+     serial port.
   
   Afterwards, flash the normal kernel again (`Flash Nucleo F411.command`).
+
+## Board results (NUCLEO-F411RE, 2026-10-31)
+
+- **Watchdog test: PASS.** Read from flash after the hang:
+
+  ```text
+  boot count: 44
+  reset cause: watchdog
+  last crash: none
+  PASS: the watchdog reset the hung kernel, and the next boot recorded it
+  ```
+
+- **No false resets.** On the normal kernel the uptime kept rising past
+  2 minutes (read with the probe 3 s apart), with the watchdog running. The
+  stored cause after a `probe-rs` flash was `software reset`, as expected.

@@ -4,7 +4,8 @@
 #   2. records the serial port for 30 s: task 2 asks the kernel to hang with
 #      interrupts off, the watchdog must reset the board after about 8 s, and
 #      the next boot must report "reset cause: watchdog";
-#   3. reads the saved reset record over the host channel.
+#   3. reads the saved reset record (persistent key 1) straight from flash
+#      with the probe, so the result does not depend on the serial port.
 # Afterwards flash the normal kernel again (Flash Nucleo F411.command).
 # Close any serial terminal on the port first. Output: target/board-watchdog.txt
 cd "$(dirname "$0")" || exit 1
@@ -37,12 +38,13 @@ pause(){ read -r -t 900 -p "Press Return to close." _; }
   echo "--- serial (selected lines) ---"
   tr -d '\000' < target/board-watchdog.raw | tr '\r' '\n' \
     | grep -a -E 'reset cause|last crash|watchdog|boot count' | head -20
-  echo "--- reset record over the host channel ---"
-  target/release/maataa-link --serial "$PORT" --timeout-ms 3000 boot-info
-  if tr -d '\000' < target/board-watchdog.raw | grep -aq 'watchdog test: PASS'; then
-    echo "PASS: the watchdog reset the hung kernel"
+  echo "--- reset record, read from flash with the probe (no serial needed) ---"
+  RECORD="$(python3 scripts/read-board-store.py "$CHIP")"
+  echo "$RECORD"
+  if echo "$RECORD" | grep -q '^reset cause: watchdog$'; then
+    echo "PASS: the watchdog reset the hung kernel, and the next boot recorded it"
   else
-    echo "FAIL: no 'watchdog test: PASS' line on the serial port"
+    echo "FAIL: the stored reset cause is not the watchdog"
   fi
 } 2>&1 | tee "$OUT"
 pause
