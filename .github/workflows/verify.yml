@@ -10,7 +10,7 @@ jobs:
   kernel:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: sudo apt-get update && sudo apt-get install -y qemu-system-arm binutils-arm-none-eabi ripgrep
       # Toolchain, targets and rust-src come from rust-toolchain.toml.
       - uses: dtolnay/rust-toolchain@stable
