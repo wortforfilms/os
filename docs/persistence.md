@@ -96,8 +96,23 @@ The host channel `selftest` now also checks these:
   3. reads key 30 back and checks that the generation advanced
   
   Each run must report the next boot count.
-- On the board, `Board persistence check.command` writes a key, resets the
-  board with the debug probe, and reads the key back.
+- On the board, `Board persistence check.command` runs in two steps. The
+  first run writes a fresh value to key 40. You then unplug and replug the
+  USB cable, which cuts the board's power. The second run reads key 40 back
+  and compares.
+
+## Board verification (NUCLEO-F411RE, 2026-10-31)
+
+- The host channel selftest passed, including store put, get and delete,
+  and the refusal of kernel key 0. `STATUS` showed 6 of 8 tasks alive, which
+  means the WebAssembly task 7 is running too.
+- `power-cycle-120335` was written to key 40. After a real power cycle (USB
+  cable out and back in), key 40 still held that value.
+- The first board run found a bug that QEMU could not show, because QEMU
+  keeps the store in a host file rather than in flash. MPU region 0 made
+  flash read-only for the kernel as well as for tasks, so the first put from
+  a syscall faulted and the board stopped answering. The kernel may now
+  write flash; tasks still only read it (`src/mpu.rs`).
 
 ## Limits
 

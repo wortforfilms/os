@@ -5,7 +5,7 @@
 //! | Region | Memory | Privileged (kernel) | Unprivileged (tasks) |
 //! | --- | --- | --- | --- |
 //! | background | everything | default map (`PRIVDEFENA`) | no access |
-//! | 0 | flash, first 512 KB | read, execute | read, execute |
+//! | 0 | flash, first 512 KB | read, write, execute | read, execute |
 //! | 1 | the running task's stack | read, write | read, write, never execute |
 //! | 2 | kernel stack guard: 256 bytes at the low end of the main stack | no access | no access |
 //!
@@ -13,6 +13,11 @@
 //! for a task: touching them raises MemManage, and the kernel kills that task
 //! only. Region 1 is reprogrammed on every context switch. A task stack must
 //! be a power of two of at least 32 bytes and aligned to its own size.
+//!
+//! The kernel may write flash so that the persistent store
+//! (`src/storage/persist.rs`) can program sectors 6-7 from a syscall. The
+//! flash controller stays locked except during those writes, and tasks can
+//! still only read flash.
 
 /// Start of flash on STM32F4 parts.
 pub const FLASH_BASE: usize = 0x0800_0000;
@@ -47,6 +52,8 @@ const RASR_ENABLE: u32 = 1;
 const XN: u32 = 1 << 28;
 const AP_FULL: u32 = 0b011 << 24; // read/write for both levels
 const AP_RO: u32 = 0b110 << 24; // read-only for both levels
+/// Read/write privileged, read-only unprivileged.
+const AP_PRIV_RW: u32 = 0b010 << 24;
 const NORMAL_C: u32 = 1 << 17; // TEX=000 C=1 B=0: normal memory, write-through
 const SHAREABLE: u32 = 1 << 18;
 
@@ -76,7 +83,7 @@ pub const fn flash_rasr() -> u32 {
         Some(s) => s,
         None => 0,
     };
-    AP_RO | NORMAL_C | (size << 1) | RASR_ENABLE
+    AP_PRIV_RW | NORMAL_C | (size << 1) | RASR_ENABLE
 }
 
 /// RASR value for a task stack region of `len` bytes (None if not a valid size).
@@ -226,7 +233,9 @@ mod tests {
         let s = stack_rasr(2048).unwrap();
         assert_ne!(s & XN, 0);
         assert_eq!(s & (0b111 << 24), AP_FULL);
-        assert_eq!(flash_rasr() & (0b111 << 24), AP_RO);
+        // Tasks read flash only; the kernel may program the store sectors.
+        assert_eq!(flash_rasr() & (0b111 << 24), AP_PRIV_RW);
+        assert_ne!(AP_PRIV_RW, AP_RO);
         assert_eq!(flash_rasr() & XN, 0);
         assert_eq!(stack_rasr(1000), None);
     }
