@@ -230,6 +230,10 @@ To add a capsule to the kernel, add its image to the list in `src/kernel.rs`.
 - NUCLEO-F411RE, 2026-10-31: after 14 boots of this build, key 32 in the
   board's flash held 42, three ticks per boot. Read it with
   `python3 scripts/read-board-store.py`.
+- NUCLEO-F411RE, 2026-10-31, with two capsule tasks: key 32 went on from 42
+  to 54 over the next four boots, so task 7 runs the telemetry capsule on its
+  signed schedule next to task 8. The heartbeat's own lines go to RTT and the
+  host channel, which this check did not read.
 
 ## Cost
 

@@ -190,6 +190,28 @@ The host channel `selftest` now also checks these:
   a syscall faulted and the board stopped answering. The kernel may now
   write flash; tasks still only read it (`src/mpu.rs`).
 
+## Board verification of sealing (NUCLEO-F411RE, 2026-10-31)
+
+The board's store was in the unsealed format, from the earlier kernel, with
+boot count 53. After flashing this kernel, `scripts/read-board-store.py`
+(through the probe, without the serial port) showed:
+
+```text
+store: bank 1, generation 2, sealed, key id 38b642be, keys [0, 1, 20, 32, 40]
+boot count: 57
+reset cause: software reset
+last crash: none
+telemetry capsule lifetime ticks (key 32): 54
+```
+
+- The unsealed bank 0 (generation 1) was migrated to sealed bank 1
+  (generation 2), and the values in keys 20, 32 and 40 carried over.
+- The board's key id (`38b642be`) differs from QEMU's (`61d247ae`): the key
+  is bound to the chip's unique id.
+- The boot count went on from 53. Each later probe session resets the
+  board, which is why it reads 57.
+- Read again 20 s later, nothing had changed: no watchdog reset.
+
 ## Limits
 
 - **Erase stalls.** Erasing a 128 KiB sector stalls the F411 for about 1–2 s,
