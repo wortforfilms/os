@@ -397,8 +397,11 @@ mod tests {
                 s.quiet,
                 s.version
             )),
-            Ok((true, true, 2))
+            Ok((true, true, 3))
         );
+        // Room left in the interpreter's tables for the next rules.
+        assert_eq!(module.data_segments(), 1);
+        assert!(module.data_segments() < maataa_wasm::MAX_DATA);
 
         #[derive(Default)]
         struct Store {

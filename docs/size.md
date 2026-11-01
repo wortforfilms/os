@@ -2,18 +2,27 @@
 
 `memory.x` gives the kernel 128 KiB of flash (F411 sectors 0–4); sector 5 is
 the run-time capsule area and sectors 6–7 the store. `scripts/sizecheck.sh`
-fails a release build over 128 KiB. The debug build must fit too, and is the
-tighter limit, because CI's smoke test builds it.
+builds all four kernels (F411 and QEMU, release and debug), fails any over
+128 KiB, and warns above 90%. The debug builds are the tighter limit, and
+CI's smoke test builds them.
 
-## Where it stands (2026-10-31)
+## Where it stands (2026-11-01, v0.1.0-alpha.3 + panini)
 
-| Build | Flash | Free |
-| --- | --- | --- |
-| F411 release | 97.2 KB | 30.8 KB |
-| F411 debug (CI) | 115.5 KB | 12.5 KB |
-| QEMU debug | 114.8 KB | 13.2 KB |
+| Build | Flash (bytes) | Use | Free |
+| --- | --- | --- | --- |
+| F411 release | 101,376 | 77.3% | 29,696 |
+| F411 debug | 119,620 | 91.2% (warning) | 11,452 |
+| QEMU debug | 119,388 | 91.0% (warning) | 11,684 |
+| QEMU release | 101,544 | 77.4% | 29,528 |
 
-Before the two changes below, these were 105.7, 121.7 and 121.0 KB.
+On 2026-10-31 (before priority scheduling, inheritance and the capsule
+features) the first three were 97.2, 115.5 and 114.8 KB, and before the two
+size changes below 105.7, 121.7 and 121.0 KB.
+
+RAM (F411 release): 84.1 KiB static, of which about 17 KiB is padding: each
+task stack is aligned to its own size for its MPU region, which leaves a
+15 KB gap between `.data` and `.bss` and 2 KB inside it. 43.9 KiB is left
+for the kernel's stack.
 
 ## What the F411 release build holds
 
@@ -35,7 +44,7 @@ that can panic), source file paths (1.9 KB), the built-in capsule images
 
 RAM (`.bss`, 69.7 KB): three capsule task stacks of 16 KiB (task 9's is
 reserved even with no capsule installed), six 2 KiB demo task stacks, and the
-4 KiB install scratch buffer. About 57 KB is left for the kernel's own stack.
+4 KiB install scratch buffer (see the RAM line above for what is left).
 
 ## Rules that keep it small
 

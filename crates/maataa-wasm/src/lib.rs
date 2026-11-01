@@ -659,6 +659,11 @@ impl<'a> Module<'a> {
         self.manifest
     }
 
+    /// Number of data segments (at most [`MAX_DATA`]).
+    pub fn data_segments(&self) -> usize {
+        self.n_data
+    }
+
     /// Declared minimum memory in pages, if the module has a memory.
     pub fn memory_pages(&self) -> Option<u32> {
         self.memory_pages

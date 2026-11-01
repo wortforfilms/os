@@ -19,6 +19,8 @@
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 3: the same rules with its constants in one data segment
+;; (version 2 used 7 of the interpreter's 8).
 ;; Version 2: `log=quiet` in the manifest, so the kernel logs a tick only
 ;; when it returns an error (negative). An answer is still logged, by the
 ;; capsule itself; an idle tick is not logged at all.
@@ -29,7 +31,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=2 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=3 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -46,9 +48,13 @@
   ;;   512  the request (64 bytes)
   ;;   640  the answer (64 bytes)
   (memory 1)
-  (data (i32.const 0) "panini capsule up")
-  (data (i32.const 32) "?")
-  (data (i32.const 128)
+  ;; One data segment (the interpreter takes at most 8; version 2 used 7).
+  (data (i32.const 0)
+    ;; 0: the init message; 32: the answer to a malformed request
+    "panini capsule up" "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
+    "?" "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
+    "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
+    ;; 128: class of each ASCII byte (see the map above)
     "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
     "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
     "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
@@ -56,11 +62,12 @@
     "\00\02\14\14\14\0c\08\14\14\04\14\14\00\14\14\0e"
     "\14\14\14\14\14\06\00\14\0a\14\00\00\00\00\00\00"
     "\00\01\14\14\14\0b\07\14\14\03\14\14\14\14\14\0d"
-    "\14\14\14\14\14\05\14\14\09\14\14\00\00\00\00\00")
-  (data (i32.const 256) "AIUFX")
-  (data (i32.const 264) "yvrl")
-  (data (i32.const 272) "e\00o\00aral")
-  (data (i32.const 280) "ayAyavAv")
+    "\14\14\14\14\14\05\14\14\09\14\14\00\00\00\00\00"
+    ;; 256: long vowels; 264: semivowels; 272: guna; 280: ayadi
+    "AIUFX" "\00\00\00"
+    "yvrl" "\00\00\00\00"
+    "e\00o\00aral"
+    "ayAyavAv")
 
   (global $olen (mut i32) (i32.const 0))
 

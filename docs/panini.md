@@ -10,7 +10,7 @@ be granted.
 | Piece | What it is |
 | --- | --- |
 | `crates/maataa-sandhi` | The reference: the rules in plain `no_std` Rust, host-tested with classic examples |
-| `capsules/panini.wat` | The same rules in hand-written WebAssembly (1.3 KB), signed as `assets/capsules/panini.mcap` |
+| `capsules/panini.wat` | The same rules in hand-written WebAssembly (1.4 KB), signed as `assets/capsules/panini.mcap`; version 3 keeps its constants in one data segment (version 2 used 7 of the interpreter's 8), with the same memory contents |
 | `src/capsule_task.rs` test | Runs the capsule in Maataa's interpreter against the reference for every pair of boundary letters (all 14 vowels and a consonant, on each side), malformed requests and a 64-byte request |
 | `scripts/qemu-panini-test.sh` | Installs the capsule in QEMU and asks it over the host channel, also with `maataa-link sandhi` in Devanagari (smoke step 15) |
 | `maataa_sandhi::lipi` | Devanagari <-> SLP1 for the host tool (feature `alloc`; never in the kernel) |
