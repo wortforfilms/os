@@ -1,6 +1,6 @@
 [package]
 name = "maataa-os"
-version = "0.1.0-alpha.2"
+version = "0.1.0-alpha.3"
 edition = "2021"
 autobins = false
 autoexamples = false
