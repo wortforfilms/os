@@ -13,7 +13,7 @@
 | Visarga, s and r before a word: 6.1.113, 6.1.114, 6.1.132, 8.3.17 with 8.3.19 / 8.3.22, 8.3.34 with 8.4.40 / 8.4.41, 8.3.35, 8.3.36, 8.3.37, r kept; 21 textbook cases; 8.3.14 refused as not yet | host tests | docs/panini.md |
 | `scripts/sizecheck.sh` builds and checks all four kernels (F411 and QEMU, release and debug): fails over 128 KiB, warns above 90% (both debug builds warn at 91%) | - | docs/size.md |
 | panini version 3: the same rules with its constants in one data segment (was 7 of 8), leaving room for the visarga rules | yes (2026-11-01: installed, 4 MATCH, malformed refused) | docs/panini.md |
-| panini version 4: the visarga rules (8 to 17, and -105) in the capsule, equal to the crate on about 58,800 requests; image 2,164 bytes, worst fuel 4,758 | not yet | docs/panini.md |
+| panini version 4: the visarga rules (8 to 17, and -105) in the capsule, equal to the crate on about 58,800 requests; image 2,164 bytes, worst fuel 4,758 | yes (2026-11-02: 8 MATCH incl. रामो गच्छति, राम इति, रामश् च, हरिर् गच्छति, स गच्छति, रामोऽत्र, देवा गच्छन्ति; हरिः+रमते refused by both) | docs/panini.md |
 | `maataa-link sandhi देव+इन्द्र`: Devanagari or SLP1 in, the board's answer checked against the host's (`MATCH`/`MISMATCH`); `maataa_sandhi::lipi` converts, refusing unsupported characters | yes (2026-11-01, 11 requests) | docs/panini.md |
 
 Board run (NUCLEO-F411RE, kernel v0.1.0-alpha.3, 2026-11-01): panini
