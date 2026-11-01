@@ -549,13 +549,44 @@ mod tests {
             requests.push(text.as_bytes().to_vec());
         }
         let count = requests.len();
+        let mut hal_skipped = 0;
         for request in requests {
             host.keys.insert(40, request.clone());
             host.keys.remove(&41);
             let result = tick(&mut host, &mut memory);
             let mut expected = [0u8; maataa_sandhi::MAX_TEXT];
             let shown = String::from_utf8_lossy(&request).into_owned();
-            match maataa_sandhi::join_request(&request, &mut expected) {
+            let host_result = maataa_sandhi::join_request(&request, &mut expected);
+            // Consonant endings other than s and r: the crate has hal sandhi
+            // (rules 18 to 26), the capsule does not yet and joins them as
+            // written, as it always has.
+            let plus = request.iter().position(|&c| c == b'+');
+            let hal_left = plus
+                .and_then(|p| p.checked_sub(1))
+                .and_then(|i| maataa_sandhi::varna::Varna::from_slp1(request[i]))
+                .is_some_and(|v| v.is_consonant() && !matches!(v.slp1(), b's' | b'r'));
+            let host_hal = match host_result {
+                Ok((_, rule)) => rule as i32 >= 18 || hal_left,
+                Err(maataa_sandhi::Error::NotYet) => hal_left,
+                Err(_) => false,
+            };
+            if hal_left && host_hal {
+                if result < 0 {
+                    // The capsule refuses what it cannot take either way.
+                    assert_eq!(
+                        host.keys.get(&41).map(Vec::as_slice),
+                        Some(&b"?"[..]),
+                        "{shown}"
+                    );
+                } else {
+                    let plain: Vec<u8> = request.iter().copied().filter(|&c| c != b'+').collect();
+                    assert_eq!(result, 1, "{shown}");
+                    assert_eq!(host.keys.get(&41), Some(&plain), "{shown}");
+                }
+                hal_skipped += 1;
+                continue;
+            }
+            match host_result {
                 Ok((n, rule)) => {
                     assert_eq!(result, rule as i32, "{shown}");
                     assert_eq!(
@@ -576,6 +607,10 @@ mod tests {
             assert!(!host.keys.contains_key(&40), "{shown}: request not deleted");
         }
         assert!(count > 58_000, "{count} requests");
+        assert!(
+            hal_skipped > 0 && hal_skipped < count / 10,
+            "{hal_skipped} hal requests"
+        );
         assert!(host.logged.iter().any(|line| line == "devendra"));
         assert!(host.logged.iter().any(|line| line == "rAmo gacCati"));
         assert!(host.logged.iter().any(|line| line == "rAma iti"));

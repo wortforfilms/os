@@ -34,7 +34,7 @@ used:
 | 5 | yan | 6.1.77 iko yan aci | `iti+Adi` -> `ityAdi` |
 | 7 | purvarupa | 6.1.109 enah padantad ati | `vane+atra` -> `vane'tra` |
 | 6 | ayadi | 6.1.78 eco 'yavayavah | `hare+e` -> `haraye` |
-| 1 | joined as written | (a consonant at the boundary) | `vAk+ISa` -> `vAkISa` |
+| 1 | joined as written | (a consonant starts the second word) | `rAma+gacCati` -> `rAmagacCati` |
 
 Not yet: consonant (hal) and visarga sandhi, the optional loss of y/v after
 ayadi (8.3.19), and the exceptions (pragrhya and the rest). Errors: -101 no
@@ -86,6 +86,9 @@ channel and run as task 9 after a reset. Eight requests, each answered
 within 2.5 s: `deva+indra` -> `devendra`, `mahA+fzi` -> `maharzi`,
 `eka+eka` -> `ekEka`, `iti+Adi` -> `ityAdi`, `vane+atra` -> `vane'tra`,
 `hare+e` -> `haraye`, `vAk+ISa` -> `vAkISa`, and `deva+in+dra` -> `?`.
+(Correction, 2026-11-02: `vAkISa` is wrong. A final jhal becomes jaS at
+the end of a word, 8.2.39, so vAk+ISa is vAgISa; the crate now says so,
+the capsule still joins it as written.)
 
 With `maataa-link sandhi` on the same board: देव+इन्द्र -> देवेन्द्र,
 महा+ऋषि -> महर्षि, एक+एक -> एकैक, इति+आदि -> इत्यादि, वने+अत्र -> वनेऽत्र,
@@ -178,6 +181,41 @@ capsule against the crate for every ending (H, s, r) after every letter,
 bare and after k, before every first letter alone or followed by a, S or k,
 plus sa / eza and the cases above: about 58,800 requests, answer and rule
 number equal. Image 2,164 bytes of 4,096; worst fuel 4,758 of 20,000.
+
+## Consonant endings (hal sandhi, host library only)
+
+A first word ending in a consonant other than s and r (those are visarga).
+The rules apply in the sutras' order, each seeing the result of the ones
+before it (8.2.1), and the words are written joined; an anusvara from
+8.3.23 keeps the space. The result names the last rule applied.
+
+| Request | Result | Sutras |
+| --- | --- | --- |
+| `vAk+ISa` | `vAgISa` | 8.2.39 jhalam jaso 'nte |
+| `jagat+ISa` | `jagadISa` | 8.2.39 |
+| `tat+gacCati` | `tadgacCati` | 8.2.39 |
+| `tat+ca` | `tacca` | 8.2.39, 8.4.40, 8.4.55 |
+| `sat+jana` | `sajjana` | 8.2.39, 8.4.40 |
+| `tat+wIkA` | `tawwIkA` | 8.2.39, 8.4.41, 8.4.55 |
+| `tat+na` | `tanna` | 8.2.39, 8.4.45 (optional; applied) |
+| `vAk+mAtra` | `vANmAtra` | 8.2.39, 8.4.45 |
+| `tat+laya` | `tallaya` | 8.2.39, 8.4.60 |
+| `tat+Siva` | `tacCiva` | 8.2.39, 8.4.40, 8.4.55, 8.4.63 (optional; applied) |
+| `vAk+Sata` | `vAkCata` | 8.4.55, 8.4.63 |
+| `vAk+hari` | `vAgGari` | 8.2.39, 8.4.62 (optional; applied) |
+| `tat+hita` | `tadDita` | 8.2.39, 8.4.62 |
+| `kim+karoti` | `kiM karoti` | 8.3.23 |
+| `kim+atra` | `kimatra` | (m before a vowel: as written) |
+
+Taken: final stops of the velar, retroflex, dental and labial rows, and
+final m. Not yet (refused as -105): a final palatal (8.2.30 coh kuh and the
+8.2.36 exceptions such as rAj; give the pada form, vAk not vAc), final S z
+h (8.2.36, 8.2.31), final nasals Y N R n (8.3.7, 8.3.32, 8.4.40 with n),
+final y l v. A property test checks every final stop before every letter:
+the stop is never aspirated, and never voiced before khar. The first
+engine joined consonant endings as written, so the golden test leaves them
+out. The capsule does not have these rules yet (it joins such words as
+written), and `maataa-link sandhi` says so on a MISMATCH.
 
 ## Later
 

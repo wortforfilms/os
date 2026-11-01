@@ -75,6 +75,30 @@ pub enum Rule {
     /// 6.1.132 etattadoh sulopo...hali: saH, ezaH drop the visarga before a
     /// consonant: sa gacCati.
     SuLopa = 17,
+    // A word ending in a consonant (hal sandhi). Host only: the capsule has
+    // rules 1 to 17. Several rules can apply in turn (in the sutras' order,
+    // 8.2.1); the result names the last one.
+    /// 8.2.39 jhalam jaso 'nte: a final jhal becomes the jaS of its place.
+    JhalamJasonte = 18,
+    /// 8.4.40 stoh scuna scuh: s or the t row next to S or the c row.
+    StohScuna = 19,
+    /// 8.4.41 stuna stuh: the same with z or the w row.
+    Stuna = 20,
+    /// 8.4.45 yaro 'nunasike 'nunasiko va: before a nasal, the nasal of the
+    /// same place (optional; the common form).
+    YaroNunasike = 21,
+    /// 8.4.55 khari ca: jhal before khar becomes car.
+    KhariCa = 22,
+    /// 8.4.60 tor li: the t row before l becomes l.
+    TorLi = 23,
+    /// 8.4.62 jhayo ho 'nyatarasyam: h after jhay becomes the aspirate of
+    /// the jhay's place (optional; applied).
+    JhayoHo = 24,
+    /// 8.4.63 saS cho 'Ti: S after jhay, before a vowel or h y v r, becomes C
+    /// (optional; applied).
+    SasCho = 25,
+    /// 8.3.23 mo 'nusvarah: a final m before a consonant becomes anusvara.
+    MoNusvara = 26,
 }
 
 impl Rule {
@@ -97,6 +121,15 @@ impl Rule {
             Self::Kupvoh => "visarga kept",
             Self::Repha => "r kept",
             Self::SuLopa => "visarga dropped",
+            Self::JhalamJasonte => "jhal to jaS",
+            Self::StohScuna => "to the c row",
+            Self::Stuna => "to the w row",
+            Self::YaroNunasike => "to the nasal",
+            Self::KhariCa => "to car before khar",
+            Self::TorLi => "to l",
+            Self::JhayoHo => "h to the aspirate",
+            Self::SasCho => "S to C",
+            Self::MoNusvara => "m to anusvara",
         }
     }
 
@@ -119,6 +152,15 @@ impl Rule {
             Self::Kupvoh => "8.3.37",
             Self::Repha => "8.2.66",
             Self::SuLopa => "6.1.132",
+            Self::JhalamJasonte => "8.2.39",
+            Self::StohScuna => "8.4.40",
+            Self::Stuna => "8.4.41",
+            Self::YaroNunasike => "8.4.45",
+            Self::KhariCa => "8.4.55",
+            Self::TorLi => "8.4.60",
+            Self::JhayoHo => "8.4.62",
+            Self::SasCho => "8.4.63",
+            Self::MoNusvara => "8.3.23",
         }
     }
 }
@@ -135,7 +177,8 @@ pub enum Error {
     /// The result does not fit the output buffer.
     TooLong,
     /// A case whose rule is not implemented yet (r before r, 8.3.14; a
-    /// visarga after a consonant or at the start of a word).
+    /// visarga after a consonant or at the start of a word; the consonant
+    /// endings `hal` does not take).
     NotYet,
 }
 
@@ -214,6 +257,9 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
     };
     if matches!(x, Varna::Visarga | Varna::S | Varna::Ra) {
         return visarga(left, right, w);
+    }
+    if x.is_consonant() {
+        return hal(left, right, w);
     }
     if !x.is_vowel() || !y.is_vowel() {
         w.put(left)?;
@@ -397,6 +443,113 @@ fn visarga(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule)
     Ok((w.len, Rule::Repha))
 }
 
+/// The five rows of stops: unvoiced, aspirated, voiced, voiced aspirated,
+/// nasal; velar, palatal, retroflex, dental, labial.
+const ROWS: [[varna::Varna; 5]; 5] = {
+    use varna::Varna::*;
+    [
+        [K, Kh, G, Gh, Ng],
+        [C, Ch, J, Jh, Ny],
+        [Tt, Tth, Dd, Ddh, Nn],
+        [T, Th, D, Dh, N],
+        [P, Ph, B, Bh, M],
+    ]
+};
+
+/// (row, column) of a stop or nasal.
+fn stop(v: varna::Varna) -> Option<(usize, usize)> {
+    ROWS.iter()
+        .enumerate()
+        .find_map(|(r, row)| row.iter().position(|&s| s == v).map(|c| (r, c)))
+}
+
+/// A word ending in a consonant other than s and r (visarga) before the
+/// next word, in the order of the sutras (each sees the result of the ones
+/// before it, 8.2.1). The words are written joined (tacca, vAgISa), except
+/// that an anusvara from 8.3.23 keeps the space (kiM karoti).
+///
+/// Taken: a final stop of the velar, retroflex, dental or labial row, and
+/// final m. Not yet (Error::NotYet): a final palatal (8.2.30 coh kuh, and
+/// the 8.2.36 exceptions: give the pada form, vAk not vAc), S z h (8.2.36,
+/// 8.2.31), the nasals Y N R n (8.3.7, 8.3.32, 8.4.40 with n), y l v.
+fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Error> {
+    use varna::{pratyahara, Varna};
+    let set = |name: &str| pratyahara(name).unwrap_or(0);
+    let has = |mask: u64, v: Varna| mask & v.bit() != 0;
+    let at = |bytes: &[u8], i: usize| bytes.get(i).and_then(|&b| Varna::from_slp1(b));
+    let (Some(x), Some(y)) = (at(left, left.len() - 1), at(right, 0)) else {
+        return Err(Error::NotSlp1);
+    };
+    if !(y.is_vowel() || y.is_consonant()) {
+        return Err(Error::NotYet);
+    }
+    let stem = &left[..left.len() - 1];
+    // 8.3.23: m before a consonant; before a vowel, joined as written.
+    if x == Varna::M {
+        if y.is_consonant() {
+            w.put(stem)?;
+            w.put(b"M ")?;
+            w.put(right)?;
+            return Ok((w.len, Rule::MoNusvara));
+        }
+        w.put(left)?;
+        w.put(right)?;
+        return Ok((w.len, Rule::Join));
+    }
+    let Some((mut row, _)) = stop(x).filter(|&(r, c)| r != 1 && c < 4) else {
+        return Err(Error::NotYet);
+    };
+    // 8.2.39: the final jhal becomes the jaS (column 2) of its row.
+    let mut col = 2;
+    let mut rule = Rule::JhalamJasonte;
+    // The first letter of the second word, if a rule replaces it.
+    let mut first = y;
+    // 8.4.40 / 8.4.41: a dental next to S / the c row, or z / the w row.
+    if row == 3 {
+        if y == Varna::Sh || stop(y).is_some_and(|(r, _)| r == 1) {
+            row = 1;
+            rule = Rule::StohScuna;
+        } else if y == Varna::Ss || stop(y).is_some_and(|(r, _)| r == 2) {
+            row = 2;
+            rule = Rule::Stuna;
+        }
+    }
+    // 8.4.45: before a nasal, the nasal of the row (optional; applied).
+    if stop(y).is_some_and(|(_, c)| c == 4) {
+        col = 4;
+        rule = Rule::YaroNunasike;
+    }
+    // 8.4.55: before khar, car (the unvoiced, unaspirated stop).
+    if has(set("Kar"), y) {
+        col = 0;
+        rule = Rule::KhariCa;
+    }
+    // 8.4.60: the t row before l becomes l.
+    let mut replaced = None;
+    if row == 3 && y == Varna::La {
+        replaced = Some(Varna::La);
+        rule = Rule::TorLi;
+    }
+    // 8.4.62: h after jhay becomes the aspirate of the jhay (col 3 voiced).
+    if y == Varna::H && col == 2 {
+        first = ROWS[row][3];
+        rule = Rule::JhayoHo;
+    }
+    // 8.4.63: S after jhay, before aT (a vowel or h y v r), becomes C.
+    if y == Varna::Sh {
+        let at_set = varna::with_savarnas(set("aw"));
+        if at(right, 1).is_some_and(|v| has(at_set, v)) {
+            first = Varna::Ch;
+            rule = Rule::SasCho;
+        }
+    }
+    w.put(stem)?;
+    w.put(&[replaced.unwrap_or(ROWS[row][col]).slp1()])?;
+    w.put(&[first.slp1()])?;
+    w.put(&right[1..])?;
+    Ok((w.len, rule))
+}
+
 /// The long vowel savarna of a simple vowel (6.1.101's substitute).
 fn long_of(v: varna::Varna) -> varna::Varna {
     use varna::Varna::*;
@@ -548,7 +701,7 @@ mod tests {
             ("nE+aka", "nAyaka", Rule::Ayadi),
             ("pO+aka", "pAvaka", Rule::Ayadi),
             ("rAmaH+gacCati", "rAmo gacCati", Rule::HasiCa),
-            ("vAk+ISa", "vAkISa", Rule::Join),
+            ("vAk+ISa", "vAgISa", Rule::JhalamJasonte),
         ] {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
@@ -561,9 +714,11 @@ mod tests {
         let mut skipped = 0;
         for &a in letters {
             for &b in letters {
-                if matches!(a, b'H' | b's' | b'r') {
-                    // Visarga, s and r before a word: only the new engine
-                    // has these rules (checked against the grammar below).
+                if a == b'H' || varna::Varna::from_slp1(a).is_some_and(|v| v.is_consonant()) {
+                    // Visarga and consonant endings: only the new engine has
+                    // these rules (the first joined them as written, which
+                    // was wrong: vAk+ISa is vAgISa by 8.2.39). They are
+                    // checked against the grammar below.
                     skipped += 3;
                     continue;
                 }
@@ -591,7 +746,7 @@ mod tests {
             }
         }
         assert_eq!(checked + skipped, 49 * 49 * 3);
-        assert_eq!(skipped, 3 * 49 * 3);
+        assert_eq!(skipped, 34 * 49 * 3);
         // Errors and the output limit, the same way.
         for request in [
             &b"+indra"[..],
@@ -669,6 +824,76 @@ mod tests {
             j("rAmaH+ramate"),
             (String::from("rAmo ramate"), Rule::HasiCa)
         );
+    }
+
+    #[test]
+    fn consonant_endings_follow_the_grammar() {
+        for (request, joined, rule) in [
+            ("vAk+ISa", "vAgISa", Rule::JhalamJasonte),
+            ("jagat+ISa", "jagadISa", Rule::JhalamJasonte),
+            ("tat+gacCati", "tadgacCati", Rule::JhalamJasonte),
+            ("tat+ramate", "tadramate", Rule::JhalamJasonte),
+            ("tat+ca", "tacca", Rule::KhariCa),
+            ("sat+jana", "sajjana", Rule::StohScuna),
+            ("tat+wIkA", "tawwIkA", Rule::KhariCa),
+            ("tat+na", "tanna", Rule::YaroNunasike),
+            ("vAk+mAtra", "vANmAtra", Rule::YaroNunasike),
+            ("tat+laya", "tallaya", Rule::TorLi),
+            ("tat+Siva", "tacCiva", Rule::SasCho),
+            ("vAk+Sata", "vAkCata", Rule::SasCho),
+            ("vAk+hari", "vAgGari", Rule::JhayoHo),
+            ("tat+hita", "tadDita", Rule::JhayoHo),
+            ("kim+karoti", "kiM karoti", Rule::MoNusvara),
+            ("kim+atra", "kimatra", Rule::Join),
+            ("ap+su", "apsu", Rule::KhariCa),
+            ("tat+pAda", "tatpAda", Rule::KhariCa),
+            ("liw+ca", "liwca", Rule::KhariCa),
+        ] {
+            assert_eq!(j(request), (String::from(joined), rule), "{request}");
+        }
+        let mut out = [0u8; MAX_TEXT];
+        for not_yet in [
+            &b"vAc+ISa"[..],
+            b"rAj+atra",
+            b"diS+atra",
+            b"rAjan+atra",
+            b"tat+Mka",
+            b"ziv+a",
+        ] {
+            assert_eq!(
+                join_request(not_yet, &mut out),
+                Err(Error::NotYet),
+                "{:?}",
+                core::str::from_utf8(not_yet)
+            );
+        }
+    }
+
+    #[test]
+    fn a_final_jhal_never_stays_aspirated_or_voiced_before_khar() {
+        use varna::{pratyahara, Varna};
+        let letters = b"aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzsh";
+        let khar = pratyahara("Kar").unwrap();
+        for &a in b"kKgGwWqQtTdDpPbB" {
+            for &b in letters.iter() {
+                let mut out = [0u8; MAX_TEXT];
+                let request = [b'k', b'a', a, b'+', b, b'a'];
+                let (n, _) = join_request(&request, &mut out).unwrap();
+                let last = Varna::from_slp1(out[2]).unwrap();
+                let first = Varna::from_slp1(b).unwrap();
+                assert!(
+                    !last.is_mahaprana() || matches!(last, Varna::Ss),
+                    "{:?}",
+                    core::str::from_utf8(&out[..n])
+                );
+                if khar & first.bit() != 0 {
+                    assert!(!last.is_ghosha(), "{:?}", core::str::from_utf8(&out[..n]));
+                }
+                assert!(out[..n]
+                    .iter()
+                    .all(|&c| Varna::from_slp1(c).is_some() || c == b' ' || c == b'\''));
+            }
+        }
     }
 
     fn vec_of(bytes: &[u8]) -> std::vec::Vec<u8> {
