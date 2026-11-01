@@ -74,8 +74,10 @@ or virama follows it: `इन्द्र` is `indra`.
 Each tick (once a second) reads key 40. With a request it writes the answer
 to key 41 (`?` for a malformed one), logs it (`capsule panini: devendra`),
 deletes key 40 and returns the rule number. With none it writes nothing, so
-flash is written only when there is work. The kernel logs every tick, so the
-capsule adds one log line a second.
+flash is written only when there is work. Version 2 has `log=quiet` in its
+manifest: the kernel logs a tick only when it returns an error (a malformed
+request, `tick N -> -103`), so an idle board's log stays quiet. Version 1
+added a log line every second.
 
 ## On the board
 

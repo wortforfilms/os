@@ -87,6 +87,7 @@ semicolons or newlines:
 | `period_ms` | sleep between ticks | 10 to 3 600 000 |
 | `version` | the capsule's version; a run-time install may not go back to an older one | 0 to 1 000 000 (default 0) |
 | `priority` | the capsule task's scheduling level; higher runs first (`docs/engineering/SCHEDULER.md`) | 1 to 4 (default 1) |
+| `log` | `ticks` logs every tick's result; `quiet` logs a tick only when its result is negative (an error by convention). Traps, refusals and the capsule's own `log` calls are always logged | `ticks` or `quiet` (default `ticks`) |
 
 The kernel refuses to run a capsule whose section has an unknown key, a key
 given twice, or a value out of range. A module with two `maataa` sections is

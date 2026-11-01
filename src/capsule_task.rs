@@ -172,6 +172,12 @@ impl core::fmt::Display for Shown {
     }
 }
 
+/// Whether a tick's result goes to the log: always, unless the manifest says
+/// `log=quiet`; then only a negative result (by convention an error).
+pub const fn tick_logged(quiet: bool, result: Option<i32>) -> bool {
+    !quiet || matches!(result, Some(value) if value < 0)
+}
+
 /// Task body: load the capsule's module, call `init` once and `tick` on the
 /// schedule its signed manifest gives, then park. `image` must already have
 /// been verified by the kernel.
@@ -234,6 +240,12 @@ pub fn run(name: &str, image: &[u8]) -> ! {
             schedule.period_ms
         ),
     }
+    if schedule.quiet {
+        crate::uprintln!(
+            "capsule {}: log=quiet: only negative tick results are logged",
+            name
+        );
+    }
     let mut instance = Instance::new(&module);
     let mut host = SyscallHost { name };
     let mut memory = [0u8; CAPSULE_MEMORY_BYTES];
@@ -252,6 +264,7 @@ pub fn run(name: &str, image: &[u8]) -> ! {
     while schedule.forever() || tick < schedule.ticks {
         tick = tick.wrapping_add(1);
         match instance.invoke(&mut host, "tick", &[], FUEL_PER_CALL, &mut memory) {
+            Ok(value) if !tick_logged(schedule.quiet, value) => {}
             Ok(value) => crate::uprintln!(
                 "capsule {}: tick {} -> {} ({} instructions)",
                 name,
@@ -299,6 +312,16 @@ mod tests {
     }
 
     #[test]
+    fn a_quiet_capsule_logs_only_negative_tick_results() {
+        assert!(tick_logged(false, Some(3)));
+        assert!(tick_logged(false, None));
+        assert!(!tick_logged(true, Some(0)));
+        assert!(!tick_logged(true, Some(7)));
+        assert!(!tick_logged(true, None));
+        assert!(tick_logged(true, Some(-103)));
+    }
+
+    #[test]
     fn capsule_slices_are_bounds_checked() {
         let mut memory = [0u8; 16];
         assert_eq!(capsule_slice(&mut memory, 4, 8).unwrap().len(), 8);
@@ -318,6 +341,7 @@ mod tests {
                     period_ms: 200,
                     version: 0,
                     priority: 1,
+                    quiet: false,
                 },
             ),
             (
@@ -327,6 +351,7 @@ mod tests {
                     period_ms: 300,
                     version: 0,
                     priority: 1,
+                    quiet: false,
                 },
             ),
         ] {
@@ -367,8 +392,12 @@ mod tests {
         let module = Module::parse(payload).expect("panini wasm loads");
         check_imports(module.imports()).unwrap();
         assert_eq!(
-            maataa_capsule::Schedule::parse(module.manifest()).map(|s| s.forever()),
-            Ok(true)
+            maataa_capsule::Schedule::parse(module.manifest()).map(|s| (
+                s.forever(),
+                s.quiet,
+                s.version
+            )),
+            Ok((true, true, 2))
         );
 
         #[derive(Default)]

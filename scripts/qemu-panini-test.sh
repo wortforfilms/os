@@ -70,23 +70,31 @@ log_has() { tr -d '\r' <"$WORK/run.log" | grep -q "$1"; }
 
 rm -f "$AREA_FILE"
 boot_and_talk capsule-install "$PANINI" || fail "install"
-log_has '^capsule install: panini version 1 accepted; it runs from the next boot$' \
+log_has '^capsule install: panini version 2 accepted; it runs from the next boot$' \
     || fail "the kernel did not accept panini"
 
-for pair in "deva+indra devendra 3" "iti+Adi ityAdi 5" "vane+atra vane'tra 7"; do
-    read -r request answer rule <<<"$pair"
+for pair in "deva+indra devendra" "iti+Adi ityAdi" "vane+atra vane'tra"; do
+    read -r request answer <<<"$pair"
     boot_and_talk put 40 "$request" || fail "$request: put"
     log_has '^capsule task 9: panini (priority 1)$' || fail "panini has no task"
+    log_has '^capsule panini: log=quiet: only negative tick results are logged$' \
+        || fail "panini is not quiet"
+    if log_has '^capsule panini: tick [0-9]* -> 0 '; then
+        fail "an idle tick was logged despite log=quiet"
+    fi
     # A tick usually answers in the same run; if the run ended first, the
     # first tick of the next one does.
     if ! log_has "^capsule panini: $answer\$"; then
         boot_and_talk hello || fail "$request: hello"
         log_has "^capsule panini: $answer\$" || fail "$request: not answered in the log"
     fi
-    log_has "^capsule panini: tick [0-9]* -> $rule " || fail "$request: rule $rule not returned"
+    # log=quiet: a tick that answers (result > 0) is not logged.
+    if log_has "^capsule panini: tick [0-9]* -> [1-9]"; then
+        fail "$request: a successful tick was logged despite log=quiet"
+    fi
     boot_and_talk get 41 || fail "$request: get"
     grep -q "^key 41: \"$answer\"" "$WORK/tool.log" || fail "$request: key 41 is not $answer"
-    echo "  $request -> $answer (rule $rule)"
+    echo "  $request -> $answer"
 done
 
 boot_and_talk put 40 "deva+in+dra" || fail "malformed: put"

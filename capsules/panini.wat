@@ -19,13 +19,17 @@
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 2: `log=quiet` in the manifest, so the kernel logs a tick only
+;; when it returns an error (negative). An answer is still logged, by the
+;; capsule itself; an idle tick is not logged at all.
+;;
 ;; Build, sign and install:
 ;;   maataa-capsule wasm capsules/panini.wat -o target/panini.wasm
 ;;   maataa-capsule sign --name panini --caps write,sleep,store_get,store_put \
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=1")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=2 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))

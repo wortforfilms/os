@@ -262,6 +262,9 @@ pub fn write_unsigned(
 /// - `priority`: the capsule task's scheduling level, 1 to 4 (default 1).
 ///   The kernel reads it at boot, before the task exists; levels above 4
 ///   belong to the kernel's own tasks (the host channel runs at 6).
+/// - `log`: `ticks` (the default) logs every tick's result; `quiet` logs a
+///   tick only when its result is negative (by convention an error). Traps,
+///   refusals and the capsule's own `log` calls are always logged.
 ///
 /// Unknown keys, repeated keys and out-of-range values are refused, so a
 /// schedule means exactly what it says.
@@ -271,6 +274,8 @@ pub struct Schedule {
     pub period_ms: u32,
     pub version: u32,
     pub priority: u8,
+    /// `log=quiet`: only negative tick results are logged.
+    pub quiet: bool,
 }
 
 impl Schedule {
@@ -280,6 +285,7 @@ impl Schedule {
         period_ms: 1_000,
         version: 0,
         priority: 1,
+        quiet: false,
     };
     /// Highest level a capsule may ask for.
     pub const MAX_PRIORITY: u8 = 4;
@@ -295,6 +301,7 @@ impl Schedule {
         };
         let text = core::str::from_utf8(section).map_err(|_| "manifest is not text")?;
         let (mut ticks, mut period_ms, mut version, mut priority) = (None, None, None, None);
+        let mut quiet = None;
         for field in text
             .split(|c: char| {
                 c == ' ' || c == ',' || c == ';' || c == '\n' || c == '\r' || c == '\t'
@@ -302,6 +309,17 @@ impl Schedule {
             .filter(|f| !f.is_empty())
         {
             let (key, value) = field.split_once('=').ok_or("manifest field without =")?;
+            if key == "log" {
+                let level = match value {
+                    "ticks" => false,
+                    "quiet" => true,
+                    _ => return Err("manifest log is not ticks or quiet"),
+                };
+                if quiet.replace(level).is_some() {
+                    return Err("manifest key given twice");
+                }
+                continue;
+            }
             let value: u32 = value
                 .parse()
                 .map_err(|_| "manifest value is not a number")?;
@@ -325,6 +343,7 @@ impl Schedule {
                 Some(level) if (1..=Self::MAX_PRIORITY as u32).contains(&level) => level as u8,
                 Some(_) => return Err("manifest priority out of range"),
             },
+            quiet: quiet.unwrap_or(Self::DEFAULT.quiet),
         };
         if schedule.version > Self::MAX_VERSION {
             return Err("manifest version out of range");
@@ -383,7 +402,8 @@ mod tests {
                 ticks: 3,
                 period_ms: 200,
                 version: 0,
-                priority: 1
+                priority: 1,
+                quiet: false
             })
         );
         assert_eq!(
@@ -392,13 +412,17 @@ mod tests {
                 ticks: 0,
                 period_ms: 500,
                 version: 0,
-                priority: 1
+                priority: 1,
+                quiet: false
             })
         );
         assert!(Schedule::parse(Some(b"ticks=0")).unwrap().forever());
         assert_eq!(Schedule::parse(Some(b"version=7")).unwrap().version, 7);
         assert_eq!(Schedule::parse(Some(b"priority=4")).unwrap().priority, 4);
         assert_eq!(Schedule::parse(Some(b"ticks=2")).unwrap().priority, 1);
+        assert!(Schedule::parse(Some(b"log=quiet")).unwrap().quiet);
+        assert!(!Schedule::parse(Some(b"log=ticks")).unwrap().quiet);
+        assert!(!Schedule::parse(Some(b"ticks=2")).unwrap().quiet);
         for bad in [
             &b"ticks"[..],
             b"ticks=x",
@@ -414,6 +438,10 @@ mod tests {
             b"priority=5",
             b"priority=6",
             b"priority=1 priority=2",
+            b"log=loud",
+            b"log=1",
+            b"log=",
+            b"log=quiet log=ticks",
             b"\xff",
         ] {
             assert!(Schedule::parse(Some(bad)).is_err(), "{:?}", bad);
