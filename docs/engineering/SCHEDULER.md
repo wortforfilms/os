@@ -80,3 +80,10 @@ semaphore order, the park exemption from the capability gate, the manifest
 `priority` key, and the older policies. `scripts/smoke-alpha.sh` checks the
 boot line, the start order (task 2, task 3, task 1), the mutex hand-off and
 the semaphore wake under priorities, and that no task failed to park.
+
+## Board run (NUCLEO-F411RE, 2026-11-01)
+
+Host channel selftest passed and STATUS reported tasks 8/10 alive on both
+builds. Twenty `maataa-link ping` round trips took 15 to 21 ms (median
+20.5 ms) under round-robin (7e4830f) and 2 to 3 ms (median 2 ms) under
+strict priority (cede19a).

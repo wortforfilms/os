@@ -1,3 +1,31 @@
+# Unreleased (after v0.1.0-alpha.2)
+
+## Strict priority scheduling (cede19a)
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| Strict priority levels, round-robin within a level; host channel at 6, capsules 1 to 4 from `priority=` in the signed manifest | yes (2026-11-01) | docs/engineering/SCHEDULER.md |
+| Syscall 19 `park` (no capability needed; `E_BUSY` while holding a mutex) | yes | src/syscall.rs |
+| Switch at once when a woken task outranks the running one; semaphore posts go to the highest waiter | yes | docs/engineering/SCHEDULER.md |
+
+Board run on a NUCLEO-F411RE, host channel round trip (`maataa-link ping`,
+20 pings each):
+
+| Firmware | Selftest | STATUS | Ping |
+| --- | --- | --- | --- |
+| 7e4830f (round-robin) | pass | tasks 8/10 alive | 15 to 21 ms, median 20.5 ms |
+| cede19a (strict priority) | pass | tasks 8/10 alive | 2 to 3 ms, median 2 ms |
+
+The host channel now preempts task 1's busy loop as soon as a UART byte
+wakes it, instead of waiting for the quantum and its turn among the other
+tasks. Tasks 4 and 5 are killed by the protection tests, as before; parked
+tasks count as alive. The start order (task 2, task 3, task 1) is checked
+in QEMU; the board's RTT log was not captured in this run.
+
+Known limit: a mutex is still handed to the oldest waiter and its owner
+keeps its own level, so priority inversion is possible (next: priority
+inheritance).
+
 # Maataa OS v0.1.0-alpha.2
 
 ## Release type
