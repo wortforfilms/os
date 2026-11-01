@@ -30,10 +30,16 @@ in QEMU; the board's RTT log was not captured in this run.
 | Mutex unlock goes to the highest waiter (oldest among equals) | not yet | docs/engineering/SCHEDULER.md |
 | Waiting that would close a lock cycle fails with `E_DEADLOCK` | not yet | docs/engineering/SCHEDULER.md |
 | A task that dies holding a lock: the next owner gets `E_OWNER_DIED` (u32::MAX - 18; it owns the lock) | not yet | docs/engineering/SCHEDULER.md |
-| Starvation monitor: a task Ready 1000 ms without running is logged once per episode; the count is kernel key 3 | not yet | docs/engineering/SCHEDULER.md |
+| Starvation monitor: a task Ready 1000 ms without running is logged once per episode; the count is kernel key 3 | yes (key 3 read 0 over the host channel) | docs/engineering/SCHEDULER.md |
 
 `scripts/qemu-inversion-test.sh` (step 14 of the smoke test) runs the
 classic inversion with and without inheritance under `-icount`.
+
+Board run (NUCLEO-F411RE, e13f3a1, 2026-11-01): host channel selftest
+passed, STATUS tasks 8/10 alive, kernel key 3 read 0 (no starvation in the
+demo), 20 pings at 2 to 3 ms (median 2 ms, as before). The inheritance,
+cycle and dead-owner paths are checked in QEMU and host tests; the board's
+RTT log (which would show task 2's EOWNERDEAD line) was not captured.
 
 # Maataa OS v0.1.0-alpha.2
 
