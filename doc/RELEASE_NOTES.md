@@ -5,8 +5,15 @@
 | Feature | Board | Docs |
 | --- | --- | --- |
 | `crates/maataa-sandhi`: vowel sandhi (6.1.77, 6.1.78, 6.1.87, 6.1.88, 6.1.101, 6.1.109) over SLP1, `no_std` | host tests | docs/panini.md |
-| `capsules/panini.wat`: the same rules as a run-time capsule; requests in key 40, answers in key 41; checked against the crate for every pair of boundary letters | not yet | docs/panini.md |
+| `capsules/panini.wat`: the same rules as a run-time capsule; requests in key 40, answers in key 41; checked against the crate for every pair of boundary letters | yes (2026-11-01, 8 requests) | docs/panini.md |
 | `scripts/qemu-panini-test.sh` (smoke step 15) | QEMU | docs/panini.md |
+
+Board run (NUCLEO-F411RE, kernel v0.1.0-alpha.3, 2026-11-01): panini
+installed over the host channel (1407 bytes, replacing greeter) and run as
+task 9 after a probe reset. Answers read back from key 41: deva+indra ->
+devendra, mahA+fzi -> maharzi, eka+eka -> ekEka, iti+Adi -> ityAdi,
+vane+atra -> vane'tra, hare+e -> haraye, vAk+ISa -> vAkISa, deva+in+dra ->
+?. Key 40 was deleted after each; STATUS tasks 8/10 alive.
 
 # Maataa OS v0.1.0-alpha.3
 

@@ -58,6 +58,14 @@ deletes key 40 and returns the rule number. With none it writes nothing, so
 flash is written only when there is work. The kernel logs every tick, so the
 capsule adds one log line a second.
 
+## On the board
+
+NUCLEO-F411RE, kernel v0.1.0-alpha.3, 2026-11-01: installed over the host
+channel and run as task 9 after a reset. Eight requests, each answered
+within 2.5 s: `deva+indra` -> `devendra`, `mahA+fzi` -> `maharzi`,
+`eka+eka` -> `ekEka`, `iti+Adi` -> `ityAdi`, `vane+atra` -> `vane'tra`,
+`hare+e` -> `haraye`, `vAk+ISa` -> `vAkISa`, and `deva+in+dra` -> `?`.
+
 ## Later
 
 When a hardware Panini engine (an FPGA) exists, the kernel will need a driver
