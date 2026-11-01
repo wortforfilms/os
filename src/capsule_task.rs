@@ -355,6 +355,144 @@ mod tests {
         assert_eq!(manifest_priority(b"junk"), 1);
     }
 
+    /// The panini capsule (capsules/panini.wat) against its reference,
+    /// crates/maataa-sandhi: every pair of boundary letters (all 14 vowels and
+    /// a consonant on each side), malformed requests, and the store protocol
+    /// (request in key 40, answer in key 41, key 40 deleted when done).
+    #[test]
+    fn the_panini_capsule_agrees_with_its_reference() {
+        use std::collections::HashMap;
+        let image = include_bytes!("../assets/capsules/panini.mcap");
+        let payload = maataa_capsule::payload_unverified(image).unwrap();
+        let module = Module::parse(payload).expect("panini wasm loads");
+        check_imports(module.imports()).unwrap();
+        assert_eq!(
+            maataa_capsule::Schedule::parse(module.manifest()).map(|s| s.forever()),
+            Ok(true)
+        );
+
+        #[derive(Default)]
+        struct Store {
+            keys: HashMap<i32, Vec<u8>>,
+            logged: Vec<String>,
+            writes: usize,
+        }
+        impl Host for Store {
+            fn call(
+                &mut self,
+                _: usize,
+                import: &Import<'_>,
+                args: &[i32],
+                memory: &mut [u8],
+            ) -> Result<i32, Trap> {
+                match import.name {
+                    "log_str" => {
+                        let text = capsule_slice(memory, args[0], args[1])?;
+                        self.logged.push(String::from_utf8_lossy(text).into_owned());
+                        Ok(0)
+                    }
+                    "store_get" => {
+                        let out = capsule_slice(memory, args[1], args[2])?;
+                        Ok(match self.keys.get(&args[0]) {
+                            Some(v) if v.len() > out.len() => to_capsule(crate::syscall::E_TOOLONG),
+                            Some(v) => {
+                                out[..v.len()].copy_from_slice(v);
+                                v.len() as i32
+                            }
+                            None => to_capsule(crate::syscall::E_NOENT),
+                        })
+                    }
+                    "store_put" => {
+                        let value = capsule_slice(memory, args[1], args[2])?.to_vec();
+                        self.writes += 1;
+                        // As the kernel's store: an empty value deletes the key.
+                        if value.is_empty() {
+                            self.keys.remove(&args[0]);
+                        } else {
+                            self.keys.insert(args[0], value);
+                        }
+                        Ok(0)
+                    }
+                    _ => Err(Trap::UnresolvedImport),
+                }
+            }
+        }
+
+        let mut host = Store::default();
+        let mut instance = maataa_wasm::Instance::new(&module);
+        let mut memory = [0u8; CAPSULE_MEMORY_BYTES];
+        instance.init_memory(&mut memory).unwrap();
+        assert_eq!(
+            instance.invoke(&mut host, "init", &[], FUEL_PER_CALL, &mut memory),
+            Ok(None)
+        );
+        assert_eq!(host.logged, ["panini capsule up"]);
+        let mut tick = |host: &mut Store, memory: &mut [u8; CAPSULE_MEMORY_BYTES]| {
+            instance
+                .invoke(host, "tick", &[], FUEL_PER_CALL, memory)
+                .expect("tick runs within its fuel")
+                .unwrap()
+        };
+
+        // No request: nothing is written.
+        assert_eq!(tick(&mut host, &mut memory), 0);
+        assert_eq!(host.writes, 0);
+
+        let mut requests: Vec<Vec<u8>> = Vec::new();
+        let letters = b"aAiIuUfFxXeEoOk";
+        for &a in letters {
+            for &b in letters {
+                requests.push(vec![b'k', a, b'+', b, b'k']);
+                requests.push(vec![a, b'+', b]);
+            }
+        }
+        for text in [
+            "deva+indra",
+            "mahA+fzi",
+            "vane+atra",
+            "hare+e",
+            "iti+Adi",
+            "devaindra",
+            "+indra",
+            "deva+",
+            "deva+in+dra",
+            "deva+indra!",
+            "a+b c",
+            "+",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        ] {
+            requests.push(text.as_bytes().to_vec());
+        }
+        for request in requests {
+            host.keys.insert(40, request.clone());
+            host.keys.remove(&41);
+            let result = tick(&mut host, &mut memory);
+            let mut expected = [0u8; maataa_sandhi::MAX_TEXT];
+            let shown = String::from_utf8_lossy(&request).into_owned();
+            match maataa_sandhi::join_request(&request, &mut expected) {
+                Ok((n, rule)) => {
+                    assert_eq!(result, rule as i32, "{shown}");
+                    assert_eq!(
+                        host.keys.get(&41).map(Vec::as_slice),
+                        Some(&expected[..n]),
+                        "{shown}"
+                    );
+                }
+                Err(error) => {
+                    assert_eq!(result, error.code(), "{shown}");
+                    assert_eq!(
+                        host.keys.get(&41).map(Vec::as_slice),
+                        Some(&b"?"[..]),
+                        "{shown}"
+                    );
+                }
+            }
+            assert!(!host.keys.contains_key(&40), "{shown}: request not deleted");
+        }
+        assert!(host.logged.iter().any(|line| line == "devendra"));
+        assert!(host.logged.iter().any(|line| line == "vane'tra"));
+    }
+
     /// Runs the built-in capsule against a fake kernel: a store (key -> bytes),
     /// a log, and an LED call that is refused.
     #[test]

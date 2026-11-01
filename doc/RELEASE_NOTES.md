@@ -1,3 +1,13 @@
+# Unreleased (after v0.1.0-alpha.3)
+
+## Panini capsule (vowel sandhi)
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| `crates/maataa-sandhi`: vowel sandhi (6.1.77, 6.1.78, 6.1.87, 6.1.88, 6.1.101, 6.1.109) over SLP1, `no_std` | host tests | docs/panini.md |
+| `capsules/panini.wat`: the same rules as a run-time capsule; requests in key 40, answers in key 41; checked against the crate for every pair of boundary letters | not yet | docs/panini.md |
+| `scripts/qemu-panini-test.sh` (smoke step 15) | QEMU | docs/panini.md |
+
 # Maataa OS v0.1.0-alpha.3
 
 ## Release type

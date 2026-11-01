@@ -550,11 +550,16 @@ dependencies = [
  "hemant-core",
  "maataa-capsule",
  "maataa-link",
+ "maataa-sandhi",
  "maataa-store",
  "maataa-wasm",
  "panic-halt",
  "stm32f4xx-hal",
 ]
+
+[[package]]
+name = "maataa-sandhi"
+version = "0.1.0"
 
 [[package]]
 name = "maataa-store"

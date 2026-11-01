@@ -7,7 +7,7 @@ RUSTDOC="$(rustup which rustdoc)"
 export RUSTC
 export RUSTDOC
 DONE=0
-TOTAL=14
+TOTAL=15
 STEP="startup"
 BOOT_LOG="$(mktemp)"
 DUAL_LOG="$(mktemp)"
@@ -66,7 +66,7 @@ pass
 
 STEP="host unit tests"
 cargo test
-cargo test -p maataa-link -p maataa-capsule -p maataa-wasm -p maataa-store -p hemant-core
+cargo test -p maataa-link -p maataa-capsule -p maataa-wasm -p maataa-store -p hemant-core -p maataa-sandhi
 pass
 
 STEP="release build"
@@ -174,4 +174,8 @@ pass
 
 STEP="QEMU priority inheritance (inversion-test, pi-off)"
 ./scripts/qemu-inversion-test.sh
+pass
+
+STEP="QEMU panini capsule (sandhi through the store)"
+./scripts/qemu-panini-test.sh
 pass

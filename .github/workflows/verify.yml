@@ -21,7 +21,7 @@ jobs:
       - name: Format
         run: cargo fmt --all -- --check
       - name: Lint host crates
-        run: cargo clippy -p maataa-store -p maataa-capsule -p maataa-wasm -p maataa-link -p hemant-core --all-targets --all-features -- -D warnings
+        run: cargo clippy -p maataa-store -p maataa-capsule -p maataa-wasm -p maataa-link -p hemant-core -p maataa-sandhi --all-targets --all-features -- -D warnings
       - name: Lint the kernel for each board and test build
         run: |
           cargo clippy --target thumbv7em-none-eabihf -- -D warnings

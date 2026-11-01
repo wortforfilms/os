@@ -1,0 +1,10 @@
+[package]
+name = "maataa-sandhi"
+version = "0.1.0"
+edition = "2021"
+description = "Vowel sandhi (ac-sandhi) of Panini's Ashtadhyayi over SLP1 text, no_std, no allocation"
+license = "UNLICENSED"
+publish = false
+
+[lib]
+path = "src/lib.rs"
