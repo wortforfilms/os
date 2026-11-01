@@ -84,9 +84,9 @@ pub struct Grants {
     /// A rejected capsule gets no task.
     pub capsule_tasks:
         [Option<crate::capsule_task::CapsuleGrant>; crate::capsule_task::CAPSULE_TASKS],
-    /// Capabilities of the capsule installed at run time, if it passed its
-    /// checks (task 9 runs it).
-    pub installed: Option<u32>,
+    /// Capabilities and scheduling level of the capsule installed at run
+    /// time, if it passed its checks (task 9 runs it).
+    pub installed: Option<(u32, u8)>,
 }
 
 /// Runs the boot sequence and returns the capsule grants.
@@ -141,12 +141,19 @@ pub fn run() -> Grants {
         }
         match capsule_tasks.iter_mut().position(|slot| slot.is_none()) {
             Some(index) => {
+                let priority = crate::capsule_task::manifest_priority(image);
                 capsule_tasks[index] = Some(crate::capsule_task::CapsuleGrant {
                     name: label,
                     image,
                     capabilities,
+                    priority,
                 });
-                kprintln!("capsule task {}: {}", CAPSULE_TASK_IDS[index], label);
+                kprintln!(
+                    "capsule task {}: {} (priority {})",
+                    CAPSULE_TASK_IDS[index],
+                    label,
+                    priority
+                );
             }
             None => kprintln!("capsule {}: no capsule task free; not started", label),
         }
@@ -165,8 +172,13 @@ pub fn run() -> Grants {
                 CapNames(capabilities)
             );
             let _ = capsules.record_verified(name, 0, capabilities);
-            kprintln!("capsule task {}: {}", INSTALLED_TASK_ID, name);
-            Some(capabilities)
+            kprintln!(
+                "capsule task {}: {} (priority {})",
+                INSTALLED_TASK_ID,
+                name,
+                schedule.priority
+            );
+            Some((capabilities, schedule.priority))
         }
         crate::installed::Boot::Empty => {
             kprintln!("capsule installed: none");
@@ -329,7 +341,7 @@ pub fn run() -> Grants {
     kprintln!("board: {}", board::NAME);
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
-        "sched: round-robin tasks={} first_switch_at_ms={}",
+        "sched: strict priority, round-robin within a level, tasks={} quantum_ms={}",
         6 + capsule_tasks.iter().flatten().count() + usize::from(installed.is_some()),
         DEFAULT_DEMO_QUANTUM_MS
     );

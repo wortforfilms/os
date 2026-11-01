@@ -129,7 +129,7 @@ hemant_ns_since_epoch = (host_unix_seconds × 10⁹ − HEMANT_SAMWAT_EPOCH_NANO
 clock: systick 1000 Hz, core <hz> Hz (board assumption | rcc configured)
 board: <qemu-netduinoplus2-stm32f405 | stm32f411>
 time: kernel-monotonic-since-boot
-sched: round-robin tasks=<n> first_switch_at_ms=<quantum>
+sched: strict priority, round-robin within a level, tasks=<n> quantum_ms=<quantum>
 uptime ns: <n>
 hemant anchor: host-unix-clock-unverified
 hemant ns since epoch: <n>
@@ -142,11 +142,12 @@ clock regressions: 0
 uptime at exit ns: <n>
 ```
 
-The boot report's scheduler line records the selected policy, task count, and
-configured first-switch quantum. The existing six-tick telemetry simulation
-still sleeps 10 ms between ticks; afterward the QEMU demo starts three
-preemptive tasks with a 5 ms quantum. Their round-robin order is checked by
-`scripts/smoke-alpha.sh`.
+The boot report's scheduler line records the policy, task count, and the
+quantum among tasks of one priority level. The existing six-tick telemetry
+simulation still sleeps 10 ms between ticks; afterward the demo tasks start
+under strict priority with a 5 ms quantum within a level
+(`docs/engineering/SCHEDULER.md`). Their start order (task 2, task 3, then
+task 1) is checked by `scripts/smoke-alpha.sh`.
 
 The line `verification certified` is now `verification self-check passed`. The check compares against an embedded reference using a built-in "nominal" gap state, so it is not certification by anyone outside the kernel.
 

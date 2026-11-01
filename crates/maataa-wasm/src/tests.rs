@@ -689,3 +689,19 @@ fn the_manifest_section_is_exposed_and_other_custom_sections_are_skipped() {
     let two = wasm(r#"(module (@custom "maataa" "ticks=1") (@custom "maataa" "ticks=2"))"#);
     assert!(Module::parse(&two).is_err(), "a second manifest is refused");
 }
+
+#[test]
+fn the_section_walk_finds_the_same_manifest_as_the_full_parse() {
+    let bytes = wasm(
+        r#"(module (@custom "notes" "ignored") (@custom "maataa" "priority=3") (func (export "tick")))"#,
+    );
+    assert_eq!(
+        crate::manifest_section(&bytes),
+        Ok(Module::parse(&bytes).unwrap().manifest())
+    );
+    assert_eq!(crate::manifest_section(&wasm("(module)")), Ok(None));
+    let two = wasm(r#"(module (@custom "maataa" "ticks=1") (@custom "maataa" "ticks=2"))"#);
+    assert!(crate::manifest_section(&two).is_err());
+    assert!(crate::manifest_section(b"\0asm\x01\0\0\0\x00\x7f").is_err());
+    assert!(crate::manifest_section(b"nope").is_err());
+}

@@ -355,6 +355,45 @@ fn scan_block(bytes: &[u8], start: usize, limit: usize) -> Result<(Option<usize>
     }
 }
 
+/// The `maataa` manifest section of a binary module, found by walking the
+/// section headers only (no code is parsed): what the kernel reads at boot
+/// to place a capsule task before the task exists. `Ok(None)`: no manifest.
+/// The full check is still [`Module::parse`], in the task.
+pub fn manifest_section(bytes: &[u8]) -> Result<Option<&[u8]>, Error> {
+    if bytes.len() < 8 {
+        return Err(Error::Truncated);
+    }
+    if bytes[0..4] != *b"\0asm" {
+        return Err(Error::BadMagic);
+    }
+    let mut r = Reader {
+        bytes,
+        pos: 8,
+        end: bytes.len(),
+    };
+    let mut manifest = None;
+    while r.pos < r.end {
+        let id = r.byte()?;
+        let size = r.u32()? as usize;
+        if r.end - r.pos < size {
+            return Err(Error::Truncated);
+        }
+        let mut s = Reader {
+            bytes,
+            pos: r.pos,
+            end: r.pos + size,
+        };
+        r.pos += size;
+        if id == 0 && s.name()? == MANIFEST_SECTION {
+            if manifest.is_some() {
+                return Err(Error::Malformed("two maataa manifest sections"));
+            }
+            manifest = Some(&bytes[s.pos..s.end]);
+        }
+    }
+    Ok(manifest)
+}
+
 impl<'a> Module<'a> {
     /// Parses and checks a binary module.
     pub fn parse(bytes: &'a [u8]) -> Result<Self, Error> {
@@ -615,12 +654,12 @@ impl<'a> Module<'a> {
         Ok(())
     }
 
-    /// Declared minimum memory in pages, if the module has a memory.
     /// The bytes of the `maataa` custom section, if the module has one.
     pub fn manifest(&self) -> Option<&'a [u8]> {
         self.manifest
     }
 
+    /// Declared minimum memory in pages, if the module has a memory.
     pub fn memory_pages(&self) -> Option<u32> {
         self.memory_pages
     }

@@ -18,11 +18,15 @@
 //! | 14 | copy the host-channel status block (`hostlink::HOST_STATUS_BYTES`) | pointer | length | 0 or an error |
 //! | 15 | read a persistent key (0..64; 0..16 are the kernel's) | key, r1 = pointer, r2 = capacity | | length, `E_NOENT`, or an error |
 //! | 16 | write a persistent key (16..64; empty deletes) | key, r1 = pointer, r2 = length | | 0 or an error |
+//! | 17 | run-time capsule install (begin, write, commit, remove, info) | operation and offset | pointer | length | 0, a length, or an error |
+//! | 18 | copy the installed capsule's image | pointer | capacity | | length or an error |
+//! | 19 | park: block for good (the task's work is done) | | | | never returns, or `E_BUSY` while it holds a mutex |
 //!
 //! Each task carries a capability mask (bit n allows call n), set when it is
 //! created: from its signed capsule manifest for the host channel, by the
 //! kernel for the demo tasks. A call outside the mask returns `E_NOCAP`
-//! before the kernel looks at its arguments.
+//! before the kernel looks at its arguments. Park is the one exception: any
+//! task may give up the processor, so it needs no capability.
 //!
 //! The kernel reads a task buffer (write, send) only if it lies wholly in flash
 //! or in the caller's own stack, and writes one (receive) only if it lies in
@@ -51,6 +55,15 @@ pub const SYS_CAPSULE_INSTALL: u8 = 17;
 /// Copies the installed capsule's image into the caller's buffer (the task
 /// that runs it).
 pub const SYS_CAPSULE_IMAGE: u8 = 18;
+/// Blocks the caller for good. Exempt from the capability gate.
+pub const SYS_PARK: u8 = 19;
+
+/// The capability gate: whether a task with `capabilities` may make call
+/// `number`. Parking needs no capability, so even an empty mask can stop
+/// competing for the processor.
+pub const fn call_allowed(capabilities: u32, number: u8) -> bool {
+    number == SYS_PARK || maataa_capsule::cap::allows(capabilities, number)
+}
 
 /// Operations of [`SYS_CAPSULE_INSTALL`].
 pub mod capsule_op {
@@ -101,8 +114,10 @@ pub const E_NOT_SUPPORTED: u32 = u32::MAX - 14;
 pub const E_NOCAP: u32 = u32::MAX - 15;
 /// The persistent key has no value.
 pub const E_NOENT: u32 = u32::MAX - 16;
+/// The caller holds a mutex and may not park (park).
+pub const E_BUSY: u32 = u32::MAX - 17;
 /// Every error code is at least this; smaller results are counts or lengths.
-pub const E_LOWEST: u32 = E_NOENT;
+pub const E_LOWEST: u32 = E_BUSY;
 /// Older name for E_PERM.
 pub const REFUSED: u32 = E_PERM;
 
@@ -126,6 +141,7 @@ pub const fn error_name(code: u32) -> &'static str {
         E_NOT_SUPPORTED => "ENOTSUP",
         E_NOCAP => "ENOCAP",
         E_NOENT => "ENOENT",
+        E_BUSY => "EBUSY",
         _ => "?",
     }
 }
@@ -484,6 +500,29 @@ pub fn capsule_image(out: &mut [u8]) -> Result<usize, u32> {
         Err(r0)
     } else {
         Ok(r0 as usize)
+    }
+}
+
+/// Parks the calling task for good. Returns only with `E_BUSY` (the task
+/// holds a mutex; unlock it first).
+#[cfg(target_arch = "arm")]
+pub fn park() -> u32 {
+    let mut r0 = 0u32;
+    // SAFETY: no memory is passed.
+    unsafe { core::arch::asm!("svc #19", inout("r0") r0) };
+    r0
+}
+
+/// The end of a task whose work is done: park, and never compete for the
+/// processor again. A task that still holds a mutex is a bug; it is
+/// reported once and then sleeps in long steps so lower levels still run.
+#[cfg(target_arch = "arm")]
+pub fn park_forever() -> ! {
+    let error = park();
+    crate::uprintln!("park refused: {}; sleeping instead", error_name(error));
+    loop {
+        let _ = park();
+        let _ = sleep_ms(1_000);
     }
 }
 
@@ -872,7 +911,7 @@ mod kernel {
         // Capability gate: a running task may make only the calls its mask
         // allows. Kernel code before the scheduler starts has no task.
         if let Some(capabilities) = crate::sched::current_capabilities() {
-            if !maataa_capsule::cap::allows(capabilities, number) {
+            if !call_allowed(capabilities, number) {
                 crate::logging::kprintln!(
                     "kernel: task {} has no capability for syscall {}",
                     crate::sched::current_task().unwrap_or(0),
@@ -909,6 +948,11 @@ mod kernel {
             SYS_STORE_PUT => sys_store_put(r0, r1 as usize, r2 as usize),
             SYS_CAPSULE_INSTALL => sys_capsule_install(r0, r1 as usize, r2 as usize),
             SYS_CAPSULE_IMAGE => sys_capsule_image(r0 as usize, r1 as usize),
+            SYS_PARK => match crate::sched::park_current() {
+                Ok(()) => 0,
+                Err(crate::sched::ParkError::HoldsMutex) => E_BUSY,
+                Err(crate::sched::ParkError::NoTask) => E_PERM,
+            },
             #[cfg(feature = "kernel-stack-test")]
             SYS_TEST_KERNEL_OVERFLOW => {
                 crate::logging::kprintln!(
@@ -990,6 +1034,7 @@ mod tests {
             E_NOT_SUPPORTED,
             E_NOCAP,
             E_NOENT,
+            E_BUSY,
         ];
         assert!(codes.iter().all(|&c| c >= E_LOWEST));
         for (i, a) in codes.iter().enumerate() {
@@ -1002,6 +1047,17 @@ mod tests {
             64 < E_NOTASK,
             "a message length can never look like an error"
         );
+    }
+
+    #[test]
+    fn any_task_may_park_but_other_calls_need_their_capability() {
+        assert!(call_allowed(0, SYS_PARK));
+        assert!(!call_allowed(0, SYS_WRITE));
+        assert!(!call_allowed(0, SYS_SLEEP));
+        assert!(call_allowed(maataa_capsule::cap::WRITE, SYS_WRITE));
+        assert!(!call_allowed(maataa_capsule::cap::ALL, SYS_PARK + 1));
+        // No capability bit names park, so no manifest can grant or deny it.
+        assert_eq!(maataa_capsule::cap::ALL & (1 << SYS_PARK), 0);
     }
 
     #[test]

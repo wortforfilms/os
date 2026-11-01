@@ -91,6 +91,18 @@ const TASK_THREE_CAPS: u32 = cap::WRITE
 const TASK_FOUR_CAPS: u32 = cap::WRITE;
 const TASK_FIVE_CAPS: u32 = cap::WRITE;
 
+// Scheduling levels (src/sched/mod.rs, PriorityRoundRobin): higher runs
+// first, round-robin within a level, idle is 0. Task 1 blinks forever at the
+// lowest application level, so everything above it must block (sleep, wait
+// or park) when it has nothing to do. Capsules choose 1..=4 in their signed
+// manifest; the host channel sits above all of them.
+const TASK_ONE_PRIORITY: u8 = 1;
+const TASK_TWO_PRIORITY: u8 = 3;
+const TASK_THREE_PRIORITY: u8 = 2;
+const TASK_FOUR_PRIORITY: u8 = 2;
+const TASK_FIVE_PRIORITY: u8 = 2;
+const HOST_CHANNEL_PRIORITY: u8 = 6;
+
 fn demo_task_one() -> ! {
     crate::uprintln!("task 1");
     match syscall::mutex_lock(0) {
@@ -172,9 +184,7 @@ fn demo_task_two() -> ! {
         crate::uprintln!("watchdog test: PASS; the last reset came from the watchdog, so the kernel did not hang again");
     }
     // USART2 belongs to the host channel (task 6); see docs/host-channel.md.
-    loop {
-        clock::idle();
-    }
+    syscall::park_forever()
 }
 
 fn demo_task_three() -> ! {
@@ -225,9 +235,7 @@ fn demo_task_three() -> ! {
     let _ = syscall::sleep_ms(100);
     // A real board ignores demo_done and keeps the tasks switching.
     syscall::demo_done();
-    loop {
-        clock::idle();
-    }
+    syscall::park_forever()
 }
 
 /// The MPU test: write to a kernel word. The MPU must stop the write, the
@@ -241,9 +249,7 @@ fn demo_task_four() -> ! {
     // SAFETY: deliberately not safe; this is the protection test.
     unsafe { target.write_volatile(0xDEAD_BEEF) };
     crate::uprintln!("task 4: the write went through: MEMORY IS NOT PROTECTED");
-    loop {
-        clock::idle();
-    }
+    syscall::park_forever()
 }
 
 /// Recurses with a 64-byte frame until the 2 KB stack runs out.
@@ -259,9 +265,7 @@ fn demo_task_five() -> ! {
     crate::uprintln!("task 5: recursing until the stack overflows");
     let n = recurse(0);
     crate::uprintln!("task 5: returned {}: THE OVERFLOW WAS NOT CAUGHT", n);
-    loop {
-        clock::idle();
-    }
+    syscall::park_forever()
 }
 
 /// A kernel panic: record it for the next boot (src/crash.rs), report it, and
@@ -312,9 +316,7 @@ fn installed_capsule_task() -> ! {
         }
         Err(e) => {
             crate::uprintln!("capsule task 9: no image: {}", syscall::error_name(e));
-            loop {
-                clock::idle();
-            }
+            syscall::park_forever()
         }
     }
 }
@@ -354,7 +356,7 @@ fn main() -> ! {
                     1,
                     task_stack(core::ptr::addr_of_mut!(TASK_ONE_STACK)),
                     demo_task_one,
-                    1,
+                    TASK_ONE_PRIORITY,
                 )
                 .with_capabilities(TASK_ONE_CAPS),
             )
@@ -364,7 +366,7 @@ fn main() -> ! {
                         2,
                         task_stack(core::ptr::addr_of_mut!(TASK_TWO_STACK)),
                         demo_task_two,
-                        1,
+                        TASK_TWO_PRIORITY,
                     )
                     .with_capabilities(TASK_TWO_CAPS),
                 )
@@ -375,7 +377,7 @@ fn main() -> ! {
                         3,
                         task_stack(core::ptr::addr_of_mut!(TASK_THREE_STACK)),
                         demo_task_three,
-                        1,
+                        TASK_THREE_PRIORITY,
                     )
                     .with_capabilities(TASK_THREE_CAPS),
                 )
@@ -386,7 +388,7 @@ fn main() -> ! {
                         4,
                         task_stack(core::ptr::addr_of_mut!(TASK_FOUR_STACK)),
                         demo_task_four,
-                        1,
+                        TASK_FOUR_PRIORITY,
                     )
                     .with_capabilities(TASK_FOUR_CAPS),
                 )
@@ -397,7 +399,7 @@ fn main() -> ! {
                         5,
                         task_stack(core::ptr::addr_of_mut!(TASK_FIVE_STACK)),
                         demo_task_five,
-                        1,
+                        TASK_FIVE_PRIORITY,
                     )
                     .with_capabilities(TASK_FIVE_CAPS),
                 )
@@ -408,7 +410,7 @@ fn main() -> ! {
                         6,
                         task_stack(core::ptr::addr_of_mut!(TASK_SIX_STACK)),
                         host_channel_task,
-                        1,
+                        HOST_CHANNEL_PRIORITY,
                     )
                     .with_capabilities(grants.hostlink),
                 )
@@ -437,13 +439,18 @@ fn main() -> ! {
                         core::slice::from_raw_parts_mut(stack.cast::<u8>(), CAPSULE_STACK_BYTES)
                     };
                     queue.add(
-                        sched::Task::new(kernel::CAPSULE_TASK_IDS[index], stack, body, 1)
-                            .with_capabilities(grant.capabilities),
+                        sched::Task::new(
+                            kernel::CAPSULE_TASK_IDS[index],
+                            stack,
+                            body,
+                            grant.priority,
+                        )
+                        .with_capabilities(grant.capabilities),
                     )?;
                 }
                 // Task 9: the run-time capsule, with its signed capabilities
                 // plus the one call that hands it its image.
-                if let Some(capabilities) = grants.installed {
+                if let Some((capabilities, priority)) = grants.installed {
                     // SAFETY: the static stack is handed to this one task.
                     let stack = unsafe {
                         core::slice::from_raw_parts_mut(
@@ -456,7 +463,7 @@ fn main() -> ! {
                             kernel::INSTALLED_TASK_ID,
                             stack,
                             installed_capsule_task,
-                            1,
+                            priority,
                         )
                         .with_capabilities(capabilities | maataa_capsule::cap::CAPSULE_IMAGE),
                     )?;
@@ -464,8 +471,7 @@ fn main() -> ! {
                 Ok(())
             });
         let started = added.is_ok()
-            && match sched::start_round_robin(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB)
-            {
+            && match sched::start(queue, sched::DEFAULT_DEMO_QUANTUM_MS, &mut core.SCB) {
                 Ok(()) => true,
                 Err(e) => {
                     logging::kprintln!("scheduler did not start: {}", e.as_str());

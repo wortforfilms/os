@@ -120,13 +120,20 @@ impl Semaphore {
         Ok(())
     }
 
-    fn dequeue(&mut self) -> Option<TaskId> {
-        if self.wait_len == 0 {
-            return None;
+    /// Takes the waiter with the highest priority; the oldest among equals.
+    fn dequeue_by(&mut self, priority_of: impl Fn(TaskId) -> u8) -> Option<TaskId> {
+        let mut best: Option<(usize, u8)> = None;
+        for (index, waiter) in self.wait_queue[..self.wait_len].iter().enumerate() {
+            let Some(task) = *waiter else { continue };
+            let priority = priority_of(task);
+            if best.is_none_or(|(_, top)| priority > top) {
+                best = Some((index, priority));
+            }
         }
-        let next = self.wait_queue[0].take();
-        for index in 1..self.wait_len {
-            self.wait_queue[index - 1] = self.wait_queue[index].take();
+        let (index, _) = best?;
+        let next = self.wait_queue[index].take();
+        for slot in index + 1..self.wait_len {
+            self.wait_queue[slot - 1] = self.wait_queue[slot].take();
         }
         self.wait_len -= 1;
         next
@@ -192,13 +199,24 @@ impl SemaphoreSet {
         Ok(LockResult::Blocked)
     }
 
-    /// Transfers a permit to the oldest waiter, or increments the available count.
+    /// Transfers a permit to the oldest waiter, or increments the available
+    /// count. Every waiter counts as the same priority here.
     pub fn post(&mut self, id: u8) -> Result<Option<TaskId>, SemaphoreError> {
+        self.post_by(id, |_| 0)
+    }
+
+    /// Transfers a permit to the waiter with the highest priority (the oldest
+    /// among equals), or increments the available count.
+    pub fn post_by(
+        &mut self,
+        id: u8,
+        priority_of: impl Fn(TaskId) -> u8,
+    ) -> Result<Option<TaskId>, SemaphoreError> {
         let semaphore = self
             .semaphores
             .get_mut(id as usize)
             .ok_or(SemaphoreError::InvalidId)?;
-        if let Some(task) = semaphore.dequeue() {
+        if let Some(task) = semaphore.dequeue_by(priority_of) {
             return Ok(Some(task));
         }
         semaphore.count = semaphore
@@ -253,6 +271,11 @@ impl MutexSet {
         lock.owner = next;
         lock.locked = next.is_some();
         Ok(next)
+    }
+
+    /// Whether `task` owns any lock (a task may not park while it does).
+    pub fn owns_any(&self, task: TaskId) -> bool {
+        self.locks.iter().any(|lock| lock.owner == Some(task))
     }
 
     /// Removes dead tasks from queues and releases any lock they owned.
@@ -399,6 +422,34 @@ impl<const N: usize> RunQueue<N> {
 
     pub fn iter(&self) -> impl Iterator<Item = &Task> {
         self.slots.iter().filter_map(Option::as_ref)
+    }
+
+    /// Whether a Ready task outranks `current` (or anything is Ready when no
+    /// task is current): the wake paths request a switch only then, so a wake
+    /// at the same or a lower level waits for the quantum or a block.
+    pub fn should_preempt(&self, current: Option<TaskId>) -> bool {
+        let floor = current
+            .and_then(|id| self.get(id))
+            .filter(|task| task.state == TaskState::Running)
+            .map(|task| task.priority);
+        self.iter().any(|task| {
+            task.state == TaskState::Ready && floor.is_none_or(|floor| task.priority > floor)
+        })
+    }
+
+    /// Blocks `id` with no deadline and no wake source: it never runs again.
+    pub fn park(&mut self, id: TaskId) -> bool {
+        let Some(task) = self.get_mut(id) else {
+            return false;
+        };
+        if task.state != TaskState::Running {
+            return false;
+        }
+        task.state = TaskState::Blocked;
+        task.wait_until = None;
+        task.wait_for_message = false;
+        task.waiting_for_uart = false;
+        true
     }
 
     /// Makes deadline-expired tasks runnable. Returns whether anything woke.
@@ -567,6 +618,20 @@ mod mutex_tests {
         assert_eq!(woke[0], Some(3));
         assert_eq!(locks.unlock(0, 3), Ok(None));
     }
+
+    #[test]
+    fn a_task_owns_a_lock_until_it_unlocks_or_dies() {
+        let mut locks = MutexSet::new();
+        assert!(!locks.owns_any(1));
+        assert_eq!(locks.lock(2, 1), Ok(LockResult::Acquired));
+        assert!(locks.owns_any(1));
+        assert!(!locks.owns_any(2));
+        assert_eq!(locks.unlock(2, 1), Ok(None));
+        assert!(!locks.owns_any(1));
+        assert_eq!(locks.lock(0, 3), Ok(LockResult::Acquired));
+        locks.forget_task(3);
+        assert!(!locks.owns_any(3));
+    }
 }
 
 #[cfg(test)]
@@ -594,6 +659,24 @@ mod semaphore_tests {
         assert_eq!(semaphores.post(0), Err(SemaphoreError::Overflow));
         assert_eq!(semaphores.wait(1, 1), Ok(LockResult::Blocked));
         assert_eq!(semaphores.wait(1, 1), Err(SemaphoreError::AlreadyWaiting));
+    }
+
+    #[test]
+    fn a_post_goes_to_the_highest_waiter_and_the_oldest_among_equals() {
+        let priority = |task: TaskId| match task {
+            1 | 4 => 1,
+            2 | 3 => 3,
+            _ => 0,
+        };
+        let mut semaphores = SemaphoreSet::new();
+        for task in [1, 2, 3, 4] {
+            assert_eq!(semaphores.wait(0, task), Ok(LockResult::Blocked));
+        }
+        assert_eq!(semaphores.post_by(0, priority), Ok(Some(2)));
+        assert_eq!(semaphores.post_by(0, priority), Ok(Some(3)));
+        assert_eq!(semaphores.post_by(0, priority), Ok(Some(1)));
+        assert_eq!(semaphores.post_by(0, priority), Ok(Some(4)));
+        assert_eq!(semaphores.post_by(0, priority), Ok(None));
     }
 
     #[test]
@@ -682,6 +765,46 @@ impl<const N: usize> Scheduler<N> for FixedPriority {
     }
 }
 
+/// The kernel's policy: strict priority between levels (higher numbers win),
+/// round-robin among the runnable tasks of the top level, and the idle task
+/// only when no application task can run.
+#[derive(Clone, Copy, Debug, Default)]
+pub struct PriorityRoundRobin;
+
+impl PriorityRoundRobin {
+    pub const fn new() -> Self {
+        Self
+    }
+}
+
+impl<const N: usize> Scheduler<N> for PriorityRoundRobin {
+    fn pick(&self, rq: &RunQueue<N>, _now: u64) -> Option<TaskId> {
+        let runnable = |task: &&Task| matches!(task.state, TaskState::Ready | TaskState::Running);
+        let Some(top) = rq
+            .iter()
+            .filter(runnable)
+            .filter(|task| task.id != IDLE_TASK_ID)
+            .map(|task| task.priority)
+            .max()
+        else {
+            return rq
+                .iter()
+                .filter(runnable)
+                .find(|task| task.id == IDLE_TASK_ID)
+                .map(|task| task.id);
+        };
+        let running_slot = rq.slots.iter().position(|slot| {
+            slot.as_ref()
+                .is_some_and(|task| task.state == TaskState::Running)
+        });
+        let start = running_slot.map_or(0, |slot| (slot + 1) % N);
+        (0..N)
+            .filter_map(|offset| rq.slots[(start + offset) % N].as_ref())
+            .find(|task| runnable(task) && task.id != IDLE_TASK_ID && task.priority == top)
+            .map(|task| task.id)
+    }
+}
+
 #[cfg(target_arch = "arm")]
 mod cortex_m_runtime {
     use super::*;
@@ -700,7 +823,7 @@ mod cortex_m_runtime {
 
     struct Runtime {
         queue: RunQueue<{ MAX_TASKS + 1 }>,
-        policy: RoundRobin,
+        policy: PriorityRoundRobin,
         current: Option<TaskId>,
         quantum_ticks: u32,
         last_dispatch_tick: u64,
@@ -736,9 +859,10 @@ mod cortex_m_runtime {
         }
     }
 
-    /// Installs a round-robin queue and requests its first PendSV switch.
-    /// `quantum_ticks` is in 1 kHz clock ticks (so 5 means 5 ms).
-    pub fn start_round_robin(
+    /// Installs the run queue under [`PriorityRoundRobin`] and requests the
+    /// first PendSV switch. `quantum_ticks` is in 1 kHz clock ticks (so 5
+    /// means 5 ms) and applies among the tasks of the top level.
+    pub fn start(
         mut queue: RunQueue<MAX_TASKS>,
         quantum_ticks: u32,
         scb: &mut SCB,
@@ -802,7 +926,7 @@ mod cortex_m_runtime {
         interrupt::free(|cs| {
             *RUNTIME.borrow(cs).borrow_mut() = Some(Runtime {
                 queue: runtime_queue,
-                policy: RoundRobin::new(),
+                policy: PriorityRoundRobin::new(),
                 current: None,
                 quantum_ticks,
                 last_dispatch_tick: now,
@@ -885,6 +1009,35 @@ mod cortex_m_runtime {
         rt.queue.block_waiting_uart(id)
     }
 
+    /// Why the running task could not park.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+    pub enum ParkError {
+        /// It owns a mutex; parking would keep the lock from everyone forever.
+        HoldsMutex,
+        NoTask,
+    }
+
+    /// Parks the running task for good: blocked, with no deadline and no
+    /// wake source. Tasks call it when their work is done, so they never keep
+    /// a lower priority level from running.
+    pub fn park_current() -> Result<(), ParkError> {
+        interrupt::free(|cs| {
+            let mut shared = RUNTIME.borrow(cs).borrow_mut();
+            let rt = shared.as_mut().ok_or(ParkError::NoTask)?;
+            let id = rt.current.ok_or(ParkError::NoTask)?;
+            if rt.mutexes.owns_any(id) {
+                return Err(ParkError::HoldsMutex);
+            }
+            if rt.queue.park(id) {
+                Ok(())
+            } else {
+                Err(ParkError::NoTask)
+            }
+        })?;
+        SCB::set_pendsv();
+        Ok(())
+    }
+
     /// Requests the deferred context switch after an atomic block transition.
     pub fn pend_scheduler_switch() {
         SCB::set_pendsv();
@@ -927,7 +1080,7 @@ mod cortex_m_runtime {
             if let Some(next) = next {
                 rt.queue.wake_mutex_waiter(next, id);
             }
-            Ok::<_, MutexError>(next.is_some())
+            Ok::<_, MutexError>(next.is_some() && rt.queue.should_preempt(rt.current))
         })?;
         if woke {
             SCB::set_pendsv();
@@ -967,11 +1120,14 @@ mod cortex_m_runtime {
         let woke = interrupt::free(|cs| {
             let mut shared = RUNTIME.borrow(cs).borrow_mut();
             let rt = shared.as_mut().ok_or(SemaphoreError::InvalidId)?;
-            let next = rt.semaphores.post(id)?;
+            let queue = &rt.queue;
+            let next = rt
+                .semaphores
+                .post_by(id, |task| queue.get(task).map_or(0, |t| t.priority))?;
             if let Some(next) = next {
                 rt.queue.wake_semaphore_waiter(next, id);
             }
-            Ok::<_, SemaphoreError>(next.is_some())
+            Ok::<_, SemaphoreError>(next.is_some() && rt.queue.should_preempt(rt.current))
         })?;
         if woke {
             SCB::set_pendsv();
@@ -979,14 +1135,13 @@ mod cortex_m_runtime {
         Ok(())
     }
 
-    /// Wakes a receiver when a message is queued for it.
+    /// Wakes a receiver when a message is queued for it. Returns whether the
+    /// receiver outranks the running task (a switch was requested).
     pub fn wake_waiting_receiver(id: TaskId) -> bool {
         let woke = interrupt::free(|cs| {
-            RUNTIME
-                .borrow(cs)
-                .borrow_mut()
-                .as_mut()
-                .is_some_and(|rt| rt.queue.wake_waiting_receiver(id))
+            RUNTIME.borrow(cs).borrow_mut().as_mut().is_some_and(|rt| {
+                rt.queue.wake_waiting_receiver(id) && rt.queue.should_preempt(rt.current)
+            })
         });
         if woke {
             SCB::set_pendsv();
@@ -995,13 +1150,13 @@ mod cortex_m_runtime {
     }
 
     /// Called after a byte enters the UART FIFO; wakes one blocked reader.
+    /// Returns whether the reader outranks the running task (a switch was
+    /// requested).
     pub fn wake_waiting_uart_reader() -> bool {
         let woke = interrupt::free(|cs| {
-            RUNTIME
-                .borrow(cs)
-                .borrow_mut()
-                .as_mut()
-                .is_some_and(|rt| rt.queue.wake_waiting_uart())
+            RUNTIME.borrow(cs).borrow_mut().as_mut().is_some_and(|rt| {
+                rt.queue.wake_waiting_uart() && rt.queue.should_preempt(rt.current)
+            })
         });
         if woke {
             SCB::set_pendsv();
@@ -1057,7 +1212,7 @@ mod cortex_m_runtime {
 
     /// Marks the running task dead; the scheduler never picks it again.
     pub fn kill_current() -> Option<TaskId> {
-        let (dead, woke) = interrupt::free(|cs| {
+        let dead = interrupt::free(|cs| {
             let mut shared = RUNTIME.borrow(cs).borrow_mut();
             let rt = shared.as_mut()?;
             let id = rt.current?;
@@ -1069,12 +1224,11 @@ mod cortex_m_runtime {
                 }
             }
             rt.semaphores.forget_task(id);
-            Some((id, woke.iter().any(Option::is_some)))
+            Some(id)
         })?;
         crate::syscall::forget_task(dead);
-        if woke {
-            SCB::set_pendsv();
-        }
+        // The task is dead: switch away now rather than at the quantum.
+        SCB::set_pendsv();
         Some(dead)
     }
 
@@ -1095,7 +1249,10 @@ mod cortex_m_runtime {
             let Some(runtime) = shared.as_mut() else {
                 return (false, false);
             };
-            let woke = runtime.queue.wake_expired(now);
+            // Preempt at once only for a task above the running one; a wake at
+            // the same level waits for the quantum.
+            let woke =
+                runtime.queue.wake_expired(now) && runtime.queue.should_preempt(runtime.current);
             let quantum_expired = runtime.current.is_some()
                 && now.wrapping_sub(runtime.last_dispatch_tick) >= runtime.quantum_ticks as u64;
             (woke, quantum_expired)
@@ -1486,10 +1643,10 @@ mod memfault {
 #[allow(unused_imports)]
 pub use cortex_m_runtime::{
     block_current_for_uart, block_current_until, current_capabilities, current_stack, current_task,
-    kill_current, mutex_lock_current, mutex_unlock_current, on_systick, pend_scheduler_switch,
-    semaphore_post_current, semaphore_wait_current, start_round_robin, take_recv_timeout,
-    task_alive, task_counts, task_exit_address, wake_waiting_receiver, wake_waiting_uart_reader,
-    StartError,
+    kill_current, mutex_lock_current, mutex_unlock_current, on_systick, park_current,
+    pend_scheduler_switch, semaphore_post_current, semaphore_wait_current, start,
+    take_recv_timeout, task_alive, task_counts, task_exit_address, wake_waiting_receiver,
+    wake_waiting_uart_reader, ParkError, StartError,
 };
 
 impl Default for KernelMutex {
@@ -1531,6 +1688,110 @@ mod tests {
             assert!(rq.add(task(*id, *priority)).is_ok());
         }
         rq
+    }
+
+    /// Runs `picks` PendSV-style dispatches: the running task goes back to
+    /// Ready and the policy's choice becomes Running.
+    fn dispatch<const N: usize>(
+        rq: &mut RunQueue<N>,
+        policy: &impl Scheduler<N>,
+        picks: usize,
+    ) -> std::vec::Vec<TaskId> {
+        let mut picked = std::vec::Vec::new();
+        for now in 0..picks {
+            let current = rq
+                .iter()
+                .find(|task| task.state == TaskState::Running)
+                .map(|task| task.id);
+            let next = policy.pick(rq, now as u64).expect("something runnable");
+            if let Some(current) = current {
+                rq.get_mut(current).unwrap().state = TaskState::Ready;
+            }
+            rq.get_mut(next).unwrap().state = TaskState::Running;
+            picked.push(next);
+        }
+        picked
+    }
+
+    #[test]
+    fn priority_policy_runs_only_the_top_level_and_rotates_within_it() {
+        let mut rq = queue::<5>(&[(1, 1), (2, 3), (3, 2), (4, 3), (IDLE_TASK_ID, 0)]);
+        let picked = dispatch(&mut rq, &PriorityRoundRobin::new(), 6);
+        assert_eq!(picked, [2, 4, 2, 4, 2, 4]);
+        // Level 3 blocks: level 2 runs alone.
+        rq.get_mut(2).unwrap().state = TaskState::Blocked;
+        rq.get_mut(4).unwrap().state = TaskState::Blocked;
+        assert_eq!(dispatch(&mut rq, &PriorityRoundRobin::new(), 3), [3, 3, 3]);
+        // Then level 1, and idle only when nothing else can run.
+        rq.get_mut(3).unwrap().state = TaskState::Dead;
+        assert_eq!(dispatch(&mut rq, &PriorityRoundRobin::new(), 2), [1, 1]);
+        rq.get_mut(1).unwrap().state = TaskState::Blocked;
+        assert_eq!(
+            dispatch(&mut rq, &PriorityRoundRobin::new(), 2),
+            [IDLE_TASK_ID, IDLE_TASK_ID]
+        );
+        // A level-3 task waking takes over at the next dispatch.
+        rq.get_mut(4).unwrap().state = TaskState::Ready;
+        assert_eq!(dispatch(&mut rq, &PriorityRoundRobin::new(), 1), [4]);
+    }
+
+    #[test]
+    fn equal_priority_tasks_share_the_processor_evenly() {
+        let mut rq = queue::<5>(&[(1, 2), (2, 2), (3, 2), (4, 1), (IDLE_TASK_ID, 0)]);
+        let picked = dispatch(&mut rq, &PriorityRoundRobin::new(), 3_000);
+        let count = |id| picked.iter().filter(|&&p| p == id).count();
+        assert_eq!((count(1), count(2), count(3)), (1_000, 1_000, 1_000));
+        assert_eq!(
+            count(4),
+            0,
+            "a lower level never runs while level 2 is busy"
+        );
+        assert_eq!(count(IDLE_TASK_ID), 0);
+    }
+
+    #[test]
+    fn idle_alone_is_picked_and_an_empty_queue_picks_nothing() {
+        let mut rq = queue::<2>(&[(1, 1), (IDLE_TASK_ID, 0)]);
+        rq.get_mut(1).unwrap().state = TaskState::Blocked;
+        assert_eq!(PriorityRoundRobin::new().pick(&rq, 0), Some(IDLE_TASK_ID));
+        let empty = RunQueue::<2>::new();
+        assert_eq!(PriorityRoundRobin::new().pick(&empty, 0), None);
+    }
+
+    #[test]
+    fn only_a_higher_level_wake_preempts_the_running_task() {
+        let mut rq = queue::<4>(&[(1, 1), (2, 2), (3, 3), (IDLE_TASK_ID, 0)]);
+        for id in [1, 3] {
+            rq.get_mut(id).unwrap().state = TaskState::Blocked;
+        }
+        rq.get_mut(2).unwrap().state = TaskState::Running;
+        rq.get_mut(IDLE_TASK_ID).unwrap().state = TaskState::Ready;
+        assert!(!rq.should_preempt(Some(2)), "idle never preempts");
+        rq.get_mut(1).unwrap().state = TaskState::Ready;
+        assert!(!rq.should_preempt(Some(2)), "a lower level waits");
+        rq.get_mut(3).unwrap().state = TaskState::Ready;
+        assert!(
+            rq.should_preempt(Some(2)),
+            "a higher level switches at once"
+        );
+        assert!(rq.should_preempt(None), "no task yet: any ready task");
+        // A current task that just blocked or died is not a floor.
+        rq.get_mut(3).unwrap().state = TaskState::Blocked;
+        rq.get_mut(2).unwrap().state = TaskState::Blocked;
+        assert!(rq.should_preempt(Some(2)));
+    }
+
+    #[test]
+    fn a_parked_task_is_never_picked_or_woken_again() {
+        let mut rq = queue::<3>(&[(1, 1), (2, 5), (IDLE_TASK_ID, 0)]);
+        rq.get_mut(2).unwrap().state = TaskState::Running;
+        assert!(rq.park(2));
+        assert!(!rq.park(2), "only the running task parks");
+        assert!(!rq.wake_expired(u64::MAX));
+        assert!(!rq.wake_waiting_receiver(2));
+        assert!(!rq.wake_waiting_uart());
+        assert_eq!(dispatch(&mut rq, &PriorityRoundRobin::new(), 3), [1, 1, 1]);
+        assert_eq!(rq.counts(), (3, 3), "parked is alive, not dead");
     }
 
     #[test]

@@ -86,11 +86,16 @@ semicolons or newlines:
 | `ticks` | how many times to call the `tick` export | 1 to 1000, or 0 for "for as long as the board runs" |
 | `period_ms` | sleep between ticks | 10 to 3 600 000 |
 | `version` | the capsule's version; a run-time install may not go back to an older one | 0 to 1 000 000 (default 0) |
+| `priority` | the capsule task's scheduling level; higher runs first (`docs/engineering/SCHEDULER.md`) | 1 to 4 (default 1) |
 
 The kernel refuses to run a capsule whose section has an unknown key, a key
 given twice, or a value out of range. A module with two `maataa` sections is
 refused when it is loaded. A module with no `maataa` section gets the default:
 one tick, and the boot log says so.
+
+A capsule at level 2 or above must sleep between ticks (it does, with
+`period_ms`) or it would keep every lower level from running. When its ticks
+are done, or if it is refused, the capsule task parks (syscall 19).
 
 The capsule task then calls `init` once (if the module exports it) and `tick`
 on the schedule. The sleep between ticks is a supervisor call too, so a

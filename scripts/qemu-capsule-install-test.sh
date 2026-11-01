@@ -97,7 +97,7 @@ if boot_and_talk capsule-install "$WORK/greeter-v1.mcap"; then
     fail "run 2: an older version was installed"
 fi
 log_has '^capsule installed: greeter version 2 caps=write,sleep$' || fail "run 2: greeter not found at boot"
-log_has '^capsule task 9: greeter$' || fail "run 2: greeter has no task"
+log_has '^capsule task 9: greeter (priority 1)$' || fail "run 2: greeter has no task"
 log_has '^capsule greeter: greeter capsule up$' || fail "run 2: greeter did not run"
 log_has '^capsule greeter: schedule: 2 ticks every 100 ms (signed manifest)$' || fail "run 2: schedule"
 log_has '^capsule greeter: tick 2 -> 102 ' || fail "run 2: greeter did not tick twice"
@@ -107,7 +107,7 @@ log_has '^capsule install: refused: older than version 2 already installed$' \
 if boot_and_talk capsule-install "$WORK/tampered.mcap"; then
     fail "run 3: a tampered image was installed"
 fi
-log_has '^capsule task 9: greeter$' || fail "run 3: the refused install removed greeter"
+log_has '^capsule task 9: greeter (priority 1)$' || fail "run 3: the refused install removed greeter"
 log_has '^capsule install: refused: bad signature$' || fail "run 3: tamper not refused for its signature"
 
 if boot_and_talk capsule-install assets/capsules/heartbeat.mcap; then

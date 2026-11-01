@@ -45,6 +45,19 @@ pub struct CapsuleGrant {
     /// The whole signed image; the kernel verified it before granting it.
     pub image: &'static [u8],
     pub capabilities: u32,
+    /// Scheduling level from the signed manifest (`priority=`, 1..=4).
+    pub priority: u8,
+}
+
+/// The scheduling level a verified capsule image asks for in its signed
+/// manifest: 1 to 4, or 1 if it names none. A manifest the task will refuse
+/// anyway (or a payload that is not WebAssembly) also gets level 1, the
+/// lowest an application task has, so a bad image can never run high.
+pub fn manifest_priority(image: &[u8]) -> u8 {
+    maataa_capsule::payload_unverified(image)
+        .and_then(|payload| maataa_wasm::manifest_section(payload).ok())
+        .and_then(|section| maataa_capsule::Schedule::parse(section).ok())
+        .map_or(maataa_capsule::Schedule::DEFAULT.priority, |s| s.priority)
 }
 
 /// Instructions one export call may run.
@@ -160,18 +173,16 @@ impl core::fmt::Display for Shown {
 }
 
 /// Task body: load the capsule's module, call `init` once and `tick` on the
-/// schedule its signed manifest gives, then idle. `image` must already have
+/// schedule its signed manifest gives, then park. `image` must already have
 /// been verified by the kernel.
 #[cfg(target_arch = "arm")]
 pub fn run(name: &str, image: &[u8]) -> ! {
     use maataa_capsule::Schedule;
     use maataa_wasm::{Instance, Module};
 
-    let idle = || -> ! {
-        loop {
-            crate::clock::idle();
-        }
-    };
+    // Done (or refused): park, so a capsule at a higher level never keeps
+    // the levels below it from running.
+    let idle = || -> ! { syscall::park_forever() };
     let Some(payload) = maataa_capsule::payload_unverified(image) else {
         crate::uprintln!("capsule {}: bad image", name);
         idle()
@@ -306,6 +317,7 @@ mod tests {
                     ticks: 3,
                     period_ms: 200,
                     version: 0,
+                    priority: 1,
                 },
             ),
             (
@@ -314,6 +326,7 @@ mod tests {
                     ticks: 4,
                     period_ms: 300,
                     version: 0,
+                    priority: 1,
                 },
             ),
         ] {
@@ -323,6 +336,23 @@ mod tests {
             check_imports(module.imports()).unwrap();
             assert_eq!(Schedule::parse(module.manifest()), Ok(expected));
         }
+    }
+
+    #[test]
+    fn capsule_priority_comes_from_the_signed_manifest_and_defaults_to_one() {
+        for image in [
+            &include_bytes!("../assets/capsules/telemetry.mcap")[..],
+            &include_bytes!("../assets/capsules/heartbeat.mcap")[..],
+            &include_bytes!("../assets/capsules/greeter.mcap")[..],
+        ] {
+            assert_eq!(manifest_priority(image), 1);
+        }
+        // Not WebAssembly, or not an image at all: the lowest level.
+        assert_eq!(
+            manifest_priority(include_bytes!("../assets/capsules/hostlink.mcap")),
+            1
+        );
+        assert_eq!(manifest_priority(b"junk"), 1);
     }
 
     /// Runs the built-in capsule against a fake kernel: a store (key -> bytes),

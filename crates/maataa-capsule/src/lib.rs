@@ -259,6 +259,9 @@ pub fn write_unsigned(
 /// - `period_ms`: sleep between ticks, 10 to 3 600 000 ms.
 /// - `version`: the capsule's version, 0 to 1 000 000 (default 0). A capsule
 ///   installed at run time may not be replaced by an older version of itself.
+/// - `priority`: the capsule task's scheduling level, 1 to 4 (default 1).
+///   The kernel reads it at boot, before the task exists; levels above 4
+///   belong to the kernel's own tasks (the host channel runs at 6).
 ///
 /// Unknown keys, repeated keys and out-of-range values are refused, so a
 /// schedule means exactly what it says.
@@ -267,6 +270,7 @@ pub struct Schedule {
     pub ticks: u32,
     pub period_ms: u32,
     pub version: u32,
+    pub priority: u8,
 }
 
 impl Schedule {
@@ -275,7 +279,10 @@ impl Schedule {
         ticks: 1,
         period_ms: 1_000,
         version: 0,
+        priority: 1,
     };
+    /// Highest level a capsule may ask for.
+    pub const MAX_PRIORITY: u8 = 4;
     pub const MAX_VERSION: u32 = 1_000_000;
     pub const MAX_TICKS: u32 = 1_000;
     pub const MIN_PERIOD_MS: u32 = 10;
@@ -287,7 +294,7 @@ impl Schedule {
             return Ok(Self::DEFAULT);
         };
         let text = core::str::from_utf8(section).map_err(|_| "manifest is not text")?;
-        let (mut ticks, mut period_ms, mut version) = (None, None, None);
+        let (mut ticks, mut period_ms, mut version, mut priority) = (None, None, None, None);
         for field in text
             .split(|c: char| {
                 c == ' ' || c == ',' || c == ';' || c == '\n' || c == '\r' || c == '\t'
@@ -302,6 +309,7 @@ impl Schedule {
                 "ticks" => &mut ticks,
                 "period_ms" => &mut period_ms,
                 "version" => &mut version,
+                "priority" => &mut priority,
                 _ => return Err("unknown manifest key"),
             };
             if slot.replace(value).is_some() {
@@ -312,6 +320,11 @@ impl Schedule {
             ticks: ticks.unwrap_or(Self::DEFAULT.ticks),
             period_ms: period_ms.unwrap_or(Self::DEFAULT.period_ms),
             version: version.unwrap_or(Self::DEFAULT.version),
+            priority: match priority {
+                None => Self::DEFAULT.priority,
+                Some(level) if (1..=Self::MAX_PRIORITY as u32).contains(&level) => level as u8,
+                Some(_) => return Err("manifest priority out of range"),
+            },
         };
         if schedule.version > Self::MAX_VERSION {
             return Err("manifest version out of range");
@@ -369,7 +382,8 @@ mod tests {
             Ok(Schedule {
                 ticks: 3,
                 period_ms: 200,
-                version: 0
+                version: 0,
+                priority: 1
             })
         );
         assert_eq!(
@@ -377,11 +391,14 @@ mod tests {
             Ok(Schedule {
                 ticks: 0,
                 period_ms: 500,
-                version: 0
+                version: 0,
+                priority: 1
             })
         );
         assert!(Schedule::parse(Some(b"ticks=0")).unwrap().forever());
         assert_eq!(Schedule::parse(Some(b"version=7")).unwrap().version, 7);
+        assert_eq!(Schedule::parse(Some(b"priority=4")).unwrap().priority, 4);
+        assert_eq!(Schedule::parse(Some(b"ticks=2")).unwrap().priority, 1);
         for bad in [
             &b"ticks"[..],
             b"ticks=x",
@@ -393,6 +410,10 @@ mod tests {
             b"speed=3",
             b"version=1000001",
             b"version=1 version=2",
+            b"priority=0",
+            b"priority=5",
+            b"priority=6",
+            b"priority=1 priority=2",
             b"\xff",
         ] {
             assert!(Schedule::parse(Some(bad)).is_err(), "{:?}", bad);

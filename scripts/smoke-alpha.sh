@@ -94,7 +94,7 @@ rg -q '^control capsule id: ' "$BOOT_LOG"
 rg -q '^clock: systick 1000 Hz, core ' "$BOOT_LOG"
 rg -q '^board: qemu-netduinoplus2-stm32f405$' "$BOOT_LOG"
 rg -q '^time: kernel-monotonic-since-boot$' "$BOOT_LOG"
-rg -q '^sched: round-robin tasks=8 first_switch_at_ms=([1-9]|1[0-9]|20)$' "$BOOT_LOG"
+rg -q '^sched: strict priority, round-robin within a level, tasks=8 quantum_ms=5$' "$BOOT_LOG"
 [ "$(rg -c '^sched:' "$BOOT_LOG")" -eq 1 ]
 rg -q '^uptime ns: [0-9]+$' "$BOOT_LOG"
 rg -q '^hemant anchor: host-unix-clock-unverified$' "$BOOT_LOG"
@@ -123,8 +123,8 @@ rg -q '^capsule telemetry: tick 3 -> 233 ' "$BOOT_LOG"
 # Two capsule tasks, each on the schedule and with the capabilities its own
 # signed manifest gives (docs/wasm-capsules.md).
 rg -q '^capsule verified: heartbeat caps=write,sleep$' "$BOOT_LOG"
-rg -q '^capsule task 7: telemetry$' "$BOOT_LOG"
-rg -q '^capsule task 8: heartbeat$' "$BOOT_LOG"
+rg -q '^capsule task 7: telemetry \(priority 1\)$' "$BOOT_LOG"
+rg -q '^capsule task 8: heartbeat \(priority 1\)$' "$BOOT_LOG"
 rg -q '^capsule telemetry: schedule: 3 ticks every 200 ms \(signed manifest\)$' "$BOOT_LOG"
 rg -q '^capsule heartbeat: schedule: 4 ticks every 300 ms \(signed manifest\)$' "$BOOT_LOG"
 rg -q '^kernel: task 8 has no capability for syscall 16$' "$BOOT_LOG"
@@ -132,8 +132,18 @@ rg -q '^capsule heartbeat: init -> -16 \(ENOCAP\)$' "$BOOT_LOG"
 rg -q '^capsule heartbeat: tick 4 -> 4 ' "$BOOT_LOG"
 rg -q '^capsule heartbeat: done$' "$BOOT_LOG"
 
+# Strict priority (src/main.rs): task 2 (level 3) starts first, then task 3
+# (level 2), and task 1 (level 1) only once both have blocked.
 TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"
-[ "$TASK_ORDER" = "task 1 task 2 task 3 " ]
+[ "$TASK_ORDER" = "task 2 task 3 task 1 " ]
+# The demo's blocking paths still hand off under priorities: the mutex task 1
+# held through its sleep reaches task 2, and task 3's post wakes task 2.
+rg -q '^task 2: mutex 0 handed off; protected output is serialized$' "$BOOT_LOG"
+rg -q '^task 2: semaphore 0 permit received; producer wake verified$' "$BOOT_LOG"
+if rg -q '^park refused' "$BOOT_LOG"; then
+    echo "FAIL: a task could not park" >&2
+    exit 1
+fi
 pass
 
 STEP="QEMU clock self-test"

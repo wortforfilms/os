@@ -2,42 +2,81 @@
 
 The scheduler in `src/sched/mod.rs` is a fixed-capacity, allocation-free task
 queue. Each task owns a caller-provided static stack, an entry function, a
-priority, and one of four states: ready, running, blocked, or dead. The queue
-holds at most eight tasks. Round-robin is the default policy. Fixed priority
-is also available; larger numeric values win, so a continuously ready high
-priority task can starve lower priority tasks by design.
+priority, a capability mask, and one of four states: ready, running, blocked,
+or dead. The queue holds up to nine application tasks plus the kernel's idle
+task.
 
-`Scheduler::pick(&RunQueue, now)` receives the queue and an explicit monotonic
-tick value. A policy never reads SysTick registers, calls `clock::get_ticks`,
-or consults hidden hardware state. Round-robin uses the queue's `Running` task
-and its stable slot order; fixed priority reads task priorities. Given the same
-queue and timestamp, each policy returns the same choice. This makes the
-policy decision deterministic and host-testable while the clock source stays
-replaceable.
+## Policy: strict priority, round-robin within a level
 
-Preemption follows this path:
+The kernel runs `PriorityRoundRobin`:
 
-1. SysTick calls `clock::on_systick()` to increment the monotonic counter.
-2. `sched::on_systick()` checks whether the running task's quantum expired. It
-   only sets PendSV; it does not edit task state or save registers.
-3. PendSV saves the interrupted task's stack pointer and callee-saved register
-   context, selects the next runnable task, marks its state, and restores that
-   task's context. PendSV runs at the lowest exception priority.
+- Higher numbers win. A level runs only while no task above it is ready.
+- Tasks of the same level take turns, 5 ms each (`DEFAULT_DEMO_QUANTUM_MS`),
+  in slot order starting after the task that ran last.
+- The idle task (level 0) runs only when no application task can.
 
-Scheduler startup builds the initial hardware exception frame on each task's
-provided stack; the first PendSV returns into the first task. The QEMU demo
-runs three tasks with a 5 ms quantum. Each prints its ID and executes a
-1,000,000-cycle delay. QEMU exits after observing the third task. The F411
-boot report uses `tasks=0 first_switch_at_ms=0` because that board build does
-not start the QEMU-only demo. Floating-point callee-saved registers are
-preserved when the exception frame indicates an active FP context.
+So a task that never blocks starves every level below it. That is the
+contract, not a bug: every task above the lowest application level must
+block (sleep, receive, wait on a mutex or semaphore, read the UART, or park)
+when it has nothing to do.
 
-Host tests cover the three-task round-robin cycle, fixed-priority selection,
-strict-priority starvation over 1,000 picks, empty queues, and skipping blocked
-or dead tasks. QEMU smoke checks validate the boot-report line and the observed
-`task 1`, `task 2`, `task 3` order. The earlier F411 preemption and clock
-observations used RTT; USART2 TX and interrupt-driven RX were physically
-verified on the Nucleo-F411RE ST-LINK serial port at 115200 baud using task
-SVCs. SVC 13 now parks an empty reader and the RX interrupt wakes one waiter;
-the blocking wake path has unit and target-build coverage, while a fresh board
-capture remains pending. See `docs/kernel-clock.md`.
+| Level | Tasks |
+| --- | --- |
+| 6 | host channel (task 6) |
+| 1 to 4 | capsules (tasks 7, 8 and 9), from `priority=` in the signed manifest; default 1 |
+| 3 | demo task 2 |
+| 2 | demo tasks 3, 4 and 5 |
+| 1 | demo task 1 (blinks forever without yielding) |
+| 0 | idle |
+
+The levels are set in `src/main.rs`. A capsule's level is part of its signed
+`maataa` manifest section (`docs/wasm-capsules.md`); the kernel reads it at
+boot, before the task exists, with a section walk that parses no code
+(`maataa_wasm::manifest_section`). A capsule may ask for 1 to 4 only; a
+manifest the task will refuse anyway counts as level 1.
+
+`RoundRobin` and `FixedPriority` remain as plain policies for the host tests.
+`Scheduler::pick(&RunQueue, now)` receives the queue and an explicit tick
+value and never reads hardware, so each choice is deterministic and
+host-testable.
+
+## When the switch happens
+
+1. SysTick advances the clock and wakes tasks whose deadline passed.
+2. `sched::on_systick()` requests PendSV if a woken task outranks the running
+   one, or if the running task's quantum ran out.
+3. The other wake paths (mutex unlock, semaphore post, message send, the
+   USART2 receive interrupt) also request PendSV at once when the task they
+   wake outranks the running one. A wake at the same or a lower level waits
+   for the quantum or for the running task to block.
+4. Blocking, parking and a task's death always request PendSV.
+5. PendSV, the lowest-priority exception, saves the running task's context,
+   asks the policy for the next task and restores it. Floating-point
+   callee-saved registers are kept when the frame says FP state is live.
+
+## Park (syscall 19)
+
+A task whose work is done calls `syscall::park_forever()`. The task blocks
+with no deadline and no wake source and stays alive (STATUS counts it). Park
+needs no capability: any task may give up the processor, including one with
+an empty mask. Parking while holding a mutex is refused with `E_BUSY`
+(u32::MAX - 17; a capsule sees -18), since the lock would then never be
+released. `park_forever` reports that once and falls back to one-second
+sleeps.
+
+## Semaphores and mutexes
+
+A semaphore post goes to the waiting task with the highest level, the oldest
+among equals. A mutex unlock still hands the lock to the oldest waiter, and
+a task that dies hands its locks on the same way. A low task holding a lock a
+high task waits for can still be delayed by middle levels (priority
+inversion); priority inheritance is the next commit.
+
+## Tests
+
+Host tests cover top-level selection and rotation, even sharing among 3,000
+picks at one level, idle selection, the preemption rule, parking, the
+semaphore order, the park exemption from the capability gate, the manifest
+`priority` key, and the older policies. `scripts/smoke-alpha.sh` checks the
+boot line, the start order (task 2, task 3, task 1), the mutex hand-off and
+the semaphore wake under priorities, and that no task failed to park.
