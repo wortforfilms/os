@@ -15,10 +15,13 @@
 ;; Each tick reads key 40. If there is a request it writes the answer to key
 ;; 41 ("?" if the request is malformed), logs it, deletes key 40 and returns
 ;; the rule (1 join, 2 savarna-dirgha, 3 guna, 4 vrddhi, 5 yan, 6 ayadi,
-;; 7 purvarupa) or an error (-101 no +, -102 empty word, -103 not SLP1).
+;; 7 purvarupa; 8 to 17 the visarga rules, numbered as Rule in the crate)
+;; or an error (-101 no +, -102 empty word, -103 not SLP1, -105 not yet).
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
+;; (rules 8 to 17, and -105 for what it does not do yet).
 ;; Version 3: the same rules with its constants in one data segment
 ;; (version 2 used 7 of the interpreter's 8).
 ;; Version 2: `log=quiet` in the manifest, so the kernel logs a tick only
@@ -31,7 +34,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=3 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=4 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -40,7 +43,9 @@
   ;;   0    "panini capsule up"
   ;;   32   "?" (the answer to a malformed request)
   ;;   128  class of each ASCII byte: 1..14 the vowels a A i I u U f F x X
-  ;;        e E o O, 20 a consonant (M, H included), 0 not SLP1
+  ;;        e E o O; consonants by what the visarga rules need: 20 haS
+  ;;        (voiced), 21 t T, 22 c C, 23 w W, 24 k K p P, 25 Sar (S z s),
+  ;;        26 M H; 0 not SLP1. Every class above 14 is "not a vowel".
   ;;   256  long vowel per grade (a i u f x): "AIUFX"
   ;;   264  semivowel per grade (i u f x): "yvrl"
   ;;   272  guna of a before grade 2..5, two bytes each (0: one letter)
@@ -59,10 +64,10 @@
     "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
     "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
     "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
-    "\00\02\14\14\14\0c\08\14\14\04\14\14\00\14\14\0e"
-    "\14\14\14\14\14\06\00\14\0a\14\00\00\00\00\00\00"
-    "\00\01\14\14\14\0b\07\14\14\03\14\14\14\14\14\0d"
-    "\14\14\14\14\14\05\14\14\09\14\14\00\00\00\00\00"
+    "\00\02\14\16\14\0c\08\14\1a\04\14\18\00\1a\14\0e"
+    "\18\14\14\19\15\06\00\17\0a\14\00\00\00\00\00\00"
+    "\00\01\14\16\14\0b\07\14\14\03\14\18\14\14\14\0d"
+    "\18\14\14\19\15\05\14\17\09\14\19\00\00\00\00\00"
     ;; 256: long vowels; 264: semivowels; 272: guna; 280: ayadi
     "AIUFX" "\00\00\00"
     "yvrl" "\00\00\00\00"
@@ -104,6 +109,148 @@
       end
     end)
 
+  ;; Appends a space and the second word (bytes p+1 .. n).
+  (func $space_right (param $p i32) (param $n i32)
+    i32.const 32 call $put1
+    local.get $p i32.const 513 i32.add
+    local.get $n local.get $p i32.sub i32.const 1 i32.sub
+    call $put)
+
+  ;; Whether the first word (p bytes at 512) is "sa" + ending or "eza" +
+  ;; ending (6.1.132).
+  (func $sa_eza (param $p i32) (result i32)
+    local.get $p i32.const 3 i32.eq
+    i32.const 512 i32.load8_u i32.const 115 i32.eq
+    i32.and
+    i32.const 513 i32.load8_u i32.const 97 i32.eq
+    i32.and
+    local.get $p i32.const 4 i32.eq
+    i32.const 512 i32.load8_u i32.const 101 i32.eq
+    i32.and
+    i32.const 513 i32.load8_u i32.const 122 i32.eq
+    i32.and
+    i32.const 514 i32.load8_u i32.const 97 i32.eq
+    i32.and
+    i32.or)
+
+  ;; Visarga, s or r ending the first word (the + is at p, the request is n
+  ;; bytes), in the order of visarga() in crates/maataa-sandhi: H and s are
+  ;; s (8.2.66: ru), r is r. Returns the rule or -105.
+  (func $visarga (param $p i32) (param $n i32) (result i32)
+    (local $ru i32) (local $before i32) (local $y i32) (local $yb i32)
+    (local $second i32)
+    ;; The letter before must be a vowel; the second word may not start
+    ;; with M or H.
+    local.get $p i32.const 2 i32.lt_s
+    if i32.const -105 return end
+    local.get $p i32.const 510 i32.add i32.load8_u local.set $before
+    local.get $p i32.const 513 i32.add i32.load8_u local.tee $yb
+    call $class local.set $y
+    local.get $before call $class i32.const 14 i32.gt_u
+    local.get $y i32.const 26 i32.eq
+    i32.or
+    if i32.const -105 return end
+    local.get $p i32.const 511 i32.add i32.load8_u i32.const 114 i32.ne local.set $ru
+    ;; 6.1.132: sa / eza with ru before a consonant lose it (rule 17).
+    local.get $ru
+    local.get $y i32.const 20 i32.ge_u
+    i32.and
+    if
+      local.get $p call $sa_eza
+      if
+        i32.const 512 local.get $p i32.const 1 i32.sub call $put
+        local.get $p local.get $n call $space_right
+        i32.const 17 return
+      end
+    end
+    ;; Before khar (classes 21 to 25): visarga kept, or s.
+    local.get $y i32.const 21 i32.ge_u
+    if
+      i32.const 0 local.set $second
+      local.get $n local.get $p i32.sub i32.const 2 i32.gt_s
+      if
+        local.get $p i32.const 514 i32.add i32.load8_u call $class local.set $second
+      end
+      i32.const 512 local.get $p i32.const 1 i32.sub call $put
+      ;; 8.3.35: khar followed by Sar (13).
+      local.get $second i32.const 25 i32.eq
+      if
+        i32.const 72 call $put1 local.get $p local.get $n call $space_right
+        i32.const 13 return
+      end
+      ;; 8.3.36 va Sari (14).
+      local.get $y i32.const 25 i32.eq
+      if
+        i32.const 72 call $put1 local.get $p local.get $n call $space_right
+        i32.const 14 return
+      end
+      ;; 8.3.37 kupvoh (15).
+      local.get $y i32.const 24 i32.eq
+      if
+        i32.const 72 call $put1 local.get $p local.get $n call $space_right
+        i32.const 15 return
+      end
+      ;; 8.3.34 visarjaniyasya sah, with 8.4.40 (S) and 8.4.41 (z) (12).
+      i32.const 83
+      i32.const 122
+      i32.const 115
+      local.get $y i32.const 23 i32.eq
+      select
+      local.get $y i32.const 22 i32.eq
+      select
+      call $put1
+      local.get $p local.get $n call $space_right
+      i32.const 12 return
+    end
+    ;; a + ru (H or s after a).
+    local.get $ru
+    local.get $before i32.const 97 i32.eq
+    i32.and
+    if
+      ;; 6.1.113 with 6.1.87 and 6.1.109: before a, o' (9).
+      local.get $yb i32.const 97 i32.eq
+      if
+        i32.const 512 local.get $p i32.const 2 i32.sub call $put
+        i32.const 111 call $put1
+        i32.const 39 call $put1
+        local.get $p i32.const 514 i32.add
+        local.get $n local.get $p i32.sub i32.const 2 i32.sub
+        call $put
+        i32.const 9 return
+      end
+      ;; 6.1.114 haSi ca with 6.1.87: before haS, o (8).
+      local.get $y i32.const 20 i32.eq
+      if
+        i32.const 512 local.get $p i32.const 2 i32.sub call $put
+        i32.const 111 call $put1
+        local.get $p local.get $n call $space_right
+        i32.const 8 return
+      end
+      ;; 8.3.17 then 8.3.19: before another vowel the y is dropped and no
+      ;; vowel sandhi follows (8.3.19 is asiddha, 8.2.1) (10).
+      i32.const 512 local.get $p i32.const 1 i32.sub call $put
+      local.get $p local.get $n call $space_right
+      i32.const 10 return
+    end
+    ;; A + ru: 8.3.19 before a vowel (10), 8.3.22 before haS (11).
+    local.get $ru
+    local.get $before i32.const 65 i32.eq
+    i32.and
+    if
+      i32.const 512 local.get $p i32.const 1 i32.sub call $put
+      local.get $p local.get $n call $space_right
+      i32.const 11 i32.const 10 local.get $y i32.const 14 i32.gt_u select
+      return
+    end
+    ;; r before r: 8.3.14 with 6.3.111, not yet.
+    local.get $yb i32.const 114 i32.eq
+    if i32.const -105 return end
+    ;; Otherwise the r stays (16).
+    i32.const 512 local.get $p i32.const 1 i32.sub call $put
+    i32.const 114 call $put1
+    local.get $p local.get $n call $space_right
+    i32.const 16)
+
   ;; Joins the request of `n` bytes at 512 into the answer; returns the rule
   ;; or an error, as crates/maataa-sandhi does.
   (func $join (param $n i32) (result i32)
@@ -143,6 +290,16 @@
         local.get $i i32.const 1 i32.add local.set $i
         br $check
       end
+    end
+    ;; A first word ending in visarga, s or r: the visarga rules.
+    local.get $p i32.const 511 i32.add i32.load8_u local.set $e
+    local.get $e i32.const 72 i32.eq
+    local.get $e i32.const 115 i32.eq
+    i32.or
+    local.get $e i32.const 114 i32.eq
+    i32.or
+    if
+      local.get $p local.get $n call $visarga return
     end
     local.get $p i32.const 511 i32.add i32.load8_u call $class local.set $a
     local.get $p i32.const 513 i32.add i32.load8_u call $class local.set $b

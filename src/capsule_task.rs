@@ -397,7 +397,7 @@ mod tests {
                 s.quiet,
                 s.version
             )),
-            Ok((true, true, 3))
+            Ok((true, true, 4))
         );
         // Room left in the interpreter's tables for the next rules.
         assert_eq!(module.data_segments(), 1);
@@ -495,6 +495,60 @@ mod tests {
         ] {
             requests.push(text.as_bytes().to_vec());
         }
+        // Visarga, s and r: every ending after every letter (bare and after
+        // k), before every first letter, alone or followed by a, S or k
+        // (S for 8.3.35); and sa / eza (6.1.132) and the crate's cases.
+        let all = b"aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzshMH";
+        for &end in b"Hsr" {
+            for &before in all.iter() {
+                for left in [vec![before, end], vec![b'k', before, end]] {
+                    for &first in all.iter() {
+                        for second in [None, Some(b'a'), Some(b'S'), Some(b'k')] {
+                            let mut request = left.clone();
+                            request.push(b'+');
+                            request.push(first);
+                            request.extend(second);
+                            requests.push(request);
+                        }
+                    }
+                }
+            }
+        }
+        for left in ["saH", "sas", "sar", "ezaH", "ezas", "esaH", "saaH", "H"] {
+            for right in ["gacCati", "ca", "atra", "iti", "Sete", "ramate", "Mka"] {
+                requests.push(format!("{left}+{right}").into_bytes());
+            }
+        }
+        for text in [
+            "rAmaH+gacCati",
+            "rAmaH+atra",
+            "rAmaH+iti",
+            "devAH+gacCanti",
+            "devAH+atra",
+            "rAmaH+ca",
+            "rAmaH+tatra",
+            "rAmaH+wIkA",
+            "rAmaH+karoti",
+            "rAmaH+Sete",
+            "kaH+tsaruH",
+            "hariH+gacCati",
+            "hariH+atra",
+            "hariH+ca",
+            "guruH+vadati",
+            "punar+gacCati",
+            "punar+ca",
+            "rAmas+gacCati",
+            "saH+gacCati",
+            "ezaH+ca",
+            "saH+atra",
+            "punar+ramate",
+            "hariH+ramate",
+            "rAmaH+ramate",
+            "vAkH+atra",
+        ] {
+            requests.push(text.as_bytes().to_vec());
+        }
+        let count = requests.len();
         for request in requests {
             host.keys.insert(40, request.clone());
             host.keys.remove(&41);
@@ -521,7 +575,10 @@ mod tests {
             }
             assert!(!host.keys.contains_key(&40), "{shown}: request not deleted");
         }
+        assert!(count > 58_000, "{count} requests");
         assert!(host.logged.iter().any(|line| line == "devendra"));
+        assert!(host.logged.iter().any(|line| line == "rAmo gacCati"));
+        assert!(host.logged.iter().any(|line| line == "rAma iti"));
         assert!(host.logged.iter().any(|line| line == "vane'tra"));
     }
 

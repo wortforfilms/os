@@ -7,7 +7,8 @@
 #   per word: one run puts the request in key 40 (a tick answers it in that
 #   run, or else at the start of the next), another reads key 41 (a QEMU run
 #   lasts about 3 s: the demo exits)
-#   then: `maataa-link sandhi` with Devanagari, checked against the host
+#   then: `maataa-link sandhi` with Devanagari and three visarga requests,
+#   checked against the host
 #   last: remove panini, delete keys 40 and 41
 # Exit status 0 on pass.
 set -euo pipefail
@@ -70,7 +71,7 @@ log_has() { tr -d '\r' <"$WORK/run.log" | grep -q "$1"; }
 
 rm -f "$AREA_FILE"
 boot_and_talk capsule-install "$PANINI" || fail "install"
-log_has '^capsule install: panini version 3 accepted; it runs from the next boot$' \
+log_has '^capsule install: panini version 4 accepted; it runs from the next boot$' \
     || fail "the kernel did not accept panini"
 
 for pair in "deva+indra devendra" "iti+Adi ityAdi" "vane+atra vane'tra"; do
@@ -111,6 +112,13 @@ echo "  deva+in+dra -> ? (-103, not SLP1)"
 boot_and_talk sandhi "देव+इन्द्र" || fail "sandhi देव+इन्द्र"
 grep -q '^MATCH: देवेन्द्र (devendra) \[guna, 6.1.87\]$' "$WORK/tool.log" || fail "sandhi: no MATCH"
 echo "  sandhi देव+इन्द्र -> $(tail -n 1 "$WORK/tool.log")"
+# Visarga (version 4): the board's answer must match the host's.
+for pair in "rAmaH+gacCati|rAmo gacCati" "rAmaH+iti|rAma iti" "rAmaH+ca|rAmaS ca"; do
+    IFS='|' read -r request answer <<<"$pair"
+    boot_and_talk sandhi "$request" || fail "sandhi $request"
+    grep -q "^MATCH: .* ($answer) \[" "$WORK/tool.log" || fail "sandhi $request: no MATCH"
+    echo "  sandhi $request -> $(tail -n 1 "$WORK/tool.log")"
+done
 if boot_and_talk sandhi "deva+in+dra"; then
     fail "sandhi accepted a malformed request"
 fi

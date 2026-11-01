@@ -171,9 +171,13 @@ words stay apart with a space, except where avagraha joins them.
 Optional forms take the common choice: 8.3.19 drops the y, 8.3.36 and
 8.3.37 keep the visarga. Not yet (refused as -105): r or ru before r
 (8.3.14 ro ri with 6.3.111 lengthening, punaH+ramate -> punA ramate), a
-visarga after a consonant, pluta. The capsule still has vowel sandhi only,
-so `maataa-link sandhi` reports a MISMATCH on these and names the rule the
-host applied.
+visarga after a consonant, pluta. Panini version 4 has the same rules, in
+the same order, with the class table split by what they need (20 haS, 21
+t T, 22 c C, 23 w W, 24 k K p P, 25 Sar, 26 M H). The host test runs the
+capsule against the crate for every ending (H, s, r) after every letter,
+bare and after k, before every first letter alone or followed by a, S or k,
+plus sa / eza and the cases above: about 58,800 requests, answer and rule
+number equal. Image 2,164 bytes of 4,096; worst fuel 4,758 of 20,000.
 
 ## Later
 
