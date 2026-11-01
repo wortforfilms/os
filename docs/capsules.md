@@ -204,6 +204,15 @@ guarded.
   schedule. An older version of greeter, a tampered image, and an image named
   `heartbeat` are each refused, and greeter keeps running. Then it is
   removed, and the next boot starts no task 9.
+- NUCLEO-F411RE, 2026-11-01, run-time install (`Board capsule install.command`):
+  greeter (293 bytes) was installed over the host channel in 1.9 s, including
+  the first erase of sector 5. Read through the probe, the area held one
+  committed entry, and kernel key 2 held the version floor. After a reset
+  and a USB replug, the host channel selftest passed (13/13), `capsule-info`
+  reported `installed: greeter version 2, 293 bytes, caps write,sleep`, and
+  `STATUS` reported `tasks 8/10 alive`: tasks 1–9 and idle, minus tasks 4
+  and 5, which the MPU and stack tests kill on purpose. So task 9 runs the
+  installed capsule. TELEMETRY counted 5 capsules.
 - QEMU: `smoke-alpha.sh` 10/10. It checks the boot report lines above, the
   `ENOCAP` denial for task 3, and that no built-in capsule is rejected.
 - QEMU with a different `MAATAA_CAPSULE_PUBKEY`: all three capsules were

@@ -14,7 +14,7 @@ says what was also run on a NUCLEO-F411RE.
 | Host channel over USART2 (`maataa-link`) | yes | docs/host-channel.md |
 | Signed capsules (ed25519) and per-task capability masks | yes | docs/capsules.md |
 | WebAssembly capsules, one task each, schedule and version from a signed manifest section | yes (tasks 7 and 8) | docs/wasm-capsules.md |
-| Run-time capsule install over the host channel (flash sector 5, task 9) | not yet | docs/capsules.md |
+| Run-time capsule install over the host channel (flash sector 5, task 9) | yes (greeter, 2026-11-01) | docs/capsules.md |
 | Persistent store: power-loss safe, sealed with ChaCha20-Poly1305 under a chip-bound key, migration from the unsealed format | yes | docs/persistence.md |
 | Rollback counter in OTP (feature `otp-rollback`, off by default) | no, on purpose: OTP writes are permanent | docs/persistence.md |
 | Watchdog (IWDG), reset cause and crash record | yes | docs/watchdog.md |
