@@ -85,6 +85,12 @@ within 2.5 s: `deva+indra` -> `devendra`, `mahA+fzi` -> `maharzi`,
 `eka+eka` -> `ekEka`, `iti+Adi` -> `ityAdi`, `vane+atra` -> `vane'tra`,
 `hare+e` -> `haraye`, `vAk+ISa` -> `vAkISa`, and `deva+in+dra` -> `?`.
 
+With `maataa-link sandhi` on the same board: देव+इन्द्र -> देवेन्द्र,
+महा+ऋषि -> महर्षि, एक+एक -> एकैक, इति+आदि -> इत्यादि, वने+अत्र -> वनेऽत्र,
+हरे+ए -> हरये, सु+आगत -> स्वागत, वाक्+ईश -> वाकीश and `rAma+ISa` -> रामेश, all
+`MATCH`; देव+ळ was refused before sending (ळ unsupported) and देव+इन्+द्र by
+both the board and the host.
+
 ## Later
 
 When a hardware Panini engine (an FPGA) exists, the kernel will need a driver
