@@ -129,11 +129,20 @@ Open point, flagged in the code: e/ai and o/au share place and effort, so
 way, so the model keeps e ai o au savarna only of themselves. This should
 be checked against the commentaries. It does not affect the current rules.
 
-Next: rewrite `join` on this model (6.1.77 as ik + ac with the yaR of the
-same place, 6.1.101 with savarna, and so on) and check the new engine
-against the current one for every pair. One difference is expected: by the
-r/l varttika, f+x meets 6.1.101 (savarna) where the current rules apply
-6.1.77; that case needs a decision before the capsule follows.
+`join` is written on this model: 6.1.101 is `ak` + a savarna, 6.1.87 is
+a/A + `ik` with the guna (1.1.2) closest in place (1.1.50) and r or l after
+it (1.1.51), 6.1.88 is a/A + `ec` with the closest vrddhi (1.1.1), 6.1.77
+is `ik` + `ac` with the closest `yaR`, 6.1.109 is `eN` + short a, and 6.1.78
+maps `ec` to ay av Ay Av in order (1.3.10). "Closest in place" scores two
+for each shared place and minus one for each extra one, so the l vowel
+takes l, not v. A test checks the model engine against the first one (kept
+in the tests) for every pair of the 49 letters in three contexts, errors
+and the output limit: they agree everywhere, and the capsule, checked
+against `join`, is unchanged.
+
+Open exception, kept on purpose: by the r/l varttika, f+x (ऋ+ऌ) would meet
+6.1.101; both engines, and the capsule, apply 6.1.77 (`pitf+xkAra` ->
+`pitrxkAra`) until the commentaries are checked. A test pins it.
 
 ## Later
 
