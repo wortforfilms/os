@@ -22,9 +22,18 @@ tasks. Tasks 4 and 5 are killed by the protection tests, as before; parked
 tasks count as alive. The start order (task 2, task 3, task 1) is checked
 in QEMU; the board's RTT log was not captured in this run.
 
-Known limit: a mutex is still handed to the oldest waiter and its owner
-keeps its own level, so priority inversion is possible (next: priority
-inheritance).
+## Priority inheritance, robust mutexes, starvation monitor
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| A lock owner runs at the level of its highest waiter, along chains, for late waiters, and falls back on release; feature `pi-off` turns it off for comparison | not yet | docs/engineering/SCHEDULER.md |
+| Mutex unlock goes to the highest waiter (oldest among equals) | not yet | docs/engineering/SCHEDULER.md |
+| Waiting that would close a lock cycle fails with `E_DEADLOCK` | not yet | docs/engineering/SCHEDULER.md |
+| A task that dies holding a lock: the next owner gets `E_OWNER_DIED` (u32::MAX - 18; it owns the lock) | not yet | docs/engineering/SCHEDULER.md |
+| Starvation monitor: a task Ready 1000 ms without running is logged once per episode; the count is kernel key 3 | not yet | docs/engineering/SCHEDULER.md |
+
+`scripts/qemu-inversion-test.sh` (step 14 of the smoke test) runs the
+classic inversion with and without inheritance under `-icount`.
 
 # Maataa OS v0.1.0-alpha.2
 

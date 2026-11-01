@@ -66,20 +66,77 @@ sleeps.
 
 ## Semaphores and mutexes
 
-A semaphore post goes to the waiting task with the highest level, the oldest
-among equals. A mutex unlock still hands the lock to the oldest waiter, and
-a task that dies hands its locks on the same way. A low task holding a lock a
-high task waits for can still be delayed by middle levels (priority
-inversion); priority inheritance is the next commit.
+A semaphore post and a mutex unlock both go to the waiting task with the
+highest level, the oldest among equals.
+
+### Priority inheritance
+
+Each task has a base level and an effective level; the policy uses the
+effective one. While a task owns a lock, it runs at least at the level of the
+highest task waiting for it. The kernel recomputes every effective level
+from the base levels after each block on a lock, unlock and task death,
+repeating until nothing changes (`RunQueue::apply_inheritance`). So:
+
+- a raise passes along a chain: if A waits for B's lock and B waits for C's,
+  C runs at A's level;
+- a waiter that arrives late still raises the owner (and the chain behind it);
+- a raise ends as soon as the lock is released or the waiter leaves, and the
+  owner falls back to whatever its remaining locks still justify.
+
+With 9 tasks and 4 locks the recompute is a few dozen comparisons.
+`scripts/qemu-inversion-test.sh` (feature `inversion-test`) acts out the
+classic inversion, low task holding the lock, high task waiting, middle task
+computing for over a second, and runs it twice: with inheritance the high
+task gets the lock before the middle task finishes; built with `pi-off` it
+does not, and the starvation monitor reports the low task while it holds
+the lock. Both runs use `-icount shift=3`, so they are the same every time.
+
+### Lock cycles
+
+Before a task waits, the kernel follows owner, the lock that owner waits
+for, its owner, and so on. If the chain comes back to the caller, waiting
+would hang every task in the cycle, so the lock call fails with `E_DEADLOCK`
+and the caller is not queued. Re-locking a lock you hold is the same error.
+
+### An owner that dies
+
+When a task dies holding a lock (killed by the MPU, for example), the lock
+goes to its highest waiter, whose lock call returns `E_OWNER_DIED`
+(u32::MAX - 18; a capsule sees -19). That is a success: the caller owns the
+lock, but what the lock guards may be half updated. `syscall::mutex_lock`
+returns `Ok(Acquired::OwnerDied)`. If nobody was waiting, the lock is
+released and the next task to take it gets the same answer, once. The demo
+shows it: task 4 takes mutex 2 before its protection test, dies holding it,
+and task 2 later reports `mutex 2: its owner died holding it (EOWNERDEAD)`.
+
+## Starvation monitor
+
+On every tick the kernel checks how long each Ready task has gone without
+running. A task Ready for `STARVATION_LIMIT_MS` (1000 ms) is reported once
+per episode:
+
+```
+sched: task 1 (priority 1) ready for 1000 ms without running
+```
+
+The episode ends when the task runs or blocks. The idle task is never
+counted. The number of episodes since boot is in RAM and tasks read it as
+kernel key 3 (`store_get(3)`, u32 little-endian; also `maataa-link get 3`
+over the host channel); it is never written to flash. Under strict priority
+a busy higher task starving a lower level is expected, so a report is a
+prompt to look, not an error. The demo build reports none.
 
 ## Tests
 
 Host tests cover top-level selection and rotation, even sharing among 3,000
 picks at one level, idle selection, the preemption rule, parking, the
-semaphore order, the park exemption from the capability gate, the manifest
-`priority` key, and the older policies. `scripts/smoke-alpha.sh` checks the
+semaphore and mutex hand-off order, inheritance (direct, along a chain, a
+late waiter, falling back, and off), lock cycles, a dead owner reported
+once, the starvation monitor, the park exemption from the capability gate,
+the manifest `priority` key, and the older policies. `scripts/smoke-alpha.sh` checks the
 boot line, the start order (task 2, task 3, task 1), the mutex hand-off and
-the semaphore wake under priorities, and that no task failed to park.
+the semaphore wake under priorities, the dead-owner report on mutex 2, that
+no task failed to park or starved, and runs the inversion test.
 
 ## Board run (NUCLEO-F411RE, 2026-11-01)
 

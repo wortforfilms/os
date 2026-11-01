@@ -34,6 +34,12 @@ qemu-icount = []
 # each store compaction uses up one of its 256 bytes for good. In QEMU the
 # "OTP" is the host file target/qemu-otp.bin. Off by default.
 otp-rollback = []
+# Test only: tasks 1-3 act out a priority inversion (low holds a lock, high
+# waits, middle computes); scripts/qemu-inversion-test.sh runs it with and
+# without `pi-off`.
+inversion-test = []
+# Turns priority inheritance off, for the comparison run above. Never ship it.
+pi-off = []
 
 [dependencies]
 cortex-m = "0.7.7"

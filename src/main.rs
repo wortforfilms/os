@@ -88,7 +88,8 @@ const TASK_THREE_CAPS: u32 = cap::WRITE
     | cap::SEMAPHORE
     | cap::DEMO_DONE
     | cap::UART_WRITE;
-const TASK_FOUR_CAPS: u32 = cap::WRITE;
+/// Task 4 takes mutex 2 before its protection test, so it dies holding it.
+const TASK_FOUR_CAPS: u32 = cap::WRITE | cap::MUTEX;
 const TASK_FIVE_CAPS: u32 = cap::WRITE;
 
 // Scheduling levels (src/sched/mod.rs, PriorityRoundRobin): higher runs
@@ -97,16 +98,109 @@ const TASK_FIVE_CAPS: u32 = cap::WRITE;
 // or park) when it has nothing to do. Capsules choose 1..=4 in their signed
 // manifest; the host channel sits above all of them.
 const TASK_ONE_PRIORITY: u8 = 1;
+#[cfg(not(feature = "inversion-test"))]
 const TASK_TWO_PRIORITY: u8 = 3;
+#[cfg(not(feature = "inversion-test"))]
 const TASK_THREE_PRIORITY: u8 = 2;
+// inversion-test: task 1 low (L), task 2 middle (M), task 3 high (H).
+#[cfg(feature = "inversion-test")]
+const TASK_TWO_PRIORITY: u8 = 2;
+#[cfg(feature = "inversion-test")]
+const TASK_THREE_PRIORITY: u8 = 3;
 const TASK_FOUR_PRIORITY: u8 = 2;
 const TASK_FIVE_PRIORITY: u8 = 2;
 const HOST_CHANNEL_PRIORITY: u8 = 6;
 
+#[cfg(not(feature = "inversion-test"))]
+const TASK_ONE_ENTRY: fn() -> ! = demo_task_one;
+#[cfg(not(feature = "inversion-test"))]
+const TASK_TWO_ENTRY: fn() -> ! = demo_task_two;
+#[cfg(not(feature = "inversion-test"))]
+const TASK_THREE_ENTRY: fn() -> ! = demo_task_three;
+#[cfg(not(feature = "inversion-test"))]
+const INVERSION_EXTRA_CAPS: u32 = 0;
+#[cfg(feature = "inversion-test")]
+const TASK_ONE_ENTRY: fn() -> ! = inversion::low;
+#[cfg(feature = "inversion-test")]
+const TASK_TWO_ENTRY: fn() -> ! = inversion::middle;
+#[cfg(feature = "inversion-test")]
+const TASK_THREE_ENTRY: fn() -> ! = inversion::high;
+/// The inversion tasks also sleep, lock and read kernel key 3.
+#[cfg(feature = "inversion-test")]
+const INVERSION_EXTRA_CAPS: u32 = cap::SLEEP | cap::MUTEX | cap::STORE_GET;
+
+/// Test only (`inversion-test`, scripts/qemu-inversion-test.sh): the
+/// classic priority inversion. L (task 1, level 1) takes mutex 1 and works;
+/// H (task 3, level 3) waits for it; M (task 2, level 2) then computes for
+/// a long time (over a second). With priority inheritance L runs at H's
+/// level until it unlocks, so H gets the lock before M finishes. Built with
+/// `pi-off`, M starves L while L holds the lock (the starvation monitor
+/// reports task 1) and H waits for M. Either way M starves level 1 once L has
+/// unlocked: that is strict priority, not inversion.
+#[cfg(feature = "inversion-test")]
+mod inversion {
+    use crate::syscall;
+
+    /// Work in units of a million cycles, so the log shows progress.
+    fn work(units: u32) {
+        for _ in 0..units {
+            cortex_m::asm::delay(1_000_000);
+        }
+    }
+
+    pub fn low() -> ! {
+        match syscall::mutex_lock(1) {
+            Ok(_) => crate::uprintln!("inversion: L holds mutex 1"),
+            Err(e) => crate::uprintln!("inversion: L lock failed: {}", syscall::error_name(e)),
+        }
+        work(super::INVERSION_L_UNITS);
+        let _ = syscall::mutex_unlock(1);
+        crate::uprintln!("inversion: L released mutex 1");
+        syscall::park_forever()
+    }
+
+    pub fn middle() -> ! {
+        // Start after H is already waiting for L.
+        let _ = syscall::sleep_ms(20);
+        crate::uprintln!("inversion: M computing");
+        work(super::INVERSION_M_UNITS);
+        crate::uprintln!("inversion: M done");
+        let _ = syscall::semaphore_post(1);
+        syscall::park_forever()
+    }
+
+    pub fn high() -> ! {
+        // Let L take the lock first.
+        let _ = syscall::sleep_ms(10);
+        crate::uprintln!("inversion: H waits for mutex 1");
+        match syscall::mutex_lock(1) {
+            Ok(_) => crate::uprintln!("inversion: H got mutex 1"),
+            Err(e) => crate::uprintln!("inversion: H lock failed: {}", syscall::error_name(e)),
+        }
+        let _ = syscall::mutex_unlock(1);
+        // Wait for M to finish, so the log shows the whole order.
+        let _ = syscall::semaphore_wait(1);
+        let mut count = [0u8; 4];
+        let _ = syscall::store_get(3, &mut count);
+        crate::uprintln!(
+            "inversion: starvation episodes {}",
+            u32::from_le_bytes(count)
+        );
+        syscall::demo_done();
+        syscall::park_forever()
+    }
+}
+
+#[cfg(feature = "inversion-test")]
+const INVERSION_L_UNITS: u32 = 40;
+#[cfg(feature = "inversion-test")]
+const INVERSION_M_UNITS: u32 = 300;
+
+#[cfg_attr(feature = "inversion-test", allow(dead_code))]
 fn demo_task_one() -> ! {
     crate::uprintln!("task 1");
     match syscall::mutex_lock(0) {
-        Ok(()) => crate::uprintln!("task 1: mutex 0 acquired; holding through 2000 ms sleep"),
+        Ok(_) => crate::uprintln!("task 1: mutex 0 acquired; holding through 2000 ms sleep"),
         Err(e) => crate::uprintln!("task 1: mutex lock failed: {}", syscall::error_name(e)),
     }
     crate::uprintln!("task 1: sleeping for 2000 ms");
@@ -139,6 +233,7 @@ fn demo_task_one() -> ! {
     }
 }
 
+#[cfg_attr(feature = "inversion-test", allow(dead_code))]
 fn demo_task_two() -> ! {
     crate::uprintln!("task 2");
     #[cfg(feature = "kernel-stack-test")]
@@ -162,7 +257,7 @@ fn demo_task_two() -> ! {
                 text
             );
             match syscall::mutex_lock(0) {
-                Ok(()) => {
+                Ok(_) => {
                     crate::uprintln!("task 2: mutex 0 handed off; protected output is serialized");
                     if let Err(e) = syscall::mutex_unlock(0) {
                         crate::uprintln!("task 2: mutex unlock failed: {}", syscall::error_name(e));
@@ -177,6 +272,18 @@ fn demo_task_two() -> ! {
         Ok(()) => crate::uprintln!("task 2: semaphore 0 permit received; producer wake verified"),
         Err(e) => crate::uprintln!("task 2: semaphore wait failed: {}", syscall::error_name(e)),
     }
+    // Task 4 died holding mutex 2 (the MPU test): the next owner is told.
+    match syscall::mutex_lock(2) {
+        Ok(syscall::Acquired::OwnerDied) => {
+            crate::uprintln!("task 2: mutex 2: its owner died holding it (EOWNERDEAD); recovered");
+            let _ = syscall::mutex_unlock(2);
+        }
+        Ok(syscall::Acquired::Clean) => {
+            crate::uprintln!("task 2: mutex 2 acquired clean: OWNER DEATH NOT REPORTED");
+            let _ = syscall::mutex_unlock(2);
+        }
+        Err(e) => crate::uprintln!("task 2: mutex 2 lock failed: {}", syscall::error_name(e)),
+    }
     #[cfg(feature = "watchdog-test")]
     {
         crate::uprintln!("watchdog test: asking the kernel to hang");
@@ -187,6 +294,7 @@ fn demo_task_two() -> ! {
     syscall::park_forever()
 }
 
+#[cfg_attr(feature = "inversion-test", allow(dead_code))]
 fn demo_task_three() -> ! {
     crate::uprintln!("task 3");
     #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
@@ -241,6 +349,10 @@ fn demo_task_three() -> ! {
 /// The MPU test: write to a kernel word. The MPU must stop the write, the
 /// kernel must kill this task, and the other tasks must keep running.
 fn demo_task_four() -> ! {
+    // Die holding a lock: the kernel must hand mutex 2 on with EOWNERDEAD.
+    if syscall::mutex_lock(2).is_ok() {
+        crate::uprintln!("task 4: holding mutex 2");
+    }
     let target = core::ptr::addr_of_mut!(mpu::FAULT_TEST_TARGET);
     crate::uprintln!(
         "task 4: writing to kernel memory at {:#010x}",
@@ -355,7 +467,7 @@ fn main() -> ! {
                 sched::Task::new(
                     1,
                     task_stack(core::ptr::addr_of_mut!(TASK_ONE_STACK)),
-                    demo_task_one,
+                    TASK_ONE_ENTRY,
                     TASK_ONE_PRIORITY,
                 )
                 .with_capabilities(TASK_ONE_CAPS),
@@ -365,10 +477,10 @@ fn main() -> ! {
                     sched::Task::new(
                         2,
                         task_stack(core::ptr::addr_of_mut!(TASK_TWO_STACK)),
-                        demo_task_two,
+                        TASK_TWO_ENTRY,
                         TASK_TWO_PRIORITY,
                     )
-                    .with_capabilities(TASK_TWO_CAPS),
+                    .with_capabilities(TASK_TWO_CAPS | INVERSION_EXTRA_CAPS),
                 )
             })
             .and_then(|()| {
@@ -376,10 +488,10 @@ fn main() -> ! {
                     sched::Task::new(
                         3,
                         task_stack(core::ptr::addr_of_mut!(TASK_THREE_STACK)),
-                        demo_task_three,
+                        TASK_THREE_ENTRY,
                         TASK_THREE_PRIORITY,
                     )
-                    .with_capabilities(TASK_THREE_CAPS),
+                    .with_capabilities(TASK_THREE_CAPS | INVERSION_EXTRA_CAPS),
                 )
             })
             .and_then(|()| {

@@ -9,14 +9,14 @@
 //! | 5 | send a message (copied into the kernel queue) | destination task, r1 = pointer, r2 = length | | 0 or an error |
 //! | 6 | receive a message (copied into the caller's buffer) | pointer | capacity | timeout ms | length and sender in r1; or an error |
 //! | 7 | sleep until a monotonic deadline | milliseconds | | | 0 or an error |
-//! | 8 | lock kernel mutex | mutex ID | | 0 or an error |
+//! | 8 | lock kernel mutex | mutex ID | | 0, `E_OWNER_DIED` (locked; its last owner died holding it), or an error |
 //! | 9 | unlock kernel mutex | mutex ID | | 0 or an error |
 //! | 10 | wait for semaphore permit | semaphore ID | | 0 or an error |
 //! | 11 | post semaphore permit | semaphore ID | | 0 or an error |
 //! | 12 | write bytes to the board UART | pointer | length | bytes written, or an error |
 //! | 13 | read board UART bytes (blocks until data arrives) | pointer | capacity | bytes read, or an error |
 //! | 14 | copy the host-channel status block (`hostlink::HOST_STATUS_BYTES`) | pointer | length | 0 or an error |
-//! | 15 | read a persistent key (0..64; 0..16 are the kernel's) | key, r1 = pointer, r2 = capacity | | length, `E_NOENT`, or an error |
+//! | 15 | read a persistent key (0..64; 0..16 are the kernel's; key 3, starvation episodes, comes from RAM) | key, r1 = pointer, r2 = capacity | | length, `E_NOENT`, or an error |
 //! | 16 | write a persistent key (16..64; empty deletes) | key, r1 = pointer, r2 = length | | 0 or an error |
 //! | 17 | run-time capsule install (begin, write, commit, remove, info) | operation and offset | pointer | length | 0, a length, or an error |
 //! | 18 | copy the installed capsule's image | pointer | capacity | | length or an error |
@@ -116,8 +116,11 @@ pub const E_NOCAP: u32 = u32::MAX - 15;
 pub const E_NOENT: u32 = u32::MAX - 16;
 /// The caller holds a mutex and may not park (park).
 pub const E_BUSY: u32 = u32::MAX - 17;
+/// Mutex lock: the caller now OWNS the lock, but its previous owner died
+/// holding it, so the data it guards may be half updated. Not a failure.
+pub const E_OWNER_DIED: u32 = u32::MAX - 18;
 /// Every error code is at least this; smaller results are counts or lengths.
-pub const E_LOWEST: u32 = E_BUSY;
+pub const E_LOWEST: u32 = E_OWNER_DIED;
 /// Older name for E_PERM.
 pub const REFUSED: u32 = E_PERM;
 
@@ -142,6 +145,7 @@ pub const fn error_name(code: u32) -> &'static str {
         E_NOCAP => "ENOCAP",
         E_NOENT => "ENOENT",
         E_BUSY => "EBUSY",
+        E_OWNER_DIED => "EOWNERDEAD",
         _ => "?",
     }
 }
@@ -306,15 +310,25 @@ pub fn sleep_ms(millis: u32) -> Result<(), u32> {
     }
 }
 
+/// How a mutex lock succeeded.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Acquired {
+    Clean,
+    /// The previous owner died holding the lock; check what it guards.
+    OwnerDied,
+}
+
 /// Locks a kernel mutex, sleeping until ownership is handed to this task.
+/// Waiting would close a lock cycle: `Err(E_DEADLOCK)`.
 #[cfg(target_arch = "arm")]
-pub fn mutex_lock(id: u8) -> Result<(), u32> {
+pub fn mutex_lock(id: u8) -> Result<Acquired, u32> {
     loop {
         let mut r0 = id as u32;
         // SAFETY: the kernel validates the mutex ID and blocks this task if busy.
         unsafe { core::arch::asm!("svc #8", inout("r0") r0) };
         match r0 {
-            0 => return Ok(()),
+            0 => return Ok(Acquired::Clean),
+            E_OWNER_DIED => return Ok(Acquired::OwnerDied),
             E_BLOCKED => continue,
             error => return Err(error),
         }
@@ -707,7 +721,7 @@ mod kernel {
             return E_BAD_SEMAPHORE;
         }
         match crate::sched::semaphore_wait_current(id as u8) {
-            Ok(crate::sched::LockResult::Acquired) => 0,
+            Ok(crate::sched::LockResult::Acquired | crate::sched::LockResult::OwnerDied) => 0,
             Ok(crate::sched::LockResult::Blocked) => E_BLOCKED,
             Err(error) => semaphore_error(error),
         }
@@ -769,6 +783,16 @@ mod kernel {
         }
         if !writable_allowed(ptr, cap, crate::sched::current_stack()) {
             return REFUSED;
+        }
+        if key == persist::KEY_STARVATION_COUNT as u32 {
+            // Served from RAM; never written to flash.
+            if cap < 4 {
+                return E_TOOLONG;
+            }
+            // SAFETY: the range was checked to lie in the caller's own stack.
+            let out = unsafe { core::slice::from_raw_parts_mut(ptr as *mut u8, 4) };
+            out.copy_from_slice(&crate::sched::starvation_count().to_le_bytes());
+            return 4;
         }
         let mut value = [0u8; persist::MAX_VALUE];
         match persist::get(key as u8, &mut value) {
@@ -848,6 +872,7 @@ mod kernel {
         }
         match crate::sched::mutex_lock_current(id as u8) {
             Ok(crate::sched::LockResult::Acquired) => 0,
+            Ok(crate::sched::LockResult::OwnerDied) => E_OWNER_DIED,
             Ok(crate::sched::LockResult::Blocked) => E_BLOCKED,
             Err(error) => mutex_error(error),
         }
@@ -1035,6 +1060,7 @@ mod tests {
             E_NOCAP,
             E_NOENT,
             E_BUSY,
+            E_OWNER_DIED,
         ];
         assert!(codes.iter().all(|&c| c >= E_LOWEST));
         for (i, a) in codes.iter().enumerate() {

@@ -7,7 +7,7 @@ RUSTDOC="$(rustup which rustdoc)"
 export RUSTC
 export RUSTDOC
 DONE=0
-TOTAL=13
+TOTAL=14
 STEP="startup"
 BOOT_LOG="$(mktemp)"
 DUAL_LOG="$(mktemp)"
@@ -140,6 +140,12 @@ TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"
 # held through its sleep reaches task 2, and task 3's post wakes task 2.
 rg -q '^task 2: mutex 0 handed off; protected output is serialized$' "$BOOT_LOG"
 rg -q '^task 2: semaphore 0 permit received; producer wake verified$' "$BOOT_LOG"
+# Task 4 dies (MPU test) holding mutex 2; its next owner is told.
+rg -q '^task 2: mutex 2: its owner died holding it \(EOWNERDEAD\); recovered$' "$BOOT_LOG"
+if rg -q '^sched: task [0-9]+ \(priority [0-9]+\) ready for' "$BOOT_LOG"; then
+    echo "FAIL: a task starved in the demo" >&2
+    exit 1
+fi
 if rg -q '^park refused' "$BOOT_LOG"; then
     echo "FAIL: a task could not park" >&2
     exit 1
@@ -164,4 +170,8 @@ pass
 
 STEP="QEMU store rollback counter (otp-rollback)"
 ./scripts/qemu-rollback-test.sh
+pass
+
+STEP="QEMU priority inheritance (inversion-test, pi-off)"
+./scripts/qemu-inversion-test.sh
 pass

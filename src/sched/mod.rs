@@ -9,17 +9,27 @@ pub const MAX_TASKS: usize = 9;
 /// Reserved scheduler-owned task ID. Applications cannot claim this slot.
 pub const IDLE_TASK_ID: TaskId = u8::MAX;
 pub const DEFAULT_DEMO_QUANTUM_MS: u32 = 5;
+/// A task Ready this long without running is reported as starved (once per
+/// episode) and counted; tasks read the count as kernel key 3.
+pub const STARVATION_LIMIT_MS: u32 = 1_000;
+/// Priority inheritance is on unless the kernel is built with `pi-off`
+/// (the comparison build for `scripts/qemu-inversion-test.sh`).
+pub const PRIORITY_INHERITANCE: bool = !cfg!(feature = "pi-off");
 pub const MAX_MUTEXES: usize = 4;
 pub const MAX_SEMAPHORES: usize = 4;
 
-/// A kernel-owned, allocation-free mutex. Waiters are queued FIFO and ownership
-/// is handed directly to the next live waiter when the owner unlocks.
+/// A kernel-owned, allocation-free mutex. Ownership is handed directly to
+/// the waiter with the highest priority (the oldest among equals) when the
+/// owner unlocks or dies.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct KernelMutex {
     pub locked: bool,
     pub owner: Option<TaskId>,
     wait_queue: [Option<TaskId>; MAX_TASKS],
     wait_len: usize,
+    /// The last owner died holding the lock and nobody was waiting: the next
+    /// task to take it is told (robust mutex).
+    owner_died: bool,
 }
 
 impl KernelMutex {
@@ -29,7 +39,13 @@ impl KernelMutex {
             owner: None,
             wait_queue: [None; MAX_TASKS],
             wait_len: 0,
+            owner_died: false,
         }
+    }
+
+    /// The tasks waiting for this lock.
+    pub fn waiters(&self) -> impl Iterator<Item = TaskId> + '_ {
+        self.wait_queue[..self.wait_len].iter().flatten().copied()
     }
 
     fn enqueue(&mut self, id: TaskId) -> Result<(), MutexError> {
@@ -44,13 +60,20 @@ impl KernelMutex {
         Ok(())
     }
 
-    fn dequeue(&mut self) -> Option<TaskId> {
-        if self.wait_len == 0 {
-            return None;
+    /// Takes the waiter with the highest priority; the oldest among equals.
+    fn dequeue_by(&mut self, priority_of: impl Fn(TaskId) -> u8) -> Option<TaskId> {
+        let mut best: Option<(usize, u8)> = None;
+        for (index, waiter) in self.wait_queue[..self.wait_len].iter().enumerate() {
+            let Some(task) = *waiter else { continue };
+            let priority = priority_of(task);
+            if best.is_none_or(|(_, top)| priority > top) {
+                best = Some((index, priority));
+            }
         }
-        let next = self.wait_queue[0].take();
-        for index in 1..self.wait_len {
-            self.wait_queue[index - 1] = self.wait_queue[index].take();
+        let (index, _) = best?;
+        let next = self.wait_queue[index].take();
+        for slot in index + 1..self.wait_len {
+            self.wait_queue[slot - 1] = self.wait_queue[slot].take();
         }
         self.wait_len -= 1;
         next
@@ -82,6 +105,9 @@ pub enum MutexError {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum LockResult {
     Acquired,
+    /// Acquired, but the previous owner died holding the lock: what it
+    /// protected may be half updated. The caller owns the lock.
+    OwnerDied,
     Blocked,
 }
 
@@ -241,25 +267,76 @@ impl MutexSet {
         }
     }
 
+    /// Locks with no knowledge of what other tasks wait for (tests).
     pub fn lock(&mut self, id: u8, task: TaskId) -> Result<LockResult, MutexError> {
-        let lock = self
-            .locks
-            .get_mut(id as usize)
-            .ok_or(MutexError::InvalidId)?;
+        self.lock_with(id, task, |_| None)
+    }
+
+    /// Takes the lock, or queues `task` for it. `waiting_on(t)` is the lock
+    /// task `t` is blocked on, if any: waiting would close a cycle (the owner
+    /// waits, directly or through a chain, for a lock `task` holds), so that
+    /// is refused as `Deadlock` instead of hanging every task in the cycle.
+    pub fn lock_with(
+        &mut self,
+        id: u8,
+        task: TaskId,
+        waiting_on: impl Fn(TaskId) -> Option<u8>,
+    ) -> Result<LockResult, MutexError> {
+        let lock = self.locks.get(id as usize).ok_or(MutexError::InvalidId)?;
+        if lock.locked && self.would_deadlock(id, task, waiting_on) {
+            return Err(MutexError::Deadlock);
+        }
+        let lock = &mut self.locks[id as usize];
         if !lock.locked {
             lock.locked = true;
             lock.owner = Some(task);
+            if core::mem::take(&mut lock.owner_died) {
+                return Ok(LockResult::OwnerDied);
+            }
             return Ok(LockResult::Acquired);
-        }
-        if lock.owner == Some(task) {
-            return Err(MutexError::Deadlock);
         }
         lock.enqueue(task)?;
         Ok(LockResult::Blocked)
     }
 
-    /// Releases an owned lock and transfers ownership to its FIFO waiter.
+    /// Whether `task` waiting for lock `id` closes a cycle: follow owner ->
+    /// lock it waits for -> its owner ... and see if the chain reaches `task`.
+    /// The chain is at most one step per task, so the walk is bounded.
+    fn would_deadlock(
+        &self,
+        id: u8,
+        task: TaskId,
+        waiting_on: impl Fn(TaskId) -> Option<u8>,
+    ) -> bool {
+        let mut lock = id;
+        for _ in 0..=MAX_TASKS {
+            let Some(owner) = self.locks.get(lock as usize).and_then(|l| l.owner) else {
+                return false;
+            };
+            if owner == task {
+                return true;
+            }
+            match waiting_on(owner) {
+                Some(next) => lock = next,
+                None => return false,
+            }
+        }
+        true
+    }
+
+    /// Releases an owned lock and hands it to the oldest waiter (tests).
     pub fn unlock(&mut self, id: u8, task: TaskId) -> Result<Option<TaskId>, MutexError> {
+        self.unlock_by(id, task, |_| 0)
+    }
+
+    /// Releases an owned lock and hands it to the waiter with the highest
+    /// priority, the oldest among equals.
+    pub fn unlock_by(
+        &mut self,
+        id: u8,
+        task: TaskId,
+        priority_of: impl Fn(TaskId) -> u8,
+    ) -> Result<Option<TaskId>, MutexError> {
         let lock = self
             .locks
             .get_mut(id as usize)
@@ -267,10 +344,15 @@ impl MutexSet {
         if lock.owner != Some(task) {
             return Err(MutexError::NotOwner);
         }
-        let next = lock.dequeue();
+        let next = lock.dequeue_by(priority_of);
         lock.owner = next;
         lock.locked = next.is_some();
         Ok(next)
+    }
+
+    /// The lock table, for priority inheritance.
+    pub fn locks(&self) -> &[KernelMutex] {
+        &self.locks
     }
 
     /// Whether `task` owns any lock (a task may not park while it does).
@@ -278,15 +360,28 @@ impl MutexSet {
         self.locks.iter().any(|lock| lock.owner == Some(task))
     }
 
-    /// Removes dead tasks from queues and releases any lock they owned.
+    /// Removes a dead task from the wait queues (oldest-first hand-off; tests).
     pub fn forget_task(&mut self, task: TaskId) -> [Option<TaskId>; MAX_MUTEXES] {
+        self.forget_task_by(task, |_| 0)
+    }
+
+    /// Removes a dead task from every wait queue and hands each lock it owned
+    /// to the highest waiter, who is told the owner died. A lock with no
+    /// waiter is released and remembers it, for whoever takes it next.
+    /// Returns the new owner of each lock the task held.
+    pub fn forget_task_by(
+        &mut self,
+        task: TaskId,
+        priority_of: impl Fn(TaskId) -> u8,
+    ) -> [Option<TaskId>; MAX_MUTEXES] {
         let mut woke = [None; MAX_MUTEXES];
         for (index, lock) in self.locks.iter_mut().enumerate() {
             lock.remove_waiter(task);
             if lock.owner == Some(task) {
-                let next = lock.dequeue();
+                let next = lock.dequeue_by(&priority_of);
                 lock.owner = next;
                 lock.locked = next.is_some();
+                lock.owner_died = next.is_none();
                 woke[index] = next;
             }
         }
@@ -307,7 +402,11 @@ pub struct Task {
     pub stack: &'static mut [u8],
     pub entry: fn() -> !,
     pub state: TaskState,
+    /// Effective priority: `base_priority`, raised while the task owns a lock
+    /// a higher task waits for (priority inheritance). The policy reads this.
     pub priority: u8,
+    /// The level the task was created with.
+    pub base_priority: u8,
     /// Deadline in the kernel's 1 kHz monotonic tick domain.
     pub wait_until: Option<u64>,
     wait_for_message: bool,
@@ -315,6 +414,13 @@ pub struct Task {
     recv_timed_out: bool,
     waiting_mutex: Option<u8>,
     mutex_acquired: Option<u8>,
+    /// The lock in `mutex_acquired` came from an owner that died.
+    mutex_owner_died: bool,
+    /// Tick at which the task last became Ready without running since; the
+    /// starvation monitor reads it.
+    ready_since: Option<u64>,
+    /// Already reported as starved in the current episode.
+    starved: bool,
     waiting_semaphore: Option<u8>,
     semaphore_acquired: Option<u8>,
     /// Supervisor calls this task may make: bit n allows call n
@@ -332,12 +438,16 @@ impl Task {
             entry,
             state: TaskState::Ready,
             priority,
+            base_priority: priority,
             wait_until: None,
             wait_for_message: false,
             waiting_for_uart: false,
             recv_timed_out: false,
             waiting_mutex: None,
             mutex_acquired: None,
+            mutex_owner_died: false,
+            ready_since: None,
+            starved: false,
             waiting_semaphore: None,
             semaphore_acquired: None,
             capabilities: 0,
@@ -525,7 +635,9 @@ impl<const N: usize> RunQueue<N> {
         core::mem::replace(&mut task.recv_timed_out, false)
     }
 
-    pub fn wake_mutex_waiter(&mut self, id: TaskId, mutex_id: u8) -> bool {
+    /// Hands lock `mutex_id` to blocked waiter `id`; `owner_died` says the
+    /// previous owner died holding it.
+    pub fn wake_mutex_waiter(&mut self, id: TaskId, mutex_id: u8, owner_died: bool) -> bool {
         let Some(task) = self.get_mut(id) else {
             return false;
         };
@@ -536,18 +648,91 @@ impl<const N: usize> RunQueue<N> {
         task.wait_until = None;
         task.waiting_mutex = None;
         task.mutex_acquired = Some(mutex_id);
+        task.mutex_owner_died = owner_died;
         true
     }
 
-    pub fn take_mutex_acquired(&mut self, id: TaskId, mutex_id: u8) -> bool {
-        let Some(task) = self.get_mut(id) else {
-            return false;
-        };
+    /// The hand-off a resumed task finds when it retries its lock call.
+    pub fn take_mutex_acquired(&mut self, id: TaskId, mutex_id: u8) -> Option<LockResult> {
+        let task = self.get_mut(id)?;
         if task.mutex_acquired != Some(mutex_id) {
-            return false;
+            return None;
         }
         task.mutex_acquired = None;
-        true
+        Some(if core::mem::take(&mut task.mutex_owner_died) {
+            LockResult::OwnerDied
+        } else {
+            LockResult::Acquired
+        })
+    }
+
+    /// The lock task `id` is blocked on, if any.
+    pub fn waiting_mutex(&self, id: TaskId) -> Option<u8> {
+        self.get(id)
+            .filter(|task| task.state == TaskState::Blocked)
+            .and_then(|task| task.waiting_mutex)
+    }
+
+    /// Priority inheritance: every task starts from its base level, then each
+    /// lock owner is raised to the highest level among the tasks waiting for
+    /// it, repeated until nothing changes. So a raise passes along a chain
+    /// (A waits for B, B waits for C: C runs at A's level), reaches an owner
+    /// even when the high waiter arrives late, and falls back as soon as the
+    /// lock is released or the waiter leaves. With `enabled` false (feature
+    /// `pi-off`) levels stay at base. Returns whether any level changed.
+    pub fn apply_inheritance(&mut self, mutexes: &MutexSet, enabled: bool) -> bool {
+        let before: [Option<u8>; N] =
+            core::array::from_fn(|i| self.slots[i].as_ref().map(|t| t.priority));
+        for task in self.slots.iter_mut().flatten() {
+            task.priority = task.base_priority;
+        }
+        if enabled {
+            // Each pass lengthens every chain by one link; a chain has at most
+            // one link per task, so N passes always reach the fixed point.
+            for _ in 0..N {
+                let mut changed = false;
+                for lock in mutexes.locks() {
+                    let Some(owner) = lock.owner else { continue };
+                    let top = lock
+                        .waiters()
+                        .filter_map(|waiter| self.get(waiter))
+                        .filter(|waiter| waiter.state != TaskState::Dead)
+                        .map(|waiter| waiter.priority)
+                        .max();
+                    if let (Some(top), Some(owner)) = (top, self.get_mut(owner)) {
+                        if top > owner.priority {
+                            owner.priority = top;
+                            changed = true;
+                        }
+                    }
+                }
+                if !changed {
+                    break;
+                }
+            }
+        }
+        (0..N).any(|i| self.slots[i].as_ref().map(|t| t.priority) != before[i])
+    }
+
+    /// Starvation monitor, called once per tick: stamps each task that became
+    /// Ready, and returns the first task (not idle) that has been Ready
+    /// without running for `limit` ticks and has not been reported in this
+    /// episode. The episode ends when the task runs or blocks.
+    pub fn check_starvation(&mut self, now: u64, limit: u64) -> Option<(TaskId, u8)> {
+        let mut found = None;
+        for task in self.slots.iter_mut().flatten() {
+            if task.state != TaskState::Ready || task.id == IDLE_TASK_ID {
+                task.ready_since = None;
+                task.starved = false;
+                continue;
+            }
+            let since = *task.ready_since.get_or_insert(now);
+            if !task.starved && found.is_none() && now.wrapping_sub(since) >= limit {
+                task.starved = true;
+                found = Some((task.id, task.priority));
+            }
+        }
+        found
     }
 
     pub fn wake_semaphore_waiter(&mut self, id: TaskId, semaphore_id: u8) -> bool {
@@ -617,6 +802,72 @@ mod mutex_tests {
         let woke = locks.forget_task(1);
         assert_eq!(woke[0], Some(3));
         assert_eq!(locks.unlock(0, 3), Ok(None));
+    }
+
+    #[test]
+    fn unlock_hands_the_lock_to_the_highest_waiter_then_the_oldest() {
+        let level = |task: TaskId| match task {
+            2 | 4 => 1,
+            3 | 5 => 3,
+            _ => 0,
+        };
+        let mut locks = MutexSet::new();
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        for task in [2, 3, 4, 5] {
+            assert_eq!(locks.lock(0, task), Ok(LockResult::Blocked));
+        }
+        assert_eq!(locks.unlock_by(0, 1, level), Ok(Some(3)));
+        assert_eq!(locks.unlock_by(0, 3, level), Ok(Some(5)));
+        assert_eq!(locks.unlock_by(0, 5, level), Ok(Some(2)));
+        assert_eq!(locks.unlock_by(0, 2, level), Ok(Some(4)));
+        assert_eq!(locks.unlock_by(0, 4, level), Ok(None));
+    }
+
+    #[test]
+    fn a_dead_owner_is_reported_to_the_next_owner_once() {
+        let mut locks = MutexSet::new();
+        // Handed to a waiter: the run queue tells it (see the runtime).
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        assert_eq!(locks.lock(0, 2), Ok(LockResult::Blocked));
+        assert_eq!(locks.forget_task_by(1, |_| 0)[0], Some(2));
+        assert_eq!(locks.unlock(0, 2), Ok(None));
+        assert_eq!(locks.lock(0, 3), Ok(LockResult::Acquired));
+        assert_eq!(locks.unlock(0, 3), Ok(None));
+        // Nobody waiting: the next task to take the lock is told, once.
+        assert_eq!(locks.lock(1, 4), Ok(LockResult::Acquired));
+        assert_eq!(locks.forget_task_by(4, |_| 0), [None; MAX_MUTEXES]);
+        assert!(!locks.owns_any(4));
+        assert_eq!(locks.lock(1, 5), Ok(LockResult::OwnerDied));
+        assert_eq!(locks.unlock(1, 5), Ok(None));
+        assert_eq!(locks.lock(1, 6), Ok(LockResult::Acquired));
+    }
+
+    #[test]
+    fn waiting_that_would_close_a_lock_cycle_is_refused() {
+        let mut locks = MutexSet::new();
+        // 1 holds A(0), 2 holds B(1), 3 holds C(2).
+        for (lock, task) in [(0, 1), (1, 2), (2, 3)] {
+            assert_eq!(locks.lock(lock, task), Ok(LockResult::Acquired));
+        }
+        // 1 waits for B, 2 waits for C.
+        let waiting = |task: TaskId| match task {
+            1 => Some(1),
+            2 => Some(2),
+            _ => None,
+        };
+        assert_eq!(locks.lock_with(1, 1, |_| None), Ok(LockResult::Blocked));
+        assert_eq!(
+            locks.lock_with(2, 2, |t| waiting(t).filter(|_| t == 1)),
+            Ok(LockResult::Blocked)
+        );
+        // 3 asking for A: A's owner 1 waits for B, owned by 2, who waits for
+        // C, owned by 3 itself. A cycle: refused, and 3 is not queued.
+        assert_eq!(locks.lock_with(0, 3, waiting), Err(MutexError::Deadlock));
+        assert_eq!(locks.locks()[0].waiters().count(), 0);
+        // A task outside the chain may still wait.
+        assert_eq!(locks.lock_with(0, 4, waiting), Ok(LockResult::Blocked));
+        // Re-locking a lock you hold is the one-step cycle.
+        assert_eq!(locks.lock_with(2, 3, waiting), Err(MutexError::Deadlock));
     }
 
     #[test]
@@ -814,6 +1065,8 @@ mod cortex_m_runtime {
     use cortex_m::peripheral::{scb::SystemHandler, SCB};
 
     static STARTED: AtomicBool = AtomicBool::new(false);
+    /// Starvation episodes since boot (kernel key 3).
+    static STARVED: core::sync::atomic::AtomicU32 = core::sync::atomic::AtomicU32::new(0);
     static RUNTIME: Mutex<RefCell<Option<Runtime>>> = Mutex::new(RefCell::new(None));
 
     const IDLE_STACK_BYTES: usize = 256;
@@ -953,6 +1206,11 @@ mod cortex_m_runtime {
         Ok(())
     }
 
+    /// Starvation episodes since boot (kernel key 3).
+    pub fn starvation_count() -> u32 {
+        STARVED.load(Ordering::Relaxed)
+    }
+
     /// The running task's id.
     pub fn current_task() -> Option<TaskId> {
         interrupt::free(|cs| {
@@ -1049,19 +1307,27 @@ mod cortex_m_runtime {
             let mut shared = RUNTIME.borrow(cs).borrow_mut();
             let rt = shared.as_mut().ok_or(MutexError::InvalidId)?;
             let task_id = rt.current.ok_or(MutexError::InvalidId)?;
-            if rt.queue.take_mutex_acquired(task_id, id) {
-                return Ok((LockResult::Acquired, false));
+            if let Some(handed) = rt.queue.take_mutex_acquired(task_id, id) {
+                return Ok((handed, false));
             }
-            match rt.mutexes.lock(id, task_id)? {
-                LockResult::Acquired => Ok((LockResult::Acquired, false)),
+            let queue = &rt.queue;
+            match rt
+                .mutexes
+                .lock_with(id, task_id, |task| queue.waiting_mutex(task))?
+            {
                 LockResult::Blocked => {
                     let task = rt.queue.get_mut(task_id).ok_or(MutexError::InvalidId)?;
                     task.state = TaskState::Blocked;
                     task.wait_until = None;
                     task.waiting_mutex = Some(id);
                     task.wait_for_message = false;
+                    // The owner (and anything it waits behind) now runs at
+                    // least at this task's level.
+                    rt.queue
+                        .apply_inheritance(&rt.mutexes, PRIORITY_INHERITANCE);
                     Ok((LockResult::Blocked, true))
                 }
+                acquired => Ok((acquired, false)),
             }
         })?;
         if blocked {
@@ -1070,17 +1336,23 @@ mod cortex_m_runtime {
         Ok(result)
     }
 
-    /// Unlocks the current task's mutex and wakes the FIFO successor, if any.
+    /// Unlocks the current task's mutex and hands it to the highest waiter;
+    /// the unlocking task drops back from any level it inherited.
     pub fn mutex_unlock_current(id: u8) -> Result<(), MutexError> {
         let woke = interrupt::free(|cs| {
             let mut shared = RUNTIME.borrow(cs).borrow_mut();
             let rt = shared.as_mut().ok_or(MutexError::InvalidId)?;
             let task_id = rt.current.ok_or(MutexError::InvalidId)?;
-            let next = rt.mutexes.unlock(id, task_id)?;
+            let queue = &rt.queue;
+            let next = rt.mutexes.unlock_by(id, task_id, |task| {
+                queue.get(task).map_or(0, |t| t.priority)
+            })?;
             if let Some(next) = next {
-                rt.queue.wake_mutex_waiter(next, id);
+                rt.queue.wake_mutex_waiter(next, id, false);
             }
-            Ok::<_, MutexError>(next.is_some() && rt.queue.should_preempt(rt.current))
+            rt.queue
+                .apply_inheritance(&rt.mutexes, PRIORITY_INHERITANCE);
+            Ok::<_, MutexError>(rt.queue.should_preempt(rt.current))
         })?;
         if woke {
             SCB::set_pendsv();
@@ -1098,7 +1370,7 @@ mod cortex_m_runtime {
                 return Ok((LockResult::Acquired, false));
             }
             match rt.semaphores.wait(id, task_id)? {
-                LockResult::Acquired => Ok((LockResult::Acquired, false)),
+                LockResult::Acquired | LockResult::OwnerDied => Ok((LockResult::Acquired, false)),
                 LockResult::Blocked => {
                     let task = rt.queue.get_mut(task_id).ok_or(SemaphoreError::InvalidId)?;
                     task.state = TaskState::Blocked;
@@ -1217,12 +1489,18 @@ mod cortex_m_runtime {
             let rt = shared.as_mut()?;
             let id = rt.current?;
             rt.queue.get_mut(id)?.state = TaskState::Dead;
-            let woke = rt.mutexes.forget_task(id);
+            let queue = &rt.queue;
+            let woke = rt
+                .mutexes
+                .forget_task_by(id, |task| queue.get(task).map_or(0, |t| t.priority));
             for (mutex_id, waiter) in woke.iter().enumerate() {
                 if let Some(waiter) = waiter {
-                    rt.queue.wake_mutex_waiter(*waiter, mutex_id as u8);
+                    // The new owner learns the old one died (E_OWNER_DIED).
+                    rt.queue.wake_mutex_waiter(*waiter, mutex_id as u8, true);
                 }
             }
+            rt.queue
+                .apply_inheritance(&rt.mutexes, PRIORITY_INHERITANCE);
             rt.semaphores.forget_task(id);
             Some(id)
         })?;
@@ -1244,19 +1522,31 @@ mod cortex_m_runtime {
         // feed the watchdog (src/watchdog.rs).
         crate::watchdog::feed();
         let now = crate::clock::get_ticks();
-        let (woke, quantum_expired) = interrupt::free(|cs| {
+        let (woke, quantum_expired, starved) = interrupt::free(|cs| {
             let mut shared = RUNTIME.borrow(cs).borrow_mut();
             let Some(runtime) = shared.as_mut() else {
-                return (false, false);
+                return (false, false, None);
             };
+            let starved = runtime
+                .queue
+                .check_starvation(now, STARVATION_LIMIT_MS as u64);
             // Preempt at once only for a task above the running one; a wake at
             // the same level waits for the quantum.
             let woke =
                 runtime.queue.wake_expired(now) && runtime.queue.should_preempt(runtime.current);
             let quantum_expired = runtime.current.is_some()
                 && now.wrapping_sub(runtime.last_dispatch_tick) >= runtime.quantum_ticks as u64;
-            (woke, quantum_expired)
+            (woke, quantum_expired, starved)
         });
+        if let Some((task, level)) = starved {
+            STARVED.fetch_add(1, Ordering::Relaxed);
+            crate::logging::kprintln!(
+                "sched: task {} (priority {}) ready for {} ms without running",
+                task,
+                level,
+                STARVATION_LIMIT_MS
+            );
+        }
         if woke || quantum_expired {
             SCB::set_pendsv();
         }
@@ -1644,7 +1934,7 @@ mod memfault {
 pub use cortex_m_runtime::{
     block_current_for_uart, block_current_until, current_capabilities, current_stack, current_task,
     kill_current, mutex_lock_current, mutex_unlock_current, on_systick, park_current,
-    pend_scheduler_switch, semaphore_post_current, semaphore_wait_current, start,
+    pend_scheduler_switch, semaphore_post_current, semaphore_wait_current, start, starvation_count,
     take_recv_timeout, task_alive, task_counts, task_exit_address, wake_waiting_receiver,
     wake_waiting_uart_reader, ParkError, StartError,
 };
@@ -1792,6 +2082,100 @@ mod tests {
         assert!(!rq.wake_waiting_uart());
         assert_eq!(dispatch(&mut rq, &PriorityRoundRobin::new(), 3), [1, 1, 1]);
         assert_eq!(rq.counts(), (3, 3), "parked is alive, not dead");
+    }
+
+    /// Blocks `waiter` on lock `id` the way the runtime does.
+    fn wait_for<const N: usize>(
+        rq: &mut RunQueue<N>,
+        locks: &mut MutexSet,
+        waiter: TaskId,
+        id: u8,
+    ) {
+        assert_eq!(locks.lock(id, waiter), Ok(LockResult::Blocked));
+        let task = rq.get_mut(waiter).unwrap();
+        task.state = TaskState::Blocked;
+        task.waiting_mutex = Some(id);
+    }
+
+    fn levels<const N: usize>(rq: &RunQueue<N>, ids: &[TaskId]) -> std::vec::Vec<u8> {
+        ids.iter().map(|id| rq.get(*id).unwrap().priority).collect()
+    }
+
+    #[test]
+    fn a_lock_owner_inherits_the_level_of_its_highest_waiter_and_drops_back() {
+        let mut rq = queue::<4>(&[(1, 1), (2, 2), (3, 3), (IDLE_TASK_ID, 0)]);
+        let mut locks = MutexSet::new();
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        wait_for(&mut rq, &mut locks, 3, 0);
+        assert!(rq.apply_inheritance(&locks, true));
+        assert_eq!(levels(&rq, &[1, 2, 3]), [3, 2, 3]);
+        // L now outranks M, so it runs (the inversion is gone).
+        assert_eq!(PriorityRoundRobin::new().pick(&rq, 0), Some(1));
+        // Unlock: H owns it, L is back at its base.
+        assert_eq!(
+            locks.unlock_by(0, 1, |t| rq.get(t).unwrap().priority),
+            Ok(Some(3))
+        );
+        rq.wake_mutex_waiter(3, 0, false);
+        rq.apply_inheritance(&locks, true);
+        assert_eq!(levels(&rq, &[1, 2, 3]), [1, 2, 3]);
+        assert_eq!(rq.take_mutex_acquired(3, 0), Some(LockResult::Acquired));
+    }
+
+    #[test]
+    fn inheritance_passes_along_a_chain_and_reaches_a_late_waiter() {
+        let mut rq = queue::<5>(&[(1, 1), (2, 2), (3, 3), (4, 4), (IDLE_TASK_ID, 0)]);
+        let mut locks = MutexSet::new();
+        // 1 holds A, 2 holds B and waits for A.
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        assert_eq!(locks.lock(1, 2), Ok(LockResult::Acquired));
+        wait_for(&mut rq, &mut locks, 2, 0);
+        rq.apply_inheritance(&locks, true);
+        assert_eq!(levels(&rq, &[1, 2]), [2, 2]);
+        // 4 arrives late, waiting for B: 2 rises to 4, and so does 1 behind it.
+        wait_for(&mut rq, &mut locks, 4, 1);
+        rq.apply_inheritance(&locks, true);
+        assert_eq!(levels(&rq, &[1, 2, 3, 4]), [4, 4, 3, 4]);
+        // 4 leaves (it died): both fall back to what is left.
+        rq.get_mut(4).unwrap().state = TaskState::Dead;
+        locks.forget_task_by(4, |_| 0);
+        rq.apply_inheritance(&locks, true);
+        assert_eq!(levels(&rq, &[1, 2]), [2, 2]);
+        // pi-off: everyone at base.
+        rq.apply_inheritance(&locks, false);
+        assert_eq!(levels(&rq, &[1, 2, 3]), [1, 2, 3]);
+    }
+
+    #[test]
+    fn a_waiter_handed_a_dead_owners_lock_is_told_once() {
+        let mut rq = queue::<3>(&[(1, 1), (2, 2), (IDLE_TASK_ID, 0)]);
+        let mut locks = MutexSet::new();
+        assert_eq!(locks.lock(0, 1), Ok(LockResult::Acquired));
+        wait_for(&mut rq, &mut locks, 2, 0);
+        rq.get_mut(1).unwrap().state = TaskState::Dead;
+        let woke = locks.forget_task_by(1, |_| 0);
+        assert_eq!(woke[0], Some(2));
+        assert!(rq.wake_mutex_waiter(2, 0, true));
+        assert_eq!(rq.take_mutex_acquired(2, 0), Some(LockResult::OwnerDied));
+        assert_eq!(rq.take_mutex_acquired(2, 0), None);
+    }
+
+    #[test]
+    fn starvation_is_reported_once_per_episode_and_skips_idle() {
+        let mut rq = queue::<3>(&[(1, 1), (2, 2), (IDLE_TASK_ID, 0)]);
+        rq.get_mut(2).unwrap().state = TaskState::Running;
+        assert_eq!(rq.check_starvation(0, 1_000), None);
+        assert_eq!(rq.check_starvation(999, 1_000), None);
+        assert_eq!(rq.check_starvation(1_000, 1_000), Some((1, 1)));
+        assert_eq!(rq.check_starvation(5_000, 1_000), None, "once per episode");
+        // Task 1 runs: the episode ends; a new one can be reported later.
+        rq.get_mut(1).unwrap().state = TaskState::Running;
+        assert_eq!(rq.check_starvation(5_001, 1_000), None);
+        rq.get_mut(1).unwrap().state = TaskState::Ready;
+        assert_eq!(rq.check_starvation(5_002, 1_000), None);
+        assert_eq!(rq.check_starvation(6_002, 1_000), Some((1, 1)));
+        // Idle waiting forever is never starvation.
+        assert!(rq.iter().all(|t| t.id != IDLE_TASK_ID || !t.starved));
     }
 
     #[test]

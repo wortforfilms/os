@@ -186,7 +186,8 @@ fails the test. The tests cover:
 | 0 | kernel: boot count (u32, little-endian) |
 | 1 | kernel: last reset cause and crash ([watchdog.md](watchdog.md)) |
 | 2 | kernel: version floors of run-time capsules ([capsules.md](capsules.md#installing-a-capsule-at-run-time)) |
-| 3–15 | kernel, reserved |
+| 3 | kernel: starvation episodes since boot (u32), served from RAM and never stored ([SCHEDULER.md](engineering/SCHEDULER.md#starvation-monitor)) |
+| 4–15 | kernel, reserved |
 | 16–63 | tasks, with the `store_get` / `store_put` capabilities (key 32: the telemetry capsule's lifetime tick count) |
 
 Tasks may read kernel keys 0–15 but not write them.

@@ -51,6 +51,9 @@ pub const KEY_LAST_RESET: u8 = 1;
 /// Kernel key: the version floors of run-time capsules
 /// (`crate::installed::VersionFloors`).
 pub const KEY_CAPSULE_FLOORS: u8 = 2;
+/// Kernel key: starvation episodes since boot, u32 little-endian. Served
+/// from RAM by the store-get call (src/syscall.rs); never stored.
+pub const KEY_STARVATION_COUNT: u8 = 3;
 /// Lowest key a task may write.
 pub const FIRST_TASK_KEY: u8 = 16;
 
