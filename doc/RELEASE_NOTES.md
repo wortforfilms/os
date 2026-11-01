@@ -7,6 +7,7 @@
 | `crates/maataa-sandhi`: vowel sandhi (6.1.77, 6.1.78, 6.1.87, 6.1.88, 6.1.101, 6.1.109) over SLP1, `no_std` | host tests | docs/panini.md |
 | `capsules/panini.wat`: the same rules as a run-time capsule; requests in key 40, answers in key 41; checked against the crate for every pair of boundary letters | yes (2026-11-01, 8 requests) | docs/panini.md |
 | `scripts/qemu-panini-test.sh` (smoke step 15) | QEMU | docs/panini.md |
+| `maataa-link sandhi देव+इन्द्र`: Devanagari or SLP1 in, the board's answer checked against the host's (`MATCH`/`MISMATCH`); `maataa_sandhi::lipi` converts, refusing unsupported characters | not yet | docs/panini.md |
 
 Board run (NUCLEO-F411RE, kernel v0.1.0-alpha.3, 2026-11-01): panini
 installed over the host channel (1407 bytes, replacing greeter) and run as

@@ -7,6 +7,7 @@
 #   per word: one run puts the request in key 40 (a tick answers it in that
 #   run, or else at the start of the next), another reads key 41 (a QEMU run
 #   lasts about 3 s: the demo exits)
+#   then: `maataa-link sandhi` with Devanagari, checked against the host
 #   last: remove panini, delete keys 40 and 41
 # Exit status 0 on pass.
 set -euo pipefail
@@ -96,6 +97,16 @@ fi
 boot_and_talk get 41 || fail "malformed: get"
 grep -q '^key 41: "?"' "$WORK/tool.log" || fail "malformed: key 41 is not ?"
 echo "  deva+in+dra -> ? (-103, not SLP1)"
+
+# The host tool's sandhi command: Devanagari in, the board's answer checked
+# against the host's own.
+boot_and_talk sandhi "देव+इन्द्र" || fail "sandhi देव+इन्द्र"
+grep -q '^MATCH: देवेन्द्र (devendra) \[guna, 6.1.87\]$' "$WORK/tool.log" || fail "sandhi: no MATCH"
+echo "  sandhi देव+इन्द्र -> $(tail -n 1 "$WORK/tool.log")"
+if boot_and_talk sandhi "deva+in+dra"; then
+    fail "sandhi accepted a malformed request"
+fi
+grep -q 'refused by the board and by the host' "$WORK/tool.log" || fail "sandhi: malformed request"
 
 boot_and_talk capsule-remove || fail "remove"
 boot_and_talk put 41 || fail "delete key 41"

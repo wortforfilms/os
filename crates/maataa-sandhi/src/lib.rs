@@ -25,6 +25,12 @@
 //! The optional loss of a final y/v after ayadi (8.3.19) is not applied.
 #![no_std]
 
+#[cfg(feature = "alloc")]
+extern crate alloc;
+
+#[cfg(feature = "alloc")]
+pub mod lipi;
+
 /// The rule that joined the two words. The numbers are the capsule's tick
 /// results.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -41,6 +47,18 @@ pub enum Rule {
 }
 
 impl Rule {
+    pub const fn name(self) -> &'static str {
+        match self {
+            Self::Join => "joined as written",
+            Self::SavarnaDirgha => "savarna-dirgha",
+            Self::Guna => "guna",
+            Self::Vrddhi => "vrddhi",
+            Self::Yan => "yan",
+            Self::Ayadi => "ayadi",
+            Self::Purvarupa => "purvarupa",
+        }
+    }
+
     pub const fn sutra(self) -> &'static str {
         match self {
             Self::Join => "-",
@@ -68,6 +86,15 @@ pub enum Error {
 }
 
 impl Error {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::NoPlus => "no + between the two words",
+            Self::Empty => "a word is empty",
+            Self::NotSlp1 => "not SLP1 letters (or a second +)",
+            Self::TooLong => "too long",
+        }
+    }
+
     pub const fn code(self) -> i32 {
         match self {
             Self::NoPlus => -101,

@@ -16,4 +16,8 @@ required-features = ["cli"]
 
 [features]
 # Host-side command-line tool (std). The kernel uses the codec only.
-cli = []
+cli = ["dep:maataa-sandhi"]
+
+[dependencies]
+# The `sandhi` command: Devanagari <-> SLP1 and the host's own answer.
+maataa-sandhi = { path = "../maataa-sandhi", features = ["alloc"], optional = true }

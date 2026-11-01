@@ -6,7 +6,8 @@
 //! ```
 //!
 //! Commands: `hello`, `ping [text]`, `status`, `telemetry`, `info`,
-//! `get KEY`, `put KEY [TEXT]`, `store-stress COUNT`, `selftest`.
+//! `get KEY`, `put KEY [TEXT]`, `store-stress COUNT`, `selftest`,
+//! `sandhi WORD+WORD` (the panini capsule, docs/panini.md).
 //! Build with `cargo run -p maataa-link --features cli -- ...`.
 
 use maataa_link::{
@@ -31,6 +32,8 @@ commands:
   capsule-install FILE   send a signed capsule image (.mcap); it runs from the next boot
   capsule-info    the installed run-time capsule
   capsule-remove  remove the installed run-time capsule (from the next boot)
+  sandhi A+B      ask the panini capsule to join two words (Devanagari or SLP1),
+                  and check its answer against this tool's own (docs/panini.md)
   selftest        all of the above plus two deliberate bad frames";
 
 trait Link: Read + Write {}
@@ -288,6 +291,7 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
                 format!("key {key}: stored {} bytes", text.len())
             })
         }
+        "sandhi" => sandhi(ch, args.first().map(String::as_str)),
         "capsule-install" => {
             let path = args.first().ok_or("capsule-install needs a .mcap file")?;
             let image = std::fs::read(path).map_err(|e| format!("{path}: {e}"))?;
@@ -398,6 +402,85 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
             ))
         }
         _ => Err(format!("unknown command `{command}`\n{USAGE}")),
+    }
+}
+
+/// Keys of the panini capsule's request and answer (capsules/panini.wat).
+const PANINI_REQUEST: u8 = 40;
+const PANINI_ANSWER: u8 = 41;
+
+/// Asks the panini capsule (task 9) to join two words, and checks the board's
+/// answer against maataa-sandhi, the reference the capsule was written from.
+fn sandhi(ch: &mut Channel, text: Option<&str>) -> Result<String, String> {
+    use maataa_sandhi::lipi;
+    let text = text.ok_or("sandhi needs two words joined by +: देव+इन्द्र or deva+indra")?;
+    let slp1 = if lipi::is_devanagari(text) {
+        lipi::deva_to_slp1(text).map_err(|e| format!("{text}: {e}"))?
+    } else {
+        text.to_string()
+    };
+    if slp1.len() > maataa_sandhi::MAX_TEXT {
+        return Err(format!(
+            "{} bytes of SLP1; the capsule takes at most {}",
+            slp1.len(),
+            maataa_sandhi::MAX_TEXT
+        ));
+    }
+    let mut expected = [0u8; maataa_sandhi::MAX_TEXT];
+    let host = maataa_sandhi::join_request(slp1.as_bytes(), &mut expected);
+
+    let put = |ch: &mut Channel, key: u8, value: &[u8]| -> Result<(), String> {
+        let mut payload = vec![key];
+        payload.extend_from_slice(value);
+        expect(
+            ch.request(kind::STORE_PUT, &payload)?,
+            kind::STORE_PUT_REPLY,
+        )
+        .map(|_| ())
+    };
+    // An old answer must not be taken for this one.
+    put(ch, PANINI_ANSWER, &[])?;
+    put(ch, PANINI_REQUEST, slp1.as_bytes())?;
+    // The capsule ticks once a second.
+    let started = Instant::now();
+    let answer = loop {
+        match ch.request(kind::STORE_GET, &[PANINI_ANSWER]) {
+            Ok(reply) if reply.kind == kind::STORE_GET_REPLY => break reply.payload,
+            Ok(_) | Err(_) if started.elapsed() < Duration::from_secs(5) => {
+                std::thread::sleep(Duration::from_millis(200));
+            }
+            _ => {
+                return Err(format!(
+                    "no answer in key {PANINI_ANSWER} within 5 s: is the panini capsule installed \
+                     (capsule-info) and the board reset since?"
+                ))
+            }
+        }
+    };
+    let board = String::from_utf8_lossy(&answer).into_owned();
+    match host {
+        Ok((n, rule)) => {
+            let host = std::str::from_utf8(&expected[..n]).unwrap_or("?");
+            if board != host {
+                return Err(format!(
+                    "MISMATCH: board={board:?}, host={host:?} (request {slp1})"
+                ));
+            }
+            let deva = lipi::slp1_to_deva(host).map_err(|e| format!("{host}: {e}"))?;
+            Ok(format!(
+                "MATCH: {deva} ({host}) [{}, {}]",
+                rule.name(),
+                rule.sutra()
+            ))
+        }
+        Err(error) if board == "?" => Err(format!(
+            "refused by the board and by the host ({}): {slp1}",
+            error.as_str()
+        )),
+        Err(error) => Err(format!(
+            "MISMATCH: board={board:?}, host refused it ({}) (request {slp1})",
+            error.as_str()
+        )),
     }
 }
 

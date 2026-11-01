@@ -537,6 +537,9 @@ dependencies = [
 [[package]]
 name = "maataa-link"
 version = "0.1.0"
+dependencies = [
+ "maataa-sandhi",
+]
 
 [[package]]
 name = "maataa-os"

@@ -12,7 +12,8 @@ be granted.
 | `crates/maataa-sandhi` | The reference: the rules in plain `no_std` Rust, host-tested with classic examples |
 | `capsules/panini.wat` | The same rules in hand-written WebAssembly (1.3 KB), signed as `assets/capsules/panini.mcap` |
 | `src/capsule_task.rs` test | Runs the capsule in Maataa's interpreter against the reference for every pair of boundary letters (all 14 vowels and a consonant, on each side), malformed requests and a 64-byte request |
-| `scripts/qemu-panini-test.sh` | Installs the capsule in QEMU and asks it over the host channel (smoke step 15) |
+| `scripts/qemu-panini-test.sh` | Installs the capsule in QEMU and asks it over the host channel, also with `maataa-link sandhi` in Devanagari (smoke step 15) |
+| `maataa_sandhi::lipi` | Devanagari <-> SLP1 for the host tool (feature `alloc`; never in the kernel) |
 
 The capsule is hand-written because Maataa's interpreter runs an i32 subset
 (no i64, floats, tables or `call_indirect`) in 4 KiB of memory, and ordinary
@@ -51,6 +52,24 @@ maataa-link --serial PORT put 41                 # clear an old answer
 maataa-link --serial PORT put 40 deva+indra      # the request
 maataa-link --serial PORT get 41                 # key 41: "devendra" (within a second)
 ```
+
+Or let the host tool do it, in Devanagari or SLP1:
+
+```bash
+maataa-link --serial PORT sandhi देव+इन्द्र
+MATCH: देवेन्द्र (devendra) [guna, 6.1.87]
+```
+
+`sandhi` converts Devanagari to SLP1 (`maataa_sandhi::lipi`), clears key 41,
+writes the request to key 40, waits up to 5 s for key 41, and checks the
+board's answer against its own from `maataa-sandhi`. A different answer is
+reported as `MISMATCH: board=..., host=...` with exit status 1, so every
+query is also a test of the capsule. The conversion supports the letters the
+rules know: the vowels and their signs, the 33 consonants क..ह, virama,
+anusvara, visarga and avagraha (ऽ = `'`). Anything else (ळ, nukta forms such
+as क़, ZWJ/ZWNJ, chandrabindu, Vedic accents, digits, ।) is refused with the
+character named, never dropped. A consonant carries `a` unless a vowel sign
+or virama follows it: `इन्द्र` is `indra`.
 
 Each tick (once a second) reads key 40. With a request it writes the answer
 to key 41 (`?` for a malformed one), logs it (`capsule panini: devendra`),

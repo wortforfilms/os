@@ -67,6 +67,7 @@ pass
 STEP="host unit tests"
 cargo test
 cargo test -p maataa-link -p maataa-capsule -p maataa-wasm -p maataa-store -p hemant-core -p maataa-sandhi
+cargo test -p maataa-sandhi --features alloc
 pass
 
 STEP="release build"
