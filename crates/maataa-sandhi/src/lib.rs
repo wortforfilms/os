@@ -46,6 +46,35 @@ pub enum Rule {
     Yan = 5,
     Ayadi = 6,
     Purvarupa = 7,
+    // Visarga (and final s, r) before the next word. Host only for now: the
+    // capsule knows rules 1 to 7.
+    /// 6.1.114 haSi ca: a + ru before a voiced consonant -> o (with 6.1.87).
+    HasiCa = 8,
+    /// 6.1.113 ato ror aplutad aplute: a + ru + a -> o' (with 6.1.87, 6.1.109).
+    AtoRoh = 9,
+    /// 8.3.17 then 8.3.19 lopah sakalyasya: the y of a/A + ru before a vowel
+    /// is dropped (optional; the common form), and as 8.3.19 is asiddha
+    /// (8.2.1) no vowel sandhi follows: rAma iti.
+    LopahSakalyasya = 10,
+    /// 8.3.17 then 8.3.22 hali sarvesham: A + ru before a voiced consonant
+    /// loses the y: devA gacCanti.
+    HaliSarvesham = 11,
+    /// 8.3.34 visarjaniyasya sah: visarga -> s before khar; then 8.4.40 / 8.4.41
+    /// make it S before the c row, z before the w row.
+    VisarjaniyasyaSah = 12,
+    /// 8.3.35 Sarpare visarjaniyah: before khar followed by Sar, visarga stays.
+    SarpareVisarjaniyah = 13,
+    /// 8.3.36 va Sari: before Sar, s is optional; the visarga is kept.
+    VaSari = 14,
+    /// 8.3.37 kupvoh: before k K p P, visarga stays (or jihvamuliya /
+    /// upadhmaniya, optional; not written).
+    Kupvoh = 15,
+    /// The r stays before a voiced sound: from ru (8.2.66 sasajuso ruh) after
+    /// a vowel other than a/A, or a word that ends in r.
+    Repha = 16,
+    /// 6.1.132 etattadoh sulopo...hali: saH, ezaH drop the visarga before a
+    /// consonant: sa gacCati.
+    SuLopa = 17,
 }
 
 impl Rule {
@@ -58,6 +87,16 @@ impl Rule {
             Self::Yan => "yan",
             Self::Ayadi => "ayadi",
             Self::Purvarupa => "purvarupa",
+            Self::HasiCa => "ru to u, then guna",
+            Self::AtoRoh => "ru to u, guna, purvarupa",
+            Self::LopahSakalyasya => "ru to y, y dropped",
+            Self::HaliSarvesham => "ru to y, y dropped",
+            Self::VisarjaniyasyaSah => "visarga to s",
+            Self::SarpareVisarjaniyah => "visarga kept",
+            Self::VaSari => "visarga kept (s optional)",
+            Self::Kupvoh => "visarga kept",
+            Self::Repha => "r kept",
+            Self::SuLopa => "visarga dropped",
         }
     }
 
@@ -70,6 +109,16 @@ impl Rule {
             Self::Yan => "6.1.77",
             Self::Ayadi => "6.1.78",
             Self::Purvarupa => "6.1.109",
+            Self::HasiCa => "6.1.114",
+            Self::AtoRoh => "6.1.113",
+            Self::LopahSakalyasya => "8.3.19",
+            Self::HaliSarvesham => "8.3.22",
+            Self::VisarjaniyasyaSah => "8.3.34",
+            Self::SarpareVisarjaniyah => "8.3.35",
+            Self::VaSari => "8.3.36",
+            Self::Kupvoh => "8.3.37",
+            Self::Repha => "8.2.66",
+            Self::SuLopa => "6.1.132",
         }
     }
 }
@@ -85,6 +134,9 @@ pub enum Error {
     NotSlp1,
     /// The result does not fit the output buffer.
     TooLong,
+    /// A case whose rule is not implemented yet (r before r, 8.3.14; a
+    /// visarga after a consonant or at the start of a word).
+    NotYet,
 }
 
 impl Error {
@@ -94,6 +146,7 @@ impl Error {
             Self::Empty => "a word is empty",
             Self::NotSlp1 => "not SLP1 letters (or a second +)",
             Self::TooLong => "too long",
+            Self::NotYet => "a case whose rule is not implemented yet",
         }
     }
 
@@ -103,6 +156,7 @@ impl Error {
             Self::Empty => -102,
             Self::NotSlp1 => -103,
             Self::TooLong => -104,
+            Self::NotYet => -105,
         }
     }
 }
@@ -158,6 +212,9 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
     let (Some(x), Some(y)) = (Varna::from_slp1(last), Varna::from_slp1(first)) else {
         return Err(Error::NotSlp1);
     };
+    if matches!(x, Varna::Visarga | Varna::S | Varna::Ra) {
+        return visarga(left, right, w);
+    }
     if !x.is_vowel() || !y.is_vowel() {
         w.put(left)?;
         w.put(right)?;
@@ -243,6 +300,101 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
     w.put(left)?;
     w.put(right)?;
     Ok((w.len, Rule::Join))
+}
+
+/// A word ending in visarga, s or r before the next word. `H` and a final `s`
+/// are taken as s (8.2.66 sasajuso ruh: ru); a final `r` as r. The two words
+/// stay apart, with a space, except where avagraha joins them (so'tra).
+///
+/// Not yet (Error::NotYet): r or ru before r (8.3.14 ro ri with 6.3.111), a
+/// visarga after a consonant, and anything at the start of the second word
+/// that is not a letter of a word.
+fn visarga(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Error> {
+    use varna::{pratyahara, Varna};
+    let set = |name: &str| pratyahara(name).unwrap_or(0);
+    let has = |mask: u64, v: Varna| mask & v.bit() != 0;
+    let at = |bytes: &[u8], i: usize| bytes.get(i).and_then(|&b| Varna::from_slp1(b));
+    let (Some(last), Some(y)) = (at(left, left.len() - 1), at(right, 0)) else {
+        return Err(Error::NotSlp1);
+    };
+    let ru = last != Varna::Ra;
+    let stem = &left[..left.len() - 1];
+    let Some(p) = stem.last().and_then(|&b| Varna::from_slp1(b)) else {
+        return Err(Error::NotYet);
+    };
+    if !p.is_vowel() || !(y.is_vowel() || y.is_consonant()) {
+        return Err(Error::NotYet);
+    }
+    let (khar, sar, hal, has_) = (set("Kar"), set("Sar"), set("hal"), set("haS"));
+    let space_then = |w: &mut Writer<'_>, sound: &[u8]| -> Result<(), Error> {
+        w.put(stem)?;
+        w.put(sound)?;
+        w.put(b" ")?;
+        w.put(right)
+    };
+
+    // 6.1.132: sa(H), eza(H) before a consonant drop the visarga.
+    if ru && matches!(stem, b"sa" | b"eza") && has(hal, y) {
+        space_then(&mut w, b"")?;
+        return Ok((w.len, Rule::SuLopa));
+    }
+    if has(khar, y) {
+        // 8.3.15: r and ru become visarga before khar; then:
+        let second = at(right, 1);
+        if second.is_some_and(|v| has(sar, v)) {
+            space_then(&mut w, b"H")?;
+            return Ok((w.len, Rule::SarpareVisarjaniyah));
+        }
+        if has(sar, y) {
+            space_then(&mut w, b"H")?;
+            return Ok((w.len, Rule::VaSari));
+        }
+        if matches!(y, Varna::K | Varna::Kh | Varna::P | Varna::Ph) {
+            space_then(&mut w, b"H")?;
+            return Ok((w.len, Rule::Kupvoh));
+        }
+        // 8.3.34, then 8.4.40 (c row: S) or 8.4.41 (w row: z).
+        let s = match y {
+            Varna::C | Varna::Ch => b"S",
+            Varna::Tt | Varna::Tth => b"z",
+            _ => b"s",
+        };
+        space_then(&mut w, s)?;
+        return Ok((w.len, Rule::VisarjaniyasyaSah));
+    }
+    // Before a vowel or a voiced consonant (aS).
+    if ru && p == Varna::A {
+        if y == Varna::A {
+            w.put(&stem[..stem.len() - 1])?;
+            w.put(b"o'")?;
+            w.put(&right[1..])?;
+            return Ok((w.len, Rule::AtoRoh));
+        }
+        if has(has_, y) {
+            w.put(&stem[..stem.len() - 1])?;
+            w.put(b"o ")?;
+            w.put(right)?;
+            return Ok((w.len, Rule::HasiCa));
+        }
+        space_then(&mut w, b"")?;
+        return Ok((w.len, Rule::LopahSakalyasya));
+    }
+    if ru && p == Varna::AA {
+        space_then(&mut w, b"")?;
+        return Ok((
+            w.len,
+            if y.is_vowel() {
+                Rule::LopahSakalyasya
+            } else {
+                Rule::HaliSarvesham
+            },
+        ));
+    }
+    if y == Varna::Ra {
+        return Err(Error::NotYet);
+    }
+    space_then(&mut w, b"r")?;
+    Ok((w.len, Rule::Repha))
 }
 
 /// The long vowel savarna of a simple vowel (6.1.101's substitute).
@@ -395,7 +547,7 @@ mod tests {
             ("vizRo+e", "vizRave", Rule::Ayadi),
             ("nE+aka", "nAyaka", Rule::Ayadi),
             ("pO+aka", "pAvaka", Rule::Ayadi),
-            ("rAmaH+gacCati", "rAmaHgacCati", Rule::Join),
+            ("rAmaH+gacCati", "rAmo gacCati", Rule::HasiCa),
             ("vAk+ISa", "vAkISa", Rule::Join),
         ] {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
@@ -406,8 +558,15 @@ mod tests {
     fn the_varna_engine_agrees_with_the_first_engine_everywhere() {
         let letters = b"aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzshMH";
         let mut checked = 0;
+        let mut skipped = 0;
         for &a in letters {
             for &b in letters {
+                if matches!(a, b'H' | b's' | b'r') {
+                    // Visarga, s and r before a word: only the new engine
+                    // has these rules (checked against the grammar below).
+                    skipped += 3;
+                    continue;
+                }
                 for (left, right) in [
                     (vec_of(&[a]), vec_of(&[b])),
                     (vec_of(&[b'k', a]), vec_of(&[b, b'k'])),
@@ -431,7 +590,8 @@ mod tests {
                 }
             }
         }
-        assert_eq!(checked, 49 * 49 * 3);
+        assert_eq!(checked + skipped, 49 * 49 * 3);
+        assert_eq!(skipped, 3 * 49 * 3);
         // Errors and the output limit, the same way.
         for request in [
             &b"+indra"[..],
@@ -460,6 +620,55 @@ mod tests {
         // engines keep 6.1.77 until that is decided (docs/panini.md).
         assert_eq!(j("pitf+xkAra"), (String::from("pitrxkAra"), Rule::Yan));
         assert!(varna::savarna(varna::Varna::R, varna::Varna::L));
+    }
+
+    #[test]
+    fn visarga_s_and_r_follow_the_grammar() {
+        for (request, joined, rule) in [
+            ("rAmaH+gacCati", "rAmo gacCati", Rule::HasiCa),
+            ("rAmaH+atra", "rAmo'tra", Rule::AtoRoh),
+            ("rAmaH+iti", "rAma iti", Rule::LopahSakalyasya),
+            ("devAH+gacCanti", "devA gacCanti", Rule::HaliSarvesham),
+            ("devAH+atra", "devA atra", Rule::LopahSakalyasya),
+            ("rAmaH+ca", "rAmaS ca", Rule::VisarjaniyasyaSah),
+            ("rAmaH+tatra", "rAmas tatra", Rule::VisarjaniyasyaSah),
+            ("rAmaH+wIkA", "rAmaz wIkA", Rule::VisarjaniyasyaSah),
+            ("rAmaH+karoti", "rAmaH karoti", Rule::Kupvoh),
+            ("rAmaH+Sete", "rAmaH Sete", Rule::VaSari),
+            ("kaH+tsaruH", "kaH tsaruH", Rule::SarpareVisarjaniyah),
+            ("hariH+gacCati", "harir gacCati", Rule::Repha),
+            ("hariH+atra", "harir atra", Rule::Repha),
+            ("hariH+ca", "hariS ca", Rule::VisarjaniyasyaSah),
+            ("guruH+vadati", "gurur vadati", Rule::Repha),
+            ("punar+gacCati", "punar gacCati", Rule::Repha),
+            ("punar+ca", "punaS ca", Rule::VisarjaniyasyaSah),
+            ("rAmas+gacCati", "rAmo gacCati", Rule::HasiCa),
+            ("saH+gacCati", "sa gacCati", Rule::SuLopa),
+            ("ezaH+ca", "eza ca", Rule::SuLopa),
+            ("saH+atra", "so'tra", Rule::AtoRoh),
+        ] {
+            assert_eq!(j(request), (String::from(joined), rule), "{request}");
+        }
+        let mut out = [0u8; MAX_TEXT];
+        for not_yet in [
+            &b"punar+ramate"[..],
+            b"hariH+ramate",
+            b"vAkH+atra",
+            b"H+atra",
+            b"rAmaH+Mca",
+        ] {
+            assert_eq!(
+                join_request(not_yet, &mut out),
+                Err(Error::NotYet),
+                "{:?}",
+                core::str::from_utf8(not_yet)
+            );
+        }
+        // ru after a/A before r is not 8.3.14: 6.1.114 and 8.3.17 apply.
+        assert_eq!(
+            j("rAmaH+ramate"),
+            (String::from("rAmo ramate"), Rule::HasiCa)
+        );
     }
 
     fn vec_of(bytes: &[u8]) -> std::vec::Vec<u8> {

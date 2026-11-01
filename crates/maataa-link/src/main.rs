@@ -462,8 +462,18 @@ fn sandhi(ch: &mut Channel, text: Option<&str>) -> Result<String, String> {
         Ok((n, rule)) => {
             let host = std::str::from_utf8(&expected[..n]).unwrap_or("?");
             if board != host {
+                // Rules 8 and up (visarga) are host only so far.
+                let note = if rule as u8 > 7 {
+                    format!(
+                        "; the capsule has vowel sandhi only, the host applied {} {}",
+                        rule.name(),
+                        rule.sutra()
+                    )
+                } else {
+                    String::new()
+                };
                 return Err(format!(
-                    "MISMATCH: board={board:?}, host={host:?} (request {slp1})"
+                    "MISMATCH: board={board:?}, host={host:?} (request {slp1}){note}"
                 ));
             }
             let deva = lipi::slp1_to_deva(host).map_err(|e| format!("{host}: {e}"))?;

@@ -10,6 +10,7 @@
 | Manifest key `log=quiet`: the kernel logs a capsule's tick only when it returns a negative result; panini version 2 uses it (no more log line a second) | installed and answering (v2, 2026-11-01); the quiet log itself checked in QEMU | docs/wasm-capsules.md |
 | `maataa_sandhi::varna`: the 49 phonemes with place, effort, voicing, aspiration and length; the Maheshvara sutras; pratyaharas computed from them (with the ण् choice explicit); 1.1.69 savarna widening; 1.1.9/1.1.10 savarna | host tests | docs/panini.md |
 | `join` rewritten on the varna model (pratyaharas, savarna, 1.1.50 closest substitute); agrees with the first engine on all 49×49 boundary pairs in three contexts; f+x kept at 6.1.77 as an open exception | host tests | docs/panini.md |
+| Visarga, s and r before a word: 6.1.113, 6.1.114, 6.1.132, 8.3.17 with 8.3.19 / 8.3.22, 8.3.34 with 8.4.40 / 8.4.41, 8.3.35, 8.3.36, 8.3.37, r kept; 21 textbook cases; 8.3.14 refused as not yet | host tests | docs/panini.md |
 | `maataa-link sandhi देव+इन्द्र`: Devanagari or SLP1 in, the board's answer checked against the host's (`MATCH`/`MISMATCH`); `maataa_sandhi::lipi` converts, refusing unsupported characters | yes (2026-11-01, 11 requests) | docs/panini.md |
 
 Board run (NUCLEO-F411RE, kernel v0.1.0-alpha.3, 2026-11-01): panini

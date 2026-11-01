@@ -144,6 +144,37 @@ Open exception, kept on purpose: by the r/l varttika, f+x (ऋ+ऌ) would meet
 6.1.101; both engines, and the capsule, apply 6.1.77 (`pitf+xkAra` ->
 `pitrxkAra`) until the commentaries are checked. A test pins it.
 
+## Visarga, s and r (host library only)
+
+A word ending in visarga (`H`), `s` or `r` before the next word. `H` and a
+final `s` are taken as s (8.2.66 sasajuso ruh); write a final `r` (punar)
+when the word has r, because the visarga alone does not say which. The two
+words stay apart with a space, except where avagraha joins them.
+
+| Request | Result | Sutras |
+| --- | --- | --- |
+| `rAmaH+gacCati` | `rAmo gacCati` | 6.1.114 haSi ca, 6.1.87 |
+| `rAmaH+atra` | `rAmo'tra` | 6.1.113, 6.1.87, 6.1.109 |
+| `rAmaH+iti` | `rAma iti` | 8.3.17, 8.3.19 (no guna: 8.3.19 is asiddha, 8.2.1) |
+| `devAH+gacCanti` | `devA gacCanti` | 8.3.17, 8.3.22 |
+| `devAH+atra` | `devA atra` | 8.3.17, 8.3.19 |
+| `rAmaH+ca` | `rAmaS ca` | 8.3.34, 8.4.40 |
+| `rAmaH+tatra` | `rAmas tatra` | 8.3.34 |
+| `rAmaH+wIkA` | `rAmaz wIkA` | 8.3.34, 8.4.41 |
+| `rAmaH+karoti` | `rAmaH karoti` | 8.3.37 (jihvamuliya optional, not written) |
+| `rAmaH+Sete` | `rAmaH Sete` | 8.3.36 va Sari (s optional) |
+| `kaH+tsaruH` | `kaH tsaruH` | 8.3.35 |
+| `hariH+gacCati` | `harir gacCati` | ru stays r |
+| `punar+ca` | `punaS ca` | 8.3.15, 8.3.34, 8.4.40 |
+| `saH+gacCati` | `sa gacCati` | 6.1.132 |
+
+Optional forms take the common choice: 8.3.19 drops the y, 8.3.36 and
+8.3.37 keep the visarga. Not yet (refused as -105): r or ru before r
+(8.3.14 ro ri with 6.3.111 lengthening, punaH+ramate -> punA ramate), a
+visarga after a consonant, pluta. The capsule still has vowel sandhi only,
+so `maataa-link sandhi` reports a MISMATCH on these and names the rule the
+host applied.
+
 ## Later
 
 When a hardware Panini engine (an FPGA) exists, the kernel will need a driver
