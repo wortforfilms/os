@@ -397,7 +397,7 @@ mod tests {
                 s.quiet,
                 s.version
             )),
-            Ok((true, true, 4))
+            Ok((true, true, 5))
         );
         // Room left in the interpreter's tables for the next rules.
         assert_eq!(module.data_segments(), 1);
@@ -514,6 +514,53 @@ mod tests {
                 }
             }
         }
+        // Hal sandhi (version 5): every consonant ending after a, i or k,
+        // bare and after k, before every first letter alone or followed by
+        // a, S, k or y (S then a vowel or h y v r for 8.4.63).
+        for &end in b"kKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzshM" {
+            for &before in b"aik" {
+                for left in [vec![before, end], vec![b'k', before, end]] {
+                    for &first in all.iter() {
+                        for second in [None, Some(b'a'), Some(b'S'), Some(b'k'), Some(b'y')] {
+                            let mut request = left.clone();
+                            request.push(b'+');
+                            request.push(first);
+                            request.extend(second);
+                            requests.push(request);
+                        }
+                    }
+                }
+            }
+        }
+        for text in [
+            "vAk+ISa",
+            "jagat+ISa",
+            "tat+gacCati",
+            "tat+ramate",
+            "tat+ca",
+            "sat+jana",
+            "tat+wIkA",
+            "tat+na",
+            "vAk+mAtra",
+            "tat+laya",
+            "tat+Siva",
+            "vAk+Sata",
+            "vAk+hari",
+            "tat+hita",
+            "kim+karoti",
+            "kim+atra",
+            "ap+su",
+            "tat+pAda",
+            "liw+ca",
+            "vAc+ISa",
+            "rAj+atra",
+            "diS+atra",
+            "rAjan+atra",
+            "tat+Mka",
+            "ziv+a",
+        ] {
+            requests.push(text.as_bytes().to_vec());
+        }
         for left in ["saH", "sas", "sar", "ezaH", "ezas", "esaH", "saaH", "H"] {
             for right in ["gacCati", "ca", "atra", "iti", "Sete", "ramate", "Mka"] {
                 requests.push(format!("{left}+{right}").into_bytes());
@@ -549,7 +596,6 @@ mod tests {
             requests.push(text.as_bytes().to_vec());
         }
         let count = requests.len();
-        let mut hal_skipped = 0;
         for request in requests {
             host.keys.insert(40, request.clone());
             host.keys.remove(&41);
@@ -557,35 +603,6 @@ mod tests {
             let mut expected = [0u8; maataa_sandhi::MAX_TEXT];
             let shown = String::from_utf8_lossy(&request).into_owned();
             let host_result = maataa_sandhi::join_request(&request, &mut expected);
-            // Consonant endings other than s and r: the crate has hal sandhi
-            // (rules 18 to 26), the capsule does not yet and joins them as
-            // written, as it always has.
-            let plus = request.iter().position(|&c| c == b'+');
-            let hal_left = plus
-                .and_then(|p| p.checked_sub(1))
-                .and_then(|i| maataa_sandhi::varna::Varna::from_slp1(request[i]))
-                .is_some_and(|v| v.is_consonant() && !matches!(v.slp1(), b's' | b'r'));
-            let host_hal = match host_result {
-                Ok((_, rule)) => rule as i32 >= 18 || hal_left,
-                Err(maataa_sandhi::Error::NotYet) => hal_left,
-                Err(_) => false,
-            };
-            if hal_left && host_hal {
-                if result < 0 {
-                    // The capsule refuses what it cannot take either way.
-                    assert_eq!(
-                        host.keys.get(&41).map(Vec::as_slice),
-                        Some(&b"?"[..]),
-                        "{shown}"
-                    );
-                } else {
-                    let plain: Vec<u8> = request.iter().copied().filter(|&c| c != b'+').collect();
-                    assert_eq!(result, 1, "{shown}");
-                    assert_eq!(host.keys.get(&41), Some(&plain), "{shown}");
-                }
-                hal_skipped += 1;
-                continue;
-            }
             match host_result {
                 Ok((n, rule)) => {
                     assert_eq!(result, rule as i32, "{shown}");
@@ -606,14 +623,12 @@ mod tests {
             }
             assert!(!host.keys.contains_key(&40), "{shown}: request not deleted");
         }
-        assert!(count > 58_000, "{count} requests");
-        assert!(
-            hal_skipped > 0 && hal_skipped < count / 10,
-            "{hal_skipped} hal requests"
-        );
+        assert!(count > 100_000, "{count} requests");
         assert!(host.logged.iter().any(|line| line == "devendra"));
         assert!(host.logged.iter().any(|line| line == "rAmo gacCati"));
         assert!(host.logged.iter().any(|line| line == "rAma iti"));
+        assert!(host.logged.iter().any(|line| line == "vAgISa"));
+        assert!(host.logged.iter().any(|line| line == "tacca"));
         assert!(host.logged.iter().any(|line| line == "vane'tra"));
     }
 

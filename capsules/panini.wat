@@ -15,11 +15,14 @@
 ;; Each tick reads key 40. If there is a request it writes the answer to key
 ;; 41 ("?" if the request is malformed), logs it, deletes key 40 and returns
 ;; the rule (1 join, 2 savarna-dirgha, 3 guna, 4 vrddhi, 5 yan, 6 ayadi,
-;; 7 purvarupa; 8 to 17 the visarga rules, numbered as Rule in the crate)
+;; 7 purvarupa; 8 to 17 the visarga rules, 18 to 26 hal sandhi, numbered
+;; as Rule in the crate)
 ;; or an error (-101 no +, -102 empty word, -103 not SLP1, -105 not yet).
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 5: hal sandhi for final stops and m (rules 18 to 26), as
+;; crates/maataa-sandhi.
 ;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
 ;; (rules 8 to 17, and -105 for what it does not do yet).
 ;; Version 3: the same rules with its constants in one data segment
@@ -34,7 +37,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=4 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=5 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -50,6 +53,8 @@
   ;;   264  semivowel per grade (i u f x): "yvrl"
   ;;   272  guna of a before grade 2..5, two bytes each (0: one letter)
   ;;   280  ayadi of e E o O, two bytes each
+  ;;   288  stop row * 8 + column of each ASCII byte (255: not a stop)
+  ;;   416  the stops by row and column, "kKgGN cCjJY wWqQR tTdDn pPbBm"
   ;;   512  the request (64 bytes)
   ;;   640  the answer (64 bytes)
   (memory 1)
@@ -72,7 +77,18 @@
     "AIUFX" "\00\00\00"
     "yvrl" "\00\00\00\00"
     "e\00o\00aral"
-    "ayAyavAv")
+    "ayAyavAv"
+    ;; 288: stop row * 8 + column of each ASCII byte, 255 if not a stop
+    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
+    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
+    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
+    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
+    "\ff\ff\23\09\1b\ff\ff\03\ff\ff\0b\01\ff\ff\04\ff"
+    "\21\13\14\ff\19\ff\ff\11\ff\0c\ff\ff\ff\ff\ff\ff"
+    "\ff\ff\22\08\1a\ff\ff\02\ff\ff\0a\00\ff\24\1c\ff"
+    "\20\12\ff\ff\18\ff\ff\10\ff\ff\ff\ff\ff\ff\ff\ff"
+    ;; 416: the stops by row and column (row * 5 + column)
+    "kKgGNcCjJYwWqQRtTdDnpPbBm")
 
   (global $olen (mut i32) (i32.const 0))
 
@@ -251,6 +267,146 @@
     local.get $p local.get $n call $space_right
     i32.const 16)
 
+  ;; Stop row and column of a byte: row * 8 + column (rows velar, palatal,
+  ;; retroflex, dental, labial; columns unvoiced, aspirated, voiced, voiced
+  ;; aspirated, nasal), or 255 for anything else.
+  (func $stop (param $c i32) (result i32)
+    local.get $c i32.const 128 i32.ge_u
+    if (result i32)
+      i32.const 255
+    else
+      local.get $c i32.const 288 i32.add i32.load8_u
+    end)
+
+  ;; A first word ending in a consonant other than s and r (hal sandhi), in
+  ;; the order of hal() in crates/maataa-sandhi: each rule sees the result of
+  ;; the ones before it (8.2.1); the words are written joined, except after
+  ;; 8.3.23. Returns the last rule applied (18 to 26), 1, or -105.
+  (func $hal (param $p i32) (param $n i32) (result i32)
+    (local $x i32) (local $y i32) (local $yc i32) (local $st i32)
+    (local $row i32) (local $col i32) (local $rule i32) (local $first i32)
+    (local $out i32) (local $next i32)
+    local.get $p i32.const 511 i32.add i32.load8_u local.set $x
+    local.get $p i32.const 513 i32.add i32.load8_u local.tee $y
+    call $class local.set $yc
+    ;; The second word must start with a vowel or a consonant.
+    local.get $yc i32.const 26 i32.eq
+    if i32.const -105 return end
+    ;; 8.3.23: m before a consonant becomes anusvara (26); before a vowel,
+    ;; joined as written (1).
+    local.get $x i32.const 109 i32.eq
+    if
+      local.get $yc i32.const 14 i32.gt_u
+      if
+        i32.const 512 local.get $p i32.const 1 i32.sub call $put
+        i32.const 77 call $put1
+        local.get $p local.get $n call $space_right
+        i32.const 26 return
+      end
+      i32.const 512 local.get $p call $put
+      local.get $p i32.const 513 i32.add
+      local.get $n local.get $p i32.sub i32.const 1 i32.sub
+      call $put
+      i32.const 1 return
+    end
+    ;; Taken: stops of every row but the palatal, not nasals.
+    local.get $x call $stop local.tee $st
+    i32.const 255 i32.eq
+    if i32.const -105 return end
+    local.get $st i32.const 3 i32.shr_u local.set $row
+    local.get $row i32.const 1 i32.eq
+    local.get $st i32.const 7 i32.and i32.const 4 i32.eq
+    i32.or
+    if i32.const -105 return end
+    ;; 8.2.39: the jaS of the row (18).
+    i32.const 2 local.set $col
+    i32.const 18 local.set $rule
+    local.get $y local.set $first
+    ;; 8.4.40 / 8.4.41: a dental next to S or the c row (19), z or the w
+    ;; row (20).
+    local.get $row i32.const 3 i32.eq
+    if
+      local.get $y i32.const 83 i32.eq
+      local.get $y call $stop i32.const 3 i32.shr_u i32.const 1 i32.eq
+      i32.or
+      if
+        i32.const 1 local.set $row
+        i32.const 19 local.set $rule
+      else
+        local.get $y i32.const 122 i32.eq
+        local.get $y call $stop i32.const 3 i32.shr_u i32.const 2 i32.eq
+        i32.or
+        if
+          i32.const 2 local.set $row
+          i32.const 20 local.set $rule
+        end
+      end
+    end
+    ;; 8.4.45: before a nasal, the row's nasal (21).
+    local.get $y call $stop local.tee $st
+    i32.const 255 i32.ne
+    local.get $st i32.const 7 i32.and i32.const 4 i32.eq
+    i32.and
+    if
+      i32.const 4 local.set $col
+      i32.const 21 local.set $rule
+    end
+    ;; 8.4.55: before khar (classes 21 to 25), car (22).
+    local.get $yc i32.const 21 i32.ge_u
+    local.get $yc i32.const 25 i32.le_u
+    i32.and
+    if
+      i32.const 0 local.set $col
+      i32.const 22 local.set $rule
+    end
+    ;; The letter the final becomes.
+    local.get $row i32.const 5 i32.mul local.get $col i32.add
+    i32.const 416 i32.add i32.load8_u local.set $out
+    ;; 8.4.60: the dental row before l becomes l (23).
+    local.get $row i32.const 3 i32.eq
+    local.get $y i32.const 108 i32.eq
+    i32.and
+    if
+      i32.const 108 local.set $out
+      i32.const 23 local.set $rule
+    end
+    ;; 8.4.62: h after a voiced stop becomes its aspirate (24).
+    local.get $y i32.const 104 i32.eq
+    local.get $col i32.const 2 i32.eq
+    i32.and
+    if
+      local.get $row i32.const 5 i32.mul i32.const 419 i32.add i32.load8_u local.set $first
+      i32.const 24 local.set $rule
+    end
+    ;; 8.4.63: S before aT (a vowel or h y v r) becomes C (25).
+    local.get $y i32.const 83 i32.eq
+    if
+      local.get $n local.get $p i32.sub i32.const 2 i32.gt_s
+      if
+        local.get $p i32.const 514 i32.add i32.load8_u local.tee $next
+        call $class i32.const 14 i32.le_u
+        local.get $next i32.const 104 i32.eq
+        i32.or
+        local.get $next i32.const 121 i32.eq
+        i32.or
+        local.get $next i32.const 118 i32.eq
+        i32.or
+        local.get $next i32.const 114 i32.eq
+        i32.or
+        if
+          i32.const 67 local.set $first
+          i32.const 25 local.set $rule
+        end
+      end
+    end
+    i32.const 512 local.get $p i32.const 1 i32.sub call $put
+    local.get $out call $put1
+    local.get $first call $put1
+    local.get $p i32.const 514 i32.add
+    local.get $n local.get $p i32.sub i32.const 2 i32.sub
+    call $put
+    local.get $rule)
+
   ;; Joins the request of `n` bytes at 512 into the answer; returns the rule
   ;; or an error, as crates/maataa-sandhi does.
   (func $join (param $n i32) (result i32)
@@ -303,6 +459,13 @@
     end
     local.get $p i32.const 511 i32.add i32.load8_u call $class local.set $a
     local.get $p i32.const 513 i32.add i32.load8_u call $class local.set $b
+    ;; A first word ending in a consonant (not M, H): hal sandhi.
+    local.get $a i32.const 20 i32.ge_u
+    local.get $a i32.const 25 i32.le_u
+    i32.and
+    if
+      local.get $p local.get $n call $hal return
+    end
     ;; A consonant on either side: joined as written.
     local.get $a i32.const 14 i32.gt_u
     local.get $b i32.const 14 i32.gt_u

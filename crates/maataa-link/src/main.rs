@@ -462,11 +462,11 @@ fn sandhi(ch: &mut Channel, text: Option<&str>) -> Result<String, String> {
         Ok((n, rule)) => {
             let host = std::str::from_utf8(&expected[..n]).unwrap_or("?");
             if board != host {
-                // Rules 8 to 17 (visarga) came with panini version 4; 18 and
-                // up (hal sandhi) are host only so far.
+                // Rules 8 to 17 (visarga) came with panini version 4, 18 to
+                // 26 (hal sandhi) with version 5.
                 let note = if rule as u8 > 17 {
                     format!(
-                        "; the host applied {} {}, which the capsule does not have yet",
+                        "; the host applied {} {} (panini version 5 or later has it)",
                         rule.name(),
                         rule.sutra()
                     )

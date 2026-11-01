@@ -214,8 +214,13 @@ h (8.2.36, 8.2.31), final nasals Y N R n (8.3.7, 8.3.32, 8.4.40 with n),
 final y l v. A property test checks every final stop before every letter:
 the stop is never aspirated, and never voiced before khar. The first
 engine joined consonant endings as written, so the golden test leaves them
-out. The capsule does not have these rules yet (it joins such words as
-written), and `maataa-link sandhi` says so on a MISMATCH.
+out. Panini version 5 has the same rules in the same order, with a stop
+table (row and column of each stop, at 288, and the stops by row at 416).
+The host test runs the capsule against the crate for every consonant
+ending after a, i or k, bare and after k, before every first letter alone
+or followed by a, S, k or y, and the named cases (about 50,000 more
+requests, about 109,000 in all): answers and rule numbers equal. Image
+2,909 bytes of 4,096; worst fuel 4,883 of 20,000; one data segment.
 
 ## Later
 
