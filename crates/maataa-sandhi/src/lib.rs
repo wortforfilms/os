@@ -31,6 +31,8 @@ extern crate alloc;
 #[cfg(feature = "alloc")]
 pub mod lipi;
 
+pub mod varna;
+
 /// The rule that joined the two words. The numbers are the capsule's tick
 /// results.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

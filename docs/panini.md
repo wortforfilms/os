@@ -93,6 +93,48 @@ With `maataa-link sandhi` on the same board: देव+इन्द्र -> द
 `MATCH`; देव+ळ was refused before sending (ळ unsupported) and देव+इन्+द्र by
 both the board and the host.
 
+## The varna model (`maataa_sandhi::varna`)
+
+The foundation for writing rules the way the sutras state them. Host
+library only; the wire format (SLP1) and the capsule are unchanged, and the
+current rules do not use it yet.
+
+- `Varna`: all 49 phonemes of the SLP1 alphabet (14 vowels, 33 consonants,
+  anusvara, visarga), one-to-one with their SLP1 bytes. The long vowels,
+  anusvara and visarga are not in the Maheshvara sutras, so the enum is not
+  the sutras' order.
+- Properties: place (sthana) as a set, because e/ai are throat+palate, o/au
+  throat+lips, v teeth+lips and the nasals add the nose (1.1.8); internal
+  effort (sprishta, ishat-sprishta, ishad-vivrta, vivrta); voicing,
+  aspiration and length.
+- `SHIVA_SUTRAS`: the fourteen sutras as written, with their it-markers.
+  `pratyahara("ac")` computes a set from them. ण् ends two sutras, so a name
+  ending in it must say which when both make sense: `aR1` = अ इ उ, `aR2`
+  runs to लण्, `iR2` is the इण् of 8.3.57; `yaR` has only one. A pratyahara
+  starts at the first occurrence of its letter, so `hal` is all 33
+  consonants (ह occurs twice).
+- `with_savarnas`: 1.1.69, a vowel in a pratyahara also stands for its
+  savarnas (`ik` covers इ ई उ ऊ ऋ ॠ ऌ ॡ).
+- `savarna(a, b)`: 1.1.9 (same place in the mouth, the nose aside, and same
+  internal effort), with 1.1.10 (a vowel and a consonant never) and the
+  varttika making the r and l vowels savarna.
+
+Tests check the pratyaharas against the textbook lists (ac, hal, ik, ak,
+yaR, eN, ec, Jal (24), jaS, Kar (13), haS (20), Sal, yay, am, aR1, aR2,
+iR2), refusals (`aR` without 1 or 2, unknown it-markers), places and
+efforts, and savarna pairs.
+
+Open point, flagged in the code: e/ai and o/au share place and effort, so
+1.1.9 as modelled would make them savarna; the grammar is not used that
+way, so the model keeps e ai o au savarna only of themselves. This should
+be checked against the commentaries. It does not affect the current rules.
+
+Next: rewrite `join` on this model (6.1.77 as ik + ac with the yaR of the
+same place, 6.1.101 with savarna, and so on) and check the new engine
+against the current one for every pair. One difference is expected: by the
+r/l varttika, f+x meets 6.1.101 (savarna) where the current rules apply
+6.1.77; that case needs a decision before the capsule follows.
+
 ## Later
 
 When a hardware Panini engine (an FPGA) exists, the kernel will need a driver
