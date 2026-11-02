@@ -3,6 +3,7 @@
 | Feature | Board | Docs |
 | --- | --- | --- |
 | `release.sh` refuses to build when `dist/` for the version already exists or when the version's tag is on another commit (alpha.6 was first tagged on a commit still versioned alpha.5, and the build overwrote alpha.5's `dist/`) | - | docs/release.md |
+| `maataa-sandhi` Hints (host library only): `join_with` / `join_request_with` with `Hints { dual, verb }` give 1.1.11 for duals (rule 31: dve+iti -> dve iti), 6.1.94 pararupa (new rule 32: pra+ejate -> prejate), 6.1.89 for i and eD (new rule 33: upa+eti -> upEti) and 6.1.91 (new rule 34: pra+fcCati -> prArcCati); default hints are `join`. Capsule and wire format unchanged | host tests | docs/panini.md |
 | panini version 9: the same rules as version 8 in fewer bytes (five data segments without the zeros between them, half of each 128-byte table stored, helpers `$stem` and `$rest`): image 3,662 of 4,096 bytes (was 3,949; 434 left), worst fuel 4,390; capsule == host on the whole host test | yes (2026-11-02, panini 9, 18 requests) | docs/panini.md |
 
 # Maataa OS v0.1.0-alpha.6

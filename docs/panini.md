@@ -48,11 +48,23 @@ may be the preposition AN), 1.1.15 ot (`aho`, `Aho`, `aTo`, `uto`,
 still joined (`dvayiti`); a caller who knows the word is a dual does not
 ask for sandhi. 1.1.13 (vedic) and 1.1.16 (optional) are not taken.
 
-Not done: pararupa 6.1.94 (an upasarga in a/A before a verb in e/o:
-pra+ejate -> prejate). It needs to know that the second word is a verb
-(6.1.89 makes upa+eti upEti, and upa+eva is upEva), which the letters do
-not show; `pra+ejate` gives `prEjate` (vrddhi) for now. Also not done: the
-optional loss of y/v after ayadi (8.3.19). Errors: -101 no `+`, -102 an
+Hints (host library only): what the letters cannot show, the caller can
+say. `join_with` and `join_request_with` take `Hints { dual, verb }`; with
+the default hints they are `join` and `join_request`. The capsule's
+request (key 40) has no room for hints, so the capsule and the board do not
+have these rules.
+
+| Hint | Rule | Example |
+| --- | --- | --- |
+| `dual: true`, first word in I U e | 31, 1.1.11 IdUded dvivacanam pragrhyam (then 6.1.125) | `dve+iti` -> `dve iti`, `harI+etO` -> `harI etO` |
+| `verb: Some(Other)`, first word pra parA apa ava upa, verb in e/o | 32, 6.1.94 eNi pararUpam | `pra+ejate` -> `prejate`, `upa+ozati` -> `upozati` |
+| `verb: Some(I)` or `Some(Edh)` (i "go", eD "grow") | 33, 6.1.89 etyedhatyUWsu (vrddhi, not 6.1.94) | `upa+eti` -> `upEti`, `pra+eDate` -> `prEDate` |
+| `verb: Some(_)`, upasarga as above, verb in f | 34, 6.1.91 upasargAd fti DAtO | `pra+fcCati` -> `prArcCati` |
+
+A hint that does not fit changes nothing (a dual in O, a verb after a word
+that is not one of those upasargas). Without hints, `dve+iti` is
+`dvayiti` and `pra+ejate` is `prEjate`, as the letters alone give. Not
+done: the optional loss of y/v after ayadi (8.3.19). Errors: -101 no `+`, -102 an
 empty word, -103 a byte that is not an SLP1 letter, -104 too long (64
 bytes), -105 a case not done yet, -106 a word that starts with M or H (no
 word does; panini version 8, earlier -105 or joined as written).

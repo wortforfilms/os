@@ -122,6 +122,41 @@ pub enum Rule {
     /// 1.1.15 ot (aho, Aho, aTo, uto, utAho). Duals (1.1.11) cannot be told
     /// from the letters: the caller does not join them.
     Pragrhya = 31,
+    // Rules that need to know more than the letters ([`Hints`]); only
+    // [`join_with`] gives them, the capsule never does.
+    /// 6.1.94 eNi pararUpam: an upasarga in a/A before a verb in e/o
+    /// becomes the following vowel: pra+ejate -> prejate.
+    Pararupa = 32,
+    /// 6.1.89 etyedhatyUWsu: before the verbs i (iR, eti) and eD (eDate)
+    /// the upasarga's a/A and e/o make vrddhi, not 6.1.94: upa+eti -> upEti.
+    EtyEdhati = 33,
+    /// 6.1.91 upasargAd fti DAtO: an upasarga in a/A before a verb in f
+    /// makes vrddhi (Ar): pra+fcCati -> prArcCati.
+    UpasargadRti = 34,
+}
+
+/// What a caller knows about the two words beyond their letters, for the
+/// rules [`join`] cannot decide alone. The default knows nothing, and
+/// [`join_with`] with it is [`join`].
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Hints {
+    /// The first word is a dual: in I, U or e it is pragrhya (1.1.11
+    /// IdUded dvivacanam pragrhyam): dve+iti -> dve iti.
+    pub dual: bool,
+    /// The second word is a form of a verb (dhAtu), joined to an upasarga
+    /// (pra parA apa ava upa) for 6.1.94, 6.1.89 and 6.1.91.
+    pub verb: Option<Verb>,
+}
+
+/// The verb of [`Hints::verb`], as far as the rules need it.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Verb {
+    /// i (iR, "go": eti, emi), for 6.1.89.
+    I,
+    /// eD ("grow": eDate), for 6.1.89.
+    Edh,
+    /// Any other verb.
+    Other,
 }
 
 impl Rule {
@@ -158,6 +193,9 @@ impl Rule {
             Self::RoRi => "r dropped, vowel lengthened",
             Self::SamyogantaLopa => "final of a cluster dropped",
             Self::Pragrhya => "pragrhya, no sandhi",
+            Self::Pararupa => "pararupa",
+            Self::EtyEdhati => "vrddhi (eti, eDate)",
+            Self::UpasargadRti => "vrddhi before f (upasarga)",
         }
     }
 
@@ -194,6 +232,9 @@ impl Rule {
             Self::RoRi => "8.3.14",
             Self::SamyogantaLopa => "8.2.23",
             Self::Pragrhya => "6.1.125",
+            Self::Pararupa => "6.1.94",
+            Self::EtyEdhati => "6.1.89",
+            Self::UpasargadRti => "6.1.91",
         }
     }
 }
@@ -261,11 +302,21 @@ pub fn class(byte: u8) -> u8 {
 
 /// Joins "left+right" (one `+`, SLP1 letters only) into `out`.
 pub fn join_request(request: &[u8], out: &mut [u8]) -> Result<(usize, Rule), Error> {
+    join_request_with(request, &Hints::default(), out)
+}
+
+/// [`join_request`] with [`Hints`] (host only: the capsule's request has
+/// no room for them).
+pub fn join_request_with(
+    request: &[u8],
+    hints: &Hints,
+    out: &mut [u8],
+) -> Result<(usize, Rule), Error> {
     let plus = request
         .iter()
         .position(|&b| b == b'+')
         .ok_or(Error::NoPlus)?;
-    join(&request[..plus], &request[plus + 1..], out)
+    join_with(&request[..plus], &request[plus + 1..], hints, out)
 }
 
 /// Joins two words with vowel sandhi at the boundary.
@@ -276,6 +327,19 @@ pub fn join_request(request: &[u8], out: &mut [u8]) -> Result<(usize, Rule), Err
 /// place). The tests check this against the first engine for every pair of
 /// boundary letters.
 pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), Error> {
+    join_with(left, right, &Hints::default(), out)
+}
+
+/// [`join`] with what the caller knows about the words ([`Hints`]): a dual
+/// first word (1.1.11), or an upasarga before a verb (6.1.94, 6.1.89,
+/// 6.1.91). Checked first, after the letters; with the default hints this
+/// is [`join`].
+pub fn join_with(
+    left: &[u8],
+    right: &[u8],
+    hints: &Hints,
+    out: &mut [u8],
+) -> Result<(usize, Rule), Error> {
     use varna::Varna;
     let (Some(&last), Some(&first)) = (left.last(), right.first()) else {
         return Err(Error::Empty);
@@ -290,6 +354,9 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
     // No word starts with anusvara or visarga.
     if matches!(left[0], b'M' | b'H') || matches!(first, b'M' | b'H') {
         return Err(Error::BadStart);
+    }
+    if let Some(done) = hinted(left, right, hints, out) {
+        return done;
     }
     // 8.2.23 samyogantasya lopah: a word ending in two consonants loses the
     // last (a visarga counts as s); 8.2.24 rAt sasya: after r only s goes.
@@ -712,6 +779,56 @@ fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Er
     Ok((w.len, rule))
 }
 
+/// The rules that need [`Hints`]; None when none applies.
+fn hinted(
+    left: &[u8],
+    right: &[u8],
+    hints: &Hints,
+    out: &mut [u8],
+) -> Option<Result<(usize, Rule), Error>> {
+    let (&last, &first) = (left.last()?, right.first()?);
+    if class(first) == 0 || class(first) > 14 {
+        return None;
+    }
+    let upasarga = matches!(left, b"pra" | b"parA" | b"apa" | b"ava" | b"upa");
+    // Which rule, and the letters that replace the meeting vowels (None:
+    // keep both words, apart).
+    let (rule, middle): (Rule, Option<&[u8]>) = if hints.dual && matches!(last, b'I' | b'U' | b'e')
+    {
+        // 1.1.11 IdUded dvivacanam pragrhyam, then 6.1.125.
+        (Rule::Pragrhya, None)
+    } else {
+        match (hints.verb, upasarga, first) {
+            // 6.1.89 before eti / eDate: vrddhi, not 6.1.94.
+            (Some(Verb::I | Verb::Edh), true, b'e') => (Rule::EtyEdhati, Some(b"E")),
+            (Some(Verb::I | Verb::Edh), true, b'o') => (Rule::EtyEdhati, Some(b"O")),
+            // 6.1.94 eNi pararUpam: the verb's e/o stands for both.
+            (Some(_), true, b'e') => (Rule::Pararupa, Some(b"e")),
+            (Some(_), true, b'o') => (Rule::Pararupa, Some(b"o")),
+            // 6.1.91 upasargAd fti DAtO: vrddhi A, with r (1.1.51).
+            (Some(_), true, b'f') => (Rule::UpasargadRti, Some(b"Ar")),
+            _ => return None,
+        }
+    };
+    let mut w = Writer { out, len: 0 };
+    let mut write = || -> Result<(usize, Rule), Error> {
+        match middle {
+            None => {
+                w.put(left)?;
+                w.put(b" ")?;
+                w.put(right)?;
+            }
+            Some(middle) => {
+                w.put(&left[..left.len() - 1])?;
+                w.put(middle)?;
+                w.put(&right[1..])?;
+            }
+        }
+        Ok((w.len, rule))
+    };
+    Some(write())
+}
+
 /// Whether a word is pragrhya by its letters alone: 1.1.12 adaso mAt (amI,
 /// amU), 1.1.14 nipAta ekAj anAN (a single vowel, not A, which may be the
 /// preposition AN), 1.1.15 ot (nipAtas in o: aho, Aho, aTo, uto, utAho).
@@ -959,6 +1076,78 @@ mod tests {
             join(b"deva", b"indra", &mut tiny_new),
             legacy_join(b"deva", b"indra", &mut tiny_old)
         );
+    }
+
+    #[test]
+    fn hints_decide_what_the_letters_cannot() {
+        let with = |request: &str, hints: Hints| {
+            let mut out = [0u8; MAX_TEXT];
+            let (n, rule) = join_request_with(request.as_bytes(), &hints, &mut out).unwrap();
+            (String::from(core::str::from_utf8(&out[..n]).unwrap()), rule)
+        };
+        let dual = Hints {
+            dual: true,
+            verb: None,
+        };
+        let verb = |v: Verb| Hints {
+            dual: false,
+            verb: Some(v),
+        };
+        for (request, hints, joined, rule) in [
+            // 1.1.11: a dual in I U e is pragrhya.
+            ("dve+iti", dual, "dve iti", Rule::Pragrhya),
+            ("harI+etO", dual, "harI etO", Rule::Pragrhya),
+            ("vizRU+imO", dual, "vizRU imO", Rule::Pragrhya),
+            ("Pale+ime", dual, "Pale ime", Rule::Pragrhya),
+            // 6.1.94 pararupa.
+            ("pra+ejate", verb(Verb::Other), "prejate", Rule::Pararupa),
+            ("upa+ozati", verb(Verb::Other), "upozati", Rule::Pararupa),
+            ("parA+ejate", verb(Verb::Other), "parejate", Rule::Pararupa),
+            // 6.1.89 for i and eD.
+            ("upa+eti", verb(Verb::I), "upEti", Rule::EtyEdhati),
+            ("pra+eDate", verb(Verb::Edh), "prEDate", Rule::EtyEdhati),
+            // 6.1.91.
+            (
+                "pra+fcCati",
+                verb(Verb::Other),
+                "prArcCati",
+                Rule::UpasargadRti,
+            ),
+            (
+                "upa+fzati",
+                verb(Verb::Other),
+                "upArzati",
+                Rule::UpasargadRti,
+            ),
+        ] {
+            assert_eq!(
+                with(request, hints),
+                (String::from(joined), rule),
+                "{request}"
+            );
+        }
+        // A hint that does not fit changes nothing: a dual in O (rAmO),
+        // a verb after a word that is not such an upasarga, a verb in a/i.
+        for (request, hints) in [
+            ("rAmO+iti", dual),
+            ("deva+ejate", verb(Verb::Other)),
+            ("pra+aBavat", verb(Verb::Other)),
+            ("upa+eva", Hints::default()),
+            ("dve+iti", Hints::default()),
+            ("pra+ejate", Hints::default()),
+        ] {
+            assert_eq!(with(request, hints), j(request), "{request}");
+        }
+        // The default hints are join itself, on every case of the tests.
+        for request in [
+            "deva+indra",
+            "rAmaH+gacCati",
+            "tAn+ca",
+            "mahAnt+atra",
+            "amI+iti",
+        ] {
+            assert_eq!(with(request, Hints::default()), j(request), "{request}");
+        }
     }
 
     #[test]
