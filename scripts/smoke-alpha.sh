@@ -114,6 +114,10 @@ if rg -q '^capsule rejected' "$BOOT_LOG"; then
 fi
 rg -q '^capsule tamper check: rejected \(bad signature\)$' "$BOOT_LOG"
 rg -q '^task 3: led without capability -> ENOCAP$' "$BOOT_LOG"
+# MPU (docs/kernel-mpu.md): task 4 writes kernel RAM and task 5 overflows
+# its stack; the kernel kills both, and the kernel word stays untouched.
+rg -q '^task 4 violated memory: data access at 0x[0-9a-f]{8} \(pc 0x[0-9a-f]{8}\); task killed, kernel word still 0x00000000$' "$BOOT_LOG"
+rg -q '^task 5 overflowed its stack \(stacking, mmfsr=0x[0-9a-f]{2}\); task killed$' "$BOOT_LOG"
 # Task 7 runs the signed telemetry capsule's WebAssembly; its manifest has no
 # LED capability, so its LED import must be refused.
 rg -q '^capsule telemetry: wasm loaded .* 4096 bytes of memory\)$' "$BOOT_LOG"
