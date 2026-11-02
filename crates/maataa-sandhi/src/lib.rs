@@ -591,12 +591,13 @@ fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Er
     let mut rule = Rule::JhalamJasonte;
     // The first letter of the second word, if a rule replaces it.
     let mut first = y;
-    // 8.4.40 / 8.4.41: a dental next to S / the c row, or z / the w row.
+    // 8.4.40 / 8.4.41: a dental next to S / the c row, or the w row. Not
+    // before z: 8.4.43 toh zi (tat+zaw is tatzaw).
     if row == 3 {
         if y == Varna::Sh || stop(y).is_some_and(|(r, _)| r == 1) {
             row = 1;
             rule = Rule::StohScuna;
-        } else if y == Varna::Ss || stop(y).is_some_and(|(r, _)| r == 2) {
+        } else if stop(y).is_some_and(|(r, _)| r == 2) {
             row = 2;
             rule = Rule::Stuna;
         }
@@ -923,6 +924,9 @@ mod tests {
             ("tat+ca", "tacca", Rule::KhariCa),
             ("sat+jana", "sajjana", Rule::StohScuna),
             ("tat+wIkA", "tawwIkA", Rule::KhariCa),
+            // 8.4.43 toh zi: a dental before z stays dental.
+            ("tat+zaw", "tatzaw", Rule::KhariCa),
+            ("tad+zoqaSa", "tatzoqaSa", Rule::KhariCa),
             ("tat+na", "tanna", Rule::YaroNunasike),
             ("vAk+mAtra", "vANmAtra", Rule::YaroNunasike),
             ("tat+laya", "tallaya", Rule::TorLi),

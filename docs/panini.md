@@ -198,6 +198,7 @@ excepted, below).
 | `tat+ca` | `tacca` | 8.2.39, 8.4.40, 8.4.55 |
 | `sat+jana` | `sajjana` | 8.2.39, 8.4.40 |
 | `tat+wIkA` | `tawwIkA` | 8.2.39, 8.4.41, 8.4.55 |
+| `tat+zaw` | `tatzaw` | 8.2.39, 8.4.55 (8.4.43 toh zi: no 8.4.41) |
 | `tat+na` | `tanna` | 8.2.39, 8.4.45 (optional; applied) |
 | `vAk+mAtra` | `vANmAtra` | 8.2.39, 8.4.45 |
 | `tat+laya` | `tallaya` | 8.2.39, 8.4.60 |
@@ -270,7 +271,8 @@ or followed by a, S, k or y, and the named cases (about 50,000 more
 requests, about 109,000 in all): answers and rule numbers equal. Image
 2,909 bytes of 4,096; worst fuel 4,883 of 20,000; one data segment.
 Panini version 6 adds the final palatals, S z h and N R n (rules 27 and
-28 new): image 3,491 bytes of 4,096, one data segment; worst fuel over
+28 new), and keeps a dental before z dental (8.4.43 toh zi; version 5
+gave tawzaw for tat+zaw): image 3,484 bytes of 4,096, one data segment; worst fuel over
 the host test's requests 4,246, the same as version 5 measured the same
 way.
 

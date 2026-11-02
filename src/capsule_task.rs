@@ -577,6 +577,8 @@ mod tests {
             "maDulih+gacCati",
             "dik+ambara",
             "Duk+atra",
+            "tat+zaw",
+            "tad+zoqaSa",
             "tAn+ca",
             "kasmin+cit",
             "tAn+tarati",

@@ -23,7 +23,8 @@
 ;;
 ;; Version 6: final palatals: 8.2.30 coh kuh for c j J, 8.2.36 for C; final
 ;; S z h (8.2.36, 8.2.31) as q; then the version 5 rules; final N R n:
-;; 8.3.32 (28), 8.3.7 (27), 8.4.40, 8.4.41, 8.4.60 with n.
+;; 8.3.32 (28), 8.3.7 (27), 8.4.40, 8.4.41, 8.4.60 with n. A dental before
+;; z stays dental (8.4.43; version 5 made it w).
 ;; Version 5: hal sandhi for final stops and m (rules 18 to 26), as
 ;; crates/maataa-sandhi.
 ;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
@@ -451,8 +452,8 @@
     i32.const 2 local.set $col
     i32.const 18 local.set $rule
     local.get $y local.set $first
-    ;; 8.4.40 / 8.4.41: a dental next to S or the c row (19), z or the w
-    ;; row (20).
+    ;; 8.4.40 / 8.4.41: a dental next to S or the c row (19), or the w row
+    ;; (20); not before z (8.4.43 toh zi).
     local.get $row i32.const 3 i32.eq
     if
       local.get $y i32.const 83 i32.eq
@@ -462,9 +463,7 @@
         i32.const 1 local.set $row
         i32.const 19 local.set $rule
       else
-        local.get $y i32.const 122 i32.eq
         local.get $y call $stop i32.const 3 i32.shr_u i32.const 2 i32.eq
-        i32.or
         if
           i32.const 2 local.set $row
           i32.const 20 local.set $rule
