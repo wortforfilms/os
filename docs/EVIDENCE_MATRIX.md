@@ -63,6 +63,9 @@ Per-rule evidence for the sandhi rules is in
 
 - No CI job runs on hardware; every "Board: yes" is a manual run that can go
   stale after a later change.
+- The NUCLEO-F411RE reset itself during board runs on 2026-11-03 (reset
+  cause `reset pin or debugger`, no crash record, boot count 241 to 242),
+  with nothing flashing it. Cause not known yet.
 - The `src/drivers/` modules (gpio, spi, i2c, timer, power) are simulated
   stubs with no hardware test; the real board code is `src/board.rs`.
 - The legacy virtual `StorageManager` (`src/storage/flash.rs`,
