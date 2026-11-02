@@ -131,6 +131,16 @@ kx+xkAra -> kFkAra, pitf+iti -> pitriti (6.1.77 still), vAc+ca, tAn+ca,
 rAjan+atra, vidvAn+liKati -> vidvAlliKati, tat+zaw, punar+ramate and
 deva+indra; prAY+atra refused by both (-105).
 
+Panini version 8 on the same board, 2026-11-02 (the first install attempt
+lost the ST-LINK in the middle, "Device not configured", and left version
+7 in place; the second went through): 3,949 bytes, and after a probe reset
+MATCH for अमी+इति and amI+iti -> amI iti, aho+iti -> aho iti, a+apehi ->
+a apehi, A+iti -> eti and dve+iti -> dvayiti (not pragrhya by their
+letters), mahAnt+atra -> mahAnatra, महान्त्+च -> mahAMSca, vAkH+atra ->
+vAgatra, Urj+atra -> Urgatra, Urs+atra -> Ur atra, hotf+xkAra, tAn+ca,
+punar+ramate and deva+indra; deva+Hari and tat+Mka refused by both (-106),
+prAY+atra by both (-105).
+
 ## The varna model (`maataa_sandhi::varna`)
 
 The foundation for writing rules the way the sutras state them. Host

@@ -476,7 +476,13 @@ fn sandhi(ch: &mut Channel, text: Option<&str>) -> Result<String, String> {
                 let mut words = slp1.split('+');
                 let v7_rl = rl(words.next().and_then(|w| w.bytes().last()))
                     && rl(words.next().and_then(|w| w.bytes().next()));
-                let since = if rule as u8 > 29 {
+                // A first word ending in two consonants (8.2.23): version 8.
+                const HAL: &[u8] = b"kKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzsh";
+                let left = slp1.split('+').next().unwrap_or("").as_bytes();
+                let v8_cluster = left.len() >= 2
+                    && (HAL.contains(&left[left.len() - 1]) || left[left.len() - 1] == b'H')
+                    && HAL.contains(&left[left.len() - 2]);
+                let since = if rule as u8 > 29 || v8_cluster {
                     8
                 } else if v7_rl {
                     7
