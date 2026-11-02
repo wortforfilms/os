@@ -116,6 +116,12 @@ pub enum Rule {
     /// only s goes. Named when no later rule applies: mahAnt+atra ->
     /// mahAnatra.
     SamyogantaLopa = 30,
+    /// 6.1.125 plutapragrhya aci nityam: a pragrhya word keeps its form
+    /// before a vowel; the words stay apart. Taken from the word itself:
+    /// 1.1.12 adaso mAt (amI, amU), 1.1.14 nipAta ekAj anAN (a i I u U),
+    /// 1.1.15 ot (aho, Aho, aTo, uto, utAho). Duals (1.1.11) cannot be told
+    /// from the letters: the caller does not join them.
+    Pragrhya = 31,
 }
 
 impl Rule {
@@ -151,6 +157,7 @@ impl Rule {
             Self::NamoHrasvat => "nasal doubled",
             Self::RoRi => "r dropped, vowel lengthened",
             Self::SamyogantaLopa => "final of a cluster dropped",
+            Self::Pragrhya => "pragrhya, no sandhi",
         }
     }
 
@@ -186,6 +193,7 @@ impl Rule {
             Self::NamoHrasvat => "8.3.32",
             Self::RoRi => "8.3.14",
             Self::SamyogantaLopa => "8.2.23",
+            Self::Pragrhya => "6.1.125",
         }
     }
 }
@@ -326,6 +334,13 @@ fn join_word(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule),
         w.put(left)?;
         w.put(right)?;
         return Ok((w.len, Rule::Join));
+    }
+    // 6.1.125: a pragrhya word before a vowel stays as it is.
+    if pragrhya(left) {
+        w.put(left)?;
+        w.put(b" ")?;
+        w.put(right)?;
+        return Ok((w.len, Rule::Pragrhya));
     }
     let set = |name: &str| pratyahara(name).unwrap_or(0);
     let has = |mask: u64, v: Varna| mask & v.bit() != 0;
@@ -697,6 +712,27 @@ fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Er
     Ok((w.len, rule))
 }
 
+/// Whether a word is pragrhya by its letters alone: 1.1.12 adaso mAt (amI,
+/// amU), 1.1.14 nipAta ekAj anAN (a single vowel, not A, which may be the
+/// preposition AN), 1.1.15 ot (nipAtas in o: aho, Aho, aTo, uto, utAho).
+fn pragrhya(word: &[u8]) -> bool {
+    matches!(
+        word,
+        b"amI"
+            | b"amU"
+            | b"a"
+            | b"i"
+            | b"I"
+            | b"u"
+            | b"U"
+            | b"aho"
+            | b"Aho"
+            | b"aTo"
+            | b"uto"
+            | b"utAho"
+    )
+}
+
 /// The long vowel savarna of a simple vowel (6.1.101's substitute).
 fn long_of(v: varna::Varna) -> varna::Varna {
     use varna::Varna::*;
@@ -750,6 +786,11 @@ fn legacy_join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule
         w.put(left)?;
         w.put(right)?;
         return Ok((w.len, Rule::Join));
+    } else if pragrhya(left) {
+        w.put(left)?;
+        w.put(b" ")?;
+        w.put(right)?;
+        return Ok((w.len, Rule::Pragrhya));
     } else {
         // Simple vowels have a grade (1 a, 2 i, 3 u, 4 f, 5 x); e E o O are 0.
         let grade = |c: u8| if c <= 10 { c.div_ceil(2) } else { 0 };
@@ -918,6 +959,35 @@ mod tests {
             join(b"deva", b"indra", &mut tiny_new),
             legacy_join(b"deva", b"indra", &mut tiny_old)
         );
+    }
+
+    #[test]
+    fn pragrhya_words_keep_their_form_before_a_vowel() {
+        for (request, joined) in [
+            ("amI+iti", "amI iti"),
+            ("amU+aSvO", "amU aSvO"),
+            ("aho+iti", "aho iti"),
+            ("Aho+utsavaH", "Aho utsavaH"),
+            ("utAho+iti", "utAho iti"),
+            ("a+apehi", "a apehi"),
+            ("i+indra", "i indra"),
+            ("u+uttizWa", "u uttizWa"),
+        ] {
+            assert_eq!(
+                j(request),
+                (String::from(joined), Rule::Pragrhya),
+                "{request}"
+            );
+        }
+        // Not pragrhya: A may be the preposition AN; other words in o or I;
+        // before a consonant there is nothing to keep apart.
+        assert_eq!(j("A+iti").1, Rule::Guna);
+        assert_eq!(j("devo+iti").1, Rule::Ayadi);
+        assert_eq!(j("nadI+iti").1, Rule::SavarnaDirgha);
+        assert_eq!(j("amI+gacCanti"), (String::from("amIgacCanti"), Rule::Join));
+        // A dual (1.1.11) cannot be told from its letters: dve+iti is
+        // joined; a caller who knows it is a dual does not ask.
+        assert_eq!(j("dve+iti").1, Rule::Ayadi);
     }
 
     #[test]

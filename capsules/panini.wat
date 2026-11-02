@@ -25,7 +25,8 @@
 ;; Version 8: -106 for a word starting with M or H (was -105, or joined as
 ;; written before a vowel ending).
 ;; Also 8.2.23 with 8.2.24 (rule 30): mahAnt+atra -> mahAnatra, and a
-;; visarga after a consonant is dropped (vAkH+atra -> vAgatra).
+;; visarga after a consonant is dropped (vAkH+atra -> vAgatra). And pragrhya
+;; words by their letters (rule 31, 6.1.125): amI+iti -> amI iti.
 ;; Version 7: f and x are savarna (the r/l varttika), so 6.1.101 joins them,
 ;; with F as the long vowel: hotf+xkAra -> hotFkAra (version 6 gave hotrxkAra
 ;; by 6.1.77).
@@ -69,6 +70,7 @@
   ;;   288  stop row * 8 + column of each ASCII byte (255: not a stop)
   ;;   416  the stops by row and column, "kKgGN cCjJY wWqQR tTdDn pPbBm"
   ;;   441  "praSAn"; 447 the consonants of am, "hyvrlYmNRn"
+  ;;   457  pragrhya words: "amIamUahoAhoaTouto", 475 "utAho", 480 "aiIuU"
   ;;   512  the request (64 bytes)
   ;;   640  the answer (64 bytes)
   (memory 1)
@@ -104,7 +106,9 @@
     ;; 416: the stops by row and column (row * 5 + column)
     "kKgGNcCjJYwWqQRtTdDnpPbBm"
     ;; 441: praSAn (8.3.7's exception); 447: the consonants of am
-    "praSAn" "hyvrlYmNRn")
+    "praSAn" "hyvrlYmNRn"
+    ;; 457: pragrhya words (3 letters each), 475: utAho, 480: single vowels
+    "amIamUahoAhoaTouto" "utAho" "aiIuU")
 
   (global $olen (mut i32) (i32.const 0))
 
@@ -673,6 +677,30 @@
       i32.const 512 local.get $p call $put
       local.get $p i32.const 513 i32.add local.get $n local.get $p i32.sub i32.const 1 i32.sub call $put
       i32.const 1 return
+    end
+    ;; 6.1.125: a pragrhya word before a vowel keeps its form, apart (31):
+    ;; 1.1.12 amI amU and 1.1.15 aho Aho aTo uto (3 letters, at 457),
+    ;; utAho (at 475), 1.1.14 a single vowel a i I u U (at 480).
+    i32.const 0 local.set $ga
+    local.get $p i32.const 3 i32.eq
+    if
+      i32.const 457 local.set $e
+      loop $try
+        i32.const 512 local.get $e i32.const 3 call $same
+        local.get $ga i32.or local.set $ga
+        local.get $e i32.const 3 i32.add local.tee $e
+        i32.const 475 i32.lt_u br_if $try
+      end
+    end
+    local.get $p i32.const 5 i32.eq
+    if i32.const 512 i32.const 475 i32.const 5 call $same local.set $ga end
+    local.get $p i32.const 1 i32.eq
+    if i32.const 512 i32.load8_u i32.const 480 i32.const 5 call $among local.set $ga end
+    local.get $ga
+    if
+      i32.const 512 local.get $p call $put
+      local.get $p local.get $n call $space_right
+      i32.const 31 return
     end
     local.get $a call $grade local.set $ga
     local.get $b call $grade local.set $gb

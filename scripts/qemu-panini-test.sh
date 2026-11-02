@@ -113,9 +113,9 @@ boot_and_talk sandhi "देव+इन्द्र" || fail "sandhi देव+�
 grep -q '^MATCH: देवेन्द्र (devendra) \[guna, 6.1.87\]$' "$WORK/tool.log" || fail "sandhi: no MATCH"
 echo "  sandhi देव+इन्द्र -> $(tail -n 1 "$WORK/tool.log")"
 # Visarga (version 4), hal sandhi (version 5), the remaining finals
-# (version 6) and f+x by the r/l varttika (version 7): the board's answer
-# must match the host's.
-for pair in "rAmaH+gacCati|rAmo gacCati" "vAk+ISa|vAgISa" "tat+ca|tacca" "vAc+ca|vAkca" "lih+atra|liqatra" "tAn+ca|tAMSca" "punar+ramate|punA ramate" "hotf+xkAra|hotFkAra"; do
+# (version 6), f+x by the r/l varttika (version 7), 8.2.23 and pragrhya
+# (version 8): the board's answer must match the host's.
+for pair in "rAmaH+gacCati|rAmo gacCati" "vAk+ISa|vAgISa" "tat+ca|tacca" "vAc+ca|vAkca" "lih+atra|liqatra" "tAn+ca|tAMSca" "punar+ramate|punA ramate" "hotf+xkAra|hotFkAra" "mahAnt+atra|mahAnatra" "amI+iti|amI iti"; do
     IFS='|' read -r request answer <<<"$pair"
     boot_and_talk sandhi "$request" || fail "sandhi $request"
     grep -q "^MATCH: .* ($answer) \[" "$WORK/tool.log" || fail "sandhi $request: no MATCH"

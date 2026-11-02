@@ -36,9 +36,23 @@ used:
 | 6 | ayadi | 6.1.78 eco 'yavayavah | `hare+e` -> `haraye` |
 | 1 | joined as written | (a consonant starts the second word) | `rAma+gacCati` -> `rAmagacCati` |
 
-Consonant (hal) and visarga sandhi follow in their own sections below. Not
-done: the optional loss of y/v after ayadi (8.3.19) and the exceptions
-(pragrhya, pararupa 6.1.94 and the rest). Errors: -101 no `+`, -102 an
+Consonant (hal) and visarga sandhi follow in their own sections below.
+
+Pragrhya (panini version 8, rule 31): a pragrhya word before a vowel keeps
+its form and the words stay apart (6.1.125 plutapragrhya aci nityam). Only
+what the letters show is taken: 1.1.12 adaso mAt (`amI`, `amU`), 1.1.14
+nipAta ekAj anAN (a word that is a single vowel `a i I u U`; not `A`, which
+may be the preposition AN), 1.1.15 ot (`aho`, `Aho`, `aTo`, `uto`,
+`utAho`): `amI+iti` -> `amI iti`, `aho+iti` -> `aho iti`. A dual in I U e
+(1.1.11: `dve`, `harI`) cannot be told from its letters, so `dve+iti` is
+still joined (`dvayiti`); a caller who knows the word is a dual does not
+ask for sandhi. 1.1.13 (vedic) and 1.1.16 (optional) are not taken.
+
+Not done: pararupa 6.1.94 (an upasarga in a/A before a verb in e/o:
+pra+ejate -> prejate). It needs to know that the second word is a verb
+(6.1.89 makes upa+eti upEti, and upa+eva is upEva), which the letters do
+not show; `pra+ejate` gives `prEjate` (vrddhi) for now. Also not done: the
+optional loss of y/v after ayadi (8.3.19). Errors: -101 no `+`, -102 an
 empty word, -103 a byte that is not an SLP1 letter, -104 too long (64
 bytes), -105 a case not done yet, -106 a word that starts with M or H (no
 word does; panini version 8, earlier -105 or joined as written).
