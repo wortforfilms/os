@@ -107,6 +107,13 @@ ramate, hariH+ramate -> harI ramate, hareH+ramate -> hare ramate,
 rAmaH+gacCati -> rAmo gacCati and deva+indra -> devendra; prAY+atra was
 refused by both the board and the host (-105, a final Y).
 
+Panini version 7 on the same board, 2026-11-02: installed in place of
+version 6 (3,571 bytes) and, after a probe reset, MATCH for होतृ+ऌकार and
+hotf+xkAra -> hotFkAra (होतॄकार), pitf+xkAra -> pitFkAra, kx+fta -> kFta,
+kx+xkAra -> kFkAra, pitf+iti -> pitriti (6.1.77 still), vAc+ca, tAn+ca,
+rAjan+atra, vidvAn+liKati -> vidvAlliKati, tat+zaw, punar+ramate and
+deva+indra; prAY+atra refused by both (-105).
+
 ## The varna model (`maataa_sandhi::varna`)
 
 The foundation for writing rules the way the sutras state them. Host

@@ -3,7 +3,7 @@
 | Feature | Board | Docs |
 | --- | --- | --- |
 | `release.sh` creates a missing release key only with `MAATAA_NEW_KEYS=1`; otherwise it names the missing file(s) and stops before building | - | docs/release.md |
-| ऋ+ऌ: f, F and x meeting take 6.1.101 by the r/l varttika, long vowel F (hotf+xkAra -> hotFkAra; was 6.1.77, hotrxkAra). Crate and capsule (version 7): image 3,571 of 4,096 bytes, worst fuel 4,252; QEMU `hotf+xkAra` MATCH | not yet | docs/panini.md |
+| ऋ+ऌ: f, F and x meeting take 6.1.101 by the r/l varttika, long vowel F (hotf+xkAra -> hotFkAra; was 6.1.77, hotrxkAra). Crate and capsule (version 7): image 3,571 of 4,096 bytes, worst fuel 4,252; QEMU `hotf+xkAra` MATCH | yes (2026-11-02, panini 7, 14 requests) | docs/panini.md |
 
 # Maataa OS v0.1.0-alpha.5
 
