@@ -64,8 +64,8 @@ nothing re-flashed), all MATCH: `eka+eka`, `haraH+tsaru`, `rAmaH+kzetre`,
 `hariH+pAti` (15), `tat+qayate` (20), `jagat+nATa`, `vAk+mayam` (21),
 `deva+indra`. The first `rAmaH+kzetre` of each run got no answer because
 the board reset during the request (`reset pin or debugger`, no crash
-record); asked again after the reset it matched. The reset is tracked as its
-own issue, not a capsule fault.
+record) as the Mac slept; asked again after the reset it matched. Not a
+capsule fault ([evidence matrix](EVIDENCE_MATRIX.md#not-covered)).
 
 The differential test in `src/capsule_task.rs` tried a visarga before
 khar followed by `S` only, so 8.3.35 with `z` or `s` (as in `kz`) was not

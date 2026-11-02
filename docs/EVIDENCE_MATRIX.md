@@ -63,9 +63,14 @@ Per-rule evidence for the sandhi rules is in
 
 - No CI job runs on hardware; every "Board: yes" is a manual run that can go
   stale after a later change.
-- The NUCLEO-F411RE reset itself during board runs on 2026-11-03 (reset
-  cause `reset pin or debugger`, no crash record, boot count 241 to 242),
-  with nothing flashing it. Cause not known yet.
+- Board runs must keep the Mac awake. On 2026-11-03 the NUCLEO-F411RE
+  reset several times (boot 241 to 246, cause `reset pin or debugger`, no
+  crash record) while the Mac went to sleep; a request in flight then got
+  no answer. With the Mac kept awake (`caffeinate`), the same board ran
+  30 minutes with no reset (uptime 3,167 to 4,996 s, read every 10 s, no
+  missed reply), and opening the serial port once a second for 90 s did not
+  reset it either. The reset comes from the ST-LINK when the Mac's USB
+  sleeps, not from the kernel.
 - The `src/drivers/` modules (gpio, spi, i2c, timer, power) are simulated
   stubs with no hardware test; the real board code is `src/board.rs`.
 - The legacy virtual `StorageManager` (`src/storage/flash.rs`,
