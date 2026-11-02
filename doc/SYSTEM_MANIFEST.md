@@ -61,9 +61,9 @@ Layout: [HARDWARE_MEMORY_MAP.md](../docs/HARDWARE_MEMORY_MAP.md).
 
 ## Not in the kernel
 
-- SPI, I2C, ADC, power management: `src/drivers/` holds simulated stubs only.
+- SPI, I2C, ADC, power management, a timer driver: none. `src/drivers/`
+  holds a simulated driver registry (uart, spi) that only reports
+  `drivers: N/M ready` at boot.
 - Secure boot of the kernel image; RDP and OTP are not set on the project's
   board ([threat model](../docs/SECURITY_THREAT_MODEL.md)).
-- LittleFS and wasmi on target: not used. `embassy-executor` and
-  `embassy-time` are still listed as ARM dependencies, but no compiled
-  module uses them (`Cargo.toml` says so).
+- Embassy, LittleFS, defmt, and wasmi on target: not used.

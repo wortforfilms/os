@@ -72,8 +72,9 @@ Per-SVC coverage is in [SVC_TEST_COVERAGE.md](SVC_TEST_COVERAGE.md).
   missed reply), and opening the serial port once a second for 90 s did not
   reset it either. The reset comes from the ST-LINK when the Mac's USB
   sleeps, not from the kernel.
-- The `src/drivers/` modules (gpio, spi, i2c, timer, power) are simulated
-  stubs with no hardware test; the real board code is `src/board.rs`.
+- `src/drivers/` (a registry with simulated uart and spi slots) has unit
+  tests only and touches no hardware; the real board code is
+  `src/board.rs`.
 - The legacy virtual `StorageManager` (`src/storage/flash.rs`,
   `src/storage/mod.rs`) is not tested against real flash; see
   [HARDWARE_MEMORY_MAP.md](HARDWARE_MEMORY_MAP.md#known-drift-in-the-source).

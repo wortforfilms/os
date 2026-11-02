@@ -26,7 +26,6 @@ alpha.1 plan; later phases are kept with their real outcome.
 - [x] UART logging on hardware (USART2, ST-LINK virtual COM port)
 - [x] GPIO output (user LED, SVC 2)
 - [x] Kernel tick (SysTick 1 kHz). No general hardware timer driver
-  (`src/drivers/timer.rs` is simulated)
 - [x] Flashing workflow with `probe-rs` (`scripts/board-test.sh`)
 - [x] Fault reporting: MemManage report, crash record, watchdog reset
 

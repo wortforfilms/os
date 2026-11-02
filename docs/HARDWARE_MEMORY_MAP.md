@@ -78,7 +78,6 @@ is the constant `"qemu-netduin"`.
 virtual flash`), whose constants (`SYSTEM_KERNEL_SECTOR_*` up to
 `0x001F_FFFF`, `ROLLING_DATABASE_SECTOR_START = 0x2000_0000`, ...) do not
 describe this chip and are not used for any real flash access. The real
-store is `src/storage/persist.rs` with `crates/maataa-store`. The unused `embassy-*`
-dependencies in `Cargo.toml` are the same kind of leftover. The old
+store is `src/storage/persist.rs` with `crates/maataa-store`. The old
 constants should be removed or renamed in a code change; this page does not
 change code.

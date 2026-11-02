@@ -54,7 +54,7 @@ This is an accounting model only; it is not MPU-backed isolation yet.
 
 ## Future Architecture
 
-The dormant source files under `src/capsule/`, `src/storage/`, and
-`src/drivers/` sketch the intended real subsystems. They are not part of the
-current QEMU alpha build surface until their dependencies and hardware contracts
-are completed.
+The dormant sketches that used to sit under `src/capsule/`, `src/storage/`
+and `src/drivers/` (Embassy, LittleFS, defmt; never compiled) were removed
+after alpha.6. The real subsystems that replaced them are listed in
+[SYSTEM_MANIFEST.md](SYSTEM_MANIFEST.md).
