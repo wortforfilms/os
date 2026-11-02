@@ -1,4 +1,32 @@
-# Unreleased (after v0.1.0-alpha.5)
+# Maataa OS v0.1.0-alpha.6
+
+## Release type
+
+Capsule alpha for QEMU (`netduinoplus2`) and the NUCLEO-F411RE board. The
+kernel, its syscalls and the wire format (SLP1 in store keys 40 and 41)
+are as in alpha.5; new are panini capsule version 8 and the same rules in
+`maataa-sandhi`: ऋ+ऌ by the r/l varttika (version 7), 8.2.23 with 8.2.24
+(rule 30), pragrhya by the letters (rule 31), the error -106 for a word
+starting with M or H, and `release.sh` refusing to create a missing key
+without `MAATAA_NEW_KEYS=1`. Every feature passed the QEMU smoke test
+(15/15) and CI, and panini version 8 was run on a NUCLEO-F411RE.
+
+## Validation
+
+```bash
+./scripts/smoke-alpha.sh          # 15 checks, QEMU (step 15: panini 8 and maataa-link sandhi)
+cargo test -p maataa-sandhi --features alloc --target <host triple>
+```
+
+On a board: `maataa-link capsule-install assets/capsules/panini.mcap`, a
+probe reset, then `maataa-link sandhi अमी+इति` (expects `MATCH: अमी इति`).
+A release kernel needs the release-signed `dist/.../capsules/panini.mcap`.
+
+Not done: pararupa 6.1.94 (needs to know the second word is a verb), duals
+as pragrhya (1.1.11; the caller does not join them), a final Y (-105; give
+its pada form N). The capsule image is 3,949 of 4,096 bytes.
+
+## Changes
 
 | Feature | Board | Docs |
 | --- | --- | --- |
