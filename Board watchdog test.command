@@ -10,6 +10,9 @@
 # Close any serial terminal on the port first. Output: target/board-watchdog.txt
 cd "$(dirname "$0")" || exit 1
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+# Keep the Mac awake until this script exits: when the Mac sleeps, the
+# ST-LINK resets the board (docs/EVIDENCE_MATRIX.md).
+command -v caffeinate >/dev/null && caffeinate -dimsu -w $$ &
 CHIP=STM32F411RETx
 OUT=target/board-watchdog.txt
 ELF=target/wdtest/thumbv7em-none-eabihf/release/maataa-os

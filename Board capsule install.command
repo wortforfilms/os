@@ -6,6 +6,9 @@
 # Afterwards `maataa-link --serial PORT capsule-remove` removes it again.
 cd "$(dirname "$0")" || exit 1
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+# Keep the Mac awake until this script exits: when the Mac sleeps, the
+# ST-LINK resets the board (docs/EVIDENCE_MATRIX.md).
+command -v caffeinate >/dev/null && caffeinate -dimsu -w $$ &
 CHIP=STM32F411RETx
 OUT=target/board-capsule-install.txt
 mkdir -p target

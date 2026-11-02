@@ -4,6 +4,9 @@
 # For a Black Pill, change CHIP to STM32F411CEUx.
 cd "$(dirname "$0")" || exit 1
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+# Keep the Mac awake until this script exits: when the Mac sleeps, the
+# ST-LINK resets the board (docs/EVIDENCE_MATRIX.md).
+command -v caffeinate >/dev/null && caffeinate -dimsu -w $$ &
 CHIP=STM32F411RETx
 SECONDS_TO_RUN=30
 LOG=target/nucleo-kstack.log
