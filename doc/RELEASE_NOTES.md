@@ -1,4 +1,35 @@
-# Unreleased (after v0.1.0-alpha.6)
+# Maataa OS v0.1.0-alpha.7
+
+## Release type
+
+Consolidation alpha for QEMU (`netduinoplus2`) and the NUCLEO-F411RE board.
+The kernel's syscalls, the wire format (SLP1 in store keys 40 and 41) and
+panini capsule version 9 are as at the end of alpha.6; the boot report no
+longer has the `storage mounted` line. New are the AEC docs written from the
+source (ABI, memory map, threat model, rule and evidence registries, SVC test
+coverage), the removal of code no build used (14 sketch files, the embassy
+dependencies, the virtual `StorageManager`), more smoke checks (MPU faults,
+RECV timeout and sender, an unfinished capsule install), the `Hints` API of
+`maataa-sandhi` (host only) and fixes to the board scripts. Every item passed
+the QEMU smoke test (15/15) and CI; the board column says what was also run
+on a NUCLEO-F411RE.
+
+## Validation
+
+```bash
+./scripts/smoke-alpha.sh          # 15 checks, QEMU
+./scripts/sizecheck.sh            # all four kernels within 128 KiB
+./scripts/board-test.sh           # NUCLEO-F411RE: build, flash, host-channel checks
+```
+
+Board runs for this release, 2026-11-03, development build at `a897978`:
+`Board test.command` PASS (selftest 13/13, panini 9 installed); `Flash kernel
+stack test.command` PASS (guard report, watchdog reset, crash record on the
+next boot); panini 9 MATCH for rules 4, 13, 14, 15, 20 and 21; a 30-minute
+soak with no reset. Board runs must keep the Mac awake: when it sleeps the
+ST-LINK resets the board (docs/EVIDENCE_MATRIX.md).
+
+## Changes
 
 | Feature | Board | Docs |
 | --- | --- | --- |
@@ -6,6 +37,16 @@
 | `maataa-sandhi` Hints (host library only): `join_with` / `join_request_with` with `Hints { dual, verb }` give 1.1.11 for duals (rule 31: dve+iti -> dve iti), 6.1.94 pararupa (new rule 32: pra+ejate -> prejate), 6.1.89 for i and eD (new rule 33: upa+eti -> upEti) and 6.1.91 (new rule 34: pra+fcCati -> prArcCati); default hints are `join`. Capsule and wire format unchanged | host tests | docs/panini.md |
 | AEC-01 docs, from the source: `docs/ABI_SVC.md`, `docs/HARDWARE_MEMORY_MAP.md`, `docs/SECURITY_THREAT_MODEL.md`, `docs/PANINI_RULE_REGISTRY.md`, `docs/EVIDENCE_MATRIX.md`; README (alpha.6, 15 checks), ROADMAP, SYSTEM_MANIFEST (STM32F411RE) and kernel-mpu.md (kernel may write flash) brought up to date. No code change | - | docs/EVIDENCE_MATRIX.md |
 | panini version 9: the same rules as version 8 in fewer bytes (five data segments without the zeros between them, half of each 128-byte table stored, helpers `$stem` and `$rest`): image 3,662 of 4,096 bytes (was 3,949; 434 left), worst fuel 4,390; capsule == host on the whole host test | yes (2026-11-02, panini 9, 18 requests) | docs/panini.md |
+| Board evidence for sandhi rules 4, 13, 14, 15, 20 and 21 with panini 9; the differential test now tries `z` and `s` after khar (8.3.35, `kz`), not only `S` | yes (2026-11-03, 12 requests MATCH) | docs/PANINI_RULE_REGISTRY.md |
+| Board resets during runs traced to the Mac sleeping (`reset pin or debugger`, no crash); a 30-minute soak with the Mac awake had none. `board-test.sh` and the board `.command` files keep the Mac awake with `caffeinate` | yes (2026-11-03, soak and board test) | docs/EVIDENCE_MATRIX.md |
+| `docs/SVC_TEST_COVERAGE.md`: which unit test, smoke check and board run exercises each of SVC 1–19, and the result paths none reaches | - | docs/SVC_TEST_COVERAGE.md |
+| Removed 14 source files no build compiled (alpha.1 sketches on Embassy, LittleFS, defmt and serde) and the `embassy-executor` / `embassy-time` dependencies | - | doc/ARCHITECTURE.md |
+| Removed the alpha.1 virtual `StorageManager` and `src/storage/flash.rs` (addresses not of this chip, never real flash). Boot report: no `storage mounted` line; `manifest: maataa-os <version>` from the package version. 6 tests of the removed code go with it (host tests 103) | yes (board test, 2026-11-03) | docs/HARDWARE_MEMORY_MAP.md |
+| Smoke check 8 checks the MPU fault reports: task 4's kernel-RAM write and task 5's stack overflow are killed, the kernel word untouched | - (MPU on the board since alpha.1) | docs/kernel-mpu.md |
+| Smoke check 8 checks RECV through the SVC: the timeout (`E_TIMEOUT`) and task 3's message with the sender in r1 | - | docs/SVC_TEST_COVERAGE.md |
+| `maataa-link capsule-install-no-commit`: begin and write without commit; smoke check 12 shows an unfinished install (greeter version 3) leaves the installed greeter version 2 running | - | docs/SVC_TEST_COVERAGE.md |
+| `Flash Nucleo F411.command` removed (it read RTT, which the kernel no longer has; `Board test.command` flashes and checks). `Flash kernel stack test.command` reads the serial port, with `LC_ALL=C` so macOS `tr` accepts the COBS bytes (also in the watchdog test) | yes (2026-11-03, kernel stack test PASS) | docs/kernel-mpu.md |
+| Every script and `.command` file is executable in git (was 644 for 15 of them, `board-test.sh` among them) | - | - |
 
 # Maataa OS v0.1.0-alpha.6
 

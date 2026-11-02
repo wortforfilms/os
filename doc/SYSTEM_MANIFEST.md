@@ -1,6 +1,6 @@
 # Maataa OS System Manifest
 
-What the kernel is at `v0.1.0-alpha.6`, from the source. Details are in the
+What the kernel is at `v0.1.0-alpha.7`, from the source. Details are in the
 linked docs; the evidence for each item is in
 [EVIDENCE_MATRIX.md](../docs/EVIDENCE_MATRIX.md).
 

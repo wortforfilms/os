@@ -1,6 +1,6 @@
 # Maataa OS Roadmap
 
-Status at `v0.1.0-alpha.6` and the unreleased work after it. A checked item
+Status at `v0.1.0-alpha.7`. A checked item
 is implemented and tested; where it was run is in
 [EVIDENCE_MATRIX.md](../docs/EVIDENCE_MATRIX.md). Phase 1 was the
 alpha.1 plan; later phases are kept with their real outcome.
