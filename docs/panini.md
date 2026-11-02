@@ -10,7 +10,7 @@ be granted.
 | Piece | What it is |
 | --- | --- |
 | `crates/maataa-sandhi` | The reference: the rules in plain `no_std` Rust, host-tested with classic examples |
-| `capsules/panini.wat` | The same rules in hand-written WebAssembly (1.4 KB), signed as `assets/capsules/panini.mcap`; version 3 keeps its constants in one data segment (version 2 used 7 of the interpreter's 8), with the same memory contents |
+| `capsules/panini.wat` | The same rules in hand-written WebAssembly (1.4 KB), signed as `assets/capsules/panini.mcap`; version 9 keeps its constants in five data segments (of the interpreter's 8) without the zeros between them |
 | `src/capsule_task.rs` test | Runs the capsule in Maataa's interpreter against the reference for every pair of boundary letters (all 14 vowels and a consonant, on each side), malformed requests and a 64-byte request |
 | `scripts/qemu-panini-test.sh` | Installs the capsule in QEMU and asks it over the host channel, also with `maataa-link sandhi` in Devanagari (smoke step 15) |
 | `maataa_sandhi::lipi` | Devanagari <-> SLP1 for the host tool (feature `alloc`; never in the kernel) |
@@ -345,7 +345,17 @@ gave tawzaw for tat+zaw), and joins final y l v as written: image 3,512
 bytes of 4,096, one data segment; worst fuel over
 the host test's requests 4,246, the same as version 5 measured the same
 way. Version 6 also has r before r (8.3.14 with 6.3.111, rule 29):
-image 3,562 bytes of 4,096.
+image 3,562 bytes of 4,096. Version 7 (ऋ+ऌ) 3,571 bytes; version 8
+(-106, 8.2.23, pragrhya) 3,949 bytes, worst fuel 4,383.
+
+Panini version 9 has the same rules as version 8 in fewer bytes: the
+constants in five data segments, so the zeros between them are not stored
+(memory starts zeroed); only bytes 64 to 127 of the class and stop tables
+are stored (no SLP1 letter is below 64, and `$stop` answers 255 there
+itself), at the same addresses; and the helpers `$stem` and `$rest` for
+code that was written out ten and four times. Image 3,662 bytes of 4,096
+(287 fewer, 434 left); worst fuel over the host test 4,390; capsule ==
+host on the whole host test.
 
 ## Later
 

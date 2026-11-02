@@ -22,6 +22,9 @@
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 9: the same rules in fewer bytes: the constants in five data
+;; segments without the zeros between them, half of each 128-byte table, and
+;; the helpers $stem and $rest.
 ;; Version 8: -106 for a word starting with M or H (was -105, or joined as
 ;; written before a vowel ending).
 ;; Also 8.2.23 with 8.2.24 (rule 30): mahAnt+atra -> mahAnatra, and a
@@ -51,7 +54,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=8 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=9 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -74,31 +77,28 @@
   ;;   512  the request (64 bytes)
   ;;   640  the answer (64 bytes)
   (memory 1)
-  ;; One data segment (the interpreter takes at most 8; version 2 used 7).
-  (data (i32.const 0)
-    ;; 0: the init message; 32: the answer to a malformed request
-    "panini capsule up" "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
-    "?" "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
-    "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
-    ;; 128: class of each ASCII byte (see the map above)
-    "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
-    "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
-    "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
-    "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00"
+  ;; The constants in five data segments (the interpreter takes up to 8),
+  ;; so the zeros between them are not stored: memory starts zeroed. The
+  ;; tables keep their addresses; only bytes 64 to 127 of each are stored
+  ;; (no SLP1 letter is below 64; $stop answers 255 there itself).
+  ;; 0: the init message; 32: the answer to a malformed request
+  (data (i32.const 0) "panini capsule up")
+  (data (i32.const 32) "?")
+  ;; 192: class of bytes 64 to 127 (the table starts at 128; see the map)
+  (data (i32.const 192)
     "\00\02\14\16\14\0c\08\14\1a\04\14\18\00\1a\14\0e"
     "\18\14\14\19\15\06\00\17\0a\14\00\00\00\00\00\00"
     "\00\01\14\16\14\0b\07\14\14\03\14\18\14\14\14\0d"
-    "\18\14\14\19\15\05\14\17\09\14\19\00\00\00\00\00"
-    ;; 256: long vowels; 264: semivowels; 272: guna; 280: ayadi
+    "\18\14\14\19\15\05\14\17\09\14\19")
+  ;; 256: long vowels; 264: semivowels; 272: guna; 280: ayadi
+  (data (i32.const 256)
     "AIUFF" "\00\00\00"
     "yvrl" "\00\00\00\00"
     "e\00o\00aral"
-    "ayAyavAv"
-    ;; 288: stop row * 8 + column of each ASCII byte, 255 if not a stop
-    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
-    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
-    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
-    "\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff\ff"
+    "ayAyavAv")
+  ;; 352: stop row * 8 + column of bytes 64 to 127, 255 if not a stop (the
+  ;; table starts at 288)
+  (data (i32.const 352)
     "\ff\ff\23\09\1b\ff\ff\03\ff\ff\0b\01\ff\ff\04\ff"
     "\21\13\14\ff\19\ff\ff\11\ff\0c\ff\ff\ff\ff\ff\ff"
     "\ff\ff\22\08\1a\ff\ff\02\ff\ff\0a\00\ff\24\1c\ff"
@@ -144,6 +144,16 @@
         br $next
       end
     end)
+
+  ;; Appends the first word without its last letter (bytes 0 .. p-1).
+  (func $stem (param $p i32)
+    i32.const 512 local.get $p i32.const 1 i32.sub call $put)
+
+  ;; Appends the second word without its first letter (bytes p+2 .. n).
+  (func $rest (param $p i32) (param $n i32)
+    local.get $p i32.const 514 i32.add
+    local.get $n local.get $p i32.sub i32.const 2 i32.sub
+    call $put)
 
   ;; Appends the second word (bytes p+1 .. n).
   (func $right (param $p i32) (param $n i32)
@@ -225,7 +235,7 @@
     if
       local.get $p call $sa_eza
       if
-        i32.const 512 local.get $p i32.const 1 i32.sub call $put
+        local.get $p call $stem
         local.get $p local.get $n call $space_right
         i32.const 17 return
       end
@@ -238,7 +248,7 @@
       if
         local.get $p i32.const 514 i32.add i32.load8_u call $class local.set $second
       end
-      i32.const 512 local.get $p i32.const 1 i32.sub call $put
+      local.get $p call $stem
       ;; 8.3.35: khar followed by Sar (13).
       local.get $second i32.const 25 i32.eq
       if
@@ -295,7 +305,7 @@
       end
       ;; 8.3.17 then 8.3.19: before another vowel the y is dropped and no
       ;; vowel sandhi follows (8.3.19 is asiddha, 8.2.1) (10).
-      i32.const 512 local.get $p i32.const 1 i32.sub call $put
+      local.get $p call $stem
       local.get $p local.get $n call $space_right
       i32.const 10 return
     end
@@ -304,7 +314,7 @@
     local.get $before i32.const 65 i32.eq
     i32.and
     if
-      i32.const 512 local.get $p i32.const 1 i32.sub call $put
+      local.get $p call $stem
       local.get $p local.get $n call $space_right
       i32.const 11 i32.const 10 local.get $y i32.const 14 i32.gt_u select
       return
@@ -328,7 +338,7 @@
       i32.const 29 return
     end
     ;; Otherwise the r stays (16).
-    i32.const 512 local.get $p i32.const 1 i32.sub call $put
+    local.get $p call $stem
     i32.const 114 call $put1
     local.get $p local.get $n call $space_right
     i32.const 16)
@@ -337,7 +347,7 @@
   ;; retroflex, dental, labial; columns unvoiced, aspirated, voiced, voiced
   ;; aspirated, nasal), or 255 for anything else.
   (func $stop (param $c i32) (result i32)
-    local.get $c i32.const 128 i32.ge_u
+    local.get $c i32.const 64 i32.sub i32.const 64 i32.ge_u
     if (result i32)
       i32.const 255
     else
@@ -362,7 +372,7 @@
     if
       local.get $yc i32.const 14 i32.gt_u
       if
-        i32.const 512 local.get $p i32.const 1 i32.sub call $put
+        local.get $p call $stem
         i32.const 77 call $put1
         local.get $p local.get $n call $space_right
         i32.const 26 return
@@ -414,7 +424,7 @@
           i32.eqz
           i32.and
           if
-            i32.const 512 local.get $p i32.const 1 i32.sub call $put
+            local.get $p call $stem
             i32.const 77 call $put1
             ;; c C (22): S; w W (23): z; t T (21): s.
             i32.const 83 i32.const 122
@@ -440,7 +450,7 @@
         if i32.const 89 local.set $out i32.const 19 local.set $rule end
         local.get $rule
         if
-          i32.const 512 local.get $p i32.const 1 i32.sub call $put
+          local.get $p call $stem
           local.get $out call $put1
           local.get $p local.get $n call $right
           local.get $rule return
@@ -557,7 +567,7 @@
         end
       end
     end
-    i32.const 512 local.get $p i32.const 1 i32.sub call $put
+    local.get $p call $stem
     local.get $out call $put1
     local.get $first call $put1
     local.get $p i32.const 514 i32.add
@@ -675,7 +685,7 @@
     i32.or
     if
       i32.const 512 local.get $p call $put
-      local.get $p i32.const 513 i32.add local.get $n local.get $p i32.sub i32.const 1 i32.sub call $put
+      local.get $p local.get $n call $right
       i32.const 1 return
     end
     ;; 6.1.125: a pragrhya word before a vowel keeps its form, apart (31):
@@ -705,7 +715,7 @@
     local.get $a call $grade local.set $ga
     local.get $b call $grade local.set $gb
     ;; Everything but the meeting vowels: stem = left minus its last letter.
-    i32.const 512 local.get $p i32.const 1 i32.sub call $put
+    local.get $p call $stem
     ;; 6.1.101 savarna-dirgha: like simple vowels make the long one; f and x
     ;; (grades 4 and 5, sum 9) are like by the varttika, and their long is F.
     local.get $ga i32.const 0 i32.ne
@@ -715,7 +725,7 @@
     i32.and
     if
       local.get $ga i32.const 255 i32.add i32.load8_u call $put1
-      local.get $p i32.const 514 i32.add local.get $n local.get $p i32.sub i32.const 2 i32.sub call $put
+      local.get $p local.get $n call $rest
       i32.const 2 return
     end
     ;; 6.1.87 guna: a/A before i u f x.
@@ -727,21 +737,21 @@
       local.get $e i32.load8_u call $put1
       local.get $e i32.load8_u offset=1
       if local.get $e i32.load8_u offset=1 call $put1 end
-      local.get $p i32.const 514 i32.add local.get $n local.get $p i32.sub i32.const 2 i32.sub call $put
+      local.get $p local.get $n call $rest
       i32.const 3 return
     end
     ;; 6.1.88 vrddhi: a/A before e E (E) or o O (O).
     local.get $ga i32.const 1 i32.eq
     if
       i32.const 69 i32.const 79 local.get $b i32.const 12 i32.le_u select call $put1
-      local.get $p i32.const 514 i32.add local.get $n local.get $p i32.sub i32.const 2 i32.sub call $put
+      local.get $p local.get $n call $rest
       i32.const 4 return
     end
     ;; 6.1.77 yan: i u f x before an unlike vowel become y v r l.
     local.get $ga i32.const 2 i32.ge_u
     if
       local.get $ga i32.const 262 i32.add i32.load8_u call $put1
-      local.get $p i32.const 513 i32.add local.get $n local.get $p i32.sub i32.const 1 i32.sub call $put
+      local.get $p local.get $n call $right
       i32.const 5 return
     end
     ;; 6.1.109 purvarupa: final e/o swallows a following a (avagraha ').
@@ -753,14 +763,14 @@
     if
       local.get $p i32.const 511 i32.add i32.load8_u call $put1
       i32.const 39 call $put1
-      local.get $p i32.const 514 i32.add local.get $n local.get $p i32.sub i32.const 2 i32.sub call $put
+      local.get $p local.get $n call $rest
       i32.const 7 return
     end
     ;; 6.1.78 ayadi: e E o O before a vowel become ay Ay av Av.
     local.get $a i32.const 11 i32.sub i32.const 1 i32.shl i32.const 280 i32.add local.set $e
     local.get $e i32.load8_u call $put1
     local.get $e i32.load8_u offset=1 call $put1
-    local.get $p i32.const 513 i32.add local.get $n local.get $p i32.sub i32.const 1 i32.sub call $put
+    local.get $p local.get $n call $right
     i32.const 6)
 
   (func (export "init")

@@ -397,10 +397,10 @@ mod tests {
                 s.quiet,
                 s.version
             )),
-            Ok((true, true, 8))
+            Ok((true, true, 9))
         );
         // Room left in the interpreter's tables for the next rules.
-        assert_eq!(module.data_segments(), 1);
+        assert_eq!(module.data_segments(), 5);
         assert!(module.data_segments() < maataa_wasm::MAX_DATA);
 
         #[derive(Default)]

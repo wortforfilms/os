@@ -3,6 +3,7 @@
 | Feature | Board | Docs |
 | --- | --- | --- |
 | `release.sh` refuses to build when `dist/` for the version already exists or when the version's tag is on another commit (alpha.6 was first tagged on a commit still versioned alpha.5, and the build overwrote alpha.5's `dist/`) | - | docs/release.md |
+| panini version 9: the same rules as version 8 in fewer bytes (five data segments without the zeros between them, half of each 128-byte table stored, helpers `$stem` and `$rest`): image 3,662 of 4,096 bytes (was 3,949; 434 left), worst fuel 4,390; capsule == host on the whole host test | not yet | docs/panini.md |
 
 # Maataa OS v0.1.0-alpha.6
 
