@@ -107,6 +107,10 @@ pub enum Rule {
     /// 8.3.32 Namo hrasvad aci NamuR nityam: a final N R n after a short
     /// vowel is doubled before a vowel: rAjannatra.
     NamoHrasvat = 28,
+    /// 8.3.14 ro ri: r (or ru, after a vowel other than a/A) before r is
+    /// dropped, and 6.3.111 Dhralope purvasya dirgho 'naH lengthens a short
+    /// a i u before it: punar+ramate -> punA ramate.
+    RoRi = 29,
 }
 
 impl Rule {
@@ -140,6 +144,7 @@ impl Rule {
             Self::MoNusvara => "m to anusvara",
             Self::NasChavi => "n to ru, anusvara, s",
             Self::NamoHrasvat => "nasal doubled",
+            Self::RoRi => "r dropped, vowel lengthened",
         }
     }
 
@@ -173,6 +178,7 @@ impl Rule {
             Self::MoNusvara => "8.3.23",
             Self::NasChavi => "8.3.7",
             Self::NamoHrasvat => "8.3.32",
+            Self::RoRi => "8.3.14",
         }
     }
 }
@@ -364,8 +370,8 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
 /// are taken as s (8.2.66 sasajuso ruh: ru); a final `r` as r. The two words
 /// stay apart, with a space, except where avagraha joins them (so'tra).
 ///
-/// Not yet (Error::NotYet): r or ru before r (8.3.14 ro ri with 6.3.111), a
-/// visarga after a consonant, and anything at the start of the second word
+/// r or ru (after a vowel other than a/A) before r: 8.3.14 with 6.3.111.
+/// Not yet (Error::NotYet): a visarga after a consonant, and anything at the start of the second word
 /// that is not a letter of a word.
 fn visarga(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Error> {
     use varna::{pratyahara, Varna};
@@ -448,8 +454,19 @@ fn visarga(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule)
             },
         ));
     }
+    // 8.3.14 ro ri: r before r is dropped; 6.3.111 Dhralope purvasya dirgho
+    // 'naH: a short aR (a i u; not f x, not e o) before it becomes long.
     if y == Varna::Ra {
-        return Err(Error::NotYet);
+        let long = match p {
+            Varna::A => Varna::AA,
+            Varna::I => Varna::II,
+            Varna::U => Varna::UU,
+            other => other,
+        };
+        w.put(&stem[..stem.len() - 1])?;
+        w.put(&[long.slp1(), b' '])?;
+        w.put(right)?;
+        return Ok((w.len, Rule::RoRi));
     }
     space_then(&mut w, b"r")?;
     Ok((w.len, Rule::Repha))
@@ -898,17 +915,21 @@ mod tests {
             ("saH+gacCati", "sa gacCati", Rule::SuLopa),
             ("ezaH+ca", "eza ca", Rule::SuLopa),
             ("saH+atra", "so'tra", Rule::AtoRoh),
+            // 8.3.14 ro ri with 6.3.111 (a i u only).
+            ("punar+ramate", "punA ramate", Rule::RoRi),
+            ("hariH+ramate", "harI ramate", Rule::RoRi),
+            ("guruH+rakzati", "gurU rakzati", Rule::RoRi),
+            ("hareH+ramate", "hare ramate", Rule::RoRi),
+            ("pitfH+ramate", "pitf ramate", Rule::RoRi),
+            ("gOH+ramate", "gO ramate", Rule::RoRi),
+            ("punAr+ramate", "punA ramate", Rule::RoRi),
+            // a/A + ru before r: 6.1.114 and 8.3.22, not 8.3.14.
+            ("devAH+ramante", "devA ramante", Rule::HaliSarvesham),
         ] {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
         let mut out = [0u8; MAX_TEXT];
-        for not_yet in [
-            &b"punar+ramate"[..],
-            b"hariH+ramate",
-            b"vAkH+atra",
-            b"H+atra",
-            b"rAmaH+Mca",
-        ] {
+        for not_yet in [&b"vAkH+atra"[..], b"H+atra", b"rAmaH+Mca"] {
             assert_eq!(
                 join_request(not_yet, &mut out),
                 Err(Error::NotYet),

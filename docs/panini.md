@@ -147,7 +147,7 @@ Open exception, kept on purpose: by the r/l varttika, f+x (ऋ+ऌ) would meet
 6.1.101; both engines, and the capsule, apply 6.1.77 (`pitf+xkAra` ->
 `pitrxkAra`) until the commentaries are checked. A test pins it.
 
-## Visarga, s and r (host library only)
+## Visarga, s and r
 
 A word ending in visarga (`H`), `s` or `r` before the next word. `H` and a
 final `s` are taken as s (8.2.66 sasajuso ruh); write a final `r` (punar)
@@ -170,11 +170,17 @@ words stay apart with a space, except where avagraha joins them.
 | `hariH+gacCati` | `harir gacCati` | ru stays r |
 | `punar+ca` | `punaS ca` | 8.3.15, 8.3.34, 8.4.40 |
 | `saH+gacCati` | `sa gacCati` | 6.1.132 |
+| `punar+ramate` | `punA ramate` | 8.3.14 ro ri, 6.3.111 (rule 29) |
+| `hariH+ramate` | `harI ramate` | 8.3.14, 6.3.111 |
+| `hareH+ramate` | `hare ramate` | 8.3.14 (e is not aR: no lengthening) |
+| `pitfH+ramate` | `pitf ramate` | 8.3.14 (f is not aR either) |
+| `rAmaH+ramate` | `rAmo ramate` | 6.1.114 (a + ru: not 8.3.14) |
 
 Optional forms take the common choice: 8.3.19 drops the y, 8.3.36 and
-8.3.37 keep the visarga. Not yet (refused as -105): r or ru before r
-(8.3.14 ro ri with 6.3.111 lengthening, punaH+ramate -> punA ramate), a
-visarga after a consonant, pluta. Panini version 4 has the same rules, in
+8.3.37 keep the visarga. r, or ru after a vowel other than a/A, before r
+is dropped by 8.3.14 ro ri (obligatory), and 6.3.111 Dhralope purvasya
+dirgho 'naH lengthens a short a i u before it (rule 29, panini version
+6). Not yet (refused as -105): a visarga after a consonant, pluta. Panini version 4 has the same rules, in
 the same order, with the class table split by what they need (20 haS, 21
 t T, 22 c C, 23 w W, 24 k K p P, 25 Sar, 26 M H). The host test runs the
 capsule against the crate for every ending (H, s, r) after every letter,
@@ -280,7 +286,8 @@ Panini version 6 adds the final palatals, S z h and N R n (rules 27 and
 gave tawzaw for tat+zaw), and joins final y l v as written: image 3,512
 bytes of 4,096, one data segment; worst fuel over
 the host test's requests 4,246, the same as version 5 measured the same
-way.
+way. Version 6 also has r before r (8.3.14 with 6.3.111, rule 29):
+image 3,562 bytes of 4,096.
 
 ## Later
 

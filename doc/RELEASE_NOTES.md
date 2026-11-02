@@ -9,6 +9,7 @@
 | Final N R n: 8.3.32 doubling after a short vowel (new rule 28); for n, 8.3.7 before chav + am (new rule 27, with 8.3.4 anusvara: tAMSca; praSAn excepted), 8.4.40, 8.4.41 (not before z, 8.4.43), 8.4.60 (plain ll); a final Y stays -105 (pada form N). Crate and capsule (version 6): image 3,491 of 4,096 bytes, worst fuel 4,246; QEMU `tAn+ca` MATCH | not yet | docs/panini.md |
 | Fix: 8.4.43 toh zi. A dental before z stays dental: tat+zaw is tatzaw (version 5 and the crate gave tawzaw). Crate and capsule (version 6): image 3,484 of 4,096 bytes | not yet | docs/panini.md |
 | Final y l v: joined as written (rule 1; 6.1.66 lopo vyor vali deliberately not applied). Crate and capsule (version 6): image 3,512 of 4,096 bytes, worst fuel 4,246 | not yet | docs/panini.md |
+| r before r: 8.3.14 ro ri drops r (or ru after a vowel other than a/A), 6.3.111 lengthens a short a i u (new rule 29): punar+ramate -> punA ramate, hariH+ramate -> harI ramate, hareH+ramate -> hare ramate. Crate and capsule (version 6): image 3,562 of 4,096 bytes, worst fuel 4,246; QEMU `punar+ramate` MATCH | not yet | docs/panini.md |
 
 # Maataa OS v0.1.0-alpha.4
 

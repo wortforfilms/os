@@ -15,7 +15,7 @@
 ;; Each tick reads key 40. If there is a request it writes the answer to key
 ;; 41 ("?" if the request is malformed), logs it, deletes key 40 and returns
 ;; the rule (1 join, 2 savarna-dirgha, 3 guna, 4 vrddhi, 5 yan, 6 ayadi,
-;; 7 purvarupa; 8 to 17 the visarga rules, 18 to 28 hal sandhi, numbered
+;; 7 purvarupa; 8 to 17 and 29 the visarga rules, 18 to 28 hal sandhi, numbered
 ;; as Rule in the crate)
 ;; or an error (-101 no +, -102 empty word, -103 not SLP1, -105 not yet).
 ;; With no request it returns 0 and writes nothing, so flash is written only
@@ -25,7 +25,7 @@
 ;; S z h (8.2.36, 8.2.31) as q; then the version 5 rules; final N R n:
 ;; 8.3.32 (28), 8.3.7 (27), 8.4.40, 8.4.41, 8.4.60 with n. A dental before
 ;; z stays dental (8.4.43; version 5 made it w). Final y l v: joined as
-;; written.
+;; written. r before r: 8.3.14 with 6.3.111 (29).
 ;; Version 5: hal sandhi for final stops and m (rules 18 to 26), as
 ;; crates/maataa-sandhi.
 ;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
@@ -300,9 +300,24 @@
       i32.const 11 i32.const 10 local.get $y i32.const 14 i32.gt_u select
       return
     end
-    ;; r before r: 8.3.14 with 6.3.111, not yet.
+    ;; r before r: 8.3.14 ro ri drops it, and 6.3.111 lengthens a short
+    ;; a i u (classes 1, 3, 5) before it (29).
     local.get $yb i32.const 114 i32.eq
-    if i32.const -105 return end
+    if
+      i32.const 512 local.get $p i32.const 2 i32.sub call $put
+      local.get $before call $class local.tee $second
+      i32.const 1 i32.and
+      local.get $second i32.const 5 i32.le_u
+      i32.and
+      if (result i32)
+        local.get $second i32.const 1 i32.shr_u i32.const 256 i32.add i32.load8_u
+      else
+        local.get $before
+      end
+      call $put1
+      local.get $p local.get $n call $space_right
+      i32.const 29 return
+    end
     ;; Otherwise the r stays (16).
     i32.const 512 local.get $p i32.const 1 i32.sub call $put
     i32.const 114 call $put1
