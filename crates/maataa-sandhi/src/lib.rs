@@ -111,6 +111,11 @@ pub enum Rule {
     /// dropped, and 6.3.111 Dhralope purvasya dirgho 'naH lengthens a short
     /// a i u before it: punar+ramate -> punA ramate.
     RoRi = 29,
+    /// 8.2.23 samyogantasya lopah: a first word ending in two consonants
+    /// (a visarga counts as s) loses the last; 8.2.24 rAt sasya: after r
+    /// only s goes. Named when no later rule applies: mahAnt+atra ->
+    /// mahAnatra.
+    SamyogantaLopa = 30,
 }
 
 impl Rule {
@@ -145,6 +150,7 @@ impl Rule {
             Self::NasChavi => "n to ru, anusvara, s",
             Self::NamoHrasvat => "nasal doubled",
             Self::RoRi => "r dropped, vowel lengthened",
+            Self::SamyogantaLopa => "final of a cluster dropped",
         }
     }
 
@@ -179,6 +185,7 @@ impl Rule {
             Self::NasChavi => "8.3.7",
             Self::NamoHrasvat => "8.3.32",
             Self::RoRi => "8.3.14",
+            Self::SamyogantaLopa => "8.2.23",
         }
     }
 }
@@ -195,7 +202,7 @@ pub enum Error {
     /// The result does not fit the output buffer.
     TooLong,
     /// A case whose rule is not implemented yet (a final Y: give its pada
-    /// form N; a visarga after a consonant).
+    /// form N; a single s or r with no vowel before it).
     NotYet,
     /// A word starts with anusvara (M) or visarga (H): no word does.
     BadStart,
@@ -261,7 +268,7 @@ pub fn join_request(request: &[u8], out: &mut [u8]) -> Result<(usize, Rule), Err
 /// place). The tests check this against the first engine for every pair of
 /// boundary letters.
 pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), Error> {
-    use varna::{pratyahara, savarna, with_savarnas, Varna};
+    use varna::Varna;
     let (Some(&last), Some(&first)) = (left.last(), right.first()) else {
         return Err(Error::Empty);
     };
@@ -276,6 +283,35 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
     if matches!(left[0], b'M' | b'H') || matches!(first, b'M' | b'H') {
         return Err(Error::BadStart);
     }
+    // 8.2.23 samyogantasya lopah: a word ending in two consonants loses the
+    // last (a visarga counts as s); 8.2.24 rAt sasya: after r only s goes.
+    // Once; the rest then sees the shorter word (rule 30 if nothing else
+    // applies).
+    let consonant = |b: u8| Varna::from_slp1(b).is_some_and(|v| v.is_consonant());
+    let n = left.len();
+    if n >= 2
+        && (consonant(last) || last == b'H')
+        && consonant(left[n - 2])
+        && (left[n - 2] != b'r' || matches!(last, b's' | b'H'))
+    {
+        let (len, rule) = join_word(&left[..n - 1], right, out)?;
+        let rule = if rule == Rule::Join {
+            Rule::SamyogantaLopa
+        } else {
+            rule
+        };
+        return Ok((len, rule));
+    }
+    join_word(left, right, out)
+}
+
+/// `join` after its checks (and 8.2.23): the rule for the two words as they
+/// stand.
+fn join_word(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), Error> {
+    use varna::{pratyahara, savarna, with_savarnas, Varna};
+    let (Some(&last), Some(&first)) = (left.last(), right.first()) else {
+        return Err(Error::Empty);
+    };
     let mut w = Writer { out, len: 0 };
     let (Some(x), Some(y)) = (Varna::from_slp1(last), Varna::from_slp1(first)) else {
         return Err(Error::NotSlp1);
@@ -371,8 +407,8 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
 /// stay apart, with a space, except where avagraha joins them (so'tra).
 ///
 /// r or ru (after a vowel other than a/A) before r: 8.3.14 with 6.3.111.
-/// Not yet (Error::NotYet): a visarga after a consonant, and anything at the start of the second word
-/// that is not a letter of a word.
+/// A visarga after a consonant never comes here: 8.2.23 drops it first.
+/// Not yet (Error::NotYet): a lone s or r (no vowel before it).
 fn visarga(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Error> {
     use varna::{pratyahara, Varna};
     let set = |name: &str| pratyahara(name).unwrap_or(0);
@@ -947,8 +983,11 @@ mod tests {
         ] {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
-        let mut out = [0u8; MAX_TEXT];
-        assert_eq!(join_request(b"vAkH+atra", &mut out), Err(Error::NotYet));
+        // 8.2.23 drops the s of a visarga after a consonant: vAkH is vAk.
+        assert_eq!(
+            j("vAkH+atra"),
+            (String::from("vAgatra"), Rule::JhalamJasonte)
+        );
         // ru after a/A before r is not 8.3.14: 6.1.114 and 8.3.17 apply.
         assert_eq!(
             j("rAmaH+ramate"),
@@ -1046,6 +1085,18 @@ mod tests {
         }
         let mut out = [0u8; MAX_TEXT];
         assert_eq!(join_request(b"prAY+atra", &mut out), Err(Error::NotYet));
+        // 8.2.23 samyogantasya lopah, once; 8.2.24 rAt sasya after r.
+        for (request, joined, rule) in [
+            ("mahAnt+atra", "mahAnatra", Rule::SamyogantaLopa),
+            ("mahAnt+gacCati", "mahAngacCati", Rule::SamyogantaLopa),
+            ("mahAnt+ca", "mahAMSca", Rule::NasChavi),
+            ("vAks+atra", "vAgatra", Rule::JhalamJasonte),
+            ("Urj+atra", "Urgatra", Rule::JhalamJasonte),
+            ("Urs+atra", "Ur atra", Rule::Repha),
+            ("Urk+ca", "Urkca", Rule::KhariCa),
+        ] {
+            assert_eq!(j(request), (String::from(joined), rule), "{request}");
+        }
     }
 
     #[test]

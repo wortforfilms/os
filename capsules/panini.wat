@@ -24,6 +24,8 @@
 ;;
 ;; Version 8: -106 for a word starting with M or H (was -105, or joined as
 ;; written before a vowel ending).
+;; Also 8.2.23 with 8.2.24 (rule 30): mahAnt+atra -> mahAnatra, and a
+;; visarga after a consonant is dropped (vAkH+atra -> vAgatra).
 ;; Version 7: f and x are savarna (the r/l varttika), so 6.1.101 joins them,
 ;; with F as the long vowel: hotf+xkAra -> hotFkAra (version 6 gave hotrxkAra
 ;; by 6.1.77).
@@ -604,6 +606,46 @@
     local.get $p i32.const 513 i32.add i32.load8_u call $class i32.const 26 i32.eq
     i32.or
     if i32.const -106 return end
+    ;; 8.2.23 samyogantasya lopah: a first word ending in two consonants
+    ;; (classes 20 to 25; a visarga counts as s) loses the last; 8.2.24 rAt
+    ;; sasya: after r only s goes. Once: the + and the second word move one
+    ;; byte left and $word goes on; 30 if it only joined them (1).
+    local.get $p i32.const 2 i32.ge_s
+    if
+      local.get $p i32.const 511 i32.add i32.load8_u local.tee $e call $class local.set $a
+      local.get $p i32.const 510 i32.add i32.load8_u local.tee $i call $class local.set $b
+      local.get $a i32.const 20 i32.ge_u
+      local.get $a i32.const 25 i32.le_u i32.and
+      local.get $e i32.const 72 i32.eq i32.or
+      local.get $b i32.const 20 i32.ge_u i32.and
+      local.get $b i32.const 25 i32.le_u i32.and
+      local.get $i i32.const 114 i32.ne
+      local.get $e i32.const 115 i32.eq i32.or
+      local.get $e i32.const 72 i32.eq i32.or
+      i32.and
+      if
+        local.get $p local.set $i
+        block $moved
+          loop $move
+            local.get $i local.get $n i32.ge_s br_if $moved
+            local.get $i i32.const 511 i32.add
+            local.get $i i32.const 512 i32.add i32.load8_u
+            i32.store8
+            local.get $i i32.const 1 i32.add local.set $i
+            br $move
+          end
+        end
+        local.get $p i32.const 1 i32.sub local.get $n i32.const 1 i32.sub call $word
+        local.tee $e i32.const 30 local.get $e i32.const 1 i32.ne select
+        return
+      end
+    end
+    local.get $p local.get $n call $word)
+
+  ;; The rule for the two words as they stand (the + at p, n bytes), after
+  ;; $join's checks and 8.2.23.
+  (func $word (param $p i32) (param $n i32) (result i32)
+    (local $a i32) (local $b i32) (local $ga i32) (local $gb i32) (local $e i32)
     ;; A first word ending in visarga, s or r: the visarga rules.
     local.get $p i32.const 511 i32.add i32.load8_u local.set $e
     local.get $e i32.const 72 i32.eq

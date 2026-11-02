@@ -476,7 +476,9 @@ fn sandhi(ch: &mut Channel, text: Option<&str>) -> Result<String, String> {
                 let mut words = slp1.split('+');
                 let v7_rl = rl(words.next().and_then(|w| w.bytes().last()))
                     && rl(words.next().and_then(|w| w.bytes().next()));
-                let since = if v7_rl {
+                let since = if rule as u8 > 29 {
+                    8
+                } else if v7_rl {
                     7
                 } else if v6_final || rule as u8 > 26 {
                     6

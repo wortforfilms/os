@@ -206,7 +206,8 @@ Optional forms take the common choice: 8.3.19 drops the y, 8.3.36 and
 8.3.37 keep the visarga. r, or ru after a vowel other than a/A, before r
 is dropped by 8.3.14 ro ri (obligatory), and 6.3.111 Dhralope purvasya
 dirgho 'naH lengthens a short a i u before it (rule 29, panini version
-6). Not yet (refused as -105): a visarga after a consonant, pluta. Panini version 4 has the same rules, in
+6). A visarga (or s) after a consonant is dropped first by 8.2.23
+samyogantasya lopah (vAkH+atra -> vAgatra; version 8). Not done: pluta. Panini version 4 has the same rules, in
 the same order, with the class table split by what they need (20 haS, 21
 t T, 22 c C, 23 w W, 24 k K p P, 25 Sar, 26 M H). The host test runs the
 capsule against the crate for every ending (H, s, r) after every letter,
@@ -296,6 +297,13 @@ Final y l v: no pada-final rule here changes them, so the words are
 joined as written (ziv+atra -> zivatra, rule 1). 6.1.66 lopo vyor vali
 (y and v dropped before val) is deliberately not applied: padas rarely
 end in y or v.
+
+8.2.23 samyogantasya lopah (panini version 8): a first word ending in two
+consonants loses the last, once, before everything above (a visarga
+counts as s); 8.2.24 rAt sasya: after r only s goes (Urj stays, Urs is
+Ur). Rule 30 when no later rule applies: `mahAnt+atra` -> `mahAnatra`,
+`mahAnt+gacCati` -> `mahAngacCati`; otherwise the later rule is named
+(`mahAnt+ca` -> `mahAMSca`, 27; `vAks+atra` -> `vAgatra`, 18).
 
 Not yet (refused as -105): a final Y. A property test checks every final stop (and S z h)
 before every letter: the result is never aspirated, and never voiced
