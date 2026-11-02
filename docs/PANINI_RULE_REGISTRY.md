@@ -67,10 +67,10 @@ the board reset during the request (`reset pin or debugger`, no crash
 record); asked again after the reset it matched. The reset is tracked as its
 own issue, not a capsule fault.
 
-Coverage gap: the differential test in `src/capsule_task.rs` tries a
-visarga before khar followed by `S` only, so 8.3.35 with `z` or `s` (as in
-`kz`) is not in CI. Extended by hand with `z` and `s`, the capsule still
-equals the host (2026-11-03, not committed).
+The differential test in `src/capsule_task.rs` tried a visarga before
+khar followed by `S` only, so 8.3.35 with `z` or `s` (as in `kz`) was not
+in CI. It now tries `S`, `z` and `s`; the capsule equals the host on all of
+them.
 
 Rules 32–34 need to know that the second word is a verb after an upasarga.
 That comes only from `join_with(Hints)`; plain `join`, the capsule and the

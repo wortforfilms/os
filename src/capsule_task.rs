@@ -496,14 +496,22 @@ mod tests {
             requests.push(text.as_bytes().to_vec());
         }
         // Visarga, s and r: every ending after every letter (bare and after
-        // k), before every first letter, alone or followed by a, S or k
-        // (S for 8.3.35); and sa / eza (6.1.132) and the crate's cases.
+        // k), before every first letter, alone or followed by a, k, or a
+        // Sar letter S z s (8.3.35: khar then Sar, as in kz); and sa / eza
+        // (6.1.132) and the crate's cases.
         let all = b"aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzshMH";
         for &end in b"Hsr" {
             for &before in all.iter() {
                 for left in [vec![before, end], vec![b'k', before, end]] {
                     for &first in all.iter() {
-                        for second in [None, Some(b'a'), Some(b'S'), Some(b'k')] {
+                        for second in [
+                            None,
+                            Some(b'a'),
+                            Some(b'S'),
+                            Some(b'z'),
+                            Some(b's'),
+                            Some(b'k'),
+                        ] {
                             let mut request = left.clone();
                             request.push(b'+');
                             request.push(first);
