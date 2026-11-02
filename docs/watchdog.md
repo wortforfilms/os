@@ -95,7 +95,7 @@ The host channel `selftest` includes a `boot info` check.
      (`scripts/read-board-store.py`), so the result does not depend on the
      serial port.
   
-  Afterwards, flash the normal kernel again (`Flash Nucleo F411.command`).
+  Afterwards, flash the normal kernel again (`Board test.command`).
 
 ## Board results (NUCLEO-F411RE, 2026-10-31)
 

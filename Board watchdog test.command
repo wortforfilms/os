@@ -6,7 +6,7 @@
 #      the next boot must report "reset cause: watchdog";
 #   3. reads the saved reset record (persistent key 1) straight from flash
 #      with the probe, so the result does not depend on the serial port.
-# Afterwards flash the normal kernel again (Flash Nucleo F411.command).
+# Afterwards flash the normal kernel again (Board test.command).
 # Close any serial terminal on the port first. Output: target/board-watchdog.txt
 cd "$(dirname "$0")" || exit 1
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"

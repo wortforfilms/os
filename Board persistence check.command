@@ -1,6 +1,6 @@
 #!/bin/bash
 # Double-click twice to check that the persistent store survives a power cycle
-# on a Nucleo-F411RE that is already flashed (Flash Nucleo F411.command):
+# on a Nucleo-F411RE that is already flashed (Board test.command):
 #   1st run: writes a fresh value to key 40, then asks you to unplug and
 #            replug the board's USB cable;
 #   2nd run: reads key 40 and compares.

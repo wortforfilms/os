@@ -1,6 +1,6 @@
 #!/bin/bash
 # Double-click: install the greeter capsule at run time on a Nucleo-F411RE that
-# runs this kernel (Flash Nucleo F411.command), reset the board with the probe,
+# runs this kernel (Board test.command flashes it), reset the board with the probe,
 # and check that greeter is installed. Uses the ST-LINK virtual COM port; close
 # any serial terminal on it first. Output: target/board-capsule-install.txt
 # Afterwards `maataa-link --serial PORT capsule-remove` removes it again.

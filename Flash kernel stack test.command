@@ -1,6 +1,12 @@
 #!/bin/bash
-# Double-click: TEST build (kernel-stack-test): task 2 makes the kernel overflow its own stack; the kernel must report it and stop.
-# The RTT output is shown here and saved to target/nucleo-run.log. Nothing is deleted.
+# Double-click: TEST build (kernel-stack-test) on a Nucleo-F411RE. Task 2 makes
+# the kernel overflow its own stack (svc #4); the kernel stack guard must
+# report "KERNEL STACK OVERFLOW" and stop the system (docs/kernel-mpu.md).
+# The kernel log comes over USART2 (the ST-LINK virtual COM port), recorded for
+# 30 s while the board is flashed and reset. Close any serial terminal on the
+# port first. Output: target/board-kstack.txt (raw serial: target/board-kstack.raw)
+# The stopped kernel no longer feeds the watchdog, so the board resets and the
+# test repeats until you flash the normal kernel again (Board test.command).
 # For a Black Pill, change CHIP to STM32F411CEUx.
 cd "$(dirname "$0")" || exit 1
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
@@ -8,49 +14,44 @@ export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 # ST-LINK resets the board (docs/EVIDENCE_MATRIX.md).
 command -v caffeinate >/dev/null && caffeinate -dimsu -w $$ &
 CHIP=STM32F411RETx
-SECONDS_TO_RUN=30
-LOG=target/nucleo-kstack.log
-pause(){ read -r -t 900 -p "Press Return to close." _; }
+OUT=target/board-kstack.txt
+RAW=target/board-kstack.raw
+ELF=target/kstack/thumbv7em-none-eabihf/release/maataa-os
 mkdir -p target
+pause(){ read -r -t 900 -p "Press Return to close." _; }
 if pgrep -x probe-rs >/dev/null; then
   echo "Another probe-rs is running (for example a 'probe-rs debug' window) and holds the ST-LINK."
   echo "Close that window first, then double-click this file again."
   pause; exit 1
 fi
-echo "Building Maataa OS for $CHIP…"
-RUSTC="$(rustup which rustc 2>/dev/null || command -v rustc)" cargo build --release \
-  --target thumbv7em-none-eabihf --no-default-features --features board-f411,kernel-stack-test --bin maataa-os --target-dir target/kstack 2>&1 | tee target/nucleo-build.log
-[ "${PIPESTATUS[0]}" -eq 0 ] || { echo "✗ Build failed (target/nucleo-build.log)."; pause; exit 1; }
-echo "Flashing and running for $SECONDS_TO_RUN seconds…"
-# probe-rs prints RTT only to a terminal, so run it under `script`, which gives it one
-# and copies everything to the log as well.
-( sleep "$SECONDS_TO_RUN"; PR=$(pgrep -n -x probe-rs); [ -n "$PR" ] && kill -INT "$PR" ) &
-script -q "$LOG" probe-rs run --chip "$CHIP" target/kstack/thumbv7em-none-eabihf/release/maataa-os
-echo
-# Diagnostics: read the RTT control block and the first bytes the firmware wrote.
-ELF=target/kstack/thumbv7em-none-eabihf/release/maataa-os
-NM=$(command -v arm-none-eabi-nm || command -v llvm-nm || echo nm)
-ADDR=$("$NM" "$ELF" 2>/dev/null | awk '/ _SEGGER_RTT$/{print $1}')
-[ -n "$ADDR" ] || ADDR=$(python3 - "$ELF" <<'PY'
-import struct,sys
-d=open(sys.argv[1],'rb').read()
-shoff,=struct.unpack_from('<I',d,0x20); shentsize,shnum,shstrndx=struct.unpack_from('<HHH',d,0x2e)
-secs=[struct.unpack_from('<IIIIIIIIII',d,shoff+i*shentsize) for i in range(shnum)]
-for s in secs:
-    if s[1]==2:  # SHT_SYMTAB
-        strtab=secs[s[6]]
-        for o in range(s[4],s[4]+s[5],16):
-            name,value=struct.unpack_from('<II',d,o)
-            n=d[strtab[4]+name:d.index(b'\0',strtab[4]+name)]
-            if n==b'_SEGGER_RTT': print('%08x'%value)
-PY
-)
-if [ -n "$ADDR" ]; then
-  echo "RTT control block at 0x$ADDR" | tee target/nucleo-rtt.txt
-  probe-rs read --chip "$CHIP" b32 "0x$ADDR" 12 2>&1 | tee -a target/nucleo-rtt.txt
-  BUF=$(probe-rs read --chip "$CHIP" b32 "0x$ADDR" 12 2>/dev/null | tr -s ' ' '\n' | grep -E '^[0-9a-fA-F]{8}$' | sed -n '8p')
-  [ -n "$BUF" ] && { echo "up buffer 0x$BUF:"; probe-rs read --chip "$CHIP" b8 "0x$BUF" 256 2>&1; } | tee -a target/nucleo-rtt.txt
-fi
-if grep -aq "KERNEL STACK OVERFLOW" "$LOG"; then echo "✓ The kernel stack guard caught the overflow:"; grep -a "KERNEL STACK OVERFLOW" "$LOG" | tr -d "\000\r"
-else echo "? No guard report. Full output: $LOG"; grep -a "HARD FAULT\|KERNEL\|Exception" "$LOG" | tr -d "\000\r"; fi
+{
+  echo "Building the kernel-stack-test kernel…"
+  RUSTC="$(rustup which rustc 2>/dev/null || command -v rustc)" cargo build --release \
+    --target thumbv7em-none-eabihf --no-default-features --features board-f411,kernel-stack-test \
+    --bin maataa-os --target-dir target/kstack 2>&1 | tail -1
+  [ -f "$ELF" ] || { echo "FAIL: build failed"; exit 1; }
+  PORT="${MAATAA_SERIAL:-$(ls /dev/cu.usbmodem* 2>/dev/null | head -n 1)}"
+  [ -n "$PORT" ] || { echo "FAIL: no /dev/cu.usbmodem* port: is the Nucleo plugged in?"; exit 1; }
+  echo "port: $PORT"
+  exec 3<>"$PORT"
+  stty 115200 raw -echo cs8 -cstopb -parenb clocal <&3
+  ( cat <&3 > "$RAW" ) &
+  CAT=$!
+  echo "Flashing…"
+  probe-rs download --chip "$CHIP" "$ELF" 2>&1 | tail -1
+  probe-rs reset --chip "$CHIP" 2>&1
+  echo "Recording the serial port for 30 s…"
+  sleep 30
+  kill $CAT 2>/dev/null
+  exec 3<&-
+  echo "--- serial (selected lines) ---"
+  tr -d '\000' < "$RAW" | tr '\r' '\n' \
+    | grep -a -E 'KERNEL STACK OVERFLOW|HARD FAULT|reset cause|last crash|^task 2' | head -20
+  if tr -d '\000' < "$RAW" | grep -aq 'KERNEL STACK OVERFLOW'; then
+    echo "PASS: the kernel stack guard caught the overflow"
+  else
+    echo "FAIL: no KERNEL STACK OVERFLOW report (full serial: $RAW)"
+  fi
+  echo "Next: flash the normal kernel again (Board test.command)."
+} 2>&1 | tee "$OUT"
 pause

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Double-click: build the F411 kernel twice (default = RTT-friendly NOP idle; low-power = WFI idle)
+# Double-click: build the F411 kernel twice (default = NOP idle, keeps the probe's debug access; low-power = WFI idle)
 # and the QEMU kernel. Builds only; nothing is flashed. Output: target/f411-builds.log
 cd "$(dirname "$0")" || exit 1
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"

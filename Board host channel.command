@@ -1,6 +1,6 @@
 #!/bin/bash
 # Double-click: run the host channel selftest against a Nucleo-F411RE that is
-# already flashed (Flash Nucleo F411.command) and running.
+# already flashed (Board test.command) and running.
 # Uses the ST-LINK virtual COM port (/dev/cu.usbmodem*). Close any serial
 # terminal (screen, minicom) on that port first. Output: target/board-hostlink.txt
 cd "$(dirname "$0")" || exit 1
