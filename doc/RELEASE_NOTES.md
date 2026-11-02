@@ -1,3 +1,11 @@
+# Unreleased (after v0.1.0-alpha.4)
+
+## Panini capsule version 6 (hal sandhi, the remaining finals)
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| Final palatals: 8.2.30 coh kuh (c j J), 8.2.36 for C, then 8.2.39 and the version 5 rules; the roots of 8.2.36 and kvin words come as their pada form (rAw, dik); same rule numbers. Crate and capsule (version 6): image 2,926 of 4,096 bytes, worst fuel 4,246 (as version 5); QEMU `vAc+ca` MATCH | not yet | docs/panini.md |
+
 # Maataa OS v0.1.0-alpha.4
 
 ## Release type

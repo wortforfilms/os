@@ -463,12 +463,19 @@ fn sandhi(ch: &mut Channel, text: Option<&str>) -> Result<String, String> {
             let host = std::str::from_utf8(&expected[..n]).unwrap_or("?");
             if board != host {
                 // Rules 8 to 17 (visarga) came with panini version 4, 18 to
-                // 26 (hal sandhi) with version 5.
+                // 26 (hal sandhi) with version 5; final palatals (c C j J,
+                // the same rule numbers) with version 6.
+                let palatal = slp1
+                    .split('+')
+                    .next()
+                    .and_then(|left| left.bytes().last())
+                    .is_some_and(|b| b"cCjJ".contains(&b));
                 let note = if rule as u8 > 17 {
                     format!(
-                        "; the host applied {} {} (panini version 5 or later has it)",
+                        "; the host applied {} {} (panini version {} or later has it)",
                         rule.name(),
-                        rule.sutra()
+                        rule.sutra(),
+                        if palatal { 6 } else { 5 }
                     )
                 } else if rule as u8 > 7 {
                     format!(

@@ -21,6 +21,8 @@
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 6: final palatals: 8.2.30 coh kuh for c j J, 8.2.36 for C, then
+;; the version 5 rules (no new rule numbers).
 ;; Version 5: hal sandhi for final stops and m (rules 18 to 26), as
 ;; crates/maataa-sandhi.
 ;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
@@ -37,7 +39,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=5 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=6 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -309,15 +311,21 @@
       call $put
       i32.const 1 return
     end
-    ;; Taken: stops of every row but the palatal, not nasals.
+    ;; Taken: stops, not nasals.
     local.get $x call $stop local.tee $st
     i32.const 255 i32.eq
     if i32.const -105 return end
-    local.get $st i32.const 3 i32.shr_u local.set $row
-    local.get $row i32.const 1 i32.eq
     local.get $st i32.const 7 i32.and i32.const 4 i32.eq
-    i32.or
     if i32.const -105 return end
+    local.get $st i32.const 3 i32.shr_u local.set $row
+    ;; A final palatal: 8.2.36 makes C z, of the retroflex row; 8.2.30 coh
+    ;; kuh makes c j J velar. (The roots of 8.2.36 come as their pada form.)
+    local.get $row i32.const 1 i32.eq
+    if
+      i32.const 2 i32.const 0
+      local.get $st i32.const 7 i32.and i32.const 1 i32.eq
+      select local.set $row
+    end
     ;; 8.2.39: the jaS of the row (18).
     i32.const 2 local.set $col
     i32.const 18 local.set $rule

@@ -397,7 +397,7 @@ mod tests {
                 s.quiet,
                 s.version
             )),
-            Ok((true, true, 5))
+            Ok((true, true, 6))
         );
         // Room left in the interpreter's tables for the next rules.
         assert_eq!(module.data_segments(), 1);
@@ -553,6 +553,16 @@ mod tests {
             "tat+pAda",
             "liw+ca",
             "vAc+ISa",
+            "vAc+ca",
+            "vAc+mAtra",
+            "vAc+hari",
+            "vAc+Sata",
+            "vaRij+atra",
+            "vaRij+karoti",
+            "prAC+atra",
+            "prAC+ca",
+            "prAC+mAtra",
+            "rAw+atra",
             "rAj+atra",
             "diS+atra",
             "rAjan+atra",
