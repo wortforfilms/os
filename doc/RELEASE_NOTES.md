@@ -1,3 +1,9 @@
+# Unreleased (after v0.1.0-alpha.6)
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| `release.sh` refuses to build when `dist/` for the version already exists or when the version's tag is on another commit (alpha.6 was first tagged on a commit still versioned alpha.5, and the build overwrote alpha.5's `dist/`) | - | docs/release.md |
+
 # Maataa OS v0.1.0-alpha.6
 
 ## Release type

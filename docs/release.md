@@ -14,7 +14,12 @@ build uses keys only you hold.
 
 The script:
 
-1. reads the keys from `~/.maataa` (`MAATAA_KEYS` chooses another
+1. refuses to run if `dist/maataa-os-v<version>-f411/` already exists
+   (bump the version, or remove the directory to rebuild), or if a tag
+   `v<version>` exists on a commit other than HEAD. The order is: the
+   release commit (version and release notes), then this script, then the
+   tag on that commit;
+2. reads the keys from `~/.maataa` (`MAATAA_KEYS` chooses another
    directory, which must be outside the repository):
    - `capsule-release.seed`, the ed25519 seed that signs capsules;
    - `store-release.key`, the 256-bit master key that seals the store.
@@ -27,11 +32,11 @@ The script:
    one. (The keys of v0.1.0-alpha.5, the first release-key build, were
    created on 2026-11-02, before this check existed; capsule public key
    `ccc84427...95da`.)
-2. re-signs the built-in capsules, and greeter and panini, with the release seed
+3. re-signs the built-in capsules, and greeter and panini, with the release seed
    (`maataa-capsule resign`: same name, capabilities and payload);
-3. builds the F411 kernel with `MAATAA_CAPSULE_PUBKEY`, `MAATAA_STORE_KEY`
+4. builds the F411 kernel with `MAATAA_CAPSULE_PUBKEY`, `MAATAA_STORE_KEY`
    and `MAATAA_CAPSULE_DIR`;
-4. writes `dist/maataa-os-v<version>-f411/`: `maataa-os.elf`, its SHA-256,
+5. writes `dist/maataa-os-v<version>-f411/`: `maataa-os.elf`, its SHA-256,
    the release-signed images and the public key.
 
 It does not flash anything. Back up `~/.maataa`: without the seed you cannot

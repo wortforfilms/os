@@ -25,6 +25,23 @@ case "$KEYS" in
     "$PWD"|"$PWD"/*) echo "refusing: keep the keys outside the repository ($KEYS)" >&2; exit 1 ;;
 esac
 
+# Never mix two builds or two commits under one version: the output
+# directory must be new, and a tag for this version, if there is one, must
+# be on this commit (make the release commit first, then this, then the tag).
+if [ -e "$DIST" ]; then
+    echo "ERROR: $DIST already exists. Nothing was built." >&2
+    echo "Bump the version in Cargo.toml for a new release, or remove $DIST to rebuild this one." >&2
+    exit 1
+fi
+if TAGGED="$(git rev-parse -q --verify "refs/tags/v$VERSION^{commit}")"; then
+    HEAD_COMMIT="$(git rev-parse HEAD)"
+    if [ "$TAGGED" != "$HEAD_COMMIT" ]; then
+        echo "ERROR: tag v$VERSION is on ${TAGGED:0:7}, not on HEAD (${HEAD_COMMIT:0:7}). Nothing was built." >&2
+        echo "Make the release commit (version, release notes) first, or check out v$VERSION." >&2
+        exit 1
+    fi
+fi
+
 # Never create a key by accident (an empty or wrong key directory).
 MISSING=""
 for key in capsule-release.seed store-release.key; do
