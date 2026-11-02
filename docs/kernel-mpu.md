@@ -9,7 +9,7 @@ own is killed; the other tasks keep running.
 | Region | Memory | Kernel (privileged) | Tasks (unprivileged) |
 | --- | --- | --- | --- |
 | background | everything | default memory map (`PRIVDEFENA`) | no access |
-| 0 | flash, first 512 KB | read, execute | read, execute |
+| 0 | flash, first 512 KB | read, write, execute (`AP_PRIV_RW`: the kernel programs the capsule and store sectors) | read, execute |
 | 1 | the running task's stack | read, write | read, write, never execute |
 | 2 | kernel stack guard: 256 bytes at the low end of the main stack | no access | no access |
 
@@ -22,17 +22,13 @@ own is killed; the other tasks keep running.
 - PendSV sets `CONTROL.nPRIV` before returning to a task, with `dsb`/`isb`.
 - The MemManage fault is enabled (`SHCSR.MEMFAULTENA`).
 
-## Supervisor calls (`src/syscall.rs`)
+## Supervisor calls
 
-| `svc` | Call | r0 | r1 | Returns |
-| --- | --- | --- | --- | --- |
-| 1 | write text to the kernel log | pointer | length | bytes written, or `u32::MAX` if refused |
-| 2 | set the user LED | 0 off, else on | | 0 |
-| 3 | demo finished (QEMU exits, boards ignore it) | | | 0 |
-
-The kernel accepts a write only if the whole buffer lies in flash or in the
-caller's own stack. Tasks print with `uprintln!`, which formats on the task's
-stack and makes one `svc #1`.
+Milestone 1 had three calls (write, LED, demo done). The current set, 1 to
+19, with registers, limits and error codes, is in
+[ABI_SVC.md](ABI_SVC.md). The kernel reads a task buffer only if the whole
+buffer lies in flash or in the caller's own stack, and writes one only inside
+the caller's stack (`syscall::buffer_allowed`, `syscall::writable_allowed`).
 
 ## Faults
 

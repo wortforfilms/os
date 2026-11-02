@@ -10,12 +10,15 @@ repository, which does not build or test this kernel.
 
 ## Status
 
-Release: `v0.1.0-alpha.2` ([release notes](doc/RELEASE_NOTES.md), [release builds](docs/release.md))
+Release: `v0.1.0-alpha.6` ([release notes](doc/RELEASE_NOTES.md), [release builds](docs/release.md))
 
 Working:
 
-- Cortex-M boot path, QEMU semihosting output, RTT on hardware
-- Preemptive scheduler (PendSV), round-robin and fixed-priority policies
+- Cortex-M boot path; kernel log over QEMU semihosting, and over USART2
+  (the ST-LINK virtual COM port) on the F411
+- Preemptive scheduler (PendSV): strict priority, round-robin within a
+  level, priority inheritance on mutexes
+  ([docs/engineering/SCHEDULER.md](docs/engineering/SCHEDULER.md))
 - MPU-isolated unprivileged tasks and SVC system calls
 - Mailbox IPC, mutexes and semaphores
 - USART2 TX/RX with a 256-byte RX FIFO and blocking wake on receive, on
@@ -54,8 +57,15 @@ Working:
   optional rollback counter in OTP (`otp-rollback`);
   tasks and the host channel use it through syscalls 15/16
   ([docs/persistence.md](docs/persistence.md))
-- Static capsule table, virtual flash manifest, release size check
-  ([docs/size.md](docs/size.md))
+- Panini sandhi: `crates/maataa-sandhi` (host library, rules 1–34) and the
+  run-time capsule `capsules/panini.wat` (version 9, rules 1–31), compared
+  with each other in CI; `maataa-link sandhi` checks the board's answer
+  against the host ([docs/panini.md](docs/panini.md),
+  [rule registry](docs/PANINI_RULE_REGISTRY.md))
+- Static capsule table, release size check ([docs/size.md](docs/size.md)).
+  The alpha.1 virtual storage manager in `src/storage/` is still in the
+  source but is not the real store
+  ([memory map](docs/HARDWARE_MEMORY_MAP.md#known-drift-in-the-source))
 
 Not yet:
 
@@ -73,7 +83,7 @@ Not yet:
 
 ```bash
 ./scripts/run.sh            # boot in QEMU
-./scripts/smoke-alpha.sh    # release gate: 10 checks, one PASS/FAIL line
+./scripts/smoke-alpha.sh    # release gate: 15 checks, one PASS/FAIL line
 ./scripts/test-host.sh      # host unit tests
 ./scripts/run-hw.sh         # flash and run on NUCLEO-F411RE
 
@@ -95,11 +105,16 @@ double-click.
 - [Kernel clock](docs/kernel-clock.md)
 - [Kernel IPC](docs/kernel-ipc.md)
 - [Kernel MPU](docs/kernel-mpu.md)
+- [Supervisor call ABI](docs/ABI_SVC.md)
+- [Hardware memory map](docs/HARDWARE_MEMORY_MAP.md)
+- [Security threat model](docs/SECURITY_THREAT_MODEL.md)
+- [Evidence matrix](docs/EVIDENCE_MATRIX.md)
 - [Host channel](docs/host-channel.md)
 - [Signed capsules and capabilities](docs/capsules.md)
 - [WebAssembly capsules](docs/wasm-capsules.md)
 - [Persistent storage](docs/persistence.md)
 - [Watchdog and crash report](docs/watchdog.md)
 - [Scheduler](docs/engineering/SCHEDULER.md)
+- [Panini sandhi](docs/panini.md) and [rule registry](docs/PANINI_RULE_REGISTRY.md)
 - [IPC frame schema](docs/IPC_FRAME_SCHEMA.md)
 - [MSAR frame matrix](docs/MSAR_FRAME_MATRIX.md)
