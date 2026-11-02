@@ -30,6 +30,8 @@ commands:
   store-stress N  write N 64-byte values to key 63 (forces flash compaction)
   boot-info       boot count, last reset cause and last crash (kernel keys 0 and 1)
   capsule-install FILE   send a signed capsule image (.mcap); it runs from the next boot
+  capsule-install-no-commit FILE   begin and write FILE but never commit
+                  (tests an interrupted install; the installed capsule stays)
   capsule-info    the installed run-time capsule
   capsule-remove  remove the installed run-time capsule (from the next boot)
   sandhi A+B      ask the panini capsule to join two words (Devanagari or SLP1),
@@ -292,7 +294,8 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
             })
         }
         "sandhi" => sandhi(ch, args.first().map(String::as_str)),
-        "capsule-install" => {
+        "capsule-install" | "capsule-install-no-commit" => {
+            let commit = command == "capsule-install";
             let path = args.first().ok_or("capsule-install needs a .mcap file")?;
             let image = std::fs::read(path).map_err(|e| format!("{path}: {e}"))?;
             let started = Instant::now();
@@ -311,6 +314,12 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
                     kind::CAPSULE_WRITE_REPLY,
                 )
                 .map_err(|e| format!("write at {}: {e}", i * CAPSULE_CHUNK))?;
+            }
+            if !commit {
+                return Ok(format!(
+                    "sent {path}: {} bytes, not committed (the install is left unfinished)",
+                    image.len()
+                ));
             }
             expect(
                 ch.request(kind::CAPSULE_COMMIT, &[])?,

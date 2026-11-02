@@ -21,7 +21,7 @@ That path is exercised only on QEMU and the board.
 | 3 | `DEMO_DONE` | — | smoke 8, indirect: QEMU exits through semihosting after the demo | ignored by the board | — |
 | 4 | `TEST_KERNEL_OVERFLOW` | — | builds only: clippy with `kernel-stack-test` and `watchdog-test` | yes (`Flash kernel stack test.command`, `Board watchdog test.command`) | `E_PERM` in a normal build; neither test feature is run in CI |
 | 5 | `SEND` | mailbox: `a_message_is_copied_and_delivered_once`, `limits_full_too_long_and_short_buffers`, `messages_of_a_dead_task_are_dropped` | smoke 8, indirect: `task 2: mutex 0 handed off` follows task 2 receiving task 1's message | yes | `E_FULL`, `E_TOOLONG`, a bad destination, through the SVC |
-| 6 | `RECV` | `receive_buffers_must_be_in_the_callers_stack`; mailbox: `a_receiver_gets_only_its_own_messages_oldest_first`; sched: `blocked_receiver_wakes_on_message_and_timeout_is_recorded` | smoke 8, indirect (as 5) | yes | `E_TIMEOUT` and `E_AGAIN` through the SVC: the demo prints `task 2: recv timed out after 1000 ms`, but no check matches it; the sender in r1 |
+| 6 | `RECV` | `receive_buffers_must_be_in_the_callers_stack`; mailbox: `a_receiver_gets_only_its_own_messages_oldest_first`; sched: `blocked_receiver_wakes_on_message_and_timeout_is_recorded` | smoke 8, direct: `task 2: recv timed out after 1000 ms` (`E_TIMEOUT`) and `received from task 3` (sender in r1) | yes | `E_AGAIN` through the SVC |
 | 7 | `SLEEP` | — | smoke 9 (clock self-test), direct; smoke 8, indirect (capsule schedules, task 1's 2000 ms sleep) | yes | sleep 0 |
 | 8 | `MUTEX_LOCK` | sched: 8 tests (FIFO hand-off, wrong owner, bad id, dead owner, lock cycle, inheritance) | smoke 8, direct (hand-off, `EOWNERDEAD`); smoke 14 (inheritance) | yes | `E_BAD_MUTEX`, `E_DEADLOCK`, `E_MUTEX_FULL` through the SVC |
 | 9 | `MUTEX_UNLOCK` | sched: `mutex_rejects_wrong_owner_and_invalid_ids`, `unlock_hands_the_lock_to_the_highest_waiter_then_the_oldest` | smoke 8, indirect (hand-off) | yes | `E_NOT_OWNER` through the SVC |
@@ -32,7 +32,7 @@ That path is exercised only on QEMU and the board.
 | 14 | `HOST_STATUS` | — | smoke 10, direct (`status`) | yes | a wrong length |
 | 15 | `STORE_GET` | persist: `tasks_may_read_but_not_write_kernel_keys` | smoke 11 (`get`, boot count), smoke 15 (panini reads key 40), direct | yes | `E_TOOLONG` (value longer than the buffer), `E_NOT_SUPPORTED` |
 | 16 | `STORE_PUT` | persist: `tasks_cannot_touch_kernel_keys`; `maataa-store` crate (24 tests) | smoke 8, direct, refusal: `kernel: task 8 has no capability for syscall 16`; smoke 11, 13, 15, direct | yes | `E_PERM` for a kernel key and `E_FULL`, through the SVC |
-| 17 | `CAPSULE_INSTALL` | installed: `accepts_a_signed_wasm_capsule_with_its_manifest`, `refuses_what_it_must`, `version_floors_stop_downgrades_per_name`, `info_layout` | smoke 12, direct: accept, older version, bad signature, built-in name, info, remove | yes (`Board capsule install.command`, panini installs) | an install cut off half-way (begin and write without commit) |
+| 17 | `CAPSULE_INSTALL` | installed: `accepts_a_signed_wasm_capsule_with_its_manifest`, `refuses_what_it_must`, `version_floors_stop_downgrades_per_name`, `info_layout` | smoke 12, direct: accept, older version, bad signature, built-in name, unfinished install (begin and write, no commit) ignored, info, remove | yes (`Board capsule install.command`, panini installs) | — |
 | 18 | `CAPSULE_IMAGE` | — | smoke 12, indirect: `capsule task 9: greeter`, greeter ticks | yes (panini runs as task 9) | a buffer too small |
 | 19 | `PARK` | `any_task_may_park_but_other_calls_need_their_capability`; sched: `a_parked_task_is_never_picked_or_woken_again` | smoke 8, direct: fails on `park refused` | yes | `E_BUSY` (a task that holds a lock) |
 
@@ -51,9 +51,8 @@ the SVC.
 1. No CI check sees an error code come back through the `svc`
    instruction except `ENOCAP`; every other error path above is tested
    only in the kernel functions.
-2. `RECV` with a timeout: the demo already prints the line; matching it in
-   smoke 8 would cover `E_TIMEOUT` through the SVC at no cost.
+2. ~~`RECV` with a timeout~~: smoke 8 matches the line (after `cee1a0b`).
 3. An unknown SVC number returns `E_PERM`: tested on the mask only, never
    through the SVC.
-4. A run-time install interrupted between write and commit: the docs say
-   the installed capsule is kept; no test checks it.
+4. ~~A run-time install interrupted between write and commit~~: smoke 12
+   (`maataa-link capsule-install-no-commit`, after `cee1a0b`).

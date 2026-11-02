@@ -6,7 +6,9 @@
 #   run 1: install greeter (version 2): accepted
 #   run 2: greeter runs as task 9; installing greeter version 1 is refused
 #   run 3: greeter still runs; a tampered image is refused
-#   run 4: an image named like a built-in capsule (heartbeat) is refused
+#   run 3b: greeter version 3 is begun and written but never committed
+#   run 4: greeter version 2 still runs; an image named like a built-in
+#          capsule (heartbeat) is refused
 #   run 5: capsule-info shows greeter version 2; then it is removed
 #   run 6: no capsule installed, task 9 not started
 # Exit status 0 on pass; a hang fails after 60 s per run.
@@ -79,6 +81,12 @@ sed 's/version=2/version=1/' capsules/greeter.wat >"$WORK/greeter-v1.wat"
 "$SIGN" wasm "$WORK/greeter-v1.wat" -o "$WORK/greeter-v1.wasm" >/dev/null
 "$SIGN" sign --name greeter --caps write,sleep --payload "$WORK/greeter-v1.wasm" --dev \
     -o "$WORK/greeter-v1.mcap" >/dev/null
+# Version 3 for the unfinished install: newer, so it would win if the kernel
+# took a half-written image.
+sed 's/version=2/version=3/' capsules/greeter.wat >"$WORK/greeter-v3.wat"
+"$SIGN" wasm "$WORK/greeter-v3.wat" -o "$WORK/greeter-v3.wasm" >/dev/null
+"$SIGN" sign --name greeter --caps write,sleep --payload "$WORK/greeter-v3.wasm" --dev \
+    -o "$WORK/greeter-v3.mcap" >/dev/null
 python3 - "$GREETER" "$WORK/tampered.mcap" <<'PY'
 import sys
 data = bytearray(open(sys.argv[1], "rb").read())
@@ -110,9 +118,16 @@ fi
 log_has '^capsule task 9: greeter (priority 1)$' || fail "run 3: the refused install removed greeter"
 log_has '^capsule install: refused: bad signature$' || fail "run 3: tamper not refused for its signature"
 
+# An install cut off after begin and write, with no commit (a lost cable):
+# the next boot must still run the installed greeter version 2.
+boot_and_talk capsule-install-no-commit "$WORK/greeter-v3.mcap" || fail "run 3b: unfinished install"
+
 if boot_and_talk capsule-install assets/capsules/heartbeat.mcap; then
     fail "run 4: a built-in name was installed"
 fi
+log_has '^capsule installed: greeter version 2 caps=write,sleep$' \
+    || fail "run 4: an unfinished install replaced greeter version 2"
+log_has '^capsule task 9: greeter (priority 1)$' || fail "run 4: greeter has no task after an unfinished install"
 log_has '^capsule install: refused: the name of a built-in capsule$' || fail "run 4: built-in name"
 
 boot_and_talk capsule-info || fail "run 5: info"
@@ -127,4 +142,4 @@ if log_has '^capsule task 9'; then
     fail "run 6: task 9 started without a capsule"
 fi
 rm -f "$AREA_FILE"
-echo "PASS: run-time capsule install (accepted, ran as task 9, downgrade/tamper/built-in name refused, removed)"
+echo "PASS: run-time capsule install (accepted, ran as task 9, downgrade/tamper/built-in name refused, unfinished install ignored, removed)"
