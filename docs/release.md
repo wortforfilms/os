@@ -18,7 +18,7 @@ The script:
    chooses another directory, which must be outside the repository):
    - `capsule-release.seed`, the ed25519 seed that signs capsules;
    - `store-release.key`, the 256-bit master key that seals the store;
-2. re-signs the built-in capsules, and greeter, with the release seed
+2. re-signs the built-in capsules, and greeter and panini, with the release seed
    (`maataa-capsule resign`: same name, capabilities and payload);
 3. builds the F411 kernel with `MAATAA_CAPSULE_PUBKEY`, `MAATAA_STORE_KEY`
    and `MAATAA_CAPSULE_DIR`;
@@ -38,7 +38,7 @@ formatted and sealed.
 ## Flashing it
 
 ```bash
-probe-rs download --chip STM32F411RETx dist/maataa-os-v0.1.0-alpha.3-f411/maataa-os.elf
+probe-rs download --chip STM32F411RETx dist/maataa-os-v0.1.0-alpha.4-f411/maataa-os.elf
 probe-rs reset --chip STM32F411RETx
 ```
 
@@ -51,7 +51,8 @@ probe-rs erase --chip STM32F411RETx   # whole chip; then flash again
 ```
 
 Run-time capsules for a release kernel must be signed with the release seed
-(`dist/.../capsules/greeter.mcap`, or `maataa-capsule sign --seed-file`).
+(`dist/.../capsules/greeter.mcap` and `panini.mcap`, or `maataa-capsule sign
+--seed-file`).
 
 ## Keeping the keys secret on the board
 

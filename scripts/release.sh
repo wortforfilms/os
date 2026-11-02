@@ -9,7 +9,7 @@
 #   capsule-release.seed  ed25519 seed; signs the built-in capsules
 #   store-release.key     256-bit master key; seals the persistent store
 # Output in dist/: the ELF and a SHA-256, the release-signed built-in images,
-# greeter signed for run-time install, and the public key. Nothing is flashed.
+# greeter and panini signed for run-time install, and the public key. Nothing is flashed.
 set -euo pipefail
 
 VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -n 1)"
@@ -37,7 +37,7 @@ STORE_KEY="$(tr -d ' \n' <"$KEYS/store-release.key")"
 
 rm -rf "$DIST"
 mkdir -p "$DIST/capsules"
-for name in telemetry heartbeat control hostlink greeter; do
+for name in telemetry heartbeat control hostlink greeter panini; do
     "$SIGN" resign "assets/capsules/$name.mcap" --seed-file "$KEYS/capsule-release.seed" \
         -o "$DIST/capsules/$name.mcap"
 done

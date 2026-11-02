@@ -1,4 +1,26 @@
-# Unreleased (after v0.1.0-alpha.3)
+# Maataa OS v0.1.0-alpha.4
+
+## Release type
+
+Capsule alpha for QEMU (`netduinoplus2`) and the NUCLEO-F411RE board: the
+Panini release. The kernel's scheduling and syscalls are as in alpha.3; new
+are the `maataa-sandhi` crate, the panini capsule (version 5), the
+`log=quiet` manifest key and the `maataa-link sandhi` command. Every feature
+below passed the QEMU smoke test (15/15) and CI; the "Board" column says what
+was also run on a NUCLEO-F411RE.
+
+## Validation
+
+```bash
+./scripts/smoke-alpha.sh          # 15 checks, QEMU (step 15: panini and maataa-link sandhi)
+./scripts/sizecheck.sh            # all four kernels within 128 KiB
+./scripts/board-test.sh           # NUCLEO-F411RE: build, flash, host-channel checks
+cargo test -p maataa-sandhi --features alloc --target <host triple>
+```
+
+On a board: `maataa-link capsule-install assets/capsules/panini.mcap`, a
+probe reset, then `maataa-link sandhi वाक्+ईश` (expects `MATCH: वागीश`).
+A release kernel needs the release-signed `dist/.../capsules/panini.mcap`.
 
 ## Panini capsule (vowel sandhi)
 
@@ -24,6 +46,22 @@ task 9 after a probe reset. Answers read back from key 41: deva+indra ->
 devendra, mahA+fzi -> maharzi, eka+eka -> ekEka, iti+Adi -> ityAdi,
 vane+atra -> vane'tra, hare+e -> haraye, vAk+ISa -> vAkISa, deva+in+dra ->
 ?. Key 40 was deleted after each; STATUS tasks 8/10 alive.
+(vAk+ISa -> vAkISa was wrong: version 1 had no hal sandhi. Since version 5
+it is vAgISa, 8.2.39, checked on the board 2026-11-02.)
+
+## Known limits
+
+- Hal sandhi covers final stops of the k, w, t and p rows, and final m.
+  Final palatals (c j: 8.2.30, 8.2.36), S z h, the nasals Y N R n, y l v,
+  and र्+र् (8.3.14) are refused with -105 (not yet), by the capsule and
+  the host alike.
+- ऋ+ऌ stays at 6.1.77 (an open exception), as in the first engine.
+- One request at a time (key 40, answer in key 41); a request is read up
+  to 64 bytes and an answer longer than 64 bytes is refused (-104).
+- Both debug kernels use 91% of the 128 KiB limit (`sizecheck.sh` warns).
+- Earlier limits still hold: one run-time capsule at a time, the store's
+  rollback counter is opt-in and untested on a board, and the development
+  keys are public.
 
 # Maataa OS v0.1.0-alpha.3
 
