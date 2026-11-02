@@ -2,8 +2,12 @@
 # Builds a release kernel for the NUCLEO-F411RE, signed and sealed with
 # release keys instead of the public development keys (docs/release.md).
 #
-#   ./scripts/release.sh            # keys in ~/.maataa (created if missing)
+#   ./scripts/release.sh            # keys in ~/.maataa
 #   MAATAA_KEYS=/path ./scripts/release.sh
+#   MAATAA_NEW_KEYS=1 ./scripts/release.sh   # allow creating a missing key
+#
+# A missing key is created only with MAATAA_NEW_KEYS=1. A new seed means a new
+# capsule signer; a new store key means no earlier release store opens again.
 #
 # Keys (keep them private, never in this repository):
 #   capsule-release.seed  ed25519 seed; signs the built-in capsules
@@ -20,6 +24,19 @@ SIGN=target/release/maataa-capsule
 case "$KEYS" in
     "$PWD"|"$PWD"/*) echo "refusing: keep the keys outside the repository ($KEYS)" >&2; exit 1 ;;
 esac
+
+# Never create a key by accident (an empty or wrong key directory).
+MISSING=""
+for key in capsule-release.seed store-release.key; do
+    [ -f "$KEYS/$key" ] || MISSING="$MISSING $key"
+done
+if [ -n "$MISSING" ] && [ "${MAATAA_NEW_KEYS:-}" != "1" ]; then
+    echo "ERROR: missing key file(s) in $KEYS:$MISSING" >&2
+    echo "Nothing was built. If $KEYS is the right place and you mean to create NEW keys" >&2
+    echo "(a new store key cannot open a store sealed by the old one), run:" >&2
+    echo "  MAATAA_NEW_KEYS=1 ${MAATAA_KEYS:+MAATAA_KEYS=$KEYS }./scripts/release.sh" >&2
+    exit 1
+fi
 
 cargo build --release -p maataa-capsule --features cli
 mkdir -p "$KEYS"

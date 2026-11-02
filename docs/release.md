@@ -14,10 +14,19 @@ build uses keys only you hold.
 
 The script:
 
-1. creates the keys in `~/.maataa`, if they are missing (`MAATAA_KEYS`
-   chooses another directory, which must be outside the repository):
+1. reads the keys from `~/.maataa` (`MAATAA_KEYS` chooses another
+   directory, which must be outside the repository):
    - `capsule-release.seed`, the ed25519 seed that signs capsules;
-   - `store-release.key`, the 256-bit master key that seals the store;
+   - `store-release.key`, the 256-bit master key that seals the store.
+
+   If either is missing the script stops before building anything, names
+   the missing file(s), and creates them only when run as
+   `MAATAA_NEW_KEYS=1 ./scripts/release.sh`. This guards against a wrong or
+   empty key directory: a new seed is a new capsule signer, and a new store
+   key, even with the old seed, can never open a store sealed by the old
+   one. (The keys of v0.1.0-alpha.5, the first release-key build, were
+   created on 2026-11-02, before this check existed; capsule public key
+   `ccc84427...95da`.)
 2. re-signs the built-in capsules, and greeter and panini, with the release seed
    (`maataa-capsule resign`: same name, capabilities and payload);
 3. builds the F411 kernel with `MAATAA_CAPSULE_PUBKEY`, `MAATAA_STORE_KEY`
