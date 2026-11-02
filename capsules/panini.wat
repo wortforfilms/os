@@ -21,6 +21,9 @@
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 7: f and x are savarna (the r/l varttika), so 6.1.101 joins them,
+;; with F as the long vowel: hotf+xkAra -> hotFkAra (version 6 gave hotrxkAra
+;; by 6.1.77).
 ;; Version 6: final palatals: 8.2.30 coh kuh for c j J, 8.2.36 for C; final
 ;; S z h (8.2.36, 8.2.31) as q; then the version 5 rules; final N R n:
 ;; 8.3.32 (28), 8.3.7 (27), 8.4.40, 8.4.41, 8.4.60 with n. A dental before
@@ -42,7 +45,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=6 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=7 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -54,7 +57,7 @@
   ;;        e E o O; consonants by what the visarga rules need: 20 haS
   ;;        (voiced), 21 t T, 22 c C, 23 w W, 24 k K p P, 25 Sar (S z s),
   ;;        26 M H; 0 not SLP1. Every class above 14 is "not a vowel".
-  ;;   256  long vowel per grade (a i u f x): "AIUFX"
+  ;;   256  long vowel per grade (a i u f x): "AIUFF" (x has no long one)
   ;;   264  semivowel per grade (i u f x): "yvrl"
   ;;   272  guna of a before grade 2..5, two bytes each (0: one letter)
   ;;   280  ayadi of e E o O, two bytes each
@@ -80,7 +83,7 @@
     "\00\01\14\16\14\0b\07\14\14\03\14\18\14\14\14\0d"
     "\18\14\14\19\15\05\14\17\09\14\19\00\00\00\00\00"
     ;; 256: long vowels; 264: semivowels; 272: guna; 280: ayadi
-    "AIUFX" "\00\00\00"
+    "AIUFF" "\00\00\00"
     "yvrl" "\00\00\00\00"
     "e\00o\00aral"
     "ayAyavAv"
@@ -631,9 +634,12 @@
     local.get $b call $grade local.set $gb
     ;; Everything but the meeting vowels: stem = left minus its last letter.
     i32.const 512 local.get $p i32.const 1 i32.sub call $put
-    ;; 6.1.101 savarna-dirgha: like simple vowels make the long one.
+    ;; 6.1.101 savarna-dirgha: like simple vowels make the long one; f and x
+    ;; (grades 4 and 5, sum 9) are like by the varttika, and their long is F.
     local.get $ga i32.const 0 i32.ne
     local.get $ga local.get $gb i32.eq
+    local.get $ga local.get $gb i32.add i32.const 9 i32.eq
+    i32.or
     i32.and
     if
       local.get $ga i32.const 255 i32.add i32.load8_u call $put1

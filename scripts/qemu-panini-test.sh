@@ -71,7 +71,7 @@ log_has() { tr -d '\r' <"$WORK/run.log" | grep -q "$1"; }
 
 rm -f "$AREA_FILE"
 boot_and_talk capsule-install "$PANINI" || fail "install"
-log_has '^capsule install: panini version 6 accepted; it runs from the next boot$' \
+log_has '^capsule install: panini version 7 accepted; it runs from the next boot$' \
     || fail "the kernel did not accept panini"
 
 for pair in "deva+indra devendra" "iti+Adi ityAdi" "vane+atra vane'tra"; do
@@ -112,9 +112,10 @@ echo "  deva+in+dra -> ? (-103, not SLP1)"
 boot_and_talk sandhi "देव+इन्द्र" || fail "sandhi देव+इन्द्र"
 grep -q '^MATCH: देवेन्द्र (devendra) \[guna, 6.1.87\]$' "$WORK/tool.log" || fail "sandhi: no MATCH"
 echo "  sandhi देव+इन्द्र -> $(tail -n 1 "$WORK/tool.log")"
-# Visarga (version 4), hal sandhi (version 5) and the remaining finals
-# (version 6): the board's answer must match the host's.
-for pair in "rAmaH+gacCati|rAmo gacCati" "vAk+ISa|vAgISa" "tat+ca|tacca" "vAc+ca|vAkca" "lih+atra|liqatra" "tAn+ca|tAMSca" "punar+ramate|punA ramate"; do
+# Visarga (version 4), hal sandhi (version 5), the remaining finals
+# (version 6) and f+x by the r/l varttika (version 7): the board's answer
+# must match the host's.
+for pair in "rAmaH+gacCati|rAmo gacCati" "vAk+ISa|vAgISa" "tat+ca|tacca" "vAc+ca|vAkca" "lih+atra|liqatra" "tAn+ca|tAMSca" "punar+ramate|punA ramate" "hotf+xkAra|hotFkAra"; do
     IFS='|' read -r request answer <<<"$pair"
     boot_and_talk sandhi "$request" || fail "sandhi $request"
     grep -q "^MATCH: .* ($answer) \[" "$WORK/tool.log" || fail "sandhi $request: no MATCH"

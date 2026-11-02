@@ -13,7 +13,7 @@
 //!
 //! | Rule | Sutra | Example (SLP1) |
 //! | --- | --- | --- |
-//! | savarna-dirgha: like vowels make one long vowel | 6.1.101 akah savarne dirghah | `vidyA+Alaya` -> `vidyAlaya` |
+//! | savarna-dirgha: like vowels make one long vowel (f and x are like, by the varttika; their long is F) | 6.1.101 akah savarne dirghah | `vidyA+Alaya` -> `vidyAlaya`, `hotf+xkAra` -> `hotFkAra` |
 //! | guna: a/A before i u f x | 6.1.87 ad gunah | `deva+indra` -> `devendra`, `mahA+fzi` -> `maharzi` |
 //! | vrddhi: a/A before e E o O | 6.1.88 vrddhir eci | `eka+eka` -> `ekEka` |
 //! | yan: i u f x before an unlike vowel | 6.1.77 iko yan aci | `iti+Adi` -> `ityAdi` |
@@ -295,17 +295,10 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
     let a_varna = Varna::A.bit() | Varna::AA.bit();
     let stem = &left[..left.len() - 1];
     let rest = &right[1..];
-    // Open exception (docs/panini.md): by the varttika r and l vowels are
-    // savarna, which would bring f+x under 6.1.101; the first engine applies
-    // 6.1.77 there, and so does this one until that is decided.
-    let rl_cross = |a: Varna, b: Varna| {
-        let r = |v: Varna| matches!(v, Varna::R | Varna::RR);
-        let l = |v: Varna| matches!(v, Varna::L | Varna::LL);
-        (r(a) && l(b)) || (l(a) && r(b))
-    };
-
-    // 6.1.101 akah savarne dirghah: ak and a savarna make the long one.
-    if has(ak, x) && savarna(x, y) && !rl_cross(x, y) {
+    // 6.1.101 akah savarne dirghah: ak and a savarna make the long one. The
+    // r and l vowels are savarna by the varttika (rlvarnayor mithah
+    // savarnyam), so f+x is taken here too: hotf+xkAra -> hotFkAra.
+    if has(ak, x) && savarna(x, y) {
         w.put(stem)?;
         w.put(&[long_of(x).slp1()])?;
         w.put(rest)?;
@@ -671,8 +664,8 @@ fn long_of(v: varna::Varna) -> varna::Varna {
         A | AA => AA,
         I | II => II,
         U | UU => UU,
-        R | RR => RR,
-        L | LL => LL,
+        // The l vowel has no long one: the long of its savarnas is F.
+        R | RR | L | LL => RR,
         other => other,
     }
 }
@@ -718,9 +711,10 @@ fn legacy_join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule
         // Simple vowels have a grade (1 a, 2 i, 3 u, 4 f, 5 x); e E o O are 0.
         let grade = |c: u8| if c <= 10 { c.div_ceil(2) } else { 0 };
         let (ga, gb) = (grade(a), grade(b));
-        if ga != 0 && ga == gb {
+        // 4 f and 5 x are savarna (the r/l varttika); the long of either is F.
+        if ga != 0 && (ga == gb || ga + gb == 9) {
             w.put(stem)?;
-            w.put(&[b"AIUFX"[ga as usize - 1]])?;
+            w.put(&[b"AIUFF"[ga as usize - 1]])?;
             w.put(rest)?;
             Rule::SavarnaDirgha
         } else if ga == 1 && gb >= 2 {
@@ -884,11 +878,29 @@ mod tests {
     }
 
     #[test]
-    fn r_and_l_vowels_meeting_stay_with_6_1_77_for_now() {
-        // Open exception: the varttika makes them savarna (6.1.101); the
-        // engines keep 6.1.77 until that is decided (docs/panini.md).
-        assert_eq!(j("pitf+xkAra"), (String::from("pitrxkAra"), Rule::Yan));
+    fn r_and_l_vowels_meeting_take_6_1_101_by_the_varttika() {
+        // rlvarnayor mithah savarnyam: f and x are savarna (1.1.9 varttika),
+        // so 6.1.101 joins them; x has no long vowel, so the long one is F.
+        // The optional short forms (Rti Rvarne R va, xti xvarne x va) are not
+        // applied.
         assert!(varna::savarna(varna::Varna::R, varna::Varna::L));
+        for (request, joined) in [
+            ("hotf+xkAra", "hotFkAra"),
+            ("pitf+xkAra", "pitFkAra"),
+            ("hotf+fkAra", "hotFkAra"),
+            ("kx+fta", "kFta"),
+            ("kx+xkAra", "kFkAra"),
+            ("pitF+xkAra", "pitFkAra"),
+        ] {
+            assert_eq!(
+                j(request),
+                (String::from(joined), Rule::SavarnaDirgha),
+                "{request}"
+            );
+        }
+        // Not savarna with anything else: 6.1.77 as before.
+        assert_eq!(j("pitf+iti"), (String::from("pitriti"), Rule::Yan));
+        assert_eq!(j("kx+iti"), (String::from("kliti"), Rule::Yan));
     }
 
     #[test]

@@ -28,7 +28,7 @@ used:
 
 | Result | Rule | Sutra | Example |
 | --- | --- | --- | --- |
-| 2 | savarna-dirgha | 6.1.101 akah savarne dirghah | `vidyA+Alaya` -> `vidyAlaya` |
+| 2 | savarna-dirgha | 6.1.101 akah savarne dirghah | `vidyA+Alaya` -> `vidyAlaya`, `hotf+xkAra` -> `hotFkAra` |
 | 3 | guna | 6.1.87 ad gunah | `deva+indra` -> `devendra`, `mahA+fzi` -> `maharzi` |
 | 4 | vrddhi | 6.1.88 vrddhir eci | `eka+eka` -> `ekEka` |
 | 5 | yan | 6.1.77 iko yan aci | `iti+Adi` -> `ityAdi` |
@@ -154,9 +154,14 @@ in the tests) for every pair of the 49 letters in three contexts, errors
 and the output limit: they agree everywhere, and the capsule, checked
 against `join`, is unchanged.
 
-Open exception, kept on purpose: by the r/l varttika, f+x (ऋ+ऌ) would meet
-6.1.101; both engines, and the capsule, apply 6.1.77 (`pitf+xkAra` ->
-`pitrxkAra`) until the commentaries are checked. A test pins it.
+ऋ+ऌ (decided 2026-11-02, panini version 7): by the varttika
+rlvarnayor mithah savarnyam (on 1.1.9) the r and l vowels are savarna, so
+f, F and x meeting take 6.1.101, and as the l vowel has no long one the
+long vowel is F: `hotf+xkAra` -> `hotFkAra`, `kx+fta` -> `kFta` (rule 2).
+The optional short forms (Rti Rvarne R va, xti xvarne x va: hotxkAra) are
+not applied. Versions 1 to 6 gave 6.1.77 (`pitrxkAra`). The first engine
+in the tests makes the same choice, so the golden test still compares
+every pair.
 
 ## Visarga, s and r
 

@@ -471,7 +471,14 @@ fn sandhi(ch: &mut Channel, text: Option<&str>) -> Result<String, String> {
                     .next()
                     .and_then(|left| left.bytes().last())
                     .is_some_and(|b| b"cCjJSzhNRn".contains(&b));
-                let since = if v6_final || rule as u8 > 26 {
+                // f and x meeting (6.1.101 by the r/l varttika): version 7.
+                let rl = |b: Option<u8>| b.is_some_and(|b| b"fFxX".contains(&b));
+                let mut words = slp1.split('+');
+                let v7_rl = rl(words.next().and_then(|w| w.bytes().last()))
+                    && rl(words.next().and_then(|w| w.bytes().next()));
+                let since = if v7_rl {
+                    7
+                } else if v6_final || rule as u8 > 26 {
                     6
                 } else if rule as u8 > 17 {
                     5
