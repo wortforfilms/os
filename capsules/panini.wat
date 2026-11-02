@@ -21,8 +21,9 @@
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
-;; Version 6: final palatals: 8.2.30 coh kuh for c j J, 8.2.36 for C, then
-;; the version 5 rules (no new rule numbers).
+;; Version 6: final palatals: 8.2.30 coh kuh for c j J, 8.2.36 for C; final
+;; S z h (8.2.36, 8.2.31) as q; then the version 5 rules (no new rule
+;; numbers).
 ;; Version 5: hal sandhi for final stops and m (rules 18 to 26), as
 ;; crates/maataa-sandhi.
 ;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
@@ -311,9 +312,14 @@
       call $put
       i32.const 1 return
     end
-    ;; Taken: stops, not nasals.
-    local.get $x call $stop local.tee $st
-    i32.const 255 i32.eq
+    ;; Taken: stops, not nasals; and S z h, which 8.2.36 (S z) and 8.2.31
+    ;; (h Q) bring to the retroflex row, as q (row 2, column 2).
+    local.get $x call $stop local.set $st
+    local.get $x i32.const 83 i32.eq
+    local.get $x i32.const 122 i32.eq i32.or
+    local.get $x i32.const 104 i32.eq i32.or
+    if i32.const 18 local.set $st end
+    local.get $st i32.const 255 i32.eq
     if i32.const -105 return end
     local.get $st i32.const 7 i32.and i32.const 4 i32.eq
     if i32.const -105 return end

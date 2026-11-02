@@ -112,9 +112,9 @@ echo "  deva+in+dra -> ? (-103, not SLP1)"
 boot_and_talk sandhi "देव+इन्द्र" || fail "sandhi देव+इन्द्र"
 grep -q '^MATCH: देवेन्द्र (devendra) \[guna, 6.1.87\]$' "$WORK/tool.log" || fail "sandhi: no MATCH"
 echo "  sandhi देव+इन्द्र -> $(tail -n 1 "$WORK/tool.log")"
-# Visarga (version 4), hal sandhi (version 5) and final palatals (version
-# 6): the board's answer must match the host's.
-for pair in "rAmaH+gacCati|rAmo gacCati" "vAk+ISa|vAgISa" "tat+ca|tacca" "vAc+ca|vAkca"; do
+# Visarga (version 4), hal sandhi (version 5) and the remaining finals
+# (version 6): the board's answer must match the host's.
+for pair in "rAmaH+gacCati|rAmo gacCati" "vAk+ISa|vAgISa" "tat+ca|tacca" "vAc+ca|vAkca" "lih+atra|liqatra"; do
     IFS='|' read -r request answer <<<"$pair"
     boot_and_talk sandhi "$request" || fail "sandhi $request"
     grep -q "^MATCH: .* ($answer) \[" "$WORK/tool.log" || fail "sandhi $request: no MATCH"

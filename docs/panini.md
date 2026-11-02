@@ -213,23 +213,34 @@ before it (8.2.1), and the words are written joined; an anusvara from
 | `prAC+atra` | `prAqatra` | 8.2.36, 8.2.39 |
 | `prAC+ca` | `prAwca` | 8.2.36, 8.2.39, 8.4.55 |
 | `rAw+atra` | `rAqatra` | 8.2.39 (rAj given as its pada form) |
+| `viS+atra` | `viqatra` | 8.2.36, 8.2.39 |
+| `viS+ca` | `viwca` | 8.2.36, 8.2.39, 8.4.55 |
+| `viS+hari` | `viqQari` | 8.2.36, 8.2.39, 8.4.62 |
+| `dviz+atra` | `dviqatra` | 8.2.39 |
+| `zaz+mAsa` | `zaRmAsa` | 8.2.39, 8.4.45 |
+| `dviz+tat` | `dviwtat` | 8.2.39, 8.4.55 (8.4.42: the t stays) |
+| `lih+atra` | `liqatra` | 8.2.31, 8.2.39 |
+| `lih+ca` | `liwca` | 8.2.31, 8.2.39, 8.4.55 |
+| `dik+ambara` | `digambara` | 8.2.39 (diS given as its pada form) |
 
 Taken: final stops of every row, and final m. A final palatal takes
 8.2.30 coh kuh (c j J become k g G) or, for C, 8.2.36 (z, of the retroflex
-row); 8.2.39 and the rules after it then apply as above. The result names
-the last rule applied, so no new rule number comes with them (vAc+ISa is
-18, 8.2.39).
+row); final S z h take the retroflex row too, S by 8.2.36, z as it is,
+h by 8.2.31 ho qhah (Q). 8.2.39 and the rules after it then apply as
+above. The result names the last rule applied, so no new rule number comes
+with them (vAc+ISa is 18, 8.2.39).
 
 Pada form. Some finals depend on how the word was formed, which the letters
 alone do not show: the roots 8.2.36 names (rAj, yaj, sfj, mfj, BrAj, Brasj,
 vraSc: rAj gives rAw, not rAk), kvin words (8.2.62: diS gives dik), and
 8.2.32 to 8.2.35 (duh gives Duk). The engine applies the general rule
-(8.2.30 for c j J); for these words the caller gives the pada form (rAw,
-dik), and the engine joins that.
+(8.2.30 for c j J, 8.2.36 for S, 8.2.31 for h); for these words the caller
+gives the pada form (rAw, dik, Duk), and the engine joins that.
 
-Not yet (refused as -105): final S z h (8.2.36, 8.2.31), final nasals Y N
-R n (8.3.7, 8.3.32, 8.4.40 with n), final y l v. A property test checks every final stop before every letter:
-the stop is never aspirated, and never voiced before khar. The first
+Not yet (refused as -105): final nasals Y N R n (8.3.7, 8.3.32, 8.4.40
+with n), final y l v. A property test checks every final stop (and S z h)
+before every letter: the result is never aspirated, and never voiced
+before khar. The first
 engine joined consonant endings as written, so the golden test leaves them
 out. Panini version 5 has the same rules in the same order, with a stop
 table (row and column of each stop, at 288, and the stops by row at 416).
@@ -238,8 +249,8 @@ ending after a, i or k, bare and after k, before every first letter alone
 or followed by a, S, k or y, and the named cases (about 50,000 more
 requests, about 109,000 in all): answers and rule numbers equal. Image
 2,909 bytes of 4,096; worst fuel 4,883 of 20,000; one data segment.
-Panini version 6 adds the final palatals (the same rule numbers): image
-2,926 bytes of 4,096, one data segment; worst fuel over the host test's
+Panini version 6 adds the final palatals and S z h (the same rule
+numbers): image 2,955 bytes of 4,096, one data segment; worst fuel over the host test's
 requests 4,246, the same as version 5 measured the same way.
 
 ## Later

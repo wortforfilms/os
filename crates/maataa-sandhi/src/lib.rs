@@ -469,10 +469,10 @@ fn stop(v: varna::Varna) -> Option<(usize, usize)> {
 /// that an anusvara from 8.3.23 keeps the space (kiM karoti).
 ///
 /// Taken: a final stop (a palatal through 8.2.30 coh kuh, or 8.2.36 for C),
-/// and final m. Where the right form depends on the word's derivation (the
+/// final S z h (8.2.36, 8.2.31: the retroflex row), and final m. Where the right form depends on the word's derivation (the
 /// roots of 8.2.36, kvin words of 8.2.62, 8.2.32 to 8.2.35) the caller gives
-/// the pada form: rAw, dik. Not yet (Error::NotYet): S z h (8.2.36,
-/// 8.2.31), the nasals Y N R n (8.3.7, 8.3.32, 8.4.40 with n), y l v.
+/// the pada form: rAw, dik, Duk. Not yet (Error::NotYet): the nasals Y N R
+/// n (8.3.7, 8.3.32, 8.4.40 with n), y l v.
 fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Error> {
     use varna::{pratyahara, Varna};
     let set = |name: &str| pratyahara(name).unwrap_or(0);
@@ -497,7 +497,15 @@ fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Er
         w.put(right)?;
         return Ok((w.len, Rule::Join));
     }
-    let Some((mut row, c)) = stop(x).filter(|&(_, c)| c < 4) else {
+    // A final S z h joins the retroflex row as q: 8.2.36 vraSca...Cazam
+    // zah makes S z; 8.2.31 ho qhah makes h Q; 8.2.39 below makes either q.
+    // Words of 8.2.32 to 8.2.35 (duh, nah...) and kvin words of 8.2.62
+    // (diS) come as their pada form (Duk, dik).
+    let shaped = match x {
+        Varna::Sh | Varna::Ss | Varna::H => Some((2, 2)),
+        _ => stop(x),
+    };
+    let Some((mut row, c)) = shaped.filter(|&(_, c)| c < 4) else {
         return Err(Error::NotYet);
     };
     // A final palatal stop. 8.2.36 vraSca...Cazam zah: C becomes z (and z
@@ -871,11 +879,30 @@ mod tests {
             ("prAC+mAtra", "prARmAtra", Rule::YaroNunasike),
             // The roots of 8.2.36: the caller gives the pada form.
             ("rAw+atra", "rAqatra", Rule::JhalamJasonte),
+            // 8.2.36 for S, then 8.2.39 q and the rest.
+            ("viS+atra", "viqatra", Rule::JhalamJasonte),
+            ("viS+ca", "viwca", Rule::KhariCa),
+            ("viS+mAtra", "viRmAtra", Rule::YaroNunasike),
+            ("viS+hari", "viqQari", Rule::JhayoHo),
+            ("viS+Siva", "viwCiva", Rule::SasCho),
+            // z: 8.2.39 directly.
+            ("dviz+atra", "dviqatra", Rule::JhalamJasonte),
+            ("dviz+ca", "dviwca", Rule::KhariCa),
+            ("zaz+mAsa", "zaRmAsa", Rule::YaroNunasike),
+            // 8.4.42 na padantat wor anAm: a dental after a final w stays.
+            ("dviz+tat", "dviwtat", Rule::KhariCa),
+            // 8.2.31 ho qhah, then 8.2.39.
+            ("lih+atra", "liqatra", Rule::JhalamJasonte),
+            ("lih+ca", "liwca", Rule::KhariCa),
+            ("maDulih+gacCati", "maDuliqgacCati", Rule::JhalamJasonte),
+            // kvin words (8.2.62) and 8.2.32: the caller gives the pada form.
+            ("dik+ambara", "digambara", Rule::JhalamJasonte),
+            ("Duk+atra", "Dugatra", Rule::JhalamJasonte),
         ] {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
         let mut out = [0u8; MAX_TEXT];
-        for not_yet in [&b"diS+atra"[..], b"rAjan+atra", b"tat+Mka", b"ziv+a"] {
+        for not_yet in [&b"rAjan+atra"[..], b"tat+Mka", b"ziv+a"] {
             assert_eq!(
                 join_request(not_yet, &mut out),
                 Err(Error::NotYet),
@@ -890,7 +917,7 @@ mod tests {
         use varna::{pratyahara, Varna};
         let letters = b"aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzsh";
         let khar = pratyahara("Kar").unwrap();
-        for &a in b"kKgGcCjJwWqQtTdDpPbB" {
+        for &a in b"kKgGcCjJwWqQtTdDpPbBSzh" {
             for &b in letters.iter() {
                 let mut out = [0u8; MAX_TEXT];
                 let request = [b'k', b'a', a, b'+', b, b'a'];
