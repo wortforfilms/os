@@ -15,7 +15,7 @@
 | panini version 3: the same rules with its constants in one data segment (was 7 of 8), leaving room for the visarga rules | yes (2026-11-01: installed, 4 MATCH, malformed refused) | docs/panini.md |
 | panini version 4: the visarga rules (8 to 17, and -105) in the capsule, equal to the crate on about 58,800 requests; image 2,164 bytes, worst fuel 4,758 | yes (2026-11-02: 8 MATCH incl. रामो गच्छति, राम इति, रामश् च, हरिर् गच्छति, स गच्छति, रामोऽत्र, देवा गच्छन्ति; हरिः+रमते refused by both) | docs/panini.md |
 | Hal sandhi (host library): 8.2.39, 8.4.40, 8.4.41, 8.4.45, 8.4.55, 8.4.60, 8.4.62, 8.4.63, 8.3.23 for final stops and m; 18 textbook cases and a property test; fixes `vAk+ISa` (was `vAkISa`, now `vAgISa`) | host tests | docs/panini.md |
-| panini version 5: hal sandhi (rules 18 to 26, and -105) in the capsule, equal to the crate on about 109,000 requests; image 2,909 bytes, worst fuel 4,883 | not yet | docs/panini.md |
+| panini version 5: hal sandhi (rules 18 to 26, and -105) in the capsule, equal to the crate on about 109,000 requests; image 2,909 bytes, worst fuel 4,883 | yes (2026-11-02: 8 MATCH incl. वागीश, तच्च, सज्जन, तच्छिव, तद्धित, किं करोति, रामो गच्छति, देवेन्द्र; वाच्+ईश refused by both) | docs/panini.md |
 | `maataa-link sandhi देव+इन्द्र`: Devanagari or SLP1 in, the board's answer checked against the host's (`MATCH`/`MISMATCH`); `maataa_sandhi::lipi` converts, refusing unsupported characters | yes (2026-11-01, 11 requests) | docs/panini.md |
 
 Board run (NUCLEO-F411RE, kernel v0.1.0-alpha.3, 2026-11-01): panini
