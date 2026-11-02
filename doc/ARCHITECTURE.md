@@ -13,7 +13,7 @@ Static capsule table
         |
 Kernel scheduler simulation
         |
-Virtual drivers + virtual storage
+Virtual drivers + sealed flash store
         |
 Cortex-M runtime + semihosting
         |
@@ -23,10 +23,9 @@ QEMU netduinoplus2 machine
 ## Boot Flow
 
 1. `src/main.rs` starts through `cortex-m-rt`.
-2. `src/kernel.rs` creates the driver registry, storage manager, and capsule
-   manager.
+2. `src/kernel.rs` creates the driver registry and the capsule manager.
 3. The driver registry marks UART, GPIO, SPI, I2C, and power as ready.
-4. The storage manager mounts virtual flash and records the system manifest.
+4. The persistent store mounts (`src/storage/persist.rs`, docs/persistence.md).
 5. The capsule manager loads the bundled demo capsule bytes and a control
    capsule placeholder.
 6. The scheduler simulation runs six ticks.
@@ -36,7 +35,7 @@ QEMU netduinoplus2 machine
 
 - **Kernel**: deterministic boot and scheduler simulation.
 - **Drivers**: virtual readiness and polling model.
-- **Storage**: in-memory manifest that stands in for flash metadata.
+- **Storage**: sealed key-value store on flash ([persistence.md](../docs/persistence.md)).
 - **Capsules**: static slot table with size and cycle accounting.
 - **Runtime**: Cortex-M `no_std` executable with QEMU semihosting output.
 

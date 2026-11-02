@@ -16,7 +16,6 @@ use crate::ipc::{
 };
 use crate::logging::kprintln;
 use crate::sched::DEFAULT_DEMO_QUANTUM_MS;
-use crate::storage::StorageManager;
 #[cfg(feature = "board-qemu-f405")]
 use cortex_m_semihosting::syscall;
 
@@ -95,12 +94,9 @@ pub fn run() -> Grants {
     kprintln!("================================");
 
     let mut drivers = DriverRegistry::new();
-    let mut storage = StorageManager::new();
     let mut capsules = CapsuleManager::new();
 
     drivers.init_all();
-    storage.mount();
-    storage.save_manifest("maataa-os", env!("CARGO_PKG_VERSION"));
 
     kprintln!(
         "capsule signer: {} key {}",
@@ -299,12 +295,7 @@ pub fn run() -> Grants {
         drivers.ready_count(),
         drivers.total_count()
     );
-    kprintln!("storage mounted: {}", storage.is_mounted());
-    kprintln!(
-        "manifest: {} {}",
-        storage.manifest().name,
-        storage.manifest().version
-    );
+    kprintln!("manifest: maataa-os {}", env!("CARGO_PKG_VERSION"));
     kprintln!("capsules loaded: {}", capsules.count());
     kprintln!(
         "capsule memory: {}/{} bytes",

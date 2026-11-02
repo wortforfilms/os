@@ -75,6 +75,3 @@ Per-SVC coverage is in [SVC_TEST_COVERAGE.md](SVC_TEST_COVERAGE.md).
 - `src/drivers/` (a registry with simulated uart and spi slots) has unit
   tests only and touches no hardware; the real board code is
   `src/board.rs`.
-- The legacy virtual `StorageManager` (`src/storage/flash.rs`,
-  `src/storage/mod.rs`) is not tested against real flash; see
-  [HARDWARE_MEMORY_MAP.md](HARDWARE_MEMORY_MAP.md#known-drift-in-the-source).

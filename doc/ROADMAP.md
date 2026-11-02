@@ -11,8 +11,8 @@ alpha.1 plan; later phases are kept with their real outcome.
 - [x] Cortex-M `no_std` boot path
 - [x] QEMU semihosting boot logs
 - [x] Virtual driver registry (still simulated: `src/drivers/`)
-- [x] Virtual storage manifest (still in `src/storage/`; superseded by the
-  real store, see [memory map](../docs/HARDWARE_MEMORY_MAP.md#known-drift-in-the-source))
+- [x] Virtual storage manifest (removed after alpha.6; the real store
+  replaced it, [persistence.md](../docs/persistence.md))
 - [x] Static capsule table
 - [x] Scheduler simulation (replaced by the real preemptive scheduler)
 - [x] Host unit tests for virtual subsystems

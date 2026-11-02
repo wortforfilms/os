@@ -62,10 +62,7 @@ Working:
   with each other in CI; `maataa-link sandhi` checks the board's answer
   against the host ([docs/panini.md](docs/panini.md),
   [rule registry](docs/PANINI_RULE_REGISTRY.md))
-- Static capsule table, release size check ([docs/size.md](docs/size.md)).
-  The alpha.1 virtual storage manager in `src/storage/` is still in the
-  source but is not the real store
-  ([memory map](docs/HARDWARE_MEMORY_MAP.md#known-drift-in-the-source))
+- Static capsule table, release size check ([docs/size.md](docs/size.md))
 
 Not yet:
 

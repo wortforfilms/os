@@ -37,8 +37,8 @@ cargo install probe-rs --features cli
 ./scripts/run.sh
 ```
 
-The current prototype boots in QEMU, initializes virtual drivers, mounts virtual
-flash storage, loads static capsule slots, runs a short scheduler simulation,
+The current prototype boots in QEMU, initializes virtual drivers, mounts the
+persistent store, loads static capsule slots, runs a short scheduler simulation,
 and exits through semihosting.
 
 ## Release Smoke Test

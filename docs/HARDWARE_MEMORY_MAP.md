@@ -71,13 +71,12 @@ host files through semihosting: the store in two 16 KiB banks in
 (`src/installed.rs`, `scripts/qemu-capsule-install-test.sh`). The device id
 is the constant `"qemu-netduin"`.
 
-## Known drift in the source
+## Removed drift
 
-`src/storage/flash.rs` and `src/storage/mod.rs` still hold the alpha.1
-*virtual* storage manager (`StorageManager`, boot line `storage mounted:
-virtual flash`), whose constants (`SYSTEM_KERNEL_SECTOR_*` up to
-`0x001F_FFFF`, `ROLLING_DATABASE_SECTOR_START = 0x2000_0000`, ...) do not
-describe this chip and are not used for any real flash access. The real
-store is `src/storage/persist.rs` with `crates/maataa-store`. The old
-constants should be removed or renamed in a code change; this page does not
-change code.
+Until alpha.6, `src/storage/flash.rs` and `src/storage/mod.rs` held the
+alpha.1 *virtual* storage manager (`StorageManager`, boot line `storage
+mounted: virtual flash`), with constants (`SYSTEM_KERNEL_SECTOR_*` up to
+`0x001F_FFFF`, `ROLLING_DATABASE_SECTOR_START = 0x2000_0000`, ...) that did
+not describe this chip and were never used for real flash access. It was
+removed after alpha.6; the only store is `src/storage/persist.rs` with
+`crates/maataa-store`.
