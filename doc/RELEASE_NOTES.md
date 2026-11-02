@@ -1,4 +1,31 @@
-# Unreleased (after v0.1.0-alpha.4)
+# Maataa OS v0.1.0-alpha.5
+
+## Release type
+
+Capsule alpha for QEMU (`netduinoplus2`) and the NUCLEO-F411RE board: the
+rest of hal sandhi. The kernel, its syscalls and the wire format (SLP1 in
+store keys 40 and 41) are as in alpha.4; new are panini capsule version 6
+and the same rules in `maataa-sandhi`: every consonant ending except a final
+Y, r before r, new rule numbers 27 (8.3.7), 28 (8.3.32) and 29 (8.3.14),
+and a fix to 8.4.41 (8.4.43 toh zi). Every feature below passed the QEMU
+smoke test (15/15) and CI, and panini version 6 was run on a NUCLEO-F411RE.
+
+## Validation
+
+```bash
+./scripts/smoke-alpha.sh          # 15 checks, QEMU (step 15: panini 6 and maataa-link sandhi)
+./scripts/sizecheck.sh            # all four kernels within 128 KiB
+cargo test -p maataa-sandhi --features alloc --target <host triple>
+```
+
+On a board: `maataa-link capsule-install assets/capsules/panini.mcap`, a
+probe reset, then `maataa-link sandhi तान्+च` (expects `MATCH: तांश्च`).
+A release kernel needs the release-signed `dist/.../capsules/panini.mcap`.
+
+Still refused as not yet (-105): a final Y (give its pada form, N), a
+visarga after a consonant, M or H starting the second word. Words whose
+final depends on their derivation (the roots of 8.2.36, kvin words, 8.2.32
+to 8.2.35) are given in their pada form (rAw, dik, Duk).
 
 ## Panini capsule version 6 (hal sandhi, the remaining finals)
 
