@@ -141,6 +141,13 @@ vAgatra, Urj+atra -> Urgatra, Urs+atra -> Ur atra, hotf+xkAra, tAn+ca,
 punar+ramate and deva+indra; deva+Hari and tat+Mka refused by both (-106),
 prAY+atra by both (-105).
 
+Panini version 9 on the same board, 2026-11-02: installed in place of
+version 8 (3,662 bytes) and, after a probe reset, MATCH for 16 requests
+across every rule group (देव+इन्द्र, vidyA+Alaya, iti+Adi, vane+atra,
+hare+e, rAmaH+gacCati, rAmaH+ca, vAc+ca, lih+atra, tAn+ca, rAjan+atra,
+tat+zaw, punar+ramate, hotf+xkAra, mahAnt+atra, amI+iti); deva+Hari
+(-106) and prAY+atra (-105) refused by both.
+
 ## The varna model (`maataa_sandhi::varna`)
 
 The foundation for writing rules the way the sutras state them. Host
