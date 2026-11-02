@@ -46,8 +46,7 @@ pub enum Rule {
     Yan = 5,
     Ayadi = 6,
     Purvarupa = 7,
-    // Visarga (and final s, r) before the next word. Host only for now: the
-    // capsule knows rules 1 to 7.
+    // Visarga (and final s, r) before the next word (panini version 4).
     /// 6.1.114 haSi ca: a + ru before a voiced consonant -> o (with 6.1.87).
     HasiCa = 8,
     /// 6.1.113 ato ror aplutad aplute: a + ru + a -> o' (with 6.1.87, 6.1.109).
@@ -75,9 +74,10 @@ pub enum Rule {
     /// 6.1.132 etattadoh sulopo...hali: saH, ezaH drop the visarga before a
     /// consonant: sa gacCati.
     SuLopa = 17,
-    // A word ending in a consonant (hal sandhi). Host only: the capsule has
-    // rules 1 to 17. Several rules can apply in turn (in the sutras' order,
-    // 8.2.1); the result names the last one.
+    // A word ending in a consonant (hal sandhi; panini version 5, 27 and 28
+    // version 6). Several rules can apply in turn (in the sutras' order,
+    // 8.2.1); the result names the last one, except 27, named for the first
+    // sutra of its chain.
     /// 8.2.39 jhalam jaso 'nte: a final jhal becomes the jaS of its place.
     JhalamJasonte = 18,
     /// 8.4.40 stoh scuna scuh: s or the t row next to S or the c row.
@@ -99,6 +99,14 @@ pub enum Rule {
     SasCho = 25,
     /// 8.3.23 mo 'nusvarah: a final m before a consonant becomes anusvara.
     MoNusvara = 26,
+    /// 8.3.7 naS Cavy apraSAn: a final n before c C w W t T that are
+    /// followed by am becomes ru; then anusvara (8.3.4), s (8.3.15 with
+    /// 8.3.34) and 8.4.40 / 8.4.41: tAMSca. Named for 8.3.7, as rules 8 and
+    /// 9 are named for the first sutra of their chain.
+    NasChavi = 27,
+    /// 8.3.32 Namo hrasvad aci NamuR nityam: a final N R n after a short
+    /// vowel is doubled before a vowel: rAjannatra.
+    NamoHrasvat = 28,
 }
 
 impl Rule {
@@ -130,6 +138,8 @@ impl Rule {
             Self::JhayoHo => "h to the aspirate",
             Self::SasCho => "S to C",
             Self::MoNusvara => "m to anusvara",
+            Self::NasChavi => "n to ru, anusvara, s",
+            Self::NamoHrasvat => "nasal doubled",
         }
     }
 
@@ -161,6 +171,8 @@ impl Rule {
             Self::JhayoHo => "8.4.62",
             Self::SasCho => "8.4.63",
             Self::MoNusvara => "8.3.23",
+            Self::NasChavi => "8.3.7",
+            Self::NamoHrasvat => "8.3.32",
         }
     }
 }
@@ -471,8 +483,9 @@ fn stop(v: varna::Varna) -> Option<(usize, usize)> {
 /// Taken: a final stop (a palatal through 8.2.30 coh kuh, or 8.2.36 for C),
 /// final S z h (8.2.36, 8.2.31: the retroflex row), and final m. Where the right form depends on the word's derivation (the
 /// roots of 8.2.36, kvin words of 8.2.62, 8.2.32 to 8.2.35) the caller gives
-/// the pada form: rAw, dik, Duk. Not yet (Error::NotYet): the nasals Y N R
-/// n (8.3.7, 8.3.32, 8.4.40 with n), y l v.
+/// the pada form: rAw, dik, Duk. Final N R n: 8.3.32 before a vowel; for n,
+/// 8.3.7, 8.4.40, 8.4.41, 8.4.60. Not yet (Error::NotYet): a final Y (give
+/// the pada form, N), y l v.
 fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Error> {
     use varna::{pratyahara, Varna};
     let set = |name: &str| pratyahara(name).unwrap_or(0);
@@ -501,6 +514,63 @@ fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Er
     // zah makes S z; 8.2.31 ho qhah makes h Q; 8.2.39 below makes either q.
     // Words of 8.2.32 to 8.2.35 (duh, nah...) and kvin words of 8.2.62
     // (diS) come as their pada form (Duk, dik).
+    // A final N R n (Y is refused: its pada form is N).
+    if matches!(x, Varna::Ng | Varna::Nn | Varna::N) {
+        // 8.3.32 Namo hrasvad aci NamuR nityam: after a short vowel, before
+        // a vowel, the nasal is doubled; after a long one, joined as written.
+        if y.is_vowel() {
+            let short = stem.last().is_some_and(|b| b"aiufx".contains(b));
+            w.put(left)?;
+            if short {
+                w.put(&[x.slp1()])?;
+            }
+            w.put(right)?;
+            return Ok((w.len, if short { Rule::NamoHrasvat } else { Rule::Join }));
+        }
+        if x == Varna::N {
+            // 8.3.7 naS Cavy apraSAn: before chav followed by am, ru; 8.3.4
+            // anusvara (8.3.2's anunasika is the other choice, not taken);
+            // ru before khar is s (8.3.15, 8.3.34), S / z by 8.4.40 / 8.4.41.
+            let am = varna::with_savarnas(set("am"));
+            let chav = matches!(
+                y,
+                Varna::C | Varna::Ch | Varna::Tt | Varna::Tth | Varna::T | Varna::Th
+            );
+            if chav && at(right, 1).is_some_and(|v| has(am, v)) && left != b"praSAn" {
+                let s = match y {
+                    Varna::C | Varna::Ch => b'S',
+                    Varna::Tt | Varna::Tth => b'z',
+                    _ => b's',
+                };
+                w.put(stem)?;
+                w.put(&[b'M', s])?;
+                w.put(right)?;
+                return Ok((w.len, Rule::NasChavi));
+            }
+            // 8.4.40 with S or the c row (Y; 8.4.63 needs a jhay, so no C),
+            // 8.4.41 with the w row (R; 8.4.43 toh zi: not before z), 8.4.60
+            // tor li (written l l, without the nasal mark).
+            let row = stop(y).map(|(r, _)| r);
+            let became = if y == Varna::Sh || row == Some(1) {
+                Some((Varna::Ny, Rule::StohScuna))
+            } else if row == Some(2) {
+                Some((Varna::Nn, Rule::Stuna))
+            } else if y == Varna::La {
+                Some((Varna::La, Rule::TorLi))
+            } else {
+                None
+            };
+            if let Some((v, rule)) = became {
+                w.put(stem)?;
+                w.put(&[v.slp1()])?;
+                w.put(right)?;
+                return Ok((w.len, rule));
+            }
+        }
+        w.put(left)?;
+        w.put(right)?;
+        return Ok((w.len, Rule::Join));
+    }
     let shaped = match x {
         Varna::Sh | Varna::Ss | Varna::H => Some((2, 2)),
         _ => stop(x),
@@ -898,11 +968,32 @@ mod tests {
             // kvin words (8.2.62) and 8.2.32: the caller gives the pada form.
             ("dik+ambara", "digambara", Rule::JhalamJasonte),
             ("Duk+atra", "Dugatra", Rule::JhalamJasonte),
+            // 8.3.7 with 8.3.4, 8.3.34, 8.4.40 / 8.4.41.
+            ("tAn+ca", "tAMSca", Rule::NasChavi),
+            ("kasmin+cit", "kasmiMScit", Rule::NasChavi),
+            ("tAn+tarati", "tAMstarati", Rule::NasChavi),
+            ("tAn+wIkA", "tAMzwIkA", Rule::NasChavi),
+            ("praSAn+tanoti", "praSAntanoti", Rule::Join),
+            ("mahAn+tsaru", "mahAntsaru", Rule::Join),
+            // 8.3.32: after a short vowel only.
+            ("rAjan+atra", "rAjannatra", Rule::NamoHrasvat),
+            ("tasmin+eva", "tasminneva", Rule::NamoHrasvat),
+            ("pratyaN+AtmA", "pratyaNNAtmA", Rule::NamoHrasvat),
+            ("sugaR+ISa", "sugaRRISa", Rule::NamoHrasvat),
+            ("tAn+atra", "tAnatra", Rule::Join),
+            // 8.4.40, 8.4.41, 8.4.60 with n.
+            ("tAn+jayati", "tAYjayati", Rule::StohScuna),
+            ("tAn+Siva", "tAYSiva", Rule::StohScuna),
+            ("tAn+qamaru", "tARqamaru", Rule::Stuna),
+            ("tAn+zaw", "tAnzaw", Rule::Join),
+            ("vidvAn+likhati", "vidvAllikhati", Rule::TorLi),
+            ("tAn+gacCati", "tAngacCati", Rule::Join),
+            ("pratyaN+gacCati", "pratyaNgacCati", Rule::Join),
         ] {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
         let mut out = [0u8; MAX_TEXT];
-        for not_yet in [&b"rAjan+atra"[..], b"tat+Mka", b"ziv+a"] {
+        for not_yet in [&b"prAY+atra"[..], b"tat+Mka", b"ziv+a"] {
             assert_eq!(
                 join_request(not_yet, &mut out),
                 Err(Error::NotYet),

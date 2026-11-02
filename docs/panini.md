@@ -182,12 +182,13 @@ bare and after k, before every first letter alone or followed by a, S or k,
 plus sa / eza and the cases above: about 58,800 requests, answer and rule
 number equal. Image 2,164 bytes of 4,096; worst fuel 4,758 of 20,000.
 
-## Consonant endings (hal sandhi, host library only)
+## Consonant endings (hal sandhi)
 
 A first word ending in a consonant other than s and r (those are visarga).
 The rules apply in the sutras' order, each seeing the result of the ones
 before it (8.2.1), and the words are written joined; an anusvara from
-8.3.23 keeps the space. The result names the last rule applied.
+8.3.23 keeps the space. The result names the last rule applied (27
+excepted, below).
 
 | Request | Result | Sutras |
 | --- | --- | --- |
@@ -222,6 +223,18 @@ before it (8.2.1), and the words are written joined; an anusvara from
 | `lih+atra` | `liqatra` | 8.2.31, 8.2.39 |
 | `lih+ca` | `liwca` | 8.2.31, 8.2.39, 8.4.55 |
 | `dik+ambara` | `digambara` | 8.2.39 (diS given as its pada form) |
+| `tAn+ca` | `tAMSca` | 8.3.7, 8.3.4, 8.3.34, 8.4.40 (rule 27) |
+| `tAn+tarati` | `tAMstarati` | 8.3.7, 8.3.4, 8.3.34 (27) |
+| `praSAn+tanoti` | `praSAntanoti` | (8.3.7 excepts praSAn: as written) |
+| `mahAn+tsaru` | `mahAntsaru` | (t not followed by am: as written) |
+| `rAjan+atra` | `rAjannatra` | 8.3.32 (rule 28) |
+| `pratyaN+AtmA` | `pratyaNNAtmA` | 8.3.32 (28) |
+| `tAn+atra` | `tAnatra` | (after a long vowel: as written) |
+| `tAn+jayati` | `tAYjayati` | 8.4.40 |
+| `tAn+Siva` | `tAYSiva` | 8.4.40 (no C: Y is not jhay, 8.4.63) |
+| `tAn+qamaru` | `tARqamaru` | 8.4.41 |
+| `tAn+zaw` | `tAnzaw` | (8.4.43 toh zi: as written) |
+| `vidvAn+likhati` | `vidvAllikhati` | 8.4.60 (written ll, without the nasal mark) |
 
 Taken: final stops of every row, and final m. A final palatal takes
 8.2.30 coh kuh (c j J become k g G) or, for C, 8.2.36 (z, of the retroflex
@@ -237,11 +250,18 @@ vraSc: rAj gives rAw, not rAk), kvin words (8.2.62: diS gives dik), and
 (8.2.30 for c j J, 8.2.36 for S, 8.2.31 for h); for these words the caller
 gives the pada form (rAw, dik, Duk), and the engine joins that.
 
-Not yet (refused as -105): final nasals Y N R n (8.3.7, 8.3.32, 8.4.40
-with n), final y l v. A property test checks every final stop (and S z h)
+Final N R n: before a vowel, 8.3.32 doubles them after a short vowel
+(rule 28). A final n also takes 8.3.7 before c C w W t T followed by am
+(rule 27, named for 8.3.7 as rules 8 and 9 are for the first sutra of
+their chain; anusvara by 8.3.4, not 8.3.2's anunasika; written joined),
+8.4.40, 8.4.41 and 8.4.60. The optional 8.3.28, 8.3.30 and 8.3.31 are not
+applied. 8.4.60 makes the l nasal by 1.1.50; the result writes plain ll,
+a simplification that keeps the output to SLP1 letters without `~`. A
+final Y is refused: its pada form is N.
+
+Not yet (refused as -105): a final Y, final y l v. A property test checks every final stop (and S z h)
 before every letter: the result is never aspirated, and never voiced
-before khar. The first
-engine joined consonant endings as written, so the golden test leaves them
+before khar. The first engine joined consonant endings as written, so the golden test leaves them
 out. Panini version 5 has the same rules in the same order, with a stop
 table (row and column of each stop, at 288, and the stops by row at 416).
 The host test runs the capsule against the crate for every consonant
@@ -249,9 +269,10 @@ ending after a, i or k, bare and after k, before every first letter alone
 or followed by a, S, k or y, and the named cases (about 50,000 more
 requests, about 109,000 in all): answers and rule numbers equal. Image
 2,909 bytes of 4,096; worst fuel 4,883 of 20,000; one data segment.
-Panini version 6 adds the final palatals and S z h (the same rule
-numbers): image 2,955 bytes of 4,096, one data segment; worst fuel over the host test's
-requests 4,246, the same as version 5 measured the same way.
+Panini version 6 adds the final palatals, S z h and N R n (rules 27 and
+28 new): image 3,491 bytes of 4,096, one data segment; worst fuel over
+the host test's requests 4,246, the same as version 5 measured the same
+way.
 
 ## Later
 

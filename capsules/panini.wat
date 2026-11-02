@@ -15,15 +15,15 @@
 ;; Each tick reads key 40. If there is a request it writes the answer to key
 ;; 41 ("?" if the request is malformed), logs it, deletes key 40 and returns
 ;; the rule (1 join, 2 savarna-dirgha, 3 guna, 4 vrddhi, 5 yan, 6 ayadi,
-;; 7 purvarupa; 8 to 17 the visarga rules, 18 to 26 hal sandhi, numbered
+;; 7 purvarupa; 8 to 17 the visarga rules, 18 to 28 hal sandhi, numbered
 ;; as Rule in the crate)
 ;; or an error (-101 no +, -102 empty word, -103 not SLP1, -105 not yet).
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
 ;; Version 6: final palatals: 8.2.30 coh kuh for c j J, 8.2.36 for C; final
-;; S z h (8.2.36, 8.2.31) as q; then the version 5 rules (no new rule
-;; numbers).
+;; S z h (8.2.36, 8.2.31) as q; then the version 5 rules; final N R n:
+;; 8.3.32 (28), 8.3.7 (27), 8.4.40, 8.4.41, 8.4.60 with n.
 ;; Version 5: hal sandhi for final stops and m (rules 18 to 26), as
 ;; crates/maataa-sandhi.
 ;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
@@ -58,6 +58,7 @@
   ;;   280  ayadi of e E o O, two bytes each
   ;;   288  stop row * 8 + column of each ASCII byte (255: not a stop)
   ;;   416  the stops by row and column, "kKgGN cCjJY wWqQR tTdDn pPbBm"
+  ;;   441  "praSAn"; 447 the consonants of am, "hyvrlYmNRn"
   ;;   512  the request (64 bytes)
   ;;   640  the answer (64 bytes)
   (memory 1)
@@ -91,7 +92,9 @@
     "\ff\ff\22\08\1a\ff\ff\02\ff\ff\0a\00\ff\24\1c\ff"
     "\20\12\ff\ff\18\ff\ff\10\ff\ff\ff\ff\ff\ff\ff\ff"
     ;; 416: the stops by row and column (row * 5 + column)
-    "kKgGNcCjJYwWqQRtTdDnpPbBm")
+    "kKgGNcCjJYwWqQRtTdDnpPbBm"
+    ;; 441: praSAn (8.3.7's exception); 447: the consonants of am
+    "praSAn" "hyvrlYmNRn")
 
   (global $olen (mut i32) (i32.const 0))
 
@@ -128,12 +131,46 @@
       end
     end)
 
-  ;; Appends a space and the second word (bytes p+1 .. n).
-  (func $space_right (param $p i32) (param $n i32)
-    i32.const 32 call $put1
+  ;; Appends the second word (bytes p+1 .. n).
+  (func $right (param $p i32) (param $n i32)
     local.get $p i32.const 513 i32.add
     local.get $n local.get $p i32.sub i32.const 1 i32.sub
     call $put)
+
+  ;; Appends a space and the second word.
+  (func $space_right (param $p i32) (param $n i32)
+    i32.const 32 call $put1
+    local.get $p local.get $n call $right)
+
+  ;; Whether byte c is one of the `len` bytes at `at`.
+  (func $among (param $c i32) (param $at i32) (param $len i32) (result i32)
+    (local $i i32)
+    block $no
+      loop $next
+        local.get $i local.get $len i32.ge_s br_if $no
+        local.get $at local.get $i i32.add i32.load8_u local.get $c i32.eq
+        if i32.const 1 return end
+        local.get $i i32.const 1 i32.add local.set $i
+        br $next
+      end
+    end
+    i32.const 0)
+
+  ;; Whether the `len` bytes at `a` and at `b` are the same.
+  (func $same (param $a i32) (param $b i32) (param $len i32) (result i32)
+    (local $i i32)
+    block $yes
+      loop $next
+        local.get $i local.get $len i32.ge_s br_if $yes
+        local.get $a local.get $i i32.add i32.load8_u
+        local.get $b local.get $i i32.add i32.load8_u
+        i32.ne
+        if i32.const 0 return end
+        local.get $i i32.const 1 i32.add local.set $i
+        br $next
+      end
+    end
+    i32.const 1)
 
   ;; Whether the first word (p bytes at 512) is "sa" + ending or "eza" +
   ;; ending (6.1.132).
@@ -284,7 +321,8 @@
   ;; A first word ending in a consonant other than s and r (hal sandhi), in
   ;; the order of hal() in crates/maataa-sandhi: each rule sees the result of
   ;; the ones before it (8.2.1); the words are written joined, except after
-  ;; 8.3.23. Returns the last rule applied (18 to 26), 1, or -105.
+  ;; 8.3.23. Returns the last rule applied (18 to 26, 28; 27 names the
+  ;; first sutra of its chain), 1, or -105.
   (func $hal (param $p i32) (param $n i32) (result i32)
     (local $x i32) (local $y i32) (local $yc i32) (local $st i32)
     (local $row i32) (local $col i32) (local $rule i32) (local $first i32)
@@ -307,9 +345,86 @@
         i32.const 26 return
       end
       i32.const 512 local.get $p call $put
-      local.get $p i32.const 513 i32.add
-      local.get $n local.get $p i32.sub i32.const 1 i32.sub
-      call $put
+      local.get $p local.get $n call $right
+      i32.const 1 return
+    end
+    ;; A final N R n (Y is -105: its pada form is N).
+    local.get $x i32.const 78 i32.eq
+    local.get $x i32.const 82 i32.eq i32.or
+    local.get $x i32.const 110 i32.eq i32.or
+    if
+      ;; 8.3.32: after a short vowel (a i u f x: odd classes up to 9),
+      ;; before a vowel, the nasal is doubled (28); else as written (1).
+      local.get $yc i32.const 14 i32.le_u
+      if
+        i32.const 512 local.get $p call $put
+        i32.const 1 local.set $rule
+        local.get $p i32.const 2 i32.ge_s
+        if
+          local.get $p i32.const 510 i32.add i32.load8_u call $class local.tee $st
+          i32.const 1 i32.and
+          local.get $st i32.const 9 i32.le_u
+          i32.and
+          if
+            local.get $x call $put1
+            i32.const 28 local.set $rule
+          end
+        end
+        local.get $p local.get $n call $right
+        local.get $rule return
+      end
+      local.get $x i32.const 110 i32.eq
+      if
+        ;; 8.3.7: n before chav (classes 21 to 23) followed by am, unless
+        ;; the word is praSAn: anusvara (8.3.4) and s, S or z (27).
+        local.get $yc i32.const 21 i32.ge_u
+        local.get $yc i32.const 23 i32.le_u i32.and
+        local.get $n local.get $p i32.sub i32.const 2 i32.gt_s i32.and
+        if
+          local.get $p i32.const 514 i32.add i32.load8_u local.tee $next
+          call $class i32.const 14 i32.le_u
+          local.get $next i32.const 447 i32.const 10 call $among
+          i32.or
+          local.get $p i32.const 6 i32.eq
+          i32.const 512 i32.const 441 i32.const 6 call $same
+          i32.and
+          i32.eqz
+          i32.and
+          if
+            i32.const 512 local.get $p i32.const 1 i32.sub call $put
+            i32.const 77 call $put1
+            ;; c C (22): S; w W (23): z; t T (21): s.
+            i32.const 83 i32.const 122
+            local.get $yc i32.const 22 i32.eq select
+            i32.const 115
+            local.get $yc i32.const 21 i32.ne select
+            call $put1
+            local.get $p local.get $n call $right
+            i32.const 27 return
+          end
+        end
+        ;; 8.4.40 with S or the c row: Y (19); 8.4.41 with the w row: R
+        ;; (20; not before z, 8.4.43); 8.4.60 before l: l (23).
+        i32.const 0 local.set $rule
+        local.get $y call $stop i32.const 3 i32.shr_u local.set $row
+        local.get $y i32.const 108 i32.eq
+        if i32.const 108 local.set $out i32.const 23 local.set $rule end
+        local.get $row i32.const 2 i32.eq
+        if i32.const 82 local.set $out i32.const 20 local.set $rule end
+        local.get $y i32.const 83 i32.eq
+        local.get $row i32.const 1 i32.eq
+        i32.or
+        if i32.const 89 local.set $out i32.const 19 local.set $rule end
+        local.get $rule
+        if
+          i32.const 512 local.get $p i32.const 1 i32.sub call $put
+          local.get $out call $put1
+          local.get $p local.get $n call $right
+          local.get $rule return
+        end
+      end
+      i32.const 512 local.get $p call $put
+      local.get $p local.get $n call $right
       i32.const 1 return
     end
     ;; Taken: stops, not nasals; and S z h, which 8.2.36 (S z) and 8.2.31
