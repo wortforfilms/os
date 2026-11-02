@@ -17,10 +17,13 @@
 ;; the rule (1 join, 2 savarna-dirgha, 3 guna, 4 vrddhi, 5 yan, 6 ayadi,
 ;; 7 purvarupa; 8 to 17 and 29 the visarga rules, 18 to 28 hal sandhi, numbered
 ;; as Rule in the crate)
-;; or an error (-101 no +, -102 empty word, -103 not SLP1, -105 not yet).
+;; or an error (-101 no +, -102 empty word, -103 not SLP1, -105 not yet,
+;; -106 a word starting with M or H).
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 8: -106 for a word starting with M or H (was -105, or joined as
+;; written before a vowel ending).
 ;; Version 7: f and x are savarna (the r/l varttika), so 6.1.101 joins them,
 ;; with F as the long vowel: hotf+xkAra -> hotFkAra (version 6 gave hotrxkAra
 ;; by 6.1.77).
@@ -45,7 +48,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=7 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=8 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -200,16 +203,13 @@
   (func $visarga (param $p i32) (param $n i32) (result i32)
     (local $ru i32) (local $before i32) (local $y i32) (local $yb i32)
     (local $second i32)
-    ;; The letter before must be a vowel; the second word may not start
-    ;; with M or H.
+    ;; The letter before must be a vowel.
     local.get $p i32.const 2 i32.lt_s
     if i32.const -105 return end
     local.get $p i32.const 510 i32.add i32.load8_u local.set $before
     local.get $p i32.const 513 i32.add i32.load8_u local.tee $yb
     call $class local.set $y
     local.get $before call $class i32.const 14 i32.gt_u
-    local.get $y i32.const 26 i32.eq
-    i32.or
     if i32.const -105 return end
     local.get $p i32.const 511 i32.add i32.load8_u i32.const 114 i32.ne local.set $ru
     ;; 6.1.132: sa / eza with ru before a consonant lose it (rule 17).
@@ -350,9 +350,6 @@
     local.get $p i32.const 511 i32.add i32.load8_u local.set $x
     local.get $p i32.const 513 i32.add i32.load8_u local.tee $y
     call $class local.set $yc
-    ;; The second word must start with a vowel or a consonant.
-    local.get $yc i32.const 26 i32.eq
-    if i32.const -105 return end
     ;; 8.3.23: m before a consonant becomes anusvara (26); before a vowel,
     ;; joined as written (1).
     local.get $x i32.const 109 i32.eq
@@ -602,6 +599,11 @@
         br $check
       end
     end
+    ;; -106: no word starts with M or H (class 26).
+    i32.const 512 i32.load8_u call $class i32.const 26 i32.eq
+    local.get $p i32.const 513 i32.add i32.load8_u call $class i32.const 26 i32.eq
+    i32.or
+    if i32.const -106 return end
     ;; A first word ending in visarga, s or r: the visarga rules.
     local.get $p i32.const 511 i32.add i32.load8_u local.set $e
     local.get $e i32.const 72 i32.eq

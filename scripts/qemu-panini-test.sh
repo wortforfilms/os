@@ -71,7 +71,7 @@ log_has() { tr -d '\r' <"$WORK/run.log" | grep -q "$1"; }
 
 rm -f "$AREA_FILE"
 boot_and_talk capsule-install "$PANINI" || fail "install"
-log_has '^capsule install: panini version 7 accepted; it runs from the next boot$' \
+log_has '^capsule install: panini version 8 accepted; it runs from the next boot$' \
     || fail "the kernel did not accept panini"
 
 for pair in "deva+indra devendra" "iti+Adi ityAdi" "vane+atra vane'tra"; do

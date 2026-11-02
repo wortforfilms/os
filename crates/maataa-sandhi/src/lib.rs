@@ -194,10 +194,11 @@ pub enum Error {
     NotSlp1,
     /// The result does not fit the output buffer.
     TooLong,
-    /// A case whose rule is not implemented yet (r before r, 8.3.14; a
-    /// visarga after a consonant or at the start of a word; the consonant
-    /// endings `hal` does not take).
+    /// A case whose rule is not implemented yet (a final Y: give its pada
+    /// form N; a visarga after a consonant).
     NotYet,
+    /// A word starts with anusvara (M) or visarga (H): no word does.
+    BadStart,
 }
 
 impl Error {
@@ -208,6 +209,7 @@ impl Error {
             Self::NotSlp1 => "not SLP1 letters (or a second +)",
             Self::TooLong => "too long",
             Self::NotYet => "a case whose rule is not implemented yet",
+            Self::BadStart => "a word starts with M or H",
         }
     }
 
@@ -218,6 +220,7 @@ impl Error {
             Self::NotSlp1 => -103,
             Self::TooLong => -104,
             Self::NotYet => -105,
+            Self::BadStart => -106,
         }
     }
 }
@@ -268,6 +271,10 @@ pub fn join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule), 
         .any(|&b| Varna::from_slp1(b).is_none())
     {
         return Err(Error::NotSlp1);
+    }
+    // No word starts with anusvara or visarga.
+    if matches!(left[0], b'M' | b'H') || matches!(first, b'M' | b'H') {
+        return Err(Error::BadStart);
     }
     let mut w = Writer { out, len: 0 };
     let (Some(x), Some(y)) = (Varna::from_slp1(last), Varna::from_slp1(first)) else {
@@ -379,7 +386,7 @@ fn visarga(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule)
     let Some(p) = stem.last().and_then(|&b| Varna::from_slp1(b)) else {
         return Err(Error::NotYet);
     };
-    if !p.is_vowel() || !(y.is_vowel() || y.is_consonant()) {
+    if !p.is_vowel() {
         return Err(Error::NotYet);
     }
     let (khar, sar, hal, has_) = (set("Kar"), set("Sar"), set("hal"), set("haS"));
@@ -505,9 +512,6 @@ fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Er
     let (Some(x), Some(y)) = (at(left, left.len() - 1), at(right, 0)) else {
         return Err(Error::NotSlp1);
     };
-    if !(y.is_vowel() || y.is_consonant()) {
-        return Err(Error::NotYet);
-    }
     let stem = &left[..left.len() - 1];
     // 8.3.23: m before a consonant; before a vowel, joined as written.
     if x == Varna::M {
@@ -698,6 +702,9 @@ fn legacy_join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule
     };
     if left.iter().chain(right).any(|&b| class(b) == 0) {
         return Err(Error::NotSlp1);
+    }
+    if matches!(left[0], b'M' | b'H') || matches!(first, b'M' | b'H') {
+        return Err(Error::BadStart);
     }
     let (a, b) = (class(last), class(first));
     let stem = &left[..left.len() - 1];
@@ -941,14 +948,7 @@ mod tests {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
         let mut out = [0u8; MAX_TEXT];
-        for not_yet in [&b"vAkH+atra"[..], b"H+atra", b"rAmaH+Mca"] {
-            assert_eq!(
-                join_request(not_yet, &mut out),
-                Err(Error::NotYet),
-                "{:?}",
-                core::str::from_utf8(not_yet)
-            );
-        }
+        assert_eq!(join_request(b"vAkH+atra", &mut out), Err(Error::NotYet));
         // ru after a/A before r is not 8.3.14: 6.1.114 and 8.3.17 apply.
         assert_eq!(
             j("rAmaH+ramate"),
@@ -1045,14 +1045,7 @@ mod tests {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
         let mut out = [0u8; MAX_TEXT];
-        for not_yet in [&b"prAY+atra"[..], b"tat+Mka", b"ziv+Ha"] {
-            assert_eq!(
-                join_request(not_yet, &mut out),
-                Err(Error::NotYet),
-                "{:?}",
-                core::str::from_utf8(not_yet)
-            );
-        }
+        assert_eq!(join_request(b"prAY+atra", &mut out), Err(Error::NotYet));
     }
 
     #[test]
@@ -1098,6 +1091,24 @@ mod tests {
             join_request("देव+इन्द्र".as_bytes(), &mut out),
             Err(Error::NotSlp1)
         );
+        // No word starts with anusvara or visarga (-106), on every path.
+        for bad in [
+            &b"deva+Hari"[..],
+            b"deva+Mka",
+            b"tat+Mka",
+            b"ziv+Ha",
+            b"rAmaH+Mca",
+            b"H+atra",
+            b"Mka+atra",
+        ] {
+            assert_eq!(
+                join_request(bad, &mut out),
+                Err(Error::BadStart),
+                "{:?}",
+                core::str::from_utf8(bad)
+            );
+        }
+        assert_eq!(Error::BadStart.code(), -106);
         let mut tiny = [0u8; 4];
         assert_eq!(join_request(b"deva+indra", &mut tiny), Err(Error::TooLong));
     }

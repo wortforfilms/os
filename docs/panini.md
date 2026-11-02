@@ -36,9 +36,12 @@ used:
 | 6 | ayadi | 6.1.78 eco 'yavayavah | `hare+e` -> `haraye` |
 | 1 | joined as written | (a consonant starts the second word) | `rAma+gacCati` -> `rAmagacCati` |
 
-Not yet: consonant (hal) and visarga sandhi, the optional loss of y/v after
-ayadi (8.3.19), and the exceptions (pragrhya and the rest). Errors: -101 no
-`+`, -102 an empty word, -103 a byte that is not an SLP1 letter.
+Consonant (hal) and visarga sandhi follow in their own sections below. Not
+done: the optional loss of y/v after ayadi (8.3.19) and the exceptions
+(pragrhya, pararupa 6.1.94 and the rest). Errors: -101 no `+`, -102 an
+empty word, -103 a byte that is not an SLP1 letter, -104 too long (64
+bytes), -105 a case not done yet, -106 a word that starts with M or H (no
+word does; panini version 8, earlier -105 or joined as written).
 
 ## Using it
 
