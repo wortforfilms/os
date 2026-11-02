@@ -106,6 +106,7 @@ double-click.
 - [Kernel IPC](docs/kernel-ipc.md)
 - [Kernel MPU](docs/kernel-mpu.md)
 - [Supervisor call ABI](docs/ABI_SVC.md)
+- [Supervisor call test coverage](docs/SVC_TEST_COVERAGE.md)
 - [Hardware memory map](docs/HARDWARE_MEMORY_MAP.md)
 - [Security threat model](docs/SECURITY_THREAT_MODEL.md)
 - [Evidence matrix](docs/EVIDENCE_MATRIX.md)

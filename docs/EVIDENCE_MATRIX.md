@@ -58,6 +58,7 @@ runs that test, and whether it was run on a NUCLEO-F411RE. At `7b99bdb`
 
 Per-rule evidence for the sandhi rules is in
 [PANINI_RULE_REGISTRY.md](PANINI_RULE_REGISTRY.md).
+Per-SVC coverage is in [SVC_TEST_COVERAGE.md](SVC_TEST_COVERAGE.md).
 
 ## Not covered
 
