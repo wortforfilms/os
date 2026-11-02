@@ -5,6 +5,8 @@
 # key 3 (starvation episodes), capsule-info and 10 pings.
 # Needs ST-LINK firmware V2J49M36 or newer: older firmware (V2J33M25) stalls
 # the serial port after every probe-rs operation until a USB replug.
+# Keeps the Mac awake while it runs: when the Mac sleeps, the ST-LINK resets
+# the board (seen 2026-11-03, docs/EVIDENCE_MATRIX.md).
 # Exit status 0 only if every step passed. Log: target/board-test.txt
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -24,6 +26,11 @@ fail() { printf 'FAIL: %s\n' "$1"; exit 1; }
 export RUSTC="$(rustup which rustc)"
 
 step "board"
+# caffeinate (macOS) ends by itself when this script exits.
+if command -v caffeinate >/dev/null; then
+    caffeinate -dimsu -w $$ &
+    echo "keeping the Mac awake (caffeinate)"
+fi
 PORT="${MAATAA_SERIAL:-$(ls /dev/cu.usbmodem* 2>/dev/null | head -n 1)}"
 [ -n "$PORT" ] || fail "no /dev/cu.usbmodem* port: is the Nucleo plugged in?"
 echo "port: $PORT"
