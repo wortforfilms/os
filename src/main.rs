@@ -284,6 +284,7 @@ fn demo_task_two() -> ! {
         }
         Err(e) => crate::uprintln!("task 2: mutex 2 lock failed: {}", syscall::error_name(e)),
     }
+    svc_error_paths();
     #[cfg(feature = "watchdog-test")]
     {
         crate::uprintln!("watchdog test: asking the kernel to hang");
@@ -292,6 +293,35 @@ fn demo_task_two() -> ! {
     }
     // USART2 belongs to the host channel (task 6); see docs/host-channel.md.
     syscall::park_forever()
+}
+
+/// Task 2 makes calls the kernel must refuse and prints what comes back
+/// through the `svc` instruction (smoke check 8, docs/SVC_TEST_COVERAGE.md).
+/// Mutex 3 and semaphore 3 are used by no other demo task.
+#[cfg_attr(feature = "inversion-test", allow(dead_code))]
+fn svc_error_paths() {
+    let show = |what: &str, result: Result<(), u32>| match result {
+        Ok(()) => crate::uprintln!("task 2: svc error {} -> ok (NOT REFUSED)", what),
+        Err(e) => crate::uprintln!("task 2: svc error {} -> {}", what, syscall::error_name(e)),
+    };
+    show("mutex_lock(4)", syscall::mutex_lock(4).map(|_| ()));
+    show("mutex_unlock(3) unowned", syscall::mutex_unlock(3));
+    if syscall::mutex_lock(3).is_ok() {
+        show("mutex_lock(3) twice", syscall::mutex_lock(3).map(|_| ()));
+        let parked = syscall::park();
+        show(
+            "park holding mutex 3",
+            if parked == 0 { Ok(()) } else { Err(parked) },
+        );
+        let _ = syscall::mutex_unlock(3);
+    }
+    show("semaphore_wait(4)", syscall::semaphore_wait(4));
+    show("semaphore_post(4)", syscall::semaphore_post(4));
+    // A call number no capability bit names: refused at the mask.
+    let mut r0 = 0u32;
+    // SAFETY: no memory is passed; the kernel only writes r0.
+    unsafe { core::arch::asm!("svc #20", inout("r0") r0) };
+    show("svc #20", if r0 == 0 { Ok(()) } else { Err(r0) });
 }
 
 #[cfg_attr(feature = "inversion-test", allow(dead_code))]

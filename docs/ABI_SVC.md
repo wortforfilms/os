@@ -29,7 +29,9 @@ but no compatibility promise is made before a non-alpha release.
   lies wholly in flash or in the caller's own stack, and writes one
   (receive and the other reads) only if it lies in the caller's own stack;
   otherwise the call returns `E_PERM`.
-- An unknown call number returns `E_PERM`.
+- An unknown call number from a task returns `E_NOCAP`: no capability bit
+  names it, so the mask refuses it first. `E_PERM` is returned only to
+  kernel code that makes one before the scheduler starts.
 
 ## Calls
 
@@ -66,7 +68,7 @@ key 3 the starvation-episode count, read from RAM).
 
 | Code | Value | Meaning |
 | --- | --- | --- |
-| `E_PERM` | `u32::MAX` | buffer outside the caller's memory, or an unknown call |
+| `E_PERM` | `u32::MAX` | buffer outside the caller's memory, a key or call the caller may not use (an unknown call before the scheduler starts) |
 | `E_AGAIN` | `MAX - 1` | no message waiting (receive with timeout 0); sleep when the caller cannot block |
 | `E_FULL` | `MAX - 2` | the kernel queue is full (send); the store is full (store put) |
 | `E_TOOLONG` | `MAX - 3` | longer than a limit: a 64-byte message or store value, a 256-byte UART transfer, the host-status block, or a value longer than the caller's buffer |

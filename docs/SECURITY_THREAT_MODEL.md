@@ -32,7 +32,7 @@ chain of the toolchain and crates.
 | --- | --- | --- |
 | a task writes kernel memory or another task's stack | MPU: unprivileged code reaches only its own stack (read/write, no execute) and flash (read/execute); the kernel kills a task that faults (MemManage) | `src/mpu.rs`, `docs/kernel-mpu.md` |
 | kernel stack overflow into static data | 256-byte no-access guard above `__sheap` | `src/mpu.rs` (`kernel_guard`) |
-| a task calls a service it should not | capability mask: bit N allows SVC N; unknown or unallowed calls return `E_PERM` (park, 19, is exempt) | `src/syscall.rs`, `src/sched/mod.rs` ([ABI](ABI_SVC.md)) |
+| a task calls a service it should not | capability mask: bit N allows SVC N; unallowed and unknown calls return `E_NOCAP` (park, 19, is exempt) | `src/syscall.rs`, `src/sched/mod.rs` ([ABI](ABI_SVC.md)) |
 | a task passes the kernel a pointer outside its own memory | the kernel reads a task buffer only if it lies in flash or the caller's stack, and writes one only inside the caller's stack | `src/syscall.rs` |
 | a task writes a kernel store key | keys 0–15 are read-only for tasks | `src/storage/persist.rs` (`task_key_allowed`) |
 | an unsigned or changed capsule | ed25519 signature over name, module, version and capabilities; a bad image is refused at boot and at install | `crates/maataa-capsule`, `src/installed.rs` |

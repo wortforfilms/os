@@ -23,36 +23,36 @@ That path is exercised only on QEMU and the board.
 | 5 | `SEND` | mailbox: `a_message_is_copied_and_delivered_once`, `limits_full_too_long_and_short_buffers`, `messages_of_a_dead_task_are_dropped` | smoke 8, indirect: `task 2: mutex 0 handed off` follows task 2 receiving task 1's message | yes | `E_FULL`, `E_TOOLONG`, a bad destination, through the SVC |
 | 6 | `RECV` | `receive_buffers_must_be_in_the_callers_stack`; mailbox: `a_receiver_gets_only_its_own_messages_oldest_first`; sched: `blocked_receiver_wakes_on_message_and_timeout_is_recorded` | smoke 8, direct: `task 2: recv timed out after 1000 ms` (`E_TIMEOUT`) and `received from task 3` (sender in r1) | yes | `E_AGAIN` through the SVC |
 | 7 | `SLEEP` | — | smoke 9 (clock self-test), direct; smoke 8, indirect (capsule schedules, task 1's 2000 ms sleep) | yes | sleep 0 |
-| 8 | `MUTEX_LOCK` | sched: 8 tests (FIFO hand-off, wrong owner, bad id, dead owner, lock cycle, inheritance) | smoke 8, direct (hand-off, `EOWNERDEAD`); smoke 14 (inheritance) | yes | `E_BAD_MUTEX`, `E_DEADLOCK`, `E_MUTEX_FULL` through the SVC |
-| 9 | `MUTEX_UNLOCK` | sched: `mutex_rejects_wrong_owner_and_invalid_ids`, `unlock_hands_the_lock_to_the_highest_waiter_then_the_oldest` | smoke 8, indirect (hand-off) | yes | `E_NOT_OWNER` through the SVC |
-| 10 | `SEMAPHORE_WAIT` | sched: 4 semaphore tests | smoke 8, direct: `semaphore 0 permit received` | yes | `E_BAD_SEMAPHORE`, `E_SEMAPHORE_FULL` through the SVC |
-| 11 | `SEMAPHORE_POST` | sched: `semaphore_rejects_invalid_duplicate_full_and_overflow_cases`, `a_post_goes_to_the_highest_waiter_and_the_oldest_among_equals` | smoke 8, indirect (as 10) | yes | `E_SEMAPHORE_OVERFLOW` through the SVC |
+| 8 | `MUTEX_LOCK` | sched: 8 tests (FIFO hand-off, wrong owner, bad id, dead owner, lock cycle, inheritance) | smoke 8, direct (hand-off, `EOWNERDEAD`); smoke 14 (inheritance) | yes | `E_MUTEX_FULL` through the SVC (`E_BAD_MUTEX`, `E_DEADLOCK`: smoke 8) |
+| 9 | `MUTEX_UNLOCK` | sched: `mutex_rejects_wrong_owner_and_invalid_ids`, `unlock_hands_the_lock_to_the_highest_waiter_then_the_oldest` | smoke 8, indirect (hand-off); direct: `ENOTOWNER` | yes | — |
+| 10 | `SEMAPHORE_WAIT` | sched: 4 semaphore tests | smoke 8, direct: `semaphore 0 permit received` | yes | `E_SEMAPHORE_FULL` through the SVC (`E_BAD_SEMAPHORE`: smoke 8) |
+| 11 | `SEMAPHORE_POST` | sched: `semaphore_rejects_invalid_duplicate_full_and_overflow_cases`, `a_post_goes_to_the_highest_waiter_and_the_oldest_among_equals` | smoke 8, indirect (as 10); direct: `EBADSEMAPHORE` | yes | `E_SEMAPHORE_OVERFLOW` through the SVC |
 | 12 | `UART_WRITE` | `uart_syscall_transfer_is_bounded` | smoke 10 (host channel selftest), indirect | yes (`board-test.sh` selftest) | `E_TOOLONG` through the SVC |
 | 13 | `UART_READ` | `uart_syscall_transfer_is_bounded`; sched: `uart_irq_wakes_one_waiter_and_leaves_other_tasks_blocked` | smoke 10, indirect | yes | `E_TOOLONG` through the SVC |
 | 14 | `HOST_STATUS` | — | smoke 10, direct (`status`) | yes | a wrong length |
 | 15 | `STORE_GET` | persist: `tasks_may_read_but_not_write_kernel_keys` | smoke 11 (`get`, boot count), smoke 15 (panini reads key 40), direct | yes | `E_TOOLONG` (value longer than the buffer), `E_NOT_SUPPORTED` |
-| 16 | `STORE_PUT` | persist: `tasks_cannot_touch_kernel_keys`; `maataa-store` crate (24 tests) | smoke 8, direct, refusal: `kernel: task 8 has no capability for syscall 16`; smoke 11, 13, 15, direct | yes | `E_PERM` for a kernel key and `E_FULL`, through the SVC |
+| 16 | `STORE_PUT` | persist: `tasks_cannot_touch_kernel_keys`; `maataa-store` crate (24 tests) | smoke 8, direct, refusal: `kernel: task 8 has no capability for syscall 16`; smoke 11, 13, 15, direct; smoke 10, direct: the host channel selftest's put to kernel key 0 is refused | yes | `E_FULL` through the SVC |
 | 17 | `CAPSULE_INSTALL` | installed: `accepts_a_signed_wasm_capsule_with_its_manifest`, `refuses_what_it_must`, `version_floors_stop_downgrades_per_name`, `info_layout` | smoke 12, direct: accept, older version, bad signature, built-in name, unfinished install (begin and write, no commit) ignored, info, remove | yes (`Board capsule install.command`, panini installs) | — |
 | 18 | `CAPSULE_IMAGE` | — | smoke 12, indirect: `capsule task 9: greeter`, greeter ticks | yes (panini runs as task 9) | a buffer too small |
-| 19 | `PARK` | `any_task_may_park_but_other_calls_need_their_capability`; sched: `a_parked_task_is_never_picked_or_woken_again` | smoke 8, direct: fails on `park refused` | yes | `E_BUSY` (a task that holds a lock) |
+| 19 | `PARK` | `any_task_may_park_but_other_calls_need_their_capability`; sched: `a_parked_task_is_never_picked_or_woken_again` | smoke 8, direct: fails on `park refused`; `EBUSY` for task 2 holding mutex 3 | yes | — |
 
 ## Capability gate
 
 `tasks_start_with_no_capabilities_until_granted` and
 `any_task_may_park_but_other_calls_need_their_capability` test the mask.
-Smoke 8 sees two refusals through the SVC (`LED` for task 3, `STORE_PUT`
-for task 8) and a capsule refused at `init` (`-16`, `ENOCAP`). An unknown
-call number is refused by the mask (`call_allowed(cap::ALL, SYS_PARK + 1)`
-is false in the unit test above), but no test makes such a call through
-the SVC.
+Smoke 8 sees three refusals through the SVC (`LED` for task 3, `STORE_PUT`
+for task 8, `svc #20` for task 2) and a capsule refused at `init` (`-16`,
+`ENOCAP`). An unknown call number from a task comes back as `ENOCAP`, not
+`E_PERM`: the mask refuses it before the call table is read.
 
 ## Gaps worth a test
 
-1. No CI check sees an error code come back through the `svc`
-   instruction except `ENOCAP`; every other error path above is tested
-   only in the kernel functions.
+1. ~~Error codes through the `svc` instruction~~: since alpha.7, task 2
+   (`svc_error_paths` in `src/main.rs`) makes seven refused calls and
+   smoke 8 checks each result. Still only in kernel functions:
+   `E_MUTEX_FULL`, `E_SEMAPHORE_FULL`, `E_SEMAPHORE_OVERFLOW`, `E_FULL`,
+   `E_TOOLONG` for SEND, UART and store.
 2. ~~`RECV` with a timeout~~: smoke 8 matches the line (after `cee1a0b`).
-3. An unknown SVC number returns `E_PERM`: tested on the mask only, never
-   through the SVC.
+3. ~~An unknown SVC number~~: smoke 8 (`svc #20 -> ENOCAP`).
 4. ~~A run-time install interrupted between write and commit~~: smoke 12
    (`maataa-link capsule-install-no-commit`, after `cee1a0b`).

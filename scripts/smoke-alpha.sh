@@ -148,6 +148,17 @@ rg -q '^task 2: mutex 0 handed off; protected output is serialized$' "$BOOT_LOG"
 rg -q '^task 2: recv timed out after 1000 ms$' "$BOOT_LOG"
 rg -q '^task 2: received from task 3: Hello from Task 3 after 1500 ms; waiting on mutex 0$' "$BOOT_LOG"
 rg -q '^task 2: semaphore 0 permit received; producer wake verified$' "$BOOT_LOG"
+# Error codes back through the svc instruction (src/main.rs svc_error_paths).
+for line in \
+    'mutex_lock(4) -> EBADMUTEX' \
+    'mutex_unlock(3) unowned -> ENOTOWNER' \
+    'mutex_lock(3) twice -> EDEADLK' \
+    'park holding mutex 3 -> EBUSY' \
+    'semaphore_wait(4) -> EBADSEMAPHORE' \
+    'semaphore_post(4) -> EBADSEMAPHORE' \
+    'svc #20 -> ENOCAP'; do
+    rg -qF "task 2: svc error $line" "$BOOT_LOG"
+done
 # Task 4 dies (MPU test) holding mutex 2; its next owner is told.
 rg -q '^task 2: mutex 2: its owner died holding it \(EOWNERDEAD\); recovered$' "$BOOT_LOG"
 if rg -q '^sched: task [0-9]+ \(priority [0-9]+\) ready for' "$BOOT_LOG"; then

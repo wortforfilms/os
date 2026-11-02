@@ -1,3 +1,9 @@
+# Unreleased (after v0.1.0-alpha.7)
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| Error codes through the `svc` instruction: task 2 makes seven calls the kernel must refuse (bad mutex and semaphore ids, unlock of an unowned mutex, recursive lock, park while holding a mutex, svc #20) and smoke check 8 checks each result. Found: an unknown call from a task returns `ENOCAP` (the mask refuses it first), not `E_PERM` as ABI_SVC.md said; docs corrected | - | docs/SVC_TEST_COVERAGE.md |
+
 # Maataa OS v0.1.0-alpha.7
 
 ## Release type
