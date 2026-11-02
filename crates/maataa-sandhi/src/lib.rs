@@ -484,8 +484,9 @@ fn stop(v: varna::Varna) -> Option<(usize, usize)> {
 /// final S z h (8.2.36, 8.2.31: the retroflex row), and final m. Where the right form depends on the word's derivation (the
 /// roots of 8.2.36, kvin words of 8.2.62, 8.2.32 to 8.2.35) the caller gives
 /// the pada form: rAw, dik, Duk. Final N R n: 8.3.32 before a vowel; for n,
-/// 8.3.7, 8.4.40, 8.4.41, 8.4.60. Not yet (Error::NotYet): a final Y (give
-/// the pada form, N), y l v.
+/// 8.3.7, 8.4.40, 8.4.41, 8.4.60. Final y l v: joined as written (6.1.66
+/// not applied). Not yet (Error::NotYet): a final Y (give the pada form,
+/// N).
 fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Error> {
     use varna::{pratyahara, Varna};
     let set = |name: &str| pratyahara(name).unwrap_or(0);
@@ -567,6 +568,14 @@ fn hal(left: &[u8], right: &[u8], mut w: Writer<'_>) -> Result<(usize, Rule), Er
                 return Ok((w.len, rule));
             }
         }
+        w.put(left)?;
+        w.put(right)?;
+        return Ok((w.len, Rule::Join));
+    }
+    // A final y l v: no pada-final rule changes them here, so the words are
+    // joined as written. 6.1.66 lopo vyor vali (y v dropped before val) is
+    // not applied: padas rarely end in y or v.
+    if matches!(x, Varna::Y | Varna::La | Varna::V) {
         w.put(left)?;
         w.put(right)?;
         return Ok((w.len, Rule::Join));
@@ -993,11 +1002,17 @@ mod tests {
             ("vidvAn+likhati", "vidvAllikhati", Rule::TorLi),
             ("tAn+gacCati", "tAngacCati", Rule::Join),
             ("pratyaN+gacCati", "pratyaNgacCati", Rule::Join),
+            // y l v: joined as written.
+            ("ziv+a", "ziva", Rule::Join),
+            ("ziv+atra", "zivatra", Rule::Join),
+            ("ziv+gacCati", "zivgacCati", Rule::Join),
+            ("kamal+ca", "kamalca", Rule::Join),
+            ("Bay+atra", "Bayatra", Rule::Join),
         ] {
             assert_eq!(j(request), (String::from(joined), rule), "{request}");
         }
         let mut out = [0u8; MAX_TEXT];
-        for not_yet in [&b"prAY+atra"[..], b"tat+Mka", b"ziv+a"] {
+        for not_yet in [&b"prAY+atra"[..], b"tat+Mka", b"ziv+Ha"] {
             assert_eq!(
                 join_request(not_yet, &mut out),
                 Err(Error::NotYet),

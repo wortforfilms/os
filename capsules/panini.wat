@@ -24,7 +24,8 @@
 ;; Version 6: final palatals: 8.2.30 coh kuh for c j J, 8.2.36 for C; final
 ;; S z h (8.2.36, 8.2.31) as q; then the version 5 rules; final N R n:
 ;; 8.3.32 (28), 8.3.7 (27), 8.4.40, 8.4.41, 8.4.60 with n. A dental before
-;; z stays dental (8.4.43; version 5 made it w).
+;; z stays dental (8.4.43; version 5 made it w). Final y l v: joined as
+;; written.
 ;; Version 5: hal sandhi for final stops and m (rules 18 to 26), as
 ;; crates/maataa-sandhi.
 ;; Version 4: visarga, s and r before a word, as crates/maataa-sandhi
@@ -424,6 +425,14 @@
           local.get $rule return
         end
       end
+      i32.const 512 local.get $p call $put
+      local.get $p local.get $n call $right
+      i32.const 1 return
+    end
+    ;; A final y l v (r never comes here): joined as written (1); 6.1.66
+    ;; is not applied. y v r l are the bytes at 448.
+    local.get $x i32.const 448 i32.const 4 call $among
+    if
       i32.const 512 local.get $p call $put
       local.get $p local.get $n call $right
       i32.const 1 return

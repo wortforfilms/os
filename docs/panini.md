@@ -260,7 +260,12 @@ applied. 8.4.60 makes the l nasal by 1.1.50; the result writes plain ll,
 a simplification that keeps the output to SLP1 letters without `~`. A
 final Y is refused: its pada form is N.
 
-Not yet (refused as -105): a final Y, final y l v. A property test checks every final stop (and S z h)
+Final y l v: no pada-final rule here changes them, so the words are
+joined as written (ziv+atra -> zivatra, rule 1). 6.1.66 lopo vyor vali
+(y and v dropped before val) is deliberately not applied: padas rarely
+end in y or v.
+
+Not yet (refused as -105): a final Y. A property test checks every final stop (and S z h)
 before every letter: the result is never aspirated, and never voiced
 before khar. The first engine joined consonant endings as written, so the golden test leaves them
 out. Panini version 5 has the same rules in the same order, with a stop
@@ -272,7 +277,8 @@ requests, about 109,000 in all): answers and rule numbers equal. Image
 2,909 bytes of 4,096; worst fuel 4,883 of 20,000; one data segment.
 Panini version 6 adds the final palatals, S z h and N R n (rules 27 and
 28 new), and keeps a dental before z dental (8.4.43 toh zi; version 5
-gave tawzaw for tat+zaw): image 3,484 bytes of 4,096, one data segment; worst fuel over
+gave tawzaw for tat+zaw), and joins final y l v as written: image 3,512
+bytes of 4,096, one data segment; worst fuel over
 the host test's requests 4,246, the same as version 5 measured the same
 way.
 
