@@ -143,6 +143,10 @@ TASK_ORDER="$(rg '^task [123]$' "$BOOT_LOG" | head -n 3 | tr '\n' ' ')"
 # The demo's blocking paths still hand off under priorities: the mutex task 1
 # held through its sleep reaches task 2, and task 3's post wakes task 2.
 rg -q '^task 2: mutex 0 handed off; protected output is serialized$' "$BOOT_LOG"
+# RECV through the SVC: the first wait times out (E_TIMEOUT), the second
+# gets task 3's message with the sender in r1 (docs/SVC_TEST_COVERAGE.md).
+rg -q '^task 2: recv timed out after 1000 ms$' "$BOOT_LOG"
+rg -q '^task 2: received from task 3: Hello from Task 3 after 1500 ms; waiting on mutex 0$' "$BOOT_LOG"
 rg -q '^task 2: semaphore 0 permit received; producer wake verified$' "$BOOT_LOG"
 # Task 4 dies (MPU test) holding mutex 2; its next owner is told.
 rg -q '^task 2: mutex 2: its owner died holding it \(EOWNERDEAD\); recovered$' "$BOOT_LOG"
