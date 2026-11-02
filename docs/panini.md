@@ -96,6 +96,17 @@ With `maataa-link sandhi` on the same board: देव+इन्द्र -> द
 `MATCH`; देव+ळ was refused before sending (ळ unsupported) and देव+इन्+द्र by
 both the board and the host.
 
+Panini version 6 on the same board (dev-key kernel), 2026-11-02:
+installed over the host channel (version 5 before, 3,562 bytes), and after
+a probe reset `maataa-link sandhi` gave MATCH for वाच्+च and vAc+ca ->
+vAkca, prAC+atra -> prAqatra, viS+ca -> viwca, lih+atra -> liqatra,
+tAn+ca -> tAMSca, rAjan+atra -> rAjannatra, vidvAn+likhati (mistyped:
+SLP1 kh is k+h; the rule, 8.4.60, applied as on the host), tAn+jayati ->
+tAYjayati, tat+zaw -> tatzaw, ziv+atra -> zivatra, punar+ramate -> punA
+ramate, hariH+ramate -> harI ramate, hareH+ramate -> hare ramate,
+rAmaH+gacCati -> rAmo gacCati and deva+indra -> devendra; prAY+atra was
+refused by both the board and the host (-105, a final Y).
+
 ## The varna model (`maataa_sandhi::varna`)
 
 The foundation for writing rules the way the sutras state them. Host
@@ -241,7 +252,7 @@ excepted, below).
 | `tAn+Siva` | `tAYSiva` | 8.4.40 (no C: Y is not jhay, 8.4.63) |
 | `tAn+qamaru` | `tARqamaru` | 8.4.41 |
 | `tAn+zaw` | `tAnzaw` | (8.4.43 toh zi: as written) |
-| `vidvAn+likhati` | `vidvAllikhati` | 8.4.60 (written ll, without the nasal mark) |
+| `vidvAn+liKati` | `vidvAlliKati` | 8.4.60 (written ll, without the nasal mark) |
 
 Taken: final stops of every row, and final m. A final palatal takes
 8.2.30 coh kuh (c j J become k g G) or, for C, 8.2.36 (z, of the retroflex

@@ -4,12 +4,12 @@
 
 | Feature | Board | Docs |
 | --- | --- | --- |
-| Final palatals: 8.2.30 coh kuh (c j J), 8.2.36 for C, then 8.2.39 and the version 5 rules; the roots of 8.2.36 and kvin words come as their pada form (rAw, dik); same rule numbers. Crate and capsule (version 6): image 2,926 of 4,096 bytes, worst fuel 4,246 (as version 5); QEMU `vAc+ca` MATCH | not yet | docs/panini.md |
-| Final S z h: 8.2.36 (S), 8.2.31 ho qhah (h), then 8.2.39 q and the version 5 rules; 8.2.32 to 8.2.35 and kvin words come as their pada form (Duk, dik); same rule numbers. Crate and capsule (version 6): image 2,955 of 4,096 bytes, worst fuel 4,246; QEMU `lih+atra` MATCH | not yet | docs/panini.md |
-| Final N R n: 8.3.32 doubling after a short vowel (new rule 28); for n, 8.3.7 before chav + am (new rule 27, with 8.3.4 anusvara: tAMSca; praSAn excepted), 8.4.40, 8.4.41 (not before z, 8.4.43), 8.4.60 (plain ll); a final Y stays -105 (pada form N). Crate and capsule (version 6): image 3,491 of 4,096 bytes, worst fuel 4,246; QEMU `tAn+ca` MATCH | not yet | docs/panini.md |
-| Fix: 8.4.43 toh zi. A dental before z stays dental: tat+zaw is tatzaw (version 5 and the crate gave tawzaw). Crate and capsule (version 6): image 3,484 of 4,096 bytes | not yet | docs/panini.md |
-| Final y l v: joined as written (rule 1; 6.1.66 lopo vyor vali deliberately not applied). Crate and capsule (version 6): image 3,512 of 4,096 bytes, worst fuel 4,246 | not yet | docs/panini.md |
-| r before r: 8.3.14 ro ri drops r (or ru after a vowel other than a/A), 6.3.111 lengthens a short a i u (new rule 29): punar+ramate -> punA ramate, hariH+ramate -> harI ramate, hareH+ramate -> hare ramate. Crate and capsule (version 6): image 3,562 of 4,096 bytes, worst fuel 4,246; QEMU `punar+ramate` MATCH | not yet | docs/panini.md |
+| Final palatals: 8.2.30 coh kuh (c j J), 8.2.36 for C, then 8.2.39 and the version 5 rules; the roots of 8.2.36 and kvin words come as their pada form (rAw, dik); same rule numbers. Crate and capsule (version 6): image 2,926 of 4,096 bytes, worst fuel 4,246 (as version 5); QEMU `vAc+ca` MATCH | yes (2026-11-02, panini 6, 17 requests) | docs/panini.md |
+| Final S z h: 8.2.36 (S), 8.2.31 ho qhah (h), then 8.2.39 q and the version 5 rules; 8.2.32 to 8.2.35 and kvin words come as their pada form (Duk, dik); same rule numbers. Crate and capsule (version 6): image 2,955 of 4,096 bytes, worst fuel 4,246; QEMU `lih+atra` MATCH | yes (2026-11-02, panini 6, 17 requests) | docs/panini.md |
+| Final N R n: 8.3.32 doubling after a short vowel (new rule 28); for n, 8.3.7 before chav + am (new rule 27, with 8.3.4 anusvara: tAMSca; praSAn excepted), 8.4.40, 8.4.41 (not before z, 8.4.43), 8.4.60 (plain ll); a final Y stays -105 (pada form N). Crate and capsule (version 6): image 3,491 of 4,096 bytes, worst fuel 4,246; QEMU `tAn+ca` MATCH | yes (2026-11-02, panini 6, 17 requests) | docs/panini.md |
+| Fix: 8.4.43 toh zi. A dental before z stays dental: tat+zaw is tatzaw (version 5 and the crate gave tawzaw). Crate and capsule (version 6): image 3,484 of 4,096 bytes | yes (2026-11-02, panini 6, 17 requests) | docs/panini.md |
+| Final y l v: joined as written (rule 1; 6.1.66 lopo vyor vali deliberately not applied). Crate and capsule (version 6): image 3,512 of 4,096 bytes, worst fuel 4,246 | yes (2026-11-02, panini 6, 17 requests) | docs/panini.md |
+| r before r: 8.3.14 ro ri drops r (or ru after a vowel other than a/A), 6.3.111 lengthens a short a i u (new rule 29): punar+ramate -> punA ramate, hariH+ramate -> harI ramate, hareH+ramate -> hare ramate. Crate and capsule (version 6): image 3,562 of 4,096 bytes, worst fuel 4,246; QEMU `punar+ramate` MATCH | yes (2026-11-02, panini 6, 17 requests) | docs/panini.md |
 
 # Maataa OS v0.1.0-alpha.4
 

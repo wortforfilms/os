@@ -605,7 +605,7 @@ mod tests {
             "tAn+Siva",
             "tAn+qamaru",
             "tAn+zaw",
-            "vidvAn+likhati",
+            "vidvAn+liKati",
             "tAn+gacCati",
             "pratyaN+gacCati",
             "n+atra",

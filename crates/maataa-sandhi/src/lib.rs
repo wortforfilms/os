@@ -1020,7 +1020,7 @@ mod tests {
             ("tAn+Siva", "tAYSiva", Rule::StohScuna),
             ("tAn+qamaru", "tARqamaru", Rule::Stuna),
             ("tAn+zaw", "tAnzaw", Rule::Join),
-            ("vidvAn+likhati", "vidvAllikhati", Rule::TorLi),
+            ("vidvAn+liKati", "vidvAlliKati", Rule::TorLi),
             ("tAn+gacCati", "tAngacCati", Rule::Join),
             ("pratyaN+gacCati", "pratyaNgacCati", Rule::Join),
             // y l v: joined as written.
