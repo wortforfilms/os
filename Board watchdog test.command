@@ -18,6 +18,9 @@ OUT=target/board-watchdog.txt
 ELF=target/wdtest/thumbv7em-none-eabihf/release/maataa-os
 mkdir -p target
 pause(){ read -r -t 900 -p "Press Return to close." _; }
+# The serial log holds COBS frames as well as text: read it as bytes, or
+# macOS tr stops with "Illegal byte sequence" in a UTF-8 locale.
+export LC_ALL=C
 {
   echo "Building the watchdog-test kernel…"
   RUSTC="$(rustup which rustc 2>/dev/null || command -v rustc)" cargo build --release \
@@ -37,6 +40,7 @@ pause(){ read -r -t 900 -p "Press Return to close." _; }
   echo "Waiting 30 s for the hang and the watchdog reset…"
   sleep 30
   kill $CAT 2>/dev/null
+  wait $CAT 2>/dev/null
   exec 3<&-
   echo "--- serial (selected lines) ---"
   tr -d '\000' < target/board-watchdog.raw | tr '\r' '\n' \

@@ -19,6 +19,9 @@ RAW=target/board-kstack.raw
 ELF=target/kstack/thumbv7em-none-eabihf/release/maataa-os
 mkdir -p target
 pause(){ read -r -t 900 -p "Press Return to close." _; }
+# The serial log holds COBS frames as well as text: read it as bytes, or
+# macOS tr stops with "Illegal byte sequence" in a UTF-8 locale.
+export LC_ALL=C
 if pgrep -x probe-rs >/dev/null; then
   echo "Another probe-rs is running (for example a 'probe-rs debug' window) and holds the ST-LINK."
   echo "Close that window first, then double-click this file again."
@@ -43,6 +46,7 @@ fi
   echo "Recording the serial port for 30 s…"
   sleep 30
   kill $CAT 2>/dev/null
+  wait $CAT 2>/dev/null
   exec 3<&-
   echo "--- serial (selected lines) ---"
   tr -d '\000' < "$RAW" | tr '\r' '\n' \
