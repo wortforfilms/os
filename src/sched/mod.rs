@@ -426,6 +426,9 @@ pub struct Task {
     /// Supervisor calls this task may make: bit n allows call n
     /// (`maataa_capsule::cap`). Zero, the default, allows none.
     pub capabilities: u32,
+    /// Whose store keys this task writes (`storage::persist::Owner` as u8);
+    /// 0, the default, writes none.
+    pub store_owner: u8,
     #[allow(dead_code)]
     saved_sp: usize,
 }
@@ -451,6 +454,7 @@ impl Task {
             waiting_semaphore: None,
             semaphore_acquired: None,
             capabilities: 0,
+            store_owner: 0,
             saved_sp: 0,
         }
     }
@@ -458,6 +462,12 @@ impl Task {
     /// Grants the supervisor calls in `capabilities` (bit n allows call n).
     pub const fn with_capabilities(mut self, capabilities: u32) -> Self {
         self.capabilities = capabilities;
+        self
+    }
+
+    /// Sets whose store keys this task writes (`storage::persist::Owner`).
+    pub const fn with_store_owner(mut self, owner: u8) -> Self {
+        self.store_owner = owner;
         self
     }
 }
@@ -1471,6 +1481,17 @@ mod cortex_m_runtime {
         })
     }
 
+    /// The running task's store owner (`Task::store_owner`); `None` before
+    /// the scheduler starts.
+    pub fn current_store_owner() -> Option<u8> {
+        interrupt::free(|cs| {
+            let shared = RUNTIME.borrow(cs).borrow();
+            let rt = shared.as_ref()?;
+            let id = rt.current?;
+            rt.queue.get(id).map(|t| t.store_owner)
+        })
+    }
+
     /// (alive, total) task counts; (0, 0) before the scheduler starts.
     pub fn task_counts() -> (usize, usize) {
         interrupt::free(|cs| {
@@ -1932,11 +1953,11 @@ mod memfault {
 #[cfg(target_arch = "arm")]
 #[allow(unused_imports)]
 pub use cortex_m_runtime::{
-    block_current_for_uart, block_current_until, current_capabilities, current_stack, current_task,
-    kill_current, mutex_lock_current, mutex_unlock_current, on_systick, park_current,
-    pend_scheduler_switch, semaphore_post_current, semaphore_wait_current, start, starvation_count,
-    take_recv_timeout, task_alive, task_counts, task_exit_address, wake_waiting_receiver,
-    wake_waiting_uart_reader, ParkError, StartError,
+    block_current_for_uart, block_current_until, current_capabilities, current_stack,
+    current_store_owner, current_task, kill_current, mutex_lock_current, mutex_unlock_current,
+    on_systick, park_current, pend_scheduler_switch, semaphore_post_current,
+    semaphore_wait_current, start, starvation_count, take_recv_timeout, task_alive, task_counts,
+    task_exit_address, wake_waiting_receiver, wake_waiting_uart_reader, ParkError, StartError,
 };
 
 impl Default for KernelMutex {

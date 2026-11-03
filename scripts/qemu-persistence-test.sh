@@ -90,6 +90,14 @@ if grep -a -q 'persisted-across-reboot' "$FLASH_FILE"; then
     fail "run 3: a stored value is in the flash file in the clear"
 fi
 
+# Run 3b: store keys belong to their owner (docs/SECURITY_DESIGN.md, Part B).
+# The host may not write telemetry's key 32, and telemetry's count goes on
+# from 9 to 12, so the refused write left the key alone.
+if boot_and_talk put 32 intruder; then
+    fail "run 3b: the host channel wrote telemetry's key 32"
+fi
+grep -q '^capsule telemetry: log 12$' "$WORK/run.log" || fail "run 3b: capsule lifetime count is not 12"
+
 # Run 4: migration. Write the two banks as the unsealed MKV1 format did:
 # bank 0 with boot count 41 and key 30, bank 1 erased.
 python3 - "$FLASH_FILE" <<'PY'

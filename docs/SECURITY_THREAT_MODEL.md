@@ -35,6 +35,7 @@ chain of the toolchain and crates.
 | a task calls a service it should not | capability mask: bit N allows SVC N; unallowed and unknown calls return `E_NOCAP` (park, 19, is exempt) | `src/syscall.rs`, `src/sched/mod.rs` ([ABI](ABI_SVC.md)) |
 | a task passes the kernel a pointer outside its own memory | the kernel reads a task buffer only if it lies in flash or the caller's stack, and writes one only inside the caller's stack | `src/syscall.rs` |
 | a task writes a kernel store key | keys 0–15 are read-only for tasks | `src/storage/persist.rs` (`task_key_allowed`) |
+| a task or capsule writes another's store key | each task has an owner (host channel, or a capsule by its signed name) and writes only that owner's keys; `E_PERM` otherwise | `src/storage/persist.rs` (`owner_may_write`), `src/syscall.rs` |
 | an unsigned or changed capsule | ed25519 signature over name, module, version and capabilities; a bad image is refused at boot and at install | `crates/maataa-capsule`, `src/installed.rs` |
 | a capsule asks for more rights | its capabilities are inside the signed manifest; the kernel grants only those | `crates/maataa-capsule`, `src/capsule_task.rs` |
 | an older signed capsule installed over a newer one | version floors kept in kernel store key 2; install refused if `version < installed` | `src/installed.rs` |
@@ -55,7 +56,8 @@ chain of the toolchain and crates.
   key is compiled into the kernel. Without read-out protection (RDP), anyone
   with SWD reads it. The project does not set RDP on its board, on purpose.
 - **The host channel has no authentication.** Anyone on the UART can read
-  status and telemetry, read and write task store keys (16–63), and begin,
+  status and telemetry, read every store key, write the host's keys (16–31, 63) and panini's
+  40–41, and begin,
   write, commit or remove a capsule. A commit still needs a valid signature
   and version, but `CAPSULE_REMOVE` needs nothing.
 - **Same-version reinstall is allowed, by decision (2026-11-03).** The
@@ -75,8 +77,10 @@ chain of the toolchain and crates.
   every key 0–63, and anyone with the board can read the flash over SWD.
   Nothing secret is kept in the store; this is a decision, not a gap
   ([SECURITY_DESIGN.md](SECURITY_DESIGN.md#decisions)).
-- **Task store keys are shared.** Any task may write any key 16–63; there is
-  no per-task ownership.
+- **Unknown capsules write nothing.** A capsule whose signed name has no
+  range in the owner table (`Owner::for_capsule`) gets `E_PERM` on every
+  store write until the kernel gives it one. Any task may still read any
+  key (by decision; see above).
 - **The crash record is in RAM.** A power cut loses it; only the reset cause
   survives.
 - **Not hardened against:** timing or power side channels, glitching, a

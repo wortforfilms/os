@@ -52,7 +52,7 @@ but no compatibility promise is made before a non-alpha release.
 | 13 | `UART_READ`: blocks until bytes arrive | pointer | capacity (≤ 256) | | bytes read, `E_TOOLONG` (> 256), `E_NOT_SUPPORTED`, `E_PERM` |
 | 14 | `HOST_STATUS`: copy the host-channel status block | pointer | length (`hostlink::HOST_STATUS_BYTES`) | | 0, `E_TOOLONG`, `E_PERM` |
 | 15 | `STORE_GET`: read a persistent key | key (0..64) | pointer | capacity | length, `E_NOENT`, `E_TOOLONG` (value longer than the capacity), `E_PERM` (bad key or buffer), `E_NOT_SUPPORTED` (no store) |
-| 16 | `STORE_PUT`: write a persistent key (an empty value deletes it) | key (16..64) | pointer | length (≤ 64) | 0, `E_TOOLONG`, `E_FULL` (store full), `E_PERM` (kernel key or bad buffer), `E_NOT_SUPPORTED` (no store or a store error) |
+| 16 | `STORE_PUT`: write a persistent key (an empty value deletes it) | key the caller owns (`persist::owner_may_write`) | pointer | length (≤ 64) | 0, `E_TOOLONG`, `E_FULL` (store full), `E_PERM` (a key the caller does not own, or a bad buffer), `E_NOT_SUPPORTED` (no store or a store error) |
 | 17 | `CAPSULE_INSTALL`: run-time capsule install | operation \| offset << 8 (operations: 0 begin, 1 write, 2 commit, 3 remove, 4 info) | pointer | length | 0, a length, or an error |
 | 18 | `CAPSULE_IMAGE`: copy the installed capsule's image | pointer | capacity | | length or an error |
 | 19 | `PARK`: block for good (no capability needed) | | | | never returns; `E_BUSY` while the caller holds a mutex |

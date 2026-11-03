@@ -582,7 +582,8 @@ fn main() -> ! {
                         host_channel_task,
                         HOST_CHANNEL_PRIORITY,
                     )
-                    .with_capabilities(grants.hostlink),
+                    .with_capabilities(grants.hostlink)
+                    .with_store_owner(storage::persist::Owner::Host as u8),
                 )
             })
             .and_then(|()| {
@@ -615,12 +616,13 @@ fn main() -> ! {
                             body,
                             grant.priority,
                         )
-                        .with_capabilities(grant.capabilities),
+                        .with_capabilities(grant.capabilities)
+                        .with_store_owner(storage::persist::Owner::for_capsule(grant.name) as u8),
                     )?;
                 }
                 // Task 9: the run-time capsule, with its signed capabilities
                 // plus the one call that hands it its image.
-                if let Some((capabilities, priority)) = grants.installed {
+                if let Some((capabilities, priority, owner)) = grants.installed {
                     // SAFETY: the static stack is handed to this one task.
                     let stack = unsafe {
                         core::slice::from_raw_parts_mut(
@@ -635,7 +637,8 @@ fn main() -> ! {
                             installed_capsule_task,
                             priority,
                         )
-                        .with_capabilities(capabilities | maataa_capsule::cap::CAPSULE_IMAGE),
+                        .with_capabilities(capabilities | maataa_capsule::cap::CAPSULE_IMAGE)
+                        .with_store_owner(owner as u8),
                     )?;
                 }
                 Ok(())

@@ -83,9 +83,9 @@ pub struct Grants {
     /// A rejected capsule gets no task.
     pub capsule_tasks:
         [Option<crate::capsule_task::CapsuleGrant>; crate::capsule_task::CAPSULE_TASKS],
-    /// Capabilities and scheduling level of the capsule installed at run
-    /// time, if it passed its checks (task 9 runs it).
-    pub installed: Option<(u32, u8)>,
+    /// Capabilities, scheduling level and store owner of the capsule
+    /// installed at run time, if it passed its checks (task 9 runs it).
+    pub installed: Option<(u32, u8, crate::storage::persist::Owner)>,
 }
 
 /// Runs the boot sequence and returns the capsule grants.
@@ -174,7 +174,11 @@ pub fn run() -> Grants {
                 name,
                 schedule.priority
             );
-            Some((capabilities, schedule.priority))
+            Some((
+                capabilities,
+                schedule.priority,
+                crate::storage::persist::Owner::for_capsule(name),
+            ))
         }
         crate::installed::Boot::Empty => {
             kprintln!("capsule installed: none");

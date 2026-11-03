@@ -811,7 +811,10 @@ mod kernel {
 
     fn sys_store_put(key: u32, ptr: usize, len: usize) -> u32 {
         use crate::storage::persist;
-        if !persist::task_key_allowed(key) {
+        // Kernel code (no task) may not call this either: kernel keys are
+        // written through persist directly.
+        let owner = persist::Owner::from_u8(crate::sched::current_store_owner().unwrap_or(0));
+        if !persist::owner_may_write(owner, key) {
             return E_PERM;
         }
         if len > persist::MAX_VALUE {

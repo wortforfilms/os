@@ -188,9 +188,16 @@ fails the test. The tests cover:
 | 2 | kernel: version floors of run-time capsules ([capsules.md](capsules.md#installing-a-capsule-at-run-time)) |
 | 3 | kernel: starvation episodes since boot (u32), served from RAM and never stored ([SCHEDULER.md](engineering/SCHEDULER.md#starvation-monitor)) |
 | 4–15 | kernel, reserved |
-| 16–63 | tasks, with the `store_get` / `store_put` capabilities (key 32: the telemetry capsule's lifetime tick count) |
+| 16–31, 63 | host channel scratch (selftest 20, QEMU tests 30, `store-stress` 63, board persistence check 21) |
+| 32–35 | the `telemetry` capsule (key 32: its lifetime tick count) |
+| 36–39 | nobody yet |
+| 40, 41 | panini's request and answer, written by panini and the host channel |
+| 42–47 | the `panini` capsule |
+| 48–62 | nobody yet |
 
-Tasks may read kernel keys 0–15 but not write them.
+Tasks may read every key, kernel keys 0–15 included. A task writes only the
+keys of its owner: the host channel, or a capsule by its signed name
+(`Owner` in `src/storage/persist.rs`); any other write gets `EPERM`.
 
 Values are at most 64 bytes. Writes to kernel keys get `EPERM`, and
 calls outside the task's capability mask with `ENOCAP`. A missing key gives

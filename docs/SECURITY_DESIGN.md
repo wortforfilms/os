@@ -1,6 +1,6 @@
 # Security design: signed host requests and store key ownership
 
-Status: **design note, decisions taken 2026-11-03 (see [Decisions](#decisions)). Nothing here is implemented yet.**
+Status: **design note, decisions taken 2026-11-03 (see [Decisions](#decisions)). Part B is implemented (after `e417ca7`); Part A is not.**
 It answers three open items of [SECURITY_THREAT_MODEL.md](SECURITY_THREAT_MODEL.md#known-limits):
 `CAPSULE_REMOVE` needs nothing, the host channel has no authentication, and
 task store keys 16–63 are shared. Facts about the current code are from
@@ -134,9 +134,12 @@ is already linked, so the kernel grows by the handler only.
 
 ## Part B: store keys owned by capsule name
 
-Today any task with the store capability may write any key 16–63, and read
-any key 0–63 (`task_key_allowed`, `task_key_readable` in
-`src/storage/persist.rs`).
+Before Part B, any task with the store capability could write any key
+16–63. Now `owner_may_write` in `src/storage/persist.rs` decides, from the
+task's `store_owner` (set by the kernel when it creates the task). Reads
+are unchanged: any key 0–63. The implemented table follows the proposal
+below, with one change: the host channel also writes key 41 (`maataa-link
+sandhi` clears an old answer before each request).
 
 ### Who uses which key now
 

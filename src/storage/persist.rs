@@ -57,10 +57,76 @@ pub const KEY_STARVATION_COUNT: u8 = 3;
 /// Lowest key a task may write.
 pub const FIRST_TASK_KEY: u8 = 16;
 
-/// Whether a task may write `key`. Kernel keys (0..16) are read-only for
-/// tasks.
+/// Whether a task may write `key` at all. Kernel keys (0..16) are
+/// read-only for tasks; which task key a task may write is decided by its
+/// [`Owner`] ([`owner_may_write`]).
 pub const fn task_key_allowed(key: u32) -> bool {
     key >= FIRST_TASK_KEY as u32 && key < KEYS as u32
+}
+
+/// Whose task keys a task writes (docs/SECURITY_DESIGN.md, Part B). Set by
+/// the kernel when it creates the task: the host channel, or a capsule by
+/// its signed name. Every task may still read every key.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[repr(u8)]
+pub enum Owner {
+    /// Writes no key: the demo tasks, and a capsule with no range yet.
+    None = 0,
+    /// The host channel (task 6).
+    Host = 1,
+    /// The `telemetry` capsule.
+    Telemetry = 2,
+    /// The `panini` capsule.
+    Panini = 3,
+}
+
+impl Owner {
+    /// The owner for a capsule's signed name. A capsule the table does not
+    /// name writes no key until it is given a range here.
+    pub fn for_capsule(name: &str) -> Self {
+        match name {
+            "telemetry" => Self::Telemetry,
+            "panini" => Self::Panini,
+            _ => Self::None,
+        }
+    }
+
+    /// The owner stored in a task (`sched::Task::store_owner`).
+    pub const fn from_u8(value: u8) -> Self {
+        match value {
+            1 => Self::Host,
+            2 => Self::Telemetry,
+            3 => Self::Panini,
+            _ => Self::None,
+        }
+    }
+}
+
+/// Panini's request key, written by the host and deleted by panini.
+pub const KEY_PANINI_REQUEST: u8 = 40;
+/// Panini's answer key, written by panini and cleared by the host.
+pub const KEY_PANINI_ANSWER: u8 = 41;
+
+/// Whether `owner` may write `key`:
+///
+/// | Keys | Writers |
+/// | --- | --- |
+/// | 16–31, 63 | host channel (scratch: selftest 20, tests 30, `store-stress` 63) |
+/// | 32–35 | `telemetry` |
+/// | 40, 41 | `panini` and the host channel (the sandhi wire format) |
+/// | 42–47 | `panini` |
+/// | 36–39, 48–62 | nobody yet |
+pub const fn owner_may_write(owner: Owner, key: u32) -> bool {
+    if !task_key_allowed(key) {
+        return false;
+    }
+    let shared = key == KEY_PANINI_REQUEST as u32 || key == KEY_PANINI_ANSWER as u32;
+    match owner {
+        Owner::None => false,
+        Owner::Host => (key >= 16 && key <= 31) || key == 63 || shared,
+        Owner::Telemetry => key >= 32 && key <= 35,
+        Owner::Panini => key >= 40 && key <= 47,
+    }
 }
 
 /// Whether a task may read `key`: any key, kernel keys included.
@@ -598,6 +664,51 @@ mod tests {
         assert!(task_key_readable(KEY_BOOT_COUNT as u32));
         assert!(task_key_readable(KEY_LAST_RESET as u32));
         assert!(!task_key_readable(64));
+    }
+
+    #[test]
+    fn each_owner_writes_only_its_own_keys() {
+        use Owner::*;
+        // Kernel keys: nobody.
+        for owner in [None, Host, Telemetry, Panini] {
+            for key in 0..16 {
+                assert!(!owner_may_write(owner, key), "{owner:?} {key}");
+            }
+            assert!(!owner_may_write(owner, 64));
+        }
+        // The keys in use today keep their writers.
+        assert!(
+            owner_may_write(Host, 20) && owner_may_write(Host, 30) && owner_may_write(Host, 63)
+        );
+        assert!(owner_may_write(Telemetry, 32));
+        for key in [40, 41] {
+            assert!(owner_may_write(Host, key) && owner_may_write(Panini, key));
+            assert!(!owner_may_write(Telemetry, key) && !owner_may_write(None, key));
+        }
+        // And nobody else's.
+        assert!(!owner_may_write(Telemetry, 20) && !owner_may_write(Panini, 32));
+        assert!(!owner_may_write(Host, 32) && !owner_may_write(Host, 42));
+        assert!(!owner_may_write(Telemetry, 40) && !owner_may_write(Panini, 63));
+        for key in (36..40).chain(48..63) {
+            for owner in [None, Host, Telemetry, Panini] {
+                assert!(!owner_may_write(owner, key), "{owner:?} {key}");
+            }
+        }
+        for key in 16..64 {
+            assert!(!owner_may_write(None, key));
+        }
+    }
+
+    #[test]
+    fn owners_come_from_the_signed_name_and_round_trip() {
+        assert_eq!(Owner::for_capsule("telemetry"), Owner::Telemetry);
+        assert_eq!(Owner::for_capsule("panini"), Owner::Panini);
+        assert_eq!(Owner::for_capsule("greeter"), Owner::None);
+        assert_eq!(Owner::for_capsule("hostlink"), Owner::None);
+        for owner in [Owner::None, Owner::Host, Owner::Telemetry, Owner::Panini] {
+            assert_eq!(Owner::from_u8(owner as u8), owner);
+        }
+        assert_eq!(Owner::from_u8(200), Owner::None);
     }
 
     #[test]
