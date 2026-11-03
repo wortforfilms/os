@@ -87,9 +87,7 @@ Flashing a kernel rewrites only sectors 0–4, so the run-time capsule
 
 `scripts/run-hw.sh` builds the F411 kernel and runs it with `probe-rs run`;
 it defaults to the Black Pill (`STM32F411CEUx`), so for the Nucleo set
-`PROBE_RS_CHIP=STM32F411RETx`. `scripts/flash.sh` is an alpha.1 leftover: it
-builds nothing and runs whatever default (QEMU) ELF is in `target/` on a
-Black Pill; use `board-test.sh` instead.
+`PROBE_RS_CHIP=STM32F411RETx`, or use `board-test.sh`.
 
 ## Release builds
 
