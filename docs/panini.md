@@ -385,6 +385,9 @@ as the visarga case `rAmaH+iti` -> `rAma iti`) and keeps the v (o O:
 common in classical texts. As with 6.1.109, the first word is taken as a
 pada: a stem and an affix (hari + e, the dative haraye; nE + aka, nAyaka)
 are not this engine's input. Image 3,684 bytes of 4,096 (22 more).
+On the board, 2026-11-04: installed over version 9 with a signed commit
+(523 ms), and after a probe reset `hare+iha` -> MATCH: हर इह (hara iha)
+[y dropped, 8.3.19].
 
 ## Later
 

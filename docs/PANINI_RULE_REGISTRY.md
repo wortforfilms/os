@@ -29,7 +29,7 @@ named; it is a record of a run, not a CI check.
 | 7 | Purvarupa | 6.1.109 | yes | yes | v9 |
 | 8 | HasiCa | 6.1.114 (with 6.1.87) | yes | yes | v9 |
 | 9 | AtoRoh | 6.1.113 (with 6.1.87, 6.1.109) | yes | yes | v4 |
-| 10 | LopahSakalyasya | 8.3.17, 8.3.19; since v10 also 6.1.78 then 8.3.19 (e E before a vowel: `hara iha`) | yes | yes | v4 (visarga case only) |
+| 10 | LopahSakalyasya | 8.3.17, 8.3.19; since v10 also 6.1.78 then 8.3.19 (e E before a vowel: `hara iha`) | yes | yes | v10 (2026-11-04, `hare+iha`); visarga case v4 |
 | 11 | HaliSarvesham | 8.3.17, 8.3.22 | yes | yes | v4 |
 | 12 | VisarjaniyasyaSah | 8.3.34, 8.4.40, 8.4.41 | yes | yes | v9 |
 | 13 | SarpareVisarjaniyah | 8.3.35 | yes | yes | v9 (2026-11-03) |
