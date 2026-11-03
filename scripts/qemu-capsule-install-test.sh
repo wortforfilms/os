@@ -9,7 +9,9 @@
 #   run 3b: greeter version 3 is begun and written but never committed
 #   run 4: greeter version 2 still runs; an image named like a built-in
 #          capsule (heartbeat) is refused
-#   run 5: capsule-info shows greeter version 2; then it is removed
+#   run 4b-4e: an unsigned commit, a commit signed with another key, an
+#          unsigned remove and a replayed signed request are refused
+#   run 5: capsule-info shows greeter version 2; then it is removed (signed)
 #   run 6: no capsule installed, task 9 not started
 # Exit status 0 on pass; a hang fails after 60 s per run.
 set -euo pipefail
@@ -96,12 +98,12 @@ PY
 
 rm -f "$AREA_FILE"
 
-boot_and_talk capsule-install "$GREETER" || fail "run 1: install"
+boot_and_talk --dev capsule-install "$GREETER" || fail "run 1: install"
 log_has '^capsule installed: none$' || fail "run 1: area was not empty"
 log_has '^capsule install: greeter version 2 accepted; it runs from the next boot$' \
     || fail "run 1: kernel did not accept greeter"
 
-if boot_and_talk capsule-install "$WORK/greeter-v1.mcap"; then
+if boot_and_talk --dev capsule-install "$WORK/greeter-v1.mcap"; then
     fail "run 2: an older version was installed"
 fi
 log_has '^capsule installed: greeter version 2 caps=write,sleep$' || fail "run 2: greeter not found at boot"
@@ -112,7 +114,7 @@ log_has '^capsule greeter: tick 2 -> 102 ' || fail "run 2: greeter did not tick 
 log_has '^capsule install: refused: older than version 2 already installed$' \
     || fail "run 2: downgrade not refused as older"
 
-if boot_and_talk capsule-install "$WORK/tampered.mcap"; then
+if boot_and_talk --dev capsule-install "$WORK/tampered.mcap"; then
     fail "run 3: a tampered image was installed"
 fi
 log_has '^capsule task 9: greeter (priority 1)$' || fail "run 3: the refused install removed greeter"
@@ -122,7 +124,7 @@ log_has '^capsule install: refused: bad signature$' || fail "run 3: tamper not r
 # the next boot must still run the installed greeter version 2.
 boot_and_talk capsule-install-no-commit "$WORK/greeter-v3.mcap" || fail "run 3b: unfinished install"
 
-if boot_and_talk capsule-install assets/capsules/heartbeat.mcap; then
+if boot_and_talk --dev capsule-install assets/capsules/heartbeat.mcap; then
     fail "run 4: a built-in name was installed"
 fi
 log_has '^capsule installed: greeter version 2 caps=write,sleep$' \
@@ -130,10 +132,32 @@ log_has '^capsule installed: greeter version 2 caps=write,sleep$' \
 log_has '^capsule task 9: greeter (priority 1)$' || fail "run 4: greeter has no task after an unfinished install"
 log_has '^capsule install: refused: the name of a built-in capsule$' || fail "run 4: built-in name"
 
+# Signed host requests (docs/SECURITY_DESIGN.md, Part A). Greeter version 3
+# would be accepted by its signature and version; it must still be refused
+# when the commit is not signed, or signed with another key, and greeter
+# version 2 must keep running.
+if boot_and_talk capsule-install "$WORK/greeter-v3.mcap"; then
+    fail "run 4b: an unsigned commit installed greeter version 3"
+fi
+log_has '^capsule install: refused: commit and remove need a signed request$' \
+    || fail "run 4b: unsigned commit not refused as such"
+head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n' >"$WORK/other.seed"
+if boot_and_talk --seed-file "$WORK/other.seed" capsule-install "$WORK/greeter-v3.mcap"; then
+    fail "run 4c: a commit signed with another key was accepted"
+fi
+log_has '^capsule task 9: greeter (priority 1)$' || fail "run 4c: greeter version 2 no longer runs"
+log_has '^host request: refused: bad signature, or not for this board and challenge$' \
+    || fail "run 4c: the wrong key was not refused as a bad signature"
+if boot_and_talk capsule-remove; then
+    fail "run 4d: an unsigned remove was accepted"
+fi
+boot_and_talk --dev signed-replay-test || fail "run 4e: a replayed signed request was not refused"
+grep -q '^signed request accepted once, refused when replayed$' "$WORK/tool.log" || fail "run 4e: replay"
+
 boot_and_talk capsule-info || fail "run 5: info"
 grep -q '^installed: greeter version 2, 293 bytes, caps write,sleep$' "$WORK/tool.log" \
     || fail "run 5: capsule-info"
-boot_and_talk capsule-remove || fail "run 5b: remove"
+boot_and_talk --dev capsule-remove || fail "run 5b: remove"
 
 boot_and_talk capsule-info || fail "run 6: info"
 grep -q '^no capsule installed$' "$WORK/tool.log" || fail "run 6: still installed"
@@ -142,4 +166,4 @@ if log_has '^capsule task 9'; then
     fail "run 6: task 9 started without a capsule"
 fi
 rm -f "$AREA_FILE"
-echo "PASS: run-time capsule install (accepted, ran as task 9, downgrade/tamper/built-in name refused, unfinished install ignored, removed)"
+echo "PASS: run-time capsule install (accepted, ran as task 9, downgrade/tamper/built-in name refused, unfinished install ignored, unsigned/wrong-key/replayed requests refused, removed)"

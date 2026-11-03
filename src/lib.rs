@@ -7,6 +7,7 @@ pub mod capsule_task;
 pub mod clock;
 pub mod crash;
 pub mod drivers;
+pub mod hostauth;
 pub mod hostlink;
 pub mod installed;
 pub mod ipc;

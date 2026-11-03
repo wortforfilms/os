@@ -3,7 +3,7 @@
 # runs this kernel (Board test.command flashes it), reset the board with the probe,
 # and check that greeter is installed. Uses the ST-LINK virtual COM port; close
 # any serial terminal on it first. Output: target/board-capsule-install.txt
-# Afterwards `maataa-link --serial PORT capsule-remove` removes it again.
+# Afterwards `maataa-link --serial PORT --dev capsule-remove` removes it again.
 cd "$(dirname "$0")" || exit 1
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 # Keep the Mac awake until this script exits: when the Mac sleeps, the
@@ -26,7 +26,8 @@ LINK="target/release/maataa-link --serial $PORT --timeout-ms 3000"
   echo "--- before ---"
   $LINK capsule-info
   echo "--- install ---"
-  $LINK capsule-install assets/capsules/greeter.mcap
+  # A development kernel: the commit is signed with the public dev seed.
+  $LINK --dev capsule-install assets/capsules/greeter.mcap
   echo "install exit status: $?"
   echo "--- reset ---"
   probe-rs reset --chip "$CHIP"

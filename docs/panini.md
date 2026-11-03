@@ -75,7 +75,7 @@ word does; panini version 8, earlier -105 or joined as written).
 maataa-capsule wasm capsules/panini.wat -o target/panini.wasm   # if you change it
 maataa-capsule sign --name panini --caps write,sleep,store_get,store_put \
   --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
-maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
+maataa-link --serial PORT --dev capsule-install assets/capsules/panini.mcap   # signed commit
 # reset the board: panini runs as task 9 (it replaces any other run-time capsule)
 maataa-link --serial PORT put 41                 # clear an old answer
 maataa-link --serial PORT put 40 deva+indra      # the request

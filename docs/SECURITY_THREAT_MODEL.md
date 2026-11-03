@@ -35,6 +35,7 @@ chain of the toolchain and crates.
 | a task calls a service it should not | capability mask: bit N allows SVC N; unallowed and unknown calls return `E_NOCAP` (park, 19, is exempt) | `src/syscall.rs`, `src/sched/mod.rs` ([ABI](ABI_SVC.md)) |
 | a task passes the kernel a pointer outside its own memory | the kernel reads a task buffer only if it lies in flash or the caller's stack, and writes one only inside the caller's stack | `src/syscall.rs` |
 | a task writes a kernel store key | keys 0–15 are read-only for tasks | `src/storage/persist.rs` (`task_key_allowed`) |
+| a host on the UART commits, removes or writes without the key | signed host requests over a per-boot challenge; one signature works once, on one board, in one boot | `src/hostauth.rs`, `src/syscall.rs`, `crates/maataa-link` (`host_auth`) |
 | a task or capsule writes another's store key | each task has an owner (host channel, or a capsule by its signed name) and writes only that owner's keys; `E_PERM` otherwise | `src/storage/persist.rs` (`owner_may_write`), `src/syscall.rs` |
 | an unsigned or changed capsule | ed25519 signature over name, module, version and capabilities; a bad image is refused at boot and at install | `crates/maataa-capsule`, `src/installed.rs` |
 | a capsule asks for more rights | its capabilities are inside the signed manifest; the kernel grants only those | `crates/maataa-capsule`, `src/capsule_task.rs` |
@@ -55,11 +56,17 @@ chain of the toolchain and crates.
 - **Release keys are only as secret as the flash.** The release store master
   key is compiled into the kernel. Without read-out protection (RDP), anyone
   with SWD reads it. The project does not set RDP on its board, on purpose.
-- **The host channel has no authentication.** Anyone on the UART can read
-  status and telemetry, read every store key, write the host's keys (16–31, 63) and panini's
-  40–41, and begin,
-  write, commit or remove a capsule. A commit still needs a valid signature
-  and version, but `CAPSULE_REMOVE` needs nothing.
+- **The host channel authenticates changes, not reads.** Since signed host
+  requests ([SECURITY_DESIGN.md](SECURITY_DESIGN.md), Part A), committing an
+  install, removing the capsule and writing a task key outside the host's
+  own need an ed25519 signature by the capsule key over the board's
+  challenge (chip id, boot count, sequence). Anyone on the UART can still
+  read status, telemetry and every store key, write the host's keys (16–31,
+  63) and panini's 40–41, and begin and write a pending install (it stays
+  pending until a signed commit). On a development kernel the signing seed
+  is public, so this protects only a release kernel. A store rollback that
+  lowers the boot count would let an old signature of the same boot count
+  and sequence work again (see the next items).
 - **Same-version reinstall is allowed, by decision (2026-11-03).** The
   check is `version < installed`. Downgrades are stopped by the version
   floor, not by the signature: older versions are signed by the same key,

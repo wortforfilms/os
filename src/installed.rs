@@ -280,14 +280,22 @@ mod kernel_side {
     }
 
     /// Checks the image being installed and, if it passes, makes it the
-    /// installed one. A refused image is dropped; the installed one stays.
-    pub fn commit() -> u32 {
+    /// installed one. `image_signature` comes from a signed host request
+    /// (src/hostauth.rs): the pending image must end in exactly that
+    /// signature. A refused image is dropped; the installed one stays.
+    pub fn commit(image_signature: &[u8]) -> u32 {
         let mut floors = floors();
         let result = with(|area, scratch| {
             let len = match area.read_pending(scratch) {
                 Ok(len) => len,
                 Err(e) => return Err(store_error(e)),
             };
+            let pending = maataa_capsule::image_signature(&scratch[..len]);
+            if pending.as_ref().map(|s| &s[..]) != Some(image_signature) {
+                let _ = area.abandon();
+                kprintln!("capsule install: refused: the signed request names another image");
+                return Err(E_PERM);
+            }
             match check(&scratch[..len], &CAPSULE_PUBLIC_KEY, &floors) {
                 Ok(accepted) => {
                     area.commit().map_err(store_error)?;
@@ -326,12 +334,29 @@ mod kernel_side {
         }
     }
 
-    /// Removes the installed capsule (from the next boot on).
-    pub fn remove() -> u32 {
-        with(|area, _| match area.remove() {
-            Ok(true) => 0,
-            Ok(false) => E_NOENT,
-            Err(e) => store_error(e),
+    /// Removes the installed capsule (from the next boot on), if its name
+    /// is `name` (from a signed host request).
+    pub fn remove(name: &[u8]) -> u32 {
+        with(|area, scratch| {
+            match area.read_installed(scratch) {
+                Ok(None) => return E_NOENT,
+                Err(e) => return store_error(e),
+                Ok(Some(len)) => {
+                    if maataa_capsule::name_unverified(&scratch[..len]).map(str::as_bytes)
+                        != Some(name)
+                    {
+                        kprintln!(
+                            "capsule remove: refused: the signed request names another capsule"
+                        );
+                        return E_PERM;
+                    }
+                }
+            }
+            match area.remove() {
+                Ok(true) => 0,
+                Ok(false) => E_NOENT,
+                Err(e) => store_error(e),
+            }
         })
         .unwrap_or(E_NOT_SUPPORTED)
     }

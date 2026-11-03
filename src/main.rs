@@ -13,6 +13,7 @@ mod capsule_task;
 mod clock;
 mod crash;
 mod drivers;
+mod hostauth;
 mod hostlink;
 mod installed;
 mod ipc;

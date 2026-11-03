@@ -146,12 +146,19 @@ reflashing the kernel. It runs from the next boot on, as task 9.
 target/release/maataa-capsule wasm capsules/greeter.wat -o target/greeter.wasm
 target/release/maataa-capsule sign --name greeter --caps write,sleep \
    --payload target/greeter.wasm --dev -o assets/capsules/greeter.mcap
-target/release/maataa-link --serial /dev/cu.usbmodem11403 capsule-install assets/capsules/greeter.mcap
+# --dev on a development kernel; --seed-file ~/.maataa/capsule-release.seed on a release one
+target/release/maataa-link --serial /dev/cu.usbmodem11403 --dev capsule-install assets/capsules/greeter.mcap
 # installed assets/capsules/greeter.mcap: 293 bytes in 42 ms; it runs from the next boot
 target/release/maataa-link --serial /dev/cu.usbmodem11403 capsule-info
 # installed: greeter version 2, 293 bytes, caps write,sleep
-target/release/maataa-link --serial /dev/cu.usbmodem11403 capsule-remove
+target/release/maataa-link --serial /dev/cu.usbmodem11403 --dev capsule-remove
 ```
+
+The commit and the remove are signed host requests
+([SECURITY_DESIGN.md](SECURITY_DESIGN.md)): `maataa-link` asks the board for
+a challenge and signs with the capsule key, so the kernel accepts only an
+install or removal from someone who holds that key. Without `--dev` or
+`--seed-file` the kernel refuses them.
 
 **Where it lives.** The capsule area: flash sector 5 on the F411
 (`0x0802_0000`, 128 KiB; `memory.x` keeps the kernel in sectors 0–4), and

@@ -1,6 +1,6 @@
 # Security design: signed host requests and store key ownership
 
-Status: **design note, decisions taken 2026-11-03 (see [Decisions](#decisions)). Part B is implemented (after `e417ca7`); Part A is not.**
+Status: **design note, decisions taken 2026-11-03 (see [Decisions](#decisions)). Part B and Part A are implemented (after `e417ca7`).**
 It answers three open items of [SECURITY_THREAT_MODEL.md](SECURITY_THREAT_MODEL.md#known-limits):
 `CAPSULE_REMOVE` needs nothing, the host channel has no authentication, and
 task store keys 16–63 are shared. Facts about the current code are from
@@ -131,6 +131,28 @@ check belongs in the kernel, not in task 6: the remove and the protected
 store writes are supervisor calls, and if task 6 did the check, any task
 holding the same capability could make them without a signature. ed25519
 is already linked, so the kernel grows by the handler only.
+
+### As implemented
+
+`src/hostauth.rs` (challenge, check, sequence), operations 5 and 6 of
+SVC 17 (`src/syscall.rs`), kinds `0x0C` / `0x0D` in `src/hostlink.rs` and
+`maataa_link::host_auth`, and `--dev` / `--seed-file` in `maataa-link`.
+Differences from the proposal above:
+
+- A signed request is answered with `SIGNED_REPLY` (`0x8D`), not with the
+  reply of the request it replaces.
+- The arguments are sent, and the kernel checks them against its own
+  state: a remove names the installed capsule, a commit carries the
+  pending image's signature. A mismatch is refused (`E_PERM`) and, being
+  signed, still uses up the sequence number.
+- The unsigned `CAPSULE_COMMIT` and `CAPSULE_REMOVE` stay on the wire and
+  are refused, so a test can show it.
+- A signed store put may write any task key 16–63, never a kernel key.
+
+Smoke check 12 shows: an unsigned commit refused, a commit signed with a
+random key refused (greeter version 2 keeps running), an unsigned remove
+refused, a replayed signed put refused, and signed install and remove
+accepted.
 
 ## Part B: store keys owned by capsule name
 

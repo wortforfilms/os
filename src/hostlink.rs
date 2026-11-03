@@ -161,6 +161,27 @@ fn capsule_request(
         kind::CAPSULE_REMOVE if body.is_empty() => {
             syscall::capsule_remove().map(|()| (kind::CAPSULE_REMOVE_REPLY, 0))
         }
+        kind::CHALLENGE if body.is_empty() => {
+            let mut out = [0u8; maataa_link::host_auth::CHALLENGE_BYTES];
+            syscall::capsule_challenge(&mut out).map(|()| {
+                payload[..out.len()].copy_from_slice(&out);
+                (kind::CHALLENGE_REPLY, out.len())
+            })
+        }
+        kind::SIGNED
+            if body.len() > maataa_link::host_auth::SIGNATURE_BYTES
+                && body.len()
+                    <= maataa_link::host_auth::SIGNATURE_BYTES
+                        + 1
+                        + maataa_link::host_auth::MAX_ARGS =>
+        {
+            // Copy to the stack: the kernel accepts only the caller's own buffer.
+            let mut request = [0u8; maataa_link::host_auth::SIGNATURE_BYTES
+                + 1
+                + maataa_link::host_auth::MAX_ARGS];
+            request[..body.len()].copy_from_slice(body);
+            syscall::capsule_signed(&request[..body.len()]).map(|()| (kind::SIGNED_REPLY, 0))
+        }
         kind::CAPSULE_INFO if body.is_empty() => {
             let mut out = [0u8; 32];
             syscall::capsule_info(&mut out).map(|n| {
@@ -225,7 +246,7 @@ pub fn channel_task() -> ! {
                 Some(Event::Frame(request))
                     if request.kind == kind::STORE_GET
                         || request.kind == kind::STORE_PUT
-                        || (kind::CAPSULE_BEGIN..=kind::CAPSULE_INFO).contains(&request.kind) =>
+                        || (kind::CAPSULE_BEGIN..=kind::SIGNED).contains(&request.kind) =>
                 {
                     let (reply_kind, len) =
                         if request.kind == kind::STORE_GET || request.kind == kind::STORE_PUT {

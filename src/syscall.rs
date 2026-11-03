@@ -72,6 +72,13 @@ pub mod capsule_op {
     pub const COMMIT: u32 = 2;
     pub const REMOVE: u32 = 3;
     pub const INFO: u32 = 4;
+    /// Copy the current host-request challenge (20 bytes) into the buffer
+    /// (src/hostauth.rs).
+    pub const CHALLENGE: u32 = 5;
+    /// A signed host request: buffer `[signature 64, operation, args..]`
+    /// (`maataa_link::host_auth`). COMMIT and REMOVE without a signature
+    /// are refused since signed requests exist.
+    pub const SIGNED: u32 = 6;
 }
 /// Maximum bytes copied or sent by one UART syscall.
 pub const MAX_UART_TRANSFER: usize = 256;
@@ -493,6 +500,31 @@ pub fn capsule_remove() -> Result<(), u32> {
     status(capsule_install(capsule_op::REMOVE, 0, core::ptr::null(), 0))
 }
 
+/// Copies the current host-request challenge into `out`.
+#[cfg(target_arch = "arm")]
+pub fn capsule_challenge(
+    out: &mut [u8; maataa_link::host_auth::CHALLENGE_BYTES],
+) -> Result<(), u32> {
+    status(capsule_install(
+        capsule_op::CHALLENGE,
+        0,
+        out.as_mut_ptr(),
+        out.len(),
+    ))
+}
+
+/// Hands a signed host request (`[signature 64, operation, args..]`) to
+/// the kernel, which checks and carries it out.
+#[cfg(target_arch = "arm")]
+pub fn capsule_signed(request: &[u8]) -> Result<(), u32> {
+    status(capsule_install(
+        capsule_op::SIGNED,
+        0,
+        request.as_ptr(),
+        request.len(),
+    ))
+}
+
 /// Describes the installed capsule (`crate::installed::encode_info`).
 #[cfg(target_arch = "arm")]
 pub fn capsule_info(out: &mut [u8]) -> Result<usize, u32> {
@@ -833,6 +865,50 @@ mod kernel {
         }
     }
 
+    /// Checks a signed host request and carries it out (src/hostauth.rs).
+    fn signed_request(request: &[u8]) -> u32 {
+        use maataa_link::host_auth::{op, MAX_ARGS, SIGNATURE_BYTES};
+        if request.len() < SIGNATURE_BYTES + 1 || request.len() > SIGNATURE_BYTES + 1 + MAX_ARGS {
+            return E_TOOLONG;
+        }
+        let mut signature = [0u8; SIGNATURE_BYTES];
+        signature.copy_from_slice(&request[..SIGNATURE_BYTES]);
+        let operation = request[SIGNATURE_BYTES];
+        let args = &request[SIGNATURE_BYTES + 1..];
+        if !crate::hostauth::accept(
+            operation,
+            args,
+            &signature,
+            &crate::capsule::CAPSULE_PUBLIC_KEY,
+        ) {
+            crate::logging::kprintln!(
+                "host request: refused: bad signature, or not for this board and challenge"
+            );
+            return E_PERM;
+        }
+        match operation {
+            op::REMOVE => crate::installed::remove(args),
+            op::COMMIT => crate::installed::commit(args),
+            op::STORE_PUT => {
+                use crate::storage::persist;
+                let Some((&key, value)) = args.split_first() else {
+                    return E_TOOLONG;
+                };
+                // Signed, the host may write any task key; never a kernel key.
+                if !persist::task_key_allowed(key as u32) {
+                    return E_PERM;
+                }
+                match persist::put(key, value) {
+                    None => E_NOT_SUPPORTED,
+                    Some(Ok(())) => 0,
+                    Some(Err(persist::StoreError::Full)) => E_FULL,
+                    Some(Err(_)) => E_NOT_SUPPORTED,
+                }
+            }
+            _ => E_NOT_SUPPORTED,
+        }
+    }
+
     fn sys_capsule_install(r0: u32, ptr: usize, len: usize) -> u32 {
         let stack = crate::sched::current_stack();
         let offset = (r0 >> 8) as usize;
@@ -846,8 +922,37 @@ mod kernel {
                 let data = unsafe { core::slice::from_raw_parts(ptr as *const u8, len) };
                 crate::installed::write(offset, data)
             }
-            capsule_op::COMMIT => crate::installed::commit(),
-            capsule_op::REMOVE => crate::installed::remove(),
+            capsule_op::COMMIT | capsule_op::REMOVE => {
+                crate::logging::kprintln!(
+                    "capsule install: refused: commit and remove need a signed request"
+                );
+                E_PERM
+            }
+            capsule_op::CHALLENGE => {
+                use maataa_link::host_auth::CHALLENGE_BYTES;
+                if len < CHALLENGE_BYTES || !writable_allowed(ptr, CHALLENGE_BYTES, stack) {
+                    return REFUSED;
+                }
+                match crate::hostauth::challenge() {
+                    Some(challenge) => {
+                        // SAFETY: the range was checked to lie in the caller's own stack.
+                        let out = unsafe {
+                            core::slice::from_raw_parts_mut(ptr as *mut u8, CHALLENGE_BYTES)
+                        };
+                        out.copy_from_slice(&challenge);
+                        0
+                    }
+                    None => E_NOT_SUPPORTED,
+                }
+            }
+            capsule_op::SIGNED => {
+                if !buffer_allowed(ptr, len, stack) {
+                    return REFUSED;
+                }
+                // SAFETY: the range was checked to be flash or the caller's stack.
+                let request = unsafe { core::slice::from_raw_parts(ptr as *const u8, len) };
+                signed_request(request)
+            }
             capsule_op::INFO => {
                 if !writable_allowed(ptr, len, stack) {
                     return REFUSED;

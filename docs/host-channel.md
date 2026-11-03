@@ -53,9 +53,11 @@ it.
 | STORE_PUT | `0x06` | `[key, value…]`; an empty value deletes | `0x86` | none |
 | CAPSULE_BEGIN | `0x07` | `[image length u32]` | `0x87` | none |
 | CAPSULE_WRITE | `0x08` | `[offset u32, up to 192 image bytes]` | `0x88` | none |
-| CAPSULE_COMMIT | `0x09` | none | `0x89` | none, or ERROR 9 if the kernel did not accept the image |
-| CAPSULE_REMOVE | `0x0A` | none | `0x8A` | none, or ERROR 8 if nothing is installed |
+| CAPSULE_COMMIT | `0x09` | none | `0x89` | refused (ERROR 9) after alpha.7: a commit must be a SIGNED request |
+| CAPSULE_REMOVE | `0x0A` | none | `0x8A` | refused (ERROR 9) after alpha.7: a remove must be a SIGNED request |
 | CAPSULE_INFO | `0x0B` | none | `0x8B` | `[version u32, capabilities u32, image length u32, name length, name…]`, or ERROR 8 |
+| CHALLENGE | `0x0C` | none | `0x8C` | `[chip id 12, boot count u32, sequence u32]` ([SECURITY_DESIGN.md](SECURITY_DESIGN.md)), or ERROR 6 without a store |
+| SIGNED | `0x0D` | `[signature 64, operation, arguments…]`: 1 remove (installed name), 2 store put (`[key, value…]`, any key 16–63), 3 commit (the image's 64-byte signature) | `0x8D` | none, or ERROR 9 (bad signature, stale challenge, another capsule or image) / ERROR 8 (nothing installed) |
 
 The CAPSULE_* requests install a capsule at run time
 ([capsules.md](capsules.md#installing-a-capsule-at-run-time)). Task 6 serves

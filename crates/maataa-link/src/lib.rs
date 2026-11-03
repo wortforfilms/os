@@ -35,6 +35,62 @@ pub const CAPSULE_CHUNK: usize = 192;
 /// Longest PING payload the kernel echoes.
 pub const MAX_PING: usize = 64;
 
+/// Signed host requests (docs/SECURITY_DESIGN.md, Part A). A request that
+/// changes the board carries an ed25519 signature by the capsule key over
+/// [`LABEL`](host_auth::LABEL), the board's current challenge, the
+/// operation and its arguments. The board keeps no secret: it checks with
+/// the public key it already has.
+pub mod host_auth {
+    /// Keeps host-request signatures apart from capsule signatures.
+    pub const LABEL: &[u8] = b"maataa-host-v1";
+    /// Chip id (12), boot count (u32 LE), sequence in this boot (u32 LE).
+    pub const CHALLENGE_BYTES: usize = 20;
+    pub const SIGNATURE_BYTES: usize = 64;
+    /// Longest arguments: a store put (key and a 64-byte value).
+    pub const MAX_ARGS: usize = 65;
+    /// The longest signed message.
+    pub const MAX_MESSAGE: usize = LABEL.len() + CHALLENGE_BYTES + 1 + MAX_ARGS;
+
+    /// Operations of a `SIGNED` request.
+    pub mod op {
+        /// Arguments: the installed capsule's name.
+        pub const REMOVE: u8 = 1;
+        /// Arguments: `[key, value..]` (an empty value deletes).
+        pub const STORE_PUT: u8 = 2;
+        /// Arguments: the 64-byte signature of the image sent with
+        /// `CAPSULE_BEGIN` / `CAPSULE_WRITE`.
+        pub const COMMIT: u8 = 3;
+    }
+
+    /// The challenge bytes for `chip_id`, `boot_count` and `sequence`.
+    pub fn challenge(chip_id: &[u8; 12], boot_count: u32, sequence: u32) -> [u8; CHALLENGE_BYTES] {
+        let mut out = [0u8; CHALLENGE_BYTES];
+        out[..12].copy_from_slice(chip_id);
+        out[12..16].copy_from_slice(&boot_count.to_le_bytes());
+        out[16..].copy_from_slice(&sequence.to_le_bytes());
+        out
+    }
+
+    /// Writes the signed message into `out`; returns its length, or `None`
+    /// if the arguments are too long.
+    pub fn message(
+        challenge: &[u8; CHALLENGE_BYTES],
+        operation: u8,
+        args: &[u8],
+        out: &mut [u8; MAX_MESSAGE],
+    ) -> Option<usize> {
+        if args.len() > MAX_ARGS {
+            return None;
+        }
+        let mut n = 0;
+        for part in [LABEL, &challenge[..], &[operation], args] {
+            out[n..n + part.len()].copy_from_slice(part);
+            n += part.len();
+        }
+        Some(n)
+    }
+}
+
 /// Message kinds. Requests come from the host; replies set the top bit.
 pub mod kind {
     pub const PING: u8 = 0x01;
@@ -57,6 +113,15 @@ pub mod kind {
     /// Reply `[version u32, capabilities u32, image length u32, name length
     /// u8, name..]`, or ERROR `NOT_FOUND`.
     pub const CAPSULE_INFO: u8 = 0x0B;
+    /// No payload; reply `[chip id 12, boot count u32, sequence u32]`
+    /// ([`super::host_auth`]), or ERROR `UNAVAILABLE` without a store.
+    pub const CHALLENGE: u8 = 0x0C;
+    /// Payload `[signature 64, operation, arguments..]` ([`super::host_auth`]);
+    /// reply empty, or ERROR `REFUSED` / `NOT_FOUND`.
+    pub const SIGNED: u8 = 0x0D;
+
+    pub const CHALLENGE_REPLY: u8 = 0x8C;
+    pub const SIGNED_REPLY: u8 = 0x8D;
 
     /// Sent once by the kernel when the channel starts; payload as INFO.
     pub const HELLO: u8 = 0x80;
@@ -918,5 +983,25 @@ mod tests {
             (kind::ERROR, 2)
         );
         assert_eq!(out[..2], [error_code::UNKNOWN_KIND, 0x7E]);
+    }
+
+    #[test]
+    fn host_auth_message_is_label_challenge_operation_args() {
+        use crate::host_auth::*;
+        let c = challenge(b"0123456789ab", 7, 2);
+        assert_eq!(&c[..12], b"0123456789ab");
+        assert_eq!(c[12..16], 7u32.to_le_bytes());
+        assert_eq!(c[16..], 2u32.to_le_bytes());
+        let mut out = [0u8; MAX_MESSAGE];
+        let n = message(&c, op::REMOVE, b"panini", &mut out).unwrap();
+        assert_eq!(n, LABEL.len() + 20 + 1 + 6);
+        assert_eq!(&out[..LABEL.len()], LABEL);
+        assert_eq!(out[LABEL.len() + 20], op::REMOVE);
+        assert_eq!(&out[n - 6..n], b"panini");
+        assert_eq!(
+            message(&c, op::STORE_PUT, &[0; MAX_ARGS + 1], &mut out),
+            None
+        );
+        assert!(message(&c, op::STORE_PUT, &[0; MAX_ARGS], &mut out).is_some());
     }
 }

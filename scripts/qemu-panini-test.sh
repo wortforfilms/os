@@ -70,7 +70,7 @@ fail() {
 log_has() { tr -d '\r' <"$WORK/run.log" | grep -q "$1"; }
 
 rm -f "$AREA_FILE"
-boot_and_talk capsule-install "$PANINI" || fail "install"
+boot_and_talk --dev capsule-install "$PANINI" || fail "install"
 log_has '^capsule install: panini version 9 accepted; it runs from the next boot$' \
     || fail "the kernel did not accept panini"
 
@@ -126,7 +126,7 @@ if boot_and_talk sandhi "deva+in+dra"; then
 fi
 grep -q 'refused by the board and by the host' "$WORK/tool.log" || fail "sandhi: malformed request"
 
-boot_and_talk capsule-remove || fail "remove"
+boot_and_talk --dev capsule-remove || fail "remove"
 boot_and_talk put 41 || fail "delete key 41"
 rm -f "$AREA_FILE"
 echo "PASS: panini capsule (sandhi answered through the store; malformed request refused)"

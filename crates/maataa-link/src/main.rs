@@ -18,7 +18,11 @@ use std::io::{ErrorKind, Read, Write};
 use std::process::ExitCode;
 use std::time::{Duration, Instant};
 
-const USAGE: &str = "usage: maataa-link (--serial DEVICE | --qemu-socket PATH) [--timeout-ms N] [--require-hello] COMMAND
+const USAGE: &str =
+    "usage: maataa-link (--serial DEVICE | --qemu-socket PATH) [--timeout-ms N] [--require-hello]
+                   [--dev | --seed-file FILE] COMMAND
+Signed requests (docs/SECURITY_DESIGN.md) are signed with the capsule key:
+  --dev for a development kernel, --seed-file ~/.maataa/capsule-release.seed for a release one.
 commands:
   hello           wait for the kernel's HELLO frame (sent once at boot)
   ping [TEXT]     round-trip TEXT (default: maataa)
@@ -29,11 +33,14 @@ commands:
   put KEY [TEXT]  write TEXT to persistent key KEY; no TEXT deletes it
   store-stress N  write N 64-byte values to key 63 (forces flash compaction)
   boot-info       boot count, last reset cause and last crash (kernel keys 0 and 1)
-  capsule-install FILE   send a signed capsule image (.mcap); it runs from the next boot
+  capsule-install FILE   send a signed capsule image (.mcap) and commit it with a signed
+                  request; it runs from the next boot (without a signer the commit is refused)
   capsule-install-no-commit FILE   begin and write FILE but never commit
                   (tests an interrupted install; the installed capsule stays)
   capsule-info    the installed run-time capsule
-  capsule-remove  remove the installed run-time capsule (from the next boot)
+  capsule-remove  remove the installed run-time capsule (from the next boot), signed
+  put-signed KEY [TEXT]  signed write to any task key 16..63 (no TEXT deletes it)
+  signed-replay-test     sends one signed put to key 21 twice: the second must be refused
   sandhi A+B      ask the panini capsule to join two words (Devanagari or SLP1),
                   and check its answer against this tool's own (docs/panini.md)
   selftest        all of the above plus two deliberate bad frames";
@@ -54,6 +61,50 @@ struct Channel {
     timeout: Duration,
     ignored_chunks: u32,
     hello: Option<Vec<u8>>,
+    /// Seed that signs host requests (`--dev` or `--seed-file`).
+    signer: Option<[u8; 32]>,
+}
+
+/// The 64 hex characters of a seed file (`maataa-capsule keygen`).
+fn read_seed(path: &str) -> Result<[u8; 32], String> {
+    let text = std::fs::read_to_string(path).map_err(|e| format!("{path}: {e}"))?;
+    let text = text.trim();
+    if text.len() != 64 {
+        return Err(format!("{path}: expected 64 hex characters"));
+    }
+    let mut seed = [0u8; 32];
+    for (i, byte) in seed.iter_mut().enumerate() {
+        *byte = u8::from_str_radix(&text[2 * i..2 * i + 2], 16)
+            .map_err(|_| format!("{path}: not hex"))?;
+    }
+    Ok(seed)
+}
+
+/// A signed request: asks for the board's challenge, signs operation and
+/// arguments under it, and sends it (`maataa_link::host_auth`).
+fn signed_payload(ch: &mut Channel, operation: u8, args: &[u8]) -> Result<Vec<u8>, String> {
+    use maataa_link::host_auth::{message, CHALLENGE_BYTES, MAX_MESSAGE};
+    let seed = ch.signer.ok_or(
+        "this request must be signed: give --dev (development kernel) or --seed-file FILE",
+    )?;
+    let challenge = expect(ch.request(kind::CHALLENGE, &[])?, kind::CHALLENGE_REPLY)
+        .map_err(|e| format!("challenge: {e}"))?;
+    let challenge: [u8; CHALLENGE_BYTES] = challenge
+        .try_into()
+        .map_err(|_| "challenge: not 20 bytes".to_string())?;
+    let mut buf = [0u8; MAX_MESSAGE];
+    let len = message(&challenge, operation, args, &mut buf).ok_or("arguments too long")?;
+    let mut payload = maataa_capsule::sign_detached(&buf[..len], &seed).to_vec();
+    payload.push(operation);
+    payload.extend_from_slice(args);
+    Ok(payload)
+}
+
+fn signed(ch: &mut Channel, operation: u8, args: &[u8]) -> Result<(), String> {
+    let payload = signed_payload(ch, operation, args)?;
+    expect(ch.request(kind::SIGNED, &payload)?, kind::SIGNED_REPLY)
+        .map(|_| ())
+        .map_err(|e| format!("{e} (the kernel log says why)"))
 }
 
 impl Channel {
@@ -321,11 +372,22 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
                     image.len()
                 ));
             }
-            expect(
-                ch.request(kind::CAPSULE_COMMIT, &[])?,
-                kind::CAPSULE_COMMIT_REPLY,
-            )
-            .map_err(|e| format!("commit: {e} (the kernel log says why)"))?;
+            if ch.signer.is_some() {
+                let signature =
+                    maataa_capsule::image_signature(&image).ok_or("not a capsule image")?;
+                signed(ch, maataa_link::host_auth::op::COMMIT, &signature)
+                    .map_err(|e| format!("commit: {e}"))?;
+            } else {
+                // Unsigned commits are refused by the kernel; sent anyway so a
+                // test can see that.
+                expect(
+                    ch.request(kind::CAPSULE_COMMIT, &[])?,
+                    kind::CAPSULE_COMMIT_REPLY,
+                )
+                .map_err(|e| {
+                    format!("commit: {e} (an install must be committed with --dev or --seed-file)")
+                })?;
+            }
             Ok(format!(
                 "installed {path}: {} bytes in {} ms; it runs from the next boot",
                 image.len(),
@@ -353,12 +415,52 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
             ))
         }
         "capsule-remove" => {
-            let reply = ch.request(kind::CAPSULE_REMOVE, &[])?;
+            if ch.signer.is_none() {
+                // Refused by the kernel since signed requests exist.
+                let reply = ch.request(kind::CAPSULE_REMOVE, &[])?;
+                expect(reply, kind::CAPSULE_REMOVE_REPLY)
+                    .map_err(|e| format!("{e} (a remove must be signed: --dev or --seed-file)"))?;
+                return Ok("removed".into());
+            }
+            let reply = ch.request(kind::CAPSULE_INFO, &[])?;
             if reply.kind == kind::ERROR && reply.payload.first() == Some(&error_code::NOT_FOUND) {
                 return Ok("no capsule installed".into());
             }
-            expect(reply, kind::CAPSULE_REMOVE_REPLY)?;
-            Ok("removed; the capsule no longer runs from the next boot".into())
+            let info = expect(reply, kind::CAPSULE_INFO_REPLY)?;
+            if info.len() < 13 || info.len() != 13 + info[12] as usize {
+                return Err("malformed CAPSULE_INFO reply".into());
+            }
+            let name = info[13..].to_vec();
+            signed(ch, maataa_link::host_auth::op::REMOVE, &name)?;
+            Ok(format!(
+                "removed {}; it no longer runs from the next boot",
+                String::from_utf8_lossy(&name)
+            ))
+        }
+        "put-signed" => {
+            let key = args
+                .first()
+                .and_then(|k| k.parse::<u8>().ok())
+                .ok_or("put-signed needs a key 16..63")?;
+            let text = args.get(1).map(String::as_str).unwrap_or("");
+            let mut put = vec![key];
+            put.extend_from_slice(text.as_bytes());
+            signed(ch, maataa_link::host_auth::op::STORE_PUT, &put)?;
+            Ok(format!("key {key}: stored {} bytes (signed)", text.len()))
+        }
+        "signed-replay-test" => {
+            let payload = signed_payload(ch, maataa_link::host_auth::op::STORE_PUT, b"\x15replay")?;
+            expect(ch.request(kind::SIGNED, &payload)?, kind::SIGNED_REPLY)
+                .map_err(|e| format!("first send: {e}"))?;
+            match ch.request(kind::SIGNED, &payload)? {
+                r if r.kind == kind::SIGNED_REPLY => {
+                    Err("the same signed request was accepted twice".into())
+                }
+                r if r.kind == kind::ERROR && r.payload.first() == Some(&error_code::REFUSED) => {
+                    Ok("signed request accepted once, refused when replayed".into())
+                }
+                r => Err(format!("unexpected reply {:#04x} to the replay", r.kind)),
+            }
         }
         "boot-info" => {
             let count = expect(ch.request(kind::STORE_GET, &[0])?, kind::STORE_GET_REPLY)?;
@@ -692,6 +794,7 @@ fn main() -> ExitCode {
     let mut socket = None;
     let mut timeout_ms = 2_000u64;
     let mut require_hello = false;
+    let mut signer = None;
     while let Some(first) = args.first().cloned() {
         let value = || args.get(1).cloned();
         match first.as_str() {
@@ -705,6 +808,22 @@ fn main() -> ExitCode {
                 args.remove(0);
                 continue;
             }
+            "--dev" => {
+                signer = Some(maataa_capsule::DEV_SEED);
+                args.remove(0);
+                continue;
+            }
+            "--seed-file" => match value().map(|path| read_seed(&path)) {
+                Some(Ok(seed)) => signer = Some(seed),
+                Some(Err(e)) => {
+                    eprintln!("maataa-link: {e}");
+                    return ExitCode::from(2);
+                }
+                None => {
+                    eprintln!("maataa-link: --seed-file needs a file");
+                    return ExitCode::from(2);
+                }
+            },
             "-h" | "--help" => {
                 println!("{USAGE}");
                 return ExitCode::SUCCESS;
@@ -740,6 +859,7 @@ fn main() -> ExitCode {
         timeout,
         ignored_chunks: 0,
         hello: None,
+        signer,
     };
 
     if require_hello || command == "selftest" {

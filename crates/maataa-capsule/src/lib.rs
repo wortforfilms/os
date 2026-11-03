@@ -384,6 +384,36 @@ pub fn sign(
     Ok(image)
 }
 
+/// Checks a detached ed25519 signature over `message` (host requests,
+/// docs/SECURITY_DESIGN.md). Used by the kernel; no allocation.
+pub fn verify_detached(message: &[u8], signature: &[u8; 64], public_key: &[u8; 32]) -> bool {
+    let key = PublicKey::new(*public_key);
+    match Signature::from_slice(signature) {
+        Ok(signature) => key.verify(message, &signature).is_ok(),
+        Err(_) => false,
+    }
+}
+
+/// Signs `message` with `seed` (the host's side of [`verify_detached`]). No
+/// allocation; the kernel never calls it.
+pub fn sign_detached(message: &[u8], seed: &[u8; 32]) -> [u8; 64] {
+    let key_pair = ed25519_compact::KeyPair::from_seed(ed25519_compact::Seed::new(*seed));
+    *key_pair.sk.sign(message, None)
+}
+
+/// The 64-byte signature that ends a well-formed image (not checked). It
+/// names the image exactly, so a host request can refer to an image by it.
+pub fn image_signature(image: &[u8]) -> Option<[u8; 64]> {
+    let (_, _, payload_len) = parse_header(image).ok()?;
+    let signed_len = HEADER_BYTES + payload_len;
+    if image.len() != signed_len + SIGNATURE_BYTES {
+        return None;
+    }
+    let mut signature = [0u8; 64];
+    signature.copy_from_slice(&image[signed_len..]);
+    Some(signature)
+}
+
 /// Host side: the public key for a seed.
 #[cfg(any(test, feature = "cli"))]
 pub fn public_key(seed: &[u8; 32]) -> [u8; 32] {
@@ -591,5 +621,31 @@ mod tests {
                 verify(image, &dev_key()).unwrap_or_else(|e| panic!("{file}: {}", e.as_str()));
             assert_eq!(capsule.name, file);
         }
+    }
+
+    #[test]
+    fn detached_signatures_check_message_and_key() {
+        let signature = sign_detached(b"maataa-host-v1 test", &DEV_SEED);
+        let key = public_key(&DEV_SEED);
+        assert!(verify_detached(b"maataa-host-v1 test", &signature, &key));
+        assert!(!verify_detached(b"maataa-host-v1 tesT", &signature, &key));
+        assert!(!verify_detached(
+            b"maataa-host-v1 test",
+            &signature,
+            &public_key(&[7; 32])
+        ));
+        let mut bad = signature;
+        bad[0] ^= 1;
+        assert!(!verify_detached(b"maataa-host-v1 test", &bad, &key));
+    }
+
+    #[test]
+    fn image_signature_is_the_last_64_bytes_of_a_well_formed_image() {
+        let image = sign("ctl", cap::SEND, b"payload", &DEV_SEED).unwrap();
+        assert_eq!(
+            image_signature(&image).unwrap()[..],
+            image[image.len() - 64..]
+        );
+        assert_eq!(image_signature(&image[..image.len() - 1]), None);
     }
 }

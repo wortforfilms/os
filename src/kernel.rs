@@ -278,7 +278,10 @@ pub fn run() -> Grants {
                 maataa_store::key_id(&crate::storage::persist::device_store_key())
             );
             match crate::storage::persist::count_boot() {
-                Ok(count) => kprintln!("boot count: {}", count),
+                Ok(count) => {
+                    kprintln!("boot count: {}", count);
+                    crate::hostauth::set_boot_count(count);
+                }
                 Err(error) => kprintln!("boot count: not saved: {}", error.as_str()),
             }
             if let Some(Err(error)) = crate::storage::persist::put(
