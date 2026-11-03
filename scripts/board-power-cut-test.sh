@@ -93,7 +93,9 @@ while [ "$round" -lt "$ROUNDS" ] && [ "$tries" -lt $((ROUNDS * 3)) ]; do
         round=$((round - 1))
         continue
     fi
-    if "${L[@]}" power-cut-check "$acked" 2>&1 | tee -a "$LOG" | grep -q '^PASS'; then
+    check="$("${L[@]}" power-cut-check "$acked" 2>&1)"
+    say "$check"
+    if printf '%s\n' "$check" | grep -q '^PASS'; then
         passed=$((passed + 1))
     fi
 done

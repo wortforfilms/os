@@ -273,6 +273,12 @@ The host channel `selftest` now also checks these:
   in flight), 2143, 2340. The script wrongly repeated round 3 because its
   second boot-info request failed; it now retries one request up to five
   times and logs and uses that same reply.
+- Third board run, 2026-11-04 00:31, with that fix: three power cuts, after
+  799, 1,945 and 2,631 acknowledged writes, each with a new boot (330, 331,
+  332, reset cause power-on) and each reading back the last acknowledged
+  value. One more pull, after 15 writes, only stopped the serial link (a
+  timeout, boot count still 330); the script said "NO POWER CUT" and
+  repeated the round, as intended.
 
 ## Board verification (NUCLEO-F411RE, 2026-10-31)
 
