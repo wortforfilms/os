@@ -1,4 +1,42 @@
-# Unreleased (after v0.1.0-alpha.8)
+# Maataa OS v0.1.0-alpha.9
+
+## Release type
+
+Evidence alpha for QEMU (`netduinoplus2`) and the NUCLEO-F411RE board.
+Three things that were only tested in QEMU or the host are now shown on
+the board: the store survives power cuts during writes (9 real cuts, each
+reading back the last acknowledged value or the one in flight), priority
+inheritance (with it H gets the lock before M runs; without it L starves
+holding the lock), and panini capsule 10. New in the code: 8.3.19 after
+ayadi in the sandhi crate and capsule (decision (b)), `E_FULL` checked
+through the `svc` instruction, and a CI check that the docs still say what
+the code does. The kernel's syscalls, the host-channel protocol and the
+sandhi wire format (keys 40/41) are unchanged. Every item passed the QEMU
+smoke test (15/15) and CI.
+
+**Changed for users:** `join` and the panini capsule now answer
+`hare+iha` with `hara iha` (rule 10, 8.3.19), not `harayiha`; o/O still
+give av/Av. The first word is taken as a pada, so a stem and an affix
+(`hare+e`, `nE+aka`) no longer give `haraye`, `nAyaka`. Capsule 10 must be
+installed with a signed commit (`maataa-link --dev capsule-install
+assets/capsules/panini.mcap` on a development kernel).
+
+## Validation
+
+```bash
+./scripts/smoke-alpha.sh          # 15 checks, QEMU (8: EFULL through the svc; 15: hare+iha, vizRo+iha)
+./scripts/sizecheck.sh            # all four kernels within 128 KiB, no warning
+./scripts/check-docs.py           # docs against the code (CI also runs it with --sizes)
+./scripts/board-test.sh           # NUCLEO-F411RE: build, flash, host-channel checks
+```
+
+Board runs for this release, 2026-11-04, development key: three power-cut
+runs (`Board power cut test.command`; 9 cuts, all PASS), the priority
+inheritance test (`Board inversion test.command`; both kernels PASS, then
+the normal kernel back), and panini 10 installed by a signed commit
+(`hare+iha` -> `hara iha` MATCH).
+
+## Changes
 
 | Feature | Board | Docs |
 | --- | --- | --- |

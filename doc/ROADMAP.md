@@ -1,6 +1,6 @@
 # Maataa OS Roadmap
 
-Status at `v0.1.0-alpha.8`. A checked item
+Status at `v0.1.0-alpha.9`. A checked item
 is implemented and tested; where it was run is in
 [EVIDENCE_MATRIX.md](../docs/EVIDENCE_MATRIX.md). Phase 1 was the
 alpha.1 plan; later phases are kept with their real outcome.
@@ -57,7 +57,7 @@ alpha.1 plan; later phases are kept with their real outcome.
 
 ## Phase 5: Production Readiness
 
-- [x] CI smoke checks (15 checks, clippy, size check)
+- [x] CI smoke checks (15 checks, clippy, size check, docs drift check)
 - [ ] Hardware test in CI (board runs are manual)
 - [x] Release artifacts (`scripts/release.sh`, signed with release keys)
 - [ ] Outside security review
@@ -69,4 +69,5 @@ alpha.1 plan; later phases are kept with their real outcome.
 - [x] Vowel, visarga and hal sandhi, rules 1–31, in the library and the
   capsule ([rule registry](../docs/PANINI_RULE_REGISTRY.md))
 - [x] Rules 32–34 and duals with caller `Hints` (library only)
+- [x] 8.3.19 after ayadi (y dropped after e/E, v kept after o/O), capsule 10
 - [ ] Hints in the capsule or the wire format

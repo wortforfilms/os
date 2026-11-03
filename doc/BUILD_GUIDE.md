@@ -1,6 +1,6 @@
 # Maataa OS Build Guide
 
-How to build, test and run Maataa OS at `v0.1.0-alpha.8`, in QEMU and on a
+How to build, test and run Maataa OS at `v0.1.0-alpha.9`, in QEMU and on a
 NUCLEO-F411RE.
 
 ## Prerequisites

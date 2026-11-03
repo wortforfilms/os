@@ -52,7 +52,7 @@ formatted and sealed.
 ## Flashing it
 
 ```bash
-probe-rs download --chip STM32F411RETx dist/maataa-os-v0.1.0-alpha.8-f411/maataa-os.elf
+probe-rs download --chip STM32F411RETx dist/maataa-os-v0.1.0-alpha.9-f411/maataa-os.elf
 probe-rs reset --chip STM32F411RETx
 ```
 

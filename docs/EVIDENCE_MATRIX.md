@@ -2,7 +2,7 @@
 
 For each feature: where it is implemented, which test covers it, whether CI
 runs that test, and whether it was run on a NUCLEO-F411RE. At `7b99bdb`
-(version `0.1.0-alpha.8`; items after it are listed as unreleased in
+(version `0.1.0-alpha.9`; items after it are listed as unreleased in
 [release notes](../doc/RELEASE_NOTES.md)).
 
 - **CI** is `.github/workflows/verify.yml`: `cargo fmt --check`, clippy (host
