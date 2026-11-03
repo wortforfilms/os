@@ -55,7 +55,14 @@ cargo test -p maataa-sandhi --features alloc
 ```
 
 CI (`.github/workflows/verify.yml`) also runs `cargo fmt --check` and clippy
-with warnings as errors on the host crates and on nine kernel feature sets.
+with warnings as errors on the host crates and on eight kernel feature sets.
+
+`./scripts/check-docs.py` checks that the docs still say what the code does:
+the version, the number of smoke checks, the SVC call and error tables and
+limits in `docs/ABI_SVC.md`, and the table in `docs/size.md` (with
+`--sizes FILE`, against the output of `sizecheck.sh`; a build more than
+2 KB away from the table fails). CI runs it; any `DRIFT:` line is a doc to
+fix (or a code change the docs have not caught up with).
 
 ## Host tools
 

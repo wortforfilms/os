@@ -3,6 +3,7 @@
 | Feature | Board | Docs |
 | --- | --- | --- |
 | Power cut during a store write, on the board: `scripts/board-power-cut-test.sh` (`Board power cut test.command`) with `maataa-link power-cut-write` / `power-cut-check`: numbered values to key 63, the USB cable pulled while they are written, then key 63 must hold the last acknowledged value or the one in flight | yes (2026-11-04: three runs, 9 power cuts, all PASS, incl. one write in flight and cuts after compaction) | docs/persistence.md |
+| Drift check: `scripts/check-docs.py` compares the docs with the code (version, number of smoke checks, kernel lint sets, the SVC call and error tables and limits, the size table and the measured sizes within 2 KB); CI runs it twice (before the build, and after the size check with `--sizes`). It found BUILD_GUIDE saying nine kernel lint sets (CI has eight) | - | doc/BUILD_GUIDE.md |
 
 # Maataa OS v0.1.0-alpha.8
 

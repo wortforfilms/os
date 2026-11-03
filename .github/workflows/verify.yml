@@ -20,6 +20,10 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Format
         run: cargo fmt --all -- --check
+      # The docs must still say what the code does (version, smoke checks,
+      # SVC ABI); the size table is checked again after the size check.
+      - name: Docs match the code
+        run: ./scripts/check-docs.py
       - name: Lint host crates
         run: cargo clippy -p maataa-store -p maataa-capsule -p maataa-wasm -p maataa-link -p hemant-core -p maataa-sandhi --all-targets --all-features -- -D warnings
       - name: Lint the kernel for each board and test build
@@ -35,4 +39,6 @@ jobs:
       # Both board builds, F411 has no semihosting, host tests, QEMU boot
       # report and task order, and the clock self-test under -icount.
       - run: ./scripts/smoke-alpha.sh
-      - run: ./scripts/sizecheck.sh
+      - run: set -o pipefail; ./scripts/sizecheck.sh | tee target/sizecheck.txt
+      - name: Size table matches the build
+        run: ./scripts/check-docs.py --sizes target/sizecheck.txt
