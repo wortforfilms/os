@@ -5,6 +5,7 @@
 | Power cut during a store write, on the board: `scripts/board-power-cut-test.sh` (`Board power cut test.command`) with `maataa-link power-cut-write` / `power-cut-check`: numbered values to key 63, the USB cable pulled while they are written, then key 63 must hold the last acknowledged value or the one in flight | yes (2026-11-04: three runs, 9 power cuts, all PASS, incl. one write in flight and cuts after compaction) | docs/persistence.md |
 | Drift check: `scripts/check-docs.py` compares the docs with the code (version, number of smoke checks, kernel lint sets, the SVC call and error tables and limits, the size table and the measured sizes within 2 KB); CI runs it twice (before the build, and after the size check with `--sizes`). It found BUILD_GUIDE saying nine kernel lint sets (CI has eight) | - | doc/BUILD_GUIDE.md |
 | `E_FULL` through the SVC: task 3 fills the kernel queue with 16 messages to itself, gets `EFULL`, and takes all 16 back at once (smoke 8). `E_MUTEX_FULL` and `E_SEMAPHORE_FULL` cannot happen through the SVC (9 waiter places, at most 9 tasks, a waiting task cannot ask again): docs/SVC_TEST_COVERAGE.md now says so | - | docs/SVC_TEST_COVERAGE.md |
+| Priority inheritance on the board: `scripts/board-inversion-test.sh` (`Board inversion test.command`) flashes the `inversion-test` kernel and its `pi-off` twin, checks the USART2 log as smoke 14 does in QEMU, then flashes the normal kernel back | not yet run | docs/engineering/SCHEDULER.md |
 
 # Maataa OS v0.1.0-alpha.8
 

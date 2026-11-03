@@ -37,7 +37,7 @@ runs that test, and whether it was run on a NUCLEO-F411RE. At `7b99bdb`
 | Feature | Source | Test | CI | Board |
 | --- | --- | --- | --- | --- |
 | strict-priority scheduler | `src/sched/` | 30 unit tests; smoke 8 (scheduler line, mutex and semaphore hand-off) | yes | yes |
-| priority inheritance, robust mutexes | `src/sched/` | unit tests; smoke 14 | yes | no (QEMU and host only) |
+| priority inheritance, robust mutexes | `src/sched/` | unit tests; smoke 14; `scripts/board-inversion-test.sh` | yes | not yet (script ready, not run) |
 | MPU task isolation, kernel stack guard | `src/mpu.rs` | 5 unit tests; smoke 8 (task 4's kernel-RAM write and task 5's stack overflow are killed, kernel word untouched); `kernel-stack-test` clippy build | yes | yes |
 | capability mask on SVCs | `src/syscall.rs`, `src/sched/` | 6 syscall unit tests; smoke 8 (`ENOCAP` lines) | yes | yes |
 | IPC mailboxes | `src/ipc/` | unit tests in `src/ipc/` (19, 4 of them mailbox) | yes | yes |

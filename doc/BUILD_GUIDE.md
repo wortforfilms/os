@@ -84,7 +84,9 @@ target/release/maataa-link --serial /dev/cu.usbmodem11403 status
 On macOS the `.command` files in the repository root run the board steps by
 double-click: `Board test.command` (flash the normal kernel and check it),
 `Board capsule install.command`, `Board host channel.command`,
-`Board persistence check.command`, `Board watchdog test.command`,
+`Board persistence check.command`, `Board power cut test.command`,
+`Board inversion test.command` (priority inheritance, two test kernels,
+then the normal kernel again), `Board watchdog test.command`,
 `Flash kernel stack test.command`, `Nucleo reset check.command`. Keep the
 Mac awake while they run (they use `caffeinate`): when it sleeps, the
 ST-LINK resets the board.

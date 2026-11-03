@@ -90,6 +90,10 @@ computing for over a second, and runs it twice: with inheritance the high
 task gets the lock before the middle task finishes; built with `pi-off` it
 does not, and the starvation monitor reports the low task while it holds
 the lock. Both runs use `-icount shift=3`, so they are the same every time.
+`scripts/board-inversion-test.sh` (`Board inversion test.command`) runs the
+same two kernels on the NUCLEO-F411RE in real time (L works 0.4 s, M 3 s at
+100 MHz), with the same checks on the USART2 log, and then flashes the
+normal kernel back.
 
 ### Lock cycles
 
