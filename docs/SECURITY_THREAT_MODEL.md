@@ -58,9 +58,15 @@ chain of the toolchain and crates.
   status and telemetry, read and write task store keys (16–63), and begin,
   write, commit or remove a capsule. A commit still needs a valid signature
   and version, but `CAPSULE_REMOVE` needs nothing.
-- **Same-version reinstall is allowed.** The check is `version < installed`,
-  so an attacker with an old signed image of the *same* version can install
-  it again.
+- **Same-version reinstall is allowed, by decision (2026-11-03).** The
+  check is `version < installed`. Downgrades are stopped by the version
+  floor, not by the signature: older versions are signed by the same key,
+  so a valid old image is exactly what a downgrade would use. An image of
+  the *same* version installs again. That is kept on purpose: every change
+  to a capsule image bumps its version (project rule), so two different
+  images never share a version, and re-installing the same image is the way
+  to repair a board without a version bump. Changing the check to `<=`
+  would close that path and gain nothing as long as the rule holds.
 - **Store rollback.** Restoring an older whole bank is not detected unless
   the `otp-rollback` feature is built, and that feature is off by default and
   never written on the project's board. Records cut off the end of the newest
