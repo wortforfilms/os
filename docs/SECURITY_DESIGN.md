@@ -139,7 +139,9 @@ Before Part B, any task with the store capability could write any key
 task's `store_owner` (set by the kernel when it creates the task). Reads
 are unchanged: any key 0–63. The implemented table follows the proposal
 below, with one change: the host channel also writes key 41 (`maataa-link
-sandhi` clears an old answer before each request).
+sandhi` clears an old answer before each request). On the NUCLEO-F411RE on
+2026-11-03 (`d29a343`): panini 9 still answered (3 MATCH), the host's
+`put 32` was refused, and `put 21` was stored and read back.
 
 ### Who uses which key now
 
