@@ -94,3 +94,9 @@ opt-level = "z"
 lto = true
 codegen-units = 1
 panic = "abort"
+
+# Third-party crates (ed25519, ChaCha20-Poly1305, the HAL, ...) build without
+# overflow checks in debug builds too, as in release: 8 KB less on the F411.
+# The workspace's own crates and the kernel keep theirs (docs/size.md).
+[profile.dev.package."*"]
+overflow-checks = false

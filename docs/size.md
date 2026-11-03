@@ -6,7 +6,20 @@ builds all four kernels (F411 and QEMU, release and debug), fails any over
 128 KiB, and warns above 90%. The debug builds are the tighter limit, and
 CI's smoke test builds them.
 
-## Where it stands (2026-11-01, v0.1.0-alpha.3 + panini)
+## Where it stands (2026-11-03, after alpha.7 + signed host requests)
+
+| Build | Flash (bytes) | Use | Free |
+| --- | --- | --- | --- |
+| F411 release | 104,612 | 79.8% | 26,460 |
+| F411 debug | 110,268 | 84.1% | 20,804 |
+| QEMU debug | 110,648 | 84.4% | 20,424 |
+| QEMU release | 105,004 | 80.1% | 26,068 |
+
+The debug builds were at 90.2% and 90.4% (warning) after signed host
+requests; building third-party crates without overflow checks in debug
+builds took 8 KB off both (rule below).
+
+## Earlier: 2026-11-01, v0.1.0-alpha.3 + panini
 
 | Build | Flash (bytes) | Use | Free |
 | --- | --- | --- | --- |
@@ -57,7 +70,10 @@ reserved even with no capsule installed), six 2 KiB demo task stacks, and the
 - **`opt-level = "z"` for both profiles.** `"s"` is 1.8 KB larger, and
   `3` does not fit at all (about 47 KB larger).
 - **ed25519-compact with `opt_size`** (28 KB smaller than without).
-- **Debug builds** keep overflow checks but turn off debug assertions.
+- **Debug builds** keep overflow checks in the kernel and the workspace
+  crates, but turn off debug assertions, and third-party crates (ed25519,
+  ChaCha20-Poly1305, the HAL) build without overflow checks, as in release
+  (`[profile.dev.package."*"]` in `Cargo.toml`): 8 KB on the F411.
 
 ## What else could be cut
 
