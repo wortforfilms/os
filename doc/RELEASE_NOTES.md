@@ -3,6 +3,8 @@
 | Feature | Board | Docs |
 | --- | --- | --- |
 | Error codes through the `svc` instruction: task 2 makes seven calls the kernel must refuse (bad mutex and semaphore ids, unlock of an unowned mutex, recursive lock, park while holding a mutex, svc #20) and smoke check 8 checks each result. Found: an unknown call from a task returns `ENOCAP` (the mask refuses it first), not `E_PERM` as ABI_SVC.md said; docs corrected | - | docs/SVC_TEST_COVERAGE.md |
+| More refused calls through the SVC, checked by smoke 8: task 3's existing bad-buffer and missing-task lines (`EPERM`, `ENOTASK`), new length limits (SEND of 65 bytes, UART write of 257 bytes: `ETOOLONG`), and semaphore 3 overflowing after 65,535 posts (`ESEMOVERFLOW`). `E_MUTEX_FULL`, `E_SEMAPHORE_FULL` and `E_FULL` stay tested in the kernel functions only | - | docs/SVC_TEST_COVERAGE.md |
+| `doc/ARCHITECTURE.md` and `doc/BUILD_GUIDE.md` rewritten for alpha.7 (they still described the alpha.1 prototype) | - | doc/ARCHITECTURE.md |
 
 # Maataa OS v0.1.0-alpha.7
 

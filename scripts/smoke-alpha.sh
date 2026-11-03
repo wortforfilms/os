@@ -114,6 +114,15 @@ if rg -q '^capsule rejected' "$BOOT_LOG"; then
 fi
 rg -q '^capsule tamper check: rejected \(bad signature\)$' "$BOOT_LOG"
 rg -q '^task 3: led without capability -> ENOCAP$' "$BOOT_LOG"
+# Task 3's other refused calls: bad buffers, a missing task, length limits.
+for line in \
+    'send from kernel memory -> EPERM' \
+    'recv into flash -> EPERM' \
+    'send to task 12 -> ENOTASK' \
+    'send of 65 bytes -> ETOOLONG' \
+    'uart write of 257 bytes -> ETOOLONG'; do
+    rg -qxF "task 3: $line" "$BOOT_LOG"
+done
 # MPU (docs/kernel-mpu.md): task 4 writes kernel RAM and task 5 overflows
 # its stack; the kernel kills both, and the kernel word stays untouched.
 rg -q '^task 4 violated memory: data access at 0x[0-9a-f]{8} \(pc 0x[0-9a-f]{8}\); task killed, kernel word still 0x00000000$' "$BOOT_LOG"
@@ -156,6 +165,7 @@ for line in \
     'park holding mutex 3 -> EBUSY' \
     'semaphore_wait(4) -> EBADSEMAPHORE' \
     'semaphore_post(4) -> EBADSEMAPHORE' \
+    'semaphore_post(3) after 65535 permits -> ESEMOVERFLOW' \
     'svc #20 -> ENOCAP'; do
     rg -qF "task 2: svc error $line" "$BOOT_LOG"
 done

@@ -317,6 +317,22 @@ fn svc_error_paths() {
     }
     show("semaphore_wait(4)", syscall::semaphore_wait(4));
     show("semaphore_post(4)", syscall::semaphore_post(4));
+    // Semaphore 3 holds at most u16::MAX permits: the next post overflows.
+    let mut posts = 0u32;
+    let overflow = loop {
+        match syscall::semaphore_post(3) {
+            Ok(()) => posts += 1,
+            Err(e) => break e,
+        }
+        if posts > u32::from(u16::MAX) {
+            break 0;
+        }
+    };
+    crate::uprintln!(
+        "task 2: svc error semaphore_post(3) after {} permits -> {}",
+        posts,
+        syscall::error_name(overflow)
+    );
     // A call number no capability bit names: refused at the mask.
     let mut r0 = 0u32;
     // SAFETY: no memory is passed; the kernel only writes r0.
@@ -356,6 +372,18 @@ fn demo_task_three() -> ! {
     let r = syscall::led_checked(true);
     crate::uprintln!(
         "task 3: led without capability -> {}",
+        syscall::error_name(r)
+    );
+    // Length limits, checked before anything is copied.
+    let long = [0u8; 257];
+    let r = syscall::send_raw(1, long.as_ptr(), 65);
+    crate::uprintln!("task 3: send of 65 bytes -> {}", syscall::error_name(r));
+    let r = match syscall::uart_write(&long) {
+        Ok(_) => 0,
+        Err(e) => e,
+    };
+    crate::uprintln!(
+        "task 3: uart write of 257 bytes -> {}",
         syscall::error_name(r)
     );
     crate::uprintln!("task 3: sleeping for 1500 ms before sending");
