@@ -49,15 +49,22 @@ fi
 say "$(date); port $PORT; chip $CHIP"
 
 say "building the two test kernels and the normal kernel ..."
-build() { # target dir, features
+# All three in the usual target directory (only the kernel crate is rebuilt
+# between them, so no second copy of the dependencies); each ELF is copied
+# out before the next build replaces it.
+ELF="target/$TARGET/release/maataa-os"
+ON=target/board-inversion-on.elf
+OFF=target/board-inversion-off.elf
+NORMAL=target/board-inversion-normal.elf
+build() { # features, copy to
+    rm -f "$ELF"
     cargo build -q --release --target "$TARGET" --no-default-features \
-        --features "$2" --bin maataa-os --target-dir "$1"
+        --features "$1" --bin maataa-os && cp "$ELF" "$2"
 }
-build target/inv-on board-f411,inversion-test || { say "FAIL: build (inversion-test)"; exit 1; }
-build target/inv-off board-f411,inversion-test,pi-off || { say "FAIL: build (pi-off)"; exit 1; }
-build target board-f411 || { say "FAIL: build (normal kernel)"; exit 1; }
+build board-f411,inversion-test "$ON" || { say "FAIL: build (inversion-test)"; exit 1; }
+build board-f411,inversion-test,pi-off "$OFF" || { say "FAIL: build (pi-off)"; exit 1; }
+build board-f411 "$NORMAL" || { say "FAIL: build (normal kernel)"; exit 1; }
 cargo build -q --release -p maataa-link --features cli || { say "FAIL: build (maataa-link)"; exit 1; }
-NORMAL="target/$TARGET/release/maataa-os"
 
 flash() { # ELF
     if ! probe-rs download --chip "$CHIP" "$1" >/dev/null 2>&1; then
@@ -95,7 +102,7 @@ starved_holding() {
 
 say ""
 say "== inheritance on"
-if record target/inv-on/$TARGET/release/maataa-os target/board-inversion-on.raw; then
+if record "$ON" target/board-inversion-on.raw; then
     E=target/board-inversion-on.raw.events
     H=$(at "$E" '^inversion: H got mutex 1$'); M=$(at "$E" '^inversion: M done$')
     if [ -z "$H" ] || [ -z "$M" ]; then
@@ -115,7 +122,7 @@ fi
 
 say ""
 say "== inheritance off (pi-off)"
-if record target/inv-off/$TARGET/release/maataa-os target/board-inversion-off.raw; then
+if record "$OFF" target/board-inversion-off.raw; then
     E=target/board-inversion-off.raw.events
     H=$(at "$E" '^inversion: H got mutex 1$'); M=$(at "$E" '^inversion: M done$')
     if [ -z "$H" ] || [ -z "$M" ]; then
