@@ -237,9 +237,25 @@ The host channel `selftest` now also checks these:
   ChaCha20-Poly1305, checked against the RFC 8439 test vector and against
   the kernel's key id). `--file target/qemu-flash.bin` reads the QEMU store.
 - On the board, `Board persistence check.command` runs in two steps. The
-  first run writes a fresh value to key 40. You then unplug and replug the
-  USB cable, which cuts the board's power. The second run reads key 40 back
-  and compares.
+  first run writes a fresh value to key 21 (key 40 until alpha.8). You then
+  unplug and replug the USB cable, which cuts the board's power. The second
+  run reads key 21 back and compares. That cuts the power while the store
+  is idle.
+- **Power cut during a write, on the board:** `scripts/board-power-cut-test.sh`
+  (`Board power cut test.command`, 3 rounds). In each round `maataa-link
+  power-cut-write` writes numbered 64-byte values (`pc 0000001234 …`) to
+  key 63 as fast as the board takes them and prints each one the board
+  acknowledges; you pull the USB cable while the count climbs and plug it
+  back in. `maataa-link power-cut-check N` then requires key 63 to hold
+  value N (the last acknowledged) or N+1 (the one in flight), never a torn
+  or mixed value, and the store must have mounted. Compaction runs about
+  every 1,500 writes on the F411, so some cuts land in it. The host tests
+  above cut at every programmed byte in a model of the flash; this run is
+  the same check on the real chip.
+- The same two commands in QEMU, where the demo ends by itself and so stops
+  QEMU in the middle of the writes: three rounds of 1,842, 1,972 and about
+  2,000 acknowledged writes each read back the last acknowledged value,
+  with compactions in between (generation 11, 21, 31; 2026-11-04, by hand).
 
 ## Board verification (NUCLEO-F411RE, 2026-10-31)
 

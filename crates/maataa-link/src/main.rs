@@ -32,6 +32,10 @@ commands:
   get KEY         read persistent key KEY (16..63)
   put KEY [TEXT]  write TEXT to persistent key KEY; no TEXT deletes it
   store-stress N  write N 64-byte values to key 63 (forces flash compaction)
+  power-cut-write N      write N numbered 64-byte values to key 63, printing
+                  `acked I` after each one the board confirms (cut the power meanwhile)
+  power-cut-check I      after the power cut: key 63 must hold value I (the last
+                  acknowledged) or I+1 (the one in flight), never anything else
   boot-info       boot count, last reset cause and last crash (kernel keys 0 and 1)
   capsule-install FILE   send a signed capsule image (.mcap) and commit it with a signed
                   request; it runs from the next boot (without a signer the commit is refused)
@@ -63,6 +67,14 @@ struct Channel {
     hello: Option<Vec<u8>>,
     /// Seed that signs host requests (`--dev` or `--seed-file`).
     signer: Option<[u8; 32]>,
+}
+
+/// Value number `i` of `power-cut-write`: "pc " and ten digits, padded to
+/// 64 bytes, so any torn or mixed value is told from a whole one.
+fn power_cut_value(i: u32) -> Vec<u8> {
+    let mut value = format!("pc {i:010} ").into_bytes();
+    value.resize(64, b'0' + (i % 10) as u8);
+    value
 }
 
 /// The 64 hex characters of a seed file (`maataa-capsule keygen`).
@@ -484,6 +496,62 @@ fn run_command(ch: &mut Channel, command: &str, args: &[String]) -> Result<Strin
                 "boot {count}; reset cause: {}; last crash: {crash}",
                 r.cause.as_str()
             ))
+        }
+        "power-cut-write" => {
+            let count: u32 = args
+                .first()
+                .and_then(|n| n.parse().ok())
+                .ok_or("power-cut-write needs a count")?;
+            let mut acked = 0;
+            for i in 1..=count {
+                let mut payload = vec![63u8];
+                payload.extend_from_slice(&power_cut_value(i));
+                if let Err(e) = ch
+                    .request(kind::STORE_PUT, &payload)
+                    .and_then(|r| expect(r, kind::STORE_PUT_REPLY))
+                {
+                    return Err(format!("stopped after {acked} acknowledged writes: {e}"));
+                }
+                acked = i;
+                println!("acked {i}");
+                let _ = std::io::stdout().flush();
+            }
+            Ok(format!("{count} writes acknowledged"))
+        }
+        "power-cut-check" => {
+            let acked: u32 = args
+                .first()
+                .and_then(|n| n.parse().ok())
+                .ok_or("power-cut-check needs the last acknowledged number")?;
+            let reply = ch.request(kind::STORE_GET, &[63])?;
+            if reply.kind == kind::ERROR && reply.payload.first() == Some(&error_code::NOT_FOUND) {
+                return if acked == 0 {
+                    Ok("PASS: key 63 is empty and no write was acknowledged".into())
+                } else {
+                    Err(format!(
+                        "FAIL: key 63 is empty after {acked} acknowledged writes"
+                    ))
+                };
+            }
+            let value = expect(reply, kind::STORE_GET_REPLY)?;
+            let found =
+                (acked.max(1) - 1..=acked + 1).find(|&i| i > 0 && value == power_cut_value(i));
+            match found {
+                Some(i) if i >= acked => Ok(format!(
+                    "PASS: key 63 holds value {i} ({} acknowledged; {})",
+                    acked,
+                    if i == acked {
+                        "the last acknowledged"
+                    } else {
+                        "the one in flight"
+                    }
+                )),
+                _ => Err(format!(
+                    "FAIL: key 63 holds {:?}, not value {acked} or {}",
+                    String::from_utf8_lossy(&value),
+                    acked + 1
+                )),
+            }
         }
         "store-stress" => {
             let count: u32 = args

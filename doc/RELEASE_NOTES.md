@@ -1,3 +1,9 @@
+# Unreleased (after v0.1.0-alpha.8)
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| Power cut during a store write, on the board: `scripts/board-power-cut-test.sh` (`Board power cut test.command`) with `maataa-link power-cut-write` / `power-cut-check`: numbered values to key 63, the USB cable pulled while they are written, then key 63 must hold the last acknowledged value or the one in flight | pending | docs/persistence.md |
+
 # Maataa OS v0.1.0-alpha.8
 
 ## Release type
