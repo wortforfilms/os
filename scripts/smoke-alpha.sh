@@ -114,13 +114,15 @@ if rg -q '^capsule rejected' "$BOOT_LOG"; then
 fi
 rg -q '^capsule tamper check: rejected \(bad signature\)$' "$BOOT_LOG"
 rg -q '^task 3: led without capability -> ENOCAP$' "$BOOT_LOG"
-# Task 3's other refused calls: bad buffers, a missing task, length limits.
+# Task 3's other refused calls: bad buffers, a missing task, length limits,
+# a full kernel queue.
 for line in \
     'send from kernel memory -> EPERM' \
     'recv into flash -> EPERM' \
     'send to task 12 -> ENOTASK' \
     'send of 65 bytes -> ETOOLONG' \
-    'uart write of 257 bytes -> ETOOLONG'; do
+    'uart write of 257 bytes -> ETOOLONG' \
+    'send to itself: 16 queued, then EFULL; 16 received back'; do
     rg -qxF "task 3: $line" "$BOOT_LOG"
 done
 # MPU (docs/kernel-mpu.md): task 4 writes kernel RAM and task 5 overflows

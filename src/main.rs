@@ -387,6 +387,31 @@ fn demo_task_three() -> ! {
         "task 3: uart write of 257 bytes -> {}",
         syscall::error_name(r)
     );
+    // A full kernel queue (16 slots, shared by all tasks): task 3 fills it
+    // with messages to itself and takes them all back at once, so nothing
+    // else is ever refused. No other task sends this early (task 3 itself
+    // after 1500 ms, task 1 after 2000 ms).
+    let mut queued = 0u32;
+    let full = loop {
+        match syscall::send(3, b"q") {
+            Ok(()) => queued += 1,
+            Err(e) => break e,
+        }
+        if queued > 64 {
+            break 0;
+        }
+    };
+    let mut one = [0u8; 1];
+    let mut back = 0u32;
+    while syscall::recv(&mut one).is_ok() {
+        back += 1;
+    }
+    crate::uprintln!(
+        "task 3: send to itself: {} queued, then {}; {} received back",
+        queued,
+        syscall::error_name(full),
+        back
+    );
     crate::uprintln!("task 3: sleeping for 1500 ms before sending");
     let _ = syscall::sleep_ms(1_500);
     match syscall::send(2, b"Hello from Task 3 after 1500 ms") {

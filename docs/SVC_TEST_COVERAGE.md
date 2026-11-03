@@ -20,12 +20,12 @@ That path is exercised only on QEMU and the board.
 | 2 | `LED` | — | smoke 8, direct, refusal only: `task 3: led without capability -> ENOCAP` | yes (task 1 blinks) | the success path in CI (QEMU has no LED to observe) |
 | 3 | `DEMO_DONE` | — | smoke 8, indirect: QEMU exits through semihosting after the demo | ignored by the board | — |
 | 4 | `TEST_KERNEL_OVERFLOW` | — | builds only: clippy with `kernel-stack-test` and `watchdog-test` | yes (`Flash kernel stack test.command`, `Board watchdog test.command`) | `E_PERM` in a normal build; neither test feature is run in CI |
-| 5 | `SEND` | mailbox: `a_message_is_copied_and_delivered_once`, `limits_full_too_long_and_short_buffers`, `messages_of_a_dead_task_are_dropped` | smoke 8, indirect: `task 2: mutex 0 handed off` follows task 2 receiving a message; direct: task 3's `EPERM` (buffer in kernel memory), `ENOTASK` (task 12), `ETOOLONG` (65 bytes) | yes | `E_FULL` (16 queued messages) through the SVC |
-| 6 | `RECV` | `receive_buffers_must_be_in_the_callers_stack`; mailbox: `a_receiver_gets_only_its_own_messages_oldest_first`; sched: `blocked_receiver_wakes_on_message_and_timeout_is_recorded` | smoke 8, direct: `task 2: recv timed out after 1000 ms` (`E_TIMEOUT`), `received from task 3` (sender in r1), task 3's `recv into flash -> EPERM` | yes | `E_AGAIN` through the SVC |
+| 5 | `SEND` | mailbox: `a_message_is_copied_and_delivered_once`, `limits_full_too_long_and_short_buffers`, `messages_of_a_dead_task_are_dropped` | smoke 8, indirect: `task 2: mutex 0 handed off` follows task 2 receiving a message; direct: task 3's `EPERM` (buffer in kernel memory), `ENOTASK` (task 12), `ETOOLONG` (65 bytes), `E_FULL` (`send to itself: 16 queued, then EFULL`) | yes | — |
+| 6 | `RECV` | `receive_buffers_must_be_in_the_callers_stack`; mailbox: `a_receiver_gets_only_its_own_messages_oldest_first`; sched: `blocked_receiver_wakes_on_message_and_timeout_is_recorded` | smoke 8, direct: `task 2: recv timed out after 1000 ms` (`E_TIMEOUT`), `received from task 3` (sender in r1), task 3's `recv into flash -> EPERM`; indirect: `16 received back` (the loop ends on `E_AGAIN`) | yes | — |
 | 7 | `SLEEP` | — | smoke 9 (clock self-test), direct; smoke 8, indirect (capsule schedules, task 1's 2000 ms sleep) | yes | sleep 0 |
-| 8 | `MUTEX_LOCK` | sched: 8 tests (FIFO hand-off, wrong owner, bad id, dead owner, lock cycle, inheritance) | smoke 8, direct (hand-off, `EOWNERDEAD`); smoke 14 (inheritance) | yes | `E_MUTEX_FULL` through the SVC (`E_BAD_MUTEX`, `E_DEADLOCK`: smoke 8) |
+| 8 | `MUTEX_LOCK` | sched: 8 tests (FIFO hand-off, wrong owner, bad id, dead owner, lock cycle, inheritance) | smoke 8, direct (hand-off, `EOWNERDEAD`); smoke 14 (inheritance) | yes | `E_MUTEX_FULL` cannot happen through the SVC (below); `E_BAD_MUTEX`, `E_DEADLOCK`: smoke 8 |
 | 9 | `MUTEX_UNLOCK` | sched: `mutex_rejects_wrong_owner_and_invalid_ids`, `unlock_hands_the_lock_to_the_highest_waiter_then_the_oldest` | smoke 8, indirect (hand-off); direct: `ENOTOWNER` | yes | — |
-| 10 | `SEMAPHORE_WAIT` | sched: 4 semaphore tests | smoke 8, direct: `semaphore 0 permit received` | yes | `E_SEMAPHORE_FULL` through the SVC (`E_BAD_SEMAPHORE`: smoke 8) |
+| 10 | `SEMAPHORE_WAIT` | sched: 4 semaphore tests | smoke 8, direct: `semaphore 0 permit received` | yes | `E_SEMAPHORE_FULL` cannot happen through the SVC (below); `E_BAD_SEMAPHORE`: smoke 8 |
 | 11 | `SEMAPHORE_POST` | sched: `semaphore_rejects_invalid_duplicate_full_and_overflow_cases`, `a_post_goes_to_the_highest_waiter_and_the_oldest_among_equals` | smoke 8, indirect (as 10); direct: `EBADSEMAPHORE`, and `ESEMOVERFLOW` after 65,535 posts to semaphore 3 | yes | — |
 | 12 | `UART_WRITE` | `uart_syscall_transfer_is_bounded` | smoke 10 (host channel selftest), indirect; smoke 8, direct: task 3's `uart write of 257 bytes -> ETOOLONG` | yes (`board-test.sh` selftest) | — |
 | 13 | `UART_READ` | `uart_syscall_transfer_is_bounded`; sched: `uart_irq_wakes_one_waiter_and_leaves_other_tasks_blocked` | smoke 10, indirect | yes | `E_TOOLONG` through the SVC |
@@ -49,13 +49,22 @@ for task 8, `svc #20` for task 2) and a capsule refused at `init` (`-16`,
 
 1. ~~Error codes through the `svc` instruction~~: since alpha.7, task 2
    (`svc_error_paths` in `src/main.rs`) and task 3 make refused calls and
-   smoke 8 checks each result (13 lines). Still only in kernel functions,
-   because the demo cannot reach them without harming the tasks it
-   checks: `E_MUTEX_FULL` and `E_SEMAPHORE_FULL` (more waiters than the
-   demo has tasks), `E_FULL` for SEND (16 queued messages would block the
-   demo's own messages) and for the store (a full flash bank),
-   `E_TOOLONG` for a store value (task 2 and 3 have no store capability;
-   the host channel caps values at 64 bytes before the call).
+   smoke 8 checks each result (14 lines). Since after alpha.8, task
+   3 also fills the kernel queue with 16 messages to itself, gets `E_FULL`,
+   and takes them back at once (no other task sends that early, so nothing
+   else is refused). Still only in kernel functions:
+   - `E_MUTEX_FULL` and `E_SEMAPHORE_FULL` cannot happen through the SVC.
+     Each waiter queue has `MAX_TASKS` (9) places, the scheduler holds at
+     most 9 tasks, and a waiting task is blocked and cannot ask again
+     (semaphores also refuse a second wait). A mutex has at most 8 waiters
+     besides its owner; a semaphore fills its queue only when all 9 tasks
+     wait, and then no task is left to make a 10th call. The checks stay as
+     a guard; the `sched` unit tests reach them by calling the functions
+     directly.
+   - `E_FULL` for the store (a full flash bank would cost the demo its
+     store) and `E_TOOLONG` for a store value (task 2 and 3 own no keys, so
+     `E_PERM` comes first; the host channel caps values at 64 bytes before
+     the call).
 2. ~~`RECV` with a timeout~~: smoke 8 matches the line (after `cee1a0b`).
 3. ~~An unknown SVC number~~: smoke 8 (`svc #20 -> ENOCAP`).
 4. ~~A run-time install interrupted between write and commit~~: smoke 12
