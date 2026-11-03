@@ -51,9 +51,11 @@ pub enum Rule {
     HasiCa = 8,
     /// 6.1.113 ato ror aplutad aplute: a + ru + a -> o' (with 6.1.87, 6.1.109).
     AtoRoh = 9,
-    /// 8.3.17 then 8.3.19 lopah sakalyasya: the y of a/A + ru before a vowel
-    /// is dropped (optional; the common form), and as 8.3.19 is asiddha
-    /// (8.2.1) no vowel sandhi follows: rAma iti.
+    /// 8.3.19 lopah sakalyasya: a pada-final y after a/A is dropped before a
+    /// vowel (optional; the common form), and as 8.3.19 is asiddha (8.2.1) no
+    /// vowel sandhi follows. The y comes from ru by 8.3.17 (rAmaH+iti ->
+    /// rAma iti) or from e/E by 6.1.78 (hare+iha -> hara iha). The v of
+    /// av/Av is kept (decision (b), 2026-11-04: vizRo+iha -> vizRaviha).
     LopahSakalyasya = 10,
     /// 8.3.17 then 8.3.22 hali sarvesham: A + ru before a voiced consonant
     /// loses the y: devA gacCanti.
@@ -171,7 +173,7 @@ impl Rule {
             Self::Purvarupa => "purvarupa",
             Self::HasiCa => "ru to u, then guna",
             Self::AtoRoh => "ru to u, guna, purvarupa",
-            Self::LopahSakalyasya => "ru to y, y dropped",
+            Self::LopahSakalyasya => "y dropped",
             Self::HaliSarvesham => "ru to y, y dropped",
             Self::VisarjaniyasyaSah => "visarga to s",
             Self::SarpareVisarjaniyah => "visarga kept",
@@ -475,6 +477,14 @@ fn join_word(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule),
         let order = [Varna::E, Varna::O, Varna::AI, Varna::AU];
         let index = order.iter().position(|&v| v == x).unwrap_or(0);
         w.put(stem)?;
+        // 8.3.19 lopah sakalyasya (optional): the pada-final y of ay Ay is
+        // dropped and the words stay apart (hara iha); the v of av Av is
+        // kept (decision (b), 2026-11-04).
+        if matches!(x, Varna::E | Varna::AI) {
+            w.put([&b"a "[..], b"A "][index / 2])?;
+            w.put(right)?;
+            return Ok((w.len, Rule::LopahSakalyasya));
+        }
         w.put([&b"ay"[..], b"av", b"Ay", b"Av"][index])?;
         w.put(right)?;
         return Ok((w.len, Rule::Ayadi));
@@ -943,14 +953,15 @@ fn legacy_join(left: &[u8], right: &[u8], out: &mut [u8]) -> Result<(usize, Rule
             w.put(b"'")?;
             w.put(rest)?;
             Rule::Purvarupa
+        } else if a == 11 || a == 12 {
+            // 8.3.19: the y of ay Ay is dropped (decision (b)).
+            w.put(stem)?;
+            w.put(if a == 11 { b"a " } else { b"A " })?;
+            w.put(right)?;
+            Rule::LopahSakalyasya
         } else {
             w.put(stem)?;
-            w.put(match a {
-                11 => b"ay",
-                12 => b"Ay",
-                13 => b"av",
-                _ => b"Av",
-            })?;
+            w.put(if a == 13 { b"av" } else { b"Av" })?;
             w.put(right)?;
             Rule::Ayadi
         }
@@ -1005,9 +1016,11 @@ mod tests {
             ("su+Agata", "svAgata", Rule::Yan),
             ("pitf+AjYA", "pitrAjYA", Rule::Yan),
             ("vane+atra", "vane'tra", Rule::Purvarupa),
-            ("hare+e", "haraye", Rule::Ayadi),
-            ("vizRo+e", "vizRave", Rule::Ayadi),
-            ("nE+aka", "nAyaka", Rule::Ayadi),
+            // 8.3.19 after ay Ay (decision (b)); av Av keep the v.
+            ("hare+iha", "hara iha", Rule::LopahSakalyasya),
+            ("tasmE+idam", "tasmA idam", Rule::LopahSakalyasya),
+            ("vizRo+iha", "vizRaviha", Rule::Ayadi),
+            ("tO+iti", "tAviti", Rule::Ayadi),
             ("pO+aka", "pAvaka", Rule::Ayadi),
             ("rAmaH+gacCati", "rAmo gacCati", Rule::HasiCa),
             ("vAk+ISa", "vAgISa", Rule::JhalamJasonte),
@@ -1174,9 +1187,12 @@ mod tests {
         assert_eq!(j("devo+iti").1, Rule::Ayadi);
         assert_eq!(j("nadI+iti").1, Rule::SavarnaDirgha);
         assert_eq!(j("amI+gacCanti"), (String::from("amIgacCanti"), Rule::Join));
-        // A dual (1.1.11) cannot be told from its letters: dve+iti is
-        // joined; a caller who knows it is a dual does not ask.
-        assert_eq!(j("dve+iti").1, Rule::Ayadi);
+        // A dual (1.1.11) cannot be told from its letters: without Hints
+        // dve+iti is the ordinary dva iti (8.3.19).
+        assert_eq!(
+            j("dve+iti"),
+            (String::from("dva iti"), Rule::LopahSakalyasya)
+        );
     }
 
     #[test]

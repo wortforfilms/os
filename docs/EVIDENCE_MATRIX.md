@@ -53,7 +53,7 @@ runs that test, and whether it was run on a NUCLEO-F411RE. At `7b99bdb`
 | size limit (128 KiB kernel) | `scripts/sizecheck.sh` | sizecheck | yes | — |
 | release build with release keys | `scripts/release.sh` | — (needs the keys; run by hand) | no | yes (alpha.6) |
 | sandhi library | `crates/maataa-sandhi` | crate tests (`lib.rs`, `lipi.rs`, `varna.rs`) | yes | — (host) |
-| panini capsule v9 | `capsules/panini.wat` | `the_panini_capsule_agrees_with_its_reference`; smoke 15 | yes | yes (2026-11-02, 18 requests) |
+| panini capsule v10 | `capsules/panini.wat` | `the_panini_capsule_agrees_with_its_reference`; smoke 15 | yes | v9 yes (2026-11-02, 18 requests); v10 not yet |
 | `maataa-link sandhi` (MATCH / MISMATCH) | `crates/maataa-link/src/main.rs` | host crate tests | yes | yes |
 
 Per-rule evidence for the sandhi rules is in

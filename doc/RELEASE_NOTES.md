@@ -6,6 +6,7 @@
 | Drift check: `scripts/check-docs.py` compares the docs with the code (version, number of smoke checks, kernel lint sets, the SVC call and error tables and limits, the size table and the measured sizes within 2 KB); CI runs it twice (before the build, and after the size check with `--sizes`). It found BUILD_GUIDE saying nine kernel lint sets (CI has eight) | - | doc/BUILD_GUIDE.md |
 | `E_FULL` through the SVC: task 3 fills the kernel queue with 16 messages to itself, gets `EFULL`, and takes all 16 back at once (smoke 8). `E_MUTEX_FULL` and `E_SEMAPHORE_FULL` cannot happen through the SVC (9 waiter places, at most 9 tasks, a waiting task cannot ask again): docs/SVC_TEST_COVERAGE.md now says so | - | docs/SVC_TEST_COVERAGE.md |
 | Priority inheritance on the board: `scripts/board-inversion-test.sh` (`Board inversion test.command`) flashes the `inversion-test` kernel and its `pi-off` twin, checks the USART2 log as smoke 14 does in QEMU, then flashes the normal kernel back | not yet run | docs/engineering/SCHEDULER.md |
+| Sandhi: 8.3.19 after ayadi (decision (b)): e/E before a vowel drop the y and the words stay apart (`hare+iha` -> `hara iha`, rule 10); o/O keep the v (`vizRo+iha` -> `vizRaviha`, rule 6). Crate and capsule together; panini capsule version 10 (3,684 bytes). Wire format unchanged | not yet (needs a signed install of v10) | docs/panini.md |
 
 # Maataa OS v0.1.0-alpha.8
 

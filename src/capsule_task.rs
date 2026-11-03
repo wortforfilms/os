@@ -397,7 +397,7 @@ mod tests {
                 s.quiet,
                 s.version
             )),
-            Ok((true, true, 9))
+            Ok((true, true, 10))
         );
         // Room left in the interpreter's tables for the next rules.
         assert_eq!(module.data_segments(), 5);

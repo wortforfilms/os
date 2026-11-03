@@ -1,8 +1,8 @@
 # Panini rule registry
 
 Every rule id that `crates/maataa-sandhi` can report (`enum Rule`), at
-`7b99bdb`. The id is the wire value; the capsule (`capsules/panini.wat`,
-version 9) uses the same numbers. Sutras are listed separately from the
+`7b99bdb` (rule 10 extended after alpha.8). The id is the wire value; the
+capsule (`capsules/panini.wat`, version 10) uses the same numbers. Sutras are listed separately from the
 evidence. "Board" means seen on the NUCLEO-F411RE, in the capsule version
 named; it is a record of a run, not a CI check.
 
@@ -29,7 +29,7 @@ named; it is a record of a run, not a CI check.
 | 7 | Purvarupa | 6.1.109 | yes | yes | v9 |
 | 8 | HasiCa | 6.1.114 (with 6.1.87) | yes | yes | v9 |
 | 9 | AtoRoh | 6.1.113 (with 6.1.87, 6.1.109) | yes | yes | v4 |
-| 10 | LopahSakalyasya | 8.3.17, 8.3.19 | yes | yes | v4 |
+| 10 | LopahSakalyasya | 8.3.17, 8.3.19; since v10 also 6.1.78 then 8.3.19 (e E before a vowel: `hara iha`) | yes | yes | v4 (visarga case only) |
 | 11 | HaliSarvesham | 8.3.17, 8.3.22 | yes | yes | v4 |
 | 12 | VisarjaniyasyaSah | 8.3.34, 8.4.40, 8.4.41 | yes | yes | v9 |
 | 13 | SarpareVisarjaniyah | 8.3.35 | yes | yes | v9 (2026-11-03) |

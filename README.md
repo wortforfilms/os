@@ -58,7 +58,7 @@ Working:
   tasks and the host channel use it through syscalls 15/16
   ([docs/persistence.md](docs/persistence.md))
 - Panini sandhi: `crates/maataa-sandhi` (host library, rules 1–34) and the
-  run-time capsule `capsules/panini.wat` (version 9, rules 1–31), compared
+  run-time capsule `capsules/panini.wat` (version 10, rules 1–31), compared
   with each other in CI; `maataa-link sandhi` checks the board's answer
   against the host ([docs/panini.md](docs/panini.md),
   [rule registry](docs/PANINI_RULE_REGISTRY.md))

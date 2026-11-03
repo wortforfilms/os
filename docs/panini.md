@@ -10,7 +10,7 @@ be granted.
 | Piece | What it is |
 | --- | --- |
 | `crates/maataa-sandhi` | The reference: the rules in plain `no_std` Rust, host-tested with classic examples |
-| `capsules/panini.wat` | The same rules in hand-written WebAssembly (1.4 KB), signed as `assets/capsules/panini.mcap`; version 9 keeps its constants in five data segments (of the interpreter's 8) without the zeros between them |
+| `capsules/panini.wat` | The same rules in hand-written WebAssembly (1.4 KB), signed as `assets/capsules/panini.mcap`; version 10 (version 9 keeps its constants in five data segments of the interpreter's 8, without the zeros between them; version 10 adds 8.3.19 after ayadi) |
 | `src/capsule_task.rs` test | Runs the capsule in Maataa's interpreter against the reference for every pair of boundary letters (all 14 vowels and a consonant, on each side), malformed requests and a 64-byte request |
 | `scripts/qemu-panini-test.sh` | Installs the capsule in QEMU and asks it over the host channel, also with `maataa-link sandhi` in Devanagari (smoke step 15) |
 | `maataa_sandhi::lipi` | Devanagari <-> SLP1 for the host tool (feature `alloc`; never in the kernel) |
@@ -33,7 +33,8 @@ used:
 | 4 | vrddhi | 6.1.88 vrddhir eci | `eka+eka` -> `ekEka` |
 | 5 | yan | 6.1.77 iko yan aci | `iti+Adi` -> `ityAdi` |
 | 7 | purvarupa | 6.1.109 enah padantad ati | `vane+atra` -> `vane'tra` |
-| 6 | ayadi | 6.1.78 eco 'yavayavah | `hare+e` -> `haraye` |
+| 6 | ayadi | 6.1.78 eco 'yavayavah (o O: av Av) | `vizRo+iha` -> `vizRaviha`, `tO+iti` -> `tAviti` |
+| 10 | y dropped | 6.1.78, then 8.3.19 lopah SAkalyasya (e E: the y of ay Ay is dropped; the words stay apart) | `hare+iha` -> `hara iha`, `tasmE+idam` -> `tasmA idam` |
 | 1 | joined as written | (a consonant starts the second word) | `rAma+gacCati` -> `rAmagacCati` |
 
 Consonant (hal) and visarga sandhi follow in their own sections below.
@@ -45,8 +46,8 @@ nipAta ekAj anAN (a word that is a single vowel `a i I u U`; not `A`, which
 may be the preposition AN), 1.1.15 ot (`aho`, `Aho`, `aTo`, `uto`,
 `utAho`): `amI+iti` -> `amI iti`, `aho+iti` -> `aho iti`. A dual in I U e
 (1.1.11: `dve`, `harI`) cannot be told from its letters, so `dve+iti` is
-still joined (`dvayiti`); a caller who knows the word is a dual does not
-ask for sandhi. 1.1.13 (vedic) and 1.1.16 (optional) are not taken.
+an ordinary e before a vowel (`dva iti`); a caller who knows the word is a
+dual passes `Hints` (below) or does not ask for sandhi. 1.1.13 (vedic) and 1.1.16 (optional) are not taken.
 
 Hints (host library only): what the letters cannot show, the caller can
 say. `join_with` and `join_request_with` take `Hints { dual, verb }`; with
@@ -63,8 +64,7 @@ have these rules.
 
 A hint that does not fit changes nothing (a dual in O, a verb after a word
 that is not one of those upasargas). Without hints, `dve+iti` is
-`dvayiti` and `pra+ejate` is `prEjate`, as the letters alone give. Not
-done: the optional loss of y/v after ayadi (8.3.19). Errors: -101 no `+`, -102 an
+`dva iti` and `pra+ejate` is `prEjate`, as the letters alone give. Errors: -101 no `+`, -102 an
 empty word, -103 a byte that is not an SLP1 letter, -104 too long (64
 bytes), -105 a case not done yet, -106 a word that starts with M or H (no
 word does; panini version 8, earlier -105 or joined as written).
@@ -375,6 +375,16 @@ itself), at the same addresses; and the helpers `$stem` and `$rest` for
 code that was written out ten and four times. Image 3,662 bytes of 4,096
 (287 fewer, 434 left); worst fuel over the host test 4,390; capsule ==
 host on the whole host test.
+
+Panini version 10 adds 8.3.19 lopah SAkalyasya after ayadi, by the user's
+decision (b) of 2026-11-04. 8.3.19 is optional and covers the y and v of
+ay av Ay Av at the end of a pada; the engine drops the y (e E: `hare+iha` ->
+`hara iha`, `tasmE+idam` -> `tasmA idam`, rule 10, the same id and sutra
+as the visarga case `rAmaH+iti` -> `rAma iti`) and keeps the v (o O:
+`vizRo+iha` -> `vizRaviha`, `tO+iti` -> `tAviti`, rule 6), the forms
+common in classical texts. As with 6.1.109, the first word is taken as a
+pada: a stem and an affix (hari + e, the dative haraye; nE + aka, nAyaka)
+are not this engine's input. Image 3,684 bytes of 4,096 (22 more).
 
 ## Later
 

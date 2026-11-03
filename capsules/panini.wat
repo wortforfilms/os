@@ -22,6 +22,9 @@
 ;; With no request it returns 0 and writes nothing, so flash is written only
 ;; when there is work.
 ;;
+;; Version 10: 8.3.19 after ayadi (decision (b), 2026-11-04): e/E before a
+;; vowel lose the y of ay/Ay and the words stay apart (hare+iha -> hara iha,
+;; rule 10); o/O keep the v (vizRo+iha -> vizRaviha, rule 6).
 ;; Version 9: the same rules in fewer bytes: the constants in five data
 ;; segments without the zeros between them, half of each 128-byte table, and
 ;; the helpers $stem and $rest.
@@ -54,7 +57,7 @@
 ;;     --payload target/panini.wasm --dev -o assets/capsules/panini.mcap
 ;;   maataa-link --serial PORT capsule-install assets/capsules/panini.mcap
 (module
-  (@custom "maataa" "ticks=0 period_ms=1000 version=9 log=quiet")
+  (@custom "maataa" "ticks=0 period_ms=1000 version=10 log=quiet")
   (import "maataa" "log_str" (func $log_str (param i32 i32)))
   (import "maataa" "store_get" (func $store_get (param i32 i32 i32) (result i32)))
   (import "maataa" "store_put" (func $store_put (param i32 i32 i32) (result i32)))
@@ -769,6 +772,14 @@
     ;; 6.1.78 ayadi: e E o O before a vowel become ay Ay av Av.
     local.get $a i32.const 11 i32.sub i32.const 1 i32.shl i32.const 280 i32.add local.set $e
     local.get $e i32.load8_u call $put1
+    ;; 8.3.19 lopah SAkalyasya (decision (b)): the y of ay Ay is dropped and
+    ;; the words stay apart (hara iha); av Av keep the v.
+    local.get $a i32.const 13 i32.lt_u
+    if
+      i32.const 32 call $put1
+      local.get $p local.get $n call $right
+      i32.const 10 return
+    end
     local.get $e i32.load8_u offset=1 call $put1
     local.get $p local.get $n call $right
     i32.const 6)
