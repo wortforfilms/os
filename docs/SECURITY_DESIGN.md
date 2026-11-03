@@ -152,7 +152,10 @@ Differences from the proposal above:
 Smoke check 12 shows: an unsigned commit refused, a commit signed with a
 random key refused (greeter version 2 keeps running), an unsigned remove
 refused, a replayed signed put refused, and signed install and remove
-accepted.
+accepted. On the NUCLEO-F411RE on 2026-11-03 (`bbce5ca`, development key):
+unsigned remove and commit refused, a signed put accepted once and refused
+when replayed, panini 9 re-installed with a signed commit (520 ms), and
+after a reset panini answered (2 MATCH).
 
 ## Part B: store keys owned by capsule name
 
