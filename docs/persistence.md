@@ -263,6 +263,16 @@ The host channel `selftest` now also checks these:
   back the last acknowledged value. A third round stopped on a serial
   timeout without a new boot (no power cut); it too read back its last
   value, and since then such a round is repeated rather than counted.
+- Second board run, 2026-11-04 00:16 (log `target/board-power-cut.txt`):
+  four cable pulls, after 474, 1,924, 2,143 and 2,340 acknowledged writes,
+  so the last three came after the first compaction. Each ended with the
+  USB device gone ("Device not configured"). Rounds 1 and 3 logged a new
+  boot (326, 328) with reset cause power-on; in rounds 2 and 4 the first
+  boot-info after the reboot timed out (round 2's boot, 327, came from a
+  second request). All four read back a valid value: 474, 1925 (the write
+  in flight), 2143, 2340. The script wrongly repeated round 3 because its
+  second boot-info request failed; it now retries one request up to five
+  times and logs and uses that same reply.
 
 ## Board verification (NUCLEO-F411RE, 2026-10-31)
 

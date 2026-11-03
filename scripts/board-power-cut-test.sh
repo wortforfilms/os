@@ -25,7 +25,19 @@ mkdir -p target
 : >"$LOG"
 say() { echo "$@" | tee -a "$LOG"; }
 port() { ls /dev/cu.usbmodem* 2>/dev/null | head -n 1; }
-boot_number() { "${L[@]}" boot-info 2>/dev/null | sed -n 's/^boot \([0-9]*\);.*/\1/p'; }
+# One boot-info reply, retried: right after a reboot the first request can
+# time out. BOOT_LINE is the reply (or the last error), BOOT the boot number
+# parsed from that same reply (empty if none came).
+read_boot() {
+    BOOT_LINE=""; BOOT=""
+    for _ in 1 2 3 4 5; do
+        BOOT_LINE="$("${L[@]}" boot-info 2>&1)"
+        BOOT="$(printf '%s\n' "$BOOT_LINE" | sed -n 's/^boot \([0-9]*\);.*/\1/p')"
+        [ -n "$BOOT" ] && return 0
+        sleep 1
+    done
+    return 1
+}
 
 cargo build -q --release -p maataa-link --features cli || exit 1
 PORT="${MAATAA_SERIAL:-$(port)}"
@@ -42,7 +54,8 @@ while [ "$round" -lt "$ROUNDS" ] && [ "$tries" -lt $((ROUNDS * 3)) ]; do
     tries=$((tries + 1))
     say ""
     say "== round $round of $ROUNDS"
-    before="$(boot_number)"
+    read_boot
+    before="$BOOT"
     echo "Writes start now. Pull the USB cable while the count climbs,"
     echo "wait about 3 seconds, then plug it back in."
     "${L[@]}" power-cut-write 1000000 >"$WRITES" 2>&1 &
@@ -69,8 +82,9 @@ while [ "$round" -lt "$ROUNDS" ] && [ "$tries" -lt $((ROUNDS * 3)) ]; do
         say "FAIL: the board did not answer within 2 minutes"
         continue
     fi
-    "${L[@]}" boot-info 2>&1 | tee -a "$LOG"
-    after="$(boot_number)"
+    read_boot
+    say "$BOOT_LINE"
+    after="$BOOT"
     # Without a new boot the power was never cut (a short pull, or only the
     # serial link dropped): check the store anyway, but repeat the round.
     if [ -z "$before" ] || [ -z "$after" ] || [ "$after" -le "$before" ]; then
