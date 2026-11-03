@@ -71,6 +71,10 @@ chain of the toolchain and crates.
   the `otp-rollback` feature is built, and that feature is off by default and
   never written on the project's board. Records cut off the end of the newest
   bank are not detected at all (`docs/persistence.md`).
+- **Store data is not confidential.** Anyone on the host channel may read
+  every key 0–63, and anyone with the board can read the flash over SWD.
+  Nothing secret is kept in the store; this is a decision, not a gap
+  ([SECURITY_DESIGN.md](SECURITY_DESIGN.md#decisions)).
 - **Task store keys are shared.** Any task may write any key 16–63; there is
   no per-task ownership.
 - **The crash record is in RAM.** A power cut loses it; only the reset cause

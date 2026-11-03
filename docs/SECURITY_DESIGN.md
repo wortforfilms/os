@@ -1,6 +1,6 @@
 # Security design: signed host requests and store key ownership
 
-Status: **design note for review, 2026-11-03. Nothing here is implemented.**
+Status: **design note, decisions taken 2026-11-03 (see [Decisions](#decisions)). Nothing here is implemented yet.**
 It answers three open items of [SECURITY_THREAT_MODEL.md](SECURITY_THREAT_MODEL.md#known-limits):
 `CAPSULE_REMOVE` needs nothing, the host channel has no authentication, and
 task store keys 16–63 are shared. Facts about the current code are from
@@ -70,6 +70,13 @@ message from its own current challenge, so the host cannot pick the counter.
 | --- | --- | --- |
 | 1 remove capsule | the installed capsule's name | `CAPSULE_REMOVE` (`0x0A`) |
 | 2 store put | key, value (at most 64 bytes) | `STORE_PUT` (`0x06`) to keys a signed request is needed for (Part B) |
+| 3 commit install | the 64-byte signature of the capsule image already sent with `CAPSULE_BEGIN` / `WRITE` | `CAPSULE_COMMIT` (`0x09`) |
+
+Why the commit needs a signature, although the image is signed: version
+floors are kept per capsule name, so without it anyone on the UART could
+replace the installed capsule with any other validly signed one (greeter
+over panini, say). A downgrade of the same name is already refused by the
+floor, and re-installing the same image stays allowed (threat model).
 
 Results: success replies like the request it replaces. A wrong signature,
 an old sequence number or a wrong name gives `ERROR 9` (refused) and does
@@ -79,17 +86,19 @@ not advance the sequence number.
 
 - Read-only requests: `PING`, `STATUS`, `TELEMETRY`, `INFO`, `STORE_GET`,
   `CAPSULE_INFO`, `CHALLENGE`.
-- `CAPSULE_BEGIN` / `WRITE` / `COMMIT`: the image is already signed, and
-  the version floor stops downgrades. An unfinished install leaves the
-  installed capsule (smoke check 12).
+- `CAPSULE_BEGIN` / `WRITE`: they only fill the pending slot. An unfinished
+  install leaves the installed capsule (smoke check 12). Only the commit is
+  signed (operation 3): the capsule's own signature names the image
+  exactly, so the board needs no extra hash.
 - `STORE_PUT` to the keys the host shares with a capsule (40, 41 for panini)
   and to a small host scratch range (Part B), so `maataa-link sandhi` and
   the selftest keep working without a signature.
 
 ### Host side
 
-`maataa-link remove --seed-file ~/.maataa/capsule-release.seed` (and the
-same for a signed `put`) asks for a challenge, signs, and sends. Signing
+`maataa-link capsule-remove --seed-file ~/.maataa/capsule-release.seed`
+(and the same for `capsule-install` and a signed `put`; `--dev` for a
+development kernel) asks for a challenge, signs, and sends. Signing
 stays on the Mac; `release.sh`'s rule holds: never from the cloud or the VM.
 `maataa-capsule` already reads that seed file.
 
@@ -102,9 +111,13 @@ without the source. The boot report already says which key is in use.
 
 ### What changes in tests
 
-- `capsule-remove` in `scripts/qemu-capsule-install-test.sh` and
-  `scripts/qemu-panini-test.sh` becomes a signed remove with the
-  development seed (`--dev`), as installs already use dev-signed images.
+- `capsule-install` and `capsule-remove` in
+  `scripts/qemu-capsule-install-test.sh` and `scripts/qemu-panini-test.sh`
+  sign with the development seed (`--dev`), as the images already are
+  dev-signed; the same for `Board capsule install.command` and the panini
+  installs on the (development) board.
+- New QEMU check: a commit of greeter over an installed panini without a
+  signature is refused, and panini keeps running.
 - New QEMU checks: remove without a signature refused, a signature replayed
   after acceptance refused, a signature for another boot refused.
 - Unit tests: message layout, label, sequence handling.
@@ -172,17 +185,22 @@ kernel.
 ## Order of work, once approved
 
 1. Part B (smaller, local to the store calls).
-2. Part A: challenge, signed remove, then signed store put.
+2. Part A: challenge, signed remove, signed commit, then signed store put.
 3. Threat model updated after each, with the board run that shows it.
 
-## Open questions for the user
+## Decisions
 
-1. Should a signed request also be required for `CAPSULE_COMMIT`
-   (install)? The image is signed already; requiring it would stop someone
-   with the UART from re-installing an old-but-allowed image of the same
-   version.
-2. Should `STORE_GET` of capsule keys by the host stay unsigned (useful for
-   debugging, but it shows capsule data to anyone on the UART)?
-3. Is one release seed for capsules and host requests acceptable, or should
-   host requests get their own key pair (more to back up, less damage if
-   one leaks)?
+Taken by the user on 2026-11-03.
+
+1. **Install needs a signed commit** (operation 3 above). The reason is
+   the cross-name replacement, not a replay of the same image.
+2. **Reads stay unsigned, for every key 0–63.** The store holds no
+   secrets by design (no secret can be on a board without RDP), and anyone
+   with the board can read the whole flash over SWD anyway. Restricting
+   `STORE_GET` would only break `boot-info` (keys 0, 1), `board-test.sh`
+   and the selftest (key 3). Confidentiality of store data against someone
+   on the UART is not a goal; the threat model says so.
+3. **One release seed** signs capsules and host requests. The label
+   `"maataa-host-v1"` and the operation byte keep the two kinds of
+   signature apart. A separate key later would mean a second public key in
+   the kernel (a kernel change); the wire format would stay.
