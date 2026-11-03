@@ -95,6 +95,14 @@ same two kernels on the NUCLEO-F411RE in real time (L works 0.4 s, M 3 s at
 100 MHz), with the same checks on the USART2 log, and then flashes the
 normal kernel back.
 
+Board run, 2026-11-04 02:09 (NUCLEO-F411RE), both PASS. With inheritance:
+L holds mutex 1, H waits, H gets the lock before M starts computing; the
+monitor reports task 1 only after that (L has released the lock and M,
+level 2, now runs over it), with tasks 7, 8 and 9. With `pi-off`: M
+computes first, task 1 is reported ready for 1000 ms while it holds the
+lock, and H gets the lock only after M is done. Kernel key 3 read 4
+starvation episodes in each run (tasks 1, 7, 8, 9 while M computes).
+
 ### Lock cycles
 
 Before a task waits, the kernel follows owner, the lock that owner waits

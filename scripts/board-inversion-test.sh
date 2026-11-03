@@ -150,8 +150,14 @@ if flash "$NORMAL"; then
         sleep 1
     done
     if [ "$back" -eq 1 ]; then
-        "${L[@]}" boot-info 2>&1 | tee -a "$LOG"
-        "${L[@]}" capsule-info 2>&1 | tee -a "$LOG" || true
+        # Right after a reset the first requests can time out: retry.
+        for request in boot-info capsule-info; do
+            for _ in 1 2 3 4 5; do
+                if reply="$("${L[@]}" "$request" 2>&1)"; then break; fi
+                sleep 1
+            done
+            say "$reply"
+        done
     else
         bad "the normal kernel did not answer within 15 s; run Board test.command"
     fi
