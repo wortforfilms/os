@@ -2,7 +2,7 @@
 
 | Feature | Board | Docs |
 | --- | --- | --- |
-| Power cut during a store write, on the board: `scripts/board-power-cut-test.sh` (`Board power cut test.command`) with `maataa-link power-cut-write` / `power-cut-check`: numbered values to key 63, the USB cable pulled while they are written, then key 63 must hold the last acknowledged value or the one in flight | pending | docs/persistence.md |
+| Power cut during a store write, on the board: `scripts/board-power-cut-test.sh` (`Board power cut test.command`) with `maataa-link power-cut-write` / `power-cut-check`: numbered values to key 63, the USB cable pulled while they are written, then key 63 must hold the last acknowledged value or the one in flight | partly (2026-11-04: 2 real power cuts PASS; a third round had no cut, now repeated) | docs/persistence.md |
 
 # Maataa OS v0.1.0-alpha.8
 

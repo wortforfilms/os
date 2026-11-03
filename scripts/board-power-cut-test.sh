@@ -10,6 +10,8 @@
 #
 #   ./scripts/board-power-cut-test.sh [ROUNDS]     (default 3)
 #
+# A round counts only if the boot count went up (the board really lost
+# power); otherwise it is repeated, up to 3 x ROUNDS tries.
 # Log: target/board-power-cut.txt. Exit status 0 only if every round passed.
 set -u
 cd "$(dirname "$0")/.."
@@ -23,6 +25,7 @@ mkdir -p target
 : >"$LOG"
 say() { echo "$@" | tee -a "$LOG"; }
 port() { ls /dev/cu.usbmodem* 2>/dev/null | head -n 1; }
+boot_number() { "${L[@]}" boot-info 2>/dev/null | sed -n 's/^boot \([0-9]*\);.*/\1/p'; }
 
 cargo build -q --release -p maataa-link --features cli || exit 1
 PORT="${MAATAA_SERIAL:-$(port)}"
@@ -32,9 +35,14 @@ say "$(date); port $PORT; $ROUNDS rounds"
 "${L[@]}" info | tee -a "$LOG" || { say "FAIL: the board does not answer"; exit 1; }
 
 passed=0
-for round in $(seq 1 "$ROUNDS"); do
+round=0
+tries=0
+while [ "$round" -lt "$ROUNDS" ] && [ "$tries" -lt $((ROUNDS * 3)) ]; do
+    round=$((round + 1))
+    tries=$((tries + 1))
     say ""
     say "== round $round of $ROUNDS"
+    before="$(boot_number)"
     echo "Writes start now. Pull the USB cable while the count climbs,"
     echo "wait about 3 seconds, then plug it back in."
     "${L[@]}" power-cut-write 1000000 >"$WRITES" 2>&1 &
@@ -62,6 +70,15 @@ for round in $(seq 1 "$ROUNDS"); do
         continue
     fi
     "${L[@]}" boot-info 2>&1 | tee -a "$LOG"
+    after="$(boot_number)"
+    # Without a new boot the power was never cut (a short pull, or only the
+    # serial link dropped): check the store anyway, but repeat the round.
+    if [ -z "$before" ] || [ -z "$after" ] || [ "$after" -le "$before" ]; then
+        "${L[@]}" power-cut-check "$acked" 2>&1 | tee -a "$LOG"
+        say "NO POWER CUT: boot count ${before:-?} -> ${after:-?}; the board did not restart. Repeating the round (pull the cable fully, keep it out 3 s)."
+        round=$((round - 1))
+        continue
+    fi
     if "${L[@]}" power-cut-check "$acked" 2>&1 | tee -a "$LOG" | grep -q '^PASS'; then
         passed=$((passed + 1))
     fi

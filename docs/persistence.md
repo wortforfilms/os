@@ -248,7 +248,9 @@ The host channel `selftest` now also checks these:
   acknowledges; you pull the USB cable while the count climbs and plug it
   back in. `maataa-link power-cut-check N` then requires key 63 to hold
   value N (the last acknowledged) or N+1 (the one in flight), never a torn
-  or mixed value, and the store must have mounted. Compaction runs about
+  or mixed value, and the store must have mounted. A round counts only if
+  the boot count went up, so the board really lost power; otherwise the
+  script says so and repeats it. Compaction runs about
   every 1,500 writes on the F411, so some cuts land in it. The host tests
   above cut at every programmed byte in a model of the flash; this run is
   the same check on the real chip.
@@ -256,6 +258,11 @@ The host channel `selftest` now also checks these:
   QEMU in the middle of the writes: three rounds of 1,842, 1,972 and about
   2,000 acknowledged writes each read back the last acknowledged value,
   with compactions in between (generation 11, 21, 31; 2026-11-04, by hand).
+- First board run, 2026-11-04 (kernel `bbce5ca`): two real power cuts, after
+  5,253 writes (about three compactions before it) and after 8; both read
+  back the last acknowledged value. A third round stopped on a serial
+  timeout without a new boot (no power cut); it too read back its last
+  value, and since then such a round is repeated rather than counted.
 
 ## Board verification (NUCLEO-F411RE, 2026-10-31)
 
