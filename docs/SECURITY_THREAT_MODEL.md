@@ -78,6 +78,10 @@ chain of the toolchain and crates.
 - **Not hardened against:** timing or power side channels, glitching, a
   malicious build machine.
 
+The proposed fixes for the host channel, `CAPSULE_REMOVE` and the shared
+task keys are in [SECURITY_DESIGN.md](SECURITY_DESIGN.md) (not yet
+implemented).
+
 ## Out of scope by decision
 
 - OTP writes and RDP on the project's board (irreversible).

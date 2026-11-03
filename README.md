@@ -106,6 +106,7 @@ double-click.
 - [Supervisor call test coverage](docs/SVC_TEST_COVERAGE.md)
 - [Hardware memory map](docs/HARDWARE_MEMORY_MAP.md)
 - [Security threat model](docs/SECURITY_THREAT_MODEL.md)
+- [Security design (proposal)](docs/SECURITY_DESIGN.md)
 - [Evidence matrix](docs/EVIDENCE_MATRIX.md)
 - [Host channel](docs/host-channel.md)
 - [Signed capsules and capabilities](docs/capsules.md)
