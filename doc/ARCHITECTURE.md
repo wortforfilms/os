@@ -1,6 +1,6 @@
 # Maataa OS Architecture
 
-How the kernel is put together at `v0.1.0-alpha.7`, from the source. Each
+How the kernel is put together at `v0.1.0-alpha.8`, from the source. Each
 part links to the page that has its details; what is tested where is in
 [EVIDENCE_MATRIX.md](../docs/EVIDENCE_MATRIX.md).
 

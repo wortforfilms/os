@@ -1,6 +1,6 @@
 # Maataa OS Roadmap
 
-Status at `v0.1.0-alpha.7`. A checked item
+Status at `v0.1.0-alpha.8`. A checked item
 is implemented and tested; where it was run is in
 [EVIDENCE_MATRIX.md](../docs/EVIDENCE_MATRIX.md). Phase 1 was the
 alpha.1 plan; later phases are kept with their real outcome.
@@ -49,7 +49,10 @@ alpha.1 plan; later phases are kept with their real outcome.
 - [x] Fault containment: a faulting task is killed; a WASM trap ends one call
 - [x] Sealed store bound to the chip id
 - [ ] Rollback counter on a board (QEMU only; OTP is one-time, so opt-in)
-- [ ] Host-channel authentication
+- [x] Host-channel authentication for changes: signed requests over a
+  per-boot challenge ([SECURITY_DESIGN.md](../docs/SECURITY_DESIGN.md));
+  reads stay open by decision
+- [x] Store keys owned by the host channel or a capsule's signed name
   ([threat model](../docs/SECURITY_THREAT_MODEL.md#known-limits))
 
 ## Phase 5: Production Readiness

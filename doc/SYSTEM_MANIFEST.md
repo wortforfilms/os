@@ -1,6 +1,6 @@
 # Maataa OS System Manifest
 
-What the kernel is at `v0.1.0-alpha.7`, from the source. Details are in the
+What the kernel is at `v0.1.0-alpha.8`, from the source. Details are in the
 linked docs; the evidence for each item is in
 [EVIDENCE_MATRIX.md](../docs/EVIDENCE_MATRIX.md).
 
@@ -44,7 +44,9 @@ Layout: [HARDWARE_MEMORY_MAP.md](../docs/HARDWARE_MEMORY_MAP.md).
   only in host tests as a reference.
 - **Isolation:** each capsule is its own unprivileged task; its imports are
   SVCs, so its signed capabilities bind it.
-- **Install:** one run-time capsule in sector 5 over the host channel.
+- **Install:** one run-time capsule in sector 5 over the host channel; the
+  commit and a remove are signed host requests
+  ([SECURITY_DESIGN.md](../docs/SECURITY_DESIGN.md)).
 
 ## Storage
 

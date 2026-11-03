@@ -1,4 +1,39 @@
-# Unreleased (after v0.1.0-alpha.7)
+# Maataa OS v0.1.0-alpha.8
+
+## Release type
+
+Security alpha for QEMU (`netduinoplus2`) and the NUCLEO-F411RE board. New
+are signed host requests and store key owners (docs/SECURITY_DESIGN.md):
+committing an install, removing the run-time capsule and writing a task key
+outside the host's own now need an ed25519 signature by the capsule key over
+a per-boot challenge, and each store key is written only by its owner (the
+host channel, or a capsule by its signed name). Reads stay open by decision.
+Also more syscall error paths checked through the `svc` instruction, the
+architecture and build docs rewritten, and debug builds 8 KB smaller.
+Panini capsule 9 and the sandhi wire format (keys 40/41) are unchanged.
+Every item passed the QEMU smoke test (15/15) and CI.
+
+**Changed for users:** `maataa-link capsule-install` and `capsule-remove`
+need `--dev` (development kernel) or `--seed-file
+~/.maataa/capsule-release.seed` (release kernel); without one the kernel
+refuses the commit or remove. `Board persistence check.command` uses key 21
+instead of panini's key 40.
+
+## Validation
+
+```bash
+./scripts/smoke-alpha.sh          # 15 checks, QEMU (12: signed install/remove, refused unsigned/wrong-key/replay)
+./scripts/sizecheck.sh            # all four kernels within 128 KiB, no warning
+./scripts/board-test.sh           # NUCLEO-F411RE: build, flash, host-channel checks
+```
+
+Board runs for this release, 2026-11-03, development key: store key owners
+at `d29a343` (panini 9 MATCH, host `put 32` refused, `put 21` stored) and
+signed host requests at `bbce5ca` (unsigned remove and commit refused, a
+signed put refused when replayed, panini 9 re-installed by a signed commit,
+MATCH after reset).
+
+## Changes
 
 | Feature | Board | Docs |
 | --- | --- | --- |
@@ -8,6 +43,8 @@
 | Signed host requests (docs/SECURITY_DESIGN.md, Part A): CHALLENGE (`0x0C`: chip id, boot count, sequence) and SIGNED (`0x0D`: ed25519 by the capsule key over label, challenge, operation, arguments) for remove, commit and store put to any task key. Unsigned commit and remove are refused. `maataa-link --dev` / `--seed-file`, `put-signed`, `signed-replay-test`. Smoke 12 checks unsigned, wrong-key and replayed requests refused | yes (2026-11-03, `bbce5ca`: unsigned remove and commit refused, signed put accepted once and refused when replayed, panini 9 re-installed with a signed commit, 2 MATCH after reset) | docs/SECURITY_DESIGN.md |
 | Store keys have owners (docs/SECURITY_DESIGN.md, Part B): the host channel writes 16–31, 63 and 40–41; `telemetry` 32–35; `panini` 40–47; any other task or capsule name writes nothing (`EPERM`). Reads unchanged. `Board persistence check.command` moved from panini's key 40 to 21. Smoke 11 checks the host cannot write key 32 | yes (2026-11-03, `d29a343`: board test PASS, panini 9 MATCH ×3, host `put 32` refused, `put 21` stored and read back) | docs/persistence.md |
 | `doc/ARCHITECTURE.md` and `doc/BUILD_GUIDE.md` rewritten for alpha.7 (they still described the alpha.1 prototype) | - | doc/ARCHITECTURE.md |
+| `docs/SECURITY_DESIGN.md`: the design of signed host requests and store key owners, with the user's decisions (signed commit; reads stay unsigned, the store is not confidential; one release seed). Same-version reinstall kept, with the reason, in the threat model | - | docs/SECURITY_DESIGN.md |
+| `scripts/flash.sh` removed (alpha.1: built nothing, ran the default QEMU ELF on a Black Pill) | - | doc/BUILD_GUIDE.md |
 
 # Maataa OS v0.1.0-alpha.7
 
