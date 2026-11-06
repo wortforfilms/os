@@ -199,7 +199,9 @@ kernel.
 | 48–62 | unassigned (a future capsule gets a range in the table) | — | — |
 | 63 | host scratch (`store-stress`) | host channel | host channel |
 
-- A capsule reading or writing outside its range gets `E_PERM`.
+- A capsule writing outside its range gets `E_PERM`. Reads stay open: every
+  task may read every key 0–63 (`task_key_readable` in
+  `src/storage/persist.rs`), as [persistence.md](persistence.md#keys-and-access) says.
 - The host writes its scratch keys and key 40 without a signature; any other
   key 16–63 needs a signed `store put` (Part A).
 - The persistence check's use of key 40 moves to a host scratch key, so it

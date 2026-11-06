@@ -93,9 +93,9 @@ chain of the toolchain and crates.
 - **Not hardened against:** timing or power side channels, glitching, a
   malicious build machine.
 
-The proposed fixes for the host channel, `CAPSULE_REMOVE` and the shared
-task keys are in [SECURITY_DESIGN.md](SECURITY_DESIGN.md) (not yet
-implemented).
+The fixes for the host channel, `CAPSULE_REMOVE` and the shared task keys
+are in [SECURITY_DESIGN.md](SECURITY_DESIGN.md): Part A (signed host
+requests) and Part B (store key owners), implemented in v0.1.0-alpha.8.
 
 ## Out of scope by decision
 
