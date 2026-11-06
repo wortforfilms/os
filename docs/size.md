@@ -6,7 +6,22 @@ builds all four kernels (F411 and QEMU, release and debug), fails any over
 128 KiB, and warns above 90%. The debug builds are the tighter limit, and
 CI's smoke test builds them.
 
-## Where it stands (2026-11-03, after alpha.7 + signed host requests)
+## Where it stands (2026-11-06, v0.1.0-alpha.9, rustc 1.91.0)
+
+| Build | Flash (bytes) | Use | Free |
+| --- | --- | --- | --- |
+| F411 release | 111,880 | 85.4% | 19,192 |
+| F411 debug | 117,412 | 89.6% | 13,660 |
+| QEMU debug | 116,624 | 89.0% | 14,448 |
+| QEMU release | 111,276 | 84.9% | 19,796 |
+
+Measured with `scripts/sizecheck.sh` on the Mac. The signed release ELFs in
+`dist/` agree: v0.1.0-alpha.9 F411 is 111,780 bytes (text 110,460 + data
+1,320) and alpha.8 111,472, so the builds grew by about 7 KB between the
+2026-11-03 table below and alpha.8. The F411 debug build is 0.4 points
+under the 90% warning.
+
+## Earlier: 2026-11-03, after alpha.7 + signed host requests
 
 | Build | Flash (bytes) | Use | Free |
 | --- | --- | --- | --- |
