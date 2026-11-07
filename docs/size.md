@@ -10,20 +10,19 @@ CI's smoke test builds them.
 
 | Build | Flash (bytes) | Use | Free |
 | --- | --- | --- | --- |
-| F411 release | 111,880 | 85.4% | 19,192 |
-| F411 debug | 117,412 | 89.6% | 13,660 |
-| F446 release | 112,036 | 85.5% | 19,036 |
-| F446 debug | 117,588 | 89.7% | 13,484 |
+| F411 release | 111,884 | 85.4% | 19,188 |
+| F411 debug | 117,420 | 89.6% | 13,652 |
+| F446 release | 112,072 | 85.5% | 19,000 |
+| F446 debug | 117,580 | 89.7% | 13,492 |
 | QEMU debug | 116,624 | 89.0% | 14,448 |
 | QEMU release | 111,276 | 84.9% | 19,796 |
 
-The F411 and QEMU rows are the 2026-11-06 measurements below; this change
-does not alter those builds. The F446 rows are estimates: in a cloud build
-with `-Zbuild-std` (smaller absolute sizes) the F446 kernels came out 156
-bytes (release) and 176 bytes (debug) above the F411 ones, added here to the
-Mac's F411 numbers. Replace them with the Mac's `scripts/sizecheck.sh`
-output. The F446 debug build is about 380 bytes under the 90% warning, so
-the driver commits will cross it: decide then what leaves the debug build.
+Measured with `scripts/sizecheck.sh` on the Mac after the board-f446
+commit. The F411 builds grew 4 and 8 bytes; the QEMU builds did not change.
+The F446 kernel is 188 bytes (release) and 160 bytes (debug) above the F411
+one: the HSE and APB1 settings. The F446 debug build is 384 bytes under the
+90% warning (117,964 bytes), so the driver commits will cross it: decide then
+what leaves the debug build.
 
 ## Earlier: 2026-11-06, v0.1.0-alpha.9, rustc 1.91.0
 
