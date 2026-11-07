@@ -1,0 +1,26 @@
+# Spike (docs/drivers-plan step 0): can a capsule be written in Rust and still
+# run in our interpreter (crates/maataa-wasm), which takes only the i32
+# subset of WebAssembly 1.0? Not part of the kernel workspace or its build.
+[package]
+name = "rust-capsule-spike"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+path = "src/lib.rs"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+debug = false
+strip = true
+
+[profile.dev]
+panic = "abort"
+
+# Standalone: the kernel workspace does not list this crate.
+[workspace]

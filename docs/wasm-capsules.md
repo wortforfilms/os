@@ -262,3 +262,16 @@ To add a capsule to the kernel, add its image to the list in `src/kernel.rs`.
 - **Fixed entry points.** The task calls the exports `init` and `tick`.
 - **4 KiB of memory.** Programs built by compilers that expect a full 64 KiB
   page would need a larger buffer, or must keep their data small.
+
+## Capsules in Rust (spike)
+
+`spikes/rust-capsule` is a capsule written in Rust instead of WAT: the same
+`init` / `tick` shape and `maataa` schedule section, plus a Modbus RTU request
+builder, CRC-16 and a reply checker. It is built for `wasm32v1-none`
+(WebAssembly 1.0 plus mutable globals) with `opt-level = "z"`,
+`panic = "abort"`, a 2 KiB stack and 64 KiB of declared memory, of which a
+capsule task gives it 4 KiB. `scripts/rust-capsule-spike.sh` builds it and
+runs `crates/maataa-wasm/tests/rust_capsule_spike.rs`, which loads it in our
+interpreter (loading refuses any instruction outside the i32 subset) and
+checks every result against the host. CI runs the test but skips it, because
+CI does not build the spike.

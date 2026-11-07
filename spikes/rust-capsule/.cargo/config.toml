@@ -1,0 +1,13 @@
+# wasm32v1-none: WebAssembly 1.0 plus mutable globals; no sign-extension,
+# bulk-memory, multi-value or reference-types instructions.
+[build]
+target = "wasm32v1-none"
+
+[target.wasm32v1-none]
+rustflags = [
+  # The interpreter gives a capsule 4 KiB of memory. rustc puts the stack
+  # first, so a 2 KiB stack leaves 2 KiB for data at 2048 and up.
+  "-C", "link-arg=-zstack-size=2048",
+  "-C", "link-arg=--initial-memory=65536",
+  "-C", "link-arg=--max-memory=65536",
+]
