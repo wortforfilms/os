@@ -117,7 +117,7 @@ fn main() -> ! {
     );
     kprintln!("ok  pending wrap counted while interrupts were masked");
 
-    #[cfg(feature = "board-f411")]
+    #[cfg(feature = "hw-f4")]
     {
         kprintln!("--  rate and Hemant checks skipped: no host time on this board");
         kprintln!("clock self-test passed");

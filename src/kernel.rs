@@ -326,7 +326,7 @@ pub fn run() -> Grants {
             uptime_nanos,
         })
     };
-    #[cfg(feature = "board-f411")]
+    #[cfg(feature = "hw-f4")]
     let anchor: Option<HostAnchor> = None;
     let tick = clock::monotonic_tick();
     let config = clock::config().expect("clock started in main");
@@ -458,7 +458,7 @@ pub fn run() -> Grants {
     kprintln!("Maataa OS prototype demo complete.");
     #[cfg(feature = "board-qemu-f405")]
     kprintln!("Exiting QEMU.");
-    #[cfg(feature = "board-f411")]
+    #[cfg(feature = "hw-f4")]
     kprintln!(
         "Starting the demo tasks (task 4 tests memory protection, task 5 a stack overflow, task 6 serves the host channel)."
     );

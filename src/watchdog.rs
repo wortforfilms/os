@@ -24,14 +24,11 @@ pub const PRESCALER_DIV128: u32 = 5;
 pub const RELOAD: u32 = 2_000 - 1;
 
 /// Whether this board has a watchdog the kernel drives.
-pub const AVAILABLE: bool = cfg!(all(
-    feature = "board-f411",
-    not(feature = "board-qemu-f405")
-));
+pub const AVAILABLE: bool = cfg!(all(feature = "hw-f4", not(feature = "board-qemu-f405")));
 
 #[cfg(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 ))]
 mod hw {
@@ -74,21 +71,21 @@ mod hw {
 
 #[cfg(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 ))]
 pub use hw::{feed, start};
 
 #[cfg(not(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 )))]
 pub fn start() {}
 
 #[cfg(not(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 )))]
 #[inline(always)]

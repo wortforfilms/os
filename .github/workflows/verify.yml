@@ -34,6 +34,7 @@ jobs:
           cargo clippy --target thumbv7em-none-eabihf --no-default-features --features board-f411,watchdog-test -- -D warnings
           cargo clippy --target thumbv7em-none-eabihf --features otp-rollback -- -D warnings
           cargo clippy --target thumbv7em-none-eabihf --no-default-features --features board-f411,otp-rollback -- -D warnings
+          cargo clippy --target thumbv7em-none-eabihf --no-default-features --features board-f446 -- -D warnings
           cargo clippy --target thumbv7em-none-eabihf --features inversion-test -- -D warnings
           cargo clippy --target thumbv7em-none-eabihf --features inversion-test,pi-off -- -D warnings
       # Both board builds, F411 has no semihosting, host tests, QEMU boot

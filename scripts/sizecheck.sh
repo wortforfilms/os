@@ -1,5 +1,5 @@
 #!/bin/bash
-# Kernel flash size for every build that runs: both boards, release and
+# Kernel flash size for every build that runs: all three boards, release and
 # debug. The kernel owns flash sectors 0-4 (128 KiB); sector 5 is the
 # run-time capsule area and sectors 6-7 the persistent store (memory.x), so
 # an image over 128 KiB fails. Above 90% it warns: debug builds are the
@@ -24,6 +24,8 @@ failed=0
 # QEMU release last, so target/$TARGET/release is the default build again.
 for build in "F411 release|release|--release --no-default-features --features board-f411" \
              "F411 debug|debug|--no-default-features --features board-f411" \
+             "F446 release|release|--release --no-default-features --features board-f446" \
+             "F446 debug|debug|--no-default-features --features board-f446" \
              "QEMU debug|debug|" \
              "QEMU release|release|--release"; do
     IFS='|' read -r name profile args <<<"$build"

@@ -129,7 +129,7 @@ mod hw {
     }
 
     /// Reads and clears the reset flags (once, at boot).
-    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    #[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
     pub fn reset_cause() -> ResetCause {
         const RCC_CSR: *mut u32 = 0x4002_3874 as *mut u32;
         const RMVF: u32 = 1 << 24;

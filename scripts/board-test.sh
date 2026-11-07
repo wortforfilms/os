@@ -1,5 +1,6 @@
 #!/bin/bash
-# Board test for a NUCLEO-F411RE on the ST-LINK: build the F411 kernel,
+# Board test for a NUCLEO-F411RE (or, with BOARD=f446, a NUCLEO-F446RE) on
+# the ST-LINK: build the kernel for that board,
 # flash it with probe-rs (download, then reset: never a killed `run`), wait
 # for the host channel, then run the host-channel selftest, STATUS, kernel
 # key 3 (starvation episodes), capsule-info and 10 pings.
@@ -11,7 +12,13 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-CHIP="${PROBE_RS_CHIP:-STM32F411RETx}"
+BOARD="${BOARD:-f411}"
+case "$BOARD" in
+    f411) DEFAULT_CHIP=STM32F411RETx ;;
+    f446) DEFAULT_CHIP=STM32F446RETx ;;
+    *) echo "BOARD must be f411 or f446" >&2; exit 2 ;;
+esac
+CHIP="${PROBE_RS_CHIP:-$DEFAULT_CHIP}"
 TARGET=thumbv7em-none-eabihf
 OS_BIN="target/$TARGET/release/maataa-os"
 LINK_BIN="target/release/maataa-link"
@@ -40,11 +47,11 @@ fi
 cat /Volumes/NOD_*/DETAILS.TXT 2>/dev/null | head -n 1 || true
 
 step "build"
-# The kernel needs the ARM target and the F411 board feature: a plain
+# The kernel needs the ARM target and the board feature: a plain
 # `cargo build` would build the QEMU board for the host, and the flash step
 # would then pick up an old ELF.
 rm -f "$OS_BIN"
-cargo build --release --target "$TARGET" --no-default-features --features board-f411 --bin maataa-os
+cargo build --release --target "$TARGET" --no-default-features --features "board-$BOARD" --bin maataa-os
 cargo build --release -p maataa-link --features cli
 [ -f "$OS_BIN" ] || fail "kernel ELF missing after the build"
 

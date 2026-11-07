@@ -178,9 +178,9 @@ impl HostAnchor {
 #[cfg(target_arch = "arm")]
 #[inline(always)]
 pub fn idle() {
-    #[cfg(all(feature = "board-f411", not(feature = "low-power")))]
+    #[cfg(all(feature = "hw-f4", not(feature = "low-power")))]
     cortex_m::asm::nop();
-    #[cfg(not(all(feature = "board-f411", not(feature = "low-power"))))]
+    #[cfg(not(all(feature = "hw-f4", not(feature = "low-power"))))]
     cortex_m::asm::wfi();
 }
 

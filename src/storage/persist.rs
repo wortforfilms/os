@@ -19,7 +19,7 @@ include!(concat!(env!("OUT_DIR"), "/store_key.rs"));
 /// The chip's 96-bit unique id, which binds the store key to this device.
 #[cfg(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 ))]
 pub fn device_id() -> [u8; 12] {
@@ -136,7 +136,7 @@ pub const fn task_key_readable(key: u32) -> bool {
 
 #[cfg(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 ))]
 pub(crate) mod backend {
@@ -451,22 +451,22 @@ pub(crate) mod otp {
     /// Bytes the counter uses: 256, so the store can compact 256 times.
     pub const BYTES: usize = 256;
 
-    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    #[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
     pub struct Otp;
 
     /// OTP blocks 8 to 15 (blocks 0 to 7 and the lock bytes at 0x1FFF7A00
     /// are never touched).
-    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    #[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
     const BASE: u32 = 0x1FFF_7900;
 
-    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    #[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
     impl Otp {
         pub fn open() -> Result<Self, FlashError> {
             Ok(Self)
         }
     }
 
-    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    #[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
     impl OneTimeBytes for Otp {
         fn len(&self) -> usize {
             BYTES

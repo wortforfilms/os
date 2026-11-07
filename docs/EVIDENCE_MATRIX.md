@@ -6,7 +6,7 @@ runs that test, and whether it was run on a NUCLEO-F411RE. At `7b99bdb`
 [release notes](../doc/RELEASE_NOTES.md)).
 
 - **CI** is `.github/workflows/verify.yml`: `cargo fmt --check`, clippy (host
-  crates and eight kernel feature sets, warnings are errors),
+  crates and nine kernel feature sets, warnings are errors),
   `scripts/smoke-alpha.sh` (15 checks) and `scripts/sizecheck.sh`.
 - **Board** is a recorded manual run: `scripts/board-test.sh` or a
   `maataa-link` session, with the date from the release notes. A board run
@@ -16,9 +16,9 @@ runs that test, and whether it was run on a NUCLEO-F411RE. At `7b99bdb`
 
 | # | Check |
 | --- | --- |
-| 1 | F411 target build |
+| 1 | F411 and F446 target builds |
 | 2 | default QEMU target build |
-| 3 | F411 dependency tree excludes semihosting |
+| 3 | F411 and F446 dependency trees exclude semihosting |
 | 4 | both-board features fail cleanly |
 | 5 | host unit tests (`cargo test`; the host crates; `maataa-sandhi --features alloc`) |
 | 6 | release build |

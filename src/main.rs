@@ -29,7 +29,7 @@ mod watchdog;
 
 #[cfg(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 ))]
 use stm32f4xx_hal::pac::interrupt;
@@ -344,7 +344,7 @@ fn svc_error_paths() {
 #[cfg_attr(feature = "inversion-test", allow(dead_code))]
 fn demo_task_three() -> ! {
     crate::uprintln!("task 3");
-    #[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+    #[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
     {
         let payload = b"task 3: direct SVC #12 UART write verified\r\n";
         match syscall::uart_write(payload) {
@@ -702,7 +702,7 @@ fn SysTick() {
 /// driver's fixed FIFO; task scheduling and SVC reads stay outside the ISR.
 #[cfg(all(
     target_arch = "arm",
-    feature = "board-f411",
+    feature = "hw-f4",
     not(feature = "board-qemu-f405")
 ))]
 #[interrupt]

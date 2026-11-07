@@ -28,8 +28,9 @@ Working:
   `maataa-link` ([docs/host-channel.md](docs/host-channel.md))
 - Kernel monotonic clock: SysTick at 1 kHz, cycle-precise reads, fed into
   `hemant-core::MonotonicTick` ([docs/kernel-clock.md](docs/kernel-clock.md))
-- Board selection: `board-qemu-f405` (default) or `board-f411`, RCC set up
-  through `stm32f4xx-hal`. Verified on a NUCLEO-F411RE: demo, UART echo and
+- Board selection: `board-qemu-f405` (default), `board-f411` or `board-f446`
+  (NUCLEO-F446RE, 168 MHz from the ST-LINK's 8 MHz, built and linted but not
+  yet run on a board), RCC set up through `stm32f4xx-hal`. Verified on a NUCLEO-F411RE: demo, UART echo and
   RX wake. Host channel selftest passed in QEMU and on the board.
 - Signed capsules (MCAP, ed25519) and per-task capability masks: every
   supervisor call is checked against the calling task's mask, and the host

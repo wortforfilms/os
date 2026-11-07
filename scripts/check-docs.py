@@ -201,7 +201,7 @@ def check_abi():
 
 # 4. Sizes -------------------------------------------------------------------
 
-SIZE_ROW = re.compile(r"^\| (F411 release|F411 debug|QEMU release|QEMU debug) \| ([\d,]+) \| ([\d.]+)%[^|]*\| ([\d,]+) \|$")
+SIZE_ROW = re.compile(r"^\| (F411 release|F411 debug|F446 release|F446 debug|QEMU release|QEMU debug) \| ([\d,]+) \| ([\d.]+)%[^|]*\| ([\d,]+) \|$")
 
 
 def check_sizes(measured_file):
@@ -235,14 +235,14 @@ def check_sizes(measured_file):
                 problem(where, f"{m.group(1)}: {pct}%, but {used:,} bytes is {used * 100 / limit:.1f}%")
         elif table and not line.startswith("|"):
             break
-    if len(table) != 4:
-        problem(where, f"the current table has {len(table)} of the 4 builds")
+    if len(table) != 6:
+        problem(where, f"the current table has {len(table)} of the 6 builds")
 
     if measured_file is None:
         return
     text = Path(measured_file).read_text(encoding="utf-8")
     seen = 0
-    for name, used in re.findall(r"^(?:\w+\s+)?(F411 release|F411 debug|QEMU release|QEMU debug)\s+(\d+) bytes", text, re.M):
+    for name, used in re.findall(r"^(?:\w+\s+)?(F411 release|F411 debug|F446 release|F446 debug|QEMU release|QEMU debug)\s+(\d+) bytes", text, re.M):
         seen += 1
         if name in table and abs(int(used) - table[name]) > SIZE_SLACK:
             problem(where, f"{name} is {int(used):,} bytes now, the table says {table[name]:,}; update the table")

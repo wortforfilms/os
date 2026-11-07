@@ -2,11 +2,30 @@
 
 `memory.x` gives the kernel 128 KiB of flash (F411 sectors 0–4); sector 5 is
 the run-time capsule area and sectors 6–7 the store. `scripts/sizecheck.sh`
-builds all four kernels (F411 and QEMU, release and debug), fails any over
+builds all six kernels (F411, F446 and QEMU, release and debug), fails any over
 128 KiB, and warns above 90%. The debug builds are the tighter limit, and
 CI's smoke test builds them.
 
-## Where it stands (2026-11-06, v0.1.0-alpha.9, rustc 1.91.0)
+## Where it stands (2026-11-07, board-f446 added)
+
+| Build | Flash (bytes) | Use | Free |
+| --- | --- | --- | --- |
+| F411 release | 111,880 | 85.4% | 19,192 |
+| F411 debug | 117,412 | 89.6% | 13,660 |
+| F446 release | 112,036 | 85.5% | 19,036 |
+| F446 debug | 117,588 | 89.7% | 13,484 |
+| QEMU debug | 116,624 | 89.0% | 14,448 |
+| QEMU release | 111,276 | 84.9% | 19,796 |
+
+The F411 and QEMU rows are the 2026-11-06 measurements below; this change
+does not alter those builds. The F446 rows are estimates: in a cloud build
+with `-Zbuild-std` (smaller absolute sizes) the F446 kernels came out 156
+bytes (release) and 176 bytes (debug) above the F411 ones, added here to the
+Mac's F411 numbers. Replace them with the Mac's `scripts/sizecheck.sh`
+output. The F446 debug build is about 380 bytes under the 90% warning, so
+the driver commits will cross it: decide then what leaves the debug build.
+
+## Earlier: 2026-11-06, v0.1.0-alpha.9, rustc 1.91.0
 
 | Build | Flash (bytes) | Use | Free |
 | --- | --- | --- | --- |

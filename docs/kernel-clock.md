@@ -22,10 +22,12 @@
 | --- | --- | --- | --- |
 | `board-qemu-f405` (default) | QEMU `netduinoplus2` (STM32F405) | 168 MHz, fixed | `board assumption` |
 | `board-f411` | STM32F411: Black Pill or Nucleo-F411RE | 100 MHz from HSI via the PLL (`stm32f4xx-hal`) | `rcc configured` |
+| `board-f446` | STM32F446: Nucleo-F446RE | 168 MHz from HSE 8 MHz (bypass, from the ST-LINK) via the PLL; APB1 42 MHz | `rcc configured, hse 8 MHz bypass` |
 
 - **QEMU does not configure RCC.** The emulated F405 has no RCC model, so writing the clock tree and waiting for PLL lock would hang.
 - **The F411 uses HSI on purpose.** The Black Pill has a 25 MHz crystal and the Nucleo gets 8 MHz from its ST-LINK, so one HSE setting would break the other board. HSI is trimmed to about 1%. That is fine for a monotonic clock, but measuring drift needs the LSE crystal or an external reference.
-- **Select exactly one board.** Selecting both, or neither, is a compile error.
+- **The F446 uses HSE.** CAN needs a bit clock accurate to a fraction of a percent, which HSI does not promise over temperature. The Nucleo-F446RE gets 8 MHz from its ST-LINK on PH0, so the HSE runs in bypass mode. It runs at 168 MHz, not 180, because 180 needs over-drive mode.
+- **Select exactly one board.** Selecting two, or none, is a compile error.
 
 ### Real hardware (`probe-rs`)
 

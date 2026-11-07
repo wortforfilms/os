@@ -28,6 +28,7 @@ The board is a Cargo feature; exactly one must be on.
 | --- | --- | --- |
 | `board-qemu-f405` (default) | QEMU `netduinoplus2` (STM32F405 model) | `cargo build --release --target thumbv7em-none-eabihf` |
 | `board-f411` | NUCLEO-F411RE (STM32F411RET6) | add `--no-default-features --features board-f411` |
+| `board-f446` | NUCLEO-F446RE (STM32F446RET6) | add `--no-default-features --features board-f446` |
 
 A plain `cargo build` for the host does not build the kernel; always pass
 `--target thumbv7em-none-eabihf`.
@@ -41,7 +42,7 @@ A plain `cargo build` for the host does not build the kernel; always pass
 ```
 
 `smoke-alpha.sh` runs, in order: both board builds, the semihosting check of
-the F411 dependency tree, the host tests, the release build, the size check,
+the F411 and F446 dependency trees, the host tests, the release build, the size check,
 the QEMU boot report, and the QEMU tests for the clock, host channel, store,
 run-time capsule install, rollback counter, priority inheritance and the
 panini capsule ([EVIDENCE_MATRIX.md](../docs/EVIDENCE_MATRIX.md)).
@@ -55,7 +56,7 @@ cargo test -p maataa-sandhi --features alloc
 ```
 
 CI (`.github/workflows/verify.yml`) also runs `cargo fmt --check` and clippy
-with warnings as errors on the host crates and on eight kernel feature sets.
+with warnings as errors on the host crates and on nine kernel feature sets.
 
 `./scripts/check-docs.py` checks that the docs still say what the code does:
 the version, the number of smoke checks, the SVC call and error tables and

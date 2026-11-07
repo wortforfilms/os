@@ -27,24 +27,27 @@ trap finish EXIT
 
 pass() { DONE=$((DONE + 1)); }
 
-STEP="F411 target build"
+STEP="F411 and F446 target builds"
 cargo build --target "$TARGET" --no-default-features --features board-f411
+cargo build --target "$TARGET" --no-default-features --features board-f446
 pass
 
 STEP="default QEMU target build"
 cargo build --target "$TARGET"
 pass
 
-STEP="F411 dependency tree excludes semihosting"
-F411_TREE="$(cargo tree --target "$TARGET" --no-default-features --features board-f411)"
-if printf '%s\n' "$F411_TREE" | rg -qi semihost; then
-    echo "FAIL: board-f411 dependency tree contains semihosting" >&2
-    exit 1
-fi
-if ! printf '%s\n' "$F411_TREE" | rg -q 'stm32f4xx-hal v'; then
-    echo "FAIL: board-f411 dependency tree does not include stm32f4xx-hal" >&2
-    exit 1
-fi
+STEP="F411 and F446 dependency trees exclude semihosting"
+for board in board-f411 board-f446; do
+    HW_TREE="$(cargo tree --target "$TARGET" --no-default-features --features "$board")"
+    if printf '%s\n' "$HW_TREE" | rg -qi semihost; then
+        echo "FAIL: $board dependency tree contains semihosting" >&2
+        exit 1
+    fi
+    if ! printf '%s\n' "$HW_TREE" | rg -q 'stm32f4xx-hal v'; then
+        echo "FAIL: $board dependency tree does not include stm32f4xx-hal" >&2
+        exit 1
+    fi
+done
 pass
 
 STEP="both-board features fail cleanly"
@@ -52,7 +55,7 @@ if cargo build --target "$TARGET" --no-default-features --features "board-qemu-f
     echo "FAIL: selecting both board features unexpectedly compiled" >&2
     exit 1
 fi
-if ! rg -q 'select exactly one board feature: board-qemu-f405 or board-f411' "$DUAL_LOG"; then
+if ! rg -q 'select exactly one board feature: board-qemu-f405, board-f411 or board-f446' "$DUAL_LOG"; then
     cat "$DUAL_LOG" >&2
     echo "FAIL: dual-board build did not report the board selection compile_error" >&2
     exit 1

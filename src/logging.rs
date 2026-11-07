@@ -7,7 +7,7 @@
 #[allow(unused_imports)]
 pub use cortex_m_semihosting::{hprint as kprint, hprintln as kprintln};
 
-#[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+#[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
 #[macro_export]
 macro_rules! kprint {
     ($($arg:tt)*) => {{
@@ -15,7 +15,7 @@ macro_rules! kprint {
     }};
 }
 
-#[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+#[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
 #[macro_export]
 macro_rules! kprintln {
     () => { $crate::kprint!("\n") };
@@ -24,5 +24,5 @@ macro_rules! kprintln {
     }};
 }
 
-#[cfg(all(feature = "board-f411", not(feature = "board-qemu-f405")))]
+#[cfg(all(feature = "hw-f4", not(feature = "board-qemu-f405")))]
 pub use crate::{kprint, kprintln};
