@@ -337,6 +337,14 @@ pub fn run() -> Grants {
         board::CLOCK_SOURCE
     );
     kprintln!("board: {}", board::NAME);
+    #[cfg(feature = "board-f446")]
+    match crate::drivers::can::self_test(board::F446_APB1_HZ) {
+        Ok(t) => kprintln!(
+            "can1: loopback self-test passed at {} bit/s: {} sent, {} back through the filters, {} filtered out; tec {} rec {} lec {}",
+            t.bitrate, t.sent, t.received, t.filtered, t.tec, t.rec, t.lec
+        ),
+        Err(error) => kprintln!("can1: loopback self-test FAILED: {}", error.as_str()),
+    }
     kprintln!("time: {}", clock::TIME_BASIS);
     kprintln!(
         "sched: strict priority, round-robin within a level, tasks={} quantum_ms={}",

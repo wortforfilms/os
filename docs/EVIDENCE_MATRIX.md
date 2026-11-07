@@ -50,6 +50,7 @@ runs that test, and whether it was run on a NUCLEO-F411RE. At `7b99bdb`
 | run-time capsule install, version floors | `src/installed.rs` | 4 unit tests; smoke 12 | yes | yes |
 | persistent store (ChaCha20-Poly1305, chip-bound key) | `crates/maataa-store`, `src/storage/persist.rs` | 24 crate tests; 3 persist tests; smoke 11 | yes | yes |
 | store rollback counter in OTP | `crates/maataa-store/src/rollback.rs` | smoke 13 (QEMU file stands in for OTP) | yes | no, on purpose (OTP is one-time) |
+| CAN1 driver, loopback self-test (F446 only) | `src/drivers/can.rs` | 8 unit tests (bit timing, 16-byte frame layout, mailbox and filter words, receive queue); boot line `can1: loopback self-test passed`, required by `BOARD=f446 scripts/board-test.sh` | unit tests and F446 clippy; the self-test needs the board | not yet (NUCLEO-F446RE on order) |
 | size limit (128 KiB kernel) | `scripts/sizecheck.sh` | sizecheck | yes | — |
 | release build with release keys | `scripts/release.sh` | — (needs the keys; run by hand) | no | yes (alpha.6) |
 | sandhi library | `crates/maataa-sandhi` | crate tests (`lib.rs`, `lipi.rs`, `varna.rs`) | yes | — (host) |

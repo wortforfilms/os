@@ -6,7 +6,35 @@ builds all six kernels (F411, F446 and QEMU, release and debug), fails any over
 128 KiB, and warns above 90%. The debug builds are the tighter limit, and
 CI's smoke test builds them.
 
-## Where it stands (2026-11-07, board-f446 added)
+## Where it stands (2026-11-08, CAN1 self-test added)
+
+| Build | Flash (bytes) | Use | Free |
+| --- | --- | --- | --- |
+| F411 release | 111,884 | 85.4% | 19,188 |
+| F411 debug | 117,420 | 89.6% | 13,652 |
+| F446 release | 114,080 | 87.0% | 16,992 |
+| F446 debug | 119,576 | 91.2% | 11,496 |
+| QEMU debug | 116,624 | 89.0% | 14,448 |
+| QEMU release | 111,276 | 84.9% | 19,796 |
+
+The CAN driver (`src/drivers/can.rs`) is in the F446 build only, so the F411
+and QEMU rows are the 2026-11-07 Mac numbers, unchanged. The F446 rows are
+the 2026-11-07 Mac numbers plus the growth measured in the cloud build
+(rustc 1.97): +2,008 bytes release, +1,996 debug. Replace them with the
+Mac's `scripts/sizecheck.sh` output.
+
+The F446 debug build is now above the 90% warning (117,964 bytes):
+`sizecheck.sh` prints WARN, which does not fail CI. The board and the
+releases use the release build. Debug is about 5 KB larger than release
+because the kernel crate keeps overflow checks in debug builds; without them
+the F446 debug build is within 100 bytes of release (cloud build, 2026-11-08).
+Moving demo tasks 4 and 5 to test builds would save only about 1.1 KB (debug)
+and 0.9 KB (release) and would take the MPU and stack-overflow evidence out
+of every boot, so they stay. Before the device syscalls (step 4), choose
+between a `demo` feature that leaves tasks 1-5 out of a field build and a
+larger kernel area on the F446 (512 KiB of flash; changes the sector layout).
+
+## Earlier: 2026-11-07, board-f446 added
 
 | Build | Flash (bytes) | Use | Free |
 | --- | --- | --- | --- |
@@ -18,11 +46,8 @@ CI's smoke test builds them.
 | QEMU release | 111,276 | 84.9% | 19,796 |
 
 Measured with `scripts/sizecheck.sh` on the Mac after the board-f446
-commit. The F411 builds grew 4 and 8 bytes; the QEMU builds did not change.
-The F446 kernel is 188 bytes (release) and 160 bytes (debug) above the F411
-one: the HSE and APB1 settings. The F446 debug build is 384 bytes under the
-90% warning (117,964 bytes), so the driver commits will cross it: decide then
-what leaves the debug build.
+commit. The F446 kernel is 188 bytes (release) and 160 bytes (debug) above
+the F411 one: the HSE and APB1 settings.
 
 ## Earlier: 2026-11-06, v0.1.0-alpha.9, rustc 1.91.0
 

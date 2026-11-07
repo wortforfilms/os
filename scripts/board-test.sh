@@ -3,7 +3,8 @@
 # the ST-LINK: build the kernel for that board,
 # flash it with probe-rs (download, then reset: never a killed `run`), wait
 # for the host channel, then run the host-channel selftest, STATUS, kernel
-# key 3 (starvation episodes), capsule-info and 10 pings.
+# key 3 (starvation episodes), capsule-info and 10 pings. On the F446 it also
+# records the boot report and requires the CAN1 loopback self-test to pass.
 # Needs ST-LINK firmware V2J49M36 or newer: older firmware (V2J33M25) stalls
 # the serial port after every probe-rs operation until a USB replug.
 # Keeps the Mac awake while it runs: when the Mac sleeps, the ST-LINK resets
@@ -64,7 +65,24 @@ if ! probe-rs download --chip "$CHIP" "$OS_BIN"; then
     sleep 3
     probe-rs download --chip "$CHIP" "$OS_BIN" || fail "flash failed twice"
 fi
+BOOT_LOG=target/board-boot.txt
+if [ "$BOARD" = f446 ]; then
+    # The boot report goes out on the same serial port before the host
+    # channel starts: record the first seconds after the reset.
+    stty -f "$PORT" 115200 raw 2>/dev/null || stty -F "$PORT" 115200 raw
+    cat "$PORT" >"$BOOT_LOG" &
+    BOOT_CAT=$!
+fi
 probe-rs reset --chip "$CHIP"
+if [ "$BOARD" = f446 ]; then
+    sleep 4
+    kill "$BOOT_CAT" 2>/dev/null || true
+    wait "$BOOT_CAT" 2>/dev/null || true
+    step "boot report (CAN1 self-test)"
+    tr -d '\r' <"$BOOT_LOG" | grep -E '^(clock|board|can1):' || true
+    tr -d '\r' <"$BOOT_LOG" | grep -q '^can1: loopback self-test passed' ||
+        fail "no passing CAN1 self-test line in $BOOT_LOG"
+fi
 
 LINK=("$LINK_BIN" --serial "$PORT" --timeout-ms 3000)
 
