@@ -33,7 +33,10 @@
 
 #[cfg(target_arch = "arm")]
 use crate::syscall;
-use maataa_wasm::{Host, Import, Trap};
+// `Host` is implemented by the ARM syscall bridge and by the tests.
+#[cfg(any(test, target_arch = "arm"))]
+use maataa_wasm::Host;
+use maataa_wasm::{Import, Trap};
 
 /// How many capsule tasks the kernel runs (tasks 7 and 8).
 pub const CAPSULE_TASKS: usize = 2;

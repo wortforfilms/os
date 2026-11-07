@@ -83,6 +83,8 @@ pub mod capsule_op {
 /// Maximum bytes copied or sent by one UART syscall.
 pub const MAX_UART_TRANSFER: usize = 256;
 
+// Used by the ARM UART syscalls and the tests; a plain host build has neither.
+#[cfg(any(test, target_arch = "arm"))]
 const fn uart_len_allowed(len: usize) -> bool {
     len <= MAX_UART_TRANSFER
 }
