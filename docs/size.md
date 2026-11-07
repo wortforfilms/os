@@ -12,16 +12,15 @@ CI's smoke test builds them.
 | --- | --- | --- | --- |
 | F411 release | 111,884 | 85.4% | 19,188 |
 | F411 debug | 117,420 | 89.6% | 13,652 |
-| F446 release | 114,080 | 87.0% | 16,992 |
-| F446 debug | 119,576 | 91.2% | 11,496 |
+| F446 release | 113,836 | 86.8% | 17,236 |
+| F446 debug | 119,660 | 91.3% | 11,412 |
 | QEMU debug | 116,624 | 89.0% | 14,448 |
 | QEMU release | 111,276 | 84.9% | 19,796 |
 
-The CAN driver (`src/drivers/can.rs`) is in the F446 build only, so the F411
-and QEMU rows are the 2026-11-07 Mac numbers, unchanged. The F446 rows are
-the 2026-11-07 Mac numbers plus the growth measured in the cloud build
-(rustc 1.97): +2,008 bytes release, +1,996 debug. Replace them with the
-Mac's `scripts/sizecheck.sh` output.
+Measured with `scripts/sizecheck.sh` on the Mac (rustc 1.91.0) after the
+CAN commit. The CAN driver (`src/drivers/can.rs`) is in the F446 build only:
+the F446 builds grew 1,764 bytes (release) and 2,080 bytes (debug); the F411
+and QEMU builds did not change.
 
 The F446 debug build is now above the 90% warning (117,964 bytes):
 `sizecheck.sh` prints WARN, which does not fail CI. The board and the
