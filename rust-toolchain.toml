@@ -1,4 +1,8 @@
 [toolchain]
-channel = "stable"
+# Pinned: the size table in docs/size.md and the release ELFs come from
+# this compiler. A newer rustc builds the kernel about 7 KB smaller, and
+# CI then fails "Size table matches the build". Bump it on purpose, in one
+# commit with a re-measured docs/size.md.
+channel = "1.91.0"
 targets = ["thumbv7m-none-eabi", "thumbv7em-none-eabihf"]
 components = ["rust-src", "clippy", "rustfmt"]

@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: sudo apt-get update && sudo apt-get install -y qemu-system-arm binutils-arm-none-eabi ripgrep
-      # Toolchain, targets and rust-src come from rust-toolchain.toml.
-      - uses: dtolnay/rust-toolchain@stable
+      # Same compiler as rust-toolchain.toml (keep the two in step), so the
+      # sizes CI measures match docs/size.md.
+      - uses: dtolnay/rust-toolchain@1.91.0
         with:
           targets: thumbv7em-none-eabihf
           components: clippy, rustfmt
