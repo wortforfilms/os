@@ -829,7 +829,13 @@ mod kernel {
             return 4;
         }
         let mut value = [0u8; persist::MAX_VALUE];
-        match persist::get(key as u8, &mut value) {
+        let found = if persist::is_ram_key(key) {
+            // Live readings (keys 54-59): RAM only, never flash.
+            Some(persist::ram_get(key, &mut value))
+        } else {
+            persist::get(key as u8, &mut value)
+        };
+        match found {
             None => E_NOT_SUPPORTED,
             Some(Ok(None)) => E_NOENT,
             Some(Ok(Some(len))) if len > cap => E_TOOLONG,
@@ -859,7 +865,13 @@ mod kernel {
         }
         // SAFETY: the range was checked to be flash or the caller's stack.
         let value = unsafe { core::slice::from_raw_parts(ptr as *const u8, len) };
-        match persist::put(key as u8, value) {
+        let stored = if persist::is_ram_key(key) {
+            // Live readings (keys 54-59): RAM only, never flash.
+            Some(persist::ram_put(key, value))
+        } else {
+            persist::put(key as u8, value)
+        };
+        match stored {
             None => E_NOT_SUPPORTED,
             Some(Ok(())) => 0,
             Some(Err(persist::StoreError::Full)) => E_FULL,
@@ -896,8 +908,10 @@ mod kernel {
                 let Some((&key, value)) = args.split_first() else {
                     return E_TOOLONG;
                 };
-                // Signed, the host may write any task key; never a kernel key.
-                if !persist::task_key_allowed(key as u32) {
+                // Signed, the host may write any task key; never a kernel
+                // key, and never a RAM-only key (only its capsule writes
+                // live readings).
+                if !persist::task_key_allowed(key as u32) || persist::is_ram_key(key as u32) {
                     return E_PERM;
                 }
                 match persist::put(key, value) {

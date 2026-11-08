@@ -196,7 +196,11 @@ kernel.
 | 36–39 | reserved (heartbeat and greeter have no store capability today) | — | — |
 | 40–41 | `panini`, shared with the host | panini writes 41; host writes 40 | both |
 | 42–47 | `panini` | panini | panini, host |
-| 48–62 | unassigned (a future capsule gets a range in the table) | — | — |
+| 48–51 | `modbus` (flash) | modbus | modbus, host |
+| 52–53 | `bms` (flash) | bms | bms, host |
+| 54–57 | `modbus` live readings, RAM only | modbus | every task, host |
+| 58–59 | `bms` live readings, RAM only | bms | every task, host |
+| 60–62 | unassigned (a future capsule gets a range in the table) | — | — |
 | 63 | host scratch (`store-stress`) | host channel | host channel |
 
 - A capsule writing outside its range gets `E_PERM`. Reads stay open: every

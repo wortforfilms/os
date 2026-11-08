@@ -78,6 +78,10 @@ pub enum Owner {
     Telemetry = 2,
     /// The `panini` capsule.
     Panini = 3,
+    /// The `modbus` capsule (Modbus RTU master).
+    Modbus = 4,
+    /// The `bms` capsule (battery over CAN).
+    Bms = 5,
 }
 
 impl Owner {
@@ -87,6 +91,8 @@ impl Owner {
         match name {
             "telemetry" => Self::Telemetry,
             "panini" => Self::Panini,
+            "modbus" => Self::Modbus,
+            "bms" => Self::Bms,
             _ => Self::None,
         }
     }
@@ -97,6 +103,8 @@ impl Owner {
             1 => Self::Host,
             2 => Self::Telemetry,
             3 => Self::Panini,
+            4 => Self::Modbus,
+            5 => Self::Bms,
             _ => Self::None,
         }
     }
@@ -107,6 +115,20 @@ pub const KEY_PANINI_REQUEST: u8 = 40;
 /// Panini's answer key, written by panini and cleared by the host.
 pub const KEY_PANINI_ANSWER: u8 = 41;
 
+/// First RAM-only key. Keys 54–59 hold live readings: a write updates RAM
+/// and never touches flash, a read returns the latest value, and a power
+/// cut loses them (the 15-minute summaries are in flash). Like key 3, they
+/// are served by the store-get call, so the host reads them with the
+/// existing store-get request.
+pub const FIRST_RAM_KEY: u8 = 54;
+/// Number of RAM-only keys (54–57 `modbus`, 58–59 `bms`).
+pub const RAM_KEYS: usize = 6;
+
+/// Whether `key` is a RAM-only key (54–59).
+pub const fn is_ram_key(key: u32) -> bool {
+    key >= FIRST_RAM_KEY as u32 && key < FIRST_RAM_KEY as u32 + RAM_KEYS as u32
+}
+
 /// Whether `owner` may write `key`:
 ///
 /// | Keys | Writers |
@@ -115,7 +137,9 @@ pub const KEY_PANINI_ANSWER: u8 = 41;
 /// | 32–35 | `telemetry` |
 /// | 40, 41 | `panini` and the host channel (the sandhi wire format) |
 /// | 42–47 | `panini` |
-/// | 36–39, 48–62 | nobody yet |
+/// | 48–51 flash, 54–57 RAM | `modbus` (48 configuration, 49 counters, 50–51 15-minute summary) |
+/// | 52–53 flash, 58–59 RAM | `bms` |
+/// | 36–39, 60–62 | nobody yet |
 pub const fn owner_may_write(owner: Owner, key: u32) -> bool {
     if !task_key_allowed(key) {
         return false;
@@ -126,6 +150,62 @@ pub const fn owner_may_write(owner: Owner, key: u32) -> bool {
         Owner::Host => (key >= 16 && key <= 31) || key == 63 || shared,
         Owner::Telemetry => key >= 32 && key <= 35,
         Owner::Panini => key >= 40 && key <= 47,
+        Owner::Modbus => (key >= 48 && key <= 51) || (key >= 54 && key <= 57),
+        Owner::Bms => (key >= 52 && key <= 53) || (key >= 58 && key <= 59),
+    }
+}
+
+/// The values of the RAM-only keys. Same rules as the store: at most
+/// [`MAX_VALUE`] bytes, and an empty value deletes the key.
+pub struct RamKeys {
+    values: [[u8; MAX_VALUE]; RAM_KEYS],
+    lens: [Option<u8>; RAM_KEYS],
+}
+
+impl RamKeys {
+    pub const fn new() -> Self {
+        Self {
+            values: [[0; MAX_VALUE]; RAM_KEYS],
+            lens: [None; RAM_KEYS],
+        }
+    }
+
+    fn slot(key: u32) -> Option<usize> {
+        if is_ram_key(key) {
+            Some((key - FIRST_RAM_KEY as u32) as usize)
+        } else {
+            None
+        }
+    }
+
+    pub fn put(&mut self, key: u32, value: &[u8]) -> Result<(), StoreError> {
+        let slot = Self::slot(key).ok_or(StoreError::BadKey)?;
+        if value.len() > MAX_VALUE {
+            return Err(StoreError::TooLong);
+        }
+        if value.is_empty() {
+            self.lens[slot] = None;
+        } else {
+            self.values[slot][..value.len()].copy_from_slice(value);
+            self.lens[slot] = Some(value.len() as u8);
+        }
+        Ok(())
+    }
+
+    /// Copies the value into `out`; `Ok(None)` if the key holds nothing.
+    pub fn get(&self, key: u32, out: &mut [u8; MAX_VALUE]) -> Result<Option<usize>, StoreError> {
+        let slot = Self::slot(key).ok_or(StoreError::BadKey)?;
+        Ok(self.lens[slot].map(|len| {
+            let len = usize::from(len);
+            out[..len].copy_from_slice(&self.values[slot][..len]);
+            len
+        }))
+    }
+}
+
+impl Default for RamKeys {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -581,6 +661,17 @@ mod kernel_side {
     type Counter = maataa_store::NoCounter;
 
     static STORE: Mutex<RefCell<Option<Store<Backend, Counter>>>> = Mutex::new(RefCell::new(None));
+    static RAM: Mutex<RefCell<RamKeys>> = Mutex::new(RefCell::new(RamKeys::new()));
+
+    /// Reads a RAM-only key (54–59).
+    pub fn ram_get(key: u32, out: &mut [u8; MAX_VALUE]) -> Result<Option<usize>, StoreError> {
+        interrupt::free(|cs| RAM.borrow(cs).borrow().get(key, out))
+    }
+
+    /// Writes a RAM-only key (54–59); flash is never touched.
+    pub fn ram_put(key: u32, value: &[u8]) -> Result<(), StoreError> {
+        interrupt::free(|cs| RAM.borrow(cs).borrow_mut().put(key, value))
+    }
 
     #[cfg(feature = "otp-rollback")]
     fn counter() -> Result<Counter, StoreError> {
@@ -689,8 +780,23 @@ mod tests {
         assert!(!owner_may_write(Telemetry, 20) && !owner_may_write(Panini, 32));
         assert!(!owner_may_write(Host, 32) && !owner_may_write(Host, 42));
         assert!(!owner_may_write(Telemetry, 40) && !owner_may_write(Panini, 63));
-        for key in (36..40).chain(48..63) {
+        for key in (36..40).chain(60..63) {
+            for owner in [None, Host, Telemetry, Panini, Modbus, Bms] {
+                assert!(!owner_may_write(owner, key), "{owner:?} {key}");
+            }
+        }
+        // modbus: 48-51 flash and 54-57 RAM; bms: 52-53 flash and 58-59 RAM.
+        for key in 48..60 {
+            let modbus = (48..52).contains(&key) || (54..58).contains(&key);
+            let bms = (52..54).contains(&key) || (58..60).contains(&key);
+            assert_eq!(owner_may_write(Modbus, key), modbus, "modbus {key}");
+            assert_eq!(owner_may_write(Bms, key), bms, "bms {key}");
             for owner in [None, Host, Telemetry, Panini] {
+                assert!(!owner_may_write(owner, key), "{owner:?} {key}");
+            }
+        }
+        for owner in [Modbus, Bms] {
+            for key in (0..48).chain(60..64) {
                 assert!(!owner_may_write(owner, key), "{owner:?} {key}");
             }
         }
@@ -705,10 +811,42 @@ mod tests {
         assert_eq!(Owner::for_capsule("panini"), Owner::Panini);
         assert_eq!(Owner::for_capsule("greeter"), Owner::None);
         assert_eq!(Owner::for_capsule("hostlink"), Owner::None);
-        for owner in [Owner::None, Owner::Host, Owner::Telemetry, Owner::Panini] {
+        assert_eq!(Owner::for_capsule("modbus"), Owner::Modbus);
+        assert_eq!(Owner::for_capsule("bms"), Owner::Bms);
+        for owner in [
+            Owner::None,
+            Owner::Host,
+            Owner::Telemetry,
+            Owner::Panini,
+            Owner::Modbus,
+            Owner::Bms,
+        ] {
             assert_eq!(Owner::from_u8(owner as u8), owner);
         }
         assert_eq!(Owner::from_u8(200), Owner::None);
+    }
+
+    #[test]
+    fn ram_keys_are_54_to_59_and_follow_the_store_rules() {
+        assert!(!is_ram_key(53) && is_ram_key(54) && is_ram_key(59) && !is_ram_key(60));
+        assert!(!is_ram_key(KEY_STARVATION_COUNT as u32));
+        let mut ram = RamKeys::new();
+        let mut out = [0u8; MAX_VALUE];
+        assert_eq!(ram.get(54, &mut out), Ok(None));
+        ram.put(54, b"230.1 V").unwrap();
+        ram.put(54, b"230.4 V").unwrap(); // the latest value wins
+        assert_eq!(ram.get(54, &mut out), Ok(Some(7)));
+        assert_eq!(&out[..7], b"230.4 V");
+        assert_eq!(ram.get(59, &mut out), Ok(None), "keys are separate");
+        ram.put(59, &[0xAB; MAX_VALUE]).unwrap();
+        assert_eq!(ram.get(59, &mut out), Ok(Some(MAX_VALUE)));
+        assert_eq!(ram.put(55, &[0; MAX_VALUE + 1]), Err(StoreError::TooLong));
+        ram.put(54, &[]).unwrap(); // empty deletes, as in the store
+        assert_eq!(ram.get(54, &mut out), Ok(None));
+        for key in [0, 3, 48, 53, 60, 63, 64, u32::MAX] {
+            assert_eq!(ram.put(key, b"x"), Err(StoreError::BadKey), "{key}");
+            assert_eq!(ram.get(key, &mut out), Err(StoreError::BadKey), "{key}");
+        }
     }
 
     #[test]

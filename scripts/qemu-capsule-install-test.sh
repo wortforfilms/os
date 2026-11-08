@@ -13,6 +13,11 @@
 #          unsigned remove and a replayed signed request are refused
 #   run 5: capsule-info shows greeter version 2; then it is removed (signed)
 #   run 6: no capsule installed, task 9 not started
+#   runs 7-11: live readings (keys 54-59, docs/persistence.md). A stand-in
+#          capsule signed as "modbus" writes flash key 48 and RAM key 54 and
+#          is refused bms's key 52; the host reads key 54 but may not write
+#          it, signed or not; after a reboot without the capsule, key 48 is
+#          still there and key 54 is gone (RAM only). Run 11 deletes key 48.
 # Exit status 0 on pass; a hang fails after 60 s per run.
 set -euo pipefail
 
@@ -89,6 +94,27 @@ sed 's/version=2/version=3/' capsules/greeter.wat >"$WORK/greeter-v3.wat"
 "$SIGN" wasm "$WORK/greeter-v3.wat" -o "$WORK/greeter-v3.wasm" >/dev/null
 "$SIGN" sign --name greeter --caps write,sleep --payload "$WORK/greeter-v3.wasm" --dev \
     -o "$WORK/greeter-v3.mcap" >/dev/null
+# A stand-in for the modbus capsule (step 6 brings the real one): its init
+# writes flash key 48 and RAM key 54, then returns its write to key 52
+# (bms's), which the kernel must refuse with EPERM.
+cat >"$WORK/modbus.wat" <<'WAT'
+(module
+  (@custom "maataa" "ticks=1 period_ms=100 version=1")
+  (import "maataa" "store_put" (func $put (param i32 i32 i32) (result i32)))
+  (memory 1)
+  (data (i32.const 0) "flash-config")
+  (data (i32.const 16) "live-reading")
+  (data (i32.const 32) "intruder")
+  (func (export "init") (result i32)
+    i32.const 48 i32.const 0 i32.const 12 call $put drop
+    i32.const 54 i32.const 16 i32.const 12 call $put drop
+    i32.const 52 i32.const 32 i32.const 8 call $put)
+  (func (export "tick") (result i32)
+    i32.const 0))
+WAT
+"$SIGN" wasm "$WORK/modbus.wat" -o "$WORK/modbus.wasm" >/dev/null
+"$SIGN" sign --name modbus --caps store_put --payload "$WORK/modbus.wasm" --dev \
+    -o "$WORK/modbus.mcap" >/dev/null
 python3 - "$GREETER" "$WORK/tampered.mcap" <<'PY'
 import sys
 data = bytearray(open(sys.argv[1], "rb").read())
@@ -165,5 +191,34 @@ log_has '^capsule installed: none$' || fail "run 6: kernel still found a capsule
 if log_has '^capsule task 9'; then
     fail "run 6: task 9 started without a capsule"
 fi
+
+# Live readings: RAM-only keys 54-59 (docs/persistence.md).
+boot_and_talk --dev capsule-install "$WORK/modbus.mcap" || fail "run 7: install modbus stand-in"
+log_has '^capsule install: modbus version 1 accepted; it runs from the next boot$' \
+    || fail "run 7: modbus stand-in not accepted"
+
+boot_and_talk get 54 || fail "run 8: get key 54"
+grep -q '^key 54: "live-reading" (12 bytes)$' "$WORK/tool.log" || fail "run 8: key 54 does not hold the live reading"
+log_has '^capsule modbus: init -> -1 (EPERM)$' || fail "run 8: modbus wrote bms's key 52"
+if boot_and_talk put 54 intruder; then
+    fail "run 8b: the host channel wrote RAM key 54"
+fi
+if boot_and_talk --dev put-signed 54 intruder; then
+    fail "run 8c: a signed host request wrote RAM key 54"
+fi
+boot_and_talk --dev capsule-remove || fail "run 8d: remove the modbus stand-in"
+
+boot_and_talk get 48 || fail "run 9: get key 48"
+grep -q '^key 48: "flash-config" (12 bytes)$' "$WORK/tool.log" || fail "run 9: flash key 48 did not survive the reboot"
+if boot_and_talk get 54; then
+    fail "run 10: RAM key 54 survived a reboot"
+fi
+grep -q 'key not found' "$WORK/tool.log" || fail "run 10: key 54 not reported as not found"
+
+boot_and_talk --dev put-signed 48 || fail "run 11: delete key 48 (signed)"
+if boot_and_talk get 48; then
+    fail "run 11: key 48 was not deleted"
+fi
+
 rm -f "$AREA_FILE"
-echo "PASS: run-time capsule install (accepted, ran as task 9, downgrade/tamper/built-in name refused, unfinished install ignored, unsigned/wrong-key/replayed requests refused, removed)"
+echo "PASS: run-time capsule install (accepted, ran as task 9, downgrade/tamper/built-in name refused, unfinished install ignored, unsigned/wrong-key/replayed requests refused, removed; live keys 54-59 in RAM only, owner-only)"

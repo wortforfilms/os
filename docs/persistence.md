@@ -193,7 +193,20 @@ fails the test. The tests cover:
 | 36–39 | nobody yet |
 | 40, 41 | panini's request and answer, written by panini and the host channel |
 | 42–47 | the `panini` capsule |
-| 48–62 | nobody yet |
+| 48–51 | the `modbus` capsule: 48 configuration, 49 counters, 50–51 the 15-minute summary |
+| 52–53 | the `bms` capsule: configuration, counters and summaries |
+| 54–57 | the `modbus` capsule: live readings, **RAM only** |
+| 58–59 | the `bms` capsule: live readings, **RAM only** |
+| 60–62 | nobody yet |
+
+Keys 54–59 never reach flash. A write by their capsule updates RAM, a read
+(by a task, or by the host with the usual `get`) returns the latest value,
+and a power cut or reset loses them. Like key 3, the store-get call serves
+them. They exist because writing a reading every second would wear the
+flash out in about a year; the capsules write only configuration, counters
+and 15-minute summaries to flash. Nobody else may write them: the host gets
+`EPERM` even with a signed request. `scripts/qemu-capsule-install-test.sh`
+(runs 7–11) checks this with a stand-in capsule signed as `modbus`.
 
 Tasks may read every key, kernel keys 0–15 included. A task writes only the
 keys of its owner: the host channel, or a capsule by its signed name
