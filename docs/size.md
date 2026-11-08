@@ -6,7 +6,34 @@ builds all six kernels (F411, F446 and QEMU, release and debug), fails any over
 128 KiB, and warns above 90%. The debug builds are the tighter limit, and
 CI's smoke test builds them.
 
-## Where it stands (2026-11-08, CAN1 self-test added)
+## Where it stands (2026-11-08, store live keys added)
+
+| Build | Flash (bytes) | Use | Free |
+| --- | --- | --- | --- |
+| F411 release | 112,584 | 85.9% | 18,488 |
+| F411 debug | 117,956 | 90.0% | 13,116 |
+| F446 release | 114,480 | 87.3% | 16,592 |
+| F446 debug | 120,200 | 91.7% | 10,872 |
+| QEMU debug | 117,112 | 89.3% | 13,960 |
+| QEMU release | 111,780 | 85.3% | 19,292 |
+
+Measured with `scripts/sizecheck.sh` on the Mac (rustc 1.91.0) after the
+store owners and RAM-only live keys 54–59. Every build grew 488–700 bytes
+(release 700, 644, 504; debug 536, 540, 488 for F411, F446, QEMU). The F411
+debug build is 8 bytes under the 90% warning (117,964 bytes).
+
+The F446 debug build is above the 90% warning:
+`sizecheck.sh` prints WARN, which does not fail CI. The board and the
+releases use the release build. Debug is about 5 KB larger than release
+because the kernel crate keeps overflow checks in debug builds; without them
+the F446 debug build is within 100 bytes of release (cloud build, 2026-11-08).
+Moving demo tasks 4 and 5 to test builds would save only about 1.1 KB (debug)
+and 0.9 KB (release) and would take the MPU and stack-overflow evidence out
+of every boot, so they stay. Before the device syscalls (step 4), choose
+between a `demo` feature that leaves tasks 1-5 out of a field build and a
+larger kernel area on the F446 (512 KiB of flash; changes the sector layout).
+
+## Earlier: 2026-11-08, CAN1 self-test added
 
 | Build | Flash (bytes) | Use | Free |
 | --- | --- | --- | --- |
@@ -17,21 +44,8 @@ CI's smoke test builds them.
 | QEMU debug | 116,624 | 89.0% | 14,448 |
 | QEMU release | 111,276 | 84.9% | 19,796 |
 
-Measured with `scripts/sizecheck.sh` on the Mac (rustc 1.91.0) after the
-CAN commit. The CAN driver (`src/drivers/can.rs`) is in the F446 build only:
-the F446 builds grew 1,764 bytes (release) and 2,080 bytes (debug); the F411
-and QEMU builds did not change.
-
-The F446 debug build is now above the 90% warning (117,964 bytes):
-`sizecheck.sh` prints WARN, which does not fail CI. The board and the
-releases use the release build. Debug is about 5 KB larger than release
-because the kernel crate keeps overflow checks in debug builds; without them
-the F446 debug build is within 100 bytes of release (cloud build, 2026-11-08).
-Moving demo tasks 4 and 5 to test builds would save only about 1.1 KB (debug)
-and 0.9 KB (release) and would take the MPU and stack-overflow evidence out
-of every boot, so they stay. Before the device syscalls (step 4), choose
-between a `demo` feature that leaves tasks 1-5 out of a field build and a
-larger kernel area on the F446 (512 KiB of flash; changes the sector layout).
+Measured on the Mac after the CAN commit; the CAN driver is in the F446
+build only (+1,764 release, +2,080 debug).
 
 ## Earlier: 2026-11-07, board-f446 added
 
