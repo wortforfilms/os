@@ -3,6 +3,9 @@ use crate::boot_log;
 // bxCAN1 exists on the F446 build only (the F411 has no CAN; QEMU models none).
 #[cfg(any(test, feature = "board-f446"))]
 pub mod can;
+// RS-485 transfer logic: host tests now, the F446 USART1 port later.
+#[cfg(any(test, feature = "board-f446"))]
+pub mod rs485;
 pub mod spi;
 pub mod uart;
 
