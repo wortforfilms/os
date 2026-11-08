@@ -20,7 +20,9 @@ use std::time::{Duration, Instant};
 
 const USAGE: &str =
     "usage: maataa-link (--serial DEVICE | --qemu-socket PATH) [--timeout-ms N] [--require-hello]
-                   [--dev | --seed-file FILE] COMMAND
+                   [--wait-ms N] [--dev | --seed-file FILE] COMMAND
+  --wait-ms N waits N ms (after HELLO, if required) before the command, so the
+  board's tasks can run first; for example a capsule writing a live key.
 Signed requests (docs/SECURITY_DESIGN.md) are signed with the capsule key:
   --dev for a development kernel, --seed-file ~/.maataa/capsule-release.seed for a release one.
 commands:
@@ -862,6 +864,7 @@ fn main() -> ExitCode {
     let mut socket = None;
     let mut timeout_ms = 2_000u64;
     let mut require_hello = false;
+    let mut wait_ms = 0u64;
     let mut signer = None;
     while let Some(first) = args.first().cloned() {
         let value = || args.get(1).cloned();
@@ -871,6 +874,7 @@ fn main() -> ExitCode {
             "--timeout-ms" => {
                 timeout_ms = value().and_then(|v| v.parse().ok()).unwrap_or(timeout_ms)
             }
+            "--wait-ms" => wait_ms = value().and_then(|v| v.parse().ok()).unwrap_or(0),
             "--require-hello" => {
                 require_hello = true;
                 args.remove(0);
@@ -953,6 +957,10 @@ fn main() -> ExitCode {
                 return ExitCode::FAILURE;
             }
         }
+    }
+
+    if wait_ms > 0 {
+        std::thread::sleep(Duration::from_millis(wait_ms));
     }
 
     let ok = if command == "selftest" {

@@ -113,7 +113,9 @@ cat >"$WORK/modbus.wat" <<'WAT'
     i32.const 0))
 WAT
 "$SIGN" wasm "$WORK/modbus.wat" -o "$WORK/modbus.wasm" >/dev/null
-"$SIGN" sign --name modbus --caps store_put --payload "$WORK/modbus.wasm" --dev \
+# write and sleep: the capsule task logs its load and init result and
+# sleeps between ticks, like every capsule.
+"$SIGN" sign --name modbus --caps write,sleep,store_put --payload "$WORK/modbus.wasm" --dev \
     -o "$WORK/modbus.mcap" >/dev/null
 python3 - "$GREETER" "$WORK/tampered.mcap" <<'PY'
 import sys
@@ -197,7 +199,9 @@ boot_and_talk --dev capsule-install "$WORK/modbus.mcap" || fail "run 7: install 
 log_has '^capsule install: modbus version 1 accepted; it runs from the next boot$' \
     || fail "run 7: modbus stand-in not accepted"
 
-boot_and_talk get 54 || fail "run 8: get key 54"
+# The host channel (priority 6) would answer before the capsule (priority 1)
+# has run its init, so wait a second after HELLO.
+boot_and_talk --wait-ms 1000 get 54 || fail "run 8: get key 54"
 grep -q '^key 54: "live-reading" (12 bytes)$' "$WORK/tool.log" || fail "run 8: key 54 does not hold the live reading"
 log_has '^capsule modbus: init -> -1 (EPERM)$' || fail "run 8: modbus wrote bms's key 52"
 if boot_and_talk put 54 intruder; then
