@@ -38,7 +38,7 @@ pub enum StopBits {
 /// Why a transfer or a setting failed.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Rs485Error {
-    /// Baud rate outside 1,200-115,200.
+    /// Baud rate outside 2,400-115,200.
     BadBaud,
     /// The baud rate cannot be reached from this peripheral clock.
     BaudUnreachable,
@@ -59,7 +59,7 @@ pub enum Rs485Error {
 impl Rs485Error {
     pub const fn as_str(self) -> &'static str {
         match self {
-            Rs485Error::BadBaud => "baud rate outside 1200-115200",
+            Rs485Error::BadBaud => "baud rate outside 2400-115200",
             Rs485Error::BaudUnreachable => "baud rate not reachable from this clock",
             Rs485Error::BadLength => "request empty or longer than the buffer",
             Rs485Error::LineBusy => "line never quiet",
@@ -93,7 +93,10 @@ pub struct LineConfig {
 }
 
 impl LineConfig {
-    pub const MIN_BAUD: u32 = 1_200;
+    /// 2,400, not 1,200: USART1 runs from APB2 at 84 MHz on the F446, and
+    /// the 16-bit divider cannot go below about 1,282 baud there. Every rate
+    /// from 2,400 to 115,200 is reachable within 1%.
+    pub const MIN_BAUD: u32 = 2_400;
     pub const MAX_BAUD: u32 = 115_200;
 
     pub const fn new(baud: u32, parity: Parity, stop: StopBits) -> Result<Self, Rs485Error> {
@@ -354,7 +357,11 @@ mod tests {
     #[test]
     fn baud_range_and_divider() {
         assert_eq!(
-            LineConfig::new(1_199, Parity::Even, StopBits::One),
+            LineConfig::new(2_399, Parity::Even, StopBits::One),
+            Err(Rs485Error::BadBaud)
+        );
+        assert_eq!(
+            LineConfig::new(1_200, Parity::Even, StopBits::One),
             Err(Rs485Error::BadBaud)
         );
         assert_eq!(
@@ -366,12 +373,11 @@ mod tests {
         assert_eq!(at(9_600).brr(84_000_000), Ok(8_750));
         assert_eq!(at(115_200).brr(84_000_000), Ok(729));
         assert_eq!(at(19_200).brr(84_000_000), Ok(4_375));
-        // 1,200 baud needs a divider of 70,000: more than 16 bits at 84 MHz.
-        // It works with APB2 at 42 MHz.
-        assert_eq!(at(1_200).brr(84_000_000), Err(Rs485Error::BaudUnreachable));
-        assert_eq!(at(1_200).brr(42_000_000), Ok(35_000));
-        // Every rate from 1,282 baud up is reachable at 84 MHz within 1%.
-        for baud in [1_300, 2_400, 4_800, 38_400, 57_600] {
+        assert_eq!(at(2_400).brr(84_000_000), Ok(35_000));
+        // A clock too slow for the rate is refused, not rounded.
+        assert_eq!(at(115_200).brr(1_000_000), Err(Rs485Error::BaudUnreachable));
+        // Every standard rate in the range is reachable at 84 MHz within 1%.
+        for baud in [2_400, 4_800, 9_600, 19_200, 38_400, 57_600, 115_200] {
             assert!(at(baud).brr(84_000_000).is_ok(), "{baud}");
         }
     }
