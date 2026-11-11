@@ -1,3 +1,44 @@
+# Unreleased (after v0.1.0-alpha.9)
+
+Not a release yet: no version bump, no tag. Main is 15 commits past the
+alpha.9 tag (`afc2aaf`). New are the NUCLEO-F446RE board support, the first
+parts of the RS-485 and CAN drivers (no syscall yet), store owners for the
+coming `modbus` and `bms` capsules with RAM-only live keys, and a spike
+showing a capsule written in Rust runs in the interpreter. **Nothing F446
+has run on a board yet** (the board has not arrived); the F411 board stays on
+the alpha.9 development kernel. The kernel's syscalls, the host-channel
+protocol and the sandhi wire format (keys 40/41) are unchanged.
+
+**Changed for builders:** rustc is pinned to 1.91.0
+(`rust-toolchain.toml` and CI), because newer compilers build about 7 KB
+smaller and broke the size check against `docs/size.md`. Bump it only
+together with a re-measured size table.
+
+## Validation
+
+```bash
+./scripts/test-host.sh            # 129 host tests (incl. 8 CAN, 13 RS-485)
+./scripts/smoke-alpha.sh          # 15 checks, QEMU; builds board-f446 too
+./scripts/sizecheck.sh            # six kernels; F446 debug prints WARN (91.7%)
+./scripts/check-docs.py --sizes   # docs against the code
+```
+
+Cloud clone at `5588efa`, 2026-11-10: 129 host tests, fmt, kernel clippy,
+check-docs and smoke 15/15 PASS.
+
+## Changes
+
+| Feature | Board | Docs |
+| --- | --- | --- |
+| `board-f446`: NUCLEO-F446RE at 168 MHz from the ST-LINK's 8 MHz (HSE bypass), APB1 42 MHz, APB2 84 MHz; internal flag `hw-f4` for real STM32F4 hardware; one board feature of three enforced | not yet (board not arrived) | README.md, docs/size.md |
+| CAN: bxCAN1 driver core (bit timing for 125k/250k/500k/1M, frame layout, mailbox and filter words, 16-frame receive queue) and a boot self-test in loopback + silent mode at 500 kbit/s (pins PA11/PA12 untouched); kernel-internal, F446 only, 8 host tests | not yet | - |
+| RS-485: line settings (2,400-115,200 baud, parity none or even, 1 or 2 stop bits), Modbus timing (3.5-character gap, 1,750 us above 19,200 baud), BRR within 1%, and the transfer state machine over a `Port` trait (quiet line, DE up, send, wait for TC, DE down, reply); 13 host tests. No USART1 port or syscall yet | not yet | docs/EVIDENCE_MATRIX.md |
+| RS-485 lowest rate 2,400 baud, not 1,200: at APB2 84 MHz the 16-bit divider stops at about 1,282 baud | - | - |
+| Store: owners `modbus` (flash keys 48-51, RAM keys 54-57) and `bms` (flash 52-53, RAM 58-59), from the signed capsule names; keys 54-59 are RAM-only live values (a reset loses them); signed host puts cannot write them. No store-format change. QEMU install test runs 7-11 | - | docs/persistence.md |
+| Spike: a capsule written in Rust (`wasm32v1-none`, 769 bytes) builds a Modbus RTU request and CRC and runs in the i32-subset interpreter, about 1,240 instructions a call | - | spikes/rust-capsule |
+| rustc pinned to 1.91.0 in `rust-toolchain.toml` and CI | - | rust-toolchain.toml |
+| Docs: the threat model says Parts A and B are done and capsule reads stay open; `docs/size.md` re-measured on the Mac for all six kernels | - | docs/SECURITY_THREAT_MODEL.md, docs/size.md |
+
 # Maataa OS v0.1.0-alpha.9
 
 ## Release type
